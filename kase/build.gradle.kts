@@ -39,5 +39,5 @@ dependencies {
   api(libs.kotest.extensions)
   api(libs.kotest.property.jvm)
 
-  integrationImplementation(gradleTestKit())
+
 }
