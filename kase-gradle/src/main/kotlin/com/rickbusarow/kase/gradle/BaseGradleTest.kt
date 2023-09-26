@@ -13,30 +13,18 @@
  * limitations under the License.
  */
 
-plugins {
-  id("module")
-}
+package com.rickbusarow.kase.gradle
 
-module {
-  published(
-    artifactId = "kase",
-    pomDescription = "Hermetic test environments and test factories"
-  )
-}
+import com.rickbusarow.kase.HasWorkingDir
+import com.rickbusarow.kase.TestEnvironmentFactory
+import org.junit.jupiter.api.parallel.Execution
+import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD
 
-dependencies {
+@Execution(SAME_THREAD)
+internal interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
 
-  api(gradleTestKit())
+  fun test(action: GradleTestEnvironment.() -> Unit) {
 
-  api(libs.junit.engine)
-  api(libs.junit.jupiter)
-  api(libs.junit.jupiter.api)
-  api(libs.junit.params)
-  api(libs.kotest.assertions.api)
-  api(libs.kotest.assertions.core.jvm)
-  api(libs.kotest.assertions.shared)
-  api(libs.kotest.common)
-  api(libs.kotest.extensions)
-  api(libs.kotest.property.jvm)
-  api(libs.kotlinx.coroutines.core)
+    GradleTestEnvironment(HasWorkingDir.testStackFrame()).action()
+  }
 }

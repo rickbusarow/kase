@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase
+package com.rickbusarow.kase.internal
 
 import java.io.File
 
@@ -56,68 +56,13 @@ fun File.resolveInParent(relativePath: String): File {
 /** @return the receiver [File] if it exists in the file system, otherwise null */
 fun File.existsOrNull(): File? = takeIf { it.exists() }
 
-/**
- * @return true if the receiver [File] is a directory with
- *   at least one child file which satisfies [childPredicate]
- */
-fun File.isDirectoryWithFiles(childPredicate: (File) -> Boolean = { it.exists() }): Boolean =
-  !isFile && listFiles()?.any(childPredicate) == true
-
-/**
- * Returns true if the receiver [File] is `/build/` or `/.gradle/`, but
- * there is no sibling `/build.gradle.kts` or `/settings.gradle.kts`.
- *
- * The most common cause of this would be switching between git branches
- * with different module structures. Since `build` and `.gradle` directories
- * are ignored in git, they'll stick around after a branch switch.
- */
-fun File.isOrphanedBuildOrGradleDir(): Boolean {
-  return when {
-    !isDirectory -> false
-    name != "build" && name != ".gradle" -> false
-    !exists() -> false
-    parentFile!!.hasGradleProjectFiles() -> false
-    else -> true
-  }
-}
-
-/**
- * Returns true if the receiver [File] is `/gradle.properties`, but
- * there is no sibling `/build.gradle.kts` or `/settings.gradle.kts`.
- *
- * The most common cause of this would be switching between git branches with
- * different module structures. Since all `gradle.properties` files except
- * the root are ignored in git, they'll stick around after a branch switch.
- */
-fun File.isOrphanedGradleProperties(): Boolean {
-  return when {
-    !isFile -> false
-    name != "gradle.properties" -> false
-    parentFile!!.hasGradleProjectFiles() -> false
-    else -> true
-  }
-}
-
-/**
- * Returns true if the receiver [File] is a directory which contains at least one of
- * `settings.gradle.kts`, `settings.gradle`, `build.gradle.kts`, or `build.gradle`.
- */
-fun File.hasGradleProjectFiles(): Boolean {
-  return when {
-    !isDirectory -> false
-    resolve("settings.gradle.kts").exists() -> true
-    resolve("settings.gradle").exists() -> true
-    resolve("build.gradle.kts").exists() -> true
-    resolve("build.gradle").exists() -> true
-    else -> false
-  }
-}
+/** */
+@PublishedApi
+internal infix operator fun File.div(relative: String): File = resolve(relative)
 
 /** */
-operator fun File.div(relative: String): File = resolve(relative)
-
-/** */
-operator fun File.div(relative: File): File = resolve(relative)
+@PublishedApi
+internal infix operator fun File.div(relative: File): File = resolve(relative)
 
 /**
  * Creates a new file if it doesn't already exist, creating parent
@@ -128,7 +73,8 @@ operator fun File.div(relative: File): File = resolve(relative)
  * @param overwrite If true, any existing content will be overwritten. Otherwise, nothing is done.
  * @return The created file.
  */
-fun File.createSafely(content: String? = null, overwrite: Boolean = true): File = apply {
+@PublishedApi
+internal fun File.createSafely(content: String? = null, overwrite: Boolean = true): File = apply {
   when {
     content != null && (!exists() || overwrite) -> makeParentDir().writeText(content)
     else -> {
@@ -143,7 +89,8 @@ fun File.createSafely(content: String? = null, overwrite: Boolean = true): File 
  * @receiver [File] The directories to create.
  * @return The directory file.
  */
-fun File.mkdirsInline(): File = apply(File::mkdirs)
+@PublishedApi
+internal fun File.mkdirsInline(): File = apply(File::mkdirs)
 
 /**
  * Creates the parent directory of the receiver [File] if it doesn't already exist.
@@ -151,7 +98,9 @@ fun File.mkdirsInline(): File = apply(File::mkdirs)
  * @receiver [File] The file whose parent directory is to be created.
  * @return The file with its parent directory created.
  */
-fun File.makeParentDir(): File = apply {
+
+@PublishedApi
+internal fun File.makeParentDir(): File = apply {
   val fileParent = requireNotNull(parentFile) { "File's `parentFile` must not be null." }
   fileParent.mkdirs()
 }

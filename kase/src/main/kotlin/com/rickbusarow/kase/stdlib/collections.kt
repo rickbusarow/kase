@@ -13,30 +13,27 @@
  * limitations under the License.
  */
 
-plugins {
-  id("module")
-}
+package com.rickbusarow.kase.stdlib
 
-module {
-  published(
-    artifactId = "kase",
-    pomDescription = "Hermetic test environments and test factories"
-  )
-}
-
-dependencies {
-
-  api(gradleTestKit())
-
-  api(libs.junit.engine)
-  api(libs.junit.jupiter)
-  api(libs.junit.jupiter.api)
-  api(libs.junit.params)
-  api(libs.kotest.assertions.api)
-  api(libs.kotest.assertions.core.jvm)
-  api(libs.kotest.assertions.shared)
-  api(libs.kotest.common)
-  api(libs.kotest.extensions)
-  api(libs.kotest.property.jvm)
-  api(libs.kotlinx.coroutines.core)
+/**
+ * given:
+ * ```
+ * [[a, b], [1, 2, 3]]
+ * ```
+ * returns:
+ * ```
+ * [
+ *  [a, 1], [a, 2], [a, 3],
+ *  [b, 1], [b, 2], [b, 3]
+ * ]
+ * ```
+ */
+fun <T> Iterable<Iterable<T>>.cartesianProduct(): List<List<T>> {
+  return fold(listOf(listOf())) { acc, list ->
+    acc.flatMap { existingList ->
+      list.map { element ->
+        existingList + element
+      }
+    }
+  }
 }

@@ -15,6 +15,12 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.internal.ParsedStackFrame.Companion.parse
+import com.rickbusarow.kase.internal.callingFunctionName
+import com.rickbusarow.kase.internal.div
+import com.rickbusarow.kase.internal.isTestFunction
+import com.rickbusarow.kase.internal.removeSynthetics
+import com.rickbusarow.kase.internal.simpleNames
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 import java.lang.StackWalker.StackFrame
@@ -82,7 +88,7 @@ abstract class HasWorkingDir(workingDir: File) {
           A working directory with this path has already been registered during this test run,
           meaning it would have multiple tests modifying it concurrently.
 
-          This probably means you need to annotate a test factory function with `@$annotation`, like:
+          This probably means you need to add test variant names to your TestEnvironment instance.
 
             @$annotation
             fun myTestFactory(
@@ -111,17 +117,17 @@ abstract class HasWorkingDir(workingDir: File) {
      */
     fun createWorkingDir(testStackFrame: StackFrame, testVariantNames: List<String>): File {
 
-      val clazz = testStackFrame.declaringClass()
+      val classSimpleNames = testStackFrame
+        // ex: `com.example.Outer.Middle.Inner$$inline$$execute$1`
+        .declaringClass
+        // trim off all the stuff like "$$inlined$$execute$1""
+        // ex: `com.example.Outer.Middle.Inner`
+        .removeSynthetics()
+        // ex: [Outer, Middle, Inner]
+        .simpleNames()
 
-      // trim off all the stuff like "$$inlined$$execute$1""
-      val actualClass = clazz.removeSynthetics()
-
-      val classSimpleNames = actualClass.simpleNames()
-
-      val testFunctionName = testStackFrame.callingFunctionName(
-        declaringClass = clazz,
-        actualClass = actualClass
-      ).cleanForDir()
+      val testFunctionName = testStackFrame.parse().callingFunctionSimpleName
+        .cleanForFileSystem()
 
       val testClassName = classSimpleNames
         // "MyTest/nested class"
@@ -129,10 +135,11 @@ abstract class HasWorkingDir(workingDir: File) {
         // "MyTest/nested_class"
         .replace("[^a-zA-Z\\d/]".toRegex(), "_")
 
-      val classDir = File("build") / "tests" / testClassName
+      val baseWorkingDir = System.getProperty("kase.baseWorkingDir", "build" / "kase")
+        .let { File(it / testClassName).absoluteFile }
 
-      val working = classDir / testFunctionName / testVariantNames
-        .joinToString(File.separator) { it.cleanForDir() }
+      val working = baseWorkingDir / testFunctionName / testVariantNames
+        .joinToString(File.separator) { it.cleanForFileSystem() }
 
       return working.absoluteFile
     }
@@ -161,7 +168,10 @@ abstract class HasWorkingDir(workingDir: File) {
       }
 
     @PublishedApi
-    internal fun String.cleanForDir(): String = replace("[^a-zA-Z\\d]+".toRegex(), "_")
+    internal infix operator fun String.div(other: String) = "$this${File.separatorChar}$other"
+
+    @PublishedApi
+    internal fun String.cleanForFileSystem(): String = replace("[^a-zA-Z\\d]+".toRegex(), "_")
       .removeSuffix("_")
   }
 }

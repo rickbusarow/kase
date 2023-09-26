@@ -13,24 +13,16 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase
+package com.rickbusarow.kase.internal
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.lang.StackWalker.StackFrame
 import java.lang.reflect.AnnotatedElement
 import java.lang.reflect.Method
+import kotlin.LazyThreadSafetyMode.NONE
 
 private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
-
-/**
- * Retrieves the class from a [StackFrame].
- *
- * @receiver [StackFrame] The frame to inspect.
- * @return The class object for the stack frame.
- */
-@PublishedApi
-internal fun StackFrame.declaringClass(): Class<*> = declaringClass
 
 /**
  * Checks if an [AnnotatedElement] is annotated with
@@ -43,6 +35,39 @@ internal fun StackFrame.declaringClass(): Class<*> = declaringClass
 internal fun AnnotatedElement.hasTestAnnotation(): Boolean {
   return isAnnotationPresent(TestFactory::class.java) ||
     isAnnotationPresent(Test::class.java)
+}
+
+internal class ParsedStackFrame private constructor(
+  val stackFrame: StackWalker.StackFrame
+) {
+
+  /** ex: `com.example.foo` */
+  val packageName: String by lazy(NONE) { declaringClass.packageName }
+
+  /** ex: `com.example.foo.Outer.Middle.Inner$$inlined$$execute$1` */
+  val declaringClass: Class<*> by lazy(NONE) { stackFrame.declaringClass }
+
+  /** ex: `com.example.foo.Outer.Middle.Inner` */
+  val declaringClassWithoutSynthetics: Class<*> by lazy(NONE) { declaringClass.removeSynthetics() }
+
+  /** ex: `[Outer, Middle, Inner]` */
+  val simpleNames: List<String> by lazy(NONE) { declaringClassWithoutSynthetics.simpleNames() }
+
+  val callingFunctionSimpleName: String by lazy(NONE) {
+    declaringClass.name
+      .removePrefix(declaringClassWithoutSynthetics.name)
+      .splitToSequence(Regex("""[.$]+"""))
+      .filter { it.isNotBlank() }
+      .firstOrNull()
+      ?: stackFrame.methodName
+  }
+
+  companion object {
+
+    internal fun StackFrame.parse(): ParsedStackFrame {
+      return ParsedStackFrame(this)
+    }
+  }
 }
 
 /**
@@ -71,8 +96,8 @@ internal fun StackFrame.isTestFunction(): Boolean {
  *
  * @return The StackFrame corresponding to the test function.
  */
-fun StackFrame.callingFunctionName(
-  declaringClass: Class<*> = declaringClass(),
+internal fun StackFrame.callingFunctionName(
+  declaringClass: Class<*> = this.declaringClass,
   actualClass: Class<*> = declaringClass.removeSynthetics()
 ): String {
   return declaringClass.name.removePrefix(actualClass.name)
@@ -140,6 +165,7 @@ internal fun List<Method>.requireAllOrNoneAreAnnotated(
 tailrec fun Class<*>.removeSynthetics(): Class<*> {
   return when {
     isAnnotationPresent(JvmSynthetic::class.java) -> enclosingClass.removeSynthetics()
+    isSynthetic -> enclosingClass.removeSynthetics()
     canonicalName != null -> this
     else -> enclosingClass.removeSynthetics()
   }

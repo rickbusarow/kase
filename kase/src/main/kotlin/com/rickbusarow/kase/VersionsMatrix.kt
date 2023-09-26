@@ -15,6 +15,8 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.stdlib.cartesianProduct
+
 class GradleVersion private constructor(val value: String) : Comparable<GradleVersion> {
   override fun compareTo(other: GradleVersion): Int = value.compareTo(other.value)
 

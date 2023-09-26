@@ -13,27 +13,14 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase
+package com.rickbusarow.kase.gradle
 
-/**
- * given:
- * ```
- * [[a, b], [1, 2, 3]]
- * ```
- * returns:
- * ```
- * [
- *  [a, 1], [a, 2], [a, 3],
- *  [b, 1], [b, 2], [b, 3]
- * ]
- * ```
- */
-fun <T> Iterable<Iterable<T>>.cartesianProduct(): List<List<T>> {
-  return fold(listOf(listOf())) { acc, list ->
-    acc.flatMap { existingList ->
-      list.map { element ->
-        existingList + element
-      }
-    }
-  }
+import java.io.File
+
+interface ProjectCollector {
+  /** Root directory of the project hierarchy. */
+  val root: File
+
+  /** Cache of the projects. */
+  val projectCache: MutableMap<String, KaseGradleProject>
 }
