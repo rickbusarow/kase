@@ -15,7 +15,22 @@
 
 package com.rickbusarow.kase
 
-import org.gradle.util.GradleVersion
+class GradleVersion private constructor(val value: String) : Comparable<GradleVersion> {
+  override fun compareTo(other: GradleVersion): Int = value.compareTo(other.value)
+
+  companion object {
+    fun current() = version("")
+    fun version(str: String): GradleVersion = GradleVersion(str)
+  }
+}
+
+class AgpVersion private constructor(val value: String) : Comparable<AgpVersion> {
+  override fun compareTo(other: AgpVersion): Int = value.compareTo(other.value)
+
+  companion object {
+    fun version(value: String): AgpVersion = AgpVersion(value)
+  }
+}
 
 interface VersionsMatrix {
 
@@ -66,8 +81,8 @@ interface VersionsRow<T> {
     override val anvil: (String) -> Boolean? = { null }
   ) : VersionsRow<(String) -> Boolean?> {
 
-    fun excludes(versions: VersionSet): Boolean {
-    }
+    // fun excludes(versions: VersionSet): Boolean {
+    // }
   }
 }
 
@@ -124,7 +139,7 @@ object VersionsAndThings : VersionsMatrix {
       agpVersions()
         .filter { agp -> isCompatible(gradle, agp) }
         // Transform from AgpVersion to its string representation
-        .map { listOf(gradle, it.version) }
+        .map { listOf(gradle, it.value) }
     }
 
     return if (QUICK_TEST) {
@@ -147,7 +162,7 @@ object VersionsAndThings : VersionsMatrix {
         val agp = combination[1] as AgpVersion
 
         if (isCompatible(gradle, agp)) {
-          listOf(gradle, agp.version) + combination.drop(2)
+          listOf(gradle, agp.value) + combination.drop(2)
         } else {
           null
         }
@@ -160,12 +175,10 @@ object VersionsAndThings : VersionsMatrix {
     }
   }
 
-  private fun isCompatible(
-    gradleVersion: GradleVersion,
-    agpVersion: AgpVersion
-  ): Boolean {
+  private fun isCompatible(gradleVersion: GradleVersion, agpVersion: AgpVersion): Boolean {
     return when {
-      gradleVersion >= GradleVersion.version("8.2") && agpVersion < AgpVersion.version("8.0.99999") -> {
+      gradleVersion >= GradleVersion.version("8.2") &&
+        agpVersion < AgpVersion.version("8.0.99999") -> {
         // Multiple configuration cache bugs with previous versions of AGP
         // https://issuetracker.google.com/issues/278767328
         // https://issuetracker.google.com/issues/263576736

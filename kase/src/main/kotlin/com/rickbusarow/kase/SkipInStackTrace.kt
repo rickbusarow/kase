@@ -33,8 +33,8 @@ private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
 internal fun StackFrame.declaringClass(): Class<*> = declaringClass
 
 /**
- * Checks if an [AnnotatedElement] is annotated with [@TestFactory][org.junit.jupiter.api.TestFactory]
- * or [@Test][org.junit.jupiter.api.Test].
+ * Checks if an [AnnotatedElement] is annotated with
+ * [@TestFactory][org.junit.jupiter.api.TestFactory] or [@Test][org.junit.jupiter.api.Test].
  *
  * @receiver [AnnotatedElement] The element to check.
  * @return `true` if the [AnnotatedElement] is annotated, `false` otherwise.
@@ -88,10 +88,7 @@ fun StackFrame.callingFunctionName(
  * @param actualMethodName The name of the method.
  * @return `true` if the method should be skipped, `false` otherwise.
  */
-internal fun hasTestAnnotation(
-  actualClass: Class<*>,
-  actualMethodName: String
-): Boolean {
+internal fun hasTestAnnotation(actualClass: Class<*>, actualMethodName: String): Boolean {
 
   return actualClass
     .methods
@@ -100,8 +97,8 @@ internal fun hasTestAnnotation(
 }
 
 /**
- * nested classes and functions have the java `$` delimiter
- * ex: "com.example.MyTest$nested class$my test"
+ * nested classes and functions have the java `$`
+ * delimiter ex: "com.example.MyTest$nested class$my test"
  */
 internal fun String.segments(): List<String> = split(".", "$")
   .filter { it.isNotBlank() }
@@ -118,7 +115,9 @@ private fun Class<*>.firstPackageSegment(): String? = canonicalName?.substringBe
  * @return `true` if all methods are annotated as tests, `false` otherwise.
  */
 @PublishedApi
-internal fun List<Method>.requireAllOrNoneAreAnnotated(hasAnnotation: (Method) -> Boolean): Boolean {
+internal fun List<Method>.requireAllOrNoneAreAnnotated(
+  hasAnnotation: (Method) -> Boolean
+): Boolean {
 
   val (annotated, notAnnotated) = partition(hasAnnotation)
 

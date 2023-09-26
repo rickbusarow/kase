@@ -65,8 +65,8 @@ val allowMavenLocal = providers
   .gradleProperty("kase.allow-maven-local")
   .orNull.toBoolean()
 
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
-  @Suppress("UnstableApiUsage")
   repositories {
     if (allowMavenLocal) {
       logger.lifecycle("${rootProject.name} -- allowing mavenLocal for dependencies")
@@ -80,7 +80,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "kase"
 
-include(":kase")
+include(":kase", ":kase-gradle")
 
 // If this project is the real root of the build, copy the root project's properties file to included
 // builds, to ensure that Gradle settings are identical and there's only 1 daemon.

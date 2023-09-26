@@ -17,56 +17,52 @@ package builds
 
 import com.rickbusarow.kgx.extras
 import com.rickbusarow.kgx.getOrPut
-import com.rickbusarow.kgx.libsCatalog
-import com.rickbusarow.kgx.version
 import org.gradle.api.Project
 
-/**
- * Convenience for reading the library version from `libs.versions.toml`
- *
- * @since 0.1.0
- */
+/** */
 val Project.VERSION_NAME: String
-  get() = extras.getOrPut("VERSION_NAME") { libsCatalog.version("kase-dev") }
+  get() = property("VERSION_NAME") as String
 
-/** @since 0.1.0 */
+/** */
 val Project.versionIsSnapshot: Boolean
   get() = extras.getOrPut("versionIsSnapshot") { VERSION_NAME.endsWith("-SNAPSHOT") }
 
-const val GROUP: String = "com.rickbusarow.kase"
+/** */
+val Project.GROUP: String
+  get() = property("GROUP") as String
 
-/**
- * "1.6", "1.7", "1.8", etc.
- *
- * @since 0.1.0
- */
+/** "1.6", "1.7", "1.8", etc. */
 val Project.KOTLIN_API: String
-  get() = libsCatalog.version("kotlinApi")
+  get() = property("KOTLIN_API") as String
+
+/** ex: `rbusarow` */
+val Project.GITHUB_OWNER: String
+  get() = property("GITHUB_OWNER") as String
+
+/** ex: `rbusarow/kase` */
+val Project.GITHUB_OWNER_REPO: String
+  get() = property("GITHUB_OWNER_REPO") as String
+
+/** ex: `https://github.com/rbusarow/kase` */
+val Project.GITHUB_REPOSITORY: String
+  get() = property("GITHUB_REPOSITORY") as String
 
 /**
  * the jdk used in packaging
  *
  * "1.6", "1.8", "11", etc.
- *
- * @since 0.1.0
  */
 val Project.JVM_TARGET: String
-  get() = libsCatalog.version("jvmTarget")
+  get() = property("JVM_TARGET") as String
 
 /**
  * the jdk used to build the project
  *
  * "1.6", "1.8", "11", etc.
- *
- * @since 0.1.0
  */
 val Project.JDK: String
-  get() = libsCatalog.version("jdk")
+  get() = property("JDK") as String
 
-/**
- * `6`, `8`, `11`, etc.
- *
- * @since 0.1.0
- */
+/** `6`, `8`, `11`, etc. */
 val Project.JVM_TARGET_INT: Int
   get() = JVM_TARGET.substringAfterLast('.').toInt()

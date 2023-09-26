@@ -112,18 +112,12 @@ class TestNodeBuilder @PublishedApi internal constructor(
    * @param name the name of the test.
    * @param action a function containing the test logic.
    */
-  inline fun test(
-    name: String,
-    crossinline action: () -> Unit
-  ) {
+  inline fun test(name: String, crossinline action: () -> Unit) {
     addTest(name, action)
   }
 
   @PublishedApi
-  internal inline fun addTest(
-    name: String,
-    crossinline action: () -> Unit
-  ) {
+  internal inline fun addTest(name: String, crossinline action: () -> Unit) {
     nodes.add { DynamicTest.dynamicTest(name, testUri()) { action() } }
   }
 
@@ -210,10 +204,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
    * @param name the name of the container.
    * @param init a lambda with receiver that initializes the [TestNodeBuilder].
    */
-  inline fun container(
-    name: String,
-    crossinline init: TestNodeBuilder.() -> Unit
-  ) {
+  inline fun container(name: String, crossinline init: TestNodeBuilder.() -> Unit) {
 
     nodes.add {
       TestNodeBuilder(

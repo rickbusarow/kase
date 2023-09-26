@@ -1,12 +1,8 @@
 [versions]
-jdk = "11" # the jdk used to build the project
-jvmTarget = "11" # the jdk used in packaging
-jvmTargetBuildLogic = "11" # the jdk used in packaging
 
 kotlin = "1.8.10"
 google-ksp = "1.8.10-1.0.9"
 
-kase-dev = "0.1.0-SNAPSHOT"
 
 benManes-versions = "0.48.0"
 buildconfig = "4.1.2"
@@ -21,7 +17,6 @@ integration-test = "1.4.5"
 jUnit = "5.10.0"
 johnrengelman-shadow = "8.1.1"
 kotest = "5.7.2"
-kotlinApi = "1.7"
 kotlinx-binaryCompatibility = "0.13.2"
 kotlinx-coroutines = "1.7.2"
 ktlint-lib = "0.50.0"

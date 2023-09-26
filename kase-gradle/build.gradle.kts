@@ -13,14 +13,31 @@
  * limitations under the License.
  */
 
-package builds
+plugins {
+  id("module")
+}
 
-import org.gradle.api.DefaultTask
+module {
+  published(
+    artifactId = "kase-gradle",
+    pomDescription = "Hermetic test environments and test factories"
+  )
+}
 
-/**
- * This is a simple way to tag a task so that it's found by the 'composite' convention
- * plugin, which means it will be automatically propagated to composite builds.
- */
-abstract class BuildLogicTask : DefaultTask()
+dependencies {
+  api(project(":kase"))
+  compileOnly(gradleTestKit())
 
-abstract class BuildCodeGeneratorLogicTask : BuildLogicTask()
+  api(libs.junit.engine)
+  api(libs.junit.jupiter)
+  api(libs.junit.jupiter.api)
+  api(libs.junit.params)
+  api(libs.kotest.assertions.api)
+  api(libs.kotest.assertions.core.jvm)
+  api(libs.kotest.assertions.shared)
+  api(libs.kotest.common)
+  api(libs.kotest.extensions)
+  api(libs.kotest.property.jvm)
+
+  integrationImplementation(gradleTestKit())
+}

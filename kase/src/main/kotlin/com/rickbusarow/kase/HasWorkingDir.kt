@@ -15,7 +15,6 @@
 
 package com.rickbusarow.kase
 
-import org.gradle.util.GradleVersion
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 import java.lang.StackWalker.StackFrame
@@ -110,10 +109,7 @@ abstract class HasWorkingDir(workingDir: File) {
      *   function's name, such as the names of the languages being generated
      * @return a File directory corresponding to the root of the working directory for this test
      */
-    fun createWorkingDir(
-      testStackFrame: StackFrame,
-      testVariantNames: List<String>
-    ): File {
+    fun createWorkingDir(testStackFrame: StackFrame, testVariantNames: List<String>): File {
 
       val clazz = testStackFrame.declaringClass()
 

@@ -17,6 +17,7 @@ package builds
 
 import com.rickbusarow.kgx.applyOnce
 import com.rickbusarow.kgx.dependsOn
+import com.rickbusarow.kgx.java
 import com.vanniktech.maven.publish.MavenPublishBasePlugin
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
@@ -71,7 +72,7 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
 
     target.tasks.register("buildTests") { it.dependsOn("testClasses") }
     target.tasks.register("buildAll").dependsOn(
-      target.provider { target.javaExtension.sourceSets.map { it.classesTaskName } }
+      target.provider { target.java.sourceSets.map { it.classesTaskName } }
     )
 
     // fixes the error
@@ -82,7 +83,4 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
       task.duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
   }
-
-  val org.gradle.api.Project.javaExtension: JavaPluginExtension
-    get() = extensions.getByType(JavaPluginExtension::class.java)
 }

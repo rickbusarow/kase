@@ -25,7 +25,6 @@ import com.diffplug.gradle.spotless.SpotlessTask
 import com.rickbusarow.kgx.EagerGradleApi
 import com.rickbusarow.kgx.allProjectsTasksMatchingName
 import com.rickbusarow.kgx.checkProjectIsRoot
-import com.rickbusarow.kgx.internal.InternalGradleApiAccess
 import com.rickbusarow.kgx.libsCatalog
 import com.rickbusarow.kgx.version
 import org.gradle.api.Plugin
@@ -34,7 +33,7 @@ import org.gradle.api.file.ConfigurableFileTree
 import org.gradle.api.tasks.util.PatternFilterable
 
 abstract class SpotlessConventionPlugin : Plugin<Project> {
-  @OptIn(InternalGradleApiAccess::class, EagerGradleApi::class)
+  @OptIn(EagerGradleApi::class)
   override fun apply(target: Project) {
 
     target.checkProjectIsRoot()

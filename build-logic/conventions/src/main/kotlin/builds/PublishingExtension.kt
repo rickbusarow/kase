@@ -67,12 +67,11 @@ private fun Project.configurePublish(artifactId: String, pomDescription: String,
 
     extension.signAllPublications()
 
-    @Suppress("UnstableApiUsage")
     extension.pom { mavenPom ->
       mavenPom.description.set(pomDescription)
       mavenPom.name.set(artifactId)
 
-      mavenPom.url.set("https://www.github.com/rbusarow/kotlin-gradle-extensions/")
+      mavenPom.url.set("https://www.github.com/$GITHUB_OWNER_REPO/")
 
       mavenPom.licenses { licenseSpec ->
         licenseSpec.license { license ->
@@ -82,17 +81,15 @@ private fun Project.configurePublish(artifactId: String, pomDescription: String,
         }
       }
       mavenPom.scm { scm ->
-        scm.url.set("https://www.github.com/rbusarow/kotlin-gradle-extensions/")
-        scm.connection.set("scm:git:git://github.com/rbusarow/kotlin-gradle-extensions.git")
-        scm.developerConnection.set(
-          "scm:git:ssh://git@github.com/rbusarow/kotlin-gradle-extensions.git"
-        )
+        scm.url.set("https://www.github.com/$GITHUB_OWNER_REPO/")
+        scm.connection.set("scm:git:git://github.com/$GITHUB_OWNER_REPO.git")
+        scm.developerConnection.set("scm:git:ssh://git@github.com/$GITHUB_OWNER_REPO.git")
       }
       mavenPom.developers { developerSpec ->
         developerSpec.developer { developer ->
-          developer.id.set("rbusarow")
-          developer.name.set("Rick Busarow")
-          developer.url.set("https://github.com/rbusarow/")
+          developer.id.set(GITHUB_OWNER)
+          developer.name.set(property("DEVELOPER_NAME") as String)
+          developer.url.set(property("DEVELOPER_URL") as String)
         }
       }
     }
@@ -224,8 +221,6 @@ private fun Project.registerSnapshotVersionCheckTask() {
  * Integration tests require `publishToMavenLocal`, but they definitely don't need
  * Dokka output, and generating kdoc for everything takes forever -- especially
  * on a GitHub Actions server. So for integration tests, skip Dokka tasks.
- *
- * @since 0.1.0
  */
 private fun Project.configureSkipDokka() {
 

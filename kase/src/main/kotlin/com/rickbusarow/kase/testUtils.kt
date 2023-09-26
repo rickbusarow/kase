@@ -18,7 +18,6 @@ package com.rickbusarow.kase
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
-import java.io.File
 import java.util.stream.Stream
 
 fun <T> Iterable<T>.container(
@@ -35,46 +34,6 @@ fun <T> Iterable<T>.test(name: (T) -> String, action: (T) -> Unit): List<Dynamic
 }
 
 /**
- * Creates a new file if it doesn't already exist, creating parent
- * directories if necessary. If the file already exists, its content will
- * be overwritten. If content is provided, it will be written to the file.
- *
- * @param content The content to be written to the file. Defaults to null.
- * @param overwrite If true, any existing content will be overwritten. Otherwise, nothing is done.
- * @return The created file.
- * @since 0.1.0
- */
-fun File.createSafely(content: String? = null, overwrite: Boolean = true): File = apply {
-  when {
-    content != null && (!exists() || overwrite) -> makeParentDir().writeText(content)
-    else -> {
-      makeParentDir().createNewFile()
-    }
-  }
-}
-
-/**
- * Creates the directories represented by the receiver [File] if they don't already exist.
- *
- * @receiver [File] The directories to create.
- * @return The directory file.
- * @since 0.1.0
- */
-fun File.mkdirsInline(): File = apply(File::mkdirs)
-
-/**
- * Creates the parent directory of the receiver [File] if it doesn't already exist.
- *
- * @receiver [File] The file whose parent directory is to be created.
- * @return The file with its parent directory created.
- * @since 0.1.0
- */
-fun File.makeParentDir(): File = apply {
-  val fileParent = requireNotNull(parentFile) { "File's `parentFile` must not be null." }
-  fileParent.mkdirs()
-}
-
-/**
  * Conditionally applies the provided transform function to the receiver
  * object if the predicate is true, then returns the result of that transform.
  * If the predicate is false, the receiver object itself is returned.
@@ -83,7 +42,6 @@ fun File.makeParentDir(): File = apply {
  * @param transform The transform function to apply to the receiver object.
  * @return The result of the transform function if the
  *   predicate is true, or the receiver object itself otherwise.
- * @since 0.1.0
  */
 inline fun <T> T.letIf(predicate: Boolean, transform: (T) -> T): T {
   return if (predicate) transform(this) else this

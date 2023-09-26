@@ -35,14 +35,18 @@ moduleCheck {
   checks.sortDependencies = true
 }
 
-val kotlinApiVersion = libs.versions.kotlinApi.get()
+val kotlinApiVersion = project.property("KOTLIN_API").toString()
 val ktlintPluginId = libs.plugins.ktlint.get().pluginId
 
 allprojects ap@{
 
+  val jvmTargetBuildLogic = project.property("JVM_TARGET").toString()
+  val jdk = project.property("JDK").toString()
+
   val innerProject = this@ap
 
   apply(plugin = ktlintPluginId)
+
   dependencies {
     "ktlint"(rootProject.libs.rickBusarow.ktrules)
   }
@@ -59,13 +63,13 @@ allprojects ap@{
   plugins.withType(KotlinBasePlugin::class.java).configureEach {
     extensions.configure(KotlinJvmProjectExtension::class.java) {
       jvmToolchain {
-        languageVersion.set(JavaLanguageVersion.of(libs.versions.jdk.get()))
+        languageVersion.set(JavaLanguageVersion.of(jdk))
       }
     }
   }
   plugins.withType(JavaPlugin::class.java).configureEach {
     extensions.configure(JavaPluginExtension::class.java) {
-      sourceCompatibility = JavaVersion.toVersion(libs.versions.jvmTargetBuildLogic.get())
+      sourceCompatibility = JavaVersion.toVersion(jvmTargetBuildLogic)
     }
 
     configurations.named("compileClasspath") {
@@ -80,7 +84,7 @@ allprojects ap@{
 
       apiVersion = kotlinApiVersion
 
-      jvmTarget = libs.versions.jvmTargetBuildLogic.get()
+      jvmTarget = jvmTargetBuildLogic
 
       freeCompilerArgs = freeCompilerArgs + listOf(
         "-opt-in=kotlin.RequiresOptIn"

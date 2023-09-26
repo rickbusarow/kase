@@ -1,4 +1,19 @@
-@file:Suppress("ktlint:parameter-list-wrapping", "MaxLineLength")
+/*
+ * Copyright (C) 2023 Rick Busarow
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@file:Suppress("ktlint:standard:parameter-list-wrapping", "MaxLineLength")
 
 /*
  * Copyright (C) 2023 Rick Busarow
@@ -25,25 +40,44 @@ data class Case2<A1, A2>(val arg1: A1, val arg2: A2)
 data class Case3<A1, A2, A3>(val arg1: A1, val arg2: A2, val arg3: A3)
 data class Case4<A1, A2, A3, A4>(val arg1: A1, val arg2: A2, val arg3: A3, val arg4: A4)
 data class Case5<A1, A2, A3, A4, A5>(
-  val arg1: A1, val arg2: A2, val arg3: A3, val arg4: A4,
+  val arg1: A1,
+  val arg2: A2,
+  val arg3: A3,
+  val arg4: A4,
   val arg5: A5
 )
 
 data class Case6<A1, A2, A3, A4, A5, A6>(
-  val arg1: A1, val arg2: A2, val arg3: A3, val arg4: A4,
-  val arg5: A5, val arg6: A6
+  val arg1: A1,
+  val arg2: A2,
+  val arg3: A3,
+  val arg4: A4,
+  val arg5: A5,
+  val arg6: A6
 )
 
 data class Case7<A1, A2, A3, A4, A5, A6, A7>(
-  val arg1: A1, val arg2: A2, val arg3: A3, val arg4: A4,
-  val arg5: A5, val arg6: A6, val arg7: A7
+  val arg1: A1,
+  val arg2: A2,
+  val arg3: A3,
+  val arg4: A4,
+  val arg5: A5,
+  val arg6: A6,
+  val arg7: A7
 )
 
 data class Case8<A1, A2, A3, A4, A5, A6, A7, A8>(
-  val arg1: A1, val arg2: A2, val arg3: A3, val arg4: A4,
-  val arg5: A5, val arg6: A6, val arg7: A7, val arg8: A8
+  val arg1: A1,
+  val arg2: A2,
+  val arg3: A3,
+  val arg4: A4,
+  val arg5: A5,
+  val arg6: A6,
+  val arg7: A7,
+  val arg8: A8
 )
 
+@JvmName("testFactoryCase1")
 inline fun <A1> testFactory(
   cases: Iterable<Case1<A1>>,
   crossinline caseName: (Case1<A1>) -> String = { it.toString() },
@@ -54,6 +88,7 @@ inline fun <A1> testFactory(
   }
 }
 
+@JvmName("testFactoryCase2")
 inline fun <A1, A2> testFactory(
   cases: Iterable<Case2<A1, A2>>,
   crossinline caseName: (Case2<A1, A2>) -> String = { it.toString() },
@@ -64,6 +99,7 @@ inline fun <A1, A2> testFactory(
   }
 }
 
+@JvmName("testFactoryCase3")
 inline fun <A1, A2, A3> testFactory(
   cases: Iterable<Case3<A1, A2, A3>>,
   crossinline caseName: (Case3<A1, A2, A3>) -> String = { it.toString() },
@@ -74,6 +110,7 @@ inline fun <A1, A2, A3> testFactory(
   }
 }
 
+@JvmName("testFactoryCase4")
 inline fun <A1, A2, A3, A4> testFactory(
   cases: Iterable<Case4<A1, A2, A3, A4>>,
   crossinline caseName: (Case4<A1, A2, A3, A4>) -> String = { it.toString() },
@@ -84,6 +121,7 @@ inline fun <A1, A2, A3, A4> testFactory(
   }
 }
 
+@JvmName("testFactoryCase5")
 inline fun <A1, A2, A3, A4, A5> testFactory(
   cases: Iterable<Case5<A1, A2, A3, A4, A5>>,
   crossinline caseName: (Case5<A1, A2, A3, A4, A5>) -> String = { it.toString() },
@@ -94,6 +132,7 @@ inline fun <A1, A2, A3, A4, A5> testFactory(
   }
 }
 
+@JvmName("testFactoryCase6")
 inline fun <A1, A2, A3, A4, A5, A6> testFactory(
   cases: Iterable<Case6<A1, A2, A3, A4, A5, A6>>,
   crossinline caseName: (Case6<A1, A2, A3, A4, A5, A6>) -> String = { it.toString() },
@@ -104,6 +143,7 @@ inline fun <A1, A2, A3, A4, A5, A6> testFactory(
   }
 }
 
+@JvmName("testFactoryCase7")
 inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   cases: Iterable<Case7<A1, A2, A3, A4, A5, A6, A7>>,
   crossinline caseName: (Case7<A1, A2, A3, A4, A5, A6, A7>) -> String = { it.toString() },
@@ -114,6 +154,7 @@ inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   }
 }
 
+@JvmName("testFactoryCase8")
 inline fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
   cases: Iterable<Case8<A1, A2, A3, A4, A5, A6, A7, A8>>,
   crossinline caseName: (Case8<A1, A2, A3, A4, A5, A6, A7, A8>) -> String = { it.toString() },
@@ -133,6 +174,7 @@ inline fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
   }
 }
 
+@JvmName("testFactory1")
 inline fun <A1> testFactory(
   args1: Iterable<A1>,
   crossinline arg1Name: (A1) -> String = { it.toString() },
@@ -143,6 +185,7 @@ inline fun <A1> testFactory(
   }
 }
 
+@JvmName("testFactory2")
 inline fun <A1, A2> testFactory(
   args1: Iterable<A1>,
   args2: Iterable<A2>,
@@ -150,7 +193,6 @@ inline fun <A1, A2> testFactory(
   crossinline arg2Name: (A2) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2) -> Unit
 ): Stream<out DynamicNode> {
-
   return args1.asContainers(arg1Name) { a1 ->
     args2.asTests(arg2Name) { a2 ->
       testAction(a1, a2)
@@ -158,6 +200,7 @@ inline fun <A1, A2> testFactory(
   }
 }
 
+@JvmName("testFactory3")
 inline fun <A1, A2, A3> testFactory(
   args1: Iterable<A1>,
   args2: Iterable<A2>,
@@ -177,6 +220,7 @@ inline fun <A1, A2, A3> testFactory(
   }
 }
 
+@JvmName("testFactory4")
 inline fun <A1, A2, A3, A4> testFactory(
   args1: Iterable<A1>,
   args2: Iterable<A2>,
@@ -200,6 +244,7 @@ inline fun <A1, A2, A3, A4> testFactory(
   }
 }
 
+@JvmName("testFactory5")
 inline fun <A1, A2, A3, A4, A5> testFactory(
   args1: Iterable<A1>,
   args2: Iterable<A2>,
@@ -227,6 +272,7 @@ inline fun <A1, A2, A3, A4, A5> testFactory(
   }
 }
 
+@JvmName("testFactory6")
 inline fun <A1, A2, A3, A4, A5, A6> testFactory(
   args1: Iterable<A1>,
   args2: Iterable<A2>,
@@ -258,6 +304,7 @@ inline fun <A1, A2, A3, A4, A5, A6> testFactory(
   }
 }
 
+@JvmName("testFactory7")
 inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   args1: Iterable<A1>,
   args2: Iterable<A2>,
@@ -293,6 +340,7 @@ inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   }
 }
 
+@JvmName("testFactory8")
 inline fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
   args1: Iterable<A1>,
   args2: Iterable<A2>,

@@ -72,7 +72,7 @@ abstract class DokkaVersionArchivePlugin : Plugin<Project> {
         task.archiveFileName.set(currentVersionBuildDirZip.name)
         task.outputs.file(currentVersionBuildDirZip)
 
-        task.enabled = versionWithoutSnapshot == target.VERSION_NAME
+        task.enabled = !target.versionIsSnapshot
 
         task.from(dokkaHtmlMultiModuleBuildDir) {
           it.into(versionWithoutSnapshot)

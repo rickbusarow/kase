@@ -13,14 +13,27 @@
  * limitations under the License.
  */
 
-package builds
-
-import org.gradle.api.DefaultTask
+package com.rickbusarow.kase
 
 /**
- * This is a simple way to tag a task so that it's found by the 'composite' convention
- * plugin, which means it will be automatically propagated to composite builds.
+ * given:
+ * ```
+ * [[a, b], [1, 2, 3]]
+ * ```
+ * returns:
+ * ```
+ * [
+ *  [a, 1], [a, 2], [a, 3],
+ *  [b, 1], [b, 2], [b, 3]
+ * ]
+ * ```
  */
-abstract class BuildLogicTask : DefaultTask()
-
-abstract class BuildCodeGeneratorLogicTask : BuildLogicTask()
+fun <T> Iterable<Iterable<T>>.cartesianProduct(): List<List<T>> {
+  return fold(listOf(listOf())) { acc, list ->
+    acc.flatMap { existingList ->
+      list.map { element ->
+        existingList + element
+      }
+    }
+  }
+}

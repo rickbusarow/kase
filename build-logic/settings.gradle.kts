@@ -1,3 +1,5 @@
+
+
 /*
  * Copyright (C) 2023 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,8 +35,8 @@ val allowMavenLocal = providers
   .gradleProperty("kase.allow-maven-local")
   .orNull.toBoolean()
 
+@Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
-  @Suppress("UnstableApiUsage")
   repositories {
     if (allowMavenLocal) {
       logger.lifecycle("${rootProject.name} -- allowing mavenLocal for dependencies")
