@@ -19,6 +19,8 @@ import builds.artifacts.ArtifactsPlugin
 import com.rickbusarow.kgx.checkProjectIsRoot
 import com.rickbusarow.kgx.inCI
 import com.rickbusarow.kgx.isRealRootProject
+import modulecheck.gradle.ModuleCheckExtension
+import modulecheck.gradle.ModuleCheckPlugin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -37,6 +39,15 @@ abstract class RootPlugin : Plugin<Project> {
     target.plugins.apply(DokkaVersionArchivePlugin::class.java)
     target.plugins.apply(GitHubReleasePlugin::class.java)
     target.plugins.apply(SpotlessConventionPlugin::class.java)
+
+    target.plugins.apply(ModuleCheckPlugin::class.java)
+
+    target.extensions.configure(ModuleCheckExtension::class.java) { extension ->
+      extension.deleteUnused = true
+      extension.checks { checksSettings ->
+        checksSettings.sortDependencies = true
+      }
+    }
 
     // Hack for ensuring that when 'publishToMavenLocal' is invoked from the root project,
     // all subprojects are published.  This is used in plugin tests.

@@ -2,8 +2,17 @@
   {
     "gradlePath": ":kase",
     "group": "com.rickbusarow.kase",
-    "artifactId": "kotlin-gradle-extensions",
-    "description": "Common utilities for Gradle",
+    "artifactId": "kase",
+    "description": "Hermetic test environments and test factories",
+    "packaging": "jar",
+    "javaVersion": "11",
+    "publicationName": "maven"
+  },
+  {
+    "gradlePath": ":kase-gradle",
+    "group": "com.rickbusarow.kase",
+    "artifactId": "kase-gradle",
+    "description": "Hermetic test environments and test factories",
     "packaging": "jar",
     "javaVersion": "11",
     "publicationName": "maven"

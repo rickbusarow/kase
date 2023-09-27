@@ -26,13 +26,7 @@ buildscript {
 plugins {
   base
   alias(libs.plugins.kotlin.jvm)
-  alias(libs.plugins.moduleCheck)
   alias(libs.plugins.ktlint) apply false
-}
-
-moduleCheck {
-  deleteUnused = true
-  checks.sortDependencies = true
 }
 
 val kotlinApiVersion = project.property("KOTLIN_API").toString()
@@ -40,7 +34,6 @@ val ktlintPluginId = libs.plugins.ktlint.get().pluginId
 
 allprojects ap@{
 
-  val jvmTargetBuildLogic = project.property("JVM_TARGET").toString()
   val jdk = project.property("JDK").toString()
 
   val innerProject = this@ap
@@ -68,10 +61,6 @@ allprojects ap@{
     }
   }
   plugins.withType(JavaPlugin::class.java).configureEach {
-    extensions.configure(JavaPluginExtension::class.java) {
-      sourceCompatibility = JavaVersion.toVersion(jvmTargetBuildLogic)
-    }
-
     configurations.named("compileClasspath") {
       // Github-release bundles Gradle, which confuses the IDE when trying to view Gradle source or
       // javadoc.
@@ -83,8 +72,6 @@ allprojects ap@{
     kotlinOptions {
 
       apiVersion = kotlinApiVersion
-
-      jvmTarget = jvmTargetBuildLogic
 
       freeCompilerArgs = freeCompilerArgs + listOf(
         "-opt-in=kotlin.RequiresOptIn"

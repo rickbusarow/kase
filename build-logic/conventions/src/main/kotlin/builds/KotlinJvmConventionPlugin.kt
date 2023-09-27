@@ -49,8 +49,6 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
         languageVersion = kotlinMajor
         apiVersion = kotlinMajor
 
-        jvmTarget = target.JVM_TARGET
-
         freeCompilerArgs = freeCompilerArgs + listOf(
           "-Xinline-classes",
           "-Xsam-conversions=class",

@@ -21,13 +21,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   id("root")
-  alias(libs.plugins.moduleCheck)
   alias(libs.plugins.doks)
-}
-
-moduleCheck {
-  deleteUnused = true
-  checks.sortDependencies = true
 }
 
 doks {

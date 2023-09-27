@@ -13,14 +13,73 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.internal
+package com.rickbusarow.kase
 
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.lang.StackWalker.StackFrame
 import java.lang.reflect.AnnotatedElement
 import java.lang.reflect.Method
-import kotlin.LazyThreadSafetyMode.NONE
+import kotlin.streams.asSequence
+
+class TestFunctionLocation private constructor(
+  /** ex: `com.example.foo` */
+  val packageName: String,
+  /** ex: `com.example.foo.Outer.Middle.Inner$$inlined$$execute$1` */
+  val declaringClass: Class<*>,
+  /** ex: `com.example.foo.Outer.Middle.Inner` */
+  val declaringClassWithoutSynthetics: Class<*>,
+  /** ex: `[Outer, Middle, Inner]` */
+  val simpleNames: List<String>,
+  val callingFunctionSimpleName: String
+) {
+
+  companion object {
+
+    fun create(): TestFunctionLocation {
+      return from(testStackFrame())
+    }
+
+    /**
+     * Finds the stack trace element corresponding to the invoking test
+     * function. This should be called as close as possible to the test function.
+     */
+    private fun testStackFrame(): StackFrame = StackWalker
+      .getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
+      .walk { frames ->
+
+        val allGoodFrames = frames
+          // skip the first since it's this function and not the calling test
+          .skip(1)
+          .filter { it.isTestFunction() }
+
+        val callingFunctionName = allGoodFrames
+          .findFirst()
+          .get()
+          .callingFunctionName()
+
+        allGoodFrames.filter { it.methodName == callingFunctionName }
+          .asSequence()
+          .last()
+      }
+
+    internal fun from(stackFrame: StackFrame): TestFunctionLocation {
+      val actualClass = stackFrame.declaringClass.removeSynthetics()
+      return TestFunctionLocation(
+        packageName = stackFrame.declaringClass.packageName,
+        declaringClass = stackFrame.declaringClass,
+        declaringClassWithoutSynthetics = actualClass,
+        simpleNames = actualClass.simpleNames(),
+        callingFunctionSimpleName = stackFrame.declaringClass.name
+          .removePrefix(actualClass.name)
+          .splitToSequence(Regex("""[.$]+"""))
+          .filter { it.isNotBlank() }
+          .firstOrNull()
+          ?: stackFrame.methodName
+      )
+    }
+  }
+}
 
 private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
 
@@ -35,39 +94,6 @@ private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
 internal fun AnnotatedElement.hasTestAnnotation(): Boolean {
   return isAnnotationPresent(TestFactory::class.java) ||
     isAnnotationPresent(Test::class.java)
-}
-
-internal class ParsedStackFrame private constructor(
-  val stackFrame: StackWalker.StackFrame
-) {
-
-  /** ex: `com.example.foo` */
-  val packageName: String by lazy(NONE) { declaringClass.packageName }
-
-  /** ex: `com.example.foo.Outer.Middle.Inner$$inlined$$execute$1` */
-  val declaringClass: Class<*> by lazy(NONE) { stackFrame.declaringClass }
-
-  /** ex: `com.example.foo.Outer.Middle.Inner` */
-  val declaringClassWithoutSynthetics: Class<*> by lazy(NONE) { declaringClass.removeSynthetics() }
-
-  /** ex: `[Outer, Middle, Inner]` */
-  val simpleNames: List<String> by lazy(NONE) { declaringClassWithoutSynthetics.simpleNames() }
-
-  val callingFunctionSimpleName: String by lazy(NONE) {
-    declaringClass.name
-      .removePrefix(declaringClassWithoutSynthetics.name)
-      .splitToSequence(Regex("""[.$]+"""))
-      .filter { it.isNotBlank() }
-      .firstOrNull()
-      ?: stackFrame.methodName
-  }
-
-  companion object {
-
-    internal fun StackFrame.parse(): ParsedStackFrame {
-      return ParsedStackFrame(this)
-    }
-  }
 }
 
 /**

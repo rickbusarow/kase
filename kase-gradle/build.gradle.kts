@@ -25,9 +25,6 @@ module {
 }
 
 dependencies {
-  api(project(":kase"))
-  compileOnly(gradleTestKit())
-
   api(libs.junit.engine)
   api(libs.junit.jupiter)
   api(libs.junit.jupiter.api)
@@ -39,4 +36,7 @@ dependencies {
   api(libs.kotest.extensions)
   api(libs.kotest.property.jvm)
 
+  api(project(":kase"))
+
+  compileOnly(gradleTestKit())
 }

@@ -17,7 +17,7 @@ package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestEnvironmentParams
-import com.rickbusarow.kase.internal.createSafely
+import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
 import com.rickbusarow.kase.stdlib.remove
 import io.kotest.inspectors.forAll

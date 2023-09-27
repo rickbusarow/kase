@@ -23,18 +23,13 @@ import java.lang.StackWalker.StackFrame
  * Represents a hermetic testing environment with an
  * associated working directory and certain assertions.
  *
- * @param testStackFrame The [StackWalker.StackFrame] from which the test is being run.
+ * @param testFunctionLocation The [StackWalker.StackFrame] from which the test is being run.
  * @param testVariantNames The variant names related to the test.
  */
 open class TestEnvironment(
-  testStackFrame: StackWalker.StackFrame,
+  testFunctionLocation: TestFunctionLocation = TestFunctionLocation.create(),
   testVariantNames: List<String>
-) : HasWorkingDir(createWorkingDir(testStackFrame, testVariantNames)) {
-
-  constructor(params: TestEnvironmentParams) : this(
-    testStackFrame = params.testStackFrame,
-    testVariantNames = params.testVariantNames
-  )
+) : HasWorkingDir(createWorkingDir(testFunctionLocation, testVariantNames)) {
 
   /**
    * replace absolute paths with relative ones

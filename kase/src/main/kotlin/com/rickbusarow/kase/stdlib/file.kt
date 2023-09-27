@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.internal
+package com.rickbusarow.kase.stdlib
 
 import java.io.File
 
@@ -57,12 +57,10 @@ fun File.resolveInParent(relativePath: String): File {
 fun File.existsOrNull(): File? = takeIf { it.exists() }
 
 /** */
-@PublishedApi
-internal infix operator fun File.div(relative: String): File = resolve(relative)
+infix operator fun File.div(relative: String): File = resolve(relative)
 
 /** */
-@PublishedApi
-internal infix operator fun File.div(relative: File): File = resolve(relative)
+infix operator fun File.div(relative: File): File = resolve(relative)
 
 /**
  * Creates a new file if it doesn't already exist, creating parent
@@ -73,8 +71,7 @@ internal infix operator fun File.div(relative: File): File = resolve(relative)
  * @param overwrite If true, any existing content will be overwritten. Otherwise, nothing is done.
  * @return The created file.
  */
-@PublishedApi
-internal fun File.createSafely(content: String? = null, overwrite: Boolean = true): File = apply {
+fun File.createSafely(content: String? = null, overwrite: Boolean = true): File = apply {
   when {
     content != null && (!exists() || overwrite) -> makeParentDir().writeText(content)
     else -> {
