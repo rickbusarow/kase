@@ -1,5 +1,5 @@
-[![Maven Central](https://img.shields.io/maven-central/v/com.rickbusarow.kgx/kotlin-gradle-extensions?style=flat-square)](https://search.maven.org/search?q=com.rickbusarow.kgx)
-[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.rickbusarow.kgx/kotlin-gradle-extensions?label=snapshots&server=https%3A%2F%2Foss.sonatype.org&style=flat-square)](https://oss.sonatype.org/#nexus-search;quick~com.rickbusarow.kgx)
+[![Maven Central](https://img.shields.io/maven-central/v/com.rickbusarow.kase/kase?style=flat-square)](https://search.maven.org/search?q=com.rickbusarow.kase)
+[![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/com.rickbusarow.kase/kase?label=snapshots&server=https%3A%2F%2Foss.sonatype.org&style=flat-square)](https://oss.sonatype.org/#nexus-search;quick~com.rickbusarow.kase)
 [![License](https://img.shields.io/badge/license-apache2.0-blue?style=flat-square.svg)](https://opensource.org/licenses/Apache-2.0)
 
 - [Installation](#installation)
