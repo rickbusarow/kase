@@ -15,12 +15,10 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.HasWorkingDir.Companion.testStackFrame
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import java.io.File
-import java.lang.StackWalker.StackFrame
 import java.net.URI
 import java.nio.file.Paths
 import java.util.stream.Stream
@@ -46,7 +44,7 @@ import kotlin.streams.asStream
 fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
   return TestNodeBuilder(
     name = "root",
-    rootStackFrame = testStackFrame(),
+    testFunctionName = TestFunctionName.get(),
     parent = null
   )
     .apply { init() }
@@ -71,13 +69,13 @@ fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
  * ```
  *
  * @property name the name of the test container.
- * @property rootStackFrame Captured before executing any tests,
+ * @property testFunctionName Captured before executing any tests,
  *   meaning that it's the frame which called `testFactory { ... }`
  * @property parent the parent node, or `null` if this is the root container
  */
 class TestNodeBuilder @PublishedApi internal constructor(
   val name: String,
-  val rootStackFrame: StackFrame,
+  val testFunctionName: TestFunctionName,
   val parent: TestNodeBuilder?
 ) {
   /** the list of names from the root node to this node */
@@ -98,10 +96,10 @@ class TestNodeBuilder @PublishedApi internal constructor(
 
     val here = Paths.get("").toAbsolutePath()
     val srcTestKotlin = here / "src/test/kotlin"
-    val packageDir = rootStackFrame.declaringClass.packageName
+    val packageDir = testFunctionName.packageName
       .replace('.', File.separatorChar)
-    val classFile = srcTestKotlin / packageDir / rootStackFrame.fileName
-    val lineNumber = rootStackFrame.lineNumber
+    val classFile = srcTestKotlin / packageDir / testFunctionName.fileName
+    val lineNumber = testFunctionName.lineNumber
 
     return URI.create(File("$classFile").toURI().toString() + "?line=$lineNumber")
   }
@@ -209,7 +207,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
     nodes.add {
       TestNodeBuilder(
         name = name,
-        rootStackFrame = rootStackFrame,
+        testFunctionName = testFunctionName,
         parent = this
       )
         .apply(init)

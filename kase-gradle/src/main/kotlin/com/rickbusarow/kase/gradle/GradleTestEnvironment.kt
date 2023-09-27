@@ -17,6 +17,7 @@ package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestEnvironmentParams
+import com.rickbusarow.kase.TestFunctionName
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
 import com.rickbusarow.kase.stdlib.remove
@@ -28,7 +29,6 @@ import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import org.intellij.lang.annotations.Language
 import java.io.File
-import java.lang.StackWalker.StackFrame
 
 /**
  * The versions of dependencies which are changed during parameterized tests.
@@ -60,7 +60,7 @@ interface KaseGradleProject
 data class GradleTestEnvironmentParams(
   val projectCache: MutableMap<String, KaseGradleProject>,
   override val testVersions: TestVersions,
-  override val testStackFrame: StackFrame,
+  override val testFunctionName: TestFunctionName,
   override val testVariantNames: List<String>
 ) : TestEnvironmentParams, HasTestVersions
 
@@ -68,16 +68,16 @@ data class GradleTestEnvironmentParams(
 class GradleTestEnvironment(
   override val testVersions: TestVersions,
   override val projectCache: MutableMap<String, KaseGradleProject>,
-  testStackFrame: StackWalker.StackFrame,
+  testFunctionName: TestFunctionName,
   testVariantNames: List<String>
-) : TestEnvironment(testStackFrame, testVariantNames),
+) : TestEnvironment(testFunctionName, testVariantNames),
   ProjectCollector,
   HasTestVersions {
 
   constructor(params: GradleTestEnvironmentParams) : this(
     testVersions = params.testVersions,
     projectCache = params.projectCache,
-    testStackFrame = params.testStackFrame,
+    testFunctionName = params.testFunctionName,
     testVariantNames = params.testVariantNames
   )
 
@@ -275,15 +275,13 @@ class GradleTestEnvironment(
     File(path).createSafely(content.trimIndent())
 
   @JvmName("writeJavaContent")
-  fun File.java(@Language("java") content: String): File =
-    createSafely(content.trimIndent())
+  fun File.java(@Language("java") content: String): File = createSafely(content.trimIndent())
 
   fun groovy(path: String, @Language("groovy") content: String): File =
     File(path).createSafely(content.trimIndent())
 
   @JvmName("writeGroovyContent")
-  fun File.groovy(@Language("groovy") content: String): File =
-    createSafely(content.trimIndent())
+  fun File.groovy(@Language("groovy") content: String): File = createSafely(content.trimIndent())
 
   fun kotlin(path: String, @Language("kotlin") content: String): File =
     File(path).createSafely(content.trimIndent())
@@ -295,11 +293,7 @@ class GradleTestEnvironment(
     createSafely(contentBuilder().trimIndent())
   }
 
-  /**
-   * replace `ModuleCheck found 2 issues in 1.866 seconds.` with `ModuleCheck found 2 issues`
-   *
-   *
-   */
+  /** replace `ModuleCheck found 2 issues in 1.866 seconds.` with `ModuleCheck found 2 issues` */
   fun String.removeDuration(): String {
     return replace(durationSuffixRegex) { it.destructured.component1() }
   }

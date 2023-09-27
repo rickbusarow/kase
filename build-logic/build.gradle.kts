@@ -34,7 +34,7 @@ val ktlintPluginId = libs.plugins.ktlint.get().pluginId
 
 allprojects ap@{
 
-  val jdk = project.property("JDK").toString()
+  val jdk = project.property("JDK_BUILD_LOGIC").toString()
 
   val innerProject = this@ap
 

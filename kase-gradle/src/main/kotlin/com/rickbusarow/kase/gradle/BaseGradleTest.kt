@@ -15,16 +15,40 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.HasWorkingDir
+import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestEnvironmentFactory
+import com.rickbusarow.kase.asClueCatching
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD
 
 @Execution(SAME_THREAD)
-internal interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
+interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
 
-  fun test(action: GradleTestEnvironment.() -> Unit) {
+  /**
+   * Runs the provided test [action] in the context of a new [TestEnvironment].
+   *
+   * @param action The test action to run within the [TestEnvironment].
+   */
+  fun test(action: suspend GradleTestEnvironment.() -> Unit) {
 
-    GradleTestEnvironment(HasWorkingDir.testStackFrame()).action()
+    val testEnvironment = newTestEnvironment(params)
+
+    runBlocking {
+      testEnvironment.asClueCatching {
+        testEnvironment.action()
+        println(testEnvironment)
+      }
+    }
+  }
+
+  /** @return A new [GradleTestEnvironment] */
+  override fun newTestEnvironment(params: GradleTestEnvironmentParams): GradleTestEnvironment {
+    return GradleTestEnvironment(
+      testVersions = TestVersions("a", "b", "c", "d"),
+      projectCache = mutableMapOf(),
+      testFunctionName = params.testFunctionName,
+      testVariantNames = params.testVariantNames
+    )
   }
 }

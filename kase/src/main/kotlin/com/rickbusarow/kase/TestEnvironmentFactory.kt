@@ -23,33 +23,34 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
   /**
    * Runs the provided test [action] in the context of a new [TestEnvironment].
    *
-   * @param testStackFrame The [StackWalker.StackFrame] from which the test is being run.
+   *
+   * @param testFunctionName The [TestFunctionName] from which the test is being run.
    * @param testVariantNames The variant names related to the test.
    * @param action The test action to run within the [TestEnvironment].
    */
   fun test(
-    testStackFrame: StackWalker.StackFrame = HasWorkingDir.testStackFrame(),
+    testFunctionName: TestFunctionName = TestFunctionName.get(),
     vararg testVariantNames: String,
     action: suspend T.() -> Unit
   ) {
-    test(testStackFrame, testVariantNames.toList(), action = action)
+    test(testFunctionName, testVariantNames.toList(), action = action)
   }
 
   /**
    * Runs the provided test [action] in the context of a new [TestEnvironment].
    *
-   * @param testStackFrame The [StackWalker.StackFrame] from which the test is being run.
+   * @param testFunctionName The [TestFunctionName] from which the test is being run.
    * @param testVariantNames The variant names related to the test.
    * @param action The test action to run within the [TestEnvironment].
    */
   fun test(
-    testStackFrame: StackWalker.StackFrame = HasWorkingDir.testStackFrame(),
+    testFunctionName: TestFunctionName = TestFunctionName.get(),
     testVariantNames: List<String>,
     action: suspend T.() -> Unit
   ) {
     test(
       params = DefaultTestEnvironmentParams(
-        testStackFrame = testStackFrame,
+        testFunctionName = testFunctionName,
         testVariantNames = testVariantNames.toList()
       ),
       action = action
@@ -81,7 +82,7 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
    */
   fun newTestEnvironment(params: TestEnvironmentParams): T {
     @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(params.testStackFrame, params.testVariantNames) as? T
+    return TestEnvironment(params.testFunctionName, params.testVariantNames) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
 }

@@ -16,6 +16,7 @@
 package com.rickbusarow.kase.stdlib
 
 import java.io.File
+import java.util.Locale
 
 /** Converts all line separators in the receiver string to use `\n`. */
 fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n")
@@ -50,6 +51,26 @@ val String.interpuncts: String get() = replace(" ", "·")
 val String.noInterpuncts: String get() = replace("·", " ")
 
 /**
+ * Decapitalizes the first character of this [String] using the specified [locale].
+ *
+ * @param locale The [Locale] to be used for decapitalization. Defaults to [Locale.US].
+ * @receiver The original String.
+ * @return The string with the first character decapitalized.
+ */
+fun String.decapitalize(locale: Locale = Locale.US): String =
+  replaceFirstChar { it.lowercase(locale) }
+
+/**
+ * Capitalizes the first character of this [String] using the specified [locale].
+ *
+ * @param locale The [Locale] to be used for capitalization. Defaults to [Locale.US].
+ * @receiver The original String.
+ * @return The string with the first character capitalized.
+ */
+fun String.capitalize(locale: Locale = Locale.US): String =
+  replaceFirstChar { it.uppercase(locale) }
+
+/**
  * performs [transform] on each line
  *
  * Doesn't preserve the original line endings.
@@ -77,11 +98,7 @@ internal fun String.cleanOutput(workingDir: File): String {
     .trimStart('\n')
 }
 
-/**
- * replace absolute paths with relative ones
- *
- *
- */
+/** replace absolute paths with relative ones */
 internal fun String.useRelativePaths(workingDir: File): String {
   return alwaysUnixFileSeparators()
     .remove(
@@ -91,9 +108,14 @@ internal fun String.useRelativePaths(workingDir: File): String {
     )
 }
 
-/**
- * Replace Windows file separators with Unix ones, just for string comparison in tests
- *
- *
- */
+/** Replace Windows file separators with Unix ones, just for string comparison in tests */
 internal fun String.alwaysUnixFileSeparators(): String = replace(File.separator, "/")
+
+internal fun String.osFileSeparators(): String {
+  return if ("win" in System.getProperty("os.name").lowercase()) {
+    replace('/', File.separatorChar)
+  } else {
+    replace('\\', File.separatorChar)
+  }
+  return replace()
+}
