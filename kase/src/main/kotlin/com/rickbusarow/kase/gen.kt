@@ -56,7 +56,7 @@ fun main() {
       val kaseLabelSimpleName = "KaseLabels$ct"
 
       val labels = args.map { "${it}Label" }
-      val labelsParams = args.joinToString(", ") { "val ${it}Label: String = \"$it\"" }
+      val labelsParams = args.joinToString(",\n  ") { "val ${it}Label: String = \"$it\"" }
 
       val names = labels.zip(args)
         .joinToString(
@@ -162,7 +162,11 @@ fun main() {
         |  }
         |}
         |
-        |data class $kaseLabelSimpleName(val delimiter: String = ": ", val separator: String = " | ", $labelsParams): KaseLabels
+        |data class $kaseLabelSimpleName(
+        |  override val delimiter: String = ": ",
+        |  override val separator: String = " | ",
+        |  $labelsParams
+        |): KaseLabels
         |
         """.replaceIndentByMargin()
       )

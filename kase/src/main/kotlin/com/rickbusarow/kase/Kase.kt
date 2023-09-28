@@ -21,4 +21,7 @@ interface Kase<T : KaseLabels> {
   fun names(labels: T): List<String>
 }
 
-interface KaseLabels
+interface KaseLabels {
+  val delimiter: String
+  val separator: String
+}

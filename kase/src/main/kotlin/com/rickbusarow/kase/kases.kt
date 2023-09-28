@@ -20,6 +20,7 @@ package com.rickbusarow.kase
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
 
+
 /* Kase1 */
 
 fun <A1> kase(
@@ -91,7 +92,11 @@ data class Kase1<out A1>(val a1: A1) : Kase<KaseLabels1> {
   }
 }
 
-data class KaseLabels1(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1"): KaseLabels
+data class KaseLabels1(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1"
+): KaseLabels
 
 
 /* Kase2 */
@@ -172,7 +177,12 @@ data class Kase2<out A1, out A2>(val a1: A1, val a2: A2) : Kase<KaseLabels2> {
   }
 }
 
-data class KaseLabels2(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2"): KaseLabels
+data class KaseLabels2(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2"
+): KaseLabels
 
 
 /* Kase3 */
@@ -260,7 +270,13 @@ data class Kase3<out A1, out A2, out A3>(val a1: A1, val a2: A2, val a3: A3) : K
   }
 }
 
-data class KaseLabels3(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3"): KaseLabels
+data class KaseLabels3(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3"
+): KaseLabels
 
 
 /* Kase4 */
@@ -355,7 +371,14 @@ data class Kase4<out A1, out A2, out A3, out A4>(val a1: A1, val a2: A2, val a3:
   }
 }
 
-data class KaseLabels4(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4"): KaseLabels
+data class KaseLabels4(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4"
+): KaseLabels
 
 
 /* Kase5 */
@@ -457,7 +480,15 @@ data class Kase5<out A1, out A2, out A3, out A4, out A5>(val a1: A1, val a2: A2,
   }
 }
 
-data class KaseLabels5(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5"): KaseLabels
+data class KaseLabels5(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5"
+): KaseLabels
 
 
 /* Kase6 */
@@ -566,7 +597,16 @@ data class Kase6<out A1, out A2, out A3, out A4, out A5, out A6>(val a1: A1, val
   }
 }
 
-data class KaseLabels6(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6"): KaseLabels
+data class KaseLabels6(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6"
+): KaseLabels
 
 
 /* Kase7 */
@@ -682,7 +722,17 @@ data class Kase7<out A1, out A2, out A3, out A4, out A5, out A6, out A7>(val a1:
   }
 }
 
-data class KaseLabels7(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7"): KaseLabels
+data class KaseLabels7(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7"
+): KaseLabels
 
 
 /* Kase8 */
@@ -805,7 +855,18 @@ data class Kase8<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8>
   }
 }
 
-data class KaseLabels8(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8"): KaseLabels
+data class KaseLabels8(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8"
+): KaseLabels
 
 
 /* Kase9 */
@@ -935,7 +996,19 @@ data class Kase9<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8,
   }
 }
 
-data class KaseLabels9(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9"): KaseLabels
+data class KaseLabels9(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9"
+): KaseLabels
 
 
 /* Kase10 */
@@ -1072,7 +1145,20 @@ data class Kase10<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels10(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10"): KaseLabels
+data class KaseLabels10(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10"
+): KaseLabels
 
 
 /* Kase11 */
@@ -1216,7 +1302,21 @@ data class Kase11<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels11(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11"): KaseLabels
+data class KaseLabels11(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11"
+): KaseLabels
 
 
 /* Kase12 */
@@ -1367,7 +1467,22 @@ data class Kase12<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels12(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12"): KaseLabels
+data class KaseLabels12(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12"
+): KaseLabels
 
 
 /* Kase13 */
@@ -1525,7 +1640,23 @@ data class Kase13<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels13(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13"): KaseLabels
+data class KaseLabels13(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13"
+): KaseLabels
 
 
 /* Kase14 */
@@ -1690,7 +1821,24 @@ data class Kase14<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels14(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13", val a14Label: String = "a14"): KaseLabels
+data class KaseLabels14(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13",
+  val a14Label: String = "a14"
+): KaseLabels
 
 
 /* Kase15 */
@@ -1862,7 +2010,25 @@ data class Kase15<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels15(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13", val a14Label: String = "a14", val a15Label: String = "a15"): KaseLabels
+data class KaseLabels15(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13",
+  val a14Label: String = "a14",
+  val a15Label: String = "a15"
+): KaseLabels
 
 
 /* Kase16 */
@@ -2041,7 +2207,26 @@ data class Kase16<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels16(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13", val a14Label: String = "a14", val a15Label: String = "a15", val a16Label: String = "a16"): KaseLabels
+data class KaseLabels16(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13",
+  val a14Label: String = "a14",
+  val a15Label: String = "a15",
+  val a16Label: String = "a16"
+): KaseLabels
 
 
 /* Kase17 */
@@ -2227,7 +2412,27 @@ data class Kase17<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels17(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13", val a14Label: String = "a14", val a15Label: String = "a15", val a16Label: String = "a16", val a17Label: String = "a17"): KaseLabels
+data class KaseLabels17(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13",
+  val a14Label: String = "a14",
+  val a15Label: String = "a15",
+  val a16Label: String = "a16",
+  val a17Label: String = "a17"
+): KaseLabels
 
 
 /* Kase18 */
@@ -2420,7 +2625,28 @@ data class Kase18<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels18(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13", val a14Label: String = "a14", val a15Label: String = "a15", val a16Label: String = "a16", val a17Label: String = "a17", val a18Label: String = "a18"): KaseLabels
+data class KaseLabels18(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13",
+  val a14Label: String = "a14",
+  val a15Label: String = "a15",
+  val a16Label: String = "a16",
+  val a17Label: String = "a17",
+  val a18Label: String = "a18"
+): KaseLabels
 
 
 /* Kase19 */
@@ -2620,7 +2846,29 @@ data class Kase19<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels19(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13", val a14Label: String = "a14", val a15Label: String = "a15", val a16Label: String = "a16", val a17Label: String = "a17", val a18Label: String = "a18", val a19Label: String = "a19"): KaseLabels
+data class KaseLabels19(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13",
+  val a14Label: String = "a14",
+  val a15Label: String = "a15",
+  val a16Label: String = "a16",
+  val a17Label: String = "a17",
+  val a18Label: String = "a18",
+  val a19Label: String = "a19"
+): KaseLabels
 
 
 /* Kase20 */
@@ -2827,7 +3075,30 @@ data class Kase20<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels20(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13", val a14Label: String = "a14", val a15Label: String = "a15", val a16Label: String = "a16", val a17Label: String = "a17", val a18Label: String = "a18", val a19Label: String = "a19", val a20Label: String = "a20"): KaseLabels
+data class KaseLabels20(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13",
+  val a14Label: String = "a14",
+  val a15Label: String = "a15",
+  val a16Label: String = "a16",
+  val a17Label: String = "a17",
+  val a18Label: String = "a18",
+  val a19Label: String = "a19",
+  val a20Label: String = "a20"
+): KaseLabels
 
 
 /* Kase21 */
@@ -3041,7 +3312,31 @@ data class Kase21<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels21(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13", val a14Label: String = "a14", val a15Label: String = "a15", val a16Label: String = "a16", val a17Label: String = "a17", val a18Label: String = "a18", val a19Label: String = "a19", val a20Label: String = "a20", val a21Label: String = "a21"): KaseLabels
+data class KaseLabels21(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13",
+  val a14Label: String = "a14",
+  val a15Label: String = "a15",
+  val a16Label: String = "a16",
+  val a17Label: String = "a17",
+  val a18Label: String = "a18",
+  val a19Label: String = "a19",
+  val a20Label: String = "a20",
+  val a21Label: String = "a21"
+): KaseLabels
 
 
 /* Kase22 */
@@ -3262,4 +3557,29 @@ data class Kase22<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8
   }
 }
 
-data class KaseLabels22(val delimiter: String = ": ", val separator: String = " | ", val a1Label: String = "a1", val a2Label: String = "a2", val a3Label: String = "a3", val a4Label: String = "a4", val a5Label: String = "a5", val a6Label: String = "a6", val a7Label: String = "a7", val a8Label: String = "a8", val a9Label: String = "a9", val a10Label: String = "a10", val a11Label: String = "a11", val a12Label: String = "a12", val a13Label: String = "a13", val a14Label: String = "a14", val a15Label: String = "a15", val a16Label: String = "a16", val a17Label: String = "a17", val a18Label: String = "a18", val a19Label: String = "a19", val a20Label: String = "a20", val a21Label: String = "a21", val a22Label: String = "a22"): KaseLabels
+data class KaseLabels22(
+  override val delimiter: String = ": ",
+  override val separator: String = " | ",
+  val a1Label: String = "a1",
+  val a2Label: String = "a2",
+  val a3Label: String = "a3",
+  val a4Label: String = "a4",
+  val a5Label: String = "a5",
+  val a6Label: String = "a6",
+  val a7Label: String = "a7",
+  val a8Label: String = "a8",
+  val a9Label: String = "a9",
+  val a10Label: String = "a10",
+  val a11Label: String = "a11",
+  val a12Label: String = "a12",
+  val a13Label: String = "a13",
+  val a14Label: String = "a14",
+  val a15Label: String = "a15",
+  val a16Label: String = "a16",
+  val a17Label: String = "a17",
+  val a18Label: String = "a18",
+  val a19Label: String = "a19",
+  val a20Label: String = "a20",
+  val a21Label: String = "a21",
+  val a22Label: String = "a22"
+): KaseLabels

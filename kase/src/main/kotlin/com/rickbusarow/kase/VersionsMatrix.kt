@@ -15,7 +15,10 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.stdlib.cartesianProduct
+import com.rickbusarow.kase.VersionSet.VersionSetLabels
+import com.rickbusarow.kase.VersionType.Agp
+import com.rickbusarow.kase.VersionType.Gradle
+import com.rickbusarow.kase.VersionType.Kotlin
 
 class GradleVersion private constructor(val value: String) : Comparable<GradleVersion> {
   override fun compareTo(other: GradleVersion): Int = value.compareTo(other.value)
@@ -34,166 +37,161 @@ class AgpVersion private constructor(val value: String) : Comparable<AgpVersion>
   }
 }
 
+data class VersionSet(
+  val gradle: String,
+  val agp: String,
+  val kotlin: String,
+  val ksp: String,
+  val anvil: String
+) : Kase<VersionSetLabels> {
+  override val args: List<String>
+    get() = listOf(gradle, agp, kotlin, ksp, anvil)
+
+  override fun names(labels: VersionSetLabels): List<String> {
+    return listOf(
+      "gradle: $gradle",
+      "agp: $agp",
+      "kotlin: $kotlin",
+      "ksp: $ksp",
+      "anvil: $anvil"
+    )
+  }
+
+  object VersionSetLabels : KaseLabels {
+    override val delimiter: String = ": "
+    override val separator: String = " | "
+  }
+}
+
+interface VersionType : Comparable<CharSequence>, CharSequence {
+  val value: String
+  val label: String
+    get() = this::class.java.simpleName
+
+  override fun compareTo(other: CharSequence): Int = value.compareTo(other.toString())
+
+  @JvmInline
+  value class Gradle(override val value: String) : VersionType, CharSequence by value {
+    override fun toString(): String = "$label: $value"
+  }
+
+  @JvmInline
+  value class Agp(override val value: String) : VersionType, CharSequence by value {
+    override fun toString(): String = "$label: $value"
+  }
+
+  @JvmInline
+  value class Kotlin(override val value: String) : VersionType, CharSequence by value {
+    override fun toString(): String = "$label: $value"
+  }
+
+  @JvmInline
+  value class Ksp(override val value: String) : VersionType, CharSequence by value {
+    override fun toString(): String = "$label: $value"
+  }
+
+  @JvmInline
+  value class Anvil(override val value: String) : VersionType, CharSequence by value {
+    override fun toString(): String = "$label: $value"
+  }
+
+  @JvmInline
+  value class Keeper(override val value: String) : VersionType, CharSequence by value {
+    override fun toString(): String = "$label: $value"
+  }
+
+  @JvmInline
+  value class Dagger(override val value: String) : VersionType, CharSequence by value {
+    override fun toString(): String = "$label: $value"
+  }
+
+  @JvmInline
+  value class Detekt(override val value: String) : VersionType, CharSequence by value {
+    override fun toString(): String = "$label: $value"
+  }
+}
+
 interface VersionsMatrix {
 
-  fun gradleVersions(): List<GradleVersion>
-  fun agpVersions(): List<AgpVersion>
-  fun gradlePlus(vararg others: Iterable<*>): List<List<*>>
-  fun gradleAgpMatrix(gradleVersions: List<GradleVersion> = gradleVersions()): List<List<*>>
-  fun gradleAgpMatrixPlus(vararg others: List<*>): List<List<*>>
+  fun gradleVersions(): List<Gradle>
+  fun agpVersions(): List<Agp>
+  fun kotlinVersions(): List<Kotlin>
+
+  fun <T : VersionType> gradlePlus(others: Iterable<T>): List<Kase2<Gradle, T>>
+  fun gradleAgpMatrix(gradleVersions: Iterable<Gradle> = gradleVersions()): List<Kase2<Gradle, Agp>>
+  fun <T : VersionType> gradleAgpMatrixPlus(others: Iterable<T>): List<Kase3<Gradle, Agp, T>>
 }
 
-internal sealed interface VersionType {
-  val value: String
+object VersionMatrixImpl : VersionsMatrix {
 
-  @JvmInline
-  value class Gradle(override val value: String) : VersionType
+  private val GRADLE_VERSIONS = listOf(
+    "8.2.1",
+    "8.3",
+    "8.4-rc-2"
+  ).map(VersionType::Gradle)
 
-  @JvmInline
-  value class Agp(override val value: String) : VersionType
+  private val AGP_VERSIONS = listOf(
+    "7.3.1",
+    "7.4.1",
+    "8.0.2",
+    "8.1.1"
+  ).map(VersionType::Agp)
+  private val KOTLIN_VERSIONS = listOf(
+    "1.8.10",
+    "1.8.22",
+    "1.9.0",
+    "1.9.10"
+  ).map(VersionType::Kotlin)
 
-  @JvmInline
-  value class Kotlin(override val value: String) : VersionType
+  override fun gradleVersions() = GRADLE_VERSIONS
+  override fun agpVersions() = AGP_VERSIONS
+  override fun kotlinVersions() = KOTLIN_VERSIONS
 
-  @JvmInline
-  value class Ksp(override val value: String) : VersionType
-
-  @JvmInline
-  value class Anvil(override val value: String) : VersionType
-
-  @JvmInline
-  value class Keeper(override val value: String) : VersionType
-
-  @JvmInline
-  value class Dagger(override val value: String) : VersionType
-
-  @JvmInline
-  value class Detekt(override val value: String) : VersionType
-}
-
-interface VersionsRow<T> {
-  val gradle: T
-  val agp: T
-  val kotlin: T
-  val ksp: T
-  val anvil: T
-
-  data class ExclusionRule(
-    override val gradle: (String) -> Boolean? = { null },
-    override val agp: (String) -> Boolean? = { null },
-    override val kotlin: (String) -> Boolean? = { null },
-    override val ksp: (String) -> Boolean? = { null },
-    override val anvil: (String) -> Boolean? = { null }
-  ) : VersionsRow<(String) -> Boolean?> {
-
-    // fun excludes(versions: VersionSet): Boolean {
-    // }
-  }
-}
-
-data class VersionSet(
-  override val gradle: String,
-  override val agp: String,
-  override val kotlin: String,
-  override val ksp: String,
-  override val anvil: String
-) : VersionsRow<String>
-
-object VersionsAndThings : VersionsMatrix {
-
-  // Injected via plugins/build.gradle
-  private val AGP_7_3 = System.getProperty("agp_7_3")
-  private val AGP_7_4 = System.getProperty("agp_7_4")
-  private val AGP_8_0 = System.getProperty("agp_8_0")
-  private val AGP_8_1 = System.getProperty("agp_8_1")
-  private val AGP_8_2 = System.getProperty("agp_8_2")
-  private val QUICK_TEST = System.getProperty("quickTest").toBoolean()
-
-  // The minimum supported Gradle version is whatever we're building the project with
-  val MIN_GRADLE_VERSION = GradleVersion.current()
-  val MAX_GRADLE_VERSION = GradleVersion.version("8.2.1")
-
-  // Sometimes there is duplication here and that is ok and intentional
-  val MIN_AGP_VERSION = AgpVersion.version(AGP_7_3)
-  val NEXT_AGP_VERSION = AgpVersion.version(AGP_8_1)
-  val MAX_AGP_VERSION = AgpVersion.version(AGP_8_2)
-
-  // We test against the current Gradle version and the upcoming Gradle version
-  private val TESTED_GRADLE_VERSIONS = listOf(
-    MIN_GRADLE_VERSION,
-    MAX_GRADLE_VERSION
-  ).distinct()
-
-  // We test against the current AGP version, and all versions upcoming (ideally just two)
-  private val TESTED_AGP_VERSIONS = listOf(
-    MIN_AGP_VERSION,
-    NEXT_AGP_VERSION
-    // Requires Build Tools 34.0.0 which is not available in kochiku
-    // MAX_AGP_VERSION
-  ).distinct()
-
-  override fun gradleVersions() = TESTED_GRADLE_VERSIONS
-  override fun agpVersions() = TESTED_AGP_VERSIONS
-
-  override fun gradlePlus(vararg others: Iterable<*>): List<List<*>> {
-    return listOf(gradleVersions(), *others).cartesianProduct()
+  override fun <T : VersionType> gradlePlus(others: Iterable<T>): List<Kase2<Gradle, T>> {
+    return kases(gradleVersions(), others)
   }
 
-  override fun gradleAgpMatrix(gradleVersions: List<GradleVersion>): List<List<*>> {
-    val matrix = gradleVersions.flatMap { gradle ->
-      agpVersions()
-        .filter { agp -> isCompatible(gradle, agp) }
-        // Transform from AgpVersion to its string representation
-        .map { listOf(gradle, it.value) }
-    }
+  override fun gradleAgpMatrix(gradleVersions: Iterable<Gradle>): List<Kase2<Gradle, Agp>> {
 
-    return if (QUICK_TEST) {
-      matrix.take(1)
-    } else {
-      matrix
-    }
+    return kases(gradleVersions, agpVersions())
+      .filter { (gradle, agp) -> isCompatible(gradle, agp) }
   }
 
-  override fun gradleAgpMatrixPlus(vararg others: List<*>): List<List<*>> {
+  override fun <T : VersionType> gradleAgpMatrixPlus(
+    others: Iterable<T>
+  ): List<Kase3<Gradle, Agp, T>> {
 
-    val matrix = listOf(
+    val matrix = kases(
       gradleVersions(),
       agpVersions(),
-      *others
+      others
     )
-      .cartesianProduct()
-      .mapNotNull { combination ->
-        val gradle = combination[0] as GradleVersion
-        val agp = combination[1] as AgpVersion
-
-        if (isCompatible(gradle, agp)) {
-          listOf(gradle, agp.value) + combination.drop(2)
-        } else {
-          null
-        }
+      .filter { (gradle, agp, _) ->
+        isCompatible(gradleVersion = gradle, agpVersion = agp)
       }
-
-    return if (QUICK_TEST) {
-      matrix.take(1)
-    } else {
-      matrix
-    }
+    return matrix
   }
 
-  private fun isCompatible(gradleVersion: GradleVersion, agpVersion: AgpVersion): Boolean {
+  fun versions() = kases(
+    GRADLE_VERSIONS,
+    AGP_VERSIONS,
+    KOTLIN_VERSIONS
+  ).asTests { }
+
+  private fun isCompatible(gradleVersion: Gradle, agpVersion: Agp): Boolean {
     return when {
-      gradleVersion >= GradleVersion.version("8.2") &&
-        agpVersion < AgpVersion.version("8.0.99999") -> {
+      gradleVersion >= "8.2" &&
+        agpVersion < "8.0.99999" -> {
         // Multiple configuration cache bugs with previous versions of AGP
         // https://issuetracker.google.com/issues/278767328
         // https://issuetracker.google.com/issues/263576736
         false
       }
 
-      agpVersion >= AgpVersion.version("8.2") -> gradleVersion >= GradleVersion.version("8.1")
-      agpVersion >= AgpVersion.version("8.0") -> gradleVersion >= GradleVersion.version("8.0")
-      agpVersion >= AgpVersion.version("7.4") -> gradleVersion >= GradleVersion.version("7.5")
-      agpVersion >= AgpVersion.version("7.3") -> gradleVersion >= GradleVersion.version("7.4")
+      agpVersion >= "8.2" -> gradleVersion >= "8.1"
+      agpVersion >= "8.0" -> gradleVersion >= "8.0"
+      agpVersion >= "7.4" -> gradleVersion >= "7.5"
+      agpVersion >= "7.3" -> gradleVersion >= "7.4"
       else -> throw IllegalArgumentException(
         "AGP $agpVersion is incompatible with Gradle $gradleVersion"
       )
