@@ -20,141 +20,122 @@ package com.rickbusarow.kase
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
 
-data class Case1<A>(val arg1: A)
-data class Case2<A1, A2>(val arg1: A1, val arg2: A2)
-data class Case3<A1, A2, A3>(val arg1: A1, val arg2: A2, val arg3: A3)
-data class Case4<A1, A2, A3, A4>(val arg1: A1, val arg2: A2, val arg3: A3, val arg4: A4)
-data class Case5<A1, A2, A3, A4, A5>(
-  val arg1: A1,
-  val arg2: A2,
-  val arg3: A3,
-  val arg4: A4,
-  val arg5: A5
-)
-
-data class Case6<A1, A2, A3, A4, A5, A6>(
-  val arg1: A1,
-  val arg2: A2,
-  val arg3: A3,
-  val arg4: A4,
-  val arg5: A5,
-  val arg6: A6
-)
-
-data class Case7<A1, A2, A3, A4, A5, A6, A7>(
-  val arg1: A1,
-  val arg2: A2,
-  val arg3: A3,
-  val arg4: A4,
-  val arg5: A5,
-  val arg6: A6,
-  val arg7: A7
-)
-
-data class Case8<A1, A2, A3, A4, A5, A6, A7, A8>(
-  val arg1: A1,
-  val arg2: A2,
-  val arg3: A3,
-  val arg4: A4,
-  val arg5: A5,
-  val arg6: A6,
-  val arg7: A7,
-  val arg8: A8
-)
-
-@JvmName("testFactoryCase1")
+/*
+@JvmName("testFactoryKase1")
 inline fun <A1> testFactory(
-  cases: Iterable<Case1<A1>>,
-  crossinline caseName: (Case1<A1>) -> String = { it.toString() },
+  kases: Iterable<Kase1<A1>>,
+  crossinline kaseName: (Kase1<A1>) -> String = { it.toString() },
   crossinline testAction: (a1: A1) -> Unit
 ): Stream<out DynamicNode> {
-  return cases.asTests(caseName) { case ->
-    testAction(case.arg1)
+  return kases.asTests(kaseName) { kase ->
+    testAction(kase.a1)
   }
 }
 
-@JvmName("testFactoryCase2")
+@JvmName("testFactoryKase2")
 inline fun <A1, A2> testFactory(
-  cases: Iterable<Case2<A1, A2>>,
-  crossinline caseName: (Case2<A1, A2>) -> String = { it.toString() },
+  kases: Iterable<Kase2<A1, A2>>,
+  crossinline kaseName: (Kase2<A1, A2>) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2) -> Unit
 ): Stream<out DynamicNode> {
-  return cases.asTests(caseName) { case ->
-    testAction(case.arg1, case.arg2)
+  return kases.asTests(kaseName) { kase ->
+    testAction(kase.a1, kase.a2)
   }
 }
 
-@JvmName("testFactoryCase3")
+
+@JvmName("testFactoryKase3")
 inline fun <A1, A2, A3> testFactory(
-  cases: Iterable<Case3<A1, A2, A3>>,
-  crossinline caseName: (Case3<A1, A2, A3>) -> String = { it.toString() },
+  kases: Iterable<Kase3<A1, A2, A3>>,
+  crossinline kaseName: (Kase3<A1, A2, A3>) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2, a3: A3) -> Unit
 ): Stream<out DynamicNode> {
-  return cases.asTests(caseName) { case ->
-    testAction(case.arg1, case.arg2, case.arg3)
+  return kases.asTests(kaseName) { kase ->
+    testAction(kase.a1, kase.a2, kase.a3)
   }
 }
 
-@JvmName("testFactoryCase4")
+@JvmName("testFactoryKase4")
 inline fun <A1, A2, A3, A4> testFactory(
-  cases: Iterable<Case4<A1, A2, A3, A4>>,
-  crossinline caseName: (Case4<A1, A2, A3, A4>) -> String = { it.toString() },
+  kases: Iterable<Kase4<A1, A2, A3, A4>>,
+  crossinline kaseName: (Kase4<A1, A2, A3, A4>) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4) -> Unit
 ): Stream<out DynamicNode> {
-  return cases.asTests(caseName) { case ->
-    testAction(case.arg1, case.arg2, case.arg3, case.arg4)
+  return kases.asTests(kaseName) { kase ->
+    testAction(kase.a1, kase.a2, kase.a3, kase.a4)
   }
 }
 
-@JvmName("testFactoryCase5")
+@JvmName("testFactoryKase5")
 inline fun <A1, A2, A3, A4, A5> testFactory(
-  cases: Iterable<Case5<A1, A2, A3, A4, A5>>,
-  crossinline caseName: (Case5<A1, A2, A3, A4, A5>) -> String = { it.toString() },
+  kases: Iterable<Kase5<A1, A2, A3, A4, A5>>,
+  crossinline kaseName: (Kase5<A1, A2, A3, A4, A5>) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) -> Unit
 ): Stream<out DynamicNode> {
-  return cases.asTests(caseName) { case ->
-    testAction(case.arg1, case.arg2, case.arg3, case.arg4, case.arg5)
+  return kases.asTests(kaseName) { kase ->
+    testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5)
   }
 }
 
-@JvmName("testFactoryCase6")
+@JvmName("testFactoryKase6")
 inline fun <A1, A2, A3, A4, A5, A6> testFactory(
-  cases: Iterable<Case6<A1, A2, A3, A4, A5, A6>>,
-  crossinline caseName: (Case6<A1, A2, A3, A4, A5, A6>) -> String = { it.toString() },
+  kases: Iterable<Kase6<A1, A2, A3, A4, A5, A6>>,
+  crossinline kaseName: (Kase6<A1, A2, A3, A4, A5, A6>) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) -> Unit
 ): Stream<out DynamicNode> {
-  return cases.asTests(caseName) { case ->
-    testAction(case.arg1, case.arg2, case.arg3, case.arg4, case.arg5, case.arg6)
+  return kases.asTests(kaseName) { kase ->
+    testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5, kase.a6)
   }
 }
 
-@JvmName("testFactoryCase7")
+@JvmName("testFactoryKase7")
 inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
-  cases: Iterable<Case7<A1, A2, A3, A4, A5, A6, A7>>,
-  crossinline caseName: (Case7<A1, A2, A3, A4, A5, A6, A7>) -> String = { it.toString() },
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
+  kases: Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>,
+  crossinline kaseName: (Kase7<A1, A2, A3, A4, A5, A6, A7>) -> String = {
+    it.toString()
+  },
+  crossinline testAction: (
+    a1: A1,
+    a2: A2,
+    a3: A3,
+    a4: A4,
+    a5: A5,
+    a6: A6,
+    a7: A7
+  ) -> Unit
 ): Stream<out DynamicNode> {
-  return cases.asTests(caseName) { case ->
-    testAction(case.arg1, case.arg2, case.arg3, case.arg4, case.arg5, case.arg6, case.arg7)
+  return kases.asTests(kaseName) { kase ->
+    testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5, kase.a6, kase.a7)
   }
 }
 
-@JvmName("testFactoryCase8")
+@JvmName("testFactoryKase8")
 inline fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
-  cases: Iterable<Case8<A1, A2, A3, A4, A5, A6, A7, A8>>,
-  crossinline caseName: (Case8<A1, A2, A3, A4, A5, A6, A7, A8>) -> String = { it.toString() },
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) -> Unit
+  kases: Iterable<Kase8<A1, A2, A3, A4, A5, A6, A7, A8>>,
+  crossinline kaseName: (Kase8<A1, A2, A3, A4, A5, A6, A7, A8>) -> String = {
+    it.toString()
+  },
+  crossinline testAction: (
+    a1: A1,
+    a2: A2,
+    a3: A3,
+    a4: A4,
+    a5: A5,
+    a6: A6,
+    a7: A7,
+    a8: A8
+  ) -> Unit
 ): Stream<out DynamicNode> {
-  return cases.asTests(caseName) { case ->
+  return kases.asTests(kaseName) { kase ->
     testAction(
-      case.arg1,
-      case.arg2,
-      case.arg3,
-      case.arg4,
-      case.arg5,
-      case.arg6,
-      case.arg7,
-      case.arg8
+      kase.a1,
+      kase.a2,
+      kase.a3,
+      kase.a4,
+      kase.a5,
+      kase.a6,
+      kase.a7,
+      kase.a8
     )
   }
 }
@@ -162,10 +143,10 @@ inline fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
 @JvmName("testFactory1")
 inline fun <A1> testFactory(
   args1: Iterable<A1>,
-  crossinline arg1Name: (A1) -> String = { it.toString() },
+  crossinline a1Name: (A1) -> String = { it.toString() },
   crossinline testAction: (a1: A1) -> Unit
 ): Stream<out DynamicNode> {
-  return args1.asTests(arg1Name) { a1 ->
+  return args1.asTests(a1Name) { a1 ->
     testAction(a1)
   }
 }
@@ -174,12 +155,12 @@ inline fun <A1> testFactory(
 inline fun <A1, A2> testFactory(
   args1: Iterable<A1>,
   args2: Iterable<A2>,
-  crossinline arg1Name: (A1) -> String = { it.toString() },
-  crossinline arg2Name: (A2) -> String = { it.toString() },
+  crossinline a1Name: (A1) -> String = { it.toString() },
+  crossinline a2Name: (A2) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2) -> Unit
 ): Stream<out DynamicNode> {
-  return args1.asContainers(arg1Name) { a1 ->
-    args2.asTests(arg2Name) { a2 ->
+  return args1.asContainers(a1Name) { a1 ->
+    args2.asTests(a2Name) { a2 ->
       testAction(a1, a2)
     }
   }
@@ -190,15 +171,15 @@ inline fun <A1, A2, A3> testFactory(
   args1: Iterable<A1>,
   args2: Iterable<A2>,
   args3: Iterable<A3>,
-  crossinline arg1Name: (A1) -> String = { it.toString() },
-  crossinline arg2Name: (A2) -> String = { it.toString() },
-  crossinline arg3Name: (A3) -> String = { it.toString() },
+  crossinline a1Name: (A1) -> String = { it.toString() },
+  crossinline a2Name: (A2) -> String = { it.toString() },
+  crossinline a3Name: (A3) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2, a3: A3) -> Unit
 ): Stream<out DynamicNode> {
 
-  return args1.asContainers(arg1Name) { a1 ->
-    args2.asContainers(arg2Name) { a2 ->
-      args3.asTests(arg3Name) { a3 ->
+  return args1.asContainers(a1Name) { a1 ->
+    args2.asContainers(a2Name) { a2 ->
+      args3.asTests(a3Name) { a3 ->
         testAction(a1, a2, a3)
       }
     }
@@ -211,17 +192,17 @@ inline fun <A1, A2, A3, A4> testFactory(
   args2: Iterable<A2>,
   args3: Iterable<A3>,
   args4: Iterable<A4>,
-  crossinline arg1Name: (A1) -> String = { it.toString() },
-  crossinline arg2Name: (A2) -> String = { it.toString() },
-  crossinline arg3Name: (A3) -> String = { it.toString() },
-  crossinline arg4Name: (A4) -> String = { it.toString() },
+  crossinline a1Name: (A1) -> String = { it.toString() },
+  crossinline a2Name: (A2) -> String = { it.toString() },
+  crossinline a3Name: (A3) -> String = { it.toString() },
+  crossinline a4Name: (A4) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4) -> Unit
 ): Stream<out DynamicNode> {
 
-  return args1.asContainers(arg1Name) { a1 ->
-    args2.asContainers(arg2Name) { a2 ->
-      args3.asContainers(arg3Name) { a3 ->
-        args4.asTests(arg4Name) { a4 ->
+  return args1.asContainers(a1Name) { a1 ->
+    args2.asContainers(a2Name) { a2 ->
+      args3.asContainers(a3Name) { a3 ->
+        args4.asTests(a4Name) { a4 ->
           testAction(a1, a2, a3, a4)
         }
       }
@@ -236,19 +217,19 @@ inline fun <A1, A2, A3, A4, A5> testFactory(
   args3: Iterable<A3>,
   args4: Iterable<A4>,
   args5: Iterable<A5>,
-  crossinline arg1Name: (A1) -> String = { it.toString() },
-  crossinline arg2Name: (A2) -> String = { it.toString() },
-  crossinline arg3Name: (A3) -> String = { it.toString() },
-  crossinline arg4Name: (A4) -> String = { it.toString() },
-  crossinline arg5Name: (A5) -> String = { it.toString() },
+  crossinline a1Name: (A1) -> String = { it.toString() },
+  crossinline a2Name: (A2) -> String = { it.toString() },
+  crossinline a3Name: (A3) -> String = { it.toString() },
+  crossinline a4Name: (A4) -> String = { it.toString() },
+  crossinline a5Name: (A5) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) -> Unit
 ): Stream<out DynamicNode> {
 
-  return args1.asContainers(arg1Name) { a1 ->
-    args2.asContainers(arg2Name) { a2 ->
-      args3.asContainers(arg3Name) { a3 ->
-        args4.asContainers(arg4Name) { a4 ->
-          args5.asTests(arg5Name) { a5 ->
+  return args1.asContainers(a1Name) { a1 ->
+    args2.asContainers(a2Name) { a2 ->
+      args3.asContainers(a3Name) { a3 ->
+        args4.asContainers(a4Name) { a4 ->
+          args5.asTests(a5Name) { a5 ->
             testAction(a1, a2, a3, a4, a5)
           }
         }
@@ -265,21 +246,21 @@ inline fun <A1, A2, A3, A4, A5, A6> testFactory(
   args4: Iterable<A4>,
   args5: Iterable<A5>,
   args6: Iterable<A6>,
-  crossinline arg1Name: (A1) -> String = { it.toString() },
-  crossinline arg2Name: (A2) -> String = { it.toString() },
-  crossinline arg3Name: (A3) -> String = { it.toString() },
-  crossinline arg4Name: (A4) -> String = { it.toString() },
-  crossinline arg5Name: (A5) -> String = { it.toString() },
-  crossinline arg6Name: (A6) -> String = { it.toString() },
+  crossinline a1Name: (A1) -> String = { it.toString() },
+  crossinline a2Name: (A2) -> String = { it.toString() },
+  crossinline a3Name: (A3) -> String = { it.toString() },
+  crossinline a4Name: (A4) -> String = { it.toString() },
+  crossinline a5Name: (A5) -> String = { it.toString() },
+  crossinline a6Name: (A6) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) -> Unit
 ): Stream<out DynamicNode> {
 
-  return args1.asContainers(arg1Name) { a1 ->
-    args2.asContainers(arg2Name) { a2 ->
-      args3.asContainers(arg3Name) { a3 ->
-        args4.asContainers(arg4Name) { a4 ->
-          args5.asContainers(arg5Name) { a5 ->
-            args6.asTests(arg6Name) { a6 ->
+  return args1.asContainers(a1Name) { a1 ->
+    args2.asContainers(a2Name) { a2 ->
+      args3.asContainers(a3Name) { a3 ->
+        args4.asContainers(a4Name) { a4 ->
+          args5.asContainers(a5Name) { a5 ->
+            args6.asTests(a6Name) { a6 ->
               testAction(a1, a2, a3, a4, a5, a6)
             }
           }
@@ -298,23 +279,31 @@ inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   args5: Iterable<A5>,
   args6: Iterable<A6>,
   args7: Iterable<A7>,
-  crossinline arg1Name: (A1) -> String = { it.toString() },
-  crossinline arg2Name: (A2) -> String = { it.toString() },
-  crossinline arg3Name: (A3) -> String = { it.toString() },
-  crossinline arg4Name: (A4) -> String = { it.toString() },
-  crossinline arg5Name: (A5) -> String = { it.toString() },
-  crossinline arg6Name: (A6) -> String = { it.toString() },
-  crossinline arg7Name: (A7) -> String = { it.toString() },
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
+  crossinline a1Name: (A1) -> String = { it.toString() },
+  crossinline a2Name: (A2) -> String = { it.toString() },
+  crossinline a3Name: (A3) -> String = { it.toString() },
+  crossinline a4Name: (A4) -> String = { it.toString() },
+  crossinline a5Name: (A5) -> String = { it.toString() },
+  crossinline a6Name: (A6) -> String = { it.toString() },
+  crossinline a7Name: (A7) -> String = { it.toString() },
+  crossinline testAction: (
+    a1: A1,
+    a2: A2,
+    a3: A3,
+    a4: A4,
+    a5: A5,
+    a6: A6,
+    a7: A7
+  ) -> Unit
 ): Stream<out DynamicNode> {
 
-  return args1.asContainers(arg1Name) { a1 ->
-    args2.asContainers(arg2Name) { a2 ->
-      args3.asContainers(arg3Name) { a3 ->
-        args4.asContainers(arg4Name) { a4 ->
-          args5.asContainers(arg5Name) { a5 ->
-            args6.asContainers(arg6Name) { a6 ->
-              args7.asTests(arg7Name) { a7 ->
+  return args1.asContainers(a1Name) { a1 ->
+    args2.asContainers(a2Name) { a2 ->
+      args3.asContainers(a3Name) { a3 ->
+        args4.asContainers(a4Name) { a4 ->
+          args5.asContainers(a5Name) { a5 ->
+            args6.asContainers(a6Name) { a6 ->
+              args7.asTests(a7Name) { a7 ->
                 testAction(a1, a2, a3, a4, a5, a6, a7)
               }
             }
@@ -335,25 +324,34 @@ inline fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
   args6: Iterable<A6>,
   args7: Iterable<A7>,
   args8: Iterable<A8>,
-  crossinline arg1Name: (A1) -> String = { it.toString() },
-  crossinline arg2Name: (A2) -> String = { it.toString() },
-  crossinline arg3Name: (A3) -> String = { it.toString() },
-  crossinline arg4Name: (A4) -> String = { it.toString() },
-  crossinline arg5Name: (A5) -> String = { it.toString() },
-  crossinline arg6Name: (A6) -> String = { it.toString() },
-  crossinline arg7Name: (A7) -> String = { it.toString() },
-  crossinline arg8Name: (A8) -> String = { it.toString() },
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) -> Unit
+  crossinline a1Name: (A1) -> String = { it.toString() },
+  crossinline a2Name: (A2) -> String = { it.toString() },
+  crossinline a3Name: (A3) -> String = { it.toString() },
+  crossinline a4Name: (A4) -> String = { it.toString() },
+  crossinline a5Name: (A5) -> String = { it.toString() },
+  crossinline a6Name: (A6) -> String = { it.toString() },
+  crossinline a7Name: (A7) -> String = { it.toString() },
+  crossinline a8Name: (A8) -> String = { it.toString() },
+  crossinline testAction: (
+    a1: A1,
+    a2: A2,
+    a3: A3,
+    a4: A4,
+    a5: A5,
+    a6: A6,
+    a7: A7,
+    a8: A8
+  ) -> Unit
 ): Stream<out DynamicNode> {
 
-  return args1.asContainers(arg1Name) { a1 ->
-    args2.asContainers(arg2Name) { a2 ->
-      args3.asContainers(arg3Name) { a3 ->
-        args4.asContainers(arg4Name) { a4 ->
-          args5.asContainers(arg5Name) { a5 ->
-            args6.asContainers(arg6Name) { a6 ->
-              args7.asContainers(arg7Name) { a7 ->
-                args8.asTests(arg8Name) { a8 ->
+  return args1.asContainers(a1Name) { a1 ->
+    args2.asContainers(a2Name) { a2 ->
+      args3.asContainers(a3Name) { a3 ->
+        args4.asContainers(a4Name) { a4 ->
+          args5.asContainers(a5Name) { a5 ->
+            args6.asContainers(a6Name) { a6 ->
+              args7.asContainers(a7Name) { a7 ->
+                args8.asTests(a8Name) { a8 ->
                   testAction(a1, a2, a3, a4, a5, a6, a7, a8)
                 }
               }
@@ -364,3 +362,6 @@ inline fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
     }
   }
 }
+
+
+ */

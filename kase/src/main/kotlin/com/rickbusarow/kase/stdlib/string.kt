@@ -117,5 +117,4 @@ internal fun String.osFileSeparators(): String {
   } else {
     replace('\\', File.separatorChar)
   }
-  return replace()
 }

@@ -18,7 +18,7 @@ package com.rickbusarow.kase
 import kotlinx.coroutines.runBlocking
 
 /** Creates [TestEnvironment]s. */
-interface TestEnvironmentFactory<T : TestEnvironment> {
+interface TestEnvironmentFactory<T : TestEnvironment<R>, R : TestEnvironmentParams> {
 
   /**
    * Runs the provided test [action] in the context of a new [TestEnvironment].
@@ -63,7 +63,7 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
    * @param params used to create the [TestEnvironment]
    * @param action The test action to run within the [TestEnvironment].
    */
-  fun test(params: TestEnvironmentParams, action: suspend T.() -> Unit) {
+  fun test(params: R, action: suspend T.() -> Unit) {
 
     val testEnvironment = newTestEnvironment(params)
 
@@ -80,9 +80,9 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
    *
    * @return A new [TestEnvironment] of type [T].
    */
-  fun newTestEnvironment(params: TestEnvironmentParams): T {
+  fun newTestEnvironment(params: R): T {
     @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(params.testFunctionName, params.testVariantNames) as? T
+    return TestEnvironment<R>(params.testFunctionName, params.testVariantNames) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
 }

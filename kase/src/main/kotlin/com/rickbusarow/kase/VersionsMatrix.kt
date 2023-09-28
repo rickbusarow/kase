@@ -65,6 +65,9 @@ internal sealed interface VersionType {
   value class Keeper(override val value: String) : VersionType
 
   @JvmInline
+  value class Dagger(override val value: String) : VersionType
+
+  @JvmInline
   value class Detekt(override val value: String) : VersionType
 }
 

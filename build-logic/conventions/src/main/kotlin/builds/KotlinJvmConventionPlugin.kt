@@ -54,7 +54,8 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
           "-Xsam-conversions=class",
           "-opt-in=kotlin.ExperimentalStdlibApi",
           "-opt-in=kotlin.RequiresOptIn",
-          "-opt-in=kotlin.contracts.ExperimentalContracts"
+          "-opt-in=kotlin.contracts.ExperimentalContracts",
+          "-Xcontext-receivers"
         )
       }
     }
