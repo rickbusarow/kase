@@ -107,10 +107,9 @@ class TestNodeBuilder @PublishedApi internal constructor(
   /**
    * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
    *
-   * @param name the name of the test.
-   * action a function containing the test logic.
+   * @param name the name of the test. action a function containing the test logic.
    */
-  inline fun test(name: String, crossinline testAction: () -> Unit) {
+  fun test(name: String, testAction: () -> Unit) {
     addTest(name, testAction)
   }
 
@@ -121,8 +120,10 @@ class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  inline fun <T : TestEnvironment> test(name: String,
-    crossinline testAction: suspend T.() -> Unit) {
+  inline fun <T : TestEnvironment> test(
+    name: String,
+    crossinline testAction: suspend T.() -> Unit
+  ) {
     addTest(name) {
       this@TestEnvironmentFactory.test(
         testFunctionName = testFunctionName,
@@ -132,7 +133,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
   }
 
   @PublishedApi
-  internal inline fun addTest(name: String, crossinline testAction: () -> Unit) {
+  internal fun addTest(name: String, testAction: () -> Unit) {
     nodes.add { DynamicTest.dynamicTest(name, testUri()) { testAction() } }
   }
 
@@ -144,7 +145,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
    */
   context(TestEnvironmentFactory<T>)
   inline fun <T : TestEnvironment, E> Iterable<E>.asTests(
-    crossinline testName: (E) -> String = { it.toString() },
+    testName: (E) -> String = { it.toString() },
     crossinline testAction: suspend T.(E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asTests) {
@@ -160,7 +161,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
    */
   context(TestEnvironmentFactory<T>)
   inline fun <T : TestEnvironment, E> Sequence<E>.asTests(
-    crossinline testName: (E) -> String = { it.toString() },
+    testName: (E) -> String = { it.toString() },
     crossinline testAction: suspend T.(E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asTests) {
@@ -170,8 +171,8 @@ class TestNodeBuilder @PublishedApi internal constructor(
 
   /**
    * Adds tests to the invoking [TestNodeBuilder] for each element of the
-   * iterable. The names of the tests are determined by the [testName]
-   * function, and the tests themselves are defined by the [testAction] function.
+   * iterable. The names of the tests are determined by the [testName] function,
+   * and the tests themselves are defined by the [testAction] function.
    *
    * @param testName a function to compute the name of each test.
    * @param testAction a function to define each test.
@@ -179,7 +180,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
    * @return the invoking [TestNodeBuilder], after adding the new tests.
    */
   inline fun <E> Iterable<E>.asTests(
-    crossinline testName: (E) -> String = { it.toString() },
+    testName: (E) -> String = { it.toString() },
     crossinline testAction: (E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asTests) {
@@ -189,8 +190,8 @@ class TestNodeBuilder @PublishedApi internal constructor(
 
   /**
    * Adds tests to the invoking [TestNodeBuilder] for each element of the
-   * iterable. The names of the tests are determined by the [testName]
-   * function, and the tests themselves are defined by the [testAction] function.
+   * iterable. The names of the tests are determined by the [testName] function,
+   * and the tests themselves are defined by the [testAction] function.
    *
    * @param testName a function to compute the name of each test.
    * @param testAction a function to define each test.
@@ -198,7 +199,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
    * @return the invoking [TestNodeBuilder], after adding the new tests.
    */
   inline fun <E> Sequence<E>.asTests(
-    crossinline testName: (E) -> String = { it.toString() },
+    testName: (E) -> String = { it.toString() },
     crossinline testAction: (E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asTests) {
@@ -230,8 +231,8 @@ class TestNodeBuilder @PublishedApi internal constructor(
    * iterable. The names of the containers are determined by the [testName] function,
    * and the containers themselves are initialized by the [testAction] function.
    *
-   * @param testName a function to compute the name of each container.
-   * action a function to initialize each container.
+   * @param testName a function to compute the name of each
+   *   container. action a function to initialize each container.
    * @receiver the [TestNodeBuilder] to which containers will be added.
    * @return the invoking [TestNodeBuilder], after adding the new containers.
    */
@@ -251,7 +252,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
    * @param name the name of the container.
    * @param init a lambda with receiver that initializes the [TestNodeBuilder].
    */
-  inline fun container(name: String, crossinline init: TestNodeBuilder.() -> Unit) {
+  fun container(name: String, init: TestNodeBuilder.() -> Unit) {
 
     nodes.add {
       TestNodeBuilder(

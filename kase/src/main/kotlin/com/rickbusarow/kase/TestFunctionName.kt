@@ -21,12 +21,12 @@ import java.lang.reflect.AnnotatedElement
 import java.lang.reflect.Method
 
 /**
- * @property fileName  ex: `com/example/foo/Outer.kt`
+ * @property fileName ex: `com/example/foo/Outer.kt`
  * @property lineNumber ex: 1337
- * @property packageName  ex: `com.example.foo`
- * @property declaringClass  ex: `com.example.foo.Outer.Middle.Inner$$inlined$$execute$1`
- * @property declaringClassWithoutSynthetics  ex: `com.example.foo.Outer.Middle.Inner`
- * @property simpleNames  ex: `[Outer, Middle, Inner]`
+ * @property packageName ex: `com.example.foo`
+ * @property declaringClass ex: `com.example.foo.Outer.Middle.Inner$$inlined$$execute$1`
+ * @property declaringClassWithoutSynthetics ex: `com.example.foo.Outer.Middle.Inner`
+ * @property simpleNames ex: `[Outer, Middle, Inner]`
  * @property callingFunctionSimpleName ex: `some function should return false`
  */
 class TestFunctionName private constructor(

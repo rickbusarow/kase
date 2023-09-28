@@ -70,7 +70,7 @@ class GradleTestEnvironment(
   override val projectCache: MutableMap<String, KaseGradleProject>,
   testFunctionName: TestFunctionName,
   testVariantNames: List<String>
-) : TestEnvironment<GradleTestEnvironmentParams> (testFunctionName, testVariantNames),
+) : TestEnvironment<GradleTestEnvironmentParams>(testFunctionName, testVariantNames),
   ProjectCollector,
   HasTestVersions {
 

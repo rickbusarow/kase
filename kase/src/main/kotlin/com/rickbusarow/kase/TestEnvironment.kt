@@ -23,16 +23,13 @@ import com.rickbusarow.kase.stdlib.useRelativePaths
  * associated working directory and certain assertions.
  *
  * @param testFunctionName The [TestFunctionName] from which the test is being run.
- * @param testVariantNames The variant names related to the test.
  */
-open class TestEnvironment<T: TestEnvironmentParams>(
-  testFunctionName: TestFunctionName = TestFunctionName.get(),
-  testVariantNames: List<String>
-) : HasWorkingDir(createWorkingDir(testFunctionName, testVariantNames)) {
+open class TestEnvironment(
+  val kase: Kase,
+  testFunctionName: TestFunctionName = TestFunctionName.get()
+) : HasWorkingDir(createWorkingDir(testFunctionName, TODO())) {
 
-  /**
-   * replace absolute paths with relative ones
-   */
+  /** replace absolute paths with relative ones */
   fun String.useRelativePaths(): String = useRelativePaths(workingDir)
 
   /**
@@ -48,9 +45,9 @@ open class TestEnvironment<T: TestEnvironmentParams>(
  * @property testFunctionName The [StackWalker.StackFrame] from which the test is being run.
  * @property testVariantNames The variant names related to the test.
  */
-data class DefaultTestEnvironmentParams(
-  override val testFunctionName: TestFunctionName,
-  override val testVariantNames: List<String>
+data class DefaultTestEnvironmentParams(override val kase: Kase,
+  override val testFunctionName: TestFunctionName
+
 ) : TestEnvironmentParams
 
 /** */
@@ -58,9 +55,16 @@ interface TestEnvironmentParams : TestVariant
 
 /** Represents a specific instance of a test case invocation */
 interface TestVariant {
-  /** The [TestFunctionName] from which the test is being run. Defaults to the current stack frame if not provided. */
-  val testFunctionName: TestFunctionName
+  /**
+   * The variant name(s) related to the test. The first name corresponds to
+   * a subdirectory under the directory derived from [testStackFrame]. Each
+   * additional name corresponds to a subdirectory inside its predecessor.
+   */
+  val kase: Kase
 
-  /** The variant name(s) related to the test. The first name corresponds to a subdirectory under the directory derived from [testStackFrame]. Each additional name corresponds to a subdirectory inside its predecessor. */
-  val testVariantNames: List<String>
+  /**
+   * The [TestFunctionName] from which the test is being run.
+   * Defaults to the current stack frame if not provided.
+   */
+  val testFunctionName: TestFunctionName
 }

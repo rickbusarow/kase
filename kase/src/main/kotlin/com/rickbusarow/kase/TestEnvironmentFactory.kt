@@ -18,58 +18,72 @@ package com.rickbusarow.kase
 import kotlinx.coroutines.runBlocking
 
 /** Creates [TestEnvironment]s. */
-interface TestEnvironmentFactory<T : TestEnvironment<R>, R : TestEnvironmentParams> {
+interface TestEnvironmentFactory<T : TestEnvironment> {
+
+  // /**
+  //  * Runs the provided test [testAction] in the context of a new [TestEnvironment].
+  //  *
+  //  * @param testFunctionName The [TestFunctionName] from which the test is being run.
+  //  * @param testVariantNames The variant names related to the test.
+  //  * @param testAction The test action to run within the [TestEnvironment].
+  //  */
+  // fun test(
+  //   testFunctionName: TestFunctionName = TestFunctionName.get(),
+  //   vararg testVariantNames: String,
+  //   testAction: suspend T.() -> Unit
+  // ) {
+  //    test(testFunctionName, testVariantNames.toList(), testAction = testAction)
+  // }
+
+ /**
+  * Runs the provided test [testAction] in the context of a new [TestEnvironment].
+  *
+  * @param testFunctionName The [TestFunctionName] from which the test is being run.
+  * @param testVariantNames The variant names related to the test.
+  * @param testAction The test action to run within the [TestEnvironment].
+  */
+ fun test(
+   testFunctionName: TestFunctionName = TestFunctionName.get(),
+   testVariantNames: List<String>,
+   testAction: suspend T.() -> Unit
+ ) {
+   test(testFunctionName, testVariantNames, testAction = testAction)
+ }
 
   /**
-   * Runs the provided test [action] in the context of a new [TestEnvironment].
-   *
+   * Runs the provided test [testAction] in the context of a new [TestEnvironment].
    *
    * @param testFunctionName The [TestFunctionName] from which the test is being run.
-   * @param testVariantNames The variant names related to the test.
-   * @param action The test action to run within the [TestEnvironment].
+   * @param kase The variant names related to the test.
+   * @param testAction The test action to run within the [TestEnvironment].
    */
   fun test(
     testFunctionName: TestFunctionName = TestFunctionName.get(),
-    vararg testVariantNames: String,
-    action: suspend T.() -> Unit
-  ) {
-    test(testFunctionName, testVariantNames.toList(), action = action)
-  }
-
-  /**
-   * Runs the provided test [action] in the context of a new [TestEnvironment].
-   *
-   * @param testFunctionName The [TestFunctionName] from which the test is being run.
-   * @param testVariantNames The variant names related to the test.
-   * @param action The test action to run within the [TestEnvironment].
-   */
-  fun test(
-    testFunctionName: TestFunctionName = TestFunctionName.get(),
-    testVariantNames: List<String>,
-    action: suspend T.() -> Unit
+    kase: Kase,
+    testAction: suspend T.() -> Unit
   ) {
     test(
       params = DefaultTestEnvironmentParams(
+        kase = kase,
         testFunctionName = testFunctionName,
-        testVariantNames = testVariantNames.toList()
       ),
-      action = action
+      testAction = testAction
     )
   }
 
   /**
-   * Runs the provided test [action] in the context of a new [TestEnvironment].
+   * Runs the provided test [testAction] in the context of a new [TestEnvironment].
    *
    * @param params used to create the [TestEnvironment]
-   * @param action The test action to run within the [TestEnvironment].
+   * @param testAction The test action to run within the [TestEnvironment].
    */
-  fun test(params: R, action: suspend T.() -> Unit) {
+  fun test(params: TestEnvironmentParams, testAction: suspend T.() -> Unit) {
 
     val testEnvironment = newTestEnvironment(params)
 
     runBlocking {
       testEnvironment.asClueCatching {
-        testEnvironment.action()
+        testEnvironment.testAction()
         println(testEnvironment)
       }
     }
@@ -80,9 +94,9 @@ interface TestEnvironmentFactory<T : TestEnvironment<R>, R : TestEnvironmentPara
    *
    * @return A new [TestEnvironment] of type [T].
    */
-  fun newTestEnvironment(params: R): T {
+  fun newTestEnvironment(params: TestEnvironmentParams): T {
     @Suppress("UNCHECKED_CAST")
-    return TestEnvironment<R>(params.testFunctionName, params.testVariantNames) as? T
+    return TestEnvironment(kase = params.kase, testFunctionName = params.testFunctionName) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
 }

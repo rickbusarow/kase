@@ -63,23 +63,28 @@ fun main() {
       val labelsParams = args.joinToString(", ") { "val ${it}Label: String = \"$it\"" }
 
       val label = labels.zip(args)
-        .joinToString("        append(labels.separator)\n", "buildString {\n", "      }") { (label, arg) ->
+        .joinToString(
+          "        append(labels.separator)\n",
+          "buildString {\n",
+          "      }"
+        ) { (label, arg) ->
           "        append(\"\${labels.$label}\${labels.delimiter}\$$arg\")\n"
         }
 
-      val iterableParams = nums.zip(types).joinToString(",\n  ") {(i, type) ->
+      val iterableParams = nums.zip(types).joinToString(",\n  ") { (i, type) ->
         "args$i: Iterable<$type>"
       }
 
       val maps = buildString {
         for ((index, arg) in args.dropLast(1).withIndex()) {
-          val i = index+1
-          appendLine("${"  ".repeat(i)}args${i}.flatMap { $arg ->")
+          val i = index + 1
+          appendLine("${"  ".repeat(i)}args$i.flatMap { $arg ->")
         }
         appendLine("${"  ".repeat(args.size)}args${args.size}.map { ${args.last()} ->")
-        appendLine("${"  ".repeat(args.size+1)}$kaseSimpleName($argsStringWithLabels)")
-        repeat(args.size) {
-          appendLine("${"  ".repeat(it+1)}}")
+        appendLine("${"  ".repeat(args.size + 1)}$kaseSimpleName($argsStringWithLabels)")
+
+        for (it in args.indices.reversed()) {
+          appendLine("${"  ".repeat(it + 1)}}")
         }
       }.trim()
 
@@ -144,7 +149,7 @@ fun main() {
         |  )
         |}
         |
-        |data class $kaseSimpleName$typesWithVarianceString(${propertiesString}) : Kase {
+        |data class $kaseSimpleName$typesWithVarianceString($propertiesString) : Kase {
         |  override val args: List<Any?> = listOf($argsString)
         |}
         |
@@ -153,7 +158,6 @@ fun main() {
         """.replaceIndentByMargin()
       )
     }
-
   }
 
   val f = File(

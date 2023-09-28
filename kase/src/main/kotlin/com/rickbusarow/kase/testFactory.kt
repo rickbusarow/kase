@@ -17,9 +17,6 @@
 
 package com.rickbusarow.kase
 
-import org.junit.jupiter.api.DynamicNode
-import java.util.stream.Stream
-
 /*
 @JvmName("testFactoryKase1")
 inline fun <A1> testFactory(

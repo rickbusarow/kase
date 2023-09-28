@@ -110,8 +110,8 @@ fun <A1, A2> kases(
   return args1.flatMap { a1 ->
     args2.map { a2 ->
       Kase2(a1 = a1, a2 = a2)
-  }
     }
+  }
 }
 
 @JvmName("testFactoryKase2")
@@ -189,9 +189,9 @@ fun <A1, A2, A3> kases(
     args2.flatMap { a2 ->
       args3.map { a3 ->
         Kase3(a1 = a1, a2 = a2, a3 = a3)
-  }
-    }
       }
+    }
+  }
 }
 
 @JvmName("testFactoryKase3")
@@ -275,10 +275,10 @@ fun <A1, A2, A3, A4> kases(
       args3.flatMap { a3 ->
         args4.map { a4 ->
           Kase4(a1 = a1, a2 = a2, a3 = a3, a4 = a4)
-  }
-    }
-      }
         }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase4")
@@ -368,11 +368,11 @@ fun <A1, A2, A3, A4, A5> kases(
         args4.flatMap { a4 ->
           args5.map { a5 ->
             Kase5(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5)
-  }
-    }
-      }
-        }
           }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase5")
@@ -468,12 +468,12 @@ fun <A1, A2, A3, A4, A5, A6> kases(
           args5.flatMap { a5 ->
             args6.map { a6 ->
               Kase6(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6)
-  }
-    }
-      }
-        }
-          }
             }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase6")
@@ -575,13 +575,13 @@ fun <A1, A2, A3, A4, A5, A6, A7> kases(
             args6.flatMap { a6 ->
               args7.map { a7 ->
                 Kase7(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7)
-  }
-    }
-      }
-        }
-          }
-            }
               }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase7")
@@ -689,14 +689,14 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8> kases(
               args7.flatMap { a7 ->
                 args8.map { a8 ->
                   Kase8(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
                 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase8")
@@ -810,15 +810,15 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> kases(
                 args8.flatMap { a8 ->
                   args9.map { a9 ->
                     Kase9(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase9")
@@ -938,16 +938,16 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> kases(
                   args9.flatMap { a9 ->
                     args10.map { a10 ->
                       Kase10(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
                     }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase10")
@@ -1073,17 +1073,17 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11> kases(
                     args10.flatMap { a10 ->
                       args11.map { a11 ->
                         Kase11(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
                       }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase11")
@@ -1215,18 +1215,18 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12> kases(
                       args11.flatMap { a11 ->
                         args12.map { a12 ->
                           Kase12(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
                         }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase12")
@@ -1364,19 +1364,19 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13> kases(
                         args12.flatMap { a12 ->
                           args13.map { a13 ->
                             Kase13(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
                           }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase13")
@@ -1520,20 +1520,20 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14> kases(
                           args13.flatMap { a13 ->
                             args14.map { a14 ->
                               Kase14(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
-                          }
                             }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase14")
@@ -1683,21 +1683,21 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> kases(
                             args14.flatMap { a14 ->
                               args15.map { a15 ->
                                 Kase15(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
-                          }
-                            }
                               }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase15")
@@ -1853,22 +1853,22 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16> kase
                               args15.flatMap { a15 ->
                                 args16.map { a16 ->
                                   Kase16(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
-                          }
-                            }
-                              }
                                 }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase16")
@@ -2030,23 +2030,23 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17>
                                 args16.flatMap { a16 ->
                                   args17.map { a17 ->
                                     Kase17(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
-                          }
-                            }
-                              }
-                                }
                                   }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase17")
@@ -2214,24 +2214,24 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17,
                                   args17.flatMap { a17 ->
                                     args18.map { a18 ->
                                       Kase18(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17, a18 = a18)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
-                          }
-                            }
-                              }
-                                }
-                                  }
                                     }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase18")
@@ -2405,25 +2405,25 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17,
                                     args18.flatMap { a18 ->
                                       args19.map { a19 ->
                                         Kase19(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17, a18 = a18, a19 = a19)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
-                          }
-                            }
-                              }
-                                }
-                                  }
-                                    }
                                       }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase19")
@@ -2603,26 +2603,26 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17,
                                       args19.flatMap { a19 ->
                                         args20.map { a20 ->
                                           Kase20(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17, a18 = a18, a19 = a19, a20 = a20)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
-                          }
-                            }
-                              }
-                                }
-                                  }
-                                    }
-                                      }
                                         }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase20")
@@ -2808,27 +2808,27 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17,
                                         args20.flatMap { a20 ->
                                           args21.map { a21 ->
                                             Kase21(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17, a18 = a18, a19 = a19, a20 = a20, a21 = a21)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
-                          }
-                            }
-                              }
-                                }
-                                  }
-                                    }
-                                      }
-                                        }
                                           }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase21")
@@ -3020,28 +3020,28 @@ fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17,
                                           args21.flatMap { a21 ->
                                             args22.map { a22 ->
                                               Kase22(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17, a18 = a18, a19 = a19, a20 = a20, a21 = a21, a22 = a22)
-  }
-    }
-      }
-        }
-          }
-            }
-              }
-                }
-                  }
-                    }
-                      }
-                        }
-                          }
-                            }
-                              }
-                                }
-                                  }
-                                    }
-                                      }
-                                        }
-                                          }
                                             }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 @JvmName("testFactoryKase22")
