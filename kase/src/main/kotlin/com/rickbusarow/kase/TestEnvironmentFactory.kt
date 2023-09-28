@@ -35,20 +35,26 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
   //    test(testFunctionName, testVariantNames.toList(), testAction = testAction)
   // }
 
- /**
-  * Runs the provided test [testAction] in the context of a new [TestEnvironment].
-  *
-  * @param testFunctionName The [TestFunctionName] from which the test is being run.
-  * @param testVariantNames The variant names related to the test.
-  * @param testAction The test action to run within the [TestEnvironment].
-  */
- fun test(
-   testFunctionName: TestFunctionName = TestFunctionName.get(),
-   testVariantNames: List<String>,
-   testAction: suspend T.() -> Unit
- ) {
-   test(testFunctionName, testVariantNames, testAction = testAction)
- }
+  /**
+   * Runs the provided test [testAction] in the context of a new [TestEnvironment].
+   *
+   * @param testFunctionName The [TestFunctionName] from which the test is being run.
+   * @param testVariantNames The variant names related to the test.
+   * @param testAction The test action to run within the [TestEnvironment].
+   */
+  fun test(
+    testFunctionName: TestFunctionName = TestFunctionName.get(),
+    testVariantNames: List<String>,
+    testAction: suspend T.() -> Unit
+  ) {
+    test(
+      params = DefaultTestEnvironmentParams(
+        kase = TODO(),
+        testFunctionName = testFunctionName
+      ),
+      testAction = testAction
+    )
+  }
 
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
@@ -59,13 +65,13 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
    */
   fun test(
     testFunctionName: TestFunctionName = TestFunctionName.get(),
-    kase: Kase,
+    kase: Kase<*>,
     testAction: suspend T.() -> Unit
   ) {
     test(
       params = DefaultTestEnvironmentParams(
         kase = kase,
-        testFunctionName = testFunctionName,
+        testFunctionName = testFunctionName
       ),
       testAction = testAction
     )

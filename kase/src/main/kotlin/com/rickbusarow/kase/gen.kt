@@ -23,16 +23,12 @@ fun main() {
 
     appendLine(
       """
-      @file:Suppress("ktlint:parameter-list-wrapping", "ktlint:argument-list-wrapping")
+      @file:Suppress("ktlint")
 
       package com.rickbusarow.kase
 
       import org.junit.jupiter.api.DynamicNode
       import java.util.stream.Stream
-
-      interface Kase {
-        val args: List<Any?>
-      }
 
       """.trimIndent()
     )
@@ -61,6 +57,15 @@ fun main() {
 
       val labels = args.map { "${it}Label" }
       val labelsParams = args.joinToString(", ") { "val ${it}Label: String = \"$it\"" }
+
+      val names = labels.zip(args)
+        .joinToString(
+          ", ",
+          "listOf(",
+          ")"
+        ) { (label, arg) ->
+          "\"\${labels.$label}\${labels.delimiter}\$$arg\""
+        }
 
       val label = labels.zip(args)
         .joinToString(
@@ -149,11 +154,15 @@ fun main() {
         |  )
         |}
         |
-        |data class $kaseSimpleName$typesWithVarianceString($propertiesString) : Kase {
+        |data class $kaseSimpleName$typesWithVarianceString($propertiesString) : Kase<$kaseLabelSimpleName> {
         |  override val args: List<Any?> = listOf($argsString)
+        |
+        |  override fun names(labels: $kaseLabelSimpleName): List<String> {
+        |    return $names
+        |  }
         |}
         |
-        |data class $kaseLabelSimpleName(val delimiter: String = ": ", val separator: String = " | ", $labelsParams)
+        |data class $kaseLabelSimpleName(val delimiter: String = ": ", val separator: String = " | ", $labelsParams): KaseLabels
         |
         """.replaceIndentByMargin()
       )
@@ -161,7 +170,7 @@ fun main() {
   }
 
   val f = File(
-    "/Users/rbusarow/Development/kase/kase/src/main/kotlin/com/rickbusarow/kase/Kase.kt"
+    "/Users/rbusarow/Development/kase/kase/src/main/kotlin/com/rickbusarow/kase/kases.kt"
   )
 
   f.writeText(txt)

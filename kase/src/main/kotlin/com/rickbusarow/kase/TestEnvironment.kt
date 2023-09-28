@@ -25,7 +25,7 @@ import com.rickbusarow.kase.stdlib.useRelativePaths
  * @param testFunctionName The [TestFunctionName] from which the test is being run.
  */
 open class TestEnvironment(
-  val kase: Kase,
+  val kase: Kase<*>,
   testFunctionName: TestFunctionName = TestFunctionName.get()
 ) : HasWorkingDir(createWorkingDir(testFunctionName, TODO())) {
 
@@ -42,12 +42,12 @@ open class TestEnvironment(
 }
 
 /**
+ * @param testVariantNames The variant names related to the test.
  * @property testFunctionName The [StackWalker.StackFrame] from which the test is being run.
- * @property testVariantNames The variant names related to the test.
  */
-data class DefaultTestEnvironmentParams(override val kase: Kase,
+data class DefaultTestEnvironmentParams(
+  override val kase: Kase<*>,
   override val testFunctionName: TestFunctionName
-
 ) : TestEnvironmentParams
 
 /** */
@@ -60,7 +60,7 @@ interface TestVariant {
    * a subdirectory under the directory derived from [testStackFrame]. Each
    * additional name corresponds to a subdirectory inside its predecessor.
    */
-  val kase: Kase
+  val kase: Kase<*>
 
   /**
    * The [TestFunctionName] from which the test is being run.
