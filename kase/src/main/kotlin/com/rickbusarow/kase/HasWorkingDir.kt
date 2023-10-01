@@ -23,17 +23,17 @@ import java.io.File
  * @param workingDir the directory containing all source and generated files to be used in this test
  */
 @Suppress("UnnecessaryAbstractClass")
-abstract class HasWorkingDir(workingDir: File) {
+public abstract class HasWorkingDir(workingDir: File) {
 
   /** the directory containing all source and generated files to be used in this test */
-  val workingDir: File by lazy {
+  public val workingDir: File by lazy {
     checkInWorkingDir(workingDir)
     workingDir.deleteRecursively()
     workingDir
   }
 
   /** relative to [workingDir] */
-  fun File.relativePath(): String = relativeTo(workingDir).path
+  public fun File.relativePath(): String = relativeTo(workingDir).path
 
   override fun toString(): String {
     return "workingDir=$workingDir\n" + getSourceReport()
@@ -68,7 +68,7 @@ abstract class HasWorkingDir(workingDir: File) {
     }
   }
 
-  companion object {
+  public companion object {
 
     private val allWorkingDirs = mutableSetOf<File>()
 
@@ -108,7 +108,7 @@ abstract class HasWorkingDir(workingDir: File) {
      *   function's name, such as the names of the languages being generated
      * @return a File directory corresponding to the root of the working directory for this test
      */
-    fun createWorkingDir(
+    public fun createWorkingDir(
       testFunctionName: TestFunctionName = TestFunctionName.get(),
       testVariantNames: List<String>
     ): File {
@@ -133,7 +133,8 @@ abstract class HasWorkingDir(workingDir: File) {
     }
 
     @PublishedApi
-    internal infix operator fun String.div(other: String) = "$this${File.separatorChar}$other"
+    internal infix operator fun String.div(other: String): String =
+      "$this${File.separatorChar}$other"
 
     @PublishedApi
     internal fun String.cleanForFileSystem(): String = replace("[^a-zA-Z\\d]+".toRegex(), "_")

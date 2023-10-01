@@ -29,27 +29,25 @@ import java.lang.reflect.Method
  * @property simpleNames ex: `[Outer, Middle, Inner]`
  * @property callingFunctionSimpleName ex: `some function should return false`
  */
-class TestFunctionName private constructor(
-  val fileName: String,
-  val lineNumber: Int,
-  val packageName: String,
-  val declaringClass: Class<*>,
-  val declaringClassWithoutSynthetics: Class<*>,
-  val simpleNames: List<String>,
-  val callingFunctionSimpleName: String
+public class TestFunctionName private constructor(
+  public val fileName: String,
+  public val lineNumber: Int,
+  public val packageName: String,
+  public val declaringClass: Class<*>,
+  public val declaringClassWithoutSynthetics: Class<*>,
+  public val simpleNames: List<String>,
+  public val callingFunctionSimpleName: String
 ) {
 
-  companion object {
+  public companion object {
 
-    fun get(): TestFunctionName {
-      return from(testStackTraceElement())
-    }
+    public fun get(): TestFunctionName = from(testStackTraceElement())
 
     /**
      * Finds the stack trace element corresponding to the invoking test
      * function. This should be called as close as possible to the test function.
      */
-    private fun testStackTraceElement(): StackTraceElement {
+    internal fun testStackTraceElement(): StackTraceElement {
       val stackTrace = Thread.currentThread().stackTrace
       val testElement = stackTrace.firstOrNull { it.isTestFunction() }
       return testElement ?: error("No test StackTraceElement found.")
@@ -239,7 +237,7 @@ internal fun List<Method>.requireAllOrNoneAreAnnotated(
  * In practical terms, this strips away Kotlin's anonymous lambda
  * "classes" and other compatibility shims, returning the real class.
  */
-tailrec fun Class<*>.removeSynthetics(): Class<*> {
+public tailrec fun Class<*>.removeSynthetics(): Class<*> {
   return when {
     isAnnotationPresent(JvmSynthetic::class.java) -> enclosingClass.removeSynthetics()
     isSynthetic -> enclosingClass.removeSynthetics()
@@ -248,7 +246,7 @@ tailrec fun Class<*>.removeSynthetics(): Class<*> {
   }
 }
 
-fun Class<*>.simpleNames(): List<String> {
+public fun Class<*>.simpleNames(): List<String> {
   return generateSequence(this) { it.enclosingClass }
     .mapNotNull { it.simpleName }
     .toList()

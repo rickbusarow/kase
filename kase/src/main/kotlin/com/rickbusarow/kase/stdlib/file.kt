@@ -34,7 +34,7 @@ import java.io.File
  *   File for [relativePath], or `null` if it could not be resolved
  * @see resolveInParent for a version which throws if nothing is resolved
  */
-fun File.resolveInParentOrNull(relativePath: String): File? {
+public fun File.resolveInParentOrNull(relativePath: String): File? {
   return resolve(relativePath).existsOrNull()
     ?: parentFile?.resolveInParentOrNull(relativePath)
 }
@@ -45,7 +45,7 @@ fun File.resolveInParentOrNull(relativePath: String): File? {
  * @see resolveInParentOrNull for a nullable, non-throwing variant
  * @throws IllegalArgumentException if a file cannot be resolved
  */
-fun File.resolveInParent(relativePath: String): File {
+public fun File.resolveInParent(relativePath: String): File {
   return requireNotNull(resolveInParentOrNull(relativePath)) {
     "Could not resolve a file with relative path in any parent paths.\n" +
       "\t       relative path: $relativePath\n" +
@@ -54,13 +54,13 @@ fun File.resolveInParent(relativePath: String): File {
 }
 
 /** @return the receiver [File] if it exists in the file system, otherwise null */
-fun File.existsOrNull(): File? = takeIf { it.exists() }
+public fun File.existsOrNull(): File? = takeIf { it.exists() }
 
 /** */
-infix operator fun File.div(relative: String): File = resolve(relative)
+public infix operator fun File.div(relative: String): File = resolve(relative)
 
 /** */
-infix operator fun File.div(relative: File): File = resolve(relative)
+public infix operator fun File.div(relative: File): File = resolve(relative)
 
 /**
  * Creates a new file if it doesn't already exist, creating parent
@@ -71,7 +71,7 @@ infix operator fun File.div(relative: File): File = resolve(relative)
  * @param overwrite If true, any existing content will be overwritten. Otherwise, nothing is done.
  * @return The created file.
  */
-fun File.createSafely(content: String? = null, overwrite: Boolean = true): File = apply {
+public fun File.createSafely(content: String? = null, overwrite: Boolean = true): File = apply {
   when {
     content != null && (!exists() || overwrite) -> makeParentDir().writeText(content)
     else -> {

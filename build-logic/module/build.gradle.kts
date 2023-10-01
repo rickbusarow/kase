@@ -55,7 +55,9 @@ dependencies {
   implementation(libs.dokka.gradle)
   implementation(libs.johnrengelman.shadowJar)
   implementation(libs.kotlinx.binaryCompatibility)
-  implementation(libs.rickBusarow.moduleCheck.gradle.plugin)
+  implementation(libs.rickBusarow.moduleCheck.gradle.plugin) {
+    exclude(group = "org.jetbrains.kotlin")
+  }
 
   implementation(project(":artifacts"))
   implementation(project(":core"))

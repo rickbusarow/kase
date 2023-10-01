@@ -20,7 +20,7 @@ package com.rickbusarow.kase
  * is basically the same as just using Kotest's `clue.asClue { ... }`,
  * except that `asClue` only catches assertion errors from inside Kotest.
  */
-inline fun <R> withClueCatching(clue: () -> Any?, thunk: () -> R): R {
+public inline fun <R> withClueCatching(clue: () -> Any?, thunk: () -> R): R {
   try {
     return thunk()
   } catch (@Suppress("TooGenericExceptionCaught") throwable: Throwable) {
@@ -37,5 +37,5 @@ inline fun <R> withClueCatching(clue: () -> Any?, thunk: () -> R): R {
  * This is basically the same as just using Kotest's `__.asClue { ... }`,
  * except that `asClue` only catches assertion errors from inside Kotest.
  */
-inline fun <T : Any?, R> T.asClueCatching(block: T.() -> R): R =
+public inline fun <T : Any?, R> T.asClueCatching(block: T.() -> R): R =
   withClueCatching({ this.toString() }) { block() }

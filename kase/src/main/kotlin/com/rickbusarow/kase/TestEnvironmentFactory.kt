@@ -18,7 +18,7 @@ package com.rickbusarow.kase
 import kotlinx.coroutines.runBlocking
 
 /** Creates [TestEnvironment]s. */
-interface TestEnvironmentFactory<T : TestEnvironment> {
+public interface TestEnvironmentFactory<T : TestEnvironment> {
 
   // /**
   //  * Runs the provided test [testAction] in the context of a new [TestEnvironment].
@@ -42,16 +42,13 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
    * @param testVariantNames The variant names related to the test.
    * @param testAction The test action to run within the [TestEnvironment].
    */
-  fun test(
+  public fun test(
     testFunctionName: TestFunctionName = TestFunctionName.get(),
     testVariantNames: List<String>,
     testAction: suspend T.() -> Unit
   ) {
     test(
-      params = DefaultTestEnvironmentParams(
-        kase = TODO(),
-        testFunctionName = testFunctionName
-      ),
+      kase = TODO(),
       testAction = testAction
     )
   }
@@ -63,16 +60,13 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
    * @param kase The variant names related to the test.
    * @param testAction The test action to run within the [TestEnvironment].
    */
-  fun test(
+  public fun test(
     testFunctionName: TestFunctionName = TestFunctionName.get(),
     kase: Kase<*>,
     testAction: suspend T.() -> Unit
   ) {
     test(
-      params = DefaultTestEnvironmentParams(
-        kase = kase,
-        testFunctionName = testFunctionName
-      ),
+      kase = TODO(),
       testAction = testAction
     )
   }
@@ -83,9 +77,9 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
    * @param params used to create the [TestEnvironment]
    * @param testAction The test action to run within the [TestEnvironment].
    */
-  fun test(params: TestEnvironmentParams, testAction: suspend T.() -> Unit) {
+  public fun test(kase: Kase<*>, testAction: suspend T.() -> Unit) {
 
-    val testEnvironment = newTestEnvironment(params)
+    val testEnvironment = newTestEnvironment(TODO())
 
     runBlocking {
       testEnvironment.asClueCatching {
@@ -100,7 +94,7 @@ interface TestEnvironmentFactory<T : TestEnvironment> {
    *
    * @return A new [TestEnvironment] of type [T].
    */
-  fun newTestEnvironment(params: TestEnvironmentParams): T {
+  public fun newTestEnvironment(params: TestVariant): T {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(kase = params.kase, testFunctionName = params.testFunctionName) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")

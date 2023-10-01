@@ -52,13 +52,6 @@ abstract class TestConventionPlugin : Plugin<Project> {
         }
       }
 
-      // Illegal reflective operation warnings while KtLint formats.  It's a Kotlin issue.
-      // https://github.com/pinterest/ktlint/issues/1618
-      task.jvmArgs(
-        "--add-opens=java.base/java.lang=ALL-UNNAMED",
-        "--add-opens=java.base/java.util=ALL-UNNAMED"
-      )
-
       task.testLogging {
         it.events = setOf(FAILED)
         it.exceptionFormat = TestExceptionFormat.FULL

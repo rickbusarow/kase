@@ -49,14 +49,18 @@ abstract class KotlinJvmConventionPlugin : Plugin<Project> {
         languageVersion = kotlinMajor
         apiVersion = kotlinMajor
 
-        freeCompilerArgs = freeCompilerArgs + listOf(
-          "-Xinline-classes",
-          "-Xsam-conversions=class",
-          "-opt-in=kotlin.ExperimentalStdlibApi",
-          "-opt-in=kotlin.RequiresOptIn",
-          "-opt-in=kotlin.contracts.ExperimentalContracts",
-          "-Xcontext-receivers"
-        )
+        @Suppress("SpellCheckingInspection")
+        freeCompilerArgs += buildList {
+          add("-Xinline-classes")
+          // add("-Xsam-conversions=class")
+          // add("-opt-in=kotlin.ExperimentalStdlibApi")
+          // add("-opt-in=kotlin.RequiresOptIn")
+          // add("-opt-in=kotlin.contracts.ExperimentalContracts")
+          add("-Xcontext-receivers")
+          if (task.sourceSetName.get() == "main" && target.path != ":kase-overload-generator") {
+            add("-Xexplicit-api=strict")
+          }
+        }
       }
     }
 

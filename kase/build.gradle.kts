@@ -26,8 +26,6 @@ module {
 
 dependencies {
 
-  api(gradleTestKit())
-
   api(libs.junit.engine)
   api(libs.junit.jupiter)
   api(libs.junit.jupiter.api)

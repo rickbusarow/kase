@@ -17,7 +17,7 @@ package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestEnvironmentFactory
-import com.rickbusarow.kase.TestEnvironmentParams
+import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.asClueCatching
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.parallel.Execution
@@ -43,17 +43,13 @@ interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
     }
   }
 
-  override fun newTestEnvironment(params: TestEnvironmentParams): GradleTestEnvironment {
-    return super.newTestEnvironment(params)
-  }
-
   /** @return A new [GradleTestEnvironment] */
-  override fun newTestEnvironment(params: GradleTestEnvironmentParams): GradleTestEnvironment {
+  override fun newTestEnvironment(params: TestVariant): GradleTestEnvironment {
     return GradleTestEnvironment(
-      testVersions = TestVersions("a", "b", "c", "d"),
+      testVersions = TestVersions(params.kase),
       projectCache = mutableMapOf(),
       testFunctionName = params.testFunctionName,
-      testVariantNames = params.testVariantNames
+      testVariantNames = params.kase
     )
   }
 }

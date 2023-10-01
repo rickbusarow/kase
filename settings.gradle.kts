@@ -80,7 +80,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "kase"
 
-include(":kase", ":kase-gradle")
+include(
+  ":kase",
+  ":kase-gradle",
+  ":kase-overload-generator"
+)
 
 // If this project is the real root of the build, copy the root project's properties file to included
 // builds, to ensure that Gradle settings are identical and there's only 1 daemon.

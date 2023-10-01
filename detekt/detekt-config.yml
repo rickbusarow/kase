@@ -1040,4 +1040,4 @@ libraries:
     active: true
     allowOmitUnit: true
   LibraryEntitiesShouldNotBePublic:
-    active: false
+    active: true

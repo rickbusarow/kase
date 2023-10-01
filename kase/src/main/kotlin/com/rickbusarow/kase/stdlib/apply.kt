@@ -22,7 +22,7 @@ package com.rickbusarow.kase.stdlib
  * @param block The block of code to apply to each element.
  * @return The receiver object after applying the block to each element.
  */
-inline fun <T, E> T.applyEach(elements: Iterable<E>, block: T.(e: E) -> Unit): T = apply {
+public inline fun <T, E> T.applyEach(elements: Iterable<E>, block: T.(e: E) -> Unit): T = apply {
   for (element in elements) {
     block(element)
   }
@@ -35,7 +35,7 @@ inline fun <T, E> T.applyEach(elements: Iterable<E>, block: T.(e: E) -> Unit): T
  * @param block The block of code to apply to each element.
  * @return The receiver object after applying the block to each element.
  */
-inline fun <T, E> T.applyEachIndexed(
+public inline fun <T, E> T.applyEachIndexed(
   elements: Iterable<E>,
   block: T.(index: Int, e: E) -> Unit
 ): T = apply {
@@ -51,7 +51,10 @@ inline fun <T, E> T.applyEachIndexed(
  * @param block The block of code to apply to each element.
  * @return The receiver object after applying the block to each element.
  */
-inline fun <T, E> T.applyEachIndexed(elements: Array<E>, block: T.(index: Int, e: E) -> Unit): T =
+public inline fun <T, E> T.applyEachIndexed(
+  elements: Array<E>,
+  block: T.(index: Int, e: E) -> Unit
+): T =
   apply {
     for ((index, element) in elements.withIndex()) {
       block(index, element)
@@ -67,7 +70,7 @@ inline fun <T, E> T.applyEachIndexed(elements: Array<E>, block: T.(index: Int, e
  * @return The receiver object after applying the block to each element.
  */
 @Suppress("NOTHING_TO_INLINE")
-inline fun <T> T.applyEach(blocks: Iterable<T.() -> Unit>): T = apply {
+public inline fun <T> T.applyEach(blocks: Iterable<T.() -> Unit>): T = apply {
   for (block in blocks) block()
 }
 
@@ -80,7 +83,7 @@ inline fun <T> T.applyEach(blocks: Iterable<T.() -> Unit>): T = apply {
  * @return The receiver object after applying the block to each element.
  */
 @Suppress("NOTHING_TO_INLINE")
-inline fun <T> T.applyEach(vararg blocks: T.() -> Unit): T = apply {
+public inline fun <T> T.applyEach(vararg blocks: T.() -> Unit): T = apply {
   for (block in blocks) block()
 }
 
@@ -93,7 +96,7 @@ inline fun <T> T.applyEach(vararg blocks: T.() -> Unit): T = apply {
  * @return The modified receiver object if the predicate
  *   is true, or the original receiver object otherwise.
  */
-inline fun <T> T.applyIf(predicate: Boolean, body: T.() -> T): T = apply {
+public inline fun <T> T.applyIf(predicate: Boolean, body: T.() -> T): T = apply {
   if (predicate) {
     body()
   }
@@ -109,7 +112,7 @@ inline fun <T> T.applyIf(predicate: Boolean, body: T.() -> T): T = apply {
  * @return The result of the transform function if the
  *   predicate is true, or the receiver object itself otherwise.
  */
-inline fun <T> T.letIf(predicate: Boolean, transform: (T) -> T): T {
+public inline fun <T> T.letIf(predicate: Boolean, transform: (T) -> T): T {
   return if (predicate) transform(this) else this
 }
 
@@ -123,7 +126,7 @@ inline fun <T> T.letIf(predicate: Boolean, transform: (T) -> T): T {
  * @return The result of the transformation function if the
  *   predicate is true, or the receiver object itself otherwise.
  */
-inline fun <T> T.alsoIf(predicate: Boolean, body: (T) -> Unit): T {
+public inline fun <T> T.alsoIf(predicate: Boolean, body: (T) -> Unit): T {
   if (predicate) {
     body(this)
   }

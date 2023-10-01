@@ -15,8 +15,8 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.TestEnvironment
-import com.rickbusarow.kase.TestEnvironmentParams
 import com.rickbusarow.kase.TestFunctionName
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
@@ -26,69 +26,37 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
-import org.gradle.testkit.runner.TaskOutcome
+import org.gradle.testkit.runner.TaskOutcome.FAILED
 import org.intellij.lang.annotations.Language
 import java.io.File
 
-/**
- * The versions of dependencies which are changed during parameterized tests.
- *
- * @property gradle not semver. ex: `8.0` or `8.1.1`
- * @property agp normal semver. ex `8.1.1`
- * @property anvil semver with a possible Kotlin suffix. ex `2.4.8-1-8`
- * @property kotlin normal semver. ex `1.8.10`
- */
-data class TestVersions(
-  val gradle: String,
-  val agp: String,
-  val anvil: String,
-  val kotlin: String
-) {
-  override fun toString(): String {
-    return "[gradle $gradle, agp $agp, anvil $anvil, kotlin $kotlin]"
-  }
-}
-
-/** Trait interface for [TestVersions]*/
-interface HasTestVersions {
-  /** immutable */
-  val testVersions: TestVersions
-}
-
-interface KaseGradleProject
-
-data class GradleTestEnvironmentParams(
-  val projectCache: MutableMap<String, KaseGradleProject>,
-  override val testVersions: TestVersions,
-  override val testFunctionName: TestFunctionName,
-  override val testVariantNames: List<String>
-) : TestEnvironmentParams, HasTestVersions
-
 @Suppress("PropertyName", "VariableNaming")
-class GradleTestEnvironment(
+public class GradleTestEnvironment(
   override val testVersions: TestVersions,
   override val projectCache: MutableMap<String, KaseGradleProject>,
   testFunctionName: TestFunctionName,
-  testVariantNames: List<String>
-) : TestEnvironment<GradleTestEnvironmentParams>(testFunctionName, testVariantNames),
+  kase: Kase<*>
+) : TestEnvironment(kase, testFunctionName),
   ProjectCollector,
-  HasTestVersions {
+  HasTestVersions<TestVersions> {
 
-  constructor(params: GradleTestEnvironmentParams) : this(
-    testVersions = params.testVersions,
-    projectCache = params.projectCache,
-    testFunctionName = params.testFunctionName,
-    testVariantNames = params.testVariantNames
-  )
+  private val versions by lazy {
+    kase.destructured()
+      .filterNotNull()
+      .associateBy { it::class }
+  }
+
+  private inline fun <reified T : DependencyVersion> version(default: () -> String): String {
+    return (versions[T::class] as? T)?.value ?: default()
+  }
 
   override val root: File get() = workingDir
 
-  val kotlinVersion get() = testVersions.kotlin
-  val agpVersion get() = testVersions.agp
-  val gradleVersion get() = testVersions.gradle
-  val anvilVersion get() = testVersions.anvil
+  public val kotlinVersion get() = testVersions.kotlin
+  public val agpVersion get() = testVersions.agp
+  public val gradleVersion get() = testVersions.gradle
 
-  val DEFAULT_BUILD_FILE by lazy {
+  public val DEFAULT_BUILD_FILE by lazy {
     """
       buildscript {
         dependencies {
@@ -188,7 +156,7 @@ class GradleTestEnvironment(
             .also { result ->
               result.tasks
                 .forAll { buildTask ->
-                  buildTask.outcome shouldNotBe TaskOutcome.FAILED
+                  buildTask.outcome shouldNotBe FAILED
                 }
             }
         }

@@ -41,7 +41,7 @@ import kotlin.streams.asStream
  * @param init a lambda with receiver that initializes the [TestNodeBuilder].
  * @return a stream of dynamic nodes constructed by the test factory builder.
  */
-fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
+public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
   return TestNodeBuilder(
     name = "root",
     testFunctionName = TestFunctionName.get(),
@@ -61,7 +61,7 @@ fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
  * Example usage:
  * ```
  * @TestFactory
- * fun `some test`() = testFactory {
+ * fun `some test`() = asTests {
  *   test("Test1") {
  *     println("Executing Test1")
  *   }
@@ -70,179 +70,37 @@ fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
  *
  * @property name the name of the test container.
  * @property testFunctionName Captured before executing any tests,
- *   meaning that it's the frame which called `testFactory { ... }`
+ *   meaning that it's the frame which called `asTests { ... }`
  * @property parent the parent node, or `null` if this is the root container
  */
-class TestNodeBuilder @PublishedApi internal constructor(
-  val name: String,
-  val testFunctionName: TestFunctionName,
-  val parent: TestNodeBuilder?
+public class TestNodeBuilder @PublishedApi internal constructor(
+  public val name: String,
+  public val testFunctionName: TestFunctionName,
+  public val parent: TestNodeBuilder?
 ) {
   /** the list of names from the root node to this node */
-  val namesFromRoot: List<String>
+  public val namesFromRoot: List<String>
     get() = if (parent == null) {
       listOf(name)
     } else {
       parent.namesFromRoot + name
     }
 
+  private val children: MutableList<TestNodeBuilder> = mutableListOf()
+
   @PublishedApi
   internal val nodes: MutableList<() -> DynamicNode> = mutableListOf()
 
-  internal fun nodeSequence(): Sequence<DynamicNode> = nodes.asSequence().map { it() }
-
   @PublishedApi
-  internal fun testUri(): URI {
-
-    val here = Paths.get("").toAbsolutePath()
-    val srcTestKotlin = here / "src/test/kotlin"
-    val packageDir = testFunctionName.packageName
-      .replace('.', File.separatorChar)
-    val classFile = srcTestKotlin / packageDir / testFunctionName.fileName
-    val lineNumber = testFunctionName.lineNumber
-
-    return URI.create(File("$classFile").toURI().toString() + "?line=$lineNumber")
-  }
+  internal fun nodeSequence(): Sequence<DynamicNode> = nodes.asSequence().map { it() }
 
   /**
    * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
    *
    * @param name the name of the test. action a function containing the test logic.
    */
-  fun test(name: String, testAction: () -> Unit) {
+  public fun test(name: String, testAction: () -> Unit) {
     addTest(name, testAction)
-  }
-
-  /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-   *
-   * @param name the name of the test.
-   * @param testAction a function containing the test logic.
-   */
-  context(TestEnvironmentFactory<T>)
-  inline fun <T : TestEnvironment> test(
-    name: String,
-    crossinline testAction: suspend T.() -> Unit
-  ) {
-    addTest(name) {
-      this@TestEnvironmentFactory.test(
-        testFunctionName = testFunctionName,
-        testVariantNames = namesFromRoot + name
-      ) { testAction() }
-    }
-  }
-
-  @PublishedApi
-  internal fun addTest(name: String, testAction: () -> Unit) {
-    nodes.add { DynamicTest.dynamicTest(name, testUri()) { testAction() } }
-  }
-
-  /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-   *
-   * @param testName the name of the test.
-   * @param testAction a function containing the test logic.
-   */
-  context(TestEnvironmentFactory<T>)
-  inline fun <T : TestEnvironment, E> Iterable<E>.asTests(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: suspend T.(E) -> Unit
-  ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (element in this@asTests) {
-      test(testName(element)) { testAction(element) }
-    }
-  }
-
-  /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-   *
-   * @param testName the name of the test.
-   * @param testAction a function containing the test logic.
-   */
-  context(TestEnvironmentFactory<T>)
-  inline fun <T : TestEnvironment, E> Sequence<E>.asTests(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: suspend T.(E) -> Unit
-  ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (element in this@asTests) {
-      test(testName(element)) { testAction(element) }
-    }
-  }
-
-  /**
-   * Adds tests to the invoking [TestNodeBuilder] for each element of the
-   * iterable. The names of the tests are determined by the [testName] function,
-   * and the tests themselves are defined by the [testAction] function.
-   *
-   * @param testName a function to compute the name of each test.
-   * @param testAction a function to define each test.
-   * @receiver the [TestNodeBuilder] to which tests will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new tests.
-   */
-  inline fun <E> Iterable<E>.asTests(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: (E) -> Unit
-  ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (element in this@asTests) {
-      test(testName(element)) { testAction(element) }
-    }
-  }
-
-  /**
-   * Adds tests to the invoking [TestNodeBuilder] for each element of the
-   * iterable. The names of the tests are determined by the [testName] function,
-   * and the tests themselves are defined by the [testAction] function.
-   *
-   * @param testName a function to compute the name of each test.
-   * @param testAction a function to define each test.
-   * @receiver the [TestNodeBuilder] to which tests will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new tests.
-   */
-  inline fun <E> Sequence<E>.asTests(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: (E) -> Unit
-  ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (element in this@asTests) {
-      test(testName(element)) { testAction(element) }
-    }
-  }
-
-  /**
-   * Adds containers to the invoking [TestNodeBuilder] for each element of the
-   * iterable. The names of the containers are determined by the [testName] function,
-   * and the containers themselves are initialized by the [testAction] function.
-   *
-   * @param testName a function to compute the name of each container.
-   * @param testAction a function to initialize each container.
-   * @receiver the [TestNodeBuilder] to which containers will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new containers.
-   */
-  inline fun <E> Iterable<E>.asContainers(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: TestNodeBuilder.(E) -> Unit
-  ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (element in this@asContainers) {
-      container(testName(element)) { testAction(element) }
-    }
-  }
-
-  /**
-   * Adds containers to the invoking [TestNodeBuilder] for each element of the
-   * iterable. The names of the containers are determined by the [testName] function,
-   * and the containers themselves are initialized by the [testAction] function.
-   *
-   * @param testName a function to compute the name of each
-   *   container. action a function to initialize each container.
-   * @receiver the [TestNodeBuilder] to which containers will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new containers.
-   */
-  inline fun <E> Sequence<E>.asContainers(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: TestNodeBuilder.(E) -> Unit
-  ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (element in this@asContainers) {
-      container(testName(element)) { testAction(element) }
-    }
   }
 
   /**
@@ -252,7 +110,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
    * @param name the name of the container.
    * @param init a lambda with receiver that initializes the [TestNodeBuilder].
    */
-  fun container(name: String, init: TestNodeBuilder.() -> Unit) {
+  public fun container(name: String, init: TestNodeBuilder.() -> Unit) {
 
     nodes.add {
       TestNodeBuilder(
@@ -271,8 +129,153 @@ class TestNodeBuilder @PublishedApi internal constructor(
    * @return a dynamic container with the defined name and nodes.
    */
   @PublishedApi
-  internal fun build(): DynamicContainer {
+  internal fun build(): DynamicNode {
     return DynamicContainer.dynamicContainer(name, nodeSequence().asStream())
+  }
+
+  @PublishedApi
+  internal fun addTest(name: String, testAction: () -> Unit) {
+    nodes.add { DynamicTest.dynamicTest(name, testUri()) { testAction() } }
+  }
+
+  /**
+   * Adds tests to the invoking [TestNodeBuilder] for each element of the
+   * iterable. The names of the tests are determined by the [testName] function,
+   * and the tests themselves are defined by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each test.
+   * @param testAction a function to define each test.
+   * @receiver the [TestNodeBuilder] to which tests will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new tests.
+   */
+  public inline fun <E> Iterable<E>.asTests(
+    testName: (E) -> String = { it.toString() },
+    crossinline testAction: (E) -> Unit
+  ): TestNodeBuilder = this@TestNodeBuilder.apply {
+    for (element in this@asTests) {
+      test(testName(element)) { testAction(element) }
+    }
+  }
+
+  /**
+   * Adds tests to the invoking [TestNodeBuilder] for each element of the
+   * iterable. The names of the tests are determined by the [testName] function,
+   * and the tests themselves are defined by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each test.
+   * @param testAction a function to define each test.
+   * @receiver the [TestNodeBuilder] to which tests will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new tests.
+   */
+  public inline fun <E> Sequence<E>.asTests(
+    testName: (E) -> String = { it.toString() },
+    crossinline testAction: (E) -> Unit
+  ): TestNodeBuilder = this@TestNodeBuilder.apply {
+    for (element in this@asTests) {
+      test(testName(element)) { testAction(element) }
+    }
+  }
+
+  /**
+   * Adds containers to the invoking [TestNodeBuilder] for each element of the
+   * iterable. The names of the containers are determined by the [testName] function,
+   * and the containers themselves are initialized by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each container.
+   * @param testAction a function to initialize each container.
+   * @receiver the [TestNodeBuilder] to which containers will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new containers.
+   */
+  public inline fun <E> Iterable<E>.asContainers(
+    testName: (E) -> String = { it.toString() },
+    crossinline testAction: TestNodeBuilder.(E) -> Unit
+  ): TestNodeBuilder = this@TestNodeBuilder.apply {
+    for (element in this@asContainers) {
+      container(testName(element)) { testAction(element) }
+    }
+  }
+
+  /**
+   * Adds containers to the invoking [TestNodeBuilder] for each element of the
+   * iterable. The names of the containers are determined by the [testName] function,
+   * and the containers themselves are initialized by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each
+   *   container. action a function to initialize each container.
+   * @receiver the [TestNodeBuilder] to which containers will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new containers.
+   */
+  public inline fun <E> Sequence<E>.asContainers(
+    testName: (E) -> String = { it.toString() },
+    crossinline testAction: TestNodeBuilder.(E) -> Unit
+  ): TestNodeBuilder = this@TestNodeBuilder.apply {
+    for (element in this@asContainers) {
+      container(testName(element)) { testAction(element) }
+    }
+  }
+
+  /**
+   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
+   *
+   * @param testName the name of the test.
+   * @param testAction a function containing the test logic.
+   */
+  context(TestEnvironmentFactory<T>)
+  public inline fun <T : TestEnvironment, E> Iterable<E>.asTests(
+    testName: (E) -> String = { it.toString() },
+    crossinline testAction: suspend T.(E) -> Unit
+  ): TestNodeBuilder = this@TestNodeBuilder.apply {
+    for (element in this@asTests) {
+      test(testName(element)) { testAction(element) }
+    }
+  }
+
+  /**
+   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
+   *
+   * @param name the name of the test.
+   * @param testAction a function containing the test logic.
+   */
+  context(TestEnvironmentFactory<T>)
+  public inline fun <T : TestEnvironment> test(
+    name: String,
+    crossinline testAction: suspend T.() -> Unit
+  ) {
+    addTest(name) {
+      this@TestEnvironmentFactory.test(
+        testFunctionName = testFunctionName,
+        testVariantNames = namesFromRoot + name
+      ) { testAction() }
+    }
+  }
+
+  /**
+   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
+   *
+   * @param testName the name of the test.
+   * @param testAction a function containing the test logic.
+   */
+  context(TestEnvironmentFactory<T>)
+  public inline fun <T : TestEnvironment, E> Sequence<E>.asTests(
+    testName: (E) -> String = { it.toString() },
+    crossinline testAction: suspend T.(E) -> Unit
+  ): TestNodeBuilder = this@TestNodeBuilder.apply {
+    for (element in this@asTests) {
+      test(testName(element)) { testAction(element) }
+    }
+  }
+
+  @PublishedApi
+  internal fun testUri(): URI {
+
+    val here = Paths.get("").toAbsolutePath()
+    val srcTestKotlin = here / "src/test/kotlin"
+    val packageDir = testFunctionName.packageName
+      .replace('.', File.separatorChar)
+    val classFile = srcTestKotlin / packageDir / testFunctionName.fileName
+    val lineNumber = testFunctionName.lineNumber
+
+    return URI.create(File("$classFile").toURI().toString() + "?line=$lineNumber")
   }
 }
 
@@ -285,7 +288,7 @@ class TestNodeBuilder @PublishedApi internal constructor(
  * @param testAction a function to initialize each test container.
  * @return a stream of dynamic nodes representing the containers.
  */
-inline fun <E> Iterable<E>.asContainers(
+public inline fun <E> Iterable<E>.asContainers(
   crossinline testName: (E) -> String = { it.toString() },
   crossinline testAction: TestNodeBuilder.(E) -> Unit
 ): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
@@ -299,7 +302,7 @@ inline fun <E> Iterable<E>.asContainers(
  * @param testAction a function to initialize each test container.
  * @return a stream of dynamic nodes representing the containers.
  */
-inline fun <E> Sequence<E>.asContainers(
+public inline fun <E> Sequence<E>.asContainers(
   crossinline testName: (E) -> String = { it.toString() },
   crossinline testAction: TestNodeBuilder.(E) -> Unit
 ): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
@@ -312,7 +315,7 @@ inline fun <E> Sequence<E>.asContainers(
  * @param testAction a function to define each test.
  * @return a stream of dynamic nodes representing the tests.
  */
-inline fun <E> Iterable<E>.asTests(
+public inline fun <E> Iterable<E>.asTests(
   crossinline testName: (E) -> String = { it.toString() },
   crossinline testAction: (E) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
@@ -325,7 +328,7 @@ inline fun <E> Iterable<E>.asTests(
  * @param testAction a function to define each test.
  * @return a stream of dynamic nodes representing the tests.
  */
-inline fun <E> Sequence<E>.asTests(
+public inline fun <E> Sequence<E>.asTests(
   crossinline testName: (E) -> String = { it.toString() },
   crossinline testAction: (E) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
@@ -339,7 +342,7 @@ inline fun <E> Sequence<E>.asTests(
  * @return a stream of dynamic nodes representing the tests.
  */
 context(TestEnvironmentFactory<T>)
-inline fun <T : TestEnvironment, E> Iterable<E>.asTests(
+public inline fun <T : TestEnvironment, E> Iterable<E>.asTests(
   crossinline testName: (E) -> String = { it.toString() },
   crossinline testAction: suspend T.(E) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
@@ -353,7 +356,7 @@ inline fun <T : TestEnvironment, E> Iterable<E>.asTests(
  * @return a stream of dynamic nodes representing the tests.
  */
 context(TestEnvironmentFactory<T>)
-inline fun <T : TestEnvironment, E> Sequence<E>.asTests(
+public inline fun <T : TestEnvironment, E> Sequence<E>.asTests(
   crossinline testName: (E) -> String = { it.toString() },
   crossinline testAction: suspend T.(E) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }

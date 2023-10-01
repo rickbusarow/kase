@@ -24,13 +24,13 @@ import com.rickbusarow.kase.stdlib.useRelativePaths
  *
  * @param testFunctionName The [TestFunctionName] from which the test is being run.
  */
-open class TestEnvironment(
-  val kase: Kase<*>,
+public open class TestEnvironment(
+  public val kase: Kase<*>,
   testFunctionName: TestFunctionName = TestFunctionName.get()
 ) : HasWorkingDir(createWorkingDir(testFunctionName, TODO())) {
 
   /** replace absolute paths with relative ones */
-  fun String.useRelativePaths(): String = useRelativePaths(workingDir)
+  public fun String.useRelativePaths(): String = useRelativePaths(workingDir)
 
   /**
    * Cleans the provided string in the context of the [TestEnvironment]'s working directory.
@@ -38,33 +38,28 @@ open class TestEnvironment(
    * @receiver The raw string that needs to be cleaned.
    * @return The cleaned string.
    */
-  fun String.cleanOutput(): String = cleanOutput(workingDir)
+  public fun String.cleanOutput(): String = cleanOutput(workingDir)
 }
 
-/**
- * @param testVariantNames The variant names related to the test.
- * @property testFunctionName The [StackWalker.StackFrame] from which the test is being run.
- */
-data class DefaultTestEnvironmentParams(
-  override val kase: Kase<*>,
-  override val testFunctionName: TestFunctionName
-) : TestEnvironmentParams
+/** */
+public data class DefaultTestEnvironmentParams(
+  override val testVariant: TestVariant
+) : HasTestVariant
 
 /** */
-interface TestEnvironmentParams : TestVariant
+public interface HasTestVariant {
+  public val testVariant: TestVariant
+}
 
 /** Represents a specific instance of a test case invocation */
-interface TestVariant {
-  /**
-   * The variant name(s) related to the test. The first name corresponds to
-   * a subdirectory under the directory derived from [testStackFrame]. Each
-   * additional name corresponds to a subdirectory inside its predecessor.
-   */
-  val kase: Kase<*>
+public interface TestVariant {
+
+  /** The parameters for the test. */
+  public val kase: Kase<*>
 
   /**
    * The [TestFunctionName] from which the test is being run.
    * Defaults to the current stack frame if not provided.
    */
-  val testFunctionName: TestFunctionName
+  public val testFunctionName: TestFunctionName
 }

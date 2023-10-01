@@ -16,19 +16,50 @@
 package com.rickbusarow.kase.stdlib
 
 /**
- * given:
+ * Computes the Cartesian product of a list of lists.
+ *
+ * Given a list of `n` lists `[L1, L2, ..., Ln]`, each containing `mi` elements,
+ * this function returns a list containing the Cartesian product. The resulting
+ * list will have `product(m1 * m2 * ... * mn)` elements. Each element is a
+ * list formed by taking one element from each `Li` in the order they appear.
+ *
+ * ### Mathematical Representation
+ *
+ * Given the lists:
  * ```
- * [[a, b], [1, 2, 3]]
+ * L1:  a
+ *      b
+ *
+ * L2:  1
+ *      2
+ *      3
  * ```
- * returns:
+ *
+ * The Cartesian product `L1 x L2` is:
  * ```
- * [
- *  [a, 1], [a, 2], [a, 3],
- *  [b, 1], [b, 2], [b, 3]
- * ]
+ *      a, 1
+ *      a, 2
+ *      a, 3
+ *      b, 1
+ *      b, 2
+ *      b, 3
  * ```
+ *
+ * ### Example
+ *
+ * ```kotlin
+ * val list1 = listOf("a", "b")
+ * val list2 = listOf(1, 2, 3)
+ * val input = listOf(list1, list2)
+ *
+ * val result = input.cartesianProduct()
+ *
+ * // result will be: [["a", 1], ["a", 2], ["a", 3], ["b", 1], ["b", 2], ["b", 3]]
+ * ```
+ *
+ * @return List of lists containing the Cartesian product.
  */
-fun <T> Iterable<Iterable<T>>.cartesianProduct(): List<List<T>> {
+public fun <T> Iterable<Iterable<T>>.cartesianProduct(): List<List<T>> {
   return fold(listOf(listOf())) { acc, list ->
     acc.flatMap { existingList ->
       list.map { element ->

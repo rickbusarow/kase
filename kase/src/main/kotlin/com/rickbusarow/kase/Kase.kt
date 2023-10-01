@@ -15,13 +15,92 @@
 
 package com.rickbusarow.kase
 
-interface Kase<T : KaseLabels> {
-  val args: List<Any?>
-
-  fun names(labels: T): List<String>
+/** */
+public interface DestructuringKaseElement<out E> {
+  /** */
+  public fun destructured(): List<E>
 }
 
-interface KaseLabels {
-  val delimiter: String
-  val separator: String
+/** */
+public interface KaseElement<out T> : HasLabel {
+  /** */
+  public val value: T
+
+  public operator fun component1(): T = value
+  public operator fun component2(): String = label
+
+  public companion object {
+    public fun <T> element(value: T, label: String): KaseElement<T> {
+      return DefaultKaseElement(value, label)
+    }
+  }
+}
+
+/** */
+public interface HasLabel {
+  /** */
+  public val label: String
+}
+
+/** */
+public class DefaultKaseElement<out T>(
+  override val value: T,
+  override val label: String
+) : KaseElement<T>
+
+/** */
+public interface Kase<T : KaseLabels> {
+
+  /** */
+  public fun displayNames(labels: T): List<String>
+
+  /** */
+  public fun displayNames(delimiter: String = ": "): List<String>
+
+  /** */
+  public fun displayName(labels: T): String = displayNames(labels).joinToString(
+    separator = labels.separator,
+    prefix = labels.prefix,
+    postfix = labels.postfix
+  )
+}
+
+public interface KaseInternal<T : KaseLabels> : Kase<T>, DestructuringKaseElement<Any?> {
+
+  public val elements: List<KaseElement<Any?>> get() = destructured()
+
+  override fun destructured(): List<KaseElement<Any?>> = TODO()
+
+  /** */
+  override fun displayNames(labels: T): List<String> {
+    return labels.destructured().zip(destructured())
+      .map { (label, value) ->
+        "$label${labels.delimiter}$value"
+      }
+  }
+
+  /** */
+  override fun displayNames(delimiter: String): List<String> {
+    return elements.map { (label, value) ->
+      "$label${delimiter}$value"
+    }
+  }
+}
+
+/** */
+public interface KaseLabels : DestructuringKaseElement<String> {
+
+  /** */
+  public val delimiter: String get() = ": "
+
+  /** */
+  public val separator: String get() = " | "
+
+  /** */
+  public val prefix: String get() = "["
+
+  /** */
+  public val postfix: String get() = "]"
+
+  override fun destructured(): List<String> = TODO()
 }

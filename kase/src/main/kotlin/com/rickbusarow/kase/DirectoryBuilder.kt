@@ -15,12 +15,18 @@
 
 package com.rickbusarow.kase
 
-class DirectoryBuilder internal constructor(
+internal class DirectoryBuilder @PublishedApi internal constructor(
   internal val parent: DirectoryBuilder?,
   internal val name: String
 ) {
   val childDirs = mutableListOf<DirectoryBuilder>()
   val files = mutableListOf<FileWithContent>()
+
+  inline fun dir(name: String, builder: DirectoryBuilder.() -> Unit) {
+
+    val child = DirectoryBuilder(this, name).also(builder)
+    childDirs.add(child)
+  }
 
   data class FileWithContent(val name: String, val content: String)
 }

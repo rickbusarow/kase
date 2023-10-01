@@ -19,7 +19,7 @@ import java.io.File
 import java.util.Locale
 
 /** Converts all line separators in the receiver string to use `\n`. */
-fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n")
+public fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n")
 
 /**
  * Removes all occurrences of specified strings from the receiver string.
@@ -27,7 +27,7 @@ fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n"
  * @param strings Strings to be removed from the receiver string.
  * @return A new string with all occurrences of specified strings removed.
  */
-fun String.remove(vararg strings: String): String = strings.fold(this) { acc, string ->
+public fun String.remove(vararg strings: String): String = strings.fold(this) { acc, string ->
   acc.replace(string, "")
 }
 
@@ -37,18 +37,18 @@ fun String.remove(vararg strings: String): String = strings.fold(this) { acc, st
  * @param patterns Regular expressions to be removed from the receiver string.
  * @return A new string with all matches of specified regular expressions removed.
  */
-fun String.remove(vararg patterns: Regex): String = patterns.fold(this) { acc, regex ->
+public fun String.remove(vararg patterns: Regex): String = patterns.fold(this) { acc, regex ->
   acc.replace(regex, "")
 }
 
 /** Removes ANSI controls like `\u001B[]33m` */
-fun String.noAnsi(): String = remove("""\u001B\[[;\d]*m""".toRegex())
+public fun String.noAnsi(): String = remove("""\u001B\[[;\d]*m""".toRegex())
 
 /** replace ` ` with `·` */
-val String.interpuncts: String get() = replace(" ", "·")
+public val String.interpuncts: String get() = replace(" ", "·")
 
 /** replace `·` with ` ` */
-val String.noInterpuncts: String get() = replace("·", " ")
+public val String.noInterpuncts: String get() = replace("·", " ")
 
 /**
  * Decapitalizes the first character of this [String] using the specified [locale].
@@ -57,7 +57,7 @@ val String.noInterpuncts: String get() = replace("·", " ")
  * @receiver The original String.
  * @return The string with the first character decapitalized.
  */
-fun String.decapitalize(locale: Locale = Locale.US): String =
+public fun String.decapitalize(locale: Locale = Locale.US): String =
   replaceFirstChar { it.lowercase(locale) }
 
 /**
@@ -67,7 +67,7 @@ fun String.decapitalize(locale: Locale = Locale.US): String =
  * @receiver The original String.
  * @return The string with the first character capitalized.
  */
-fun String.capitalize(locale: Locale = Locale.US): String =
+public fun String.capitalize(locale: Locale = Locale.US): String =
   replaceFirstChar { it.uppercase(locale) }
 
 /**
@@ -75,8 +75,18 @@ fun String.capitalize(locale: Locale = Locale.US): String =
  *
  * Doesn't preserve the original line endings.
  */
-fun CharSequence.mapLines(transform: (String) -> CharSequence): String = lineSequence()
+public fun CharSequence.mapLines(transform: (String) -> CharSequence): String = lineSequence()
   .joinToString("\n", transform = transform)
+
+/**
+ * performs [transform] on each line
+ *
+ * Doesn't preserve the original line endings.
+ */
+public fun CharSequence.mapLinesIndexed(transform: (Int, String) -> CharSequence): String =
+  lineSequence()
+    .mapIndexed(transform)
+    .joinToString("\n")
 
 /**
  * Removes various bits of noise and machine-specific variables from a console or report output.
@@ -116,5 +126,83 @@ internal fun String.osFileSeparators(): String {
     replace('/', File.separatorChar)
   } else {
     replace('\\', File.separatorChar)
+  }
+}
+
+/**
+ * Creates a string from all the elements separated using [separator]
+ * and using the given [prefix] and [postfix] if supplied.
+ *
+ * If the collection could be huge, you can specify a non-negative value
+ * of [limit], in which case only the first [limit] elements will be
+ * appended, followed by the [truncated] string (which defaults to "...").
+ */
+public fun <T> List<T>.joinToStringIndexed(
+  separator: CharSequence = ", ",
+  prefix: CharSequence = "",
+  postfix: CharSequence = "",
+  limit: Int = -1,
+  truncated: CharSequence = "...",
+  transform: (Int, T) -> CharSequence
+): String {
+  return buildString {
+    append(prefix)
+    var count = 0
+    for (element in this@joinToStringIndexed) {
+      if (++count > 1) append(separator)
+      if (limit < 0 || count <= limit) {
+        append(transform(count - 1, element))
+      } else {
+        break
+      }
+    }
+    if (limit in 0 until count) append(truncated)
+    append(postfix)
+  }
+}
+
+/**
+ * example:
+ *
+ * ```
+ * override fun toString() = buildString {
+ *   appendLine("SomeClass(")
+ *   indent {
+ *     appendLine("prop1=$prop1")
+ *     appendLine("prop2=$prop2")
+ *   }
+ *   appendLine(")")
+ * }
+ * ```
+ */
+public inline fun StringBuilder.indent(
+  leadingIndent: String = "  ",
+  continuationIndent: String = leadingIndent,
+  builder: StringBuilder.() -> Unit
+) {
+
+  append(
+    buildString {
+      append(leadingIndent)
+
+      builder()
+    }
+      .prependContinuationIndent(continuationIndent)
+  )
+}
+
+/**
+ * Prepends [continuationIndent] to every line of the original string.
+ *
+ * Doesn't preserve the original line endings.
+ */
+public fun CharSequence.prependContinuationIndent(
+  continuationIndent: String,
+  skipBlankLines: Boolean = true
+): String = mapLinesIndexed { i, line ->
+  when {
+    i == 0 -> line
+    skipBlankLines && line.isBlank() -> line
+    else -> "$continuationIndent$line"
   }
 }
