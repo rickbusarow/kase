@@ -5,7 +5,7 @@
     <formatOnSave>true</formatOnSave>
     <externalJarPaths>
       <list>
-        <option value="$PROJECT_DIR$/build-logic/ktlint/build/libs/ktlint.jar" />
+        <option value="$PROJECT_DIR$/build/ktlint-rules-jars/ktrules-48-1.1.4.jar" />
       </list>
     </externalJarPaths>
   </component>

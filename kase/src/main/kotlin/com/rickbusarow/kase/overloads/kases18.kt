@@ -19,7 +19,8 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.KaseElement.Companion.element
+import com.rickbusarow.kase.KaseParameterWithLabel.Companion.element
+import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
 
@@ -46,6 +47,23 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A1
     element(value = a16, label = labels.a16Label),
     element(value = a17, label = labels.a17Label),
     element(value = a18, label = labels.a18Label)
+  )
+}
+
+
+/** */
+context(TestEnvironmentFactory<T>)
+public fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> test(
+  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18,
+  labels: KaseLabels18 = KaseLabels18(),
+  testFunctionName: TestFunctionName = TestFunctionName.get(),
+  testAction: suspend T.() -> Unit
+) where T : TestEnvironment<K>,
+        K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+  test(
+    kase = kase(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, labels),
+    testFunctionName = testFunctionName,
+    testAction = testAction
   )
 }
 
@@ -136,37 +154,117 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A1
   }
 }
 
-/** */
-@JvmName("asTestsKase18")
-public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> Iterable<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>>.asTests(
-  labels: KaseLabels18 = KaseLabels18(),
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
-): Stream<out DynamicNode> = testFactory(this@asTests, labels, testAction)
+
+// /** */
+// @JvmName("asTestsKase18Kase")
+// public inline fun <K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> Iterable<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>>.asTests(
+//   labels: KaseLabels18 = KaseLabels18(),
+//   crossinline testAction: (kase: K) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+//   return testFactory(this@asTests, labels, testAction)
+// }
+
+
+// /** */
+// @JvmName("asTestsKase18Destructured")
+// public inline fun <K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> Iterable<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>>.asTests(
+//   labels: KaseLabels18 = KaseLabels18(),
+//   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+//   return testFactory(this@asTests, labels, testAction)
+// }
 
 /** */
-@JvmName("testFactoryKase18")
-public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
-  vararg kases: Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>,
+context(TestEnvironmentFactory<T>)
+public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> Iterable<K>.asTests(
   labels: KaseLabels18 = KaseLabels18(),
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory(
-    kases = kases.toList(),
-    labels = labels,
-    testAction = testAction
-  )
+  crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
+): Stream<out DynamicNode>
+  where T : TestEnvironment<K>,
+        K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+  return testFactory(this@asTests, labels, testAction)
 }
 
+
+// /** */
+// @JvmName("testFactoryKase18Kase")
+// public inline fun <K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
+//   vararg kases: Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>,
+//   labels: KaseLabels18 = KaseLabels18(),
+//   crossinline testAction: (kase: K) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+//   return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+// }
+
+
+// /** */
+// @JvmName("testFactoryKase18Destructured")
+// public inline fun <K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
+//   vararg kases: Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>,
+//   labels: KaseLabels18 = KaseLabels18(),
+//   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+//   return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+// }
+
 /** */
-@JvmName("testFactoryKase18")
-public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
-  kases: Iterable<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>>,
+context(TestEnvironmentFactory<T>)
+public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
+  vararg kases: K,
   labels: KaseLabels18 = KaseLabels18(),
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
-): Stream<out DynamicNode> {
+  crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
+): Stream<out DynamicNode>
+  where T : TestEnvironment<K>,
+        K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+  return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+}
+
+
+// /** */
+// @JvmName("testFactoryKase18Kase")
+// public inline fun <K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
+//   kases: Iterable<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>>,
+//   labels: KaseLabels18 = KaseLabels18(),
+//   crossinline testAction: (kase: K) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+//   return kases.asTests(
+//     testName = { it.displayName(labels) },
+//     testAction = { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18) }
+//   )
+// }
+
+
+// /** */
+// @JvmName("testFactoryKase18Destructured")
+// public inline fun <K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
+//   kases: Iterable<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>>,
+//   labels: KaseLabels18 = KaseLabels18(),
+//   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+//   return kases.asTests(
+//     testName = { it.displayName(labels) },
+//     testAction = { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18) }
+//   )
+// }
+
+/** */
+context(TestEnvironmentFactory<T>)
+public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
+  kases: Iterable<K>,
+  labels: KaseLabels18 = KaseLabels18(),
+  crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
+): Stream<out DynamicNode>
+  where T : TestEnvironment<K>,
+        K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
   return kases.asTests(
     testName = { it.displayName(labels) },
-    testAction = { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18) }
+    testAction = { kase -> testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5, kase.a6, kase.a7, kase.a8, kase.a9, kase.a10, kase.a11, kase.a12, kase.a13, kase.a14, kase.a15, kase.a16, kase.a17, kase.a18) }
   )
 }
 
@@ -181,7 +279,7 @@ public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, 
 }
 
 /** A strongly-typed version of [Kase] for 18 parameters. */
-public interface Kase18<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15, out A16, out A17, out A18> : KaseInternal<KaseLabels18> {
+public interface Kase18<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15, out A16, out A17, out A18> : Kase<KaseLabels18> {
 
   /** The 1st parameter. */
   public val a1: A1
@@ -220,31 +318,29 @@ public interface Kase18<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
   /** The 18th parameter. */
   public val a18: A18
 
-  override val elements: List<KaseElement<Any?>>
-    get() = listOf(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18)
-  override fun destructured(): List<KaseElement<Any?>> = elements
+  override fun <T> plus(label: String, value: T): Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, T>
 }
-
 /** */
-internal data class DefaultKase18<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15, out A16, out A17, out A18>(
-  val a1Element: KaseElement<A1>,
-  val a2Element: KaseElement<A2>,
-  val a3Element: KaseElement<A3>,
-  val a4Element: KaseElement<A4>,
-  val a5Element: KaseElement<A5>,
-  val a6Element: KaseElement<A6>,
-  val a7Element: KaseElement<A7>,
-  val a8Element: KaseElement<A8>,
-  val a9Element: KaseElement<A9>,
-  val a10Element: KaseElement<A10>,
-  val a11Element: KaseElement<A11>,
-  val a12Element: KaseElement<A12>,
-  val a13Element: KaseElement<A13>,
-  val a14Element: KaseElement<A14>,
-  val a15Element: KaseElement<A15>,
-  val a16Element: KaseElement<A16>,
-  val a17Element: KaseElement<A17>,
-  val a18Element: KaseElement<A18>
+@Poko
+internal class DefaultKase18<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15, out A16, out A17, out A18>(
+  val a1Element: KaseParameterWithLabel<A1>,
+  val a2Element: KaseParameterWithLabel<A2>,
+  val a3Element: KaseParameterWithLabel<A3>,
+  val a4Element: KaseParameterWithLabel<A4>,
+  val a5Element: KaseParameterWithLabel<A5>,
+  val a6Element: KaseParameterWithLabel<A6>,
+  val a7Element: KaseParameterWithLabel<A7>,
+  val a8Element: KaseParameterWithLabel<A8>,
+  val a9Element: KaseParameterWithLabel<A9>,
+  val a10Element: KaseParameterWithLabel<A10>,
+  val a11Element: KaseParameterWithLabel<A11>,
+  val a12Element: KaseParameterWithLabel<A12>,
+  val a13Element: KaseParameterWithLabel<A13>,
+  val a14Element: KaseParameterWithLabel<A14>,
+  val a15Element: KaseParameterWithLabel<A15>,
+  val a16Element: KaseParameterWithLabel<A16>,
+  val a17Element: KaseParameterWithLabel<A17>,
+  val a18Element: KaseParameterWithLabel<A18>
 ) : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>, KaseInternal<KaseLabels18> {
   override val a1: A1 get() = a1Element.value
   override val a2: A2 get() = a2Element.value
@@ -265,8 +361,32 @@ internal data class DefaultKase18<out A1, out A2, out A3, out A4, out A5, out A6
   override val a17: A17 get() = a17Element.value
   override val a18: A18 get() = a18Element.value
 
-  override val elements: List<KaseElement<Any?>>
+  override val elements: List<KaseParameterWithLabel<Any?>>
     get() = listOf(a1Element, a2Element, a3Element, a4Element, a5Element, a6Element, a7Element, a8Element, a9Element, a10Element, a11Element, a12Element, a13Element, a14Element, a15Element, a16Element, a17Element, a18Element)
+
+  override fun <T> plus(label: String, value: T): DefaultKase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, T> {
+    return DefaultKase19(
+      a1Element = a1Element,
+      a2Element = a2Element,
+      a3Element = a3Element,
+      a4Element = a4Element,
+      a5Element = a5Element,
+      a6Element = a6Element,
+      a7Element = a7Element,
+      a8Element = a8Element,
+      a9Element = a9Element,
+      a10Element = a10Element,
+      a11Element = a11Element,
+      a12Element = a12Element,
+      a13Element = a13Element,
+      a14Element = a14Element,
+      a15Element = a15Element,
+      a16Element = a16Element,
+      a17Element = a17Element,
+      a18Element = a18Element,
+      element(value = value, label = label)
+    )
+  }
 }
 
 /**
@@ -295,32 +415,33 @@ internal data class DefaultKase18<out A1, out A2, out A3, out A4, out A5, out A6
  * @property prefix The prefix before the first label/value pair.
  * @property postfix The postfix after the last label/value pair.
  */
-public data class KaseLabels18(
-  val a1Label: String = "a1",
-  val a2Label: String = "a2",
-  val a3Label: String = "a3",
-  val a4Label: String = "a4",
-  val a5Label: String = "a5",
-  val a6Label: String = "a6",
-  val a7Label: String = "a7",
-  val a8Label: String = "a8",
-  val a9Label: String = "a9",
-  val a10Label: String = "a10",
-  val a11Label: String = "a11",
-  val a12Label: String = "a12",
-  val a13Label: String = "a13",
-  val a14Label: String = "a14",
-  val a15Label: String = "a15",
-  val a16Label: String = "a16",
-  val a17Label: String = "a17",
-  val a18Label: String = "a18",
+@Poko
+public class KaseLabels18(
+  public val a1Label: String = "a1",
+  public val a2Label: String = "a2",
+  public val a3Label: String = "a3",
+  public val a4Label: String = "a4",
+  public val a5Label: String = "a5",
+  public val a6Label: String = "a6",
+  public val a7Label: String = "a7",
+  public val a8Label: String = "a8",
+  public val a9Label: String = "a9",
+  public val a10Label: String = "a10",
+  public val a11Label: String = "a11",
+  public val a12Label: String = "a12",
+  public val a13Label: String = "a13",
+  public val a14Label: String = "a14",
+  public val a15Label: String = "a15",
+  public val a16Label: String = "a16",
+  public val a17Label: String = "a17",
+  public val a18Label: String = "a18",
   override val delimiter: String = ": ",
   override val separator: String = " | ",
   override val prefix: String = "[",
   override val postfix: String = "]"
 ) : KaseLabels {
 
-  override fun destructured(): List<String> {
-    return listOf(a1Label, a2Label, a3Label, a4Label, a5Label, a6Label, a7Label, a8Label, a9Label, a10Label, a11Label, a12Label, a13Label, a14Label, a15Label, a16Label, a17Label, a18Label)
+  override val orderedLabels: List<String> by lazy {
+    listOf(a1Label, a2Label, a3Label, a4Label, a5Label, a6Label, a7Label, a8Label, a9Label, a10Label, a11Label, a12Label, a13Label, a14Label, a15Label, a16Label, a17Label, a18Label)
   }
 }

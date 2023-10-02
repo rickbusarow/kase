@@ -92,6 +92,7 @@ dependencies {
     // javadoc.
     exclude(group = "org.gradle")
   }
+  implementation(libs.poko.gradle.plugin)
   implementation(libs.detekt.gradle)
   implementation(libs.diffplug.spotless)
   implementation(libs.dokka.core)

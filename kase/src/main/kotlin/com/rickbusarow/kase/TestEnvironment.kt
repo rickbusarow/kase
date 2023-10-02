@@ -24,10 +24,15 @@ import com.rickbusarow.kase.stdlib.useRelativePaths
  *
  * @param testFunctionName The [TestFunctionName] from which the test is being run.
  */
-public open class TestEnvironment(
-  public val kase: Kase<*>,
+public open class TestEnvironment<T : AnyKase>(
+  public val kase: T,
   testFunctionName: TestFunctionName = TestFunctionName.get()
-) : HasWorkingDir(createWorkingDir(testFunctionName, TODO())) {
+) : HasWorkingDir(
+  createWorkingDir(
+    testVariantNames = kase.displayNames(),
+    testFunctionName = testFunctionName
+  )
+) {
 
   /** replace absolute paths with relative ones */
   public fun String.useRelativePaths(): String = useRelativePaths(workingDir)
@@ -55,7 +60,7 @@ public interface HasTestVariant {
 public interface TestVariant {
 
   /** The parameters for the test. */
-  public val kase: Kase<*>
+  public val kase: AnyKase
 
   /**
    * The [TestFunctionName] from which the test is being run.

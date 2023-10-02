@@ -19,7 +19,8 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.KaseElement.Companion.element
+import com.rickbusarow.kase.KaseParameterWithLabel.Companion.element
+import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
 
@@ -29,6 +30,23 @@ public fun <A1> kase(
 ): Kase1<A1> {
   return DefaultKase1(
     element(value = a1, label = labels.a1Label)
+  )
+}
+
+
+/** */
+context(TestEnvironmentFactory<T>)
+public fun <T, K, A1> test(
+  a1: A1,
+  labels: KaseLabels1 = KaseLabels1(),
+  testFunctionName: TestFunctionName = TestFunctionName.get(),
+  testAction: suspend T.() -> Unit
+) where T : TestEnvironment<K>,
+        K : Kase1<A1> {
+  test(
+    kase = kase(a1, labels),
+    testFunctionName = testFunctionName,
+    testAction = testAction
   )
 }
 
@@ -51,37 +69,117 @@ public fun <A1> kases(
   }
 }
 
-/** */
-@JvmName("asTestsKase1")
-public inline fun <A1> Iterable<Kase1<A1>>.asTests(
-  labels: KaseLabels1 = KaseLabels1(),
-  crossinline testAction: (a1: A1) -> Unit
-): Stream<out DynamicNode> = testFactory(this@asTests, labels, testAction)
+
+// /** */
+// @JvmName("asTestsKase1Kase")
+// public inline fun <K, A1> Iterable<Kase1<A1>>.asTests(
+//   labels: KaseLabels1 = KaseLabels1(),
+//   crossinline testAction: (kase: K) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase1<A1> {
+//   return testFactory(this@asTests, labels, testAction)
+// }
+
+
+// /** */
+// @JvmName("asTestsKase1Destructured")
+// public inline fun <K, A1> Iterable<Kase1<A1>>.asTests(
+//   labels: KaseLabels1 = KaseLabels1(),
+//   crossinline testAction: (a1: A1) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase1<A1> {
+//   return testFactory(this@asTests, labels, testAction)
+// }
 
 /** */
-@JvmName("testFactoryKase1")
-public inline fun <A1> testFactory(
-  vararg kases: Kase1<A1>,
+context(TestEnvironmentFactory<T>)
+public inline fun <T, K, A1> Iterable<K>.asTests(
   labels: KaseLabels1 = KaseLabels1(),
-  crossinline testAction: (a1: A1) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory(
-    kases = kases.toList(),
-    labels = labels,
-    testAction = testAction
-  )
+  crossinline testAction: T.(a1: A1) -> Unit
+): Stream<out DynamicNode>
+  where T : TestEnvironment<K>,
+        K : Kase1<A1> {
+  return testFactory(this@asTests, labels, testAction)
 }
 
+
+// /** */
+// @JvmName("testFactoryKase1Kase")
+// public inline fun <K, A1> testFactory(
+//   vararg kases: Kase1<A1>,
+//   labels: KaseLabels1 = KaseLabels1(),
+//   crossinline testAction: (kase: K) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase1<A1> {
+//   return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+// }
+
+
+// /** */
+// @JvmName("testFactoryKase1Destructured")
+// public inline fun <K, A1> testFactory(
+//   vararg kases: Kase1<A1>,
+//   labels: KaseLabels1 = KaseLabels1(),
+//   crossinline testAction: (a1: A1) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase1<A1> {
+//   return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+// }
+
 /** */
-@JvmName("testFactoryKase1")
-public inline fun <A1> testFactory(
-  kases: Iterable<Kase1<A1>>,
+context(TestEnvironmentFactory<T>)
+public inline fun <T, K, A1> testFactory(
+  vararg kases: K,
   labels: KaseLabels1 = KaseLabels1(),
-  crossinline testAction: (a1: A1) -> Unit
-): Stream<out DynamicNode> {
+  crossinline testAction: T.(a1: A1) -> Unit
+): Stream<out DynamicNode>
+  where T : TestEnvironment<K>,
+        K : Kase1<A1> {
+  return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+}
+
+
+// /** */
+// @JvmName("testFactoryKase1Kase")
+// public inline fun <K, A1> testFactory(
+//   kases: Iterable<Kase1<A1>>,
+//   labels: KaseLabels1 = KaseLabels1(),
+//   crossinline testAction: (kase: K) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase1<A1> {
+//   return kases.asTests(
+//     testName = { it.displayName(labels) },
+//     testAction = { testAction(it.a1) }
+//   )
+// }
+
+
+// /** */
+// @JvmName("testFactoryKase1Destructured")
+// public inline fun <K, A1> testFactory(
+//   kases: Iterable<Kase1<A1>>,
+//   labels: KaseLabels1 = KaseLabels1(),
+//   crossinline testAction: (a1: A1) -> Unit
+// ): Stream<out DynamicNode>
+//   where K : Kase1<A1> {
+//   return kases.asTests(
+//     testName = { it.displayName(labels) },
+//     testAction = { testAction(it.a1) }
+//   )
+// }
+
+/** */
+context(TestEnvironmentFactory<T>)
+public inline fun <T, K, A1> testFactory(
+  kases: Iterable<K>,
+  labels: KaseLabels1 = KaseLabels1(),
+  crossinline testAction: T.(a1: A1) -> Unit
+): Stream<out DynamicNode>
+  where T : TestEnvironment<K>,
+        K : Kase1<A1> {
   return kases.asTests(
     testName = { it.displayName(labels) },
-    testAction = { testAction(it.a1) }
+    testAction = { kase -> testAction(kase.a1) }
   )
 }
 
@@ -96,24 +194,29 @@ public inline fun <A1> testFactory(
 }
 
 /** A strongly-typed version of [Kase] for 1 parameters. */
-public interface Kase1<out A1> : KaseInternal<KaseLabels1> {
+public interface Kase1<out A1> : Kase<KaseLabels1> {
 
   /** The 1st parameter. */
   public val a1: A1
 
-  override val elements: List<KaseElement<Any?>>
-    get() = listOf(a1)
-  override fun destructured(): List<KaseElement<Any?>> = elements
+  override fun <T> plus(label: String, value: T): Kase2<A1, T>
 }
-
 /** */
-internal data class DefaultKase1<out A1>(
-  val a1Element: KaseElement<A1>
+@Poko
+internal class DefaultKase1<out A1>(
+  val a1Element: KaseParameterWithLabel<A1>
 ) : Kase1<A1>, KaseInternal<KaseLabels1> {
   override val a1: A1 get() = a1Element.value
 
-  override val elements: List<KaseElement<Any?>>
+  override val elements: List<KaseParameterWithLabel<Any?>>
     get() = listOf(a1Element)
+
+  override fun <T> plus(label: String, value: T): DefaultKase2<A1, T> {
+    return DefaultKase2(
+      a1Element = a1Element,
+      element(value = value, label = label)
+    )
+  }
 }
 
 /**
@@ -125,15 +228,16 @@ internal data class DefaultKase1<out A1>(
  * @property prefix The prefix before the first label/value pair.
  * @property postfix The postfix after the last label/value pair.
  */
-public data class KaseLabels1(
-  val a1Label: String = "a1",
+@Poko
+public class KaseLabels1(
+  public val a1Label: String = "a1",
   override val delimiter: String = ": ",
   override val separator: String = " | ",
   override val prefix: String = "[",
   override val postfix: String = "]"
 ) : KaseLabels {
 
-  override fun destructured(): List<String> {
-    return listOf(a1Label)
+  override val orderedLabels: List<String> by lazy {
+    listOf(a1Label)
   }
 }

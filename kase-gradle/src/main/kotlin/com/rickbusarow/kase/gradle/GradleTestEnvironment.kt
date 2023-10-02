@@ -15,7 +15,6 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestFunctionName
 import com.rickbusarow.kase.stdlib.createSafely
@@ -35,7 +34,7 @@ public class GradleTestEnvironment(
   override val testVersions: TestVersions,
   override val projectCache: MutableMap<String, KaseGradleProject>,
   testFunctionName: TestFunctionName,
-  kase: Kase<*>
+  kase: AnyKase
 ) : TestEnvironment(kase, testFunctionName),
   ProjectCollector,
   HasTestVersions<TestVersions> {

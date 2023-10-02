@@ -13,24 +13,35 @@
  * limitations under the License.
  */
 
-package builds
+package com.rickbusarow.kase
 
-import com.rickbusarow.kgx.libsCatalog
-import com.rickbusarow.kgx.pluginId
-import org.gradle.api.Project
+import org.junit.jupiter.api.TestFactory
 
-interface KspExtension {
+class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment<Kase2<String, Int>>> {
 
-  fun Project.ksp() {
-
-    pluginManager.apply("com.google.devtools.ksp")
+  @TestFactory
+  fun `my test`() = kases(
+    listOf("a", "b"),
+    listOf(1, 2, 3)
+  ).asTests { a, b ->
+    println("$a $b")
   }
-}
 
-interface PokoExtension {
+  @TestFactory
+  fun `my test 2`() = kases(
+    listOf("a", "b"),
+    listOf(1, 2, 3)
+  ).asTests { k ->
+  }
 
-  fun Project.poko() {
+  @TestFactory
+  fun `my test 3`() = kases(
+    listOf("a", "b"),
+    listOf(1, 2, 3)
+  ).asTests { k ->
+  }
 
-    pluginManager.apply(libsCatalog.pluginId("poko"))
+  @TestFactory
+  fun `my test 4`() = test("a", listOf("a")) {
   }
 }

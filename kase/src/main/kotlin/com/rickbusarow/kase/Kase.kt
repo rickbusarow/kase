@@ -15,41 +15,12 @@
 
 package com.rickbusarow.kase
 
-/** */
-public interface DestructuringKaseElement<out E> {
-  /** */
-  public fun destructured(): List<E>
-}
-
-/** */
-public interface KaseElement<out T> : HasLabel {
-  /** */
-  public val value: T
-
-  public operator fun component1(): T = value
-  public operator fun component2(): String = label
-
-  public companion object {
-    public fun <T> element(value: T, label: String): KaseElement<T> {
-      return DefaultKaseElement(value, label)
-    }
-  }
-}
-
-/** */
-public interface HasLabel {
-  /** */
-  public val label: String
-}
-
-/** */
-public class DefaultKaseElement<out T>(
-  override val value: T,
-  override val label: String
-) : KaseElement<T>
+import dev.drewhamilton.poko.Poko
 
 /** */
 public interface Kase<T : KaseLabels> {
+
+  public fun <T> plus(label: String, value: T): AnyKase
 
   /** */
   public fun displayNames(labels: T): List<String>
@@ -65,32 +36,14 @@ public interface Kase<T : KaseLabels> {
   )
 }
 
-public interface KaseInternal<T : KaseLabels> : Kase<T>, DestructuringKaseElement<Any?> {
-
-  public val elements: List<KaseElement<Any?>> get() = destructured()
-
-  override fun destructured(): List<KaseElement<Any?>> = TODO()
-
-  /** */
-  override fun displayNames(labels: T): List<String> {
-    return labels.destructured().zip(destructured())
-      .map { (label, value) ->
-        "$label${labels.delimiter}$value"
-      }
-  }
-
-  /** */
-  override fun displayNames(delimiter: String): List<String> {
-    return elements.map { (label, value) ->
-      "$label${delimiter}$value"
-    }
-  }
-}
-
 /** */
-public interface KaseLabels : DestructuringKaseElement<String> {
+public interface KaseLabels {
 
-  /** */
+  /**
+   * between the label and the value.
+   *
+   * ex: the ':' in "label: value"
+   */
   public val delimiter: String get() = ": "
 
   /** */
@@ -102,5 +55,58 @@ public interface KaseLabels : DestructuringKaseElement<String> {
   /** */
   public val postfix: String get() = "]"
 
-  override fun destructured(): List<String> = TODO()
+  /** */
+  public val orderedLabels: List<String>
+}
+
+/** */
+public interface KaseParameterWithLabel<out T> : HasLabel {
+  /** */
+  public val value: T
+
+  public operator fun component1(): T = value
+  public operator fun component2(): String = label
+
+  public companion object {
+    public fun <T> element(value: T, label: String): KaseParameterWithLabel<T> {
+      return DefaultKaseParameterWithLabel(value, label)
+    }
+  }
+}
+
+/** */
+public interface HasLabel {
+  /** */
+  public val label: String
+}
+
+/** */
+@Poko
+public class DefaultKaseParameterWithLabel<out T>(
+  override val value: T,
+  override val label: String
+) : KaseParameterWithLabel<T>
+
+public typealias AnyKase = Kase<*>
+
+/**
+ */
+public interface KaseInternal<T : KaseLabels> : Kase<T> {
+
+  public val elements: List<KaseParameterWithLabel<Any?>>
+
+  /** */
+  override fun displayNames(labels: T): List<String> {
+    return labels.orderedLabels.zip(elements)
+      .map { (label, element) ->
+        "$label${labels.delimiter}${element.value}"
+      }
+  }
+
+  /** */
+  override fun displayNames(delimiter: String): List<String> {
+    return elements.map { (label, value) ->
+      "$label${delimiter}$value"
+    }
+  }
 }

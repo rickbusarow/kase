@@ -82,7 +82,7 @@ rootProject.name = "kase"
 
 include(
   ":kase",
-  ":kase-gradle",
+  // ":kase-gradle",
   ":kase-overload-generator"
 )
 

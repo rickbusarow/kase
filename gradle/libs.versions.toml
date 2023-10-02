@@ -2,6 +2,7 @@
 
 kotlin = "1.8.22"
 google-ksp = "1.8.22-1.0.11"
+poko = "0.13.1"
 
 benManes-versions = "0.48.0"
 buildconfig = "4.1.2"
@@ -40,6 +41,7 @@ integration-test = { id = "com.coditory.integration-test", version.ref = "integr
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktlint = { id = "com.rickbusarow.ktlint", version.ref = "rickBusarow-ktlint" }
 moduleCheck = { id = "com.rickbusarow.module-check", version.ref = "rickBusarow-moduleCheck" }
+poko = { id = "dev.drewhamilton.poko", version.ref = "poko" }
 
 [libraries]
 
@@ -111,10 +113,15 @@ kotlinx-coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-co
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 
+poko-annotations = { module = "dev.drewhamilton.poko:poko-annotations", version.ref = "poko" }
+poko-compiler = { module = "dev.drewhamilton.poko:poko-compiler-plugin", version.ref = "poko" }
+poko-gradle-plugin = { module = "dev.drewhamilton.poko:poko-gradle-plugin", version.ref = "poko" }
+
 rickBusarow-doks = { module = "com.rickbusarow.doks:doks-gradle-plugin", version.ref = "rickBusarow-doks" }
 rickBusarow-kgx = { module = "com.rickbusarow.kgx:kotlin-gradle-extensions", version.ref = "rickBusarow-kgx" }
 rickBusarow-ktlint = { module = "com.rickbusarow.ktlint:ktlint-gradle-plugin", version.ref = "rickBusarow-ktlint" }
 rickBusarow-ktrules = { module = "com.rickbusarow.ktrules:ktrules", version.ref = "rickBusarow-ktrules" }
+rickBusarow-ktrules48 = { module = "com.rickbusarow.ktrules:ktrules-48", version.ref = "rickBusarow-ktrules" }
 rickBusarow-moduleCheck-gradle-plugin = { module = "com.rickbusarow.modulecheck:plugin", version.ref = "rickBusarow-moduleCheck" }
 
 square-kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "square-kotlinPoet" }

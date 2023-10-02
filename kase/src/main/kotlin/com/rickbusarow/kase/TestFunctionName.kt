@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase
 
+import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.lang.reflect.AnnotatedElement
@@ -26,16 +27,17 @@ import java.lang.reflect.Method
  * @property packageName ex: `com.example.foo`
  * @property declaringClass ex: `com.example.foo.Outer.Middle.Inner$$inlined$$execute$1`
  * @property declaringClassWithoutSynthetics ex: `com.example.foo.Outer.Middle.Inner`
- * @property simpleNames ex: `[Outer, Middle, Inner]`
+ * @property declaringClassSimpleNames ex: `[Outer, Middle, Inner]`
  * @property callingFunctionSimpleName ex: `some function should return false`
  */
+@Poko
 public class TestFunctionName private constructor(
   public val fileName: String,
   public val lineNumber: Int,
   public val packageName: String,
   public val declaringClass: Class<*>,
   public val declaringClassWithoutSynthetics: Class<*>,
-  public val simpleNames: List<String>,
+  public val declaringClassSimpleNames: List<String>,
   public val callingFunctionSimpleName: String
 ) {
 
@@ -62,7 +64,7 @@ public class TestFunctionName private constructor(
         packageName = actualClass.`package`.name,
         declaringClass = Class.forName(stackTraceElement.className),
         declaringClassWithoutSynthetics = actualClass,
-        simpleNames = actualClass.simpleNames(),
+        declaringClassSimpleNames = actualClass.simpleNames(),
         callingFunctionSimpleName = stackTraceElement.methodName
       )
     }
@@ -98,7 +100,7 @@ public class TestFunctionName private constructor(
     //     packageName = stackFrame.declaringClass.packageName,
     //     declaringClass = stackFrame.declaringClass,
     //     declaringClassWithoutSynthetics = actualClass,
-    //     simpleNames = actualClass.simpleNames(),
+    //     declaringClassSimpleNames = actualClass.declaringClassSimpleNames(),
     //     callingFunctionSimpleName = stackFrame.declaringClass.name
     //       .removePrefix(actualClass.name)
     //       .splitToSequence(Regex("""[.$]+"""))

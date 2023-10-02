@@ -18,68 +18,21 @@ package com.rickbusarow.kase
 import kotlinx.coroutines.runBlocking
 
 /** Creates [TestEnvironment]s. */
-public interface TestEnvironmentFactory<T : TestEnvironment> {
-
-  // /**
-  //  * Runs the provided test [testAction] in the context of a new [TestEnvironment].
-  //  *
-  //  * @param testFunctionName The [TestFunctionName] from which the test is being run.
-  //  * @param testVariantNames The variant names related to the test.
-  //  * @param testAction The test action to run within the [TestEnvironment].
-  //  */
-  // fun test(
-  //   testFunctionName: TestFunctionName = TestFunctionName.get(),
-  //   vararg testVariantNames: String,
-  //   testAction: suspend T.() -> Unit
-  // ) {
-  //    test(testFunctionName, testVariantNames.toList(), testAction = testAction)
-  // }
+public interface TestEnvironmentFactory<T : TestEnvironment<*>> {
 
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
    *
-   * @param testFunctionName The [TestFunctionName] from which the test is being run.
-   * @param testVariantNames The variant names related to the test.
-   * @param testAction The test action to run within the [TestEnvironment].
-   */
-  public fun test(
-    testFunctionName: TestFunctionName = TestFunctionName.get(),
-    testVariantNames: List<String>,
-    testAction: suspend T.() -> Unit
-  ) {
-    test(
-      kase = TODO(),
-      testAction = testAction
-    )
-  }
-
-  /**
-   * Runs the provided test [testAction] in the context of a new [TestEnvironment].
-   *
-   * @param testFunctionName The [TestFunctionName] from which the test is being run.
    * @param kase The variant names related to the test.
+   * @param testFunctionName The [TestFunctionName] from which the test is being run.
    * @param testAction The test action to run within the [TestEnvironment].
    */
   public fun test(
+    kase: AnyKase,
     testFunctionName: TestFunctionName = TestFunctionName.get(),
-    kase: Kase<*>,
     testAction: suspend T.() -> Unit
   ) {
-    test(
-      kase = TODO(),
-      testAction = testAction
-    )
-  }
-
-  /**
-   * Runs the provided test [testAction] in the context of a new [TestEnvironment].
-   *
-   * @param params used to create the [TestEnvironment]
-   * @param testAction The test action to run within the [TestEnvironment].
-   */
-  public fun test(kase: Kase<*>, testAction: suspend T.() -> Unit) {
-
-    val testEnvironment = newTestEnvironment(TODO())
+    val testEnvironment = newTestEnvironment(kase, testFunctionName)
 
     runBlocking {
       testEnvironment.asClueCatching {
@@ -87,6 +40,20 @@ public interface TestEnvironmentFactory<T : TestEnvironment> {
         println(testEnvironment)
       }
     }
+  }
+
+  /**
+   * Creates a new [TestEnvironment].
+   *
+   * @return A new [TestEnvironment] of type [T].
+   */
+  public fun <K : AnyKase> newTestEnvironment(
+    kase: K,
+    testFunctionName: TestFunctionName = TestFunctionName.get()
+  ): T {
+    @Suppress("UNCHECKED_CAST")
+    return TestEnvironment(kase = kase, testFunctionName = testFunctionName) as? T
+      ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
 
   /**

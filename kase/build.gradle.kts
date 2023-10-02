@@ -22,6 +22,7 @@ module {
     artifactId = "kase",
     pomDescription = "Hermetic test environments and test factories"
   )
+  poko()
 }
 
 dependencies {

@@ -16,7 +16,6 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasTestVariant
-import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.Kase3
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.gradle.DependencyVersion.Agp
@@ -48,7 +47,7 @@ public data class TestVersions(
   }
 
   public companion object {
-    public fun from(kase: Kase<*>, versionsMatrix: VersionsMatrix): TestVersions {
+    public fun from(kase: AnyKase, versionsMatrix: VersionsMatrix): TestVersions {
 
       val versions = kase.destructured()
         .filterNotNull()
