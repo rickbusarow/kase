@@ -21,18 +21,19 @@ import com.rickbusarow.kgx.inCI
 import com.rickbusarow.kgx.isRealRootProject
 import modulecheck.gradle.ModuleCheckExtension
 import modulecheck.gradle.ModuleCheckPlugin
-import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 /** Applied to the real project root and the root project of any included build except this one. */
-abstract class RootPlugin : Plugin<Project> {
+abstract class RootPlugin : BaseModulePlugin() {
   override fun apply(target: Project) {
 
     target.checkProjectIsRoot()
 
     target.plugins.apply("com.autonomousapps.dependency-analysis")
 
-    target.plugins.apply(ModulePlugin::class.java)
+    target.extensions.create("root", RootExtension::class.java)
+
+    super.apply(target)
 
     target.plugins.apply(ArtifactsPlugin::class.java)
     target.plugins.apply(BenManesVersionsPlugin::class.java)
@@ -44,8 +45,8 @@ abstract class RootPlugin : Plugin<Project> {
 
     target.extensions.configure(ModuleCheckExtension::class.java) { extension ->
       extension.deleteUnused = true
-      extension.checks { checksSettings ->
-        checksSettings.sortDependencies = true
+      extension.checks { checks ->
+        checks.sortDependencies = true
       }
     }
 

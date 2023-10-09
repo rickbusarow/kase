@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright (C) 2023 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,14 +13,8 @@
  * limitations under the License.
  */
 
-plugins {
-  id("jvm-module")
-  application
-}
+package com.rickbusarow.kase
 
-jvmModule {
-  explicitApi .set(false)
-}
+import org.junit.jupiter.api.Assertions.*
 
-dependencies {
-}
+class DirectoryBuilderTest

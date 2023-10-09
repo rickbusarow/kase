@@ -18,7 +18,7 @@ package com.rickbusarow.kase.gradle.generation
 import com.rickbusarow.kase.stdlib.capitalize
 import com.rickbusarow.kase.stdlib.decapitalize
 
-interface McConfiguration
+public interface McConfiguration
 
 /**
  * Wraps the unqualified, simple name of a Gradle
@@ -27,7 +27,7 @@ interface McConfiguration
  * @property value the name
  */
 @JvmInline
-value class ConfigurationName(val value: String) : Comparable<ConfigurationName> {
+public value class ConfigurationName(public val value: String) : Comparable<ConfigurationName> {
 
   /**
    * Strips the "base Configuration name" (`api`, `implementation`, `compileOnly`,
@@ -47,7 +47,7 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
    *
    * @return the name of the source set used with this configuration, wrapped in [SourceSetName]
    */
-  fun toSourceSetName(): SourceSetName = when (this.value) {
+  public fun toSourceSetName(): SourceSetName = when (this.value) {
     // "main" source set configurations omit the "main" from their name,
     // creating "implementation" instead of "mainImplementation"
     in mainConfigurations -> SourceSetName.MAIN
@@ -67,9 +67,9 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
    * ConfigurationName("debugApi").nameWithoutSourceSet() == "Api"
    * ConfigurationName("testImplementation").nameWithoutSourceSet() == "Implementation"
    */
-  fun nameWithoutSourceSet(): String {
+  public fun nameWithoutSourceSet(): String {
     return when {
-      isKapt() -> ConfigurationName.kapt.value
+      isKapt() -> kapt.value
       else -> value.removePrefix(toSourceSetName().value)
     }
   }
@@ -85,7 +85,7 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
    * ConfigurationName("debugApi").nameWithoutSourceSet() == "Api"
    * ConfigurationName("testImplementation").nameWithoutSourceSet() == "Implementation"
    */
-  fun switchSourceSet(newSourceSetName: SourceSetName): ConfigurationName {
+  public fun switchSourceSet(newSourceSetName: SourceSetName): ConfigurationName {
 
     return when {
       isKapt() -> ConfigurationName(
@@ -150,7 +150,7 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
    * @return for any main/common configuration, just returns `api`. For any
    *   other configuration, it returns the [SourceSetName] appended with `Api`.
    */
-  fun apiVariant(): ConfigurationName = toSourceSetName().apiConfig()
+  public fun apiVariant(): ConfigurationName = toSourceSetName().apiConfig()
 
   /**
    * Returns the '-implementation' version of the current configuration.
@@ -162,7 +162,7 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
    * @return for any main/common configuration, just returns `implementation`. For any
    *   other configuration, it returns the [SourceSetName] appended with `Implementation`.
    */
-  fun implementationVariant(): ConfigurationName = toSourceSetName().implementationConfig()
+  public fun implementationVariant(): ConfigurationName = toSourceSetName().implementationConfig()
 
   /**
    * Returns the 'kapt-' version of the current configuration.
@@ -170,16 +170,16 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
    * @return for any main/common configuration, just returns `kapt`. For any
    *   other configuration, it returns `kapt` appended with the [SourceSetName].
    */
-  fun kaptVariant(): ConfigurationName = toSourceSetName().kaptVariant()
+  public fun kaptVariant(): ConfigurationName = toSourceSetName().kaptVariant()
 
   /** @return true if the configuration is an `api` variant */
-  fun isApi(): Boolean = this == apiVariant()
+  public fun isApi(): Boolean = this == apiVariant()
 
   /** @return true if the configuration is an `implementation` variant */
-  fun isImplementation(): Boolean = this == implementationVariant()
+  public fun isImplementation(): Boolean = this == implementationVariant()
 
   /** @return true if the configuration is a `kapt` variant */
-  fun isKapt(): Boolean = this == kaptVariant()
+  public fun isKapt(): Boolean = this == kaptVariant()
 
   override fun compareTo(other: ConfigurationName): Int {
     return value.compareTo(other.value)
@@ -187,57 +187,57 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
 
   override fun toString(): String = "(ConfigurationName) `$value`"
 
-  companion object {
+  public companion object {
 
     /** name of the 'androidTestImplementation' configuration */
-    val androidTestImplementation: ConfigurationName =
+    public val androidTestImplementation: ConfigurationName =
       ConfigurationName("androidTestImplementation")
 
     /** name of the 'annotationProcessor' configuration */
-    val annotationProcessor: ConfigurationName = ConfigurationName("annotationProcessor")
+    public val annotationProcessor: ConfigurationName = ConfigurationName("annotationProcessor")
 
     /** name of the 'anvil' configuration */
-    val anvil: ConfigurationName = ConfigurationName("anvil")
+    public val anvil: ConfigurationName = ConfigurationName("anvil")
 
     /** name of the 'api' configuration */
-    val api: ConfigurationName = ConfigurationName("api")
+    public val api: ConfigurationName = ConfigurationName("api")
 
     /** name of the 'compile' configuration */
-    val compile: ConfigurationName = ConfigurationName("compile")
+    public val compile: ConfigurationName = ConfigurationName("compile")
 
     /** name of the 'compileOnly' configuration */
-    val compileOnly: ConfigurationName = ConfigurationName("compileOnly")
+    public val compileOnly: ConfigurationName = ConfigurationName("compileOnly")
 
     /** name of the 'compileOnlyApi' configuration */
-    val compileOnlyApi: ConfigurationName = ConfigurationName("compileOnlyApi")
+    public val compileOnlyApi: ConfigurationName = ConfigurationName("compileOnlyApi")
 
     /** name of the 'implementation' configuration */
-    val implementation: ConfigurationName = ConfigurationName("implementation")
+    public val implementation: ConfigurationName = ConfigurationName("implementation")
 
     /** name of the 'kapt' configuration */
-    val kapt: ConfigurationName = ConfigurationName("kapt")
+    public val kapt: ConfigurationName = ConfigurationName("kapt")
 
     /** name of the 'kotlinCompilerPluginClasspathMain' configuration */
-    val kotlinCompileClasspath: ConfigurationName =
+    public val kotlinCompileClasspath: ConfigurationName =
       ConfigurationName("kotlinCompilerPluginClasspathMain")
 
     /** name of the 'ksp' configuration */
-    val ksp: ConfigurationName = ConfigurationName("ksp")
+    public val ksp: ConfigurationName = ConfigurationName("ksp")
 
     /** name of the 'runtime' configuration */
-    val runtime: ConfigurationName = ConfigurationName("runtime")
+    public val runtime: ConfigurationName = ConfigurationName("runtime")
 
     /** name of the 'runtimeOnly' configuration */
-    val runtimeOnly: ConfigurationName = ConfigurationName("runtimeOnly")
+    public val runtimeOnly: ConfigurationName = ConfigurationName("runtimeOnly")
 
     /** name of the 'testApi' configuration */
-    val testApi: ConfigurationName = ConfigurationName("testApi")
+    public val testApi: ConfigurationName = ConfigurationName("testApi")
 
     /** name of the 'testImplementation' configuration */
-    val testImplementation: ConfigurationName = ConfigurationName("testImplementation")
+    public val testImplementation: ConfigurationName = ConfigurationName("testImplementation")
 
     /** */
-    val mainConfigurations: List<String> = listOf(
+    public val mainConfigurations: List<String> = listOf(
       api.value,
       compile.value,
       compileOnly.value,
@@ -264,7 +264,7 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
       .toSet()
 
     /** the names of all configurations consumed by the main source set */
-    fun main(): List<ConfigurationName> = listOf(
+    public fun main(): List<ConfigurationName> = listOf(
       compileOnlyApi,
       api,
       implementation,
@@ -278,7 +278,7 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
     /**
      * the base configurations which do not leak their transitive dependencies (basically not `api`)
      */
-    fun private(): List<ConfigurationName> = listOf(
+    public fun private(): List<ConfigurationName> = listOf(
       implementation,
       compileOnly,
       compile,
@@ -289,7 +289,7 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
     /**
      * the base configurations which include their dependencies as "compile" dependencies in the POM
      */
-    fun public(): List<ConfigurationName> = listOf(
+    public fun public(): List<ConfigurationName> = listOf(
       compileOnlyApi,
       api
     )
@@ -297,9 +297,9 @@ value class ConfigurationName(val value: String) : Comparable<ConfigurationName>
 }
 
 /** @return a ConfigurationName from this raw string */
-fun String.asConfigurationName(): ConfigurationName = ConfigurationName(this)
+public fun String.asConfigurationName(): ConfigurationName = ConfigurationName(this)
 
-fun <T : Any> Map<ConfigurationName, Collection<T>>.main(): List<T> {
+public fun <T : Any> Map<ConfigurationName, Collection<T>>.main(): List<T> {
   return listOfNotNull(
     get(ConfigurationName.api),
     get(ConfigurationName.compileOnly),
@@ -309,39 +309,40 @@ fun <T : Any> Map<ConfigurationName, Collection<T>>.main(): List<T> {
 }
 
 /** @return all source set names from this configuration names, without duplicates */
-fun Iterable<ConfigurationName>.distinctSourceSetNames(): List<SourceSetName> =
+public fun Iterable<ConfigurationName>.distinctSourceSetNames(): List<SourceSetName> =
   map { it.toSourceSetName() }
     .distinct()
 
 /** @return all source set names from this configuration names, without duplicates */
-fun Sequence<ConfigurationName>.distinctSourceSetNames(): Sequence<SourceSetName> =
+public fun Sequence<ConfigurationName>.distinctSourceSetNames(): Sequence<SourceSetName> =
   map { it.toSourceSetName() }
     .distinct()
 
-fun String.asSourceSetName(): SourceSetName = SourceSetName(this)
+public fun String.asSourceSetName(): SourceSetName = SourceSetName(this)
 
-fun SourceSetName.removePrefix(prefix: String): SourceSetName = value.removePrefix(prefix)
+public fun SourceSetName.removePrefix(prefix: String): SourceSetName = value.removePrefix(prefix)
   .decapitalize()
   .asSourceSetName()
 
-fun SourceSetName.removePrefix(prefix: SourceSetName): SourceSetName = removePrefix(prefix.value)
+public fun SourceSetName.removePrefix(prefix: SourceSetName): SourceSetName =
+  removePrefix(prefix.value)
 
-fun SourceSetName.hasPrefix(prefix: String): Boolean = value.startsWith(prefix)
-fun SourceSetName.hasPrefix(prefix: SourceSetName): Boolean = hasPrefix(prefix.value)
+public fun SourceSetName.hasPrefix(prefix: String): Boolean = value.startsWith(prefix)
+public fun SourceSetName.hasPrefix(prefix: SourceSetName): Boolean = hasPrefix(prefix.value)
 
-fun SourceSetName.addPrefix(prefix: String): SourceSetName = prefix.plus(value.capitalize())
+public fun SourceSetName.addPrefix(prefix: String): SourceSetName = prefix.plus(value.capitalize())
   .asSourceSetName()
 
-fun SourceSetName.addPrefix(prefix: SourceSetName): SourceSetName = addPrefix(prefix.value)
+public fun SourceSetName.addPrefix(prefix: SourceSetName): SourceSetName = addPrefix(prefix.value)
 
-fun SourceSetName.removeSuffix(suffix: String): SourceSetName =
+public fun SourceSetName.removeSuffix(suffix: String): SourceSetName =
   value.removeSuffix(suffix.capitalize())
     .asSourceSetName()
 
-fun SourceSetName.removeSuffix(suffix: SourceSetName): SourceSetName =
+public fun SourceSetName.removeSuffix(suffix: SourceSetName): SourceSetName =
   removeSuffix(suffix.value.capitalize())
 
-fun SourceSetName.addSuffix(suffix: String): SourceSetName = value.plus(suffix.capitalize())
+public fun SourceSetName.addSuffix(suffix: String): SourceSetName = value.plus(suffix.capitalize())
   .asSourceSetName()
 
-fun SourceSetName.addSuffix(suffix: SourceSetName): SourceSetName = addSuffix(suffix.value)
+public fun SourceSetName.addSuffix(suffix: SourceSetName): SourceSetName = addSuffix(suffix.value)

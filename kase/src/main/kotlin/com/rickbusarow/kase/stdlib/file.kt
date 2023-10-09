@@ -57,10 +57,10 @@ public fun File.resolveInParent(relativePath: String): File {
 public fun File.existsOrNull(): File? = takeIf { it.exists() }
 
 /** */
-public infix operator fun File.div(relative: String): File = resolve(relative)
+public operator fun File.div(relative: String): File = resolve(relative)
 
 /** */
-public infix operator fun File.div(relative: File): File = resolve(relative)
+public operator fun File.div(relative: File): File = resolve(relative)
 
 /**
  * Creates a new file if it doesn't already exist, creating parent

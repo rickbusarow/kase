@@ -24,9 +24,13 @@ gradlePlugin {
       id = "composite"
       implementationClass = "builds.CompositePlugin"
     }
-    create("module") {
-      id = "module"
-      implementationClass = "builds.ModulePlugin"
+    create("jvm") {
+      id = "jvm-module"
+      implementationClass = "builds.KotlinJvmModulePlugin"
+    }
+    create("kmp") {
+      id = "kmp-module"
+      implementationClass = "builds.KotlinMultiplatformModulePlugin"
     }
     create("root") {
       id = "root"

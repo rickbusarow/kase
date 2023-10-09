@@ -17,34 +17,38 @@ package builds
 
 import com.rickbusarow.kgx.applyOnce
 import com.rickbusarow.kgx.dependsOn
-import com.rickbusarow.kgx.internal.InternalGradleApiAccess
-import com.rickbusarow.kgx.internal.whenElementRegistered
 import com.rickbusarow.kgx.java
 import com.vanniktech.maven.publish.MavenPublishBasePlugin
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.file.DuplicatesStrategy.INCLUDE
+import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.compile.JavaCompile
-import org.jetbrains.kotlin.builtins.StandardNames.FqNames.target
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinSingleTargetExtension
-import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.targets
+import org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget
 
-abstract class KotlinJvmConventionPlugin : BaseKotlinConventionPlugin() {
+abstract class KotlinMultiplatformConventionPlugin : BaseKotlinConventionPlugin() {
 
-  @OptIn(InternalGradleApiAccess::class)
   override fun apply(target: Project) {
-    target.plugins.applyOnce("org.jetbrains.kotlin.jvm")
+    target.plugins.applyOnce("org.jetbrains.kotlin.multiplatform")
 
-    target.extensions.getByType(KotlinJvmExtension::class.java)
+    val extension = target.extensions.getByType(KotlinMultiplatformExtension::class.java)
 
     super.apply(target)
+
+
+
+
+    val kmpExtension = target.extensions.getByType(org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension::class.java)
+
+    kmpExtension.targets.withType(KotlinJvmTarget::class.java).configureEach { jvmTarget ->
+      jvmTarget
+      }
+
+    kmpExtension
+      .sourceSets.configureEach { sourceSet ->
+        sourceSet.kotlin.srcDirs("src/${sourceSet.name}/kotlin")
+      }
 
     target.plugins.withType(MavenPublishBasePlugin::class.java).configureEach {
       target.extensions.configure(JavaPluginExtension::class.java) { extension ->
@@ -54,16 +58,6 @@ abstract class KotlinJvmConventionPlugin : BaseKotlinConventionPlugin() {
     target.tasks.withType(JavaCompile::class.java).configureEach { task ->
       task.options.release.set(target.JVM_TARGET_INT)
     }
-
-    val kotlinExt: KotlinProjectExtension = target.kotlinExtension
-
-      kotlinExt.onTargetRegistered<KotlinTarget> {
-
-      }
-
-      .configureEach { sourceSet ->
-        sourceSet.kotlin.srcDirs("src/${sourceSet.name}/kotlin")
-      }
 
     target.tasks.register("buildTests") { it.dependsOn("testClasses") }
     target.tasks.register("buildAll").dependsOn(
@@ -75,18 +69,7 @@ abstract class KotlinJvmConventionPlugin : BaseKotlinConventionPlugin() {
     // when executing a Jar task
     // https://github.com/gradle/gradle/issues/17236
     target.tasks.withType(Jar::class.java).configureEach { task ->
-      task.duplicatesStrategy = INCLUDE
+      task.duplicatesStrategy = DuplicatesStrategy.INCLUDE
     }
-  }
-}
-
-@InternalGradleApiAccess
-inline fun <reified T : KotlinTarget> KotlinProjectExtension.onTargetRegistered(
-  noinline configurationAction: (String, Provider<T>) -> Unit
-)  {
-  when(val extension = this) {
-    is KotlinSingleTargetExtension<*> -> configurationAction( extension. target.name,  extension.)
-    is KotlinMultiplatformExtension -> extension.targets.whenElementRegistered(configurationAction)
-    else -> error("Unexpected 'kotlin' extension $this")
   }
 }

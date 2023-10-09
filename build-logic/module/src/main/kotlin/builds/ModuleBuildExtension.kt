@@ -15,9 +15,28 @@
 
 package builds
 
-abstract class ModuleBuildExtension :
+abstract class RootExtension :
   AutoServiceExtension,
   BuildLogicShadowExtension,
+  KspExtension,
+  PokoExtension,
+  PublishingExtension,
+  SerializationExtension
+
+abstract class KotlinJvmModuleExtension :
+  AutoServiceExtension,
+  BuildLogicShadowExtension,
+  KotlinJvmExtension,
+  KspExtension,
+  PokoExtension,
+  PublishingExtension,
+  SerializationExtension
+
+abstract class KotlinMultiplatformModuleExtension :
+  AutoServiceExtension,
+  BuildLogicShadowExtension,
+  KotlinExtension,
+  KotlinMultiplatformExtension,
   KspExtension,
   PokoExtension,
   PublishingExtension,

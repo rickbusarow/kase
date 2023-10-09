@@ -55,6 +55,10 @@ val Project.GITHUB_REPOSITORY: String
 val Project.JVM_TARGET: String
   get() = property("JVM_TARGET") as String
 
+/** `6`, `8`, `11`, etc. */
+val Project.JVM_TARGET_INT: Int
+  get() = JVM_TARGET.substringAfterLast('.').toInt()
+
 /**
  * the jdk used to build the project
  *
@@ -63,6 +67,10 @@ val Project.JVM_TARGET: String
 val Project.JDK: String
   get() = property("JDK") as String
 
-/** `6`, `8`, `11`, etc. */
-val Project.JVM_TARGET_INT: Int
-  get() = JVM_TARGET.substringAfterLast('.').toInt()
+/**
+ * the jdk used to build the project
+ *
+ * "1.6", "1.8", "11", etc.
+ */
+val Project.JDK_INT: Int
+  get() = JDK.substringAfterLast('.').toInt()

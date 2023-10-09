@@ -18,8 +18,8 @@ package builds
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-/** Applies conventions to any project which is not a Swift project. */
-abstract class ModulePlugin : Plugin<Project> {
+/** Applies common conventions to any project. */
+abstract class BaseModulePlugin : Plugin<Project> {
   override fun apply(target: Project) {
 
     target.plugins.apply(CheckPlugin::class.java)
@@ -27,10 +27,31 @@ abstract class ModulePlugin : Plugin<Project> {
     target.plugins.apply(DependencyGuardConventionPlugin::class.java)
     target.plugins.apply(DetektConventionPlugin::class.java)
     target.plugins.apply(DokkaConventionPlugin::class.java)
-    target.plugins.apply(KotlinJvmConventionPlugin::class.java)
     target.plugins.apply(KtLintConventionPlugin::class.java)
     target.plugins.apply(TestConventionPlugin::class.java)
+  }
+}
 
-    target.extensions.create("module", ModuleBuildExtension::class.java)
+/** Applies conventions to any kotlin-jvm project. */
+abstract class KotlinJvmModulePlugin : BaseModulePlugin() {
+  override fun apply(target: Project) {
+
+    target.extensions.create("jvmModule", KotlinJvmModuleExtension::class.java)
+
+    target.plugins.apply(KotlinJvmConventionPlugin::class.java)
+
+    super.apply(target)
+  }
+}
+
+/** Applies conventions to any kotlin-multiplatform project. */
+abstract class KotlinMultiplatformModulePlugin : BaseModulePlugin() {
+  override fun apply(target: Project) {
+
+    target.extensions.create("kmpModule", KotlinMultiplatformModuleExtension::class.java)
+
+    target.plugins.apply(KotlinJvmConventionPlugin::class.java)
+
+    super.apply(target)
   }
 }
