@@ -16,29 +16,16 @@
 package builds
 
 import com.rickbusarow.kgx.applyOnce
-import com.rickbusarow.kgx.dependsOn
-import com.rickbusarow.kgx.internal.InternalGradleApiAccess
-import com.rickbusarow.kgx.internal.whenElementRegistered
-import com.rickbusarow.kgx.java
 import com.vanniktech.maven.publish.MavenPublishBasePlugin
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.file.DuplicatesStrategy.INCLUDE
 import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.tasks.compile.JavaCompile
-import org.jetbrains.kotlin.builtins.StandardNames.FqNames.target
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
-import org.jetbrains.kotlin.gradle.dsl.KotlinSingleTargetExtension
-import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinTarget
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.targets
 
 abstract class KotlinJvmConventionPlugin : BaseKotlinConventionPlugin() {
 
-  @OptIn(InternalGradleApiAccess::class)
   override fun apply(target: Project) {
     target.plugins.applyOnce("org.jetbrains.kotlin.jvm")
 
@@ -55,21 +42,6 @@ abstract class KotlinJvmConventionPlugin : BaseKotlinConventionPlugin() {
       task.options.release.set(target.JVM_TARGET_INT)
     }
 
-    val kotlinExt: KotlinProjectExtension = target.kotlinExtension
-
-      kotlinExt.onTargetRegistered<KotlinTarget> {
-
-      }
-
-      .configureEach { sourceSet ->
-        sourceSet.kotlin.srcDirs("src/${sourceSet.name}/kotlin")
-      }
-
-    target.tasks.register("buildTests") { it.dependsOn("testClasses") }
-    target.tasks.register("buildAll").dependsOn(
-      target.provider { target.java.sourceSets.map { it.classesTaskName } }
-    )
-
     // fixes the error
     // 'Entry classpath.index is a duplicate but no duplicate handling strategy has been set.'
     // when executing a Jar task
@@ -77,16 +49,5 @@ abstract class KotlinJvmConventionPlugin : BaseKotlinConventionPlugin() {
     target.tasks.withType(Jar::class.java).configureEach { task ->
       task.duplicatesStrategy = INCLUDE
     }
-  }
-}
-
-@InternalGradleApiAccess
-inline fun <reified T : KotlinTarget> KotlinProjectExtension.onTargetRegistered(
-  noinline configurationAction: (String, Provider<T>) -> Unit
-)  {
-  when(val extension = this) {
-    is KotlinSingleTargetExtension<*> -> configurationAction( extension. target.name,  extension.)
-    is KotlinMultiplatformExtension -> extension.targets.whenElementRegistered(configurationAction)
-    else -> error("Unexpected 'kotlin' extension $this")
   }
 }

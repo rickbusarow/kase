@@ -41,7 +41,6 @@ gradlePlugin {
 
 dependencies {
 
-  api(libs.breadmoirai.github.release)
   api(libs.integration.test) {
     exclude(group = "org.jetbrains.kotlin")
   }

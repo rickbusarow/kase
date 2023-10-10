@@ -76,7 +76,26 @@ gradlePlugin {
   }
 }
 
+val pluginClasspath by configurations.creating
+
+val repackagePlugin = tasks.register("repackagePlugin", Jar::class.java) {
+
+  val originalJar = provider { zipTree(pluginClasspath.singleFile) }
+
+  from(
+    originalJar.map {
+      it.matching {
+        exclude("org/gradle/**")
+      }
+    }
+  )
+
+  archiveFileName.set("repackaged-plugin.jar")
+  destinationDirectory.set(layout.buildDirectory.dir("repackaged"))
+}
+
 dependencies {
+  api(files(repackagePlugin.map { it.outputs.files }))
 
   api(libs.rickBusarow.doks)
   api(libs.rickBusarow.kgx)
@@ -87,11 +106,7 @@ dependencies {
   compileOnly(gradleApi())
 
   implementation(libs.benManes.versions)
-  implementation(libs.breadmoirai.github.release) {
-    // Github-release bundles Gradle, which confuses the IDE when trying to view Gradle source or
-    // javadoc.
-    exclude(group = "org.gradle")
-  }
+  pluginClasspath(libs.breadmoirai.github.release)
   implementation(libs.poko.gradle.plugin)
   implementation(libs.detekt.gradle)
   implementation(libs.diffplug.spotless)

@@ -15,8 +15,6 @@
 
 package builds
 
-import com.rickbusarow.kgx.libsCatalog
-import com.rickbusarow.kgx.pluginId
 import org.gradle.api.Project
 
 interface KspExtension {
@@ -24,13 +22,5 @@ interface KspExtension {
   fun Project.ksp() {
 
     pluginManager.apply("com.google.devtools.ksp")
-  }
-}
-
-interface PokoExtension {
-
-  fun Project.poko() {
-
-    pluginManager.apply(libsCatalog.pluginId("poko"))
   }
 }

@@ -20,6 +20,7 @@ buildscript {
   dependencies {
     classpath(libs.kotlin.gradle.plugin)
     classpath(libs.vanniktech.publish)
+    classpath(libs.rickBusarow.kgx)
   }
 }
 
@@ -80,5 +81,15 @@ allprojects ap@{
   }
   tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+  }
+}
+
+val breadMoiraModule = libs.breadmoirai.github.release.get().module
+
+allprojects {
+  configurations.all {
+    if (name != "pluginClasspath") {
+      exclude(group = breadMoiraModule.group, module = breadMoiraModule.name)
+    }
   }
 }

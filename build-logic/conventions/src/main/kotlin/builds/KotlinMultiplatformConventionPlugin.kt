@@ -18,13 +18,13 @@ package builds
 import com.rickbusarow.kgx.applyOnce
 import com.rickbusarow.kgx.dependsOn
 import com.rickbusarow.kgx.java
+import com.rickbusarow.kgx.javaExtension
 import com.vanniktech.maven.publish.MavenPublishBasePlugin
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.file.DuplicatesStrategy
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.api.tasks.compile.JavaCompile
 import org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget
 
 abstract class KotlinMultiplatformConventionPlugin : BaseKotlinConventionPlugin() {
@@ -32,36 +32,28 @@ abstract class KotlinMultiplatformConventionPlugin : BaseKotlinConventionPlugin(
   override fun apply(target: Project) {
     target.plugins.applyOnce("org.jetbrains.kotlin.multiplatform")
 
-    val extension = target.extensions.getByType(KotlinMultiplatformExtension::class.java)
-
     super.apply(target)
 
-
-
-
-    val kmpExtension = target.extensions.getByType(org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension::class.java)
+    val kmpExtension =
+      target.extensions.getByType(
+        org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension::class.java
+      )
 
     kmpExtension.targets.withType(KotlinJvmTarget::class.java).configureEach { jvmTarget ->
-      jvmTarget
+      jvmTarget.testRuns.all {
+        it.executionTask.dependsOn("testClasses")
       }
-
-    kmpExtension
-      .sourceSets.configureEach { sourceSet ->
-        sourceSet.kotlin.srcDirs("src/${sourceSet.name}/kotlin")
-      }
+    }
 
     target.plugins.withType(MavenPublishBasePlugin::class.java).configureEach {
       target.extensions.configure(JavaPluginExtension::class.java) { extension ->
         extension.sourceCompatibility = JavaVersion.toVersion(target.JVM_TARGET)
       }
     }
-    target.tasks.withType(JavaCompile::class.java).configureEach { task ->
-      task.options.release.set(target.JVM_TARGET_INT)
-    }
 
     target.tasks.register("buildTests") { it.dependsOn("testClasses") }
     target.tasks.register("buildAll").dependsOn(
-      target.provider { target.java.sourceSets.map { it.classesTaskName } }
+      target.provider { target.javaExtension.sourceSets.map { it.classesTaskName } }
     )
 
     // fixes the error

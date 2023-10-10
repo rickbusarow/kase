@@ -15,11 +15,12 @@
 
 package builds
 
-import com.rickbusarow.kgx.applyOnce
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.provider.Property
+import org.gradle.api.tasks.compile.JavaCompile
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
+import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.targets
 import org.jetbrains.kotlin.gradle.tasks.BaseKotlinCompile
 import java.io.Serializable
 import kotlin.jvm.java
@@ -36,12 +37,41 @@ interface KotlinExtension : Serializable {
 abstract class BaseKotlinConventionPlugin : Plugin<Project> {
 
   override fun apply(target: Project) {
-    target.plugins.applyOnce("org.jetbrains.kotlin.jvm")
 
     val extension = target.extensions.getByType(KotlinExtension::class.java)
 
-    target.kotlinExtension.jvmToolchain(target.JDK_INT)
+    val jetbrainsExtension = target.kotlinExtension
+    jetbrainsExtension.jvmToolchain(target.JDK_INT)
 
+    configureKotlinOptions(target, extension)
+
+    jetbrainsExtension.sourceSets.configureEach { sourceSet ->
+      sourceSet.kotlin.srcDirs("src/${sourceSet.name}/kotlin")
+    }
+    target.tasks.register("buildTests") { buildTests ->
+      buildTests.dependsOn(jetbrainsExtension.targets.map { it.artifactsTaskName })
+    }
+    target.tasks.register("buildAll") { buildAll ->
+      buildAll.dependsOn(jetbrainsExtension.targets.map { it.artifactsTaskName })
+    }
+
+    target.plugins.withId("java") {
+      target.tasks.withType(JavaCompile::class.java).configureEach { task ->
+        task.options.release.set(target.JVM_TARGET_INT)
+      }
+    }
+
+    // TODO <Rick> delete me
+    jetbrainsExtension.sourceSets.forEach { ss ->
+      println(
+        "######################################## source set -- ${ss.name.padEnd(
+          20
+        )} -- ${ss::class.qualifiedName}"
+      )
+    }
+  }
+
+  private fun configureKotlinOptions(target: Project, extension: KotlinExtension) {
     target.tasks.withType(KotlinCompileDsl::class.java).configureEach { task ->
       task.kotlinOptions {
 

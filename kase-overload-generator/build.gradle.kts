@@ -21,7 +21,7 @@ plugins {
 }
 
 jvmModule {
-  explicitApi .set(false)
+  explicitApi.set(false)
 }
 
 dependencies {
