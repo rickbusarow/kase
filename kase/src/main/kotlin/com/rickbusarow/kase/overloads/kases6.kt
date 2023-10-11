@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("PackageDirectoryMismatch")
+@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode")
 @file:JvmMultifileClass
 @file:JvmName("KasesKt")
 
@@ -236,6 +236,7 @@ public interface Kase6<out A1, out A2, out A3, out A4, out A5, out A6> : Kase<Ka
 
   override fun <T> plus(label: String, value: T): Kase7<A1, A2, A3, A4, A5, A6, T>
 }
+
 /** */
 @Poko
 internal class DefaultKase6<out A1, out A2, out A3, out A4, out A5, out A6>(
@@ -258,14 +259,14 @@ internal class DefaultKase6<out A1, out A2, out A3, out A4, out A5, out A6>(
 
   override fun <T> plus(label: String, value: T): DefaultKase7<A1, A2, A3, A4, A5, A6, T> {
     return DefaultKase7(
-      a1Element = a1Element,
+  a1Element = a1Element,
       a2Element = a2Element,
       a3Element = a3Element,
       a4Element = a4Element,
       a5Element = a5Element,
       a6Element = a6Element,
-      element(value = value, label = label)
-    )
+  element(value = value, label = label)
+)
   }
 }
 

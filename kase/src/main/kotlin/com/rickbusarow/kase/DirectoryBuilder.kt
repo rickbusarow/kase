@@ -16,15 +16,36 @@
 package com.rickbusarow.kase
 
 import dev.drewhamilton.poko.Poko
-import okio.FileSystem
-import okio.Path.Companion.toPath
 import org.intellij.lang.annotations.Language
 import java.io.File
 import java.nio.file.Path
 import kotlin.io.path.Path
+import kotlin.io.path.createDirectory
 import kotlin.io.path.div
 import kotlin.io.path.name
+import kotlin.io.path.writeText
 
+/**
+ * A DSL for building a directory tree.
+ *
+ * example:
+ * ```
+ * buildDirectory(myProjectDir) {
+ *   dir("src/main/kotlin") {
+ *     kotlinFile(
+ *       "MyClass.kt",
+ *       """
+ *       package com.example
+ *
+ *       class MyClass
+ *       """.trimIndent()
+ *     )
+ *   }
+ * }
+ * ```
+ *
+ * @param file the root directory
+ */
 public inline fun buildDirectory(
   file: File,
   builder: DirectoryBuilder.() -> Unit
@@ -33,6 +54,27 @@ public inline fun buildDirectory(
   builder = builder
 ).toFile()
 
+/**
+ * A DSL for building a directory tree.
+ *
+ * example:
+ * ```
+ * buildDirectory(myProjectDir) {
+ *   dir("src/main/kotlin") {
+ *     kotlinFile(
+ *       "MyClass.kt",
+ *       """
+ *       package com.example
+ *
+ *       class MyClass
+ *       """.trimIndent()
+ *     )
+ *   }
+ * }
+ * ```
+ *
+ * @param path the root directory
+ */
 public inline fun buildDirectory(
   path: Path,
   builder: DirectoryBuilder.() -> Unit
@@ -42,6 +84,7 @@ public inline fun buildDirectory(
     .write(parentDir = path.parent!!)
 }
 
+/** A DSL for building a directory tree. */
 public class DirectoryBuilder @PublishedApi internal constructor(
   private val simpleName: String
 ) {
@@ -49,11 +92,11 @@ public class DirectoryBuilder @PublishedApi internal constructor(
   init {
     check(!simpleName.contains(File.separatorChar)) {
 
-      val realSimpleName = simpleName.toPath().name
+      val realSimpleName = Path(simpleName).name
 
       "This directory's simpleName must not contain a file path separator " +
         "('${File.separatorChar}').  It should be the name of the directory itself, " +
-        "like 'src' or 'main'."
+        "like 'src' or 'main'.  In this case it seems to be '$realSimpleName'."
     }
   }
 
@@ -63,34 +106,44 @@ public class DirectoryBuilder @PublishedApi internal constructor(
   @PublishedApi
   internal val files: MutableMap<String, FileWithContent> = mutableMapOf()
 
+  /** Creates a child directory with the given [name] and applies the [builder] to it. */
   public inline fun dir(name: String, builder: DirectoryBuilder.() -> Unit) {
     dir(segments = name.segments(), builder = builder)
   }
 
+  /** Creates a child directory with the given [name] and applies the [builder] to it. */
+  public inline fun dir(vararg names: String, builder: DirectoryBuilder.() -> Unit) {
+    dir(segments = names.flatMap { it.segments() }, builder = builder)
+  }
+
+  /**
+   * Creates child directories for the given [segments] and applies the [builder] to the last one.
+   */
   public inline fun dir(segments: List<String>, builder: DirectoryBuilder.() -> Unit) {
+    var currentSegments = segments
+    var currentChild: DirectoryBuilder
 
-    val child = childDirs.getOrPut(segments.first()) {
-      DirectoryBuilder(segments.first())
-    }
+    while (currentSegments.isNotEmpty()) {
+      currentChild = childDirs.getOrPut(currentSegments.first()) {
+        DirectoryBuilder(currentSegments.first())
+      }
 
-    if (segments.size > 1) {
-      child.dirInternal(segments = segments.subList(1, segments.lastIndex), builder = builder)
-    } else {
-      child.builder()
+      if (currentSegments.size > 1) {
+        currentSegments = currentSegments.subList(1, currentSegments.size)
+      } else {
+        currentChild.builder()
+        break
+      }
     }
   }
 
-  @PublishedApi
-  internal inline fun dirInternal(segments: List<String>, builder: DirectoryBuilder.() -> Unit) {
-    dir(segments = segments, builder = builder)
-  }
-
+  /** Creates a file with the given [nameWithExtension] and [content]. */
   public fun file(nameWithExtension: String, content: String): DirectoryBuilder = apply {
     file(nameWithExtension.segments(), content)
   }
 
-  public fun file(segments: List<String>, content: String): DirectoryBuilder = apply {
-    Path(segments)
+  private fun file(segments: List<String>, content: String): DirectoryBuilder = apply {
+
     val nameWithoutExtension = segments.last()
     if (segments.size > 1) {
       dir(segments.subList(0, segments.lastIndex - 1)) {
@@ -103,56 +156,68 @@ public class DirectoryBuilder @PublishedApi internal constructor(
     }
   }
 
+  /**
+   * Creates a file with the given [nameWithExtension] and
+   * [content], with Kotlin language injection in the IDE.
+   */
   public fun kotlinFile(
     nameWithExtension: String,
     @Language("kotlin") content: String
-  ): DirectoryBuilder {
-    return file(nameWithExtension = nameWithExtension, content = content)
-  }
+  ): DirectoryBuilder = file(nameWithExtension = nameWithExtension, content = content)
 
+  /**
+   * Creates a file with the given [nameWithExtension] and
+   * [content], with Groovy language injection in the IDE.
+   */
   public fun groovyFile(
     nameWithExtension: String,
     @Language("groovy") content: String
-  ): DirectoryBuilder {
-    return file(nameWithExtension = nameWithExtension, content = content)
-  }
+  ): DirectoryBuilder = file(nameWithExtension = nameWithExtension, content = content)
 
+  /**
+   * Creates a file with the given [nameWithExtension] and
+   * [content], with Java language injection in the IDE.
+   */
   public fun javaFile(
     nameWithExtension: String,
     @Language("java") content: String
-  ): DirectoryBuilder {
-    return file(nameWithExtension = nameWithExtension, content = content)
-  }
+  ): DirectoryBuilder = file(nameWithExtension = nameWithExtension, content = content)
 
+  /**
+   * Creates a file with the given [nameWithExtension] and
+   * [content], with XML language injection in the IDE.
+   */
   public fun xmlFile(
     nameWithExtension: String,
     @Language("xml") content: String
-  ): DirectoryBuilder {
-    return file(nameWithExtension = nameWithExtension, content = content)
-  }
+  ): DirectoryBuilder = file(nameWithExtension = nameWithExtension, content = content)
 
-  public fun write(parentDir: String, fileSystem: FileSystem = FileSystem.SYSTEM): Path {
-    return write(parentDir.toPath(), fileSystem)
-  }
+  private fun String.toPath(): Path = Path(this)
 
-  public fun write(parentDir: Path, fileSystem: FileSystem = FileSystem.SYSTEM): Path {
+  /** Writes the directory tree to the given [parentDir]. */
+  public fun write(parentDir: String): Path = write(parentDir.toPath())
+
+  /** Writes the directory tree to the given [parentDir]. */
+  public fun write(parentDir: Path): Path {
     val dirPath = parentDir / simpleName
-    fileSystem.createDirectory(dirPath, mustCreate = false)
+    dirPath.createDirectory()
 
     for (file in files.values) {
-      fileSystem.write(dirPath / file.nameWithExtension) {
-        writeUtf8(file.content)
-      }
+      val fileAsPath = dirPath / file.nameWithExtension
+      fileAsPath.writeText(file.content)
     }
     for (dir in childDirs.values) {
-      dir.write(dirPath, fileSystem)
+      dir.write(dirPath)
     }
+
+    return dirPath
   }
 
-  public operator fun String.div(other: String): String = "$this${Path.DIRECTORY_SEPARATOR}$other"
+  /** Shorthand for `"$this${File.separatorChar}$other"`. */
+  public operator fun String.div(other: String): String = "$this${File.separatorChar}$other"
 
   @PublishedApi
-  internal fun String.segments(): List<String> = toPath(normalize = false).segments
+  internal fun String.segments(): List<String> = toPath().normalize().map { it.toString() }
 
   @Poko
   @PublishedApi

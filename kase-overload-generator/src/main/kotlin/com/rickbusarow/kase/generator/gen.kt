@@ -18,7 +18,7 @@ package com.rickbusarow.kase.generator
 import java.io.File
 
 private val FILE_ANNOTATIONS = """
-  @file:Suppress("PackageDirectoryMismatch")
+  @file:Suppress("PackageDirectoryMismatch", "DuplicatedCode")
   @file:JvmMultifileClass
   @file:JvmName("KasesKt")
 """.trimIndent()
@@ -269,8 +269,13 @@ private fun main() {
         """.trimIndent()
       }
 
-      val kasePlus1 = "Kase${ct + 1}"
-      val kasePlus1WithTypes = "$kasePlus1${types.joinToString(", ", "<", ", T>")}"
+      val kasePlus1 = if (ct != 22) "Kase${ct + 1}" else "AnyKase"
+
+      val kasePlus1WithTypes = if (ct != 22) {
+        "$kasePlus1${types.joinToString(", ", "<", ", T>")}"
+      } else {
+        kasePlus1
+      }
 
       appendLine(
         """
@@ -282,6 +287,7 @@ private fun main() {
         |
         |  override fun <T> plus(label: String, value: T): $kasePlus1WithTypes
         |}
+        |
         """.trimMargin()
       )
 
@@ -292,6 +298,23 @@ private fun main() {
       }
       val b = paramsPairs.joinToString("\n  ") { (arg, type) ->
         "override val $arg: $type get() = ${arg}Element.value"
+      }
+
+      val plus1Impl = if (ct != 22) {
+        """
+        |return Default$kasePlus1(
+        |  ${argsElements.joinToString(",\n      ") { "$it = $it" }},
+        |  element(value = value, label = label)
+        |)
+        """.trimMargin()
+      } else {
+        """error("A Kase cannot have more than 22 parameters")"""
+      }
+
+      val defaultKasePlus1 = if (ct != 22) {
+        "Default$kasePlus1WithTypes"
+      } else {
+        kasePlus1
       }
 
       appendLine(
@@ -306,11 +329,8 @@ private fun main() {
         |  override val elements: List<KaseParameterWithLabel<Any?>>
         |    get() = listOf(${argsElements.joinToString(", ")})
         |
-        |  override fun <T> plus(label: String, value: T): Default$kasePlus1WithTypes {
-        |    return Default$kasePlus1(
-        |      ${argsElements.joinToString(",\n      ") { "$it = $it" }},
-        |      element(value = value, label = label)
-        |    )
+        |  override fun <T> plus(label: String, value: T): $defaultKasePlus1 {
+        |    $plus1Impl
         |  }
         |}
         |

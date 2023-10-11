@@ -5,16 +5,7 @@
     "artifactId": "kase",
     "description": "Hermetic test environments and test factories",
     "packaging": "jar",
-    "javaVersion": "11",
-    "publicationName": "maven"
-  },
-  {
-    "gradlePath": ":kase-gradle",
-    "group": "com.rickbusarow.kase",
-    "artifactId": "kase-gradle",
-    "description": "Hermetic test environments and test factories",
-    "packaging": "jar",
-    "javaVersion": "11",
+    "javaVersion": "1.8",
     "publicationName": "maven"
   }
 ]

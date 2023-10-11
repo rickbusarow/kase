@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("PackageDirectoryMismatch")
+@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode")
 @file:JvmMultifileClass
 @file:JvmName("KasesKt")
 
@@ -346,8 +346,9 @@ public interface Kase22<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
   /** The 22nd parameter. */
   public val a22: A22
 
-  override fun <T> plus(label: String, value: T): Kase23<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22, T>
+  override fun <T> plus(label: String, value: T): AnyKase
 }
+
 /** */
 @Poko
 internal class DefaultKase22<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15, out A16, out A17, out A18, out A19, out A20, out A21, out A22>(
@@ -400,32 +401,8 @@ internal class DefaultKase22<out A1, out A2, out A3, out A4, out A5, out A6, out
   override val elements: List<KaseParameterWithLabel<Any?>>
     get() = listOf(a1Element, a2Element, a3Element, a4Element, a5Element, a6Element, a7Element, a8Element, a9Element, a10Element, a11Element, a12Element, a13Element, a14Element, a15Element, a16Element, a17Element, a18Element, a19Element, a20Element, a21Element, a22Element)
 
-  override fun <T> plus(label: String, value: T): DefaultKase23<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22, T> {
-    return DefaultKase23(
-      a1Element = a1Element,
-      a2Element = a2Element,
-      a3Element = a3Element,
-      a4Element = a4Element,
-      a5Element = a5Element,
-      a6Element = a6Element,
-      a7Element = a7Element,
-      a8Element = a8Element,
-      a9Element = a9Element,
-      a10Element = a10Element,
-      a11Element = a11Element,
-      a12Element = a12Element,
-      a13Element = a13Element,
-      a14Element = a14Element,
-      a15Element = a15Element,
-      a16Element = a16Element,
-      a17Element = a17Element,
-      a18Element = a18Element,
-      a19Element = a19Element,
-      a20Element = a20Element,
-      a21Element = a21Element,
-      a22Element = a22Element,
-      element(value = value, label = label)
-    )
+  override fun <T> plus(label: String, value: T): AnyKase {
+    error("A Kase cannot have more than 22 parameters")
   }
 }
 

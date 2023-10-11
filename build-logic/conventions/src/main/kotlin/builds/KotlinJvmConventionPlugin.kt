@@ -16,38 +16,13 @@
 package builds
 
 import com.rickbusarow.kgx.applyOnce
-import com.vanniktech.maven.publish.MavenPublishBasePlugin
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.file.DuplicatesStrategy.INCLUDE
-import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.api.tasks.bundling.Jar
-import org.gradle.api.tasks.compile.JavaCompile
 
 abstract class KotlinJvmConventionPlugin : BaseKotlinConventionPlugin() {
 
   override fun apply(target: Project) {
     target.plugins.applyOnce("org.jetbrains.kotlin.jvm")
 
-    target.extensions.getByType(KotlinJvmExtension::class.java)
-
     super.apply(target)
-
-    target.plugins.withType(MavenPublishBasePlugin::class.java).configureEach {
-      target.extensions.configure(JavaPluginExtension::class.java) { extension ->
-        extension.sourceCompatibility = JavaVersion.toVersion(target.JVM_TARGET)
-      }
-    }
-    target.tasks.withType(JavaCompile::class.java).configureEach { task ->
-      task.options.release.set(target.JVM_TARGET_INT)
-    }
-
-    // fixes the error
-    // 'Entry classpath.index is a duplicate but no duplicate handling strategy has been set.'
-    // when executing a Jar task
-    // https://github.com/gradle/gradle/issues/17236
-    target.tasks.withType(Jar::class.java).configureEach { task ->
-      task.duplicatesStrategy = INCLUDE
-    }
   }
 }

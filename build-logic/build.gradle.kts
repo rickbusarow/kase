@@ -61,13 +61,6 @@ allprojects ap@{
       }
     }
   }
-  plugins.withType(JavaPlugin::class.java).configureEach {
-    configurations.named("compileClasspath") {
-      // Github-release bundles Gradle, which confuses the IDE when trying to view Gradle source or
-      // javadoc.
-      exclude(group = "org.gradle")
-    }
-  }
 
   tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     kotlinOptions {
@@ -81,15 +74,5 @@ allprojects ap@{
   }
   tasks.withType<Test>().configureEach {
     useJUnitPlatform()
-  }
-}
-
-val breadMoiraModule = libs.breadmoirai.github.release.get().module
-
-allprojects {
-  configurations.all {
-    if (name != "pluginClasspath") {
-      exclude(group = breadMoiraModule.group, module = breadMoiraModule.name)
-    }
   }
 }

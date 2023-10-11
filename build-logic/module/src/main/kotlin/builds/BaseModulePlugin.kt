@@ -50,7 +50,7 @@ abstract class KotlinMultiplatformModulePlugin : BaseModulePlugin() {
 
     target.extensions.create("kmpModule", KotlinMultiplatformModuleExtension::class.java)
 
-    target.plugins.apply(KotlinJvmConventionPlugin::class.java)
+    target.plugins.apply(KotlinMultiplatformConventionPlugin::class.java)
 
     super.apply(target)
   }

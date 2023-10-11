@@ -47,7 +47,8 @@ abstract class DokkaConventionPlugin : Plugin<Project> {
       task.moduleName.set(fullModuleName)
 
       if (target != target.rootProject) {
-        task.dokkaSourceSets.getByName("main") { builder ->
+        // task.dokkaSourceSets.getByName("main") { builder ->
+        task.dokkaSourceSets.configureEach { builder ->
 
           builder.documentedVisibilities.set(
             setOf(
@@ -72,7 +73,10 @@ abstract class DokkaConventionPlugin : Plugin<Project> {
           }
 
           builder.sourceLink { sourceLinkBuilder ->
-            sourceLinkBuilder.localDirectory.set(target.file("src/main"))
+
+            val srcDir = target.file("src/${builder.name}")
+
+            sourceLinkBuilder.localDirectory.set(srcDir)
 
             val modulePath = target.path.replace(":", "/")
               .replaceFirst("/", "")
@@ -80,7 +84,7 @@ abstract class DokkaConventionPlugin : Plugin<Project> {
             val repo = target.GITHUB_REPOSITORY
 
             // URL showing where the source code can be accessed through the web browser
-            sourceLinkBuilder.remoteUrl.set(URL("$repo/blob/main/$modulePath/src/main"))
+            sourceLinkBuilder.remoteUrl.set(URL("$repo/blob/main/$modulePath/$srcDir"))
             // Suffix which is used to append the line number to the URL. Use #L for GitHub
             sourceLinkBuilder.remoteLineSuffix.set("#L")
           }

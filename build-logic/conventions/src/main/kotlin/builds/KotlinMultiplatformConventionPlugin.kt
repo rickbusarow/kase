@@ -16,16 +16,7 @@
 package builds
 
 import com.rickbusarow.kgx.applyOnce
-import com.rickbusarow.kgx.dependsOn
-import com.rickbusarow.kgx.java
-import com.rickbusarow.kgx.javaExtension
-import com.vanniktech.maven.publish.MavenPublishBasePlugin
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.file.DuplicatesStrategy
-import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.api.tasks.bundling.Jar
-import org.jetbrains.kotlin.gradle.targets.jvm.KotlinJvmTarget
 
 abstract class KotlinMultiplatformConventionPlugin : BaseKotlinConventionPlugin() {
 
@@ -33,35 +24,5 @@ abstract class KotlinMultiplatformConventionPlugin : BaseKotlinConventionPlugin(
     target.plugins.applyOnce("org.jetbrains.kotlin.multiplatform")
 
     super.apply(target)
-
-    val kmpExtension =
-      target.extensions.getByType(
-        org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension::class.java
-      )
-
-    kmpExtension.targets.withType(KotlinJvmTarget::class.java).configureEach { jvmTarget ->
-      jvmTarget.testRuns.all {
-        it.executionTask.dependsOn("testClasses")
-      }
-    }
-
-    target.plugins.withType(MavenPublishBasePlugin::class.java).configureEach {
-      target.extensions.configure(JavaPluginExtension::class.java) { extension ->
-        extension.sourceCompatibility = JavaVersion.toVersion(target.JVM_TARGET)
-      }
-    }
-
-    target.tasks.register("buildTests") { it.dependsOn("testClasses") }
-    target.tasks.register("buildAll").dependsOn(
-      target.provider { target.javaExtension.sourceSets.map { it.classesTaskName } }
-    )
-
-    // fixes the error
-    // 'Entry classpath.index is a duplicate but no duplicate handling strategy has been set.'
-    // when executing a Jar task
-    // https://github.com/gradle/gradle/issues/17236
-    target.tasks.withType(Jar::class.java).configureEach { task ->
-      task.duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    }
   }
 }

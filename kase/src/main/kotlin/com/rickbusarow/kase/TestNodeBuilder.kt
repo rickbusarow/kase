@@ -276,7 +276,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
     kase: K,
     crossinline testAction: suspend T.() -> Unit
   ) {
-    addTest(kase.name) {
+    addTest(kase.displayNames().toString()) {
       this@TestEnvironmentFactory.test(
         kase = kase,
         testFunctionName = testFunctionName,

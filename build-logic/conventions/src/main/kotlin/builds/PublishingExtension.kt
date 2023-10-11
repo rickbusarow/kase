@@ -45,8 +45,6 @@ interface PublishingExtension {
     plugins.apply("com.vanniktech.maven.publish.base")
     plugins.apply("builds.dokka")
 
-    require(pluginManager.hasPlugin("org.jetbrains.kotlin.jvm"))
-
     configurePublish(
       artifactId = artifactId,
       pomDescription = pomDescription,

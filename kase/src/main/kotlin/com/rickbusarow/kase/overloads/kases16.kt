@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("PackageDirectoryMismatch")
+@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode")
 @file:JvmMultifileClass
 @file:JvmName("KasesKt")
 
@@ -306,6 +306,7 @@ public interface Kase16<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
 
   override fun <T> plus(label: String, value: T): Kase17<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, T>
 }
+
 /** */
 @Poko
 internal class DefaultKase16<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15, out A16>(
@@ -348,7 +349,7 @@ internal class DefaultKase16<out A1, out A2, out A3, out A4, out A5, out A6, out
 
   override fun <T> plus(label: String, value: T): DefaultKase17<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, T> {
     return DefaultKase17(
-      a1Element = a1Element,
+  a1Element = a1Element,
       a2Element = a2Element,
       a3Element = a3Element,
       a4Element = a4Element,
@@ -364,8 +365,8 @@ internal class DefaultKase16<out A1, out A2, out A3, out A4, out A5, out A6, out
       a14Element = a14Element,
       a15Element = a15Element,
       a16Element = a16Element,
-      element(value = value, label = label)
-    )
+  element(value = value, label = label)
+)
   }
 }
 
