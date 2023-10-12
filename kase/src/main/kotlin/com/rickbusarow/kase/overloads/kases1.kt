@@ -13,26 +13,40 @@
  * limitations under the License.
  */
 
-@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode")
+@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode", "MaxLineLength")
 @file:JvmMultifileClass
 @file:JvmName("KasesKt")
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
+import com.rickbusarow.kase.KaseLabels.Companion.POSTFIX_DEFAULT
+import com.rickbusarow.kase.KaseLabels.Companion.PREFIX_DEFAULT
+import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
 import com.rickbusarow.kase.KaseParameterWithLabel.Companion.element
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
-
-/** */
+/**
+ * Creates a new [Kase] with the given parameter.
+ *
+ * @param a1 the [Kase1:a1] parameter.
+ * @param labels the [KaseLabels] to use for this [Kase]
+ * @param delimiter the delimiter between the label and the value, like `": "` in `"label: value"`
+ * @param separator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
+ */
 public fun <A1> kase(
-  a1: A1, labels: KaseLabels1 = KaseLabels1()
+  a1: A1,
+  labels: KaseLabels1 = KaseLabels1(),
+  delimiter: String = KaseLabels.DELIMITER_DEFAULT,
+  separator: String = KaseLabels.SEPARATOR_DEFAULT
 ): Kase1<A1> {
   return DefaultKase1(
-    element(value = a1, label = labels.a1Label)
+    element(value = a1, label = labels.a1Label),
+    delimiter = delimiter,
+    separator = separator
   )
 }
-
 
 /** */
 context(TestEnvironmentFactory<T>)
@@ -69,30 +83,9 @@ public fun <A1> kases(
   }
 }
 
-
-// /** */
-// @JvmName("asTestsKase1Kase")
-// public inline fun <K, A1> Iterable<Kase1<A1>>.asTests(
-//   labels: KaseLabels1 = KaseLabels1(),
-//   crossinline testAction: (kase: K) -> Unit
-// ): Stream<out DynamicNode>
-//   where K : Kase1<A1> {
-//   return testFactory(this@asTests, labels, testAction)
-// }
-
-
-// /** */
-// @JvmName("asTestsKase1Destructured")
-// public inline fun <K, A1> Iterable<Kase1<A1>>.asTests(
-//   labels: KaseLabels1 = KaseLabels1(),
-//   crossinline testAction: (a1: A1) -> Unit
-// ): Stream<out DynamicNode>
-//   where K : Kase1<A1> {
-//   return testFactory(this@asTests, labels, testAction)
-// }
-
 /** */
 context(TestEnvironmentFactory<T>)
+@JvmName("asTestsKase1DestructuredTestEnvironment")
 public inline fun <T, K, A1> Iterable<K>.asTests(
   labels: KaseLabels1 = KaseLabels1(),
   crossinline testAction: T.(a1: A1) -> Unit
@@ -102,32 +95,9 @@ public inline fun <T, K, A1> Iterable<K>.asTests(
   return testFactory(this@asTests, labels, testAction)
 }
 
-
-// /** */
-// @JvmName("testFactoryKase1Kase")
-// public inline fun <K, A1> testFactory(
-//   vararg kases: Kase1<A1>,
-//   labels: KaseLabels1 = KaseLabels1(),
-//   crossinline testAction: (kase: K) -> Unit
-// ): Stream<out DynamicNode>
-//   where K : Kase1<A1> {
-//   return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
-// }
-
-
-// /** */
-// @JvmName("testFactoryKase1Destructured")
-// public inline fun <K, A1> testFactory(
-//   vararg kases: Kase1<A1>,
-//   labels: KaseLabels1 = KaseLabels1(),
-//   crossinline testAction: (a1: A1) -> Unit
-// ): Stream<out DynamicNode>
-//   where K : Kase1<A1> {
-//   return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
-// }
-
 /** */
 context(TestEnvironmentFactory<T>)
+@JvmName("testFactoryKase1DestructuredTestEnvironment")
 public inline fun <T, K, A1> testFactory(
   vararg kases: K,
   labels: KaseLabels1 = KaseLabels1(),
@@ -138,38 +108,9 @@ public inline fun <T, K, A1> testFactory(
   return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
 }
 
-
-// /** */
-// @JvmName("testFactoryKase1Kase")
-// public inline fun <K, A1> testFactory(
-//   kases: Iterable<Kase1<A1>>,
-//   labels: KaseLabels1 = KaseLabels1(),
-//   crossinline testAction: (kase: K) -> Unit
-// ): Stream<out DynamicNode>
-//   where K : Kase1<A1> {
-//   return kases.asTests(
-//     testName = { it.displayName(labels) },
-//     testAction = { testAction(it.a1) }
-//   )
-// }
-
-
-// /** */
-// @JvmName("testFactoryKase1Destructured")
-// public inline fun <K, A1> testFactory(
-//   kases: Iterable<Kase1<A1>>,
-//   labels: KaseLabels1 = KaseLabels1(),
-//   crossinline testAction: (a1: A1) -> Unit
-// ): Stream<out DynamicNode>
-//   where K : Kase1<A1> {
-//   return kases.asTests(
-//     testName = { it.displayName(labels) },
-//     testAction = { testAction(it.a1) }
-//   )
-// }
-
 /** */
 context(TestEnvironmentFactory<T>)
+@JvmName("testFactoryKase1DestructuredTestEnvironment")
 public inline fun <T, K, A1> testFactory(
   kases: Iterable<K>,
   labels: KaseLabels1 = KaseLabels1(),
@@ -177,8 +118,9 @@ public inline fun <T, K, A1> testFactory(
 ): Stream<out DynamicNode>
   where T : TestEnvironment<K>,
         K : Kase1<A1> {
+
   return kases.asTests(
-    testName = { it.displayName(labels) },
+    testName = { kase -> kase.displayName() },
     testAction = { kase -> testAction(kase.a1) }
   )
 }
@@ -193,7 +135,7 @@ public inline fun <A1> testFactory(
   return kases.asSequence().asTests(kaseName) { testAction(it.a1) }
 }
 
-/** A strongly-typed version of [Kase] for 1 parameters. */
+/** A strongly-typed version of [Kase] for 1 parameter. */
 public interface Kase1<out A1> : Kase<KaseLabels1> {
 
   /** The 1st parameter. */
@@ -202,10 +144,30 @@ public interface Kase1<out A1> : Kase<KaseLabels1> {
   override fun <T> plus(label: String, value: T): Kase2<A1, T>
 }
 
-/** */
+/**
+ * A strongly-typed version of [KaseLabels] for 1 parameter.
+ *
+ * @property a1Label The label for the [Kase1.a1] parameter.
+ * @property delimiter The delimiter between the label and the value.  The default is `: `.
+ * @property separator The separator between each label/value pair.  The default is ` | `.
+ */
+@Poko
+public class KaseLabels1(
+  public val a1Label: String = "a1",
+  override val delimiter: String = DELIMITER_DEFAULT,
+  override val separator: String = SEPARATOR_DEFAULT
+) : KaseLabels {
+
+  override val orderedLabels: List<String> by lazy {
+    listOf(a1Label)
+  }
+}
+
 @Poko
 internal class DefaultKase1<out A1>(
-  val a1Element: KaseParameterWithLabel<A1>
+  val a1Element: KaseParameterWithLabel<A1>,
+  override val delimiter: String,
+  override val separator: String,
 ) : Kase1<A1>, KaseInternal<KaseLabels1> {
   override val a1: A1 get() = a1Element.value
 
@@ -214,31 +176,10 @@ internal class DefaultKase1<out A1>(
 
   override fun <T> plus(label: String, value: T): DefaultKase2<A1, T> {
     return DefaultKase2(
-  a1Element = a1Element,
-  element(value = value, label = label)
-)
-  }
-}
-
-/**
- * A strongly-typed version of [KaseLabels] for 1 parameters.
- *
- * @property a1Label The label for the [Kase1.a1] parameter.
- * @property delimiter The delimiter between the label and the value.
- * @property separator The separator between each label/value pair.
- * @property prefix The prefix before the first label/value pair.
- * @property postfix The postfix after the last label/value pair.
- */
-@Poko
-public class KaseLabels1(
-  public val a1Label: String = "a1",
-  override val delimiter: String = ": ",
-  override val separator: String = " | ",
-  override val prefix: String = "[",
-  override val postfix: String = "]"
-) : KaseLabels {
-
-  override val orderedLabels: List<String> by lazy {
-    listOf(a1Label)
+      a1Element = a1Element,
+      a2Element = element(value = value, label = label),
+      delimiter = delimiter,
+      separator = separator
+    )
   }
 }

@@ -28,7 +28,7 @@ public interface TestEnvironmentFactory<T : TestEnvironment<*>> {
    * @param testAction The test action to run within the [TestEnvironment].
    */
   public fun test(
-    kase: AnyKase,
+    kase: AnyKase = Kase.EMPTY,
     testFunctionName: TestFunctionName = TestFunctionName.get(),
     testAction: suspend T.() -> Unit
   ) {

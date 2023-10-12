@@ -81,7 +81,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   public val parent: TestNodeBuilder?
 ) {
   /** the list of names from the root node to this node */
-  public val namesFromRoot: List<String>
+  private val namesFromRoot: List<String>
     get() = if (parent == null) {
       listOf(name)
     } else {
@@ -258,10 +258,10 @@ public class TestNodeBuilder @PublishedApi internal constructor(
     crossinline testAction: suspend T.() -> Unit
   ) {
     addTest(name) {
-      // this@TestEnvironmentFactory.test(
-      //   testFunctionName = testFunctionName,
-      //   testVariantNames = namesFromRoot + name
-      // ) { testAction() }
+      this@TestEnvironmentFactory.test(
+        testFunctionName = testFunctionName,
+        testAction = { testAction() }
+      )
     }
   }
 

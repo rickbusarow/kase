@@ -51,12 +51,6 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
 
     if (target.isRealRootProject()) {
 
-      target.configurations.getByName("ktlintAllDependencies")
-        .dependencies.addLater(
-          target.libsCatalog
-            .dependency("rickBusarow-ktrules48")
-        )
-
       target.tasks.register("updateEditorConfigVersion") { task ->
 
         val file = target.file(".editorconfig")

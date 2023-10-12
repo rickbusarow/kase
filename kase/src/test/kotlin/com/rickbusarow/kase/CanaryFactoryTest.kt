@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase
 
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
 class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment<Kase2<String, Int>>> {
@@ -41,7 +42,21 @@ class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment<Kase2<String, I
   ).asTests { k ->
   }
 
-  @TestFactory
-  fun `my test 4`() = test("a", listOf("a")) {
+  @Test
+  fun `kase addition`() {
+    val kase2: Kase2<String, List<Char>> = kase(a1 = "a", a2 = listOf('c', 'd'))
+
+    val kase3: Kase3<String, List<Char>, Set<Int>> = kase2.plus("some integers", setOf(1, 2, 3))
+
+    println(kase3.displayNames())
+  }
+
+  @Test
+  fun `just a single test`() = test {
+    val kase2: Kase2<String, List<Char>> = kase(a1 = "a", a2 = listOf('c', 'd'))
+
+    val kase3: Kase3<String, List<Char>, Set<Int>> = kase2.plus("some integers", setOf(1, 2, 3))
+
+    println(kase3.displayNames())
   }
 }
