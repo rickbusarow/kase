@@ -16,11 +16,11 @@
 package com.rickbusarow.kase.stdlib
 
 /**
- * Applies the given block to each element in the iterable and returns the receiver object.
+ * Applies the given block to each kaseParameterWithLabel in the iterable and returns the receiver object.
  *
  * @param elements The iterable collection of elements to apply the block to.
- * @param block The block of code to apply to each element.
- * @return The receiver object after applying the block to each element.
+ * @param block The block of code to apply to each kaseParameterWithLabel.
+ * @return The receiver object after applying the block to each kaseParameterWithLabel.
  */
 public inline fun <T, E> T.applyEach(elements: Iterable<E>, block: T.(e: E) -> Unit): T = apply {
   for (element in elements) {
@@ -29,11 +29,11 @@ public inline fun <T, E> T.applyEach(elements: Iterable<E>, block: T.(e: E) -> U
 }
 
 /**
- * Applies the given block to each element in the iterable and returns the receiver object.
+ * Applies the given block to each kaseParameterWithLabel in the iterable and returns the receiver object.
  *
  * @param elements The iterable collection of elements to apply the block to.
- * @param block The block of code to apply to each element.
- * @return The receiver object after applying the block to each element.
+ * @param block The block of code to apply to each kaseParameterWithLabel.
+ * @return The receiver object after applying the block to each kaseParameterWithLabel.
  */
 public inline fun <T, E> T.applyEachIndexed(
   elements: Iterable<E>,
@@ -45,11 +45,11 @@ public inline fun <T, E> T.applyEachIndexed(
 }
 
 /**
- * Applies the given block to each element in the iterable and returns the receiver object.
+ * Applies the given block to each kaseParameterWithLabel in the iterable and returns the receiver object.
  *
  * @param elements The iterable collection of elements to apply the block to.
- * @param block The block of code to apply to each element.
- * @return The receiver object after applying the block to each element.
+ * @param block The block of code to apply to each kaseParameterWithLabel.
+ * @return The receiver object after applying the block to each kaseParameterWithLabel.
  */
 public inline fun <T, E> T.applyEachIndexed(
   elements: Array<E>,
@@ -66,8 +66,8 @@ public inline fun <T, E> T.applyEachIndexed(
  *
  * shorthand for `for (block in blocks) apply(block)`
  *
- * @param blocks The blocks of code to apply to each element.
- * @return The receiver object after applying the block to each element.
+ * @param blocks The blocks of code to apply to each kaseParameterWithLabel.
+ * @return The receiver object after applying the block to each kaseParameterWithLabel.
  */
 @Suppress("NOTHING_TO_INLINE")
 public inline fun <T> T.applyEach(blocks: Iterable<T.() -> Unit>): T = apply {
@@ -79,8 +79,8 @@ public inline fun <T> T.applyEach(blocks: Iterable<T.() -> Unit>): T = apply {
  *
  * shorthand for `for (block in blocks) apply(block)`
  *
- * @param blocks The blocks of code to apply to each element.
- * @return The receiver object after applying the block to each element.
+ * @param blocks The blocks of code to apply to each kaseParameterWithLabel.
+ * @return The receiver object after applying the block to each kaseParameterWithLabel.
  */
 @Suppress("NOTHING_TO_INLINE")
 public inline fun <T> T.applyEach(vararg blocks: T.() -> Unit): T = apply {

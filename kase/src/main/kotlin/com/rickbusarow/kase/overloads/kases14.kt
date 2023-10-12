@@ -20,13 +20,12 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
-import com.rickbusarow.kase.KaseLabels.Companion.POSTFIX_DEFAULT
-import com.rickbusarow.kase.KaseLabels.Companion.PREFIX_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-import com.rickbusarow.kase.KaseParameterWithLabel.Companion.element
+import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParameterWithLabel
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
+
 /**
  * Creates a new [Kase] with the given parameters.
  *
@@ -45,33 +44,32 @@ import java.util.stream.Stream
  * @param a13 the [Kase14:a13] parameter.
  * @param a14 the [Kase14:a14] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param delimiter the delimiter between the label and the value, like `": "` in `"label: value"`
- * @param separator the separator between each label/value
- *   pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`
+ * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14,
   labels: KaseLabels14 = KaseLabels14(),
-  delimiter: String = KaseLabels.DELIMITER_DEFAULT,
-  separator: String = KaseLabels.SEPARATOR_DEFAULT
+  labelDelimiter: String = KaseLabels.DELIMITER_DEFAULT,
+  displayNameSeparator: String = KaseLabels.SEPARATOR_DEFAULT
 ): Kase14<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14> {
   return DefaultKase14(
-    element(value = a1, label = labels.a1Label),
-    element(value = a2, label = labels.a2Label),
-    element(value = a3, label = labels.a3Label),
-    element(value = a4, label = labels.a4Label),
-    element(value = a5, label = labels.a5Label),
-    element(value = a6, label = labels.a6Label),
-    element(value = a7, label = labels.a7Label),
-    element(value = a8, label = labels.a8Label),
-    element(value = a9, label = labels.a9Label),
-    element(value = a10, label = labels.a10Label),
-    element(value = a11, label = labels.a11Label),
-    element(value = a12, label = labels.a12Label),
-    element(value = a13, label = labels.a13Label),
-    element(value = a14, label = labels.a14Label),
-    delimiter = delimiter,
-    separator = separator
+    kaseParameterWithLabel(value = a1, label = labels.a1Label),
+    kaseParameterWithLabel(value = a2, label = labels.a2Label),
+    kaseParameterWithLabel(value = a3, label = labels.a3Label),
+    kaseParameterWithLabel(value = a4, label = labels.a4Label),
+    kaseParameterWithLabel(value = a5, label = labels.a5Label),
+    kaseParameterWithLabel(value = a6, label = labels.a6Label),
+    kaseParameterWithLabel(value = a7, label = labels.a7Label),
+    kaseParameterWithLabel(value = a8, label = labels.a8Label),
+    kaseParameterWithLabel(value = a9, label = labels.a9Label),
+    kaseParameterWithLabel(value = a10, label = labels.a10Label),
+    kaseParameterWithLabel(value = a11, label = labels.a11Label),
+    kaseParameterWithLabel(value = a12, label = labels.a12Label),
+    kaseParameterWithLabel(value = a13, label = labels.a13Label),
+    kaseParameterWithLabel(value = a14, label = labels.a14Label),
+    labelDelimiter = labelDelimiter,
+    displayNameSeparator = displayNameSeparator
   )
 }
 
@@ -171,7 +169,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13,
 ): Stream<out DynamicNode>
   where T : TestEnvironment<K>,
         K : Kase14<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14> {
-  return testFactory(this@asTests, labels, testAction)
+  return testFactory(kases = this@asTests, testAction = testAction)
 }
 
 /** */
@@ -179,12 +177,11 @@ context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase14DestructuredTestEnvironment")
 public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14> testFactory(
   vararg kases: K,
-  labels: KaseLabels14 = KaseLabels14(),
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14) -> Unit
 ): Stream<out DynamicNode>
   where T : TestEnvironment<K>,
         K : Kase14<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14> {
-  return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+  return testFactory(kases = kases.toList(), testAction = testAction)
 }
 
 /** */
@@ -192,7 +189,6 @@ context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase14DestructuredTestEnvironment")
 public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14> testFactory(
   kases: Iterable<K>,
-  labels: KaseLabels14 = KaseLabels14(),
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14) -> Unit
 ): Stream<out DynamicNode>
   where T : TestEnvironment<K>,
@@ -219,34 +215,86 @@ public interface Kase14<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
 
   /** The 1st parameter. */
   public val a1: A1
+  /** The 1st parameter. */
+  public val a1WithLabel: KaseParameterWithLabel<A1>
   /** The 2nd parameter. */
   public val a2: A2
+  /** The 2nd parameter. */
+  public val a2WithLabel: KaseParameterWithLabel<A2>
   /** The 3rd parameter. */
   public val a3: A3
+  /** The 3rd parameter. */
+  public val a3WithLabel: KaseParameterWithLabel<A3>
   /** The 4th parameter. */
   public val a4: A4
+  /** The 4th parameter. */
+  public val a4WithLabel: KaseParameterWithLabel<A4>
   /** The 5th parameter. */
   public val a5: A5
+  /** The 5th parameter. */
+  public val a5WithLabel: KaseParameterWithLabel<A5>
   /** The 6th parameter. */
   public val a6: A6
+  /** The 6th parameter. */
+  public val a6WithLabel: KaseParameterWithLabel<A6>
   /** The 7th parameter. */
   public val a7: A7
+  /** The 7th parameter. */
+  public val a7WithLabel: KaseParameterWithLabel<A7>
   /** The 8th parameter. */
   public val a8: A8
+  /** The 8th parameter. */
+  public val a8WithLabel: KaseParameterWithLabel<A8>
   /** The 9th parameter. */
   public val a9: A9
+  /** The 9th parameter. */
+  public val a9WithLabel: KaseParameterWithLabel<A9>
   /** The 10th parameter. */
   public val a10: A10
+  /** The 10th parameter. */
+  public val a10WithLabel: KaseParameterWithLabel<A10>
   /** The 11th parameter. */
   public val a11: A11
+  /** The 11th parameter. */
+  public val a11WithLabel: KaseParameterWithLabel<A11>
   /** The 12th parameter. */
   public val a12: A12
+  /** The 12th parameter. */
+  public val a12WithLabel: KaseParameterWithLabel<A12>
   /** The 13th parameter. */
   public val a13: A13
+  /** The 13th parameter. */
+  public val a13WithLabel: KaseParameterWithLabel<A13>
   /** The 14th parameter. */
   public val a14: A14
+  /** The 14th parameter. */
+  public val a14WithLabel: KaseParameterWithLabel<A14>
 
-  override fun <T> plus(label: String, value: T): Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, T>
+  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
+
+  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
+
+  override fun <T> plus(label: String, value: T): Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, T> {
+    return DefaultKase15(
+      a1WithLabel = a1WithLabel,
+      a2WithLabel = a2WithLabel,
+      a3WithLabel = a3WithLabel,
+      a4WithLabel = a4WithLabel,
+      a5WithLabel = a5WithLabel,
+      a6WithLabel = a6WithLabel,
+      a7WithLabel = a7WithLabel,
+      a8WithLabel = a8WithLabel,
+      a9WithLabel = a9WithLabel,
+      a10WithLabel = a10WithLabel,
+      a11WithLabel = a11WithLabel,
+      a12WithLabel = a12WithLabel,
+      a13WithLabel = a13WithLabel,
+      a14WithLabel = a14WithLabel,
+      a15WithLabel = kaseParameterWithLabel(value = value, label = label),
+      labelDelimiter = labelDelimiter,
+      displayNameSeparator = displayNameSeparator
+    )
+  }
 }
 
 /**
@@ -266,8 +314,8 @@ public interface Kase14<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
  * @property a12Label The label for the [Kase14.a12] parameter.
  * @property a13Label The label for the [Kase14.a13] parameter.
  * @property a14Label The label for the [Kase14.a14] parameter.
- * @property delimiter The delimiter between the label and the value. The default is `: `.
- * @property separator The separator between each label/value pair. The default is ` | `.
+ * @property labelDelimiter The delimiter between the label and the value.  The default is `: `.
+ * @property displayNameSeparator The separator between each label/value pair.  The default is ` | `.
  */
 @Poko
 public class KaseLabels14(
@@ -285,8 +333,8 @@ public class KaseLabels14(
   public val a12Label: String = "a12",
   public val a13Label: String = "a13",
   public val a14Label: String = "a14",
-  override val delimiter: String = DELIMITER_DEFAULT,
-  override val separator: String = SEPARATOR_DEFAULT
+  override val labelDelimiter: String = DELIMITER_DEFAULT,
+  override val displayNameSeparator: String = SEPARATOR_DEFAULT
 ) : KaseLabels {
 
   override val orderedLabels: List<String> by lazy {
@@ -296,60 +344,60 @@ public class KaseLabels14(
 
 @Poko
 internal class DefaultKase14<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14>(
-  val a1Element: KaseParameterWithLabel<A1>,
-  val a2Element: KaseParameterWithLabel<A2>,
-  val a3Element: KaseParameterWithLabel<A3>,
-  val a4Element: KaseParameterWithLabel<A4>,
-  val a5Element: KaseParameterWithLabel<A5>,
-  val a6Element: KaseParameterWithLabel<A6>,
-  val a7Element: KaseParameterWithLabel<A7>,
-  val a8Element: KaseParameterWithLabel<A8>,
-  val a9Element: KaseParameterWithLabel<A9>,
-  val a10Element: KaseParameterWithLabel<A10>,
-  val a11Element: KaseParameterWithLabel<A11>,
-  val a12Element: KaseParameterWithLabel<A12>,
-  val a13Element: KaseParameterWithLabel<A13>,
-  val a14Element: KaseParameterWithLabel<A14>,
-  override val delimiter: String,
-  override val separator: String,
+  override val a1WithLabel: KaseParameterWithLabel<A1>,
+  override val a2WithLabel: KaseParameterWithLabel<A2>,
+  override val a3WithLabel: KaseParameterWithLabel<A3>,
+  override val a4WithLabel: KaseParameterWithLabel<A4>,
+  override val a5WithLabel: KaseParameterWithLabel<A5>,
+  override val a6WithLabel: KaseParameterWithLabel<A6>,
+  override val a7WithLabel: KaseParameterWithLabel<A7>,
+  override val a8WithLabel: KaseParameterWithLabel<A8>,
+  override val a9WithLabel: KaseParameterWithLabel<A9>,
+  override val a10WithLabel: KaseParameterWithLabel<A10>,
+  override val a11WithLabel: KaseParameterWithLabel<A11>,
+  override val a12WithLabel: KaseParameterWithLabel<A12>,
+  override val a13WithLabel: KaseParameterWithLabel<A13>,
+  override val a14WithLabel: KaseParameterWithLabel<A14>,
+  override val labelDelimiter: String,
+  override val displayNameSeparator: String,
 ) : Kase14<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14>, KaseInternal<KaseLabels14> {
-  override val a1: A1 get() = a1Element.value
-  override val a2: A2 get() = a2Element.value
-  override val a3: A3 get() = a3Element.value
-  override val a4: A4 get() = a4Element.value
-  override val a5: A5 get() = a5Element.value
-  override val a6: A6 get() = a6Element.value
-  override val a7: A7 get() = a7Element.value
-  override val a8: A8 get() = a8Element.value
-  override val a9: A9 get() = a9Element.value
-  override val a10: A10 get() = a10Element.value
-  override val a11: A11 get() = a11Element.value
-  override val a12: A12 get() = a12Element.value
-  override val a13: A13 get() = a13Element.value
-  override val a14: A14 get() = a14Element.value
+  override val a1: A1 get() = a1WithLabel.value
+  override val a2: A2 get() = a2WithLabel.value
+  override val a3: A3 get() = a3WithLabel.value
+  override val a4: A4 get() = a4WithLabel.value
+  override val a5: A5 get() = a5WithLabel.value
+  override val a6: A6 get() = a6WithLabel.value
+  override val a7: A7 get() = a7WithLabel.value
+  override val a8: A8 get() = a8WithLabel.value
+  override val a9: A9 get() = a9WithLabel.value
+  override val a10: A10 get() = a10WithLabel.value
+  override val a11: A11 get() = a11WithLabel.value
+  override val a12: A12 get() = a12WithLabel.value
+  override val a13: A13 get() = a13WithLabel.value
+  override val a14: A14 get() = a14WithLabel.value
 
   override val elements: List<KaseParameterWithLabel<Any?>>
-    get() = listOf(a1Element, a2Element, a3Element, a4Element, a5Element, a6Element, a7Element, a8Element, a9Element, a10Element, a11Element, a12Element, a13Element, a14Element)
+    get() = listOf(a1WithLabel, a2WithLabel, a3WithLabel, a4WithLabel, a5WithLabel, a6WithLabel, a7WithLabel, a8WithLabel, a9WithLabel, a10WithLabel, a11WithLabel, a12WithLabel, a13WithLabel, a14WithLabel)
 
   override fun <T> plus(label: String, value: T): DefaultKase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, T> {
     return DefaultKase15(
-      a1Element = a1Element,
-      a2Element = a2Element,
-      a3Element = a3Element,
-      a4Element = a4Element,
-      a5Element = a5Element,
-      a6Element = a6Element,
-      a7Element = a7Element,
-      a8Element = a8Element,
-      a9Element = a9Element,
-      a10Element = a10Element,
-      a11Element = a11Element,
-      a12Element = a12Element,
-      a13Element = a13Element,
-      a14Element = a14Element,
-      a15Element = element(value = value, label = label),
-      delimiter = delimiter,
-      separator = separator
+      a1WithLabel = a1WithLabel,
+      a2WithLabel = a2WithLabel,
+      a3WithLabel = a3WithLabel,
+      a4WithLabel = a4WithLabel,
+      a5WithLabel = a5WithLabel,
+      a6WithLabel = a6WithLabel,
+      a7WithLabel = a7WithLabel,
+      a8WithLabel = a8WithLabel,
+      a9WithLabel = a9WithLabel,
+      a10WithLabel = a10WithLabel,
+      a11WithLabel = a11WithLabel,
+      a12WithLabel = a12WithLabel,
+      a13WithLabel = a13WithLabel,
+      a14WithLabel = a14WithLabel,
+      a15WithLabel = kaseParameterWithLabel(value = value, label = label),
+      labelDelimiter = labelDelimiter,
+      displayNameSeparator = displayNameSeparator
     )
   }
 }

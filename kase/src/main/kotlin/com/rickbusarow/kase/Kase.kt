@@ -31,12 +31,12 @@ public interface Kase<T : KaseLabels> : HasDisplayName, HasDisplayNames {
 
   /** */
   public fun displayName(
-    delimiter: String = DELIMITER_DEFAULT,
-    separator: String = SEPARATOR_DEFAULT,
+    labelDelimiter: String = DELIMITER_DEFAULT,
+    displayNameSeparator: String = SEPARATOR_DEFAULT,
     prefix: String = PREFIX_DEFAULT,
     postfix: String = POSTFIX_DEFAULT
-  ): String = displayNames(delimiter).joinToString(
-    separator = separator,
+  ): String = displayNames(labelDelimiter).joinToString(
+    separator = displayNameSeparator,
     prefix = prefix,
     postfix = postfix
   )
@@ -64,14 +64,14 @@ public interface KaseLabels {
    *
    * ex: the ':' in "label: value"
    */
-  public val delimiter: String get() = DELIMITER_DEFAULT
+  public val labelDelimiter: String get() = DELIMITER_DEFAULT
 
   /**
    * between each label/value pair.
    *
    * ex: the " | " in "label1: value1 | label2: value2"
    */
-  public val separator: String get() = SEPARATOR_DEFAULT
+  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 
   /**
    * The labels in the order they should be displayed.
@@ -97,7 +97,7 @@ public interface KaseParameterWithLabel<out T> : HasLabel {
   public operator fun component2(): String = label
 
   public companion object {
-    public fun <T> element(value: T, label: String): KaseParameterWithLabel<T> {
+    public fun <T> kaseParameterWithLabel(value: T, label: String): KaseParameterWithLabel<T> {
       return DefaultKaseParameterWithLabel(value, label)
     }
   }
@@ -139,22 +139,25 @@ public interface KaseInternal<T : KaseLabels> : Kase<T> {
    *
    * ex: the ':' in "label: value"
    */
-  public val delimiter: String get() = DELIMITER_DEFAULT
+  public val labelDelimiter: String get() = DELIMITER_DEFAULT
 
   /**
    * between each label/value pair.
    *
    * ex: the " | " in "label1: value1 | label2: value2"
    */
-  public val separator: String get() = SEPARATOR_DEFAULT
+  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 
   public val elements: List<KaseParameterWithLabel<Any?>>
 
   override val displayName: String
-    get() = displayName(delimiter = delimiter, separator = separator)
+    get() = displayName(
+      labelDelimiter = labelDelimiter,
+      displayNameSeparator = displayNameSeparator
+    )
 
   override val displayNames: List<String>
-    get() = displayNames(delimiter = delimiter)
+    get() = displayNames(delimiter = labelDelimiter)
 
   override fun displayNames(delimiter: String): List<String> {
     return elements.map { (label, value) ->

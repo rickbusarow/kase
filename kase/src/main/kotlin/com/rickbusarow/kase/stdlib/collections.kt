@@ -20,8 +20,8 @@ package com.rickbusarow.kase.stdlib
  *
  * Given a list of `n` lists `[L1, L2, ..., Ln]`, each containing `mi` elements,
  * this function returns a list containing the Cartesian product. The resulting
- * list will have `product(m1 * m2 * ... * mn)` elements. Each element is a
- * list formed by taking one element from each `Li` in the order they appear.
+ * list will have `product(m1 * m2 * ... * mn)` elements. Each kaseParameterWithLabel is a
+ * list formed by taking one kaseParameterWithLabel from each `Li` in the order they appear.
  *
  * ### Mathematical Representation
  *

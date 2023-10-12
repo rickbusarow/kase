@@ -46,7 +46,7 @@ public class TestFunctionName private constructor(
     public fun get(): TestFunctionName = from(testStackTraceElement())
 
     /**
-     * Finds the stack trace element corresponding to the invoking test
+     * Finds the stack trace kaseParameterWithLabel corresponding to the invoking test
      * function. This should be called as close as possible to the test function.
      */
     internal fun testStackTraceElement(): StackTraceElement {
@@ -73,7 +73,7 @@ public class TestFunctionName private constructor(
     //   return from(testStackFrame())
     // }
     // /**
-    //  * Finds the stack trace element corresponding to the invoking test
+    //  * Finds the stack trace kaseParameterWithLabel corresponding to the invoking test
     //  * function. This should be called as close as possible to the test function.
     //  */
     // private fun testStackFrame(): StackFrame = StackWalker
@@ -116,7 +116,7 @@ public class TestFunctionName private constructor(
  * Checks if the [StackTraceElement] is for a test function annotated with
  * [@TestFactory][org.junit.jupiter.api.TestFactory] or [@Test][org.junit.jupiter.api.Test].
  *
- * @receiver [StackTraceElement] The element to check.
+ * @receiver [StackTraceElement] The kaseParameterWithLabel to check.
  * @return `true` if the [StackTraceElement] is for a test function.
  */
 @PublishedApi
@@ -154,7 +154,7 @@ internal fun StackTraceElement.isTestFunction(): Boolean {
 //   )
 // }
 // /**
-//  * Finds the stack trace element corresponding to the invoking test function.
+//  * Finds the stack trace kaseParameterWithLabel corresponding to the invoking test function.
 //  *
 //  * @return The StackFrame corresponding to the test function.
 //  */
@@ -174,7 +174,7 @@ private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
  * Checks if an [AnnotatedElement] is annotated with
  * [@TestFactory][org.junit.jupiter.api.TestFactory] or [@Test][org.junit.jupiter.api.Test].
  *
- * @receiver [AnnotatedElement] The element to check.
+ * @receiver [AnnotatedElement] The kaseParameterWithLabel to check.
  * @return `true` if the [AnnotatedElement] is annotated, `false` otherwise.
  */
 @PublishedApi
@@ -200,7 +200,7 @@ internal fun hasTestAnnotation(actualClass: Class<*>, actualMethodName: String):
 
 /**
  * nested classes and functions have the java `$`
- * delimiter ex: "com.example.MyTest$nested class$my test"
+ * labelDelimiter ex: "com.example.MyTest$nested class$my test"
  */
 internal fun String.segments(): List<String> = split(".", "$")
   .filter { it.isNotBlank() }

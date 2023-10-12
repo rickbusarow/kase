@@ -15,13 +15,13 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.HasTestVariant
 import com.rickbusarow.kase.Kase3
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.gradle.DependencyVersion.Agp
 import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
 import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
-import com.rickbusarow.kase.labels
 import kotlin.reflect.KClass
 
 public interface TestVersionssss : Kase3<Gradle, Agp, Kotlin> {
@@ -42,9 +42,7 @@ public data class TestVersions(
   override val a3: Kotlin
 ) : TestVersionssss {
 
-  override fun toString(): String {
-    return displayName(labels(a1Label = a1.label, a2Label = a2.label, a3Label = a3.label))
-  }
+  override fun toString(): String = displayName
 
   public companion object {
     public fun from(kase: AnyKase, versionsMatrix: VersionsMatrix): TestVersions {
@@ -53,8 +51,9 @@ public data class TestVersions(
         .filterNotNull()
         .associateBy { it::class }
 
+      versionsMatrix
+
       fun <T : DependencyVersion> version(clazz: KClass<T>, default: () -> T): T {
-        @Suppress("UNCHECKED_CAST")
         return versions[clazz] as? T ?: default()
       }
 

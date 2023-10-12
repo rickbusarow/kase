@@ -16,16 +16,18 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasLabel
+import com.rickbusarow.kase.KaseParameterWithLabel
 
 /** */
 public interface DependencyVersion :
   Comparable<CharSequence>,
   CharSequence,
   HasLabel,
-  VersionsMatrix.Element {
+  VersionsMatrix.Element,
+  KaseParameterWithLabel<String> {
   /** */
 
-  public val value: String
+  override val value: String
 
   /** */
   override val label: String

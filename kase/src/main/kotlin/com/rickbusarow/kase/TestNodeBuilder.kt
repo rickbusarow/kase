@@ -139,7 +139,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   }
 
   /**
-   * Adds tests to the invoking [TestNodeBuilder] for each element of the
+   * Adds tests to the invoking [TestNodeBuilder] for each kaseParameterWithLabel of the
    * iterable. The names of the tests are determined by the [testName] function,
    * and the tests themselves are defined by the [testAction] function.
    *
@@ -158,7 +158,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   }
 
   /**
-   * Adds tests to the invoking [TestNodeBuilder] for each element of the
+   * Adds tests to the invoking [TestNodeBuilder] for each kaseParameterWithLabel of the
    * iterable. The names of the tests are determined by the [testName] function,
    * and the tests themselves are defined by the [testAction] function.
    *
@@ -177,7 +177,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   }
 
   /**
-   * Adds containers to the invoking [TestNodeBuilder] for each element of the
+   * Adds containers to the invoking [TestNodeBuilder] for each kaseParameterWithLabel of the
    * iterable. The names of the containers are determined by the [testName] function,
    * and the containers themselves are initialized by the [testAction] function.
    *
@@ -196,7 +196,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   }
 
   /**
-   * Adds containers to the invoking [TestNodeBuilder] for each element of the
+   * Adds containers to the invoking [TestNodeBuilder] for each kaseParameterWithLabel of the
    * iterable. The names of the containers are determined by the [testName] function,
    * and the containers themselves are initialized by the [testAction] function.
    *

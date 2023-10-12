@@ -26,13 +26,12 @@ private val FILE_ANNOTATIONS = """
 @Suppress("SpellCheckingInspection")
 private val IMPORTS = """
   import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
-  import com.rickbusarow.kase.KaseLabels.Companion.POSTFIX_DEFAULT
-  import com.rickbusarow.kase.KaseLabels.Companion.PREFIX_DEFAULT
   import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-  import com.rickbusarow.kase.KaseParameterWithLabel.Companion.element
+  import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParameterWithLabel
   import dev.drewhamilton.poko.Poko
   import org.junit.jupiter.api.DynamicNode
   import java.util.stream.Stream
+
 """.trimIndent()
 
 private fun main() {
@@ -86,8 +85,8 @@ private fun main() {
       }
 
       val argToLabelPairs = args.zip(labels)
-      val elementCalls = argToLabelPairs.joinToString(",\n    ") { (value, label) ->
-        "element(value = $value, label = labels.$label)"
+      val withLabelCalls = argToLabelPairs.joinToString(",\n    ") { (value, label) ->
+        "kaseParameterWithLabel(value = $value, label = labels.$label)"
       }
 
       val typesK = (listOf("K") + types)
@@ -110,7 +109,7 @@ private fun main() {
         paramsString = paramsString,
         kaseLabelSimpleName = kaseLabelSimpleName,
         kaseSimpleName = kaseSimpleName,
-        elementCalls = elementCalls
+        withLabelCalls = withLabelCalls
       )
       testFun(
         typesKaseEnvironment = typesKaseEnvironment,
@@ -194,10 +193,12 @@ private fun main() {
         """.trimIndent()
       )
 
-      val propertiesString = params.joinToStringIndexed("\n  ") { i, it ->
+      val propertiesString = args.zip(types).joinToStringIndexed("\n") { i, (arg, type) ->
         """
           /** The ${(i + 1).withOrdinalSuffix()} parameter. */
-            public val $it
+          public val $arg: $type
+          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
+          public val ${arg}WithLabel: KaseParameterWithLabel<$type>
         """.trimIndent()
       }
 
@@ -209,19 +210,36 @@ private fun main() {
         kasePlus1
       }
 
+      val argsWithLabels = args.map { arg -> "${arg}WithLabel" }
+      val plus1Impl = if (ct != 22) {
+        """
+        |return Default$kasePlus1(
+        |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
+        |  a${ct + 1}WithLabel = kaseParameterWithLabel(value = value, label = label),
+        |  labelDelimiter = labelDelimiter,
+        |  displayNameSeparator = displayNameSeparator
+        |)
+        """.trimMargin()
+      } else {
+        """error("A Kase cannot have more than 22 parameters")"""
+      }
       appendLine(
         """
         |/** A strongly-typed version of [Kase] for $ct $parametersPlural. */
         |public interface $kaseSimpleName$typesWithVarianceString : Kase<$kaseLabelSimpleName> {
         |
-        |  $propertiesString
+        |  ${propertiesString.prependIndentAfterFirst("  ")}
         |
-        |  override fun <T> plus(label: String, value: T): $kasePlus1WithTypes
+        |  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
+        |
+        |  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
+        |
+        |  override fun <T> plus(label: String, value: T): $kasePlus1WithTypes {
+        |    ${plus1Impl.prependIndentAfterFirst("    ")}
+        |  }
         |}
         """.trimMargin()
       )
-
-      val argsElements = args.map { arg -> "${arg}Element" }
 
       val kaseLabelsKdoc = buildString {
         appendLine("/**")
@@ -231,10 +249,10 @@ private fun main() {
           appendLine(" * @property $label The label for the [$kaseSimpleName.$arg] parameter.")
         }
         appendLine(
-          " * @property delimiter The delimiter between the label and the value.  The default is `: `."
+          " * @property labelDelimiter The delimiter between the label and the value.  The default is `: `."
         )
         appendLine(
-          " * @property separator The separator between each label/value pair.  The default is ` | `."
+          " * @property displayNameSeparator The separator between each label/value pair.  The default is ` | `."
         )
         append(" */")
       }
@@ -249,8 +267,8 @@ private fun main() {
         |@Poko
         |public class $kaseLabelSimpleName(
         |  $labelsProperties,
-        |  override val delimiter: String = DELIMITER_DEFAULT,
-        |  override val separator: String = SEPARATOR_DEFAULT
+        |  override val labelDelimiter: String = DELIMITER_DEFAULT,
+        |  override val displayNameSeparator: String = SEPARATOR_DEFAULT
         |) : KaseLabels {
         |
         |  override val orderedLabels: List<String> by lazy {
@@ -261,16 +279,16 @@ private fun main() {
       )
 
       defaultKase(
-        argsElements,
-        types,
-        paramsPairs,
-        ct,
-        kasePlus1WithTypes,
-        kasePlus1,
-        kaseSimpleName,
-        typesWithVarianceString,
-        typesString,
-        kaseLabelSimpleName
+        argsWithLabels = argsWithLabels,
+        types = types,
+        paramsPairs = paramsPairs,
+        ct = ct,
+        kasePlus1WithTypes = kasePlus1WithTypes,
+        kasePlus1 = kasePlus1,
+        kaseSimpleName = kaseSimpleName,
+        typesWithVarianceString = typesWithVarianceString,
+        typesString = typesString,
+        kaseLabelSimpleName = kaseLabelSimpleName
       )
     }
       .mapLines { it.trimEnd() }
@@ -284,7 +302,7 @@ private fun main() {
 }
 
 private fun StringBuilder.defaultKase(
-  argsElements: List<String>,
+  argsWithLabels: List<String>,
   types: List<String>,
   paramsPairs: List<Pair<String, String>>,
   ct: Int,
@@ -295,11 +313,11 @@ private fun StringBuilder.defaultKase(
   typesString: String,
   kaseLabelSimpleName: String
 ) {
-  val argElementValueParams = argsElements.zip(types).joinToString(",\n  ") { (element, type) ->
-    "val $element: KaseParameterWithLabel<$type>"
+  val argWithLabelValueParams = argsWithLabels.zip(types).joinToString(",\n  ") { (element, type) ->
+    "override val $element: KaseParameterWithLabel<$type>"
   }
   val argMemberProperties = paramsPairs.joinToString("\n  ") { (arg, type) ->
-    "override val $arg: $type get() = ${arg}Element.value"
+    "override val $arg: $type get() = ${arg}WithLabel.value"
   }
 
   val defaultKasePlus1 = if (ct != 22) "Default$kasePlus1WithTypes" else kasePlus1
@@ -307,10 +325,10 @@ private fun StringBuilder.defaultKase(
   val plus1Impl = if (ct != 22) {
     """
     |return Default$kasePlus1(
-    |  ${argsElements.joinToString(",\n  ") { "$it = $it" }},
-    |  a${ct + 1}Element = element(value = value, label = label),
-    |  delimiter = delimiter,
-    |  separator = separator
+    |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
+    |  a${ct + 1}WithLabel = kaseParameterWithLabel(value = value, label = label),
+    |  labelDelimiter = labelDelimiter,
+    |  displayNameSeparator = displayNameSeparator
     |)
     """.trimMargin()
   } else {
@@ -321,14 +339,14 @@ private fun StringBuilder.defaultKase(
     """
     |@Poko
     |internal class Default$kaseSimpleName$typesWithVarianceString(
-    |  $argElementValueParams,
-    |  override val delimiter: String,
-    |  override val separator: String,
+    |  $argWithLabelValueParams,
+    |  override val labelDelimiter: String,
+    |  override val displayNameSeparator: String,
     |) : Kase$ct$typesString, KaseInternal<$kaseLabelSimpleName> {
     |  $argMemberProperties
     |
     |  override val elements: List<KaseParameterWithLabel<Any?>>
-    |    get() = listOf(${argsElements.joinToString(", ")})
+    |    get() = listOf(${argsWithLabels.joinToString(", ")})
     |
     |  override fun <T> plus(label: String, value: T): $defaultKasePlus1 {
     |    ${plus1Impl.prependIndentAfterFirst("    ")}
@@ -376,7 +394,7 @@ private fun StringBuilder.asTests(
       ): Stream<out DynamicNode>
         where T : TestEnvironment<K>,
               K : $kaseSimpleName$typesString {
-        return testFactory(this@asTests, labels, testAction)
+        return testFactory(kases = this@asTests, testAction = testAction)
       }
       """.trimIndent()
     )
@@ -399,11 +417,10 @@ private fun StringBuilder.testFactories(
       @JvmName("testFactory$kaseSimpleName$suffix")
       public inline fun $typesK testFactory(
         vararg kases: K,
-        labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
         crossinline testAction: $lambdaSignature
       ): Stream<out DynamicNode>
         where K : $kaseSimpleName$typesString {
-        return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+        return testFactory(kases = kases.toList(), testAction = testAction)
       }
       """.trimIndent()
         .comment()
@@ -418,12 +435,11 @@ private fun StringBuilder.testFactories(
       @JvmName("testFactory$kaseSimpleName${suffix}TestEnvironment")
       public inline fun $typesKaseEnvironment testFactory(
         vararg kases: K,
-        labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
         crossinline testAction: $lambdaSignature
       ): Stream<out DynamicNode>
         where T : TestEnvironment<K>,
               K : $kaseSimpleName$typesString {
-        return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+        return testFactory(kases = kases.toList(), testAction = testAction)
       }
       """.trimIndent()
     )
@@ -450,7 +466,6 @@ private fun StringBuilder.testFactories2(
       @JvmName("testFactory$kaseSimpleName$suffix")
       public inline fun $typesK testFactory(
         kases: Iterable<K>,
-        labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
         crossinline testAction: $lambdaSignature
       ): Stream<out DynamicNode>
         where K : $kaseSimpleName$typesString {
@@ -474,7 +489,6 @@ private fun StringBuilder.testFactories2(
       @JvmName("testFactory$kaseSimpleName${suffix}TestEnvironment")
       public inline fun $typesKaseEnvironment testFactory(
         kases: Iterable<K>,
-        labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
         crossinline testAction: $lambdaSignature
       ): Stream<out DynamicNode>
         where T : TestEnvironment<K>,
@@ -542,7 +556,7 @@ private fun StringBuilder.kaseFun(
   paramsString: String,
   kaseLabelSimpleName: String,
   kaseSimpleName: String,
-  elementCalls: String
+  withLabelCalls: String
 ) {
 
   val kdoc = buildString {
@@ -554,10 +568,10 @@ private fun StringBuilder.kaseFun(
     }
     appendLine(" * @param labels the [KaseLabels] to use for this [Kase]")
     appendLine(
-      """ * @param delimiter the delimiter between the label and the value, like `": "` in `"label: value"`"""
+      """ * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`"""
     )
     appendLine(
-      """ * @param separator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`"""
+      """ * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`"""
     )
     append(" */")
   }
@@ -568,13 +582,13 @@ private fun StringBuilder.kaseFun(
     |public fun $typesString kase(
     |  $paramsString,
     |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
-    |  delimiter: String = KaseLabels.DELIMITER_DEFAULT,
-    |  separator: String = KaseLabels.SEPARATOR_DEFAULT
+    |  labelDelimiter: String = KaseLabels.DELIMITER_DEFAULT,
+    |  displayNameSeparator: String = KaseLabels.SEPARATOR_DEFAULT
     |): $kaseSimpleName$typesString {
     |  return Default$kaseSimpleName(
-    |    $elementCalls,
-    |    delimiter = delimiter,
-    |    separator = separator
+    |    $withLabelCalls,
+    |    labelDelimiter = labelDelimiter,
+    |    displayNameSeparator = displayNameSeparator
     |  )
     |}
     """.trimMargin()

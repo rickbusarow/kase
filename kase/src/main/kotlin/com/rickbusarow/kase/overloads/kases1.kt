@@ -20,32 +20,30 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
-import com.rickbusarow.kase.KaseLabels.Companion.POSTFIX_DEFAULT
-import com.rickbusarow.kase.KaseLabels.Companion.PREFIX_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-import com.rickbusarow.kase.KaseParameterWithLabel.Companion.element
+import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParameterWithLabel
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
+
 /**
  * Creates a new [Kase] with the given parameter.
  *
  * @param a1 the [Kase1:a1] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param delimiter the delimiter between the label and the value, like `": "` in `"label: value"`
- * @param separator the separator between each label/value
- *   pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`
+ * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1> kase(
   a1: A1,
   labels: KaseLabels1 = KaseLabels1(),
-  delimiter: String = KaseLabels.DELIMITER_DEFAULT,
-  separator: String = KaseLabels.SEPARATOR_DEFAULT
+  labelDelimiter: String = KaseLabels.DELIMITER_DEFAULT,
+  displayNameSeparator: String = KaseLabels.SEPARATOR_DEFAULT
 ): Kase1<A1> {
   return DefaultKase1(
-    element(value = a1, label = labels.a1Label),
-    delimiter = delimiter,
-    separator = separator
+    kaseParameterWithLabel(value = a1, label = labels.a1Label),
+    labelDelimiter = labelDelimiter,
+    displayNameSeparator = displayNameSeparator
   )
 }
 
@@ -93,7 +91,7 @@ public inline fun <T, K, A1> Iterable<K>.asTests(
 ): Stream<out DynamicNode>
   where T : TestEnvironment<K>,
         K : Kase1<A1> {
-  return testFactory(this@asTests, labels, testAction)
+  return testFactory(kases = this@asTests, testAction = testAction)
 }
 
 /** */
@@ -101,12 +99,11 @@ context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase1DestructuredTestEnvironment")
 public inline fun <T, K, A1> testFactory(
   vararg kases: K,
-  labels: KaseLabels1 = KaseLabels1(),
   crossinline testAction: T.(a1: A1) -> Unit
 ): Stream<out DynamicNode>
   where T : TestEnvironment<K>,
         K : Kase1<A1> {
-  return testFactory(kases = kases.toList(), labels = labels, testAction = testAction)
+  return testFactory(kases = kases.toList(), testAction = testAction)
 }
 
 /** */
@@ -114,7 +111,6 @@ context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase1DestructuredTestEnvironment")
 public inline fun <T, K, A1> testFactory(
   kases: Iterable<K>,
-  labels: KaseLabels1 = KaseLabels1(),
   crossinline testAction: T.(a1: A1) -> Unit
 ): Stream<out DynamicNode>
   where T : TestEnvironment<K>,
@@ -141,22 +137,35 @@ public interface Kase1<out A1> : Kase<KaseLabels1> {
 
   /** The 1st parameter. */
   public val a1: A1
+  /** The 1st parameter. */
+  public val a1WithLabel: KaseParameterWithLabel<A1>
 
-  override fun <T> plus(label: String, value: T): Kase2<A1, T>
+  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
+
+  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
+
+  override fun <T> plus(label: String, value: T): Kase2<A1, T> {
+    return DefaultKase2(
+      a1WithLabel = a1WithLabel,
+      a2WithLabel = kaseParameterWithLabel(value = value, label = label),
+      labelDelimiter = labelDelimiter,
+      displayNameSeparator = displayNameSeparator
+    )
+  }
 }
 
 /**
  * A strongly-typed version of [KaseLabels] for 1 parameter.
  *
  * @property a1Label The label for the [Kase1.a1] parameter.
- * @property delimiter The delimiter between the label and the value. The default is `: `.
- * @property separator The separator between each label/value pair. The default is ` | `.
+ * @property labelDelimiter The delimiter between the label and the value.  The default is `: `.
+ * @property displayNameSeparator The separator between each label/value pair.  The default is ` | `.
  */
 @Poko
 public class KaseLabels1(
   public val a1Label: String = "a1",
-  override val delimiter: String = DELIMITER_DEFAULT,
-  override val separator: String = SEPARATOR_DEFAULT
+  override val labelDelimiter: String = DELIMITER_DEFAULT,
+  override val displayNameSeparator: String = SEPARATOR_DEFAULT
 ) : KaseLabels {
 
   override val orderedLabels: List<String> by lazy {
@@ -166,21 +175,21 @@ public class KaseLabels1(
 
 @Poko
 internal class DefaultKase1<out A1>(
-  val a1Element: KaseParameterWithLabel<A1>,
-  override val delimiter: String,
-  override val separator: String,
+  override val a1WithLabel: KaseParameterWithLabel<A1>,
+  override val labelDelimiter: String,
+  override val displayNameSeparator: String,
 ) : Kase1<A1>, KaseInternal<KaseLabels1> {
-  override val a1: A1 get() = a1Element.value
+  override val a1: A1 get() = a1WithLabel.value
 
   override val elements: List<KaseParameterWithLabel<Any?>>
-    get() = listOf(a1Element)
+    get() = listOf(a1WithLabel)
 
   override fun <T> plus(label: String, value: T): DefaultKase2<A1, T> {
     return DefaultKase2(
-      a1Element = a1Element,
-      a2Element = element(value = value, label = label),
-      delimiter = delimiter,
-      separator = separator
+      a1WithLabel = a1WithLabel,
+      a2WithLabel = kaseParameterWithLabel(value = value, label = label),
+      labelDelimiter = labelDelimiter,
+      displayNameSeparator = displayNameSeparator
     )
   }
 }
