@@ -47,9 +47,9 @@ public interface Kase4<out A1, out A2, out A3, out A4> : Kase {
   /** The 4th parameter. */
   public val a4WithLabel: KaseParameterWithLabel<A4>
 
-  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
+  public val labelDelimiter: String get() = DELIMITER_DEFAULT
 
-  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
+  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 
   override fun <A5> plus(label: String, value: A5): Kase5<A1, A2, A3, A4, A5> {
     return DefaultKase5(
@@ -72,8 +72,10 @@ public interface Kase4<out A1, out A2, out A3, out A4> : Kase {
  * @param a3 the [Kase4:a3] parameter.
  * @param a4 the [Kase4:a4] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`
- * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param labelDelimiter the delimiter between the label
+ *   and the value, like `": "` in `"label: value"`
+ * @param displayNameSeparator the separator between each label/value
+ *   pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1, A2, A3, A4> kase(
   a1: A1, a2: A2, a3: A3, a4: A4,
@@ -195,8 +197,8 @@ public inline fun <A1, A2, A3, A4> testFactory(
  * @property a2Label The label for the [Kase4.a2] parameter.
  * @property a3Label The label for the [Kase4.a3] parameter.
  * @property a4Label The label for the [Kase4.a4] parameter.
- * @property labelDelimiter The delimiter between the label and the value.  The default is `: `.
- * @property displayNameSeparator The separator between each label/value pair.  The default is ` | `.
+ * @property labelDelimiter The delimiter between the label and the value. The default is `: `.
+ * @property displayNameSeparator The separator between each label/value pair. The default is ` | `.
  */
 @Poko
 public class KaseLabels4(

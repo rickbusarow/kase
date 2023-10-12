@@ -75,9 +75,9 @@ public interface Kase11<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
   /** The 11th parameter. */
   public val a11WithLabel: KaseParameterWithLabel<A11>
 
-  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
+  public val labelDelimiter: String get() = DELIMITER_DEFAULT
 
-  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
+  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 
   override fun <A12> plus(label: String, value: A12): Kase12<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12> {
     return DefaultKase12(
@@ -114,8 +114,10 @@ public interface Kase11<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
  * @param a10 the [Kase11:a10] parameter.
  * @param a11 the [Kase11:a11] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`
- * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param labelDelimiter the delimiter between the label
+ *   and the value, like `": "` in `"label: value"`
+ * @param displayNameSeparator the separator between each label/value
+ *   pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11,
@@ -279,8 +281,8 @@ public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11> testFactory(
  * @property a9Label The label for the [Kase11.a9] parameter.
  * @property a10Label The label for the [Kase11.a10] parameter.
  * @property a11Label The label for the [Kase11.a11] parameter.
- * @property labelDelimiter The delimiter between the label and the value.  The default is `: `.
- * @property displayNameSeparator The separator between each label/value pair.  The default is ` | `.
+ * @property labelDelimiter The delimiter between the label and the value. The default is `: `.
+ * @property displayNameSeparator The separator between each label/value pair. The default is ` | `.
  */
 @Poko
 public class KaseLabels11(

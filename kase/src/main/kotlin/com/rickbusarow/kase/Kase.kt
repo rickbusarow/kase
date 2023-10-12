@@ -89,7 +89,8 @@ public interface KaseLabels : HasLabels, HasLabelParameters {
 /**
  * Holds an individual [Kase] parameter and its label.
  *
- * This type supports destructuring, where `component1()` is the label and `component2()` is the value.
+ * This type supports destructuring, where `component1()`
+ * is the label and `component2()` is the value.
  *
  * ex:
  * ```
@@ -97,27 +98,21 @@ public interface KaseLabels : HasLabels, HasLabelParameters {
  * ```
  */
 public interface KaseParameterWithLabel<out T> : HasLabel {
-  /**
-   * The value of the parameter.
-   */
+  /** The value of the parameter. */
   public val value: T
 
-  /**
-   * @return the [label]
-   */
+  /** @return the [label] */
   public operator fun component1(): String = label
 
-  /**
-   * @return the [value]
-   */
+  /** @return the [value] */
   public operator fun component2(): T = value
 
   public companion object {
     /**
      * Creates a new [KaseParameterWithLabel] instance.
      *
-     * @param value the value
      * @param label the label
+     * @param value the value
      * @return a new [KaseParameterWithLabel] instance
      * @see KaseParameterWithLabel
      * @see DefaultKaseParameterWithLabel
@@ -148,27 +143,24 @@ public interface HasLabels {
   public val orderedLabels: List<String>
 }
 
-/**
- * Trait for a class which has a display name.
- */
+/** Trait for a class which has a display name. */
 public interface HasDisplayName {
 
   /**
-   * The "name" of a [Kase] as it is used in a test function name.  By default, this is a pipe-separated list of the label/value pairs, such as: `[label1: value1 | label2: value2]`.
+   * The "name" of a [Kase] as it is used in a test function name. By default, this is a
+   * pipe-separated list of the label/value pairs, such as: `[label1: value1 | label2: value2]`.
    *
    * @see HasDisplayNames.displayNames for a list of the label/value pairs.
    */
   public val displayName: String
 }
 
-/**
- * Trait for a class which has a list of display names.
- */
+/** Trait for a class which has a list of display names. */
 public interface HasDisplayNames {
 
   /**
-   * The "names" of individual [Kase] parameters as they are used in test function names.
-   * By default, these are label/value pairs, such as: `["label1: value1", "label2: value2"]`.
+   * The "names" of individual [Kase] parameters as they are used in test function names. By
+   * default, these are label/value pairs, such as: `["label1: value1", "label2: value2"]`.
    *
    * @see HasDisplayName.displayName for the full display name.
    */

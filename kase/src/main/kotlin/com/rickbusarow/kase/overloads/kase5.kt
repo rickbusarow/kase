@@ -51,9 +51,9 @@ public interface Kase5<out A1, out A2, out A3, out A4, out A5> : Kase {
   /** The 5th parameter. */
   public val a5WithLabel: KaseParameterWithLabel<A5>
 
-  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
+  public val labelDelimiter: String get() = DELIMITER_DEFAULT
 
-  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
+  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 
   override fun <A6> plus(label: String, value: A6): Kase6<A1, A2, A3, A4, A5, A6> {
     return DefaultKase6(
@@ -78,8 +78,10 @@ public interface Kase5<out A1, out A2, out A3, out A4, out A5> : Kase {
  * @param a4 the [Kase5:a4] parameter.
  * @param a5 the [Kase5:a5] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`
- * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param labelDelimiter the delimiter between the label
+ *   and the value, like `": "` in `"label: value"`
+ * @param displayNameSeparator the separator between each label/value
+ *   pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1, A2, A3, A4, A5> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5,
@@ -207,8 +209,8 @@ public inline fun <A1, A2, A3, A4, A5> testFactory(
  * @property a3Label The label for the [Kase5.a3] parameter.
  * @property a4Label The label for the [Kase5.a4] parameter.
  * @property a5Label The label for the [Kase5.a5] parameter.
- * @property labelDelimiter The delimiter between the label and the value.  The default is `: `.
- * @property displayNameSeparator The separator between each label/value pair.  The default is ` | `.
+ * @property labelDelimiter The delimiter between the label and the value. The default is `: `.
+ * @property displayNameSeparator The separator between each label/value pair. The default is ` | `.
  */
 @Poko
 public class KaseLabels5(

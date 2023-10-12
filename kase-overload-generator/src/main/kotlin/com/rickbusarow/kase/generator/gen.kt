@@ -246,10 +246,10 @@ private fun main() {
           appendLine(" * @property $label The label for the [$kaseSimpleName.$arg] parameter.")
         }
         appendLine(
-          " * @property labelDelimiter The delimiter between the label and the value.  The default is `: `."
+          " * @property labelDelimiter The delimiter between the label and the value. The default is `: `."
         )
         appendLine(
-          " * @property displayNameSeparator The separator between each label/value pair.  The default is ` | `."
+          " * @property displayNameSeparator The separator between each label/value pair. The default is ` | `."
         )
         append(" */")
       }
