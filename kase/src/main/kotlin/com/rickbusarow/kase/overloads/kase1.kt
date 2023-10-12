@@ -21,10 +21,33 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParameterWithLabel
+import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
+import com.rickbusarow.kase.internal.KaseInternal
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
+
+/** A strongly-typed version of [Kase] for 1 parameter. */
+public interface Kase1<out A1> : Kase {
+
+  /** The 1st parameter. */
+  public val a1: A1
+  /** The 1st parameter. */
+  public val a1WithLabel: KaseParameterWithLabel<A1>
+
+  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
+
+  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
+
+  override fun <A2> plus(label: String, value: A2): Kase2<A1, A2> {
+    return DefaultKase2(
+      a1WithLabel = a1WithLabel,
+      a2WithLabel = kaseParam(label = label, value = value),
+      labelDelimiter = labelDelimiter,
+      displayNameSeparator = displayNameSeparator
+    )
+  }
+}
 
 /**
  * Creates a new [Kase] with the given parameter.
@@ -37,11 +60,11 @@ import java.util.stream.Stream
 public fun <A1> kase(
   a1: A1,
   labels: KaseLabels1 = KaseLabels1(),
-  labelDelimiter: String = KaseLabels.DELIMITER_DEFAULT,
-  displayNameSeparator: String = KaseLabels.SEPARATOR_DEFAULT
+  labelDelimiter: String = DELIMITER_DEFAULT,
+  displayNameSeparator: String = SEPARATOR_DEFAULT
 ): Kase1<A1> {
   return DefaultKase1(
-    kaseParameterWithLabel(value = a1, label = labels.a1Label),
+    a1WithLabel = kaseParam(value = a1, label = labels.a1Label),
     labelDelimiter = labelDelimiter,
     displayNameSeparator = displayNameSeparator
   )
@@ -132,28 +155,6 @@ public inline fun <A1> testFactory(
   return kases.asSequence().asTests(kaseName) { testAction(it.a1) }
 }
 
-/** A strongly-typed version of [Kase] for 1 parameter. */
-public interface Kase1<out A1> : Kase<KaseLabels1> {
-
-  /** The 1st parameter. */
-  public val a1: A1
-  /** The 1st parameter. */
-  public val a1WithLabel: KaseParameterWithLabel<A1>
-
-  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
-
-  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
-
-  override fun <T> plus(label: String, value: T): Kase2<A1, T> {
-    return DefaultKase2(
-      a1WithLabel = a1WithLabel,
-      a2WithLabel = kaseParameterWithLabel(value = value, label = label),
-      labelDelimiter = labelDelimiter,
-      displayNameSeparator = displayNameSeparator
-    )
-  }
-}
-
 /**
  * A strongly-typed version of [KaseLabels] for 1 parameter.
  *
@@ -178,16 +179,16 @@ internal class DefaultKase1<out A1>(
   override val a1WithLabel: KaseParameterWithLabel<A1>,
   override val labelDelimiter: String,
   override val displayNameSeparator: String,
-) : Kase1<A1>, KaseInternal<KaseLabels1> {
+) : Kase1<A1>, KaseInternal {
   override val a1: A1 get() = a1WithLabel.value
 
   override val elements: List<KaseParameterWithLabel<Any?>>
     get() = listOf(a1WithLabel)
 
-  override fun <T> plus(label: String, value: T): DefaultKase2<A1, T> {
+  override fun <A2> plus(label: String, value: A2): DefaultKase2<A1, A2> {
     return DefaultKase2(
       a1WithLabel = a1WithLabel,
-      a2WithLabel = kaseParameterWithLabel(value = value, label = label),
+      a2WithLabel = kaseParam(label = label, value = value),
       labelDelimiter = labelDelimiter,
       displayNameSeparator = displayNameSeparator
     )

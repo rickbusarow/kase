@@ -27,7 +27,8 @@ private val FILE_ANNOTATIONS = """
 private val IMPORTS = """
   import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
   import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-  import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParameterWithLabel
+  import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
+  import com.rickbusarow.kase.internal.KaseInternal
   import dev.drewhamilton.poko.Poko
   import org.junit.jupiter.api.DynamicNode
   import java.util.stream.Stream
@@ -77,7 +78,6 @@ private fun main() {
       val kaseLabelSimpleName = "KaseLabels$ct"
 
       val labels = args.map { "${it}Label" }
-      val labelsParams = args.joinToString(",\n  ") { "${it}Label: String" }
       val labelsParamsDefaults = args.joinToString(",\n  ") { "${it}Label: String = \"$it\"" }
 
       val iterableParams = nums.zip(types).joinToString(",\n  ") { (i, type) ->
@@ -86,7 +86,7 @@ private fun main() {
 
       val argToLabelPairs = args.zip(labels)
       val withLabelCalls = argToLabelPairs.joinToString(",\n    ") { (value, label) ->
-        "kaseParameterWithLabel(value = $value, label = labels.$label)"
+        "${value}WithLabel = kaseParam(value = $value, label = labels.$label)"
       }
 
       val typesK = (listOf("K") + types)
@@ -97,10 +97,57 @@ private fun main() {
       val testActionDestructured = "($paramsString) -> Unit"
       val testActionK = "(kase: K) -> Unit"
       val testActionTDestructured = "T.($paramsString) -> Unit"
-      val testActionTK = "T.(kase: K) -> Unit"
-      val testActionTNoArg = "T.() -> Unit"
 
       val parametersPlural = if (ct == 1) "parameter" else "parameters"
+
+      val propertiesString = args.zip(types).joinToStringIndexed("\n") { i, (arg, type) ->
+        """
+          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
+          public val $arg: $type
+          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
+          public val ${arg}WithLabel: KaseParameterWithLabel<$type>
+        """.trimIndent()
+      }
+
+      val kasePlus1 = if (ct != 22) "Kase${ct + 1}" else "AnyKase"
+      val aPlus1 = "A${ct + 1}"
+
+      val kasePlus1WithTypes = if (ct != 22) {
+        "$kasePlus1${types.joinToString(", ", "<", ", $aPlus1>")}"
+      } else {
+        kasePlus1
+      }
+
+      val argsWithLabels = args.map { arg -> "${arg}WithLabel" }
+      val plus1Impl = if (ct != 22) {
+        """
+        |return Default$kasePlus1(
+        |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
+        |  a${ct + 1}WithLabel = kaseParam(label = label, value = value),
+        |  labelDelimiter = labelDelimiter,
+        |  displayNameSeparator = displayNameSeparator
+        |)
+        """.trimMargin()
+      } else {
+        """error("A Kase cannot have more than 22 parameters")"""
+      }
+      appendLine(
+        """
+        |/** A strongly-typed version of [Kase] for $ct $parametersPlural. */
+        |public interface $kaseSimpleName$typesWithVarianceString : Kase {
+        |
+        |  ${propertiesString.prependIndentAfterFirst("  ")}
+        |
+        |  public val labelDelimiter: String get() = DELIMITER_DEFAULT
+        |
+        |  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
+        |
+        |  override fun <$aPlus1> plus(label: String, value: $aPlus1): $kasePlus1WithTypes {
+        |    ${plus1Impl.prependIndentAfterFirst("    ")}
+        |  }
+        |}
+        """.trimMargin()
+      )
 
       kaseFun(
         typesString = typesString,
@@ -162,7 +209,6 @@ private fun main() {
         kaseSimpleName = kaseSimpleName,
         typesK = typesK,
         typesString = typesString,
-        kaseLabelSimpleName = kaseLabelSimpleName,
         testEnvironmentLambdas = testEnvironmentLambdas,
         typesKaseEnvironment = typesKaseEnvironment
       )
@@ -172,7 +218,6 @@ private fun main() {
         kaseSimpleName = kaseSimpleName,
         typesK = typesK,
         typesString = typesString,
-        kaseLabelSimpleName = kaseLabelSimpleName,
         argsFromItString = argsFromItString,
         testEnvironmentLambdas = testEnvironmentLambdas,
         typesKaseEnvironment = typesKaseEnvironment,
@@ -191,54 +236,6 @@ private fun main() {
           return kases.asSequence().asTests(kaseName) { testAction($argsFromItString) }
         }
         """.trimIndent()
-      )
-
-      val propertiesString = args.zip(types).joinToStringIndexed("\n") { i, (arg, type) ->
-        """
-          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
-          public val $arg: $type
-          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
-          public val ${arg}WithLabel: KaseParameterWithLabel<$type>
-        """.trimIndent()
-      }
-
-      val kasePlus1 = if (ct != 22) "Kase${ct + 1}" else "AnyKase"
-
-      val kasePlus1WithTypes = if (ct != 22) {
-        "$kasePlus1${types.joinToString(", ", "<", ", T>")}"
-      } else {
-        kasePlus1
-      }
-
-      val argsWithLabels = args.map { arg -> "${arg}WithLabel" }
-      val plus1Impl = if (ct != 22) {
-        """
-        |return Default$kasePlus1(
-        |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
-        |  a${ct + 1}WithLabel = kaseParameterWithLabel(value = value, label = label),
-        |  labelDelimiter = labelDelimiter,
-        |  displayNameSeparator = displayNameSeparator
-        |)
-        """.trimMargin()
-      } else {
-        """error("A Kase cannot have more than 22 parameters")"""
-      }
-      appendLine(
-        """
-        |/** A strongly-typed version of [Kase] for $ct $parametersPlural. */
-        |public interface $kaseSimpleName$typesWithVarianceString : Kase<$kaseLabelSimpleName> {
-        |
-        |  ${propertiesString.prependIndentAfterFirst("  ")}
-        |
-        |  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
-        |
-        |  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
-        |
-        |  override fun <T> plus(label: String, value: T): $kasePlus1WithTypes {
-        |    ${plus1Impl.prependIndentAfterFirst("    ")}
-        |  }
-        |}
-        """.trimMargin()
       )
 
       val kaseLabelsKdoc = buildString {
@@ -287,15 +284,14 @@ private fun main() {
         kasePlus1 = kasePlus1,
         kaseSimpleName = kaseSimpleName,
         typesWithVarianceString = typesWithVarianceString,
-        typesString = typesString,
-        kaseLabelSimpleName = kaseLabelSimpleName
+        typesString = typesString
       )
     }
       .mapLines { it.trimEnd() }
       .replace("""( *}\n)(?=[/\n@])""".toRegex(), "$1\n")
       .replace(Regex("\\n{3,}"), "\n\n")
 
-    val file = overloads.resolve("kases$ct.kt")
+    val file = overloads.resolve("kase$ct.kt")
     file.parentFile.mkdirs()
     file.writeText(txt)
   }
@@ -310,8 +306,7 @@ private fun StringBuilder.defaultKase(
   kasePlus1: String,
   kaseSimpleName: String,
   typesWithVarianceString: String,
-  typesString: String,
-  kaseLabelSimpleName: String
+  typesString: String
 ) {
   val argWithLabelValueParams = argsWithLabels.zip(types).joinToString(",\n  ") { (element, type) ->
     "override val $element: KaseParameterWithLabel<$type>"
@@ -322,11 +317,12 @@ private fun StringBuilder.defaultKase(
 
   val defaultKasePlus1 = if (ct != 22) "Default$kasePlus1WithTypes" else kasePlus1
 
+  val aPlus1 = "A${ct + 1}"
   val plus1Impl = if (ct != 22) {
     """
     |return Default$kasePlus1(
     |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
-    |  a${ct + 1}WithLabel = kaseParameterWithLabel(value = value, label = label),
+    |  a${ct + 1}WithLabel = kaseParam(label = label, value = value),
     |  labelDelimiter = labelDelimiter,
     |  displayNameSeparator = displayNameSeparator
     |)
@@ -334,7 +330,6 @@ private fun StringBuilder.defaultKase(
   } else {
     """error("A Kase cannot have more than 22 parameters")"""
   }
-
   appendLine(
     """
     |@Poko
@@ -342,13 +337,13 @@ private fun StringBuilder.defaultKase(
     |  $argWithLabelValueParams,
     |  override val labelDelimiter: String,
     |  override val displayNameSeparator: String,
-    |) : Kase$ct$typesString, KaseInternal<$kaseLabelSimpleName> {
+    |) : Kase$ct$typesString, KaseInternal {
     |  $argMemberProperties
     |
     |  override val elements: List<KaseParameterWithLabel<Any?>>
     |    get() = listOf(${argsWithLabels.joinToString(", ")})
     |
-    |  override fun <T> plus(label: String, value: T): $defaultKasePlus1 {
+    |  override fun <$aPlus1> plus(label: String, value: $aPlus1): $defaultKasePlus1 {
     |    ${plus1Impl.prependIndentAfterFirst("    ")}
     |  }
     |}
@@ -406,7 +401,6 @@ private fun StringBuilder.testFactories(
   kaseSimpleName: String,
   typesK: String,
   typesString: String,
-  kaseLabelSimpleName: String,
   testEnvironmentLambdas: List<Pair<String, String>>,
   typesKaseEnvironment: String
 ) {
@@ -451,7 +445,6 @@ private fun StringBuilder.testFactories2(
   kaseSimpleName: String,
   typesK: String,
   typesString: String,
-  kaseLabelSimpleName: String,
   argsFromItString: String,
   testEnvironmentLambdas: List<Pair<String, String>>,
   typesKaseEnvironment: String,
@@ -582,8 +575,8 @@ private fun StringBuilder.kaseFun(
     |public fun $typesString kase(
     |  $paramsString,
     |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
-    |  labelDelimiter: String = KaseLabels.DELIMITER_DEFAULT,
-    |  displayNameSeparator: String = KaseLabels.SEPARATOR_DEFAULT
+    |  labelDelimiter: String = DELIMITER_DEFAULT,
+    |  displayNameSeparator: String = SEPARATOR_DEFAULT
     |): $kaseSimpleName$typesString {
     |  return Default$kaseSimpleName(
     |    $withLabelCalls,

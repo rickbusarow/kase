@@ -17,149 +17,103 @@ package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasLabel
 import com.rickbusarow.kase.KaseParameterWithLabel
+import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
+import com.rickbusarow.kase.gradle.VersionsMatrix.Element.Key
+
+public abstract class AbstractDependencyVersion<E, K>(
+  override val value: String,
+  override val key: K
+) : DependencyVersion
+  where E : DependencyVersion,
+        K : Key<E> {
+  override fun toString(): String = "$label: $value"
+}
+
+public inline fun <reified E, reified K> dependencyVersion(
+  value: String,
+  key: K
+): DependencyVersion
+  where E : DependencyVersion,
+        K : Key<E> {
+  return object : DependencyVersion, Comparable<E>, CharSequence by value {
+    override val value: String = value
+    override val key: K = key
+
+    val kaseParam: KaseParameterWithLabel<E> by lazy {
+      kaseParam(label, value as E)
+    }
+
+    override fun compareTo(other: E): Int = value.compareTo(other.value)
+  }
+}
 
 /** */
 public interface DependencyVersion :
-  Comparable<CharSequence>,
-  CharSequence,
   HasLabel,
-  VersionsMatrix.Element,
-  KaseParameterWithLabel<String> {
+  VersionsMatrix.Element {
   /** */
 
-  override val value: String
+  public val value: String
 
   /** */
   override val label: String
     get() = this::class.java.simpleName
 
-  override fun compareTo(other: CharSequence): Int = value.compareTo(other.toString())
-
   /** */
-  @JvmInline
-  public value class Gradle(override val value: String) :
-    DependencyVersion,
-    CharSequence by value,
-    VersionsMatrix.Element {
-
-    /** */
-    override val key: Key get() = Key
-
-    override fun toString(): String = "$label: $value"
-
-    /** */
-    public companion object Key : VersionsMatrix.Element.Key<Gradle>
+  public class Gradle(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, Key) {
+    public companion object Key : VersionsMatrix.Element.Key<Gradle>, HasLabel {
+      override val label: String = "Gradle"
+    }
   }
 
   /** */
-  @JvmInline
-  public value class Agp(override val value: String) :
-    DependencyVersion,
-    CharSequence by value,
-    VersionsMatrix.Element {
-
-    /** */
-    override val key: Key get() = Key
-
-    override fun toString(): String = "$label: $value"
-
-    /** */
+  public class Agp(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, Key) {
     public companion object Key : VersionsMatrix.Element.Key<Agp>
   }
 
   /** */
-  @JvmInline
-  public value class Kotlin(override val value: String) :
-    DependencyVersion,
-    CharSequence by value,
-    VersionsMatrix.Element {
-
-    /** */
-    override val key: Key get() = Key
-
-    override fun toString(): String = "$label: $value"
-
-    /** */
+  public class Kotlin(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, Key) {
     public companion object Key : VersionsMatrix.Element.Key<Kotlin>
   }
 
   /** */
-  @JvmInline
-  public value class Ksp(override val value: String) :
-    DependencyVersion,
-    CharSequence by value,
-    VersionsMatrix.Element {
-
-    /** */
-    override val key: Key get() = Key
-
-    override fun toString(): String = "$label: $value"
-
-    /** */
+  public class Ksp(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, Key) {
     public companion object Key : VersionsMatrix.Element.Key<Ksp>
   }
 
   /** */
-  @JvmInline
-  public value class Anvil(override val value: String) :
-    DependencyVersion,
-    CharSequence by value,
-    VersionsMatrix.Element {
-
-    /** */
-    override val key: Key get() = Key
-
-    override fun toString(): String = "$label: $value"
-
-    /** */
+  public class Anvil(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, Key) {
     public companion object Key : VersionsMatrix.Element.Key<Anvil>
   }
 
   /** */
-  @JvmInline
-  public value class Keeper(override val value: String) :
-    DependencyVersion,
-    CharSequence by value,
-    VersionsMatrix.Element {
-
-    /** */
-    override val key: Key get() = Key
-
-    override fun toString(): String = "$label: $value"
-
-    /** */
+  public class Keeper(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, Anvil) {
     public companion object Key : VersionsMatrix.Element.Key<Keeper>
   }
 
   /** */
-  @JvmInline
-  public value class Dagger(override val value: String) :
-    DependencyVersion,
-    CharSequence by value,
-    VersionsMatrix.Element {
-
-    /** */
-    override val key: Key get() = Key
-
-    override fun toString(): String = "$label: $value"
-
-    /** */
+  public class Dagger(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, Anvil) {
     public companion object Key : VersionsMatrix.Element.Key<Dagger>
   }
 
   /** */
-  @JvmInline
-  public value class Detekt(override val value: String) :
-    DependencyVersion,
-    CharSequence by value,
-    VersionsMatrix.Element {
-
-    /** */
-    override val key: Key get() = Key
-
-    override fun toString(): String = "$label: $value"
-
-    /** */
+  public class Detekt(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, Anvil) {
     public companion object Key : VersionsMatrix.Element.Key<Detekt>
   }
 }

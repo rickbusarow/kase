@@ -21,10 +21,63 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParameterWithLabel
+import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
+import com.rickbusarow.kase.internal.KaseInternal
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
+
+/** A strongly-typed version of [Kase] for 7 parameters. */
+public interface Kase7<out A1, out A2, out A3, out A4, out A5, out A6, out A7> : Kase {
+
+  /** The 1st parameter. */
+  public val a1: A1
+  /** The 1st parameter. */
+  public val a1WithLabel: KaseParameterWithLabel<A1>
+  /** The 2nd parameter. */
+  public val a2: A2
+  /** The 2nd parameter. */
+  public val a2WithLabel: KaseParameterWithLabel<A2>
+  /** The 3rd parameter. */
+  public val a3: A3
+  /** The 3rd parameter. */
+  public val a3WithLabel: KaseParameterWithLabel<A3>
+  /** The 4th parameter. */
+  public val a4: A4
+  /** The 4th parameter. */
+  public val a4WithLabel: KaseParameterWithLabel<A4>
+  /** The 5th parameter. */
+  public val a5: A5
+  /** The 5th parameter. */
+  public val a5WithLabel: KaseParameterWithLabel<A5>
+  /** The 6th parameter. */
+  public val a6: A6
+  /** The 6th parameter. */
+  public val a6WithLabel: KaseParameterWithLabel<A6>
+  /** The 7th parameter. */
+  public val a7: A7
+  /** The 7th parameter. */
+  public val a7WithLabel: KaseParameterWithLabel<A7>
+
+  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
+
+  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
+
+  override fun <A8> plus(label: String, value: A8): Kase8<A1, A2, A3, A4, A5, A6, A7, A8> {
+    return DefaultKase8(
+      a1WithLabel = a1WithLabel,
+      a2WithLabel = a2WithLabel,
+      a3WithLabel = a3WithLabel,
+      a4WithLabel = a4WithLabel,
+      a5WithLabel = a5WithLabel,
+      a6WithLabel = a6WithLabel,
+      a7WithLabel = a7WithLabel,
+      a8WithLabel = kaseParam(label = label, value = value),
+      labelDelimiter = labelDelimiter,
+      displayNameSeparator = displayNameSeparator
+    )
+  }
+}
 
 /**
  * Creates a new [Kase] with the given parameters.
@@ -43,17 +96,17 @@ import java.util.stream.Stream
 public fun <A1, A2, A3, A4, A5, A6, A7> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7,
   labels: KaseLabels7 = KaseLabels7(),
-  labelDelimiter: String = KaseLabels.DELIMITER_DEFAULT,
-  displayNameSeparator: String = KaseLabels.SEPARATOR_DEFAULT
+  labelDelimiter: String = DELIMITER_DEFAULT,
+  displayNameSeparator: String = SEPARATOR_DEFAULT
 ): Kase7<A1, A2, A3, A4, A5, A6, A7> {
   return DefaultKase7(
-    kaseParameterWithLabel(value = a1, label = labels.a1Label),
-    kaseParameterWithLabel(value = a2, label = labels.a2Label),
-    kaseParameterWithLabel(value = a3, label = labels.a3Label),
-    kaseParameterWithLabel(value = a4, label = labels.a4Label),
-    kaseParameterWithLabel(value = a5, label = labels.a5Label),
-    kaseParameterWithLabel(value = a6, label = labels.a6Label),
-    kaseParameterWithLabel(value = a7, label = labels.a7Label),
+    a1WithLabel = kaseParam(value = a1, label = labels.a1Label),
+    a2WithLabel = kaseParam(value = a2, label = labels.a2Label),
+    a3WithLabel = kaseParam(value = a3, label = labels.a3Label),
+    a4WithLabel = kaseParam(value = a4, label = labels.a4Label),
+    a5WithLabel = kaseParam(value = a5, label = labels.a5Label),
+    a6WithLabel = kaseParam(value = a6, label = labels.a6Label),
+    a7WithLabel = kaseParam(value = a7, label = labels.a7Label),
     labelDelimiter = labelDelimiter,
     displayNameSeparator = displayNameSeparator
   )
@@ -168,58 +221,6 @@ public inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   return kases.asSequence().asTests(kaseName) { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7) }
 }
 
-/** A strongly-typed version of [Kase] for 7 parameters. */
-public interface Kase7<out A1, out A2, out A3, out A4, out A5, out A6, out A7> : Kase<KaseLabels7> {
-
-  /** The 1st parameter. */
-  public val a1: A1
-  /** The 1st parameter. */
-  public val a1WithLabel: KaseParameterWithLabel<A1>
-  /** The 2nd parameter. */
-  public val a2: A2
-  /** The 2nd parameter. */
-  public val a2WithLabel: KaseParameterWithLabel<A2>
-  /** The 3rd parameter. */
-  public val a3: A3
-  /** The 3rd parameter. */
-  public val a3WithLabel: KaseParameterWithLabel<A3>
-  /** The 4th parameter. */
-  public val a4: A4
-  /** The 4th parameter. */
-  public val a4WithLabel: KaseParameterWithLabel<A4>
-  /** The 5th parameter. */
-  public val a5: A5
-  /** The 5th parameter. */
-  public val a5WithLabel: KaseParameterWithLabel<A5>
-  /** The 6th parameter. */
-  public val a6: A6
-  /** The 6th parameter. */
-  public val a6WithLabel: KaseParameterWithLabel<A6>
-  /** The 7th parameter. */
-  public val a7: A7
-  /** The 7th parameter. */
-  public val a7WithLabel: KaseParameterWithLabel<A7>
-
-  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
-
-  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
-
-  override fun <T> plus(label: String, value: T): Kase8<A1, A2, A3, A4, A5, A6, A7, T> {
-    return DefaultKase8(
-      a1WithLabel = a1WithLabel,
-      a2WithLabel = a2WithLabel,
-      a3WithLabel = a3WithLabel,
-      a4WithLabel = a4WithLabel,
-      a5WithLabel = a5WithLabel,
-      a6WithLabel = a6WithLabel,
-      a7WithLabel = a7WithLabel,
-      a8WithLabel = kaseParameterWithLabel(value = value, label = label),
-      labelDelimiter = labelDelimiter,
-      displayNameSeparator = displayNameSeparator
-    )
-  }
-}
-
 /**
  * A strongly-typed version of [KaseLabels] for 7 parameters.
  *
@@ -262,7 +263,7 @@ internal class DefaultKase7<out A1, out A2, out A3, out A4, out A5, out A6, out 
   override val a7WithLabel: KaseParameterWithLabel<A7>,
   override val labelDelimiter: String,
   override val displayNameSeparator: String,
-) : Kase7<A1, A2, A3, A4, A5, A6, A7>, KaseInternal<KaseLabels7> {
+) : Kase7<A1, A2, A3, A4, A5, A6, A7>, KaseInternal {
   override val a1: A1 get() = a1WithLabel.value
   override val a2: A2 get() = a2WithLabel.value
   override val a3: A3 get() = a3WithLabel.value
@@ -274,7 +275,7 @@ internal class DefaultKase7<out A1, out A2, out A3, out A4, out A5, out A6, out 
   override val elements: List<KaseParameterWithLabel<Any?>>
     get() = listOf(a1WithLabel, a2WithLabel, a3WithLabel, a4WithLabel, a5WithLabel, a6WithLabel, a7WithLabel)
 
-  override fun <T> plus(label: String, value: T): DefaultKase8<A1, A2, A3, A4, A5, A6, A7, T> {
+  override fun <A8> plus(label: String, value: A8): DefaultKase8<A1, A2, A3, A4, A5, A6, A7, A8> {
     return DefaultKase8(
       a1WithLabel = a1WithLabel,
       a2WithLabel = a2WithLabel,
@@ -283,7 +284,7 @@ internal class DefaultKase7<out A1, out A2, out A3, out A4, out A5, out A6, out 
       a5WithLabel = a5WithLabel,
       a6WithLabel = a6WithLabel,
       a7WithLabel = a7WithLabel,
-      a8WithLabel = kaseParameterWithLabel(value = value, label = label),
+      a8WithLabel = kaseParam(label = label, value = value),
       labelDelimiter = labelDelimiter,
       displayNameSeparator = displayNameSeparator
     )

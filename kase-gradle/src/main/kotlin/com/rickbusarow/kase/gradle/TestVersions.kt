@@ -22,47 +22,51 @@ import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.gradle.DependencyVersion.Agp
 import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
 import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
+import com.rickbusarow.kase.internal.KaseInternal
+import com.rickbusarow.kase.kase
 import kotlin.reflect.KClass
 
 public interface TestVersionssss : Kase3<Gradle, Agp, Kotlin> {
+  /** not semver. ex: `8.0` or `8.1.1` */
   public val gradle: String get() = a1.value
+
+  /** normal semver. ex `8.1.1` */
   public val agp: String get() = a2.value
+
+  /** normal semver. ex `1.8.10` */
   public val kotlin: String get() = a3.value
 }
 
-/**
- * The versions of dependencies which are changed during parameterized tests.
- *
- * @param gradle not semver. ex: `8.0` or `8.1.1`
- * @param agp normal semver. ex `8.1.1`
- */
+/** The versions of dependencies which are changed during parameterized tests. */
 public data class TestVersions(
   override val a1: Gradle,
   override val a2: Agp,
   override val a3: Kotlin
-) : TestVersionssss {
+) : TestVersionssss,
+  Kase3<Gradle, Agp, Kotlin> by kase(a1, a2, a3) {
 
   override fun toString(): String = displayName
 
   public companion object {
     public fun from(kase: AnyKase, versionsMatrix: VersionsMatrix): TestVersions {
 
-      val versions = kase.destructured()
-        .filterNotNull()
+      kase as KaseInternal
+
+      val versions = kase.elements
+        .mapNotNull { it.value }
         .associateBy { it::class }
 
-      versionsMatrix
-
-      fun <T : DependencyVersion> version(clazz: KClass<T>, default: () -> T): T {
-        return versions[clazz] as? T ?: default()
-      }
-
       return TestVersions(
-        version(Gradle::class) { versionsMatrix[Gradle].first() },
-        version(Agp::class) { versionsMatrix[Agp].first() },
-        version(Kotlin::class) { versionsMatrix[Kotlin].first() }
+        versions.version(Gradle::class) { versionsMatrix[Gradle].first() },
+        versions.version(Agp::class) { versionsMatrix[Agp].first() },
+        versions.version(Kotlin::class) { versionsMatrix[Kotlin].first() }
       )
     }
+
+    private inline fun <reified T : DependencyVersion> Map<KClass<out Any>, Any>.version(
+      clazz: KClass<T>,
+      default: () -> T
+    ): T = get(clazz) as? T ?: default()
   }
 }
 

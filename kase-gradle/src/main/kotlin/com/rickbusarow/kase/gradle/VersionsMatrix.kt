@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.gradle.VersionsMatrix.Element
+import com.rickbusarow.kase.gradle.internal.DefaultVersionMatrix
 
 /** */
 public interface VersionsMatrix {
@@ -61,51 +61,5 @@ public interface VersionsMatrix {
     public operator fun invoke(elements: List<Element>): VersionsMatrix {
       return DefaultVersionMatrix(elements.groupBy { it.key })
     }
-  }
-}
-
-internal class DefaultVersionMatrix(
-  private val map: Map<Element.Key<*>, List<Element>>
-) : VersionsMatrix {
-
-  override fun <E : Element> getOrNull(key: Element.Key<E>): List<E>? {
-    @Suppress("UNCHECKED_CAST")
-    return map[key] as? List<E>
-  }
-
-  override fun <E : Element> getOrEmpty(
-    key: Element.Key<E>
-  ): List<E> {
-    return getOrNull(key) ?: emptyList()
-  }
-
-  override fun <E : Element> get(key: Element.Key<E>): List<E> {
-    return requireNotNull(getOrNull(key)) {
-      "There is no entry in the matrix for the key ${key::class.qualifiedName}"
-    }
-  }
-
-  override fun <E : Element> plus(elements: List<E>): VersionsMatrix {
-
-    if (elements.isEmpty()) return DefaultVersionMatrix(map.toMap())
-
-    val newElementsMap = elements.groupBy { it.key }
-      .mapValues { (key, list) -> list + getOrEmpty(key) }
-
-    return DefaultVersionMatrix(map.plus(newElementsMap))
-  }
-
-  override fun <E : Element> minus(key: Element.Key<E>): VersionsMatrix {
-    return DefaultVersionMatrix(map.minus(key))
-  }
-
-  override fun <E : Element> minus(elements: List<E>): VersionsMatrix {
-
-    if (elements.isEmpty()) return DefaultVersionMatrix(map.toMap())
-
-    val elementSet = elements.toSet()
-    val newMap = map.mapValues { (_, list) -> list - elementSet }
-
-    return DefaultVersionMatrix(newMap)
   }
 }

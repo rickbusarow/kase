@@ -21,10 +21,12 @@ import com.rickbusarow.kase.KaseLabels.Companion.PREFIX_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
 import dev.drewhamilton.poko.Poko
 
-/** */
-public interface Kase<T : KaseLabels> : HasDisplayName, HasDisplayNames {
+public typealias AnyKase = Kase
 
-  public fun <T> plus(label: String, value: T): AnyKase
+/** */
+public interface Kase : HasDisplayName, HasDisplayNames {
+
+  public fun <A> plus(label: String, value: A): AnyKase
 
   /** */
   public fun displayNames(delimiter: String = DELIMITER_DEFAULT): List<String>
@@ -42,7 +44,7 @@ public interface Kase<T : KaseLabels> : HasDisplayName, HasDisplayNames {
   )
 
   public companion object {
-    public val EMPTY: Kase<KaseLabels> = object : Kase<KaseLabels> {
+    public val EMPTY: Kase = object : Kase {
 
       override val displayName: String = ""
       override val displayNames: List<String> = emptyList()
@@ -56,29 +58,25 @@ public interface Kase<T : KaseLabels> : HasDisplayName, HasDisplayNames {
   }
 }
 
-/** */
-public interface KaseLabels {
-
+/** Trait for [labelDelimiter] and [displayNameSeparator] */
+public interface HasLabelParameters {
   /**
    * between the label and the value.
    *
    * ex: the ':' in "label: value"
    */
-  public val labelDelimiter: String get() = DELIMITER_DEFAULT
+  public val labelDelimiter: String
 
   /**
    * between each label/value pair.
    *
    * ex: the " | " in "label1: value1 | label2: value2"
    */
-  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
+  public val displayNameSeparator: String
+}
 
-  /**
-   * The labels in the order they should be displayed.
-   *
-   * ex: ["label1", "label2"]
-   */
-  public val orderedLabels: List<String>
+/** */
+public interface KaseLabels : HasLabels, HasLabelParameters {
 
   public companion object {
     public const val DELIMITER_DEFAULT: String = ": "
@@ -88,16 +86,43 @@ public interface KaseLabels {
   }
 }
 
-/** */
+/**
+ * Holds an individual [Kase] parameter and its label.
+ *
+ * This type supports destructuring, where `component1()` is the label and `component2()` is the value.
+ *
+ * ex:
+ * ```
+ * val (label, value) = kaseParam("label", "value")
+ * ```
+ */
 public interface KaseParameterWithLabel<out T> : HasLabel {
-  /** */
+  /**
+   * The value of the parameter.
+   */
   public val value: T
 
-  public operator fun component1(): T = value
-  public operator fun component2(): String = label
+  /**
+   * @return the [label]
+   */
+  public operator fun component1(): String = label
+
+  /**
+   * @return the [value]
+   */
+  public operator fun component2(): T = value
 
   public companion object {
-    public fun <T> kaseParameterWithLabel(value: T, label: String): KaseParameterWithLabel<T> {
+    /**
+     * Creates a new [KaseParameterWithLabel] instance.
+     *
+     * @param value the value
+     * @param label the label
+     * @return a new [KaseParameterWithLabel] instance
+     * @see KaseParameterWithLabel
+     * @see DefaultKaseParameterWithLabel
+     */
+    public fun <T> kaseParam(label: String, value: T): KaseParameterWithLabel<T> {
       return DefaultKaseParameterWithLabel(value, label)
     }
   }
@@ -109,59 +134,56 @@ public interface HasLabel {
   public val label: String
 }
 
-/** */
+public inline fun <reified T : HasLabel> T.asKaseParam(): KaseParameterWithLabel<T> {
+  return this as? KaseParameterWithLabel<T> ?: KaseParameterWithLabel.kaseParam(label, this)
+}
+
+/** Trait for a class which has labels for each parameter. */
+public interface HasLabels {
+  /**
+   * The labels in the order they should be displayed.
+   *
+   * ex: ["label1", "label2"]
+   */
+  public val orderedLabels: List<String>
+}
+
+/**
+ * Trait for a class which has a display name.
+ */
 public interface HasDisplayName {
-  /** */
+
+  /**
+   * The "name" of a [Kase] as it is used in a test function name.  By default, this is a pipe-separated list of the label/value pairs, such as: `[label1: value1 | label2: value2]`.
+   *
+   * @see HasDisplayNames.displayNames for a list of the label/value pairs.
+   */
   public val displayName: String
 }
 
-/** */
+/**
+ * Trait for a class which has a list of display names.
+ */
 public interface HasDisplayNames {
-  /** */
+
+  /**
+   * The "names" of individual [Kase] parameters as they are used in test function names.
+   * By default, these are label/value pairs, such as: `["label1: value1", "label2: value2"]`.
+   *
+   * @see HasDisplayName.displayName for the full display name.
+   */
   public val displayNames: List<String>
 }
 
-/** */
+/**
+ * A [KaseParameterWithLabel] implementation.
+ *
+ * @param T the type of the value
+ * @property value the value
+ * @property label the label
+ */
 @Poko
 public class DefaultKaseParameterWithLabel<out T>(
   override val value: T,
   override val label: String
 ) : KaseParameterWithLabel<T>
-
-public typealias AnyKase = Kase<*>
-
-/**
- */
-public interface KaseInternal<T : KaseLabels> : Kase<T> {
-
-  /**
-   * between the label and the value.
-   *
-   * ex: the ':' in "label: value"
-   */
-  public val labelDelimiter: String get() = DELIMITER_DEFAULT
-
-  /**
-   * between each label/value pair.
-   *
-   * ex: the " | " in "label1: value1 | label2: value2"
-   */
-  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
-
-  public val elements: List<KaseParameterWithLabel<Any?>>
-
-  override val displayName: String
-    get() = displayName(
-      labelDelimiter = labelDelimiter,
-      displayNameSeparator = displayNameSeparator
-    )
-
-  override val displayNames: List<String>
-    get() = displayNames(delimiter = labelDelimiter)
-
-  override fun displayNames(delimiter: String): List<String> {
-    return elements.map { (label, value) ->
-      "$label${delimiter}$value"
-    }
-  }
-}
