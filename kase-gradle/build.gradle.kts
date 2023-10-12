@@ -14,10 +14,10 @@
  */
 
 plugins {
-  id("module")
+  id("jvm-module")
 }
 
-module {
+jvmModule {
   published(
     artifactId = "kase-gradle",
     pomDescription = "Hermetic test environments and test factories"

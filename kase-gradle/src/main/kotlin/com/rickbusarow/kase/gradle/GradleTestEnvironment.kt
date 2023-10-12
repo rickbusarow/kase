@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestFunctionName
 import com.rickbusarow.kase.stdlib.createSafely
@@ -30,12 +31,12 @@ import org.intellij.lang.annotations.Language
 import java.io.File
 
 @Suppress("PropertyName", "VariableNaming")
-public class GradleTestEnvironment(
+public class GradleTestEnvironment<T : AnyKase>(
   override val testVersions: TestVersions,
   override val projectCache: MutableMap<String, KaseGradleProject>,
   testFunctionName: TestFunctionName,
-  kase: AnyKase
-) : TestEnvironment(kase, testFunctionName),
+  kase: T
+) : TestEnvironment<T>(kase, testFunctionName),
   ProjectCollector,
   HasTestVersions<TestVersions> {
 

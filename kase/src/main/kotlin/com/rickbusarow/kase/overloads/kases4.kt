@@ -36,7 +36,8 @@ import java.util.stream.Stream
  * @param a4 the [Kase4:a4] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
  * @param delimiter the delimiter between the label and the value, like `": "` in `"label: value"`
- * @param separator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param separator the separator between each label/value
+ *   pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1, A2, A3, A4> kase(
   a1: A1, a2: A2, a3: A3, a4: A4,
@@ -175,8 +176,8 @@ public interface Kase4<out A1, out A2, out A3, out A4> : Kase<KaseLabels4> {
  * @property a2Label The label for the [Kase4.a2] parameter.
  * @property a3Label The label for the [Kase4.a3] parameter.
  * @property a4Label The label for the [Kase4.a4] parameter.
- * @property delimiter The delimiter between the label and the value.  The default is `: `.
- * @property separator The separator between each label/value pair.  The default is ` | `.
+ * @property delimiter The delimiter between the label and the value. The default is `: `.
+ * @property separator The separator between each label/value pair. The default is ` | `.
  */
 @Poko
 public class KaseLabels4(
