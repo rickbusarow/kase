@@ -18,11 +18,11 @@ package com.rickbusarow.kase.gradle
 import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.HasTestVariant
 import com.rickbusarow.kase.Kase3
+import com.rickbusarow.kase.KaseInternal
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.gradle.DependencyVersion.Agp
 import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
 import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
-import com.rickbusarow.kase.internal.KaseInternal
 import com.rickbusarow.kase.kase
 import kotlin.reflect.KClass
 

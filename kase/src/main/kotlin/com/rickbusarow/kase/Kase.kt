@@ -19,12 +19,13 @@ import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.POSTFIX_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.PREFIX_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
+import com.rickbusarow.kase.internal.KaseInternal
 import dev.drewhamilton.poko.Poko
 
 public typealias AnyKase = Kase
 
 /** */
-public interface Kase : HasDisplayName, HasDisplayNames {
+public sealed interface Kase : HasDisplayName, HasDisplayNames {
 
   public fun <A> plus(label: String, value: A): AnyKase
 
@@ -43,17 +44,17 @@ public interface Kase : HasDisplayName, HasDisplayNames {
     postfix = postfix
   )
 
-  public companion object {
-    public val EMPTY: Kase = object : Kase {
+  public object EMPTY : KaseInternal {
+    override val elements: List<KaseParameterWithLabel<Any?>>
+      get() = emptyList()
 
-      override val displayName: String = ""
-      override val displayNames: List<String> = emptyList()
+    override val displayName: String = ""
+    override val displayNames: List<String> = emptyList()
 
-      override fun displayNames(delimiter: String): List<String> = displayNames
+    override fun displayNames(delimiter: String): List<String> = displayNames
 
-      override fun <T> plus(label: String, value: T): Kase1<T> {
-        return kase(a1 = value, labels = KaseLabels1(label))
-      }
+    override fun <T> plus(label: String, value: T): Kase1<T> {
+      return kase(a1 = value, labels = KaseLabels1(label))
     }
   }
 }

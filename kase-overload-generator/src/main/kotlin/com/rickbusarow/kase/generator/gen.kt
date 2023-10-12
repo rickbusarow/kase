@@ -28,7 +28,6 @@ private val IMPORTS = """
   import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
   import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
   import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
-  import com.rickbusarow.kase.internal.KaseInternal
   import dev.drewhamilton.poko.Poko
   import org.junit.jupiter.api.DynamicNode
   import java.util.stream.Stream
