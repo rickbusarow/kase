@@ -18,7 +18,7 @@ package com.rickbusarow.kase
 import kotlinx.coroutines.runBlocking
 
 /** Creates [TestEnvironment]s. */
-public interface TestEnvironmentFactory<T : TestEnvironment<*>> {
+public interface TestEnvironmentFactory<T : TestEnvironment> {
 
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
@@ -52,7 +52,7 @@ public interface TestEnvironmentFactory<T : TestEnvironment<*>> {
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
   ): T {
     @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(kase = kase, testFunctionCoordinates = testFunctionCoordinates) as? T
+    return TestEnvironment(kase.displayNames, testFunctionCoordinates = testFunctionCoordinates) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
 
@@ -64,7 +64,7 @@ public interface TestEnvironmentFactory<T : TestEnvironment<*>> {
   public fun newTestEnvironment(params: TestVariant): T {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(
-      kase = params.kase,
+      testParameterDisplayNames = params.kase.displayNames,
       testFunctionCoordinates = params.testFunctionCoordinates
     ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")

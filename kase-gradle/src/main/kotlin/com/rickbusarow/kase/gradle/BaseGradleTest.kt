@@ -24,7 +24,7 @@ import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD
 
 @Execution(SAME_THREAD)
-interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
+public interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
 
   /**
    * Runs the provided test [action] in the context of a new [TestEnvironment].
@@ -33,7 +33,7 @@ interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
    */
   fun test(action: suspend GradleTestEnvironment.() -> Unit) {
 
-    val testEnvironment = newTestEnvironment(params)
+    val testEnvironment = newTestEnvironment()
 
     runBlocking {
       testEnvironment.asClueCatching {
@@ -46,7 +46,7 @@ interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
   /** @return A new [GradleTestEnvironment] */
   override fun newTestEnvironment(params: TestVariant): GradleTestEnvironment {
     return GradleTestEnvironment(
-      testVersions = TestVersions(params.kase),
+      testVersions = TestVersions.from(params.kase),
       projectCache = mutableMapOf(),
       testFunctionCoordinates = params.testFunctionCoordinates,
       testVariantNames = params.kase

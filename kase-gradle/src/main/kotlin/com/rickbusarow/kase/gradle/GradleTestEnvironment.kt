@@ -15,7 +15,6 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestFunctionCoordinates
 import com.rickbusarow.kase.stdlib.createSafely
@@ -31,22 +30,18 @@ import org.intellij.lang.annotations.Language
 import java.io.File
 
 @Suppress("PropertyName", "VariableNaming")
-public class GradleTestEnvironment<T : AnyKase>(
-  override val testVersions: TestVersions,
-  override val projectCache: MutableMap<String, KaseGradleProject>,
-  testFunctionCoordinates: TestFunctionCoordinates,
-  kase: T
-) : TestEnvironment(kase.displayNames, testFunctionCoordinates),
-  ProjectCollector,
-  HasTestVersions<TestVersions> {
+public class GradleTestEnvironment(
+  public val testVersions: TestVersions,
+  testFunctionCoordinates: TestFunctionCoordinates
+) : TestEnvironment(testVersions.displayNames, testFunctionCoordinates) {
 
-  override val root: File get() = workingDir
+  public val root: File get() = workingDir
 
-  public val kotlinVersion get() = testVersions.kotlin
-  public val agpVersion get() = testVersions.agp
-  public val gradleVersion get() = testVersions.gradle
+  public val kotlinVersion: String get() = testVersions.kotlin
+  public val agpVersion: String get() = testVersions.agp
+  public val gradleVersion: String get() = testVersions.gradle
 
-  public val DEFAULT_BUILD_FILE by lazy {
+  public val DEFAULT_BUILD_FILE: String by lazy {
     """
       buildscript {
         dependencies {
@@ -61,12 +56,12 @@ public class GradleTestEnvironment<T : AnyKase>(
     """.trimIndent()
   }
 
-  val rootBuild by lazy {
+  public val rootBuild: File by lazy {
     root.resolve("build.gradle.kts")
       .createSafely(DEFAULT_BUILD_FILE, overwrite = false)
   }
 
-  val DEFAULT_SETTINGS_FILE by lazy {
+  public val DEFAULT_SETTINGS_FILE: String by lazy {
     """
       rootProject.name = "root"
 
@@ -85,9 +80,6 @@ public class GradleTestEnvironment<T : AnyKase>(
             if (requested.id.id.startsWith("org.jetbrains.kotlin")) {
               useVersion("$kotlinVersion")
             }
-            if (requested.id.id == "com.squareup.anvil") {
-              useVersion("$anvilVersion")
-            }
           }
         }
       }
@@ -102,30 +94,23 @@ public class GradleTestEnvironment<T : AnyKase>(
     """.trimIndent()
   }
 
-  val rootSettings by lazy {
+  public val rootSettings: File by lazy {
     root.resolve("settings.gradle.kts")
       .createSafely(DEFAULT_SETTINGS_FILE)
   }
 
-  val rootProject by lazy {
+  public val rootProject: File by lazy {
     rootBuild
     rootSettings
     root
   }
 
-  val gradleRunner: GradleRunner by lazy {
+  public val gradleRunner: GradleRunner by lazy {
     GradleRunner.create()
       .forwardOutput()
       .withGradleVersion(gradleVersion)
       .withDebug(true)
       .withProjectDir(workingDir)
-  }
-
-  // Make sure that every project in the cache is also added to the root project's settings file
-  private fun addIncludes() {
-    val includes = projectCache.keys
-      .joinToString(separator = "\n", prefix = "\n", postfix = "\n") { "include(\"$it\")" }
-    rootSettings.appendText(includes)
   }
 
   private fun build(
@@ -161,7 +146,7 @@ public class GradleTestEnvironment<T : AnyKase>(
       .forEach { println("file://$it") }
   }
 
-  fun shouldSucceed(
+  public fun shouldSucceed(
     vararg tasks: String,
     withPluginClasspath: Boolean = false,
     stacktrace: Boolean = true,
@@ -178,7 +163,7 @@ public class GradleTestEnvironment<T : AnyKase>(
     }
   }
 
-  fun shouldFail(
+  public fun shouldFail(
     vararg tasks: String,
     withPluginClasspath: Boolean = false,
     stacktrace: Boolean = true,
@@ -194,7 +179,7 @@ public class GradleTestEnvironment<T : AnyKase>(
     }
   }
 
-  infix fun BuildResult.withTrimmedMessage(message: String) {
+  public infix fun BuildResult.withTrimmedMessage(message: String) {
     val trimmed = output
       .cleanOutput()
       .remove(
@@ -222,41 +207,45 @@ public class GradleTestEnvironment<T : AnyKase>(
     trimmed shouldBe message
   }
 
-  fun markdown(path: String, @Language("markdown") content: String): File =
+  public fun markdown(path: String, @Language("markdown") content: String): File =
     File(path).createSafely(content.trimIndent())
 
   @JvmName("writeMarkdownContent")
-  fun File.markdown(@Language("markdown") content: String): File =
+  public fun File.markdown(@Language("markdown") content: String): File =
     createSafely(content.trimIndent())
 
-  fun java(path: String, @Language("java") content: String): File =
+  public fun java(path: String, @Language("java") content: String): File =
     File(path).createSafely(content.trimIndent())
 
   @JvmName("writeJavaContent")
-  fun File.java(@Language("java") content: String): File = createSafely(content.trimIndent())
+  public fun File.java(@Language("java") content: String): File = createSafely(content.trimIndent())
 
-  fun groovy(path: String, @Language("groovy") content: String): File =
+  public fun groovy(path: String, @Language("groovy") content: String): File =
     File(path).createSafely(content.trimIndent())
 
   @JvmName("writeGroovyContent")
-  fun File.groovy(@Language("groovy") content: String): File = createSafely(content.trimIndent())
+  public fun File.groovy(@Language("groovy") content: String): File = createSafely(
+    content.trimIndent()
+  )
 
-  fun kotlin(path: String, @Language("kotlin") content: String): File =
+  public fun kotlin(path: String, @Language("kotlin") content: String): File =
     File(path).createSafely(content.trimIndent())
 
   @JvmName("writeKotlinContent")
-  fun File.kotlin(@Language("kotlin") content: String): File = createSafely(content.trimIndent())
+  public fun File.kotlin(@Language("kotlin") content: String): File = createSafely(
+    content.trimIndent()
+  )
 
-  operator fun File.invoke(contentBuilder: () -> String) {
+  public operator fun File.invoke(contentBuilder: () -> String) {
     createSafely(contentBuilder().trimIndent())
   }
 
   /** replace `ModuleCheck found 2 issues in 1.866 seconds.` with `ModuleCheck found 2 issues` */
-  fun String.removeDuration(): String {
+  public fun String.removeDuration(): String {
     return replace(durationSuffixRegex) { it.destructured.component1() }
   }
 
-  companion object {
+  public companion object {
     protected val durationSuffixRegex: Regex =
       """(ModuleCheck found \d+ issues?) in [\d.]+ seconds\.[\s\S]*""".toRegex()
   }
