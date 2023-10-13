@@ -102,21 +102,21 @@ public abstract class HasWorkingDir(workingDir: File) {
      *
      * @param testVariantNames additional subdirectories underneath the test
      *   function's name, such as the names of the languages being generated
-     * @param testFunctionName details about the actual test function, so that we
-     *   can get the test name. This must be grabbed as soon as possible, since
+     * @param testFunctionCoordinates details about the actual test function, so that
+     *   we can get the test name. This must be grabbed as soon as possible, since
      *   default functions, inline functions, sequences, and iterators all redirect
      *   things and have a chance of hiding the original calling function completely.
      * @return a File directory corresponding to the root of the working directory for this test
      */
     public fun createWorkingDir(
       testVariantNames: List<String>,
-      testFunctionName: TestFunctionName = TestFunctionName.get()
+      testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
     ): File {
 
-      val testFunctionDirectoryName = testFunctionName.callingFunctionSimpleName
+      val testFunctionDirectoryName = testFunctionCoordinates.callingFunctionSimpleName
         .cleanForFileSystem()
 
-      val testClassDirectoryName = testFunctionName.declaringClassSimpleNames
+      val testClassDirectoryName = testFunctionCoordinates.declaringClassSimpleNames
         // "MyTest/nested class"
         .joinToString(File.separator)
         // "MyTest/nested_class"

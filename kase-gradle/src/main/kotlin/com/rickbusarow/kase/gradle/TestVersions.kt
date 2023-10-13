@@ -18,7 +18,6 @@ package com.rickbusarow.kase.gradle
 import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.HasTestVariant
 import com.rickbusarow.kase.Kase3
-import com.rickbusarow.kase.KaseInternal
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.gradle.DependencyVersion.Agp
 import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
@@ -50,10 +49,8 @@ public data class TestVersions(
   public companion object {
     public fun from(kase: AnyKase, versionsMatrix: VersionsMatrix): TestVersions {
 
-      kase as KaseInternal
-
       val versions = kase.elements
-        .mapNotNull { it.value }
+        .mapNotNull { it.value as? DependencyVersion }
         .associateBy { it::class }
 
       return TestVersions(
@@ -63,7 +60,7 @@ public data class TestVersions(
       )
     }
 
-    private inline fun <reified T : DependencyVersion> Map<KClass<out Any>, Any>.version(
+    private inline fun <reified T : DependencyVersion> Map<KClass<out DependencyVersion>, DependencyVersion>.version(
       clazz: KClass<T>,
       default: () -> T
     ): T = get(clazz) as? T ?: default()

@@ -31,7 +31,7 @@ import java.lang.reflect.Method
  * @property callingFunctionSimpleName ex: `some function should return false`
  */
 @Poko
-public class TestFunctionName private constructor(
+public class TestFunctionCoordinates private constructor(
   public val fileName: String,
   public val lineNumber: Int,
   public val packageName: String,
@@ -43,7 +43,7 @@ public class TestFunctionName private constructor(
 
   public companion object {
 
-    public fun get(): TestFunctionName = from(testStackTraceElement())
+    public fun get(): TestFunctionCoordinates = from(testStackTraceElement())
 
     /**
      * Finds the stack trace kaseParam corresponding to the invoking test
@@ -55,10 +55,10 @@ public class TestFunctionName private constructor(
       return testElement ?: error("No test StackTraceElement found.")
     }
 
-    private fun from(stackTraceElement: StackTraceElement): TestFunctionName {
+    private fun from(stackTraceElement: StackTraceElement): TestFunctionCoordinates {
       val actualClass = Class.forName(stackTraceElement.className).removeSynthetics()
 
-      return TestFunctionName(
+      return TestFunctionCoordinates(
         fileName = stackTraceElement.fileName as String,
         lineNumber = stackTraceElement.lineNumber,
         packageName = actualClass.`package`.name,

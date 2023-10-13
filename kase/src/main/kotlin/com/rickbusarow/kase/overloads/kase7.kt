@@ -118,13 +118,13 @@ context(TestEnvironmentFactory<T>)
 public fun <T, K, A1, A2, A3, A4, A5, A6, A7> test(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7,
   labels: KaseLabels7 = KaseLabels7(),
-  testFunctionName: TestFunctionName = TestFunctionName.get(),
+  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend T.() -> Unit
-) where T : TestEnvironment<K>,
+) where T : TestEnvironment,
         K : Kase7<A1, A2, A3, A4, A5, A6, A7> {
   test(
     kase = kase(a1, a2, a3, a4, a5, a6, a7, labels),
-    testFunctionName = testFunctionName,
+    testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )
 }
@@ -179,7 +179,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7> Iterable<K>.asTests(
   labels: KaseLabels7 = KaseLabels7(),
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
 ): Stream<out DynamicNode>
-  where T : TestEnvironment<K>,
+  where T : TestEnvironment,
         K : Kase7<A1, A2, A3, A4, A5, A6, A7> {
   return testFactory(kases = this@asTests, testAction = testAction)
 }
@@ -191,7 +191,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7> testFactory(
   vararg kases: K,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
 ): Stream<out DynamicNode>
-  where T : TestEnvironment<K>,
+  where T : TestEnvironment,
         K : Kase7<A1, A2, A3, A4, A5, A6, A7> {
   return testFactory(kases = kases.toList(), testAction = testAction)
 }
@@ -203,7 +203,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7> testFactory(
   kases: Iterable<K>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
 ): Stream<out DynamicNode>
-  where T : TestEnvironment<K>,
+  where T : TestEnvironment,
         K : Kase7<A1, A2, A3, A4, A5, A6, A7> {
 
   return kases.asTests(

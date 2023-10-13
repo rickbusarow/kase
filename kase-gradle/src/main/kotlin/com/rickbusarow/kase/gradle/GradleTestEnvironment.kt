@@ -17,7 +17,7 @@ package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.TestEnvironment
-import com.rickbusarow.kase.TestFunctionName
+import com.rickbusarow.kase.TestFunctionCoordinates
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
 import com.rickbusarow.kase.stdlib.remove
@@ -34,21 +34,11 @@ import java.io.File
 public class GradleTestEnvironment<T : AnyKase>(
   override val testVersions: TestVersions,
   override val projectCache: MutableMap<String, KaseGradleProject>,
-  testFunctionName: TestFunctionName,
+  testFunctionCoordinates: TestFunctionCoordinates,
   kase: T
-) : TestEnvironment<T>(kase, testFunctionName),
+) : TestEnvironment(kase.displayNames, testFunctionCoordinates),
   ProjectCollector,
   HasTestVersions<TestVersions> {
-
-  private val versions by lazy {
-    kase.destructured()
-      .filterNotNull()
-      .associateBy { it::class }
-  }
-
-  private inline fun <reified T : DependencyVersion> version(default: () -> String): String {
-    return (versions[T::class] as? T)?.value ?: default()
-  }
 
   override val root: File get() = workingDir
 

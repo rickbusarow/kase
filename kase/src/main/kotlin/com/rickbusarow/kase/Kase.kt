@@ -19,7 +19,6 @@ import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.POSTFIX_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.PREFIX_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-import com.rickbusarow.kase.internal.KaseInternal
 import dev.drewhamilton.poko.Poko
 
 public typealias AnyKase = Kase
@@ -43,6 +42,8 @@ public sealed interface Kase : HasDisplayName, HasDisplayNames {
     prefix = prefix,
     postfix = postfix
   )
+
+  public val elements: List<KaseParameterWithLabel<Any?>>
 
   public object EMPTY : KaseInternal {
     override val elements: List<KaseParameterWithLabel<Any?>>
@@ -128,10 +129,6 @@ public interface KaseParameterWithLabel<out T> : HasLabel {
 public interface HasLabel {
   /** */
   public val label: String
-}
-
-public inline fun <reified T : HasLabel> T.asKaseParam(): KaseParameterWithLabel<T> {
-  return this as? KaseParameterWithLabel<T> ?: KaseParameterWithLabel.kaseParam(label, this)
 }
 
 /** Trait for a class which has labels for each parameter. */

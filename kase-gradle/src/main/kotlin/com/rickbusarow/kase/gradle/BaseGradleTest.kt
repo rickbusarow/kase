@@ -48,7 +48,7 @@ interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
     return GradleTestEnvironment(
       testVersions = TestVersions(params.kase),
       projectCache = mutableMapOf(),
-      testFunctionName = params.testFunctionName,
+      testFunctionCoordinates = params.testFunctionCoordinates,
       testVariantNames = params.kase
     )
   }

@@ -199,7 +199,7 @@ class TestNodeBuilderTest {
 
     var invoked = false
 
-    val stackFrameFromHere = TestFunctionName.testStackTraceElement()
+    val stackFrameFromHere = TestFunctionCoordinates.testStackTraceElement()
     val dynamicNodes = testFactory {
       container("Container") {
         test("Test") {
@@ -211,7 +211,7 @@ class TestNodeBuilderTest {
           // That should match the stackFrame created in the DSL.
           val expected = stackFrameFromHere.lineNumber + 1
 
-          testFunctionName.lineNumber shouldBe expected
+          testFunctionCoordinates.lineNumber shouldBe expected
           invoked = true
         }
       }

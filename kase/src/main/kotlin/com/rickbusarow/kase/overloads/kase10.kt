@@ -139,13 +139,13 @@ context(TestEnvironmentFactory<T>)
 public fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> test(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10,
   labels: KaseLabels10 = KaseLabels10(),
-  testFunctionName: TestFunctionName = TestFunctionName.get(),
+  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend T.() -> Unit
-) where T : TestEnvironment<K>,
+) where T : TestEnvironment,
         K : Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> {
   test(
     kase = kase(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, labels),
-    testFunctionName = testFunctionName,
+    testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )
 }
@@ -212,7 +212,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> Iterable<K>.as
   labels: KaseLabels10 = KaseLabels10(),
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10) -> Unit
 ): Stream<out DynamicNode>
-  where T : TestEnvironment<K>,
+  where T : TestEnvironment,
         K : Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> {
   return testFactory(kases = this@asTests, testAction = testAction)
 }
@@ -224,7 +224,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> testFactory(
   vararg kases: K,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10) -> Unit
 ): Stream<out DynamicNode>
-  where T : TestEnvironment<K>,
+  where T : TestEnvironment,
         K : Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> {
   return testFactory(kases = kases.toList(), testAction = testAction)
 }
@@ -236,7 +236,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> testFactory(
   kases: Iterable<K>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10) -> Unit
 ): Stream<out DynamicNode>
-  where T : TestEnvironment<K>,
+  where T : TestEnvironment,
         K : Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> {
 
   return kases.asTests(

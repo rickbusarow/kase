@@ -386,7 +386,7 @@ private fun StringBuilder.asTests(
         labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
         crossinline testAction: $lambdaSignature
       ): Stream<out DynamicNode>
-        where T : TestEnvironment<K>,
+        where T : TestEnvironment,
               K : $kaseSimpleName$typesString {
         return testFactory(kases = this@asTests, testAction = testAction)
       }
@@ -430,7 +430,7 @@ private fun StringBuilder.testFactories(
         vararg kases: K,
         crossinline testAction: $lambdaSignature
       ): Stream<out DynamicNode>
-        where T : TestEnvironment<K>,
+        where T : TestEnvironment,
               K : $kaseSimpleName$typesString {
         return testFactory(kases = kases.toList(), testAction = testAction)
       }
@@ -483,7 +483,7 @@ private fun StringBuilder.testFactories2(
         kases: Iterable<K>,
         crossinline testAction: $lambdaSignature
       ): Stream<out DynamicNode>
-        where T : TestEnvironment<K>,
+        where T : TestEnvironment,
               K : $kaseSimpleName$typesString {
 
         return kases.asTests(
@@ -602,13 +602,13 @@ private fun StringBuilder.testFun(
     |public fun $typesKaseEnvironment test(
     |  $paramsString,
     |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
-    |  testFunctionName: TestFunctionName = TestFunctionName.get(),
+    |  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
     |  testAction: suspend T.() -> Unit
-    |) where T : TestEnvironment<K>,
+    |) where T : TestEnvironment,
     |        K : $kaseSimpleName$typesString {
     |  test(
     |    kase = kase($argsString, labels),
-    |    testFunctionName = testFunctionName,
+    |    testFunctionCoordinates = testFunctionCoordinates,
     |    testAction = testAction
     |  )
     |}

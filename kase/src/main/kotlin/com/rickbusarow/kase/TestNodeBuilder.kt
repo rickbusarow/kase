@@ -45,7 +45,7 @@ import kotlin.streams.asStream
 public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
   return TestNodeBuilder(
     name = "root",
-    testFunctionName = TestFunctionName.get(),
+    testFunctionCoordinates = TestFunctionCoordinates.get(),
     parent = null
   )
     .apply { init() }
@@ -70,14 +70,14 @@ public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode
  * ```
  *
  * @property name the name of the test container.
- * @property testFunctionName Captured before executing any tests,
- *   meaning that it's the frame which called `asTests { ... }`
+ * @property testFunctionCoordinates Captured before executing any
+ *   tests, meaning that it's the frame which called `asTests { ... }`
  * @property parent the parent node, or `null` if this is the root container
  */
 @Poko
 public class TestNodeBuilder @PublishedApi internal constructor(
   public val name: String,
-  public val testFunctionName: TestFunctionName,
+  public val testFunctionCoordinates: TestFunctionCoordinates,
   public val parent: TestNodeBuilder?
 ) {
   /** the list of names from the root node to this node */
@@ -115,7 +115,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
     nodes.add {
       TestNodeBuilder(
         name = name,
-        testFunctionName = testFunctionName,
+        testFunctionCoordinates = testFunctionCoordinates,
         parent = this
       )
         .apply(init)
@@ -259,7 +259,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   ) {
     addTest(name) {
       this@TestEnvironmentFactory.test(
-        testFunctionName = testFunctionName,
+        testFunctionCoordinates = testFunctionCoordinates,
         testAction = { testAction() }
       )
     }
@@ -279,7 +279,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
     addTest(kase.displayNames().toString()) {
       this@TestEnvironmentFactory.test(
         kase = kase,
-        testFunctionName = testFunctionName,
+        testFunctionCoordinates = testFunctionCoordinates,
         testAction = { testAction() }
       )
     }
@@ -306,10 +306,10 @@ public class TestNodeBuilder @PublishedApi internal constructor(
 
     val here = Paths.get("").toAbsolutePath()
     val srcTestKotlin = here / "src/test/kotlin"
-    val packageDir = testFunctionName.packageName
+    val packageDir = testFunctionCoordinates.packageName
       .replace('.', File.separatorChar)
-    val classFile = srcTestKotlin / packageDir / testFunctionName.fileName
-    val lineNumber = testFunctionName.lineNumber
+    val classFile = srcTestKotlin / packageDir / testFunctionCoordinates.fileName
+    val lineNumber = testFunctionCoordinates.lineNumber
 
     return URI.create(File("$classFile").toURI().toString() + "?line=$lineNumber")
   }

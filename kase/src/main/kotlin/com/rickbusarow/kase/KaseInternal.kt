@@ -32,8 +32,6 @@ public interface KaseInternal : Kase {
    */
   public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
 
-  public val elements: List<KaseParameterWithLabel<Any?>>
-
   override val displayName: String
     get() = displayName(
       labelDelimiter = labelDelimiter,

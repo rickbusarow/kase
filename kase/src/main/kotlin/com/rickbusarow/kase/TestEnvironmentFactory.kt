@@ -24,15 +24,15 @@ public interface TestEnvironmentFactory<T : TestEnvironment<*>> {
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
    *
    * @param kase The variant names related to the test.
-   * @param testFunctionName The [TestFunctionName] from which the test is being run.
+   * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
    * @param testAction The test action to run within the [TestEnvironment].
    */
   public fun test(
     kase: AnyKase = Kase.EMPTY,
-    testFunctionName: TestFunctionName = TestFunctionName.get(),
+    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
     testAction: suspend T.() -> Unit
   ) {
-    val testEnvironment = newTestEnvironment(kase, testFunctionName)
+    val testEnvironment = newTestEnvironment(kase, testFunctionCoordinates)
 
     runBlocking {
       testEnvironment.asClueCatching {
@@ -49,10 +49,10 @@ public interface TestEnvironmentFactory<T : TestEnvironment<*>> {
    */
   public fun <K : AnyKase> newTestEnvironment(
     kase: K,
-    testFunctionName: TestFunctionName = TestFunctionName.get()
+    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
   ): T {
     @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(kase = kase, testFunctionName = testFunctionName) as? T
+    return TestEnvironment(kase = kase, testFunctionCoordinates = testFunctionCoordinates) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
 
@@ -63,7 +63,10 @@ public interface TestEnvironmentFactory<T : TestEnvironment<*>> {
    */
   public fun newTestEnvironment(params: TestVariant): T {
     @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(kase = params.kase, testFunctionName = params.testFunctionName) as? T
+    return TestEnvironment(
+      kase = params.kase,
+      testFunctionCoordinates = params.testFunctionCoordinates
+    ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
 }

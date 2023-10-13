@@ -17,20 +17,21 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.stdlib.cleanOutput
 import com.rickbusarow.kase.stdlib.useRelativePaths
+import dev.drewhamilton.poko.Poko
 
 /**
  * Represents a hermetic testing environment with an
  * associated working directory and certain assertions.
  *
- * @param testFunctionName The [TestFunctionName] from which the test is being run.
+ * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
  */
-public open class TestEnvironment<T : AnyKase>(
-  public val kase: T,
-  testFunctionName: TestFunctionName = TestFunctionName.get()
+public open class TestEnvironment(
+  testParameterDisplayNames: List<String>,
+  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
 ) : HasWorkingDir(
   createWorkingDir(
-    testVariantNames = kase.displayNames(),
-    testFunctionName = testFunctionName
+    testVariantNames = testParameterDisplayNames,
+    testFunctionCoordinates = testFunctionCoordinates
   )
 ) {
 
@@ -56,15 +57,14 @@ public interface HasTestVariant {
   public val testVariant: TestVariant
 }
 
-/** Represents a specific instance of a test case invocation */
-public interface TestVariant {
-
-  /** The parameters for the test. */
-  public val kase: AnyKase
-
-  /**
-   * The [TestFunctionName] from which the test is being run.
-   * Defaults to the current stack frame if not provided.
-   */
-  public val testFunctionName: TestFunctionName
-}
+/**
+ * Represents a specific instance of a test case invocation
+ * @property kase The parameters for the test.
+ * @property testFunctionCoordinates The [TestFunctionCoordinates] from
+ *   which the test is being run. Defaults to the current stack frame.
+ */
+@Poko
+public class TestVariant(
+  public val kase: AnyKase,
+  public val testFunctionCoordinates: TestFunctionCoordinates
+)

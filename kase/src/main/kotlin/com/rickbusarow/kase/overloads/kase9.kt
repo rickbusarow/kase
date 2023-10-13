@@ -132,13 +132,13 @@ context(TestEnvironmentFactory<T>)
 public fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9> test(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9,
   labels: KaseLabels9 = KaseLabels9(),
-  testFunctionName: TestFunctionName = TestFunctionName.get(),
+  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend T.() -> Unit
-) where T : TestEnvironment<K>,
+) where T : TestEnvironment,
         K : Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9> {
   test(
     kase = kase(a1, a2, a3, a4, a5, a6, a7, a8, a9, labels),
-    testFunctionName = testFunctionName,
+    testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )
 }
@@ -201,7 +201,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9> Iterable<K>.asTests
   labels: KaseLabels9 = KaseLabels9(),
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9) -> Unit
 ): Stream<out DynamicNode>
-  where T : TestEnvironment<K>,
+  where T : TestEnvironment,
         K : Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9> {
   return testFactory(kases = this@asTests, testAction = testAction)
 }
@@ -213,7 +213,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9> testFactory(
   vararg kases: K,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9) -> Unit
 ): Stream<out DynamicNode>
-  where T : TestEnvironment<K>,
+  where T : TestEnvironment,
         K : Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9> {
   return testFactory(kases = kases.toList(), testAction = testAction)
 }
@@ -225,7 +225,7 @@ public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9> testFactory(
   kases: Iterable<K>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9) -> Unit
 ): Stream<out DynamicNode>
-  where T : TestEnvironment<K>,
+  where T : TestEnvironment,
         K : Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9> {
 
   return kases.asTests(
