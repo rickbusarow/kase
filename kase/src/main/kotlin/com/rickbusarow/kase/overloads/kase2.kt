@@ -59,10 +59,8 @@ public interface Kase2<out A1, out A2> : Kase {
  * @param a1 the [Kase2:a1] parameter.
  * @param a2 the [Kase2:a2] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param labelDelimiter the delimiter between the label
- *   and the value, like `": "` in `"label: value"`
- * @param displayNameSeparator the separator between each label/value
- *   pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`
+ * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1, A2> kase(
   a1: A1, a2: A2,

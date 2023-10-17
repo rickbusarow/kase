@@ -24,14 +24,14 @@ import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD
 
 @Execution(SAME_THREAD)
-public interface BaseGradleTest : TestEnvironmentFactory<GradleTestEnvironment> {
+public interface BaseGradleTest<T : GradleTestEnvironment<*>> : TestEnvironmentFactory<T> {
 
   /**
    * Runs the provided test [action] in the context of a new [TestEnvironment].
    *
    * @param action The test action to run within the [TestEnvironment].
    */
-  fun test(action: suspend GradleTestEnvironment.() -> Unit) {
+  public fun test(action: suspend T.() -> Unit) {
 
     val testEnvironment = newTestEnvironment()
 

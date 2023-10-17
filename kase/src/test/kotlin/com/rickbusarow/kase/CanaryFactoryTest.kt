@@ -18,7 +18,7 @@ package com.rickbusarow.kase
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
-class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment<Kase2<String, Int>>> {
+class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment> {
 
   @TestFactory
   fun `my test`() = kases(

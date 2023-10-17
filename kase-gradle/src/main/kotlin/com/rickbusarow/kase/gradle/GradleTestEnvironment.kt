@@ -15,10 +15,13 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestFunctionCoordinates
+import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
+import com.rickbusarow.kase.stdlib.noAnsi
 import com.rickbusarow.kase.stdlib.remove
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
@@ -29,30 +32,47 @@ import org.gradle.testkit.runner.TaskOutcome.FAILED
 import org.intellij.lang.annotations.Language
 import java.io.File
 
-@Suppress("PropertyName", "VariableNaming")
-public class GradleTestEnvironment(
-  public val testVersions: TestVersions,
-  testFunctionCoordinates: TestFunctionCoordinates
-) : TestEnvironment(testVersions.displayNames, testFunctionCoordinates) {
+public interface GradleTestEnvironmentFactory<K : AnyKase, T : TestVersions> {
+
+  public fun buildscriptDependencies(): String {
+    return ""
+  }
+
+  public fun newTestEnvironment(
+    testVariant: TestVariant<K>,
+    testVersions: T
+  ): GradleTestEnvironment<T, K> {
+    return GradleTestEnvironment(
+      testVersions = testVersions,
+      testFunctionCoordinates = testVariant.testFunctionCoordinates,
+      kase = testVariant.kase
+    )
+  }
+}
+
+@Suppress("PropertyName", "VariableNaming", "MemberVisibilityCanBePrivate")
+public class GradleTestEnvironment<T : TestVersions, K : AnyKase> constructor(
+  override val testVersions: T,
+  testFunctionCoordinates: TestFunctionCoordinates,
+  kase: K
+) : TestEnvironment(kase.displayNames, testFunctionCoordinates),
+  TestVersions by testVersions,
+  HasTestVersions<T> {
 
   public val root: File get() = workingDir
 
-  public val kotlinVersion: String get() = testVersions.kotlin
-  public val agpVersion: String get() = testVersions.agp
-  public val gradleVersion: String get() = testVersions.gradle
-
   public val DEFAULT_BUILD_FILE: String by lazy {
     """
-      buildscript {
-        dependencies {
-          classpath("com.android.tools.build:gradle:$agpVersion")
-          classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
-        }
+    buildscript {
+      dependencies {
+        classpath("com.android.tools.build:gradle:$agpVersion")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
       }
+    }
 
-      plugins {
+    plugins {
 
-      }
+    }
     """.trimIndent()
   }
 
@@ -71,16 +91,6 @@ public class GradleTestEnvironment(
           mavenCentral()
           mavenLocal()
           google()
-        }
-        resolutionStrategy {
-          eachPlugin {
-            if (requested.id.id.startsWith("com.android")) {
-              useVersion("$agpVersion")
-            }
-            if (requested.id.id.startsWith("org.jetbrains.kotlin")) {
-              useVersion("$kotlinVersion")
-            }
-          }
         }
       }
       dependencyResolutionManagement {
@@ -111,6 +121,34 @@ public class GradleTestEnvironment(
       .withGradleVersion(gradleVersion)
       .withDebug(true)
       .withProjectDir(workingDir)
+  }
+
+  // Make sure that every project in the cache is also added to the root project's settings file
+  private fun addIncludes() {
+
+    val subprojectDirs = root.walkTopDown()
+      .onEnter {
+        !it.resolve("settings.gradle").exists() &&
+          !it.resolve("settings.gradle.kts").exists()
+      }
+      .filter { it.isDirectory }
+      .filter {
+        it.resolve("build.gradle").exists() ||
+          it.resolve("build.gradle.kts").exists()
+      }
+
+    val subprojectPaths = subprojectDirs.map {
+      it.relativePath()
+        .replace(File.separatorChar, ':')
+    }
+
+    val includes = subprojectPaths
+      .joinToString(
+        separator = "\n",
+        prefix = "\n",
+        postfix = "\n"
+      ) { "include(\"$it\")" }
+    rootSettings.appendText(includes)
   }
 
   private fun build(
@@ -200,8 +238,7 @@ public class GradleTestEnvironment(
         "BUILD (?:SUCCESSFUL|FAILED) in .*".toRegex(),
         """\d+ actionable tasks?: \d+ executed""".toRegex()
       )
-      .removeDuration()
-      .remove("\u200B")
+      .noAnsi()
       .trim()
 
     trimmed shouldBe message
@@ -224,29 +261,17 @@ public class GradleTestEnvironment(
     File(path).createSafely(content.trimIndent())
 
   @JvmName("writeGroovyContent")
-  public fun File.groovy(@Language("groovy") content: String): File = createSafely(
-    content.trimIndent()
-  )
+  public fun File.groovy(@Language("groovy") content: String): File =
+    createSafely(content.trimIndent())
 
   public fun kotlin(path: String, @Language("kotlin") content: String): File =
     File(path).createSafely(content.trimIndent())
 
   @JvmName("writeKotlinContent")
-  public fun File.kotlin(@Language("kotlin") content: String): File = createSafely(
-    content.trimIndent()
-  )
+  public fun File.kotlin(@Language("kotlin") content: String): File =
+    createSafely(content.trimIndent())
 
   public operator fun File.invoke(contentBuilder: () -> String) {
     createSafely(contentBuilder().trimIndent())
-  }
-
-  /** replace `ModuleCheck found 2 issues in 1.866 seconds.` with `ModuleCheck found 2 issues` */
-  public fun String.removeDuration(): String {
-    return replace(durationSuffixRegex) { it.destructured.component1() }
-  }
-
-  public companion object {
-    protected val durationSuffixRegex: Regex =
-      """(ModuleCheck found \d+ issues?) in [\d.]+ seconds\.[\s\S]*""".toRegex()
   }
 }

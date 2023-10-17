@@ -48,13 +48,8 @@ public open class TestEnvironment(
 }
 
 /** */
-public data class DefaultTestEnvironmentParams(
-  override val testVariant: TestVariant
-) : HasTestVariant
-
-/** */
-public interface HasTestVariant {
-  public val testVariant: TestVariant
+public interface HasTestVariant<K : Kase> {
+  public val testVariant: TestVariant<K>
 }
 
 /**
@@ -64,7 +59,7 @@ public interface HasTestVariant {
  *   which the test is being run. Defaults to the current stack frame.
  */
 @Poko
-public class TestVariant(
-  public val kase: AnyKase,
+public class TestVariant<K : Kase>(
+  public val kase: K,
   public val testFunctionCoordinates: TestFunctionCoordinates
 )
