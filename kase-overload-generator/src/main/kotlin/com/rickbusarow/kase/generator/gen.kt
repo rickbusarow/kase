@@ -90,6 +90,8 @@ private fun main() {
 
       val typesK = (listOf("K") + types)
         .joinToString(", ", "<", ">")
+      val typesEnvironment = (listOf("T : TestEnvironment") + types)
+        .joinToString(", ", "<", ">")
       val typesKaseEnvironment = (listOf("T", "K") + types)
         .joinToString(", ", "<", ">")
 
@@ -194,32 +196,24 @@ private fun main() {
       )
 
       asTests(
-        lambdas = lambdas,
         kaseSimpleName = kaseSimpleName,
-        typesK = typesK,
         typesString = typesString,
-        kaseLabelSimpleName = kaseLabelSimpleName,
         testEnvironmentLambdas = testEnvironmentLambdas,
-        typesKaseEnvironment = typesKaseEnvironment
+        typesEnvironment = typesEnvironment
       )
 
       testFactories(
-        lambdas = lambdas,
         kaseSimpleName = kaseSimpleName,
-        typesK = typesK,
         typesString = typesString,
         testEnvironmentLambdas = testEnvironmentLambdas,
-        typesKaseEnvironment = typesKaseEnvironment
+        typesEnvironment = typesEnvironment
       )
 
       testFactories2(
-        lambdas = lambdas,
         kaseSimpleName = kaseSimpleName,
-        typesK = typesK,
         typesString = typesString,
-        argsFromItString = argsFromItString,
         testEnvironmentLambdas = testEnvironmentLambdas,
-        typesKaseEnvironment = typesKaseEnvironment,
+        typesEnvironment = typesEnvironment,
         argsFromKaseString = argsFromKaseString
       )
 
@@ -351,30 +345,11 @@ private fun StringBuilder.defaultKase(
 }
 
 private fun StringBuilder.asTests(
-  lambdas: List<Pair<String, String>>,
   kaseSimpleName: String,
-  typesK: String,
   typesString: String,
-  kaseLabelSimpleName: String,
   testEnvironmentLambdas: List<Pair<String, String>>,
-  typesKaseEnvironment: String
+  typesEnvironment: String
 ) {
-  for ((suffix, lambdaSignature) in lambdas) {
-    appendLine(
-      """
-      /** */
-      @JvmName("asTests$kaseSimpleName$suffix")
-      public inline fun $typesK Iterable<$kaseSimpleName$typesString>.asTests(
-        labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
-        crossinline testAction: $lambdaSignature
-      ): Stream<out DynamicNode>
-        where K : $kaseSimpleName$typesString {
-        return testFactory(this@asTests, labels, testAction)
-      }
-      """.trimIndent()
-        .comment()
-    )
-  }
 
   for ((suffix, lambdaSignature) in testEnvironmentLambdas) {
     appendLine(
@@ -382,12 +357,9 @@ private fun StringBuilder.asTests(
       /** */
       context(TestEnvironmentFactory<T>)
       @JvmName("asTests$kaseSimpleName${suffix}TestEnvironment")
-      public inline fun $typesKaseEnvironment Iterable<K>.asTests(
-        labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
+      public inline fun $typesEnvironment Iterable<$kaseSimpleName$typesString>.asTests(
         crossinline testAction: $lambdaSignature
-      ): Stream<out DynamicNode>
-        where T : TestEnvironment,
-              K : $kaseSimpleName$typesString {
+      ): Stream<out DynamicNode> {
         return testFactory(kases = this@asTests, testAction = testAction)
       }
       """.trimIndent()
@@ -396,29 +368,11 @@ private fun StringBuilder.asTests(
 }
 
 private fun StringBuilder.testFactories(
-  lambdas: List<Pair<String, String>>,
   kaseSimpleName: String,
-  typesK: String,
   typesString: String,
   testEnvironmentLambdas: List<Pair<String, String>>,
-  typesKaseEnvironment: String
+  typesEnvironment: String
 ) {
-  for ((suffix, lambdaSignature) in lambdas) {
-    appendLine(
-      """
-      /** */
-      @JvmName("testFactory$kaseSimpleName$suffix")
-      public inline fun $typesK testFactory(
-        vararg kases: K,
-        crossinline testAction: $lambdaSignature
-      ): Stream<out DynamicNode>
-        where K : $kaseSimpleName$typesString {
-        return testFactory(kases = kases.toList(), testAction = testAction)
-      }
-      """.trimIndent()
-        .comment()
-    )
-  }
 
   for ((suffix, lambdaSignature) in testEnvironmentLambdas) {
     appendLine(
@@ -426,12 +380,10 @@ private fun StringBuilder.testFactories(
       /** */
       context(TestEnvironmentFactory<T>)
       @JvmName("testFactory$kaseSimpleName${suffix}TestEnvironment")
-      public inline fun $typesKaseEnvironment testFactory(
-        vararg kases: K,
+      public inline fun $typesEnvironment testFactory(
+        vararg kases: $kaseSimpleName$typesString,
         crossinline testAction: $lambdaSignature
-      ): Stream<out DynamicNode>
-        where T : TestEnvironment,
-              K : $kaseSimpleName$typesString {
+      ): Stream<out DynamicNode> {
         return testFactory(kases = kases.toList(), testAction = testAction)
       }
       """.trimIndent()
@@ -440,38 +392,12 @@ private fun StringBuilder.testFactories(
 }
 
 private fun StringBuilder.testFactories2(
-  lambdas: List<Pair<String, String>>,
   kaseSimpleName: String,
-  typesK: String,
   typesString: String,
-  argsFromItString: String,
   testEnvironmentLambdas: List<Pair<String, String>>,
-  typesKaseEnvironment: String,
+  typesEnvironment: String,
   argsFromKaseString: String
 ) {
-  for ((suffix, lambdaSignature) in lambdas) {
-
-    val args = if (suffix == "Kase") "it" else argsFromItString
-    appendLine(
-      """
-      /** */
-      @JvmName("testFactory$kaseSimpleName$suffix")
-      public inline fun $typesK testFactory(
-        kases: Iterable<K>,
-        crossinline testAction: $lambdaSignature
-      ): Stream<out DynamicNode>
-        where K : $kaseSimpleName$typesString {
-        return testFactory {
-          kases.asTests(
-            testName = { it.displayName(labels) },
-            testAction = { testAction($args) }
-          )
-        }
-      }
-      """.trimIndent()
-        .comment()
-    )
-  }
 
   for ((suffix, lambdaSignature) in testEnvironmentLambdas) {
     appendLine(
@@ -479,13 +405,10 @@ private fun StringBuilder.testFactories2(
       /** */
       context(TestEnvironmentFactory<T>)
       @JvmName("testFactory$kaseSimpleName${suffix}TestEnvironment")
-      public inline fun $typesKaseEnvironment testFactory(
-        kases: Iterable<K>,
+      public inline fun $typesEnvironment testFactory(
+        kases: Iterable<$kaseSimpleName$typesString>,
         crossinline testAction: $lambdaSignature
-      ): Stream<out DynamicNode>
-        where T : TestEnvironment,
-              K : $kaseSimpleName$typesString {
-
+      ): Stream<out DynamicNode> {
         return kases.asTests(
           testName = { kase -> kase.displayName() },
           testAction = { kase -> testAction($argsFromKaseString) }

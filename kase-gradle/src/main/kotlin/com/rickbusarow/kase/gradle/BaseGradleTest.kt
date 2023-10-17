@@ -24,7 +24,7 @@ import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD
 
 @Execution(SAME_THREAD)
-public interface BaseGradleTest<T : GradleTestEnvironment<*>> : TestEnvironmentFactory<T> {
+public interface BaseGradleTest<T : GradleTestEnvironment<*, *>> : TestEnvironmentFactory<T> {
 
   /**
    * Runs the provided test [action] in the context of a new [TestEnvironment].
@@ -47,7 +47,6 @@ public interface BaseGradleTest<T : GradleTestEnvironment<*>> : TestEnvironmentF
   override fun newTestEnvironment(params: TestVariant): GradleTestEnvironment {
     return GradleTestEnvironment(
       testVersions = TestVersions.from(params.kase),
-      projectCache = mutableMapOf(),
       testFunctionCoordinates = params.testFunctionCoordinates,
       testVariantNames = params.kase
     )

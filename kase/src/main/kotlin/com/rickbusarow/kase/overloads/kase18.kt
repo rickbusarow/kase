@@ -155,8 +155,10 @@ public interface Kase18<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
  * @param a17 the [Kase18:a17] parameter.
  * @param a18 the [Kase18:a18] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`
- * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param labelDelimiter the delimiter between the label
+ *   and the value, like `": "` in `"label: value"`
+ * @param displayNameSeparator the separator between each label/value
+ *   pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18,
@@ -294,37 +296,29 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A1
 /** */
 context(TestEnvironmentFactory<T>)
 @JvmName("asTestsKase18DestructuredTestEnvironment")
-public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> Iterable<K>.asTests(
-  labels: KaseLabels18 = KaseLabels18(),
+public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> Iterable<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>>.asTests(
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
-): Stream<out DynamicNode>
-  where T : TestEnvironment,
-        K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+): Stream<out DynamicNode> {
   return testFactory(kases = this@asTests, testAction = testAction)
 }
 
 /** */
 context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase18DestructuredTestEnvironment")
-public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
-  vararg kases: K,
+public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
+  vararg kases: Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
-): Stream<out DynamicNode>
-  where T : TestEnvironment,
-        K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
+): Stream<out DynamicNode> {
   return testFactory(kases = kases.toList(), testAction = testAction)
 }
 
 /** */
 context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase18DestructuredTestEnvironment")
-public inline fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
-  kases: Iterable<K>,
+public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> testFactory(
+  kases: Iterable<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18) -> Unit
-): Stream<out DynamicNode>
-  where T : TestEnvironment,
-        K : Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18> {
-
+): Stream<out DynamicNode> {
   return kases.asTests(
     testName = { kase -> kase.displayName() },
     testAction = { kase -> testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5, kase.a6, kase.a7, kase.a8, kase.a9, kase.a10, kase.a11, kase.a12, kase.a13, kase.a14, kase.a15, kase.a16, kase.a17, kase.a18) }

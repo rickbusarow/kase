@@ -16,8 +16,6 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasLabel
-import com.rickbusarow.kase.KaseParameterWithLabel
-import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
 import com.rickbusarow.kase.gradle.VersionsMatrix.Element.Key
 
 public abstract class AbstractDependencyVersion<E, K>(
@@ -38,10 +36,6 @@ public inline fun <reified E, reified K> dependencyVersion(
   return object : DependencyVersion, Comparable<E>, CharSequence by value {
     override val value: String = value
     override val key: K = key
-
-    val kaseParam: KaseParameterWithLabel<E> by lazy {
-      kaseParam(label, value as E)
-    }
 
     override fun compareTo(other: E): Int = value.compareTo(other.value)
   }

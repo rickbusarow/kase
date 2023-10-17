@@ -17,6 +17,7 @@ package com.rickbusarow.kase.generator
 
 import org.intellij.lang.annotations.Language
 
+@Suppress("MagicNumber")
 internal fun Int.withOrdinalSuffix(): String {
   val mod10 = this % 10
   return when {
@@ -91,11 +92,6 @@ internal fun CharSequence.prependIndentAfterFirst(indent: String): String {
   }
 }
 
-internal fun String.comment(): String {
-  return ""
-  // return trim().mapLines { "// $it" }.let { "\n$it\n" }
-}
-
 internal fun String.replaceRegex(@Language("regexp") pattern: String, replacement: String): String {
   return replace(Regex(pattern), replacement)
 }
@@ -109,6 +105,7 @@ internal fun String.remove(vararg strings: String): String = strings.fold(this) 
 internal fun String.remove(vararg regex: Regex): String = regex.fold(this) { acc, reg ->
   acc.replace(reg, "")
 }
+
 internal fun String.trimIndentAfterFirstLine(): String {
   val split = lines()
   val first = split.first()

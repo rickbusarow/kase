@@ -32,13 +32,13 @@ public data class MyTestVersions(
   Kase3<Gradle, Agp, Kotlin> by kase(a1, a2, a3) {
 
   /** not semver. ex: `8.0` or `8.1.1` */
-  public val gradle: String get() = a1.value
+  public override val gradleVersion: String get() = a1.value
 
   /** normal semver. ex `8.1.1` */
-  public val agp: String get() = a2.value
+  public val agpVersion: String get() = a2.value
 
   /** normal semver. ex `1.8.10` */
-  public val kotlin: String get() = a3.value
+  public val kotlinVersion: String get() = a3.value
 
   override fun toString(): String = displayName
 

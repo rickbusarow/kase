@@ -52,7 +52,10 @@ public interface TestEnvironmentFactory<T : TestEnvironment> {
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
   ): T {
     @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(kase.displayNames, testFunctionCoordinates = testFunctionCoordinates) as? T
+    return TestEnvironment(
+      kase.displayNames,
+      testFunctionCoordinates = testFunctionCoordinates
+    ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
 
@@ -61,7 +64,7 @@ public interface TestEnvironmentFactory<T : TestEnvironment> {
    *
    * @return A new [TestEnvironment] of type [T].
    */
-  public fun newTestEnvironment(params: TestVariant): T {
+  public fun newTestEnvironment(params: TestVariant<out AnyKase>): T {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(
       testParameterDisplayNames = params.kase.displayNames,

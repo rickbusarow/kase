@@ -221,7 +221,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment<E>, E : AnyKase> Iterable<E>.asTests(
+  public inline fun <T : TestEnvironment, E : AnyKase> Iterable<E>.asTests(
     testName: (E) -> String = { it.toString() },
     crossinline testAction: suspend T.(E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
@@ -237,7 +237,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment<K>, K : AnyKase> Iterable<K>.asTests(
+  public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
     testName: (K) -> String = { it.toString() },
     crossinline testAction: suspend T.() -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
@@ -253,7 +253,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment<K>, K : AnyKase> test(
+  public inline fun <T : TestEnvironment> test(
     name: String,
     crossinline testAction: suspend T.() -> Unit
   ) {
@@ -272,7 +272,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment<K>, K : AnyKase> test(
+  public inline fun <T : TestEnvironment, K : AnyKase> test(
     kase: K,
     crossinline testAction: suspend T.() -> Unit
   ) {
@@ -292,7 +292,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment<K>, K : AnyKase> Sequence<K>.asTests(
+  public inline fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
     testName: (K) -> String = { it.toString() },
     crossinline testAction: suspend T.(K) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
@@ -378,7 +378,7 @@ public inline fun <E> Sequence<E>.asTests(
  * @return a stream of dynamic nodes representing the tests.
  */
 context(TestEnvironmentFactory<T>)
-public inline fun <T : TestEnvironment<K>, K : AnyKase> Iterable<K>.asTests(
+public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
   crossinline testName: (K) -> String = { it.toString() },
   crossinline testAction: suspend T.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
@@ -392,7 +392,7 @@ public inline fun <T : TestEnvironment<K>, K : AnyKase> Iterable<K>.asTests(
  * @return a stream of dynamic nodes representing the tests.
  */
 context(TestEnvironmentFactory<T>)
-public inline fun <T : TestEnvironment<K>, K : AnyKase> Iterable<K>.asTests(
+public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
   crossinline testName: (K) -> String = { it.toString() },
   crossinline testAction: suspend T.() -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
@@ -406,7 +406,7 @@ public inline fun <T : TestEnvironment<K>, K : AnyKase> Iterable<K>.asTests(
  * @return a stream of dynamic nodes representing the tests.
  */
 context(TestEnvironmentFactory<T>)
-public inline fun <T : TestEnvironment<K>, K : AnyKase> Sequence<K>.asTests(
+public inline fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
   crossinline testName: (K) -> String = { it.toString() },
   crossinline testAction: suspend T.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }

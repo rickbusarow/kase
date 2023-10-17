@@ -44,10 +44,10 @@ public fun String.remove(vararg patterns: Regex): String = patterns.fold(this) {
 /** Removes ANSI controls like `\u001B[]33m` */
 public fun String.noAnsi(): String = remove("""\u001B\[[;\d]*m""".toRegex())
 
-/** replace ` ` with `·` */
+/** replace ` ` (a normal whitespace) with `·` */
 public val String.interpuncts: String get() = replace(" ", "·")
 
-/** replace `·` with ` ` */
+/** replace `·` with ` ` (a normal whitespace) */
 public val String.noInterpuncts: String get() = replace("·", " ")
 
 /**
@@ -159,6 +159,15 @@ public fun <T> List<T>.joinToStringIndexed(
     if (limit in 0 until count) append(truncated)
     append(postfix)
   }
+}
+
+/**
+ * shorthand for `replaceIndent(" ".repeat(numSpaces))`
+ *
+ * @see kotlin.text.replaceIndent
+ */
+public fun String.replaceIndent(numSpaces: Int): String {
+  return replaceIndent(" ".repeat(numSpaces))
 }
 
 /**

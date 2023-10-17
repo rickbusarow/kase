@@ -31,6 +31,7 @@ public interface Kase1<out A1> : Kase {
 
   /** The 1st parameter. */
   public val a1: A1
+
   /** The 1st parameter. */
   public val a1WithLabel: KaseParameterWithLabel<A1>
 
@@ -53,8 +54,10 @@ public interface Kase1<out A1> : Kase {
  *
  * @param a1 the [Kase1:a1] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`
- * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param labelDelimiter the delimiter between the label
+ *   and the value, like `": "` in `"label: value"`
+ * @param displayNameSeparator the separator between each label/value
+ *   pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1> kase(
   a1: A1,
@@ -107,37 +110,29 @@ public fun <A1> kases(
 /** */
 context(TestEnvironmentFactory<T>)
 @JvmName("asTestsKase1DestructuredTestEnvironment")
-public inline fun <T, K, A1> Iterable<K>.asTests(
-  labels: KaseLabels1 = KaseLabels1(),
+public inline fun <T : TestEnvironment, A1> Iterable<Kase1<A1>>.asTests(
   crossinline testAction: T.(a1: A1) -> Unit
-): Stream<out DynamicNode>
-  where T : TestEnvironment,
-        K : Kase1<A1> {
+): Stream<out DynamicNode> {
   return testFactory(kases = this@asTests, testAction = testAction)
 }
 
 /** */
 context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase1DestructuredTestEnvironment")
-public inline fun <T, K, A1> testFactory(
-  vararg kases: K,
+public inline fun <T : TestEnvironment, A1> testFactory(
+  vararg kases: Kase1<A1>,
   crossinline testAction: T.(a1: A1) -> Unit
-): Stream<out DynamicNode>
-  where T : TestEnvironment,
-        K : Kase1<A1> {
+): Stream<out DynamicNode> {
   return testFactory(kases = kases.toList(), testAction = testAction)
 }
 
 /** */
 context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase1DestructuredTestEnvironment")
-public inline fun <T, K, A1> testFactory(
-  kases: Iterable<K>,
+public inline fun <T : TestEnvironment, A1> testFactory(
+  kases: Iterable<Kase1<A1>>,
   crossinline testAction: T.(a1: A1) -> Unit
-): Stream<out DynamicNode>
-  where T : TestEnvironment,
-        K : Kase1<A1> {
-
+): Stream<out DynamicNode> {
   return kases.asTests(
     testName = { kase -> kase.displayName() },
     testAction = { kase -> testAction(kase.a1) }

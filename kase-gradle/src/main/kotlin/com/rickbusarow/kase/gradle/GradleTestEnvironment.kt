@@ -16,13 +16,16 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.AnyKase
+import com.rickbusarow.kase.DirectoryBuilder
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestFunctionCoordinates
 import com.rickbusarow.kase.TestVariant
+import com.rickbusarow.kase.buildDirectory
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
 import com.rickbusarow.kase.stdlib.noAnsi
 import com.rickbusarow.kase.stdlib.remove
+import com.rickbusarow.kase.stdlib.replaceIndent
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -34,10 +37,6 @@ import java.io.File
 
 public interface GradleTestEnvironmentFactory<K : AnyKase, T : TestVersions> {
 
-  public fun buildscriptDependencies(): String {
-    return ""
-  }
-
   public fun newTestEnvironment(
     testVariant: TestVariant<K>,
     testVersions: T
@@ -45,28 +44,33 @@ public interface GradleTestEnvironmentFactory<K : AnyKase, T : TestVersions> {
     return GradleTestEnvironment(
       testVersions = testVersions,
       testFunctionCoordinates = testVariant.testFunctionCoordinates,
-      kase = testVariant.kase
+      kase = testVariant.kase,
+      buildFileComponents = object : BuildFileComponents {}
     )
   }
 }
 
-@Suppress("PropertyName", "VariableNaming", "MemberVisibilityCanBePrivate")
-public class GradleTestEnvironment<T : TestVersions, K : AnyKase> constructor(
+@Suppress("PropertyName", "VariableNaming", "MemberVisibilityCanBePrivate", "MagicNumber")
+public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
   override val testVersions: T,
   testFunctionCoordinates: TestFunctionCoordinates,
-  kase: K
+  kase: K,
+  buildFileComponents: BuildFileComponents
 ) : TestEnvironment(kase.displayNames, testFunctionCoordinates),
   TestVersions by testVersions,
   HasTestVersions<T> {
 
   public val root: File get() = workingDir
 
+  public inline fun root(action: DirectoryBuilder.() -> Unit): File {
+    return buildDirectory(workingDir, action)
+  }
+
   public val DEFAULT_BUILD_FILE: String by lazy {
     """
     buildscript {
       dependencies {
-        classpath("com.android.tools.build:gradle:$agpVersion")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+        ${buildFileComponents.buildscriptDependenciesBlockContent(testVersions).replaceIndent(4)}
       }
     }
 

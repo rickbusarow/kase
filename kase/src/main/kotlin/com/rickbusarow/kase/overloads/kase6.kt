@@ -83,8 +83,10 @@ public interface Kase6<out A1, out A2, out A3, out A4, out A5, out A6> : Kase {
  * @param a5 the [Kase6:a5] parameter.
  * @param a6 the [Kase6:a6] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`
- * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`
+ * @param labelDelimiter the delimiter between the label
+ *   and the value, like `": "` in `"label: value"`
+ * @param displayNameSeparator the separator between each label/value
+ *   pair, like `" | "` in `"label1: value1 | label2: value2"`
  */
 public fun <A1, A2, A3, A4, A5, A6> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6,
@@ -162,37 +164,29 @@ public fun <A1, A2, A3, A4, A5, A6> kases(
 /** */
 context(TestEnvironmentFactory<T>)
 @JvmName("asTestsKase6DestructuredTestEnvironment")
-public inline fun <T, K, A1, A2, A3, A4, A5, A6> Iterable<K>.asTests(
-  labels: KaseLabels6 = KaseLabels6(),
+public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6> Iterable<Kase6<A1, A2, A3, A4, A5, A6>>.asTests(
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) -> Unit
-): Stream<out DynamicNode>
-  where T : TestEnvironment,
-        K : Kase6<A1, A2, A3, A4, A5, A6> {
+): Stream<out DynamicNode> {
   return testFactory(kases = this@asTests, testAction = testAction)
 }
 
 /** */
 context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase6DestructuredTestEnvironment")
-public inline fun <T, K, A1, A2, A3, A4, A5, A6> testFactory(
-  vararg kases: K,
+public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6> testFactory(
+  vararg kases: Kase6<A1, A2, A3, A4, A5, A6>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) -> Unit
-): Stream<out DynamicNode>
-  where T : TestEnvironment,
-        K : Kase6<A1, A2, A3, A4, A5, A6> {
+): Stream<out DynamicNode> {
   return testFactory(kases = kases.toList(), testAction = testAction)
 }
 
 /** */
 context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase6DestructuredTestEnvironment")
-public inline fun <T, K, A1, A2, A3, A4, A5, A6> testFactory(
-  kases: Iterable<K>,
+public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6> testFactory(
+  kases: Iterable<Kase6<A1, A2, A3, A4, A5, A6>>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6) -> Unit
-): Stream<out DynamicNode>
-  where T : TestEnvironment,
-        K : Kase6<A1, A2, A3, A4, A5, A6> {
-
+): Stream<out DynamicNode> {
   return kases.asTests(
     testName = { kase -> kase.displayName() },
     testAction = { kase -> testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5, kase.a6) }

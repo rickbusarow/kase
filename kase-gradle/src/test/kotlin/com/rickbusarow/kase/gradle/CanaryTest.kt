@@ -15,24 +15,15 @@
 
 package com.rickbusarow.kase.gradle
 
-import org.gradle.util.GradleVersion
+import com.rickbusarow.kase.Kase3
+import com.rickbusarow.kase.gradle.DependencyVersion.Agp
+import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
+import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
+import org.junit.jupiter.api.TestFactory
 
-public interface TestVersions {
+class CanaryTest : BaseGradleTest<GradleTestEnvironment<MyTestVersions, Kase3<Gradle, Agp, Kotlin>>> {
 
-  public val gradleVersion: String
-
-  public companion object {
-
-    public val EMPTY: TestVersions = object : TestVersions {
-      override val gradleVersion: String by lazy {
-        GradleVersion.current().version
-      }
-    }
+  @TestFactory
+  fun `canary things`() = test {
   }
-}
-
-/** Trait interface for [TestVersions]*/
-public interface HasTestVersions<T : TestVersions> {
-  /** immutable */
-  public val testVersions: T
 }

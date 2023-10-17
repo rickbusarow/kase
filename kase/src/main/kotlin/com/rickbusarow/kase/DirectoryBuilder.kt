@@ -45,6 +45,7 @@ import kotlin.io.path.writeText
  * ```
  *
  * @param file the root directory
+ * @param builder adds files and child directories to this root directory
  */
 public inline fun buildDirectory(
   file: File,
@@ -74,6 +75,7 @@ public inline fun buildDirectory(
  * ```
  *
  * @param path the root directory
+ * @param builder adds files and child directories to this root directory
  */
 public inline fun buildDirectory(
   path: Path,
@@ -105,6 +107,10 @@ public class DirectoryBuilder @PublishedApi internal constructor(
 
   @PublishedApi
   internal val files: MutableMap<String, FileWithContent> = mutableMapOf()
+
+  public inline operator fun invoke(builder: DirectoryBuilder.() -> Unit): DirectoryBuilder {
+    return apply(builder)
+  }
 
   /** Creates a child directory with the given [name] and applies the [builder] to it. */
   public inline fun dir(name: String, builder: DirectoryBuilder.() -> Unit) {
