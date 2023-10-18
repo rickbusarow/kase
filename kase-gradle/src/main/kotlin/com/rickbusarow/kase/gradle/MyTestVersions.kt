@@ -50,9 +50,9 @@ public data class MyTestVersions(
         .associateBy { it::class }
 
       return MyTestVersions(
-        versions.version(Gradle::class) { versionsMatrix[Gradle].first() },
-        versions.version(Agp::class) { versionsMatrix[Agp].first() },
-        versions.version(Kotlin::class) { versionsMatrix[Kotlin].first() }
+        versions.version(Gradle::class) { versionsMatrix[Gradle::class].first() },
+        versions.version(Agp::class) { versionsMatrix[Agp::class].first() },
+        versions.version(Kotlin::class) { versionsMatrix[Kotlin::class].first() }
       )
     }
 

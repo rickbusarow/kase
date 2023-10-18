@@ -15,28 +15,29 @@
 
 package com.rickbusarow.kase.gradle.internal
 
+import com.rickbusarow.kase.gradle.DependencyVersion.Agp
+import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
 import com.rickbusarow.kase.gradle.VersionsMatrix
 import com.rickbusarow.kase.gradle.VersionsMatrix.Element
-import com.rickbusarow.kase.gradle.VersionsMatrix.Element.Key
+import com.rickbusarow.kase.gradle.kases2
+import kotlin.reflect.KClass
 
 internal class DefaultVersionMatrix(
-  private val map: Map<Key<*>, List<Element>>
+  private val map: Map<KClass<*>, List<Element>>
 ) : VersionsMatrix {
 
-  override fun <E : Element> getOrNull(key: Key<E>): List<E>? {
+  override fun <E : Element> getOrNull(key: KClass<E>): List<E>? {
     @Suppress("UNCHECKED_CAST")
     return map[key] as? List<E>
   }
 
-  override fun <E : Element> getOrEmpty(
-    key: Key<E>
-  ): List<E> {
+  override fun <E : Element> getOrEmpty(key: KClass<E>): List<E> {
     return getOrNull(key) ?: emptyList()
   }
 
-  override fun <E : Element> get(key: Key<E>): List<E> {
+  override fun <E : Element> get(key: KClass<E>): List<E> {
     return requireNotNull(getOrNull(key)) {
-      "There is no entry in the matrix for the key ${key::class.qualifiedName}"
+      "There is no entry in the matrix for the key ${key.qualifiedName}"
     }
   }
 
@@ -44,13 +45,13 @@ internal class DefaultVersionMatrix(
 
     if (elements.isEmpty()) return DefaultVersionMatrix(map.toMap())
 
-    val newElementsMap = elements.groupBy { it.key }
+    val newElementsMap = elements.groupBy { it::class }
       .mapValues { (key, list) -> list + getOrEmpty(key) }
 
     return DefaultVersionMatrix(map.plus(newElementsMap))
   }
 
-  override fun <E : Element> minus(key: Key<E>): VersionsMatrix {
+  override fun <E : Element> minus(key: KClass<E>): VersionsMatrix {
     return DefaultVersionMatrix(map.minus(key))
   }
 
@@ -63,4 +64,9 @@ internal class DefaultVersionMatrix(
 
     return DefaultVersionMatrix(newMap)
   }
+}
+
+public fun foo(m: VersionsMatrix) {
+
+  val b = m.kases2<Gradle, Agp>()
 }

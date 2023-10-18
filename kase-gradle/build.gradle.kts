@@ -22,6 +22,7 @@ jvmModule {
     artifactId = "kase-gradle",
     pomDescription = "Hermetic test environments and test factories"
   )
+  poko()
 }
 
 dependencies {

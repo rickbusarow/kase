@@ -13,12 +13,15 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle
+package com.rickbusarow.kase.gradle.generation
+
+import com.rickbusarow.kase.gradle.TestVersions
 
 public interface BuildFileComponents {
 
   /**
-   * Everything inside the `dependencies { }` block.  This would typically be the 'classpath' dependency declarations.
+   * Everything inside the `dependencies { }` block. This would
+   * typically be the 'classpath' dependency declarations.
    *
    * ```
    * buildscript {

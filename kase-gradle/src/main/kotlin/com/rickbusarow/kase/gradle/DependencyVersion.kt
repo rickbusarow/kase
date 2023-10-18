@@ -16,37 +16,30 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasLabel
-import com.rickbusarow.kase.gradle.VersionsMatrix.Element.Key
 
-public abstract class AbstractDependencyVersion<E, K>(
-  override val value: String,
-  override val key: K
-) : DependencyVersion
-  where E : DependencyVersion,
-        K : Key<E> {
+public abstract class AbstractDependencyVersion<E : DependencyVersion>(
+  override val value: String
+) : DependencyVersion {
   override fun toString(): String = "$label: $value"
 }
 
-public inline fun <reified E, reified K> dependencyVersion(
-  value: String,
-  key: K
-): DependencyVersion
-  where E : DependencyVersion,
-        K : Key<E> {
-  return object : DependencyVersion, Comparable<E>, CharSequence by value {
+public inline fun <reified E : DependencyVersion> dependencyVersion(
+  value: String
+): DependencyVersion {
+  return object :
+    DependencyVersion,
+    Comparable<E>,
+    CharSequence by value {
     override val value: String = value
-    override val key: K = key
 
     override fun compareTo(other: E): Int = value.compareTo(other.value)
   }
 }
 
 /** */
-public interface DependencyVersion :
-  HasLabel,
-  VersionsMatrix.Element {
-  /** */
+public interface DependencyVersion : HasLabel, VersionsMatrix.Element {
 
+  /** */
   public val value: String
 
   /** */
@@ -56,58 +49,40 @@ public interface DependencyVersion :
   /** */
   public class Gradle(
     override val value: String
-  ) : DependencyVersion by dependencyVersion(value, Key) {
-    public companion object Key : VersionsMatrix.Element.Key<Gradle>, HasLabel {
-      override val label: String = "Gradle"
-    }
-  }
+  ) : DependencyVersion by dependencyVersion<Gradle>(value)
 
   /** */
   public class Agp(
     override val value: String
-  ) : DependencyVersion by dependencyVersion(value, Key) {
-    public companion object Key : VersionsMatrix.Element.Key<Agp>
-  }
+  ) : DependencyVersion by dependencyVersion<Agp>(value)
 
   /** */
   public class Kotlin(
     override val value: String
-  ) : DependencyVersion by dependencyVersion(value, Key) {
-    public companion object Key : VersionsMatrix.Element.Key<Kotlin>
-  }
+  ) : DependencyVersion by dependencyVersion<Kotlin>(value)
 
   /** */
   public class Ksp(
     override val value: String
-  ) : DependencyVersion by dependencyVersion(value, Key) {
-    public companion object Key : VersionsMatrix.Element.Key<Ksp>
-  }
+  ) : DependencyVersion by dependencyVersion<Ksp>(value)
 
   /** */
   public class Anvil(
     override val value: String
-  ) : DependencyVersion by dependencyVersion(value, Key) {
-    public companion object Key : VersionsMatrix.Element.Key<Anvil>
-  }
+  ) : DependencyVersion by dependencyVersion<Anvil>(value)
 
   /** */
   public class Keeper(
     override val value: String
-  ) : DependencyVersion by dependencyVersion(value, Anvil) {
-    public companion object Key : VersionsMatrix.Element.Key<Keeper>
-  }
+  ) : DependencyVersion by dependencyVersion<Keeper>(value)
 
   /** */
   public class Dagger(
     override val value: String
-  ) : DependencyVersion by dependencyVersion(value, Anvil) {
-    public companion object Key : VersionsMatrix.Element.Key<Dagger>
-  }
+  ) : DependencyVersion by dependencyVersion<Dagger>(value)
 
   /** */
   public class Detekt(
     override val value: String
-  ) : DependencyVersion by dependencyVersion(value, Anvil) {
-    public companion object Key : VersionsMatrix.Element.Key<Detekt>
-  }
+  ) : DependencyVersion by dependencyVersion<Detekt>(value)
 }

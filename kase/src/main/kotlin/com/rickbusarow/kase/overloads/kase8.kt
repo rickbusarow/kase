@@ -62,8 +62,12 @@ public interface Kase8<out A1, out A2, out A3, out A4, out A5, out A6, out A7, o
   /** The 8th parameter. */
   public val a8WithLabel: KaseParameterWithLabel<A8>
 
+  /** The delimiter between the label and the value, like `": "` in `label: value` */
   public val labelDelimiter: String get() = DELIMITER_DEFAULT
 
+  /**
+   * The separator between each label/value pair, like `" | "` in `label1: value1 | label2: value2`
+   */
   public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 
   override fun <A9> plus(label: String, value: A9): Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9> {
@@ -95,10 +99,10 @@ public interface Kase8<out A1, out A2, out A3, out A4, out A5, out A6, out A7, o
  * @param a7 the [Kase8:a7] parameter.
  * @param a8 the [Kase8:a8] parameter.
  * @param labels the [KaseLabels] to use for this [Kase]
- * @param labelDelimiter the delimiter between the label
- *   and the value, like `": "` in `"label: value"`
+ * @param labelDelimiter the delimiter between the
+ *   label and the value, like `": "` in `label: value`
  * @param displayNameSeparator the separator between each label/value
- *   pair, like `" | "` in `"label1: value1 | label2: value2"`
+ *   pair, like `" | "` in `label1: value1 | label2: value2`
  */
 public fun <A1, A2, A3, A4, A5, A6, A7, A8> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8,
@@ -236,8 +240,9 @@ public inline fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
  * @property a6Label The label for the [Kase8.a6] parameter.
  * @property a7Label The label for the [Kase8.a7] parameter.
  * @property a8Label The label for the [Kase8.a8] parameter.
- * @property labelDelimiter The delimiter between the label and the value. The default is `: `.
- * @property displayNameSeparator The separator between each label/value pair. The default is ` | `.
+ * @property labelDelimiter The delimiter between the label and the value. The default is `": "`.
+ * @property displayNameSeparator The separator between
+ *   each label/value pair. The default is `" | "`.
  */
 @Poko
 public class KaseLabels8(

@@ -16,50 +16,54 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.gradle.internal.DefaultVersionMatrix
+import kotlin.reflect.KClass
 
 /** */
 public interface VersionsMatrix {
 
   /** */
-  public operator fun <E : Element> get(key: Element.Key<E>): List<E>
+  public operator fun <E : Element> get(key: KClass<E>): List<E>
 
   /** */
-  public fun <E : Element> getOrEmpty(key: Element.Key<E>): List<E>
+  public fun <E : Element> getOrEmpty(key: KClass<E>): List<E>
 
   /** */
-  public fun <E : Element> getOrNull(key: Element.Key<E>): List<E>?
+  public fun <E : Element> getOrNull(key: KClass<E>): List<E>?
 
   /** */
   public operator fun <E : Element> plus(elements: List<E>): VersionsMatrix
 
   /** */
-  public operator fun <E : Element> minus(key: Element.Key<E>): VersionsMatrix
+  public operator fun <E : Element> minus(key: KClass<E>): VersionsMatrix
 
   /** */
   public operator fun <E : Element> minus(elements: List<E>): VersionsMatrix
 
   /** */
-  public interface Element {
-
-    /** */
-    public val key: Key<*>
-
-    /** */
-    public interface Key<E : Element>
-
-    public companion object {
-      public operator fun <E : Element, K : Key<E>> invoke(key: K): Element {
-        return object : Element {
-          override val key: Key<*> = key
-        }
-      }
-    }
-  }
+  public interface Element
 
   public companion object {
     /** */
     public operator fun invoke(elements: List<Element>): VersionsMatrix {
-      return DefaultVersionMatrix(elements.groupBy { it.key })
+      return DefaultVersionMatrix(elements.groupBy { it::class })
+    }
+
+    /** */
+    public operator fun invoke(elements: List<List<Element>>): VersionsMatrix {
+      return invoke(elements.flatten())
+    }
+
+    /** */
+    public inline fun <reified E : Element> VersionsMatrix.get(): List<E> = get(E::class)
+
+    /** */
+    public inline fun <reified E : Element> VersionsMatrix.getOrEmpty(): List<E> {
+      return getOrEmpty(E::class)
+    }
+
+    /** */
+    public inline fun <reified E : Element> VersionsMatrix.getOrNull(): List<E>? {
+      return getOrNull(E::class)
     }
   }
 }

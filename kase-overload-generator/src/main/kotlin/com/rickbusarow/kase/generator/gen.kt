@@ -17,6 +17,10 @@ package com.rickbusarow.kase.generator
 
 import java.io.File
 
+private val LICENSE = File("build.gradle.kts").readText()
+  .substringBefore("*/")
+  .plus("*/")
+
 private val FILE_ANNOTATIONS = """
   @file:Suppress("PackageDirectoryMismatch", "DuplicatedCode", "MaxLineLength")
   @file:JvmMultifileClass
@@ -42,11 +46,61 @@ private fun main() {
   )
   overloads.deleteRecursively()
 
+  val gradle = buildString {
+
+    appendLine(
+      """
+        |$LICENSE
+        |
+        |$FILE_ANNOTATIONS
+        |
+        |package com.rickbusarow.kase.gradle
+        |
+      """.trimMargin()
+    )
+
+    List(22) { it + 1 }
+      .map { "import com.rickbusarow.kase.Kase$it" }
+      .sorted()
+      .forEach(::appendLine)
+
+    appendLine("import com.rickbusarow.kase.gradle.VersionsMatrix.Element")
+    appendLine("import com.rickbusarow.kase.kases")
+    appendLine()
+
+    for (ct in (1..22)) {
+      val types = (1..ct).joinToString(",\n", "\n", "\n  ") { "  reified A$it : Element" }
+
+      appendLine(
+        """
+        |/** */
+        |public inline fun <$types> VersionsMatrix.kases$ct(): List<Kase$ct<${
+          (1..ct).joinToString(", ") { "A$it" }
+        }>> {
+        |  return kases(${
+          (1..ct).joinToString(",\n", "\n", "\n  ") {
+            "    args$it = get(A$it::class)"
+          }
+        })
+        |}
+        |
+        """.trimMargin()
+      )
+    }
+  }
+
+  val kasesKt = File(
+    "/Users/rbusarow/Development/kase/kase-gradle/src/main/kotlin/com/rickbusarow/kase/gradle/kases.kt"
+  )
+  kasesKt.writeText(gradle)
+
   for (ct in (1..22)) {
     val txt = buildString {
 
       appendLine(
         """
+        |$LICENSE
+        |
         |$FILE_ANNOTATIONS
         |
         |package com.rickbusarow.kase
@@ -88,15 +142,11 @@ private fun main() {
         "${value}WithLabel = kaseParam(value = $value, label = labels.$label)"
       }
 
-      val typesK = (listOf("K") + types)
-        .joinToString(", ", "<", ">")
       val typesEnvironment = (listOf("T : TestEnvironment") + types)
         .joinToString(", ", "<", ">")
       val typesKaseEnvironment = (listOf("T", "K") + types)
         .joinToString(", ", "<", ">")
 
-      val testActionDestructured = "($paramsString) -> Unit"
-      val testActionK = "(kase: K) -> Unit"
       val testActionTDestructured = "T.($paramsString) -> Unit"
 
       val parametersPlural = if (ct == 1) "parameter" else "parameters"
@@ -139,8 +189,12 @@ private fun main() {
         |
         |  ${propertiesString.prependIndentAfterFirst("  ")}
         |
+        |  /** The delimiter between the label and the value, like `": "` in `label: value` */
         |  public val labelDelimiter: String get() = DELIMITER_DEFAULT
         |
+        |  /**
+        |   * The separator between each label/value pair, like `" | "` in `label1: value1 | label2: value2`
+        |   */
         |  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
         |
         |  override fun <$aPlus1> plus(label: String, value: $aPlus1): $kasePlus1WithTypes {
@@ -186,13 +240,8 @@ private fun main() {
         """.trimMargin()
       )
 
-      val lambdas = listOf(
-        "Kase" to testActionK,
-        "Destructured" to testActionDestructured
-      )
       val testEnvironmentLambdas = listOf(
         "Destructured" to testActionTDestructured
-        // , "NoArg" to testActionTNoArg
       )
 
       asTests(
@@ -239,11 +288,10 @@ private fun main() {
           appendLine(" * @property $label The label for the [$kaseSimpleName.$arg] parameter.")
         }
         appendLine(
-          " * @property labelDelimiter The delimiter between the label and the value. The default is `: `."
+          " * @property labelDelimiter The delimiter between the label and the value. The default is `\": \"`."
         )
-        appendLine(
-          " * @property displayNameSeparator The separator between each label/value pair. The default is ` | `."
-        )
+        appendLine(" * @property displayNameSeparator The separator between")
+        appendLine(" *   each label/value pair. The default is `\" | \"`.")
         append(" */")
       }
 
@@ -482,12 +530,10 @@ private fun StringBuilder.kaseFun(
       appendLine(" * @param $arg the [$kaseSimpleName:$arg] parameter.")
     }
     appendLine(" * @param labels the [KaseLabels] to use for this [Kase]")
-    appendLine(
-      """ * @param labelDelimiter the delimiter between the label and the value, like `": "` in `"label: value"`"""
-    )
-    appendLine(
-      """ * @param displayNameSeparator the separator between each label/value pair, like `" | "` in `"label1: value1 | label2: value2"`"""
-    )
+    appendLine(" * @param labelDelimiter the delimiter between the label")
+    appendLine(""" *   and the value, like `": "` in `label: value`""")
+    appendLine(" * @param displayNameSeparator the separator between each label/value")
+    appendLine(""" *   pair, like `" | "` in `label1: value1 | label2: value2`""")
     append(" */")
   }
 

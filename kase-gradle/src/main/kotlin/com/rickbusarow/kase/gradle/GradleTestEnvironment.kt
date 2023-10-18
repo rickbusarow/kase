@@ -21,6 +21,7 @@ import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestFunctionCoordinates
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.buildDirectory
+import com.rickbusarow.kase.gradle.generation.BuildFileComponents
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
 import com.rickbusarow.kase.stdlib.noAnsi
@@ -35,7 +36,7 @@ import org.gradle.testkit.runner.TaskOutcome.FAILED
 import org.intellij.lang.annotations.Language
 import java.io.File
 
-public interface GradleTestEnvironmentFactory<K : AnyKase, T : TestVersions> {
+public interface GradleTestEnvironmentFactory<T : TestVersions, K : AnyKase> {
 
   public fun newTestEnvironment(
     testVariant: TestVariant<K>,
