@@ -33,7 +33,6 @@ import com.rickbusarow.kase.Kase19
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.Kase20
 import com.rickbusarow.kase.Kase21
-import com.rickbusarow.kase.Kase22
 import com.rickbusarow.kase.Kase3
 import com.rickbusarow.kase.Kase4
 import com.rickbusarow.kase.Kase5
@@ -41,665 +40,1182 @@ import com.rickbusarow.kase.Kase6
 import com.rickbusarow.kase.Kase7
 import com.rickbusarow.kase.Kase8
 import com.rickbusarow.kase.Kase9
-import com.rickbusarow.kase.gradle.VersionsMatrix.Element
+import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixElement
+import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 import com.rickbusarow.kase.kases
 
-/** */
+/**
+ * Returns a [List] of [Kase1]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @return a [List] of [Kase1]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element
-  > VersionsMatrix.kases1(): List<Kase1<A1>> {
+  reified A1 : VersionMatrixElement
+  > VersionMatrix.kases1(
+  a1Key: VersionMatrixKey<A1>
+): List<Kase1<A1>> {
   return kases(
-    args1 = get(A1::class)
+    args1 = get(a1Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase2]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @return a [List] of [Kase2]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element
-  > VersionsMatrix.kases2(): List<Kase2<A1, A2>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement
+  > VersionMatrix.kases2(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>
+): List<Kase2<A1, A2>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase3]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @return a [List] of [Kase3]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element
-  > VersionsMatrix.kases3(): List<Kase3<A1, A2, A3>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement
+  > VersionMatrix.kases3(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>
+): List<Kase3<A1, A2, A3>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase4]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @return a [List] of [Kase4]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element
-  > VersionsMatrix.kases4(): List<Kase4<A1, A2, A3, A4>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement
+  > VersionMatrix.kases4(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>
+): List<Kase4<A1, A2, A3, A4>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase5]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @return a [List] of [Kase5]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element
-  > VersionsMatrix.kases5(): List<Kase5<A1, A2, A3, A4, A5>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement
+  > VersionMatrix.kases5(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>
+): List<Kase5<A1, A2, A3, A4, A5>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase6]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @return a [List] of [Kase6]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element
-  > VersionsMatrix.kases6(): List<Kase6<A1, A2, A3, A4, A5, A6>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement
+  > VersionMatrix.kases6(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>
+): List<Kase6<A1, A2, A3, A4, A5, A6>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase7]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @return a [List] of [Kase7]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element
-  > VersionsMatrix.kases7(): List<Kase7<A1, A2, A3, A4, A5, A6, A7>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement
+  > VersionMatrix.kases7(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>
+): List<Kase7<A1, A2, A3, A4, A5, A6, A7>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase8]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @return a [List] of [Kase8]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element
-  > VersionsMatrix.kases8(): List<Kase8<A1, A2, A3, A4, A5, A6, A7, A8>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement
+  > VersionMatrix.kases8(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>
+): List<Kase8<A1, A2, A3, A4, A5, A6, A7, A8>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase9]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @return a [List] of [Kase9]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element
-  > VersionsMatrix.kases9(): List<Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement
+  > VersionMatrix.kases9(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>
+): List<Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase10]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @return a [List] of [Kase10]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element
-  > VersionsMatrix.kases10(): List<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement
+  > VersionMatrix.kases10(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>
+): List<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase11]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @return a [List] of [Kase11]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element
-  > VersionsMatrix.kases11(): List<Kase11<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement
+  > VersionMatrix.kases11(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>
+): List<Kase11<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase12]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @return a [List] of [Kase12]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element
-  > VersionsMatrix.kases12(): List<Kase12<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement
+  > VersionMatrix.kases12(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>
+): List<Kase12<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase13]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @param a13Key the key for the 13th parameter.
+ * @return a [List] of [Kase13]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element
-  > VersionsMatrix.kases13(): List<Kase13<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement,
+  reified A13 : VersionMatrixElement
+  > VersionMatrix.kases13(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>,
+  a13Key: VersionMatrixKey<A13>
+): List<Kase13<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key),
+    args13 = get(a13Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase14]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @param a13Key the key for the 13th parameter.
+ * @param a14Key the key for the 14th parameter.
+ * @return a [List] of [Kase14]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element,
-  reified A14 : Element
-  > VersionsMatrix.kases14(): List<Kase14<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement,
+  reified A13 : VersionMatrixElement,
+  reified A14 : VersionMatrixElement
+  > VersionMatrix.kases14(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>,
+  a13Key: VersionMatrixKey<A13>,
+  a14Key: VersionMatrixKey<A14>
+): List<Kase14<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class),
-    args14 = get(A14::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key),
+    args13 = get(a13Key),
+    args14 = get(a14Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase15]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @param a13Key the key for the 13th parameter.
+ * @param a14Key the key for the 14th parameter.
+ * @param a15Key the key for the 15th parameter.
+ * @return a [List] of [Kase15]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element,
-  reified A14 : Element,
-  reified A15 : Element
-  > VersionsMatrix.kases15(): List<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement,
+  reified A13 : VersionMatrixElement,
+  reified A14 : VersionMatrixElement,
+  reified A15 : VersionMatrixElement
+  > VersionMatrix.kases15(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>,
+  a13Key: VersionMatrixKey<A13>,
+  a14Key: VersionMatrixKey<A14>,
+  a15Key: VersionMatrixKey<A15>
+): List<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class),
-    args14 = get(A14::class),
-    args15 = get(A15::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key),
+    args13 = get(a13Key),
+    args14 = get(a14Key),
+    args15 = get(a15Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase16]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @param a13Key the key for the 13th parameter.
+ * @param a14Key the key for the 14th parameter.
+ * @param a15Key the key for the 15th parameter.
+ * @param a16Key the key for the 16th parameter.
+ * @return a [List] of [Kase16]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element,
-  reified A14 : Element,
-  reified A15 : Element,
-  reified A16 : Element
-  > VersionsMatrix.kases16(): List<Kase16<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement,
+  reified A13 : VersionMatrixElement,
+  reified A14 : VersionMatrixElement,
+  reified A15 : VersionMatrixElement,
+  reified A16 : VersionMatrixElement
+  > VersionMatrix.kases16(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>,
+  a13Key: VersionMatrixKey<A13>,
+  a14Key: VersionMatrixKey<A14>,
+  a15Key: VersionMatrixKey<A15>,
+  a16Key: VersionMatrixKey<A16>
+): List<Kase16<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class),
-    args14 = get(A14::class),
-    args15 = get(A15::class),
-    args16 = get(A16::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key),
+    args13 = get(a13Key),
+    args14 = get(a14Key),
+    args15 = get(a15Key),
+    args16 = get(a16Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase17]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @param a13Key the key for the 13th parameter.
+ * @param a14Key the key for the 14th parameter.
+ * @param a15Key the key for the 15th parameter.
+ * @param a16Key the key for the 16th parameter.
+ * @param a17Key the key for the 17th parameter.
+ * @return a [List] of [Kase17]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element,
-  reified A14 : Element,
-  reified A15 : Element,
-  reified A16 : Element,
-  reified A17 : Element
-  > VersionsMatrix.kases17(): List<Kase17<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement,
+  reified A13 : VersionMatrixElement,
+  reified A14 : VersionMatrixElement,
+  reified A15 : VersionMatrixElement,
+  reified A16 : VersionMatrixElement,
+  reified A17 : VersionMatrixElement
+  > VersionMatrix.kases17(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>,
+  a13Key: VersionMatrixKey<A13>,
+  a14Key: VersionMatrixKey<A14>,
+  a15Key: VersionMatrixKey<A15>,
+  a16Key: VersionMatrixKey<A16>,
+  a17Key: VersionMatrixKey<A17>
+): List<Kase17<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class),
-    args14 = get(A14::class),
-    args15 = get(A15::class),
-    args16 = get(A16::class),
-    args17 = get(A17::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key),
+    args13 = get(a13Key),
+    args14 = get(a14Key),
+    args15 = get(a15Key),
+    args16 = get(a16Key),
+    args17 = get(a17Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase18]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @param a13Key the key for the 13th parameter.
+ * @param a14Key the key for the 14th parameter.
+ * @param a15Key the key for the 15th parameter.
+ * @param a16Key the key for the 16th parameter.
+ * @param a17Key the key for the 17th parameter.
+ * @param a18Key the key for the 18th parameter.
+ * @return a [List] of [Kase18]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element,
-  reified A14 : Element,
-  reified A15 : Element,
-  reified A16 : Element,
-  reified A17 : Element,
-  reified A18 : Element
-  > VersionsMatrix.kases18(): List<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement,
+  reified A13 : VersionMatrixElement,
+  reified A14 : VersionMatrixElement,
+  reified A15 : VersionMatrixElement,
+  reified A16 : VersionMatrixElement,
+  reified A17 : VersionMatrixElement,
+  reified A18 : VersionMatrixElement
+  > VersionMatrix.kases18(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>,
+  a13Key: VersionMatrixKey<A13>,
+  a14Key: VersionMatrixKey<A14>,
+  a15Key: VersionMatrixKey<A15>,
+  a16Key: VersionMatrixKey<A16>,
+  a17Key: VersionMatrixKey<A17>,
+  a18Key: VersionMatrixKey<A18>
+): List<Kase18<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class),
-    args14 = get(A14::class),
-    args15 = get(A15::class),
-    args16 = get(A16::class),
-    args17 = get(A17::class),
-    args18 = get(A18::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key),
+    args13 = get(a13Key),
+    args14 = get(a14Key),
+    args15 = get(a15Key),
+    args16 = get(a16Key),
+    args17 = get(a17Key),
+    args18 = get(a18Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase19]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @param a13Key the key for the 13th parameter.
+ * @param a14Key the key for the 14th parameter.
+ * @param a15Key the key for the 15th parameter.
+ * @param a16Key the key for the 16th parameter.
+ * @param a17Key the key for the 17th parameter.
+ * @param a18Key the key for the 18th parameter.
+ * @param a19Key the key for the 19th parameter.
+ * @return a [List] of [Kase19]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element,
-  reified A14 : Element,
-  reified A15 : Element,
-  reified A16 : Element,
-  reified A17 : Element,
-  reified A18 : Element,
-  reified A19 : Element
-  > VersionsMatrix.kases19(): List<Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement,
+  reified A13 : VersionMatrixElement,
+  reified A14 : VersionMatrixElement,
+  reified A15 : VersionMatrixElement,
+  reified A16 : VersionMatrixElement,
+  reified A17 : VersionMatrixElement,
+  reified A18 : VersionMatrixElement,
+  reified A19 : VersionMatrixElement
+  > VersionMatrix.kases19(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>,
+  a13Key: VersionMatrixKey<A13>,
+  a14Key: VersionMatrixKey<A14>,
+  a15Key: VersionMatrixKey<A15>,
+  a16Key: VersionMatrixKey<A16>,
+  a17Key: VersionMatrixKey<A17>,
+  a18Key: VersionMatrixKey<A18>,
+  a19Key: VersionMatrixKey<A19>
+): List<Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class),
-    args14 = get(A14::class),
-    args15 = get(A15::class),
-    args16 = get(A16::class),
-    args17 = get(A17::class),
-    args18 = get(A18::class),
-    args19 = get(A19::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key),
+    args13 = get(a13Key),
+    args14 = get(a14Key),
+    args15 = get(a15Key),
+    args16 = get(a16Key),
+    args17 = get(a17Key),
+    args18 = get(a18Key),
+    args19 = get(a19Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase20]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @param a13Key the key for the 13th parameter.
+ * @param a14Key the key for the 14th parameter.
+ * @param a15Key the key for the 15th parameter.
+ * @param a16Key the key for the 16th parameter.
+ * @param a17Key the key for the 17th parameter.
+ * @param a18Key the key for the 18th parameter.
+ * @param a19Key the key for the 19th parameter.
+ * @param a20Key the key for the 20th parameter.
+ * @return a [List] of [Kase20]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element,
-  reified A14 : Element,
-  reified A15 : Element,
-  reified A16 : Element,
-  reified A17 : Element,
-  reified A18 : Element,
-  reified A19 : Element,
-  reified A20 : Element
-  > VersionsMatrix.kases20(): List<Kase20<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement,
+  reified A13 : VersionMatrixElement,
+  reified A14 : VersionMatrixElement,
+  reified A15 : VersionMatrixElement,
+  reified A16 : VersionMatrixElement,
+  reified A17 : VersionMatrixElement,
+  reified A18 : VersionMatrixElement,
+  reified A19 : VersionMatrixElement,
+  reified A20 : VersionMatrixElement
+  > VersionMatrix.kases20(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>,
+  a13Key: VersionMatrixKey<A13>,
+  a14Key: VersionMatrixKey<A14>,
+  a15Key: VersionMatrixKey<A15>,
+  a16Key: VersionMatrixKey<A16>,
+  a17Key: VersionMatrixKey<A17>,
+  a18Key: VersionMatrixKey<A18>,
+  a19Key: VersionMatrixKey<A19>,
+  a20Key: VersionMatrixKey<A20>
+): List<Kase20<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class),
-    args14 = get(A14::class),
-    args15 = get(A15::class),
-    args16 = get(A16::class),
-    args17 = get(A17::class),
-    args18 = get(A18::class),
-    args19 = get(A19::class),
-    args20 = get(A20::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key),
+    args13 = get(a13Key),
+    args14 = get(a14Key),
+    args15 = get(a15Key),
+    args16 = get(a16Key),
+    args17 = get(a17Key),
+    args18 = get(a18Key),
+    args19 = get(a19Key),
+    args20 = get(a20Key)
   )
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase21]s from this [VersionMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param a5Key the key for the 5th parameter.
+ * @param a6Key the key for the 6th parameter.
+ * @param a7Key the key for the 7th parameter.
+ * @param a8Key the key for the 8th parameter.
+ * @param a9Key the key for the 9th parameter.
+ * @param a10Key the key for the 10th parameter.
+ * @param a11Key the key for the 11th parameter.
+ * @param a12Key the key for the 12th parameter.
+ * @param a13Key the key for the 13th parameter.
+ * @param a14Key the key for the 14th parameter.
+ * @param a15Key the key for the 15th parameter.
+ * @param a16Key the key for the 16th parameter.
+ * @param a17Key the key for the 17th parameter.
+ * @param a18Key the key for the 18th parameter.
+ * @param a19Key the key for the 19th parameter.
+ * @param a20Key the key for the 20th parameter.
+ * @param a21Key the key for the 21st parameter.
+ * @return a [List] of [Kase21]s from this [VersionMatrix] for the given keys
+ */
 public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element,
-  reified A14 : Element,
-  reified A15 : Element,
-  reified A16 : Element,
-  reified A17 : Element,
-  reified A18 : Element,
-  reified A19 : Element,
-  reified A20 : Element,
-  reified A21 : Element
-  > VersionsMatrix.kases21(): List<Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>> {
+  reified A1 : VersionMatrixElement,
+  reified A2 : VersionMatrixElement,
+  reified A3 : VersionMatrixElement,
+  reified A4 : VersionMatrixElement,
+  reified A5 : VersionMatrixElement,
+  reified A6 : VersionMatrixElement,
+  reified A7 : VersionMatrixElement,
+  reified A8 : VersionMatrixElement,
+  reified A9 : VersionMatrixElement,
+  reified A10 : VersionMatrixElement,
+  reified A11 : VersionMatrixElement,
+  reified A12 : VersionMatrixElement,
+  reified A13 : VersionMatrixElement,
+  reified A14 : VersionMatrixElement,
+  reified A15 : VersionMatrixElement,
+  reified A16 : VersionMatrixElement,
+  reified A17 : VersionMatrixElement,
+  reified A18 : VersionMatrixElement,
+  reified A19 : VersionMatrixElement,
+  reified A20 : VersionMatrixElement,
+  reified A21 : VersionMatrixElement
+  > VersionMatrix.kases21(
+  a1Key: VersionMatrixKey<A1>,
+  a2Key: VersionMatrixKey<A2>,
+  a3Key: VersionMatrixKey<A3>,
+  a4Key: VersionMatrixKey<A4>,
+  a5Key: VersionMatrixKey<A5>,
+  a6Key: VersionMatrixKey<A6>,
+  a7Key: VersionMatrixKey<A7>,
+  a8Key: VersionMatrixKey<A8>,
+  a9Key: VersionMatrixKey<A9>,
+  a10Key: VersionMatrixKey<A10>,
+  a11Key: VersionMatrixKey<A11>,
+  a12Key: VersionMatrixKey<A12>,
+  a13Key: VersionMatrixKey<A13>,
+  a14Key: VersionMatrixKey<A14>,
+  a15Key: VersionMatrixKey<A15>,
+  a16Key: VersionMatrixKey<A16>,
+  a17Key: VersionMatrixKey<A17>,
+  a18Key: VersionMatrixKey<A18>,
+  a19Key: VersionMatrixKey<A19>,
+  a20Key: VersionMatrixKey<A20>,
+  a21Key: VersionMatrixKey<A21>
+): List<Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>> {
   return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class),
-    args14 = get(A14::class),
-    args15 = get(A15::class),
-    args16 = get(A16::class),
-    args17 = get(A17::class),
-    args18 = get(A18::class),
-    args19 = get(A19::class),
-    args20 = get(A20::class),
-    args21 = get(A21::class)
-  )
-}
-
-/** */
-public inline fun <
-  reified A1 : Element,
-  reified A2 : Element,
-  reified A3 : Element,
-  reified A4 : Element,
-  reified A5 : Element,
-  reified A6 : Element,
-  reified A7 : Element,
-  reified A8 : Element,
-  reified A9 : Element,
-  reified A10 : Element,
-  reified A11 : Element,
-  reified A12 : Element,
-  reified A13 : Element,
-  reified A14 : Element,
-  reified A15 : Element,
-  reified A16 : Element,
-  reified A17 : Element,
-  reified A18 : Element,
-  reified A19 : Element,
-  reified A20 : Element,
-  reified A21 : Element,
-  reified A22 : Element
-  > VersionsMatrix.kases22(): List<Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22>> {
-  return kases(
-    args1 = get(A1::class),
-    args2 = get(A2::class),
-    args3 = get(A3::class),
-    args4 = get(A4::class),
-    args5 = get(A5::class),
-    args6 = get(A6::class),
-    args7 = get(A7::class),
-    args8 = get(A8::class),
-    args9 = get(A9::class),
-    args10 = get(A10::class),
-    args11 = get(A11::class),
-    args12 = get(A12::class),
-    args13 = get(A13::class),
-    args14 = get(A14::class),
-    args15 = get(A15::class),
-    args16 = get(A16::class),
-    args17 = get(A17::class),
-    args18 = get(A18::class),
-    args19 = get(A19::class),
-    args20 = get(A20::class),
-    args21 = get(A21::class),
-    args22 = get(A22::class)
+    args1 = get(a1Key),
+    args2 = get(a2Key),
+    args3 = get(a3Key),
+    args4 = get(a4Key),
+    args5 = get(a5Key),
+    args6 = get(a6Key),
+    args7 = get(a7Key),
+    args8 = get(a8Key),
+    args9 = get(a9Key),
+    args10 = get(a10Key),
+    args11 = get(a11Key),
+    args12 = get(a12Key),
+    args13 = get(a13Key),
+    args14 = get(a14Key),
+    args15 = get(a15Key),
+    args16 = get(a16Key),
+    args17 = get(a17Key),
+    args18 = get(a18Key),
+    args19 = get(a19Key),
+    args20 = get(a20Key),
+    args21 = get(a21Key)
   )
 }

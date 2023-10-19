@@ -13,49 +13,70 @@
  * limitations under the License.
  */
 
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package com.rickbusarow.kase.gradle.internal
 
-import com.rickbusarow.kase.gradle.VersionsMatrix
-import com.rickbusarow.kase.gradle.VersionsMatrix.Element
-import kotlin.reflect.KClass
+import com.rickbusarow.kase.gradle.VersionList
+import com.rickbusarow.kase.gradle.VersionMatrix
+import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixElement
+import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
+
+internal typealias AnyKey = VersionMatrixKey<VersionMatrixElement>
 
 internal class DefaultVersionMatrix(
-  private val map: Map<KClass<*>, List<Element>>
-) : VersionsMatrix {
+  private val map: Map<AnyKey, VersionList<*, AnyKey>>
+) : VersionMatrix {
 
-  override fun <E : Element> getOrNull(key: KClass<E>): List<E>? {
+  override val size: Int get() = map.size
+  override fun keys(): Set<AnyKey> = map.keys
+
+  override fun <E : VersionMatrixElement, K : VersionMatrixKey<E>> getOrNull(
+    key: K
+  ): VersionList<E, K>? {
     @Suppress("UNCHECKED_CAST")
-    return map[key] as? List<E>
+    return map[key] as? VersionList<E, K>
   }
 
-  override fun <E : Element> getOrEmpty(key: KClass<E>): List<E> = getOrNull(key).orEmpty()
-
-  override fun <E : Element> get(key: KClass<E>): List<E> {
+  override fun <E : VersionMatrixElement, K : VersionMatrixKey<E>> get(
+    key: K
+  ): VersionList<E, K> {
     return requireNotNull(getOrNull(key)) {
-      "There is no entry in the matrix for the key ${key.qualifiedName}"
+      "There is no entry in the matrix for the key $key"
     }
   }
 
-  override fun <E : Element> plus(elements: List<E>): VersionsMatrix {
+  override fun <E : VersionMatrixElement> plus(elements: Iterable<E>): VersionMatrix {
 
-    if (elements.isEmpty()) return DefaultVersionMatrix(map.toMap())
+    if (!elements.iterator().hasNext()) return DefaultVersionMatrix(map.toMap())
 
-    val newElementsMap = elements.groupBy { it::class }
-      .mapValues { (key, list) -> list + getOrEmpty(key) }
+    val newElementsMap = elements.groupBy { it.key }
+      .mapValues { (key, list) ->
 
-    return DefaultVersionMatrix(map.plus(newElementsMap))
+        val existing =
+          getOrNull(key)
+
+        if (existing != null) {
+          existing + list
+        } else {
+          VersionList(list, list.first(), key)
+        }
+      }
+
+    return DefaultVersionMatrix(map + newElementsMap)
   }
 
-  override fun <E : Element> minus(key: KClass<E>): VersionsMatrix {
+  override fun <E : VersionMatrixElement> minus(key: VersionMatrixKey<E>): VersionMatrix {
     return DefaultVersionMatrix(map.minus(key))
   }
 
-  override fun <E : Element> minus(elements: List<E>): VersionsMatrix {
+  override fun <E : VersionMatrixElement> minus(elements: Iterable<E>): VersionMatrix {
 
-    if (elements.isEmpty()) return DefaultVersionMatrix(map.toMap())
+    if (!elements.iterator().hasNext()) return DefaultVersionMatrix(map.toMap())
 
     val elementSet = elements.toSet()
-    val newMap = map.mapValues { (_, list) -> list - elementSet }
+    val newMap = map
+      .mapValues { (_, list) -> list - elementSet }
 
     return DefaultVersionMatrix(newMap)
   }

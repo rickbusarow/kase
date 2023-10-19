@@ -16,6 +16,7 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasLabel
+import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 
 /** A type-safe wrapper for a dependency version string, such as "1.0.0" or "1.0.0-alpha01". */
 @Suppress("UnnecessaryAbstractClass")
@@ -26,21 +27,27 @@ public abstract class AbstractDependencyVersion(
 }
 
 /** A type-safe wrapper for a dependency version string, such as "1.0.0" or "1.0.0-alpha01". */
-public inline fun <reified E : DependencyVersion> dependencyVersion(
-  value: String
-): DependencyVersion {
+public inline fun <reified E, reified K> dependencyVersion(
+  value: String,
+  key: K
+): DependencyVersion
+  where E : DependencyVersion,
+        K : VersionMatrix.VersionMatrixKey<E> {
   return object :
     DependencyVersion,
     Comparable<E>,
     CharSequence by value {
     override val value: String = value
+    override val key: K = key
 
     override fun compareTo(other: E): Int = value.compareTo(other.value)
   }
 }
 
 /** */
-public interface DependencyVersion : HasLabel, VersionsMatrix.Element {
+public interface DependencyVersion :
+  HasLabel,
+  VersionMatrix.VersionMatrixElement {
 
   /** */
   public val value: String
@@ -52,40 +59,82 @@ public interface DependencyVersion : HasLabel, VersionsMatrix.Element {
   /** */
   public class Gradle(
     override val value: String
-  ) : DependencyVersion by dependencyVersion<Gradle>(value)
+  ) : DependencyVersion by dependencyVersion(value, GradleKey) {
+    /** Key for [Gradle] dependency versions. */
+    public companion object GradleKey : VersionMatrixKey<Gradle>
+  }
 
   /** */
   public class Agp(
     override val value: String
-  ) : DependencyVersion by dependencyVersion<Agp>(value)
+  ) : DependencyVersion by dependencyVersion(value, AgpKey) {
+    /** Key for [Agp] dependency versions. */
+    public companion object AgpKey : VersionMatrixKey<Agp>
+  }
 
   /** */
   public class Kotlin(
     override val value: String
-  ) : DependencyVersion by dependencyVersion<Kotlin>(value)
+  ) : DependencyVersion by dependencyVersion(value, KotlinKey) {
+    /** Key for [Kotlin] dependency versions. */
+    public companion object KotlinKey : VersionMatrixKey<Kotlin>
+  }
 
   /** */
   public class Ksp(
     override val value: String
-  ) : DependencyVersion by dependencyVersion<Ksp>(value)
+  ) : DependencyVersion by dependencyVersion(value, KspKey) {
+    /** Key for [Ksp] dependency versions. */
+    public companion object KspKey : VersionMatrixKey<Ksp>
+  }
 
   /** */
   public class Anvil(
     override val value: String
-  ) : DependencyVersion by dependencyVersion<Anvil>(value)
+  ) : DependencyVersion by dependencyVersion(value, AnvilKey) {
+    /** Key for [Anvil] dependency versions. */
+    public companion object AnvilKey : VersionMatrixKey<Anvil>
+  }
 
   /** */
-  public class Keeper(
+  public class ComposeCompiler(
     override val value: String
-  ) : DependencyVersion by dependencyVersion<Keeper>(value)
+  ) : DependencyVersion by dependencyVersion(value, ComposeCompilerKey) {
+    /** Key for [ComposeCompiler] dependency versions. */
+    public companion object ComposeCompilerKey :
+      VersionMatrixKey<ComposeCompiler>
+  }
+
+  /** */
+  public class KotlinxSerialization(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, KotlinxSerializationKey) {
+    /** Key for [KotlinxSerialization] dependency versions. */
+    public companion object KotlinxSerializationKey :
+      VersionMatrixKey<KotlinxSerialization>
+  }
 
   /** */
   public class Dagger(
     override val value: String
-  ) : DependencyVersion by dependencyVersion<Dagger>(value)
+  ) : DependencyVersion by dependencyVersion(value, DaggerKey) {
+    /** Key for [Dagger] dependency versions. */
+    public companion object DaggerKey : VersionMatrixKey<Dagger>
+  }
+
+  /** */
+  public class KtLint(
+    override val value: String
+  ) : DependencyVersion by dependencyVersion(value, KtLintKey) {
+    /** Key for [KtLint] dependency versions. */
+    public companion object KtLintKey : VersionMatrixKey<KtLint>
+  }
 
   /** */
   public class Detekt(
     override val value: String
-  ) : DependencyVersion by dependencyVersion<Detekt>(value)
+  ) : DependencyVersion by dependencyVersion(value, DetektKey) {
+    /** Key for [Detekt] dependency versions. */
+    public companion object DetektKey : VersionMatrixKey<Detekt>
+  }
 }

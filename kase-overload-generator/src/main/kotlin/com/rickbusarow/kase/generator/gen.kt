@@ -36,67 +36,147 @@ private val IMPORTS = """
   import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
   import dev.drewhamilton.poko.Poko
   import org.junit.jupiter.api.DynamicNode
+  import org.junit.jupiter.api.DynamicTest
   import java.util.stream.Stream
 
 """.trimIndent()
 
+private val kasesKt = File(
+  "/Users/rbusarow/Development/kase/" +
+    "kase-gradle/src/main/kotlin/" +
+    "com/rickbusarow/kase/gradle/kases.kt"
+)
+private val overloads = File(
+  "/Users/rbusarow/Development/kase/" +
+    "kase/src/main/kotlin/" +
+    "com/rickbusarow/kase/overloads"
+)
+
+/*
+#!/bin/bash
+cd ..
+killAll -9 java
+./gradlew :kase-overload-generator:jar
+/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home/bin/java -Dfile.encoding=UTF-8 -classpath /Users/rbusarow/Development/kase/kase-overload-generator/build/classes/kotlin/main:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.8.22/b25c86d47d6b962b9cf0f8c3f320c8a10eea3dd1/kotlin-stdlib-jdk8-1.8.22.jar:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.8.22/4dabb8248310d833bb6a8b516024a91fd3d275c/kotlin-stdlib-jdk7-1.8.22.jar:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.8.22/636bf8b320e7627482771bbac9ed7246773c02bd/kotlin-stdlib-1.8.22.jar:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.8.22/1a8e3601703ae14bb58757ea6b2d8e8e5935a586/kotlin-stdlib-common-1.8.22.jar:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar com.rickbusarow.kase.generator.GenKt
+killAll -9 java
+./gradlew detektMain
+ */
+private const val MAX_PARAMS = 21
+
 private fun main() {
 
-  val overloads = File(
-    "/Users/rbusarow/Development/kase/kase/src/" +
-      "main/kotlin/com/rickbusarow/kase/overloads"
-  )
   overloads.deleteRecursively()
 
-  val gradle = buildString {
+  writeGradleFile()
 
-    appendLine(
-      """
-        |$LICENSE
-        |
-        |$FILE_ANNOTATIONS
-        |
-        |package com.rickbusarow.kase.gradle
-        |
-      """.trimMargin()
-    )
+  for (ct in (1..MAX_PARAMS)) {
 
-    List(22) { it + 1 }
-      .map { "import com.rickbusarow.kase.Kase$it" }
-      .sorted()
-      .forEach(::appendLine)
+    val nums = 1..ct
 
-    appendLine("import com.rickbusarow.kase.gradle.VersionsMatrix.Element")
-    appendLine("import com.rickbusarow.kase.kases")
-    appendLine()
+    val types = nums.map { "A$it" }
+    val typesString = types.joinToString(", ", "<", ">")
+    val typesWithVarianceString = types.joinToString(", ", "<", ">") { "out $it" }
 
-    for (ct in (1..22)) {
-      val types = (1..ct).joinToString(",\n", "\n", "\n  ") { "  reified A$it : Element" }
+    val args = nums.map { "a$it" }
 
-      appendLine(
-        """
-        |/** */
-        |public inline fun <$types> VersionsMatrix.kases$ct(): List<Kase$ct<${
-          (1..ct).joinToString(", ") { "A$it" }
-        }>> {
-        |  return kases(${
-          (1..ct).joinToString(",\n", "\n", "\n  ") {
-            "    args$it = get(A$it::class)"
-          }
-        })
-        |}
-        |
-        """.trimMargin()
-      )
+    val argsString = args.joinToString(", ")
+    val argsFromItString = args.joinToString(", ") { arg -> "it.$arg" }
+    val argsFromKaseString = args.joinToString(", ") { arg -> "kase.$arg" }
+
+    val argsStringWithLabels = args.joinToString(", ") { "$it = $it" }
+
+    val paramsPairs = args.zip(types)
+    val params = paramsPairs.map { "${it.first}: ${it.second}" }
+    val paramsString = params.joinToString(", ")
+
+    val kaseSimpleName = "Kase$ct"
+    val kaseLabelSimpleName = "KaseLabels$ct"
+
+    val labels = args.map { "${it}Label" }
+    val labelsParamsDefaults = args.joinToString(",\n  ") { "${it}Label: String = \"$it\"" }
+
+    val iterableParams = nums.map { "args$it" }
+
+    val iterableParamsWithTypes = nums.zip(types).joinToString(",\n  ") { (i, type) ->
+      "args$i: Iterable<$type>"
     }
-  }
 
-  val kasesKt = File(
-    "/Users/rbusarow/Development/kase/kase-gradle/src/main/kotlin/com/rickbusarow/kase/gradle/kases.kt"
-  )
-  kasesKt.writeText(gradle)
+    val argToLabelPairs = args.zip(labels)
+    val withLabelCalls = argToLabelPairs.joinToString(",\n    ") { (value, label) ->
+      "${value}WithLabel = kaseParam(value = $value, label = labels.$label)"
+    }
 
-  for (ct in (1..22)) {
+    val typesEnvironment = (listOf("T : TestEnvironment") + types)
+      .joinToString(", ", "<", ">")
+    val typesKaseEnvironment = (listOf("T", "K") + types)
+      .joinToString(", ", "<", ">")
+
+    val testActionTDestructured = "T.($paramsString) -> Unit"
+
+    val parametersPlural = if (ct == 1) "parameter" else "parameters"
+
+    val propertiesString = args.zip(types).joinToStringIndexed("\n\n") { i, (arg, type) ->
+      """
+          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
+          public val $arg: $type
+
+          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
+          public val ${arg}WithLabel: KaseParameterWithLabel<$type>
+      """.trimIndent()
+    }
+
+    val kasePlus1 = if (ct != MAX_PARAMS) "Kase${ct + 1}" else "AnyKase"
+    val aPlus1 = "A${ct + 1}"
+
+    val kasePlus1WithTypes = if (ct != MAX_PARAMS) {
+      "$kasePlus1${types.joinToString(", ", "<", ", $aPlus1>")}"
+    } else {
+      kasePlus1
+    }
+
+    val argsWithLabels = args.map { arg -> "${arg}WithLabel" }
+    val plus1Impl = if (ct != MAX_PARAMS) {
+      """
+        |return Default$kasePlus1(
+        |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
+        |  a${ct + 1}WithLabel = kaseParam(label = label, value = value),
+        |  labelDelimiter = labelDelimiter,
+        |  displayNameSeparator = displayNameSeparator
+        |)
+      """.trimMargin()
+    } else {
+      """error("A Kase cannot have more than 22 parameters")"""
+    }
+
+    val testFactoryKdoc = buildString {
+      appendLine("/**")
+      appendLine(
+        " * A test factory which returns a stream of [DynamicNode]s from the given parameters."
+      )
+      appendLine(
+        " * - Each [DynamicTest] in the stream uses its [$kaseSimpleName] element to create"
+      )
+      appendLine(" *   a new [TestEnvironment] instance, then executes [testAction].")
+      appendLine(
+        " * - Each [DynamicNode] has a display name which includes the values of the parameters."
+      )
+      appendLine(" *")
+      appendLine(" * @param kases the [$kaseSimpleName]s to use for this test factory")
+      appendLine(" * @param testAction the test action to execute.")
+      appendLine(" * @return a [Stream] of [DynamicNode]s from the given parameters.")
+      appendLine(" * @see $kaseSimpleName")
+      appendLine(" * @see TestEnvironmentFactory")
+      append(" */")
+    }
+
+    val labelsProperties = args.joinToString(",\n  ") {
+      "public val ${it}Label: String = \"$it\""
+    }
+
+    val forLoops = forLoops(args) {
+      appendLine("add(kase($argsStringWithLabels, labels = labels))")
+    }
+
     val txt = buildString {
 
       appendLine(
@@ -110,80 +190,6 @@ private fun main() {
         |$IMPORTS
         """.trimMargin()
       )
-
-      val nums = 1..ct
-
-      val types = nums.map { "A$it" }
-      val typesString = types.joinToString(", ", "<", ">")
-      val typesWithVarianceString = types.joinToString(", ", "<", ">") { "out $it" }
-
-      val args = nums.map { "a$it" }
-
-      val argsString = args.joinToString(", ")
-      val argsFromItString = args.joinToString(", ") { arg -> "it.$arg" }
-      val argsFromKaseString = args.joinToString(", ") { arg -> "kase.$arg" }
-
-      val argsStringWithLabels = args.joinToString(", ") { "$it = $it" }
-
-      val paramsPairs = args.zip(types)
-      val params = paramsPairs.map { "${it.first}: ${it.second}" }
-      val paramsString = params.joinToString(", ")
-
-      val kaseSimpleName = "Kase$ct"
-      val kaseLabelSimpleName = "KaseLabels$ct"
-
-      val labels = args.map { "${it}Label" }
-      val labelsParamsDefaults = args.joinToString(",\n  ") { "${it}Label: String = \"$it\"" }
-
-      val iterableParams = nums.zip(types).joinToString(",\n  ") { (i, type) ->
-        "args$i: Iterable<$type>"
-      }
-
-      val argToLabelPairs = args.zip(labels)
-      val withLabelCalls = argToLabelPairs.joinToString(",\n    ") { (value, label) ->
-        "${value}WithLabel = kaseParam(value = $value, label = labels.$label)"
-      }
-
-      val typesEnvironment = (listOf("T : TestEnvironment") + types)
-        .joinToString(", ", "<", ">")
-      val typesKaseEnvironment = (listOf("T", "K") + types)
-        .joinToString(", ", "<", ">")
-
-      val testActionTDestructured = "T.($paramsString) -> Unit"
-
-      val parametersPlural = if (ct == 1) "parameter" else "parameters"
-
-      val propertiesString = args.zip(types).joinToStringIndexed("\n") { i, (arg, type) ->
-        """
-          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
-          public val $arg: $type
-          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
-          public val ${arg}WithLabel: KaseParameterWithLabel<$type>
-        """.trimIndent()
-      }
-
-      val kasePlus1 = if (ct != 22) "Kase${ct + 1}" else "AnyKase"
-      val aPlus1 = "A${ct + 1}"
-
-      val kasePlus1WithTypes = if (ct != 22) {
-        "$kasePlus1${types.joinToString(", ", "<", ", $aPlus1>")}"
-      } else {
-        kasePlus1
-      }
-
-      val argsWithLabels = args.map { arg -> "${arg}WithLabel" }
-      val plus1Impl = if (ct != 22) {
-        """
-        |return Default$kasePlus1(
-        |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
-        |  a${ct + 1}WithLabel = kaseParam(label = label, value = value),
-        |  labelDelimiter = labelDelimiter,
-        |  displayNameSeparator = displayNameSeparator
-        |)
-        """.trimMargin()
-      } else {
-        """error("A Kase cannot have more than 22 parameters")"""
-      }
       appendLine(
         """
         |/** A strongly-typed version of [Kase] for $ct $parametersPlural. */
@@ -215,7 +221,9 @@ private fun main() {
         kaseSimpleName = kaseSimpleName,
         withLabelCalls = withLabelCalls
       )
+
       testFun(
+        args = args,
         typesKaseEnvironment = typesKaseEnvironment,
         typesString = typesString,
         paramsString = paramsString,
@@ -224,98 +232,65 @@ private fun main() {
         kaseSimpleName = kaseSimpleName
       )
 
-      labelsFun(labelsParamsDefaults, kaseLabelSimpleName, labels)
-
-      val forLoops = forLoops(args) {
-        appendLine("add(kase($argsStringWithLabels, labels = labels))")
-      }
-
-      appendLine(
-        """
-        |/** */
-        |public fun $typesString kases(
-        |  $iterableParams,
-        |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName()
-        |): List<$kaseSimpleName$typesString> {
-        |  return $forLoops
-        |}
-        """.trimMargin()
+      labelsFun(
+        labelsParamsDefaults = labelsParamsDefaults,
+        kaseLabelSimpleName = kaseLabelSimpleName,
+        kaseSimpleName = kaseSimpleName,
+        labels = labels
       )
 
-      val testEnvironmentLambdas = listOf(
-        "Destructured" to testActionTDestructured
+      kasesFun(
+        kaseSimpleName = kaseSimpleName,
+        iterableParams = iterableParams,
+        iterableParamsWithType = iterableParamsWithTypes,
+        kaseLabelSimpleName = kaseLabelSimpleName,
+        typesString = typesString,
+        forLoops = forLoops
       )
 
       asTests(
         kaseSimpleName = kaseSimpleName,
         typesString = typesString,
-        testEnvironmentLambdas = testEnvironmentLambdas,
+        suffix = "Destructured",
+        lambdaSignature = testActionTDestructured,
         typesEnvironment = typesEnvironment
       )
 
-      testFactories(
+      testFactoryContext1(
+        kdoc = testFactoryKdoc,
         kaseSimpleName = kaseSimpleName,
         typesString = typesString,
-        testEnvironmentLambdas = testEnvironmentLambdas,
+        suffix = "Destructured",
+        lambdaSignature = testActionTDestructured,
         typesEnvironment = typesEnvironment
       )
 
-      testFactories2(
+      testFactoryContext2(
+        kdoc = testFactoryKdoc,
         kaseSimpleName = kaseSimpleName,
         typesString = typesString,
-        testEnvironmentLambdas = testEnvironmentLambdas,
+        suffix = "Destructured",
+        lambdaSignature = testActionTDestructured,
         typesEnvironment = typesEnvironment,
         argsFromKaseString = argsFromKaseString
       )
 
-      appendLine(
-        """
-        /** */
-        @JvmName("testFactory$kaseSimpleName")
-        public inline fun $typesString testFactory(
-          vararg kases: $kaseSimpleName$typesString,
-          crossinline kaseName: ($kaseSimpleName$typesString) -> String = { it.toString() },
-          crossinline testAction: ($paramsString) -> Unit
-        ): Stream<out DynamicNode> {
-          return kases.asSequence().asTests(kaseName) { testAction($argsFromItString) }
-        }
-        """.trimIndent()
+      testFactory(
+        kdoc = testFactoryKdoc,
+        kaseSimpleName = kaseSimpleName,
+        typesString = typesString,
+        paramsString = paramsString,
+        argsFromItString = argsFromItString
       )
 
-      val kaseLabelsKdoc = buildString {
-        appendLine("/**")
-        appendLine(" * A strongly-typed version of [KaseLabels] for $ct $parametersPlural.")
-        appendLine(" *")
-        for ((arg, label) in argToLabelPairs) {
-          appendLine(" * @property $label The label for the [$kaseSimpleName.$arg] parameter.")
-        }
-        appendLine(
-          " * @property labelDelimiter The delimiter between the label and the value. The default is `\": \"`."
-        )
-        appendLine(" * @property displayNameSeparator The separator between")
-        appendLine(" *   each label/value pair. The default is `\" | \"`.")
-        append(" */")
-      }
-
-      val labelsProperties = args.joinToString(",\n  ") {
-        "public val ${it}Label: String = \"$it\""
-      }
-
-      appendLine(
-        """
-        |$kaseLabelsKdoc
-        |@Poko
-        |public class $kaseLabelSimpleName(
-        |  $labelsProperties,
-        |  override val labelDelimiter: String = DELIMITER_DEFAULT,
-        |  override val displayNameSeparator: String = SEPARATOR_DEFAULT
-        |) : KaseLabels {
-        |
-        |  override val orderedLabels: List<String> by lazy {
-        |    listOf(${labels.joinToString(", ")})
-        |  }
-        |}
-        """.replaceIndentByMargin()
+      kaseLabelsClass(
+        ct = ct,
+        parametersPlural = parametersPlural,
+        argToLabelPairs = argToLabelPairs,
+        kaseSimpleName = kaseSimpleName,
+        kaseLabelSimpleName = kaseLabelSimpleName,
+        labelsProperties = labelsProperties,
+        labels = labels
       )
 
       defaultKase(
@@ -330,14 +305,169 @@ private fun main() {
         typesString = typesString
       )
     }
-      .mapLines { it.trimEnd() }
-      .replace("""( *}\n)(?=[/\n@])""".toRegex(), "$1\n")
-      .replace(Regex("\\n{3,}"), "\n\n")
+      .fixBlankLines()
 
     val file = overloads.resolve("kase$ct.kt")
     file.parentFile.mkdirs()
     file.writeText(txt)
   }
+}
+
+private fun StringBuilder.kaseLabelsClass(
+  ct: Int,
+  parametersPlural: String,
+  argToLabelPairs: List<Pair<String, String>>,
+  kaseSimpleName: String,
+  kaseLabelSimpleName: String,
+  labelsProperties: String,
+  labels: List<String>
+) {
+  val kaseLabelsKdoc = buildString {
+    appendLine("/**")
+    appendLine(" * A strongly-typed version of [KaseLabels] for $ct $parametersPlural.")
+    appendLine(" *")
+    for ((arg, label) in argToLabelPairs) {
+      appendLine(" * @property $label The label for the [$kaseSimpleName.$arg] parameter.")
+    }
+    appendLine(
+      " * @property labelDelimiter The delimiter between the label and the value. The default is `\": \"`."
+    )
+    appendLine(" * @property displayNameSeparator The separator between")
+    appendLine(" *   each label/value pair. The default is `\" | \"`.")
+    append(" */")
+  }
+  appendLine(
+    """
+    |$kaseLabelsKdoc
+    |@Poko
+    |public class $kaseLabelSimpleName(
+    |  $labelsProperties,
+    |  override val labelDelimiter: String = DELIMITER_DEFAULT,
+    |  override val displayNameSeparator: String = SEPARATOR_DEFAULT
+    |) : KaseLabels {
+    |
+    |  override val orderedLabels: List<String> by lazy {
+    |    listOf(${labels.joinToString(", ")})
+    |  }
+    |}
+    """.replaceIndentByMargin()
+  )
+}
+
+private fun StringBuilder.kasesFun(
+  kaseSimpleName: String,
+  iterableParams: List<String>,
+  iterableParamsWithType: String,
+  kaseLabelSimpleName: String,
+  typesString: String,
+  forLoops: String
+) {
+  val kasesKdoc = buildString {
+    appendLine("/**")
+    appendLine(" * Returns a [List] of [$kaseSimpleName]s from the given parameters.")
+    appendLine(" *")
+    for ((i, iterable) in iterableParams.withIndex()) {
+      appendLine(" * @param $iterable values mapped to the [$kaseSimpleName.a${i + 1}] parameter.")
+    }
+    appendLine(" * @param labels the [$kaseLabelSimpleName] to use for this [$kaseSimpleName]")
+    appendLine(" * @return a [List] of [$kaseSimpleName]s from the given parameters.")
+    append(" */")
+  }
+
+  appendLine(
+    """
+    |$kasesKdoc
+    |public fun $typesString kases(
+    |  $iterableParamsWithType,
+    |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName()
+    |): List<$kaseSimpleName$typesString> {
+    |  return $forLoops
+    |}
+    """.trimMargin()
+  )
+}
+
+private fun String.fixBlankLines(): String {
+  return mapLines { it.trimEnd() }
+    .replace("""( *}\n)(?=[/\n@])""".toRegex(), "$1\n")
+    .replace(Regex("\\n{3,}"), "\n\n")
+    .trimEnd()
+    .plus("\n")
+}
+
+private fun writeGradleFile() {
+  val gradle = buildString {
+
+    appendLine(
+      """
+      |$LICENSE
+      |
+      |$FILE_ANNOTATIONS
+      |
+      |package com.rickbusarow.kase.gradle
+      |
+      """.trimMargin()
+    )
+
+    List(MAX_PARAMS) { it + 1 }
+      .map { "import com.rickbusarow.kase.Kase$it" }
+      .sorted()
+      .forEach(::appendLine)
+
+    appendLine("import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixElement")
+    appendLine("import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey")
+    appendLine("import com.rickbusarow.kase.kases")
+    appendLine()
+
+    for (ct in (1..MAX_PARAMS)) {
+      val types = (1..ct)
+        .joinToString(
+          separator = ",\n",
+          prefix = "\n",
+          postfix = "\n  "
+        ) { "  reified A$it : VersionMatrixElement" }
+
+      val params = (1..ct)
+        .joinToString(
+          separator = ",\n",
+          prefix = "\n",
+          postfix = "\n"
+        ) { "  a${it}Key: VersionMatrixKey<A$it>" }
+
+      val kdoc = """
+        |/**
+        | * Returns a [List] of [Kase$ct]s from this [VersionMatrix] for the given keys.
+        | *
+        |${
+        (1..ct)
+          .joinToString("\n") {
+            "| * @param a${it}Key the key for the ${it.withOrdinalSuffix()} parameter."
+          }
+      }
+        | * @return a [List] of [Kase$ct]s from this [VersionMatrix] for the given keys
+        | */
+      """.trimMargin()
+
+      appendLine(
+        """
+        |$kdoc
+        |public inline fun <$types> VersionMatrix.kases$ct($params): List<Kase$ct<${
+          (1..ct).joinToString(", ") { "A$it" }
+        }>> {
+        |  return kases(${
+          (1..ct).joinToString(",\n", "\n", "\n  ") {
+            "    args$it = get(a${it}Key)"
+          }
+        })
+        |}
+        |
+        """.trimMargin()
+      )
+    }
+  }
+    .fixBlankLines()
+
+  kasesKt.writeText(gradle)
 }
 
 private fun StringBuilder.defaultKase(
@@ -358,10 +488,10 @@ private fun StringBuilder.defaultKase(
     "override val $arg: $type get() = ${arg}WithLabel.value"
   }
 
-  val defaultKasePlus1 = if (ct != 22) "Default$kasePlus1WithTypes" else kasePlus1
+  val defaultKasePlus1 = if (ct != MAX_PARAMS) "Default$kasePlus1WithTypes" else kasePlus1
 
   val aPlus1 = "A${ct + 1}"
-  val plus1Impl = if (ct != 22) {
+  val plus1Impl = if (ct != MAX_PARAMS) {
     """
     |return Default$kasePlus1(
     |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
@@ -397,75 +527,96 @@ private fun StringBuilder.defaultKase(
 private fun StringBuilder.asTests(
   kaseSimpleName: String,
   typesString: String,
-  testEnvironmentLambdas: List<Pair<String, String>>,
+  suffix: String,
+  lambdaSignature: String,
   typesEnvironment: String
 ) {
 
-  for ((suffix, lambdaSignature) in testEnvironmentLambdas) {
-    appendLine(
-      """
-      /** */
-      context(TestEnvironmentFactory<T>)
-      @JvmName("asTests$kaseSimpleName${suffix}TestEnvironment")
-      public inline fun $typesEnvironment Iterable<$kaseSimpleName$typesString>.asTests(
-        crossinline testAction: $lambdaSignature
-      ): Stream<out DynamicNode> {
-        return testFactory(kases = this@asTests, testAction = testAction)
-      }
-      """.trimIndent()
-    )
-  }
+  appendLine(
+    """
+    /** */
+    context(TestEnvironmentFactory<T>)
+    @JvmName("asTests$kaseSimpleName${suffix}TestEnvironment")
+    public inline fun $typesEnvironment Iterable<$kaseSimpleName$typesString>.asTests(
+      crossinline testAction: $lambdaSignature
+    ): Stream<out DynamicNode> {
+      return testFactory(kases = this@asTests, testAction = testAction)
+    }
+    """.trimIndent()
+  )
 }
 
-private fun StringBuilder.testFactories(
+private fun StringBuilder.testFactoryContext1(
+  kdoc: String,
   kaseSimpleName: String,
   typesString: String,
-  testEnvironmentLambdas: List<Pair<String, String>>,
+  suffix: String,
+  lambdaSignature: String,
   typesEnvironment: String
 ) {
 
-  for ((suffix, lambdaSignature) in testEnvironmentLambdas) {
-    appendLine(
-      """
-      /** */
-      context(TestEnvironmentFactory<T>)
-      @JvmName("testFactory$kaseSimpleName${suffix}TestEnvironment")
-      public inline fun $typesEnvironment testFactory(
-        vararg kases: $kaseSimpleName$typesString,
-        crossinline testAction: $lambdaSignature
-      ): Stream<out DynamicNode> {
-        return testFactory(kases = kases.toList(), testAction = testAction)
-      }
-      """.trimIndent()
-    )
-  }
+  appendLine(kdoc)
+  appendLine(
+    """
+    context(TestEnvironmentFactory<T>)
+    @JvmName("testFactory$kaseSimpleName${suffix}TestEnvironment")
+    public inline fun $typesEnvironment testFactory(
+      vararg kases: $kaseSimpleName$typesString,
+      crossinline testAction: $lambdaSignature
+    ): Stream<out DynamicNode> {
+      return testFactory(kases = kases.toList(), testAction = testAction)
+    }
+    """.trimIndent()
+  )
 }
 
-private fun StringBuilder.testFactories2(
+private fun StringBuilder.testFactoryContext2(
+  kdoc: String,
   kaseSimpleName: String,
   typesString: String,
-  testEnvironmentLambdas: List<Pair<String, String>>,
+  suffix: String,
+  lambdaSignature: String,
   typesEnvironment: String,
   argsFromKaseString: String
 ) {
 
-  for ((suffix, lambdaSignature) in testEnvironmentLambdas) {
-    appendLine(
-      """
-      /** */
-      context(TestEnvironmentFactory<T>)
-      @JvmName("testFactory$kaseSimpleName${suffix}TestEnvironment")
-      public inline fun $typesEnvironment testFactory(
-        kases: Iterable<$kaseSimpleName$typesString>,
-        crossinline testAction: $lambdaSignature
-      ): Stream<out DynamicNode> {
-        return kases.asTests(
-          testAction = { kase -> testAction($argsFromKaseString) }
-        )
-      }
-      """.trimIndent()
-    )
-  }
+  appendLine(kdoc)
+  appendLine(
+    """
+    context(TestEnvironmentFactory<T>)
+    @JvmName("testFactory$kaseSimpleName${suffix}TestEnvironment")
+    public inline fun $typesEnvironment testFactory(
+      kases: Iterable<$kaseSimpleName$typesString>,
+      crossinline testAction: $lambdaSignature
+    ): Stream<out DynamicNode> {
+      return kases.asTests(
+        testAction = { kase: $kaseSimpleName$typesString -> testAction($argsFromKaseString) }
+      )
+    }
+    """.trimIndent()
+  )
+}
+
+private fun StringBuilder.testFactory(
+  kdoc: String,
+  kaseSimpleName: String,
+  typesString: String,
+  paramsString: String,
+  argsFromItString: String
+) {
+
+  appendLine(kdoc)
+  appendLine(
+    """
+    @JvmName("testFactory$kaseSimpleName")
+    public inline fun $typesString testFactory(
+      vararg kases: $kaseSimpleName$typesString,
+      crossinline testAction: ($paramsString) -> Unit
+    ): Stream<out DynamicNode> {
+      return kases.asSequence().asTests { testAction($argsFromItString) }
+    }
+    """.trimIndent()
+  )
 }
 
 private fun forLoops(args: List<String>, center: StringBuilder.() -> Unit): String {
@@ -499,11 +650,22 @@ private fun forLoops(args: List<String>, center: StringBuilder.() -> Unit): Stri
 private fun StringBuilder.labelsFun(
   labelsParamsDefaults: String,
   kaseLabelSimpleName: String,
+  kaseSimpleName: String,
   labels: List<String>
 ) {
+  val kdoc = buildString {
+    appendLine("/**")
+    appendLine(" * Creates a new [$kaseLabelSimpleName] with the given labels.")
+    appendLine(" *")
+    for ((i, label) in labels.withIndex()) {
+      appendLine(" * @param $label the label for the [$kaseSimpleName.a${i + 1}] property.")
+    }
+    appendLine(" * @return a new [$kaseLabelSimpleName] with the given labels.")
+    append(" */")
+  }
   appendLine(
     """
-    |/** */
+    |$kdoc
     |public fun labels(
     |  $labelsParamsDefaults
     |): $kaseLabelSimpleName {
@@ -530,9 +692,9 @@ private fun StringBuilder.kaseFun(
     for (arg in args) {
       appendLine(" * @param $arg the [$kaseSimpleName:$arg] parameter.")
     }
-    appendLine(" * @param labels the [KaseLabels] to use for this [Kase]")
-    appendLine(" * @param labelDelimiter the delimiter between the label")
-    appendLine(""" *   and the value, like `": "` in `label: value`""")
+    appendLine(" * @param labels the [$kaseLabelSimpleName] to use for this [$kaseSimpleName]")
+    appendLine(" * @param labelDelimiter the delimiter between the")
+    appendLine(""" *   label and the value, like `": "` in `label: value`""")
     appendLine(" * @param displayNameSeparator the separator between each label/value")
     appendLine(""" *   pair, like `" | "` in `label1: value1 | label2: value2`""")
     append(" */")
@@ -558,6 +720,7 @@ private fun StringBuilder.kaseFun(
 }
 
 private fun StringBuilder.testFun(
+  args: List<String>,
   typesKaseEnvironment: String,
   typesString: String,
   paramsString: String,
@@ -565,18 +728,34 @@ private fun StringBuilder.testFun(
   argsString: String,
   kaseSimpleName: String
 ) {
+
+  val kdoc = buildString {
+    appendLine("/**")
+    appendLine(" * Creates a new [$kaseSimpleName] instance and [TestEnvironment]")
+    appendLine(" * from these parameters, then executes [testAction].")
+    appendLine(" *")
+    for (arg in args) {
+      appendLine(" * @param $arg the [$kaseSimpleName:$arg] parameter.")
+    }
+    appendLine(" * @param labels the [$kaseLabelSimpleName] to use for this [$kaseSimpleName]")
+    appendLine(
+      " * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run."
+    )
+    appendLine(" * @param testAction the test action to execute.")
+    appendLine(" * @see TestEnvironmentFactory")
+    append(" */")
+  }
   appendLine(
     """
-    |/** */
-    |context(TestEnvironmentFactory<T>)
-    |public fun $typesKaseEnvironment test(
+    |$kdoc
+    |public fun $typesKaseEnvironment TestEnvironmentFactory<T>.test(
     |  $paramsString,
     |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
     |  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
     |  testAction: suspend T.() -> Unit
     |) where T : TestEnvironment,
     |        K : $kaseSimpleName$typesString {
-    |  test(
+    |  this@TestEnvironmentFactory.test(
     |    kase = kase($argsString, labels),
     |    testFunctionCoordinates = testFunctionCoordinates,
     |    testAction = testAction

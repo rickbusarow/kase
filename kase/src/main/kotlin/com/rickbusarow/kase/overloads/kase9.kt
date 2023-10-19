@@ -24,6 +24,7 @@ import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
 import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
+import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
 
 /** A strongly-typed version of [Kase] for 9 parameters. */
@@ -31,38 +32,55 @@ public interface Kase9<out A1, out A2, out A3, out A4, out A5, out A6, out A7, o
 
   /** The 1st parameter. */
   public val a1: A1
+
   /** The 1st parameter. */
   public val a1WithLabel: KaseParameterWithLabel<A1>
+
   /** The 2nd parameter. */
   public val a2: A2
+
   /** The 2nd parameter. */
   public val a2WithLabel: KaseParameterWithLabel<A2>
+
   /** The 3rd parameter. */
   public val a3: A3
+
   /** The 3rd parameter. */
   public val a3WithLabel: KaseParameterWithLabel<A3>
+
   /** The 4th parameter. */
   public val a4: A4
+
   /** The 4th parameter. */
   public val a4WithLabel: KaseParameterWithLabel<A4>
+
   /** The 5th parameter. */
   public val a5: A5
+
   /** The 5th parameter. */
   public val a5WithLabel: KaseParameterWithLabel<A5>
+
   /** The 6th parameter. */
   public val a6: A6
+
   /** The 6th parameter. */
   public val a6WithLabel: KaseParameterWithLabel<A6>
+
   /** The 7th parameter. */
   public val a7: A7
+
   /** The 7th parameter. */
   public val a7WithLabel: KaseParameterWithLabel<A7>
+
   /** The 8th parameter. */
   public val a8: A8
+
   /** The 8th parameter. */
   public val a8WithLabel: KaseParameterWithLabel<A8>
+
   /** The 9th parameter. */
   public val a9: A9
+
   /** The 9th parameter. */
   public val a9WithLabel: KaseParameterWithLabel<A9>
 
@@ -104,7 +122,7 @@ public interface Kase9<out A1, out A2, out A3, out A4, out A5, out A6, out A7, o
  * @param a7 the [Kase9:a7] parameter.
  * @param a8 the [Kase9:a8] parameter.
  * @param a9 the [Kase9:a9] parameter.
- * @param labels the [KaseLabels] to use for this [Kase]
+ * @param labels the [KaseLabels9] to use for this [Kase9]
  * @param labelDelimiter the delimiter between the
  *   label and the value, like `": "` in `label: value`
  * @param displayNameSeparator the separator between each label/value
@@ -131,23 +149,52 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> kase(
   )
 }
 
-/** */
-context(TestEnvironmentFactory<T>)
-public fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9> test(
+/**
+ * Creates a new [Kase9] instance and [TestEnvironment]
+ * from these parameters, then executes [testAction].
+ *
+ * @param a1 the [Kase9:a1] parameter.
+ * @param a2 the [Kase9:a2] parameter.
+ * @param a3 the [Kase9:a3] parameter.
+ * @param a4 the [Kase9:a4] parameter.
+ * @param a5 the [Kase9:a5] parameter.
+ * @param a6 the [Kase9:a6] parameter.
+ * @param a7 the [Kase9:a7] parameter.
+ * @param a8 the [Kase9:a8] parameter.
+ * @param a9 the [Kase9:a9] parameter.
+ * @param labels the [KaseLabels9] to use for this [Kase9]
+ * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
+ * @param testAction the test action to execute.
+ * @see TestEnvironmentFactory
+ */
+public fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9> TestEnvironmentFactory<T>.test(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9,
   labels: KaseLabels9 = KaseLabels9(),
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend T.() -> Unit
 ) where T : TestEnvironment,
         K : Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9> {
-  test(
+  this@TestEnvironmentFactory.test(
     kase = kase(a1, a2, a3, a4, a5, a6, a7, a8, a9, labels),
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )
 }
 
-/** */
+/**
+ * Creates a new [KaseLabels9] with the given labels.
+ *
+ * @param a1Label the label for the [Kase9.a1] property.
+ * @param a2Label the label for the [Kase9.a2] property.
+ * @param a3Label the label for the [Kase9.a3] property.
+ * @param a4Label the label for the [Kase9.a4] property.
+ * @param a5Label the label for the [Kase9.a5] property.
+ * @param a6Label the label for the [Kase9.a6] property.
+ * @param a7Label the label for the [Kase9.a7] property.
+ * @param a8Label the label for the [Kase9.a8] property.
+ * @param a9Label the label for the [Kase9.a9] property.
+ * @return a new [KaseLabels9] with the given labels.
+ */
 public fun labels(
   a1Label: String = "a1",
   a2Label: String = "a2",
@@ -162,7 +209,21 @@ public fun labels(
   return KaseLabels9(a1Label = a1Label, a2Label = a2Label, a3Label = a3Label, a4Label = a4Label, a5Label = a5Label, a6Label = a6Label, a7Label = a7Label, a8Label = a8Label, a9Label = a9Label)
 }
 
-/** */
+/**
+ * Returns a [List] of [Kase9]s from the given parameters.
+ *
+ * @param args1 values mapped to the [Kase9.a1] parameter.
+ * @param args2 values mapped to the [Kase9.a2] parameter.
+ * @param args3 values mapped to the [Kase9.a3] parameter.
+ * @param args4 values mapped to the [Kase9.a4] parameter.
+ * @param args5 values mapped to the [Kase9.a5] parameter.
+ * @param args6 values mapped to the [Kase9.a6] parameter.
+ * @param args7 values mapped to the [Kase9.a7] parameter.
+ * @param args8 values mapped to the [Kase9.a8] parameter.
+ * @param args9 values mapped to the [Kase9.a9] parameter.
+ * @param labels the [KaseLabels9] to use for this [Kase9]
+ * @return a [List] of [Kase9]s from the given parameters.
+ */
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> kases(
   args1: Iterable<A1>,
   args2: Iterable<A2>,
@@ -207,7 +268,18 @@ public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9> Iter
   return testFactory(kases = this@asTests, testAction = testAction)
 }
 
-/** */
+/**
+ * A test factory which returns a stream of [DynamicNode]s from the given parameters.
+ * - Each [DynamicTest] in the stream uses its [Kase9] element to create
+ *   a new [TestEnvironment] instance, then executes [testAction].
+ * - Each [DynamicNode] has a display name which includes the values of the parameters.
+ *
+ * @param kases the [Kase9]s to use for this test factory
+ * @param testAction the test action to execute.
+ * @return a [Stream] of [DynamicNode]s from the given parameters.
+ * @see Kase9
+ * @see TestEnvironmentFactory
+ */
 context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase9DestructuredTestEnvironment")
 public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9> testFactory(
@@ -217,36 +289,47 @@ public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9> test
   return testFactory(kases = kases.toList(), testAction = testAction)
 }
 
-/** */
+/**
+ * A test factory which returns a stream of [DynamicNode]s from the given parameters.
+ * - Each [DynamicTest] in the stream uses its [Kase9] element to create
+ *   a new [TestEnvironment] instance, then executes [testAction].
+ * - Each [DynamicNode] has a display name which includes the values of the parameters.
+ *
+ * @param kases the [Kase9]s to use for this test factory
+ * @param testAction the test action to execute.
+ * @return a [Stream] of [DynamicNode]s from the given parameters.
+ * @see Kase9
+ * @see TestEnvironmentFactory
+ */
 context(TestEnvironmentFactory<T>)
 @JvmName("testFactoryKase9DestructuredTestEnvironment")
 public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9> testFactory(
   kases: Iterable<Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9>>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9) -> Unit
 ): Stream<out DynamicNode> {
-  return kases.asTests { kase ->
-      testAction(
-          kase.a1,
-          kase.a2,
-          kase.a3,
-          kase.a4,
-          kase.a5,
-          kase.a6,
-          kase.a7,
-          kase.a8,
-          kase.a9
-      )
-  }
+  return kases.asTests(
+    testAction = { kase: Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9> -> testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5, kase.a6, kase.a7, kase.a8, kase.a9) }
+  )
 }
 
-/** */
+/**
+ * A test factory which returns a stream of [DynamicNode]s from the given parameters.
+ * - Each [DynamicTest] in the stream uses its [Kase9] element to create
+ *   a new [TestEnvironment] instance, then executes [testAction].
+ * - Each [DynamicNode] has a display name which includes the values of the parameters.
+ *
+ * @param kases the [Kase9]s to use for this test factory
+ * @param testAction the test action to execute.
+ * @return a [Stream] of [DynamicNode]s from the given parameters.
+ * @see Kase9
+ * @see TestEnvironmentFactory
+ */
 @JvmName("testFactoryKase9")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> testFactory(
   vararg kases: Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9>,
-  crossinline kaseName: (Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9>) -> String = { it.toString() },
   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9) -> Unit
 ): Stream<out DynamicNode> {
-  return kases.asSequence().asTests(kaseName) { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9) }
+  return kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9) }
 }
 
 /**

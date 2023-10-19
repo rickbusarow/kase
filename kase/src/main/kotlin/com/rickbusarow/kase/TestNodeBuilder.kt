@@ -257,7 +257,6 @@ public class TestNodeBuilder @PublishedApi internal constructor(
     name: String,
     crossinline testAction: suspend T.() -> Unit
   ) {
-    println("%%%%%%% name -- $name")
     addTest(name) {
       this@TestEnvironmentFactory.test(
         testFunctionCoordinates = testFunctionCoordinates,

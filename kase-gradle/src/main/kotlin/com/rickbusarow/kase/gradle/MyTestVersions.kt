@@ -20,9 +20,9 @@ import com.rickbusarow.kase.Kase3
 import com.rickbusarow.kase.gradle.DependencyVersion.Agp
 import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
 import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
+import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 import com.rickbusarow.kase.kase
 import dev.drewhamilton.poko.Poko
-import kotlin.reflect.KClass
 
 /** The versions of dependencies which are changed during parameterized tests. */
 @Poko
@@ -46,22 +46,22 @@ public class MyTestVersions(
 
   public companion object {
     /** */
-    public fun from(kase: AnyKase, versionsMatrix: VersionsMatrix): MyTestVersions {
+    public fun from(kase: AnyKase, versionMatrix: VersionMatrix): MyTestVersions {
 
       val versions = kase.elements
         .mapNotNull { it.value as? DependencyVersion }
-        .associateBy { it::class }
+        .associateBy { it.key }
 
       return MyTestVersions(
-        versions.version(Gradle::class) { versionsMatrix[Gradle::class].first() },
-        versions.version(Agp::class) { versionsMatrix[Agp::class].first() },
-        versions.version(Kotlin::class) { versionsMatrix[Kotlin::class].first() }
+        versions.version(Gradle) { versionMatrix[Gradle].first() },
+        versions.version(Agp) { versionMatrix[Agp].first() },
+        versions.version(Kotlin) { versionMatrix[Kotlin].first() }
       )
     }
 
-    private inline fun <reified T : DependencyVersion> Map<KClass<out DependencyVersion>, DependencyVersion>.version(
-      clazz: KClass<T>,
+    private inline fun <reified T : DependencyVersion> Map<VersionMatrixKey<*>, DependencyVersion>.version(
+      key: VersionMatrixKey<T>,
       default: () -> T
-    ): T = get(clazz) as? T ?: default()
+    ): T = get(key) as? T ?: default()
   }
 }

@@ -26,7 +26,7 @@ import dev.drewhamilton.poko.Poko
  * @param testParameterDisplayNames The display names of the test parameters, if any.
  * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
  */
-public open class TestEnvironment constructor(
+public open class TestEnvironment(
   testParameterDisplayNames: List<String>,
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
 ) : HasWorkingDir(
@@ -55,7 +55,8 @@ public interface HasTestVariant<K : Kase> {
 }
 
 /**
- * Represents a specific instance of a test case invocation
+ * Represents a specific instance of a test case invocation with a specific set of parameters.
+ *
  * @property kase The parameters for the test.
  * @property testFunctionCoordinates The [TestFunctionCoordinates] from
  *   which the test is being run. Defaults to the current stack frame.
