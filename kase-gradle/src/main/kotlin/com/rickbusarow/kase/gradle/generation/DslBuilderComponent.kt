@@ -13,17 +13,15 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle
+package com.rickbusarow.kase.gradle.generation
 
-import com.rickbusarow.kase.Kase3
-import com.rickbusarow.kase.gradle.DependencyVersion.Agp
-import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
-import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
-import org.junit.jupiter.api.TestFactory
+/** Interface for any DSL builder components. */
+public interface DslBuilderComponent : Comparable<DslBuilderComponent> {
 
-class CanaryTest : BaseGradleTest<GradleTestEnvironment<MyTestVersions, Kase3<Gradle, Agp, Kotlin>>> {
+  /** Returns the DSL code for this component. */
+  public fun write(language: DslLanguage): String
 
-  @TestFactory
-  fun `canary things`() = test {
+  override fun compareTo(other: DslBuilderComponent): Int {
+    return toString().compareTo(other.toString())
   }
 }

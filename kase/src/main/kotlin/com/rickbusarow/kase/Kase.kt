@@ -26,6 +26,7 @@ public typealias AnyKase = Kase
 /** */
 public sealed interface Kase : HasDisplayName, HasDisplayNames {
 
+  /** Creates a new [Kase] instance with the given label and value. */
   public fun <A> plus(label: String, value: A): AnyKase
 
   /** */
@@ -43,8 +44,10 @@ public sealed interface Kase : HasDisplayName, HasDisplayNames {
     postfix = postfix
   )
 
+  /** An ordered list of all parameter values and their labels for this kase */
   public val elements: List<KaseParameterWithLabel<Any?>>
 
+  /** An empty [Kase] instance with no parameters. */
   public object EMPTY : KaseInternal {
     override val elements: List<KaseParameterWithLabel<Any?>>
       get() = emptyList()
@@ -81,9 +84,19 @@ public interface HasLabelParameters {
 public interface KaseLabels : HasLabels, HasLabelParameters {
 
   public companion object {
+    /** The default [labelDelimiter] and [displayNameSeparator]. */
     public const val DELIMITER_DEFAULT: String = ": "
+
+    /**
+     * The default separator between each label/value pair,
+     * like `" | "` in `label1: value1 | label2: value2`
+     */
     public const val SEPARATOR_DEFAULT: String = " | "
+
+    /** The default prefix for the display name. */
     public const val PREFIX_DEFAULT: String = "["
+
+    /** The default postfix for the display name. */
     public const val POSTFIX_DEFAULT: String = "]"
   }
 }
@@ -168,7 +181,6 @@ public interface HasDisplayNames {
 /**
  * A [KaseParameterWithLabel] implementation.
  *
- * @param T the type of the value
  * @property value the value
  * @property label the label
  */

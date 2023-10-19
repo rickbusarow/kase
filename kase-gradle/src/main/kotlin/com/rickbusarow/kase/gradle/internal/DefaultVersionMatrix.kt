@@ -15,11 +15,8 @@
 
 package com.rickbusarow.kase.gradle.internal
 
-import com.rickbusarow.kase.gradle.DependencyVersion.Agp
-import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
 import com.rickbusarow.kase.gradle.VersionsMatrix
 import com.rickbusarow.kase.gradle.VersionsMatrix.Element
-import com.rickbusarow.kase.gradle.kases2
 import kotlin.reflect.KClass
 
 internal class DefaultVersionMatrix(
@@ -31,9 +28,7 @@ internal class DefaultVersionMatrix(
     return map[key] as? List<E>
   }
 
-  override fun <E : Element> getOrEmpty(key: KClass<E>): List<E> {
-    return getOrNull(key) ?: emptyList()
-  }
+  override fun <E : Element> getOrEmpty(key: KClass<E>): List<E> = getOrNull(key).orEmpty()
 
   override fun <E : Element> get(key: KClass<E>): List<E> {
     return requireNotNull(getOrNull(key)) {
@@ -64,9 +59,4 @@ internal class DefaultVersionMatrix(
 
     return DefaultVersionMatrix(newMap)
   }
-}
-
-public fun foo(m: VersionsMatrix) {
-
-  val b = m.kases2<Gradle, Agp>()
 }

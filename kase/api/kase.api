@@ -1816,12 +1816,11 @@ public final class com/rickbusarow/kase/TestNodeBuilder {
 	public static synthetic fun asContainers$default (Lcom/rickbusarow/kase/TestNodeBuilder;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public static synthetic fun asContainers$default (Lcom/rickbusarow/kase/TestNodeBuilder;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Lcom/rickbusarow/kase/TestNodeBuilder;
+	public final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public final fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestNodeBuilder;Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestNodeBuilder;Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestNodeBuilder;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestNodeBuilder;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestNodeBuilder;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
@@ -1847,12 +1846,11 @@ public final class com/rickbusarow/kase/TestNodeBuilderKt {
 	public static synthetic fun asContainers$default (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static synthetic fun asContainers$default (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
 	public static final fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
 	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
-	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static synthetic fun asTests$default (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static synthetic fun asTests$default (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/stream/Stream;

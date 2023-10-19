@@ -180,10 +180,7 @@ public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5> testFactory(
   kases: Iterable<Kase5<A1, A2, A3, A4, A5>>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) -> Unit
 ): Stream<out DynamicNode> {
-  return kases.asTests(
-    testName = { kase -> kase.displayName() },
-    testAction = { kase -> testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5) }
-  )
+  return kases.asTests { kase -> testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5) }
 }
 
 /** */

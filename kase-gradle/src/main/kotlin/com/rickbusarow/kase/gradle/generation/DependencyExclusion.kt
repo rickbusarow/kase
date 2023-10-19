@@ -62,24 +62,3 @@ public class DependencyExclusion(
     return "exclude${language.parens(params)}"
   }
 }
-
-/** A list of [Parameter]s. */
-@Poko
-public class ParameterList(
-  private val parameters: List<Parameter>,
-  private val separator: String = ", "
-) : DslBuilderComponent {
-
-  /** The number of parameters in this list. */
-  public val size: Int get() = parameters.size
-
-  /** @return `true` if [size] is zero, otherwise `false`. */
-  public fun isEmpty(): Boolean = parameters.isEmpty()
-
-  /** @return `true` if [size] is greater than zero, otherwise `false`. */
-  public fun isNotEmpty(): Boolean = parameters.isNotEmpty()
-
-  override fun write(language: DslLanguage): String {
-    return parameters.joinToString(separator = separator) { it.write(language) }
-  }
-}

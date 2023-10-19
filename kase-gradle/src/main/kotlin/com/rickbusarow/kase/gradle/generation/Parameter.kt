@@ -42,8 +42,36 @@ public class Parameter(
 
   public companion object {
     /** Joins a list of [Parameter]s into a [ParameterList]. */
-    public fun Iterable<Parameter>.join(separator: String = ", "): ParameterList {
+    public fun Iterable<Parameter>.join(
+      separator: String = ParameterList.SEPARATOR_DEFAULT
+    ): ParameterList {
       return ParameterList(parameters = toList(), separator = separator)
     }
+  }
+}
+
+/** A list of [Parameter]s. */
+@Poko
+public class ParameterList(
+  private val parameters: List<Parameter>,
+  private val separator: String = SEPARATOR_DEFAULT
+) : DslBuilderComponent {
+
+  /** The number of parameters in this list. */
+  public val size: Int get() = parameters.size
+
+  /** @return `true` if [size] is zero, otherwise `false`. */
+  public fun isEmpty(): Boolean = parameters.isEmpty()
+
+  /** @return `true` if [size] is greater than zero, otherwise `false`. */
+  public fun isNotEmpty(): Boolean = parameters.isNotEmpty()
+
+  override fun write(language: DslLanguage): String {
+    return parameters.joinToString(separator = separator) { it.write(language) }
+  }
+
+  public companion object {
+    /** The default separator used when joining [Parameter]s into a [ParameterList]. */
+    public const val SEPARATOR_DEFAULT: String = ", "
   }
 }

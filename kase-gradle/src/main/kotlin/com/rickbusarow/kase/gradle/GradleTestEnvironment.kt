@@ -22,9 +22,9 @@ import com.rickbusarow.kase.TestFunctionCoordinates
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.buildDirectory
 import com.rickbusarow.kase.gradle.generation.BuildFileComponents
+import com.rickbusarow.kase.gradle.generation.DslLanguage
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
-import com.rickbusarow.kase.stdlib.noAnsi
 import com.rickbusarow.kase.stdlib.remove
 import com.rickbusarow.kase.stdlib.replaceIndent
 import io.kotest.inspectors.forAll
@@ -36,8 +36,10 @@ import org.gradle.testkit.runner.TaskOutcome.FAILED
 import org.intellij.lang.annotations.Language
 import java.io.File
 
+/** A factory for creating [GradleTestEnvironment]s. */
 public interface GradleTestEnvironmentFactory<T : TestVersions, K : AnyKase> {
 
+  /** Creates a new [GradleTestEnvironment] for the given [testVariant] and [testVersions]. */
   public fun newTestEnvironment(
     testVariant: TestVariant<K>,
     testVersions: T
@@ -46,32 +48,50 @@ public interface GradleTestEnvironmentFactory<T : TestVersions, K : AnyKase> {
       testVersions = testVersions,
       testFunctionCoordinates = testVariant.testFunctionCoordinates,
       kase = testVariant.kase,
-      buildFileComponents = object : BuildFileComponents {}
+      buildFileComponents = object : BuildFileComponents {},
+      DslLanguage.Groovy()
     )
   }
 }
 
+/**
+ * A [TestEnvironment] which provides a [GradleRunner]
+ * and a [File] representing the root project directory.
+ *
+ * @property testVersions the [TestVersions] for this test environment
+ * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run
+ * @param kase the variant names related to the test
+ * @param buildFileComponents the [BuildFileComponents] for this test environment
+ * @param dslLanguage the [DslLanguage] for this test environment
+ */
 @Suppress("PropertyName", "VariableNaming", "MemberVisibilityCanBePrivate", "MagicNumber")
 public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
   override val testVersions: T,
   testFunctionCoordinates: TestFunctionCoordinates,
   kase: K,
-  buildFileComponents: BuildFileComponents
+  buildFileComponents: BuildFileComponents,
+  dslLanguage: DslLanguage
 ) : TestEnvironment(kase.displayNames, testFunctionCoordinates),
   TestVersions by testVersions,
   HasTestVersions<T> {
 
+  /** The [File] representing the root project directory. */
   public val root: File get() = workingDir
 
+  /** The [File] representing the root project directory. */
   public inline fun root(action: DirectoryBuilder.() -> Unit): File {
     return buildDirectory(workingDir, action)
   }
 
+  /** The default build.gradle file. */
   public val DEFAULT_BUILD_FILE: String by lazy {
     """
     buildscript {
       dependencies {
-        ${buildFileComponents.buildscriptDependenciesBlockContent(testVersions).replaceIndent(4)}
+        ${
+      buildFileComponents.buildscriptDependenciesBlockContent(dslLanguage, testVersions)
+        .replaceIndent(4)
+    }
       }
     }
 
@@ -81,11 +101,13 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
     """.trimIndent()
   }
 
+  /** The default build.gradle file. */
   public val rootBuild: File by lazy {
     root.resolve("build.gradle.kts")
       .createSafely(DEFAULT_BUILD_FILE, overwrite = false)
   }
 
+  /** The default settings.gradle file. */
   public val DEFAULT_SETTINGS_FILE: String by lazy {
     """
       rootProject.name = "root"
@@ -109,17 +131,20 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
     """.trimIndent()
   }
 
+  /** The root settings.gradle file. */
   public val rootSettings: File by lazy {
     root.resolve("settings.gradle.kts")
       .createSafely(DEFAULT_SETTINGS_FILE)
   }
 
+  /** The root project directory. */
   public val rootProject: File by lazy {
     rootBuild
     rootSettings
     root
   }
 
+  /** The [GradleRunner] used to execute Gradle builds. */
   public val gradleRunner: GradleRunner by lazy {
     GradleRunner.create()
       .forwardOutput()
@@ -128,7 +153,7 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
       .withProjectDir(workingDir)
   }
 
-  // Make sure that every project in the cache is also added to the root project's settings file
+  @Suppress("UnusedPrivateMember")
   private fun addIncludes() {
 
     val subprojectDirs = root.walkTopDown()
@@ -189,6 +214,14 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
       .forEach { println("file://$it") }
   }
 
+  /**
+   * Runs the given [tasks] and asserts that they succeed.
+   *
+   * @param tasks the tasks to run
+   * @param withPluginClasspath whether to include the plugin classpath
+   * @param stacktrace whether to include the stacktrace
+   * @param assertions additional assertions to run on the [BuildResult]
+   */
   public fun shouldSucceed(
     vararg tasks: String,
     withPluginClasspath: Boolean = false,
@@ -206,6 +239,14 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
     }
   }
 
+  /**
+   * Runs the given [tasks] and asserts that they fail.
+   *
+   * @param tasks the tasks to run
+   * @param withPluginClasspath whether to include the plugin classpath
+   * @param stacktrace whether to include the stacktrace
+   * @param assertions additional assertions to run on the [BuildResult]
+   */
   public fun shouldFail(
     vararg tasks: String,
     withPluginClasspath: Boolean = false,
@@ -222,6 +263,7 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
     }
   }
 
+  /** Asserts that the [BuildResult] has the given [message] in its output. */
   public infix fun BuildResult.withTrimmedMessage(message: String) {
     val trimmed = output
       .cleanOutput()
@@ -235,47 +277,94 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
         "* Get more help at https://help.gradle.org",
         "Daemon will be stopped at the end of the build after running out of JVM memory"
       )
-      // remove standard Gradle output noise
-      .remove(
-        "> Task [^\\n]*".toRegex(),
-        ".*Run with --.*".toRegex(),
-        """See https://docs\.gradle\.org/[^/]+/userguide/command_line_interface\.html#sec:command_line_warnings""".toRegex(),
-        "BUILD (?:SUCCESSFUL|FAILED) in .*".toRegex(),
-        """\d+ actionable tasks?: \d+ executed""".toRegex()
-      )
-      .noAnsi()
-      .trim()
 
     trimmed shouldBe message
   }
 
+  /**
+   * Creates a file with the given [path] and [content], with Markdown language injection.
+   *
+   * @param path the path to the file to create
+   * @param content the content to write to the file
+   * @return the created file
+   */
   public fun markdown(path: String, @Language("markdown") content: String): File =
     File(path).createSafely(content.trimIndent())
 
+  /**
+   * Writes the given [content] to the receiver [File], with Markdown language injection.
+   *
+   * @param content the content to write to the file
+   * @receiver the file to write to
+   * @return the receiver [File]
+   */
   @JvmName("writeMarkdownContent")
   public fun File.markdown(@Language("markdown") content: String): File =
     createSafely(content.trimIndent())
 
+  /**
+   * Creates a file with the given [path] and [content], with Java language injection.
+   *
+   * @param path the path to the file to create
+   * @param content the content to write to the file
+   * @return the created file
+   */
   public fun java(path: String, @Language("java") content: String): File =
     File(path).createSafely(content.trimIndent())
 
+  /**
+   * Writes the given [content] to the receiver [File], with Java language injection.
+   *
+   * @param content the content to write to the file
+   * @receiver the file to write to
+   * @return the receiver [File]
+   */
   @JvmName("writeJavaContent")
   public fun File.java(@Language("java") content: String): File = createSafely(content.trimIndent())
 
+  /**
+   * Creates a file with the given [path] and [content], with Groovy language injection.
+   *
+   * @param path the path to the file to create
+   * @param content the content to write to the file
+   * @return the created file
+   */
   public fun groovy(path: String, @Language("groovy") content: String): File =
     File(path).createSafely(content.trimIndent())
 
+  /**
+   * Writes the given [content] to the receiver [File], with Groovy language injection.
+   *
+   * @param content the content to write to the file
+   * @receiver the file to write to
+   * @return the receiver [File]
+   */
   @JvmName("writeGroovyContent")
   public fun File.groovy(@Language("groovy") content: String): File =
     createSafely(content.trimIndent())
 
+  /**
+   * Creates a file with the given [path] and [content], with Kotlin language injection.
+   *
+   * @param path the path to the file to create
+   * @param content the content to write to the file
+   * @return the created file
+   */
   public fun kotlin(path: String, @Language("kotlin") content: String): File =
     File(path).createSafely(content.trimIndent())
 
+  /**
+   * Writes the given [content] to the receiver [File], with Kotlin language injection.
+   *
+   * @param content the content to write to the file
+   * @receiver the file to write to
+   * @return the receiver [File]
+   */
   @JvmName("writeKotlinContent")
   public fun File.kotlin(@Language("kotlin") content: String): File =
     createSafely(content.trimIndent())
 
+  /** Writes the result of [contentBuilder] to the receiver file. */
   public operator fun File.invoke(contentBuilder: () -> String) {
     createSafely(contentBuilder().trimIndent())
   }

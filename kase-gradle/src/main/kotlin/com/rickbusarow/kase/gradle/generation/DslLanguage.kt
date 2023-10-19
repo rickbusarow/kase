@@ -28,17 +28,42 @@ import dev.drewhamilton.poko.Poko
 public sealed class DslLanguage(public val quote: Char, public val labelDelimiter: Char) {
 
   /**
-   * Wraps [content] in parentheses if it's necessary for this syntax, or
-   * if this language is [Groovy] and [Groovy.alwaysParenthesize] is `true`.
+   * Whether to always parenthesize method call parameters, even when not syntactically necessary.
    *
-   * @param content the content to parenthesize, e.g. `'com.acme:dynamite:1.0.0'`
-   * @return the parenthesized content, e.g. `('com.acme:dynamite:1.0.0')`
+   * example in Kotlin:
+   * ```
+   * plugins {
+   *   // useInfix = true (this is default behavior)
+   *   id("com.acme.anvil") version "1.0.0" apply false
+   *   // useInfix = false
+   *   id("com.acme.anvil").version("1.0.0").apply(false)
+   * }
+   * ```
+   *
+   * example in Groovy:
+   * ```
+   * plugins {
+   *  // useInfix = true (this is default behavior)
+   *  id 'com.acme.anvil' version '1.0.0' apply false
+   *  // useInfix = false
+   *  id('com.acme.anvil').version('1.0.0').apply(false)
+   * ```
    */
-  public abstract fun parens(content: String): String
+  public abstract val useInfix: Boolean
 
   /**
-   * Wraps [content] in parentheses if it's necessary for this syntax, or
-   * if this language is [Groovy] and [Groovy.alwaysParenthesize] is `true`.
+   * Wraps [content] in parentheses if it's necessary for this syntax,
+   * or if this language is [Groovy] and [Groovy.useInfix] is `true`.
+   *
+   * @param content the content to parenthesize, e.g. `'com.acme:dynamite:1.0.0'`
+   * @param infixInKotlin whether the [content] is an infix method call in the Kotlin DSL
+   * @return the parenthesized content, e.g. `('com.acme:dynamite:1.0.0')`
+   */
+  public abstract fun parens(content: String, infixInKotlin: Boolean = false): String
+
+  /**
+   * Wraps [content] in parentheses if it's necessary for this syntax,
+   * or if this language is [Groovy] and [Groovy.useInfix] is `true`.
    *
    * @param content the content to parenthesize, e.g. `exclude group: "com.acme", module: "rocket"`
    * @return the parenthesized content, e.g. `(exclude group: "com.acme", module: "rocket")`
@@ -55,9 +80,61 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
    */
   public fun quote(content: String): String = "$quote$content$quote"
 
+  /** invokes [action] within this language's scope and returns the result */
+  public inline fun <reified T> write(action: DslLanguage.() -> T): T = action()
+
+  /**
+   * Treats the receiver string as a method name and invokes it with the given
+   * [param]. The parameter may be wrapped in parentheses or treated as infix.
+   */
+  public operator fun String.invoke(param: String): String = "$this${parens(param)}"
+
+  /**
+   * Treats the receiver string as a method name and invokes it with the given [param].
+   * The parameter may be wrapped in parentheses or treated as infix. The returned
+   * string will also be appended as a line in the context receiver StringBuilder.
+   */
+  context (StringBuilder)
+  public operator fun String.invoke(param: String): String {
+    return "$this${parens(param)}".also { appendLine(it) }
+  }
+
+  /**
+   * Treats the receiver string as a method name and invokes it with the given [params].
+   * The parameter may be wrapped in parentheses or treated as infix. The returned
+   * string will also be appended as a line in the context receiver StringBuilder.
+   */
+  context (StringBuilder)
+  public operator fun String.invoke(
+    vararg params: Parameter,
+    separator: String = ParameterList.SEPARATOR_DEFAULT
+  ): String = invoke(ParameterList(params.toList(), separator))
+
+  /**
+   * Treats the receiver string as a method name and invokes it with the given [params].
+   * The parameter may be wrapped in parentheses or treated as infix. The returned
+   * string will also be appended as a line in the context receiver StringBuilder.
+   */
+  context (StringBuilder)
+  public operator fun String.invoke(params: ParameterList): String {
+    val paramString = params.write(this@DslLanguage)
+    return invoke("$this${parens(paramString)}")
+  }
+
   /** The Kotlin DSL, e.g. `build.gradle.kts` or `settings.gradle.kts` */
-  public object Kotlin : DslLanguage(quote = '"', labelDelimiter = '=') {
-    override fun parens(content: String): String = "($content)"
+  @Poko
+  public class Kotlin(
+    override val useInfix: Boolean = true
+  ) : DslLanguage(
+    quote = '"',
+    labelDelimiter = '='
+  ) {
+    override fun parens(content: String, infixInKotlin: Boolean): String =
+      if (infixInKotlin && useInfix) {
+        " $content"
+      } else {
+        "($content)"
+      }
   }
 
   /**
@@ -65,20 +142,23 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
    *
    * @param alwaysUseDoubleQuotes whether to use double quotes for strings, even when single
    *   quotes are valid. e.g. `project(":myProject")` instead of `project(':myProject')`
-   * @property alwaysParenthesize whether to always parenthesize method
-   *   call parameters, even when not syntactically necessary. e.g.
+   * @property useInfix whether to always parenthesize method call
+   *   parameters, even when not syntactically necessary. e.g.
    *   `api('com.acme:dynamite:1.0.0')` instead of `api 'com.acme:dynamite:1.0.0'`
    */
   @Poko
   public class Groovy(
     alwaysUseDoubleQuotes: Boolean = false,
-    private val alwaysParenthesize: Boolean = false
+    override val useInfix: Boolean = true
   ) : DslLanguage(
     quote = if (alwaysUseDoubleQuotes) '"' else '\'',
     labelDelimiter = ':'
   ) {
-    override fun parens(content: String): String {
-      return if (alwaysParenthesize) "($content)" else content
-    }
+    override fun parens(content: String, infixInKotlin: Boolean): String =
+      if (useInfix) {
+        " $content"
+      } else {
+        "($content)"
+      }
   }
 }

@@ -15,18 +15,23 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestEnvironmentFactory
+import com.rickbusarow.kase.TestFunctionCoordinates
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.asClueCatching
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD
 
+/** A base class for Gradle plugin tests. */
 @Execution(SAME_THREAD)
-public interface BaseGradleTest<E : GradleTestEnvironment<V, *>, V : TestVersions> :
+public interface BaseGradleTest<E : GradleTestEnvironment<V, *>, V> :
   TestEnvironmentFactory<E>,
-  HasTestVersions<V> {
+  HasTestVersions<V>
+  where V : TestVersions,
+        V : AnyKase {
 
   /**
    * Runs the provided test [action] in the context of a new [TestEnvironment].
@@ -35,7 +40,7 @@ public interface BaseGradleTest<E : GradleTestEnvironment<V, *>, V : TestVersion
    */
   public fun test(action: suspend E.() -> Unit) {
 
-    val testEnvironment = newTestEnvironment()
+    val testEnvironment = newTestEnvironment(testVersions, TestFunctionCoordinates.get())
 
     runBlocking {
       testEnvironment.asClueCatching {
@@ -45,12 +50,14 @@ public interface BaseGradleTest<E : GradleTestEnvironment<V, *>, V : TestVersion
     }
   }
 
-  /** @return A new [GradleTestEnvironment] */
-  override fun newTestEnvironment(params: TestVariant): GradleTestEnvironment {
-    return GradleTestEnvironment(
-      testVersions = TestVersions.from(params.kase),
-      testFunctionCoordinates = params.testFunctionCoordinates,
-      testVariantNames = params.kase
-    )
+  override fun <K : AnyKase> newTestEnvironment(
+    kase: K,
+    testFunctionCoordinates: TestFunctionCoordinates
+  ): E {
+    return super.newTestEnvironment(kase, testFunctionCoordinates)
+  }
+
+  override fun newTestEnvironment(params: TestVariant<out AnyKase>): E {
+    return super.newTestEnvironment(params)
   }
 }

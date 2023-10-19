@@ -20,7 +20,7 @@ plugins {
 jvmModule {
   published(
     artifactId = "kase-gradle",
-    pomDescription = "Hermetic test environments and test factories"
+    pomDescription = "Test environments that create Gradle projects for testing Gradle plugins."
   )
   poko()
 }

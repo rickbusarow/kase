@@ -21,10 +21,12 @@ import com.rickbusarow.kase.gradle.DependencyVersion.Agp
 import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
 import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
 import com.rickbusarow.kase.kase
+import dev.drewhamilton.poko.Poko
 import kotlin.reflect.KClass
 
 /** The versions of dependencies which are changed during parameterized tests. */
-public data class MyTestVersions(
+@Poko
+public class MyTestVersions(
   override val a1: Gradle,
   override val a2: Agp,
   override val a3: Kotlin
@@ -43,6 +45,7 @@ public data class MyTestVersions(
   override fun toString(): String = displayName
 
   public companion object {
+    /** */
     public fun from(kase: AnyKase, versionsMatrix: VersionsMatrix): MyTestVersions {
 
       val versions = kase.elements

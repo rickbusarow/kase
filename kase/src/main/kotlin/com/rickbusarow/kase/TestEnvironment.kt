@@ -23,9 +23,10 @@ import dev.drewhamilton.poko.Poko
  * Represents a hermetic testing environment with an
  * associated working directory and certain assertions.
  *
+ * @param testParameterDisplayNames The display names of the test parameters, if any.
  * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
  */
-public open class TestEnvironment(
+public open class TestEnvironment constructor(
   testParameterDisplayNames: List<String>,
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
 ) : HasWorkingDir(
@@ -49,6 +50,7 @@ public open class TestEnvironment(
 
 /** */
 public interface HasTestVariant<K : Kase> {
+  /** The [TestVariant] for this test. */
   public val testVariant: TestVariant<K>
 }
 

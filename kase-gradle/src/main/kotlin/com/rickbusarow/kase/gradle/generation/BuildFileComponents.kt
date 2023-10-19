@@ -16,7 +16,32 @@
 package com.rickbusarow.kase.gradle.generation
 
 import com.rickbusarow.kase.gradle.TestVersions
+import com.rickbusarow.kase.gradle.generation.DependencyDeclaration.ExternalDependency
 
+/** Represents a dependency declaration in a Gradle build file. */
+public class DependencyDeclarationContainer(
+  private val dependencies: MutableList<ExternalDependency> = mutableListOf()
+) : List<ExternalDependency> by dependencies {
+
+  /** Adds a dependency declaration to the container. */
+  public fun add(
+    configuration: String,
+    group: String,
+    module: String,
+    version: String
+  ) {
+    dependencies.add(
+      ExternalDependency(
+        configuration = configuration,
+        group = group,
+        module = module,
+        version = version
+      )
+    )
+  }
+}
+
+/** Models the contents of a Gradle build file. */
 public interface BuildFileComponents {
 
   /**
@@ -32,9 +57,34 @@ public interface BuildFileComponents {
    * }
    * ```
    */
-  public fun <T : TestVersions> buildscriptDependenciesBlockElements(
+  public fun <T : TestVersions> buildscriptDependencies(
     testVersions: T
-  ): List<String> = emptyList()
+  ): List<ExternalDependency> = listOf(
+    ExternalDependency(
+      configuration = "classpath",
+      group = "com.android.tools.build",
+      module = "gradle",
+      version = testVersions.gradleVersion
+    )
+  )
+
+  /**
+   * Everything inside the `dependencies { }` block. This would
+   * typically be the 'classpath' dependency declarations.
+   *
+   * ```
+   * buildscript {
+   *   dependencies {
+   *     classpath("com.android.tools.build:gradle:$agpVersion")
+   *     classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
+   *   }
+   * }
+   * ```
+   */
+  public fun <T : TestVersions> buildscriptDependenciesBlockElements(
+    dslLanguage: DslLanguage,
+    testVersions: T
+  ): List<String> = buildscriptDependencies(testVersions).map { it.write(dslLanguage) }
 
   /**
    * Typically the 'classpath' dependency declarations
@@ -47,8 +97,9 @@ public interface BuildFileComponents {
    * }
    * ```
    */
-  public fun <T : TestVersions> buildscriptDependenciesBlockContent(testVersions: T): String {
-    return buildscriptDependenciesBlockElements(testVersions)
-      .joinToString(separator = "\n")
-  }
+  public fun <T : TestVersions> buildscriptDependenciesBlockContent(
+    dslLanguage: DslLanguage,
+    testVersions: T
+  ): String = buildscriptDependenciesBlockElements(dslLanguage, testVersions)
+    .joinToString(separator = "\n")
 }

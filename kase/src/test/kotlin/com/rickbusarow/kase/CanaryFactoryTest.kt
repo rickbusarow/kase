@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.stdlib.createSafely
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
@@ -23,9 +24,11 @@ class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment> {
   @TestFactory
   fun `my test`() = kases(
     listOf("a", "b"),
-    listOf(1, 2, 3)
-  ).asTests { a, b ->
-    println("$a $b")
+    listOf(1, 2, 3),
+    listOf('A', 'B', 'C')
+  ).asTests { a, b, c ->
+    workingDir.resolve("test.txt").createSafely("hello world")
+    println("$a $b $c")
   }
 
   @TestFactory

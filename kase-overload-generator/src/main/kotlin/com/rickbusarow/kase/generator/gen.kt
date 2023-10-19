@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("MagicNumber", "UnusedPrivateMember")
+
 package com.rickbusarow.kase.generator
 
 import java.io.File
@@ -458,7 +460,6 @@ private fun StringBuilder.testFactories2(
         crossinline testAction: $lambdaSignature
       ): Stream<out DynamicNode> {
         return kases.asTests(
-          testName = { kase -> kase.displayName() },
           testAction = { kase -> testAction($argsFromKaseString) }
         )
       }

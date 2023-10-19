@@ -1,0 +1,456 @@
+public abstract class com/rickbusarow/kase/gradle/AbstractDependencyVersion : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getLabel ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/BaseGradleTest : com/rickbusarow/kase/TestEnvironmentFactory, com/rickbusarow/kase/gradle/HasTestVersions {
+	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/TestVariant;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public abstract fun test (Lkotlin/jvm/functions/Function2;)V
+}
+
+public final class com/rickbusarow/kase/gradle/BaseGradleTest$DefaultImpls {
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/TestVariant;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public static fun test (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
+	public static fun test (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lkotlin/jvm/functions/Function2;)V
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/DependencyVersion : com/rickbusarow/kase/HasLabel, com/rickbusarow/kase/gradle/VersionsMatrix$Element {
+	public abstract fun getLabel ()Ljava/lang/String;
+	public abstract fun getValue ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DependencyVersion$Agp : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getLabel ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DependencyVersion$Anvil : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getLabel ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DependencyVersion$Dagger : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getLabel ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DependencyVersion$DefaultImpls {
+	public static fun getLabel (Lcom/rickbusarow/kase/gradle/DependencyVersion;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DependencyVersion$Detekt : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getLabel ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DependencyVersion$Gradle : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getLabel ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DependencyVersion$Keeper : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getLabel ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DependencyVersion$Kotlin : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getLabel ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DependencyVersion$Ksp : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Ljava/lang/String;)V
+	public fun getLabel ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/TestEnvironment, com/rickbusarow/kase/gradle/HasTestVersions, com/rickbusarow/kase/gradle/TestVersions {
+	public fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)V
+	public final fun getDEFAULT_BUILD_FILE ()Ljava/lang/String;
+	public final fun getDEFAULT_SETTINGS_FILE ()Ljava/lang/String;
+	public final fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
+	public fun getGradleVersion ()Ljava/lang/String;
+	public final fun getRoot ()Ljava/io/File;
+	public final fun getRootBuild ()Ljava/io/File;
+	public final fun getRootProject ()Ljava/io/File;
+	public final fun getRootSettings ()Ljava/io/File;
+	public fun getTestVersions ()Lcom/rickbusarow/kase/gradle/TestVersions;
+	public final fun groovy (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public final fun invoke (Ljava/io/File;Lkotlin/jvm/functions/Function0;)V
+	public final fun java (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public final fun kotlin (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public final fun markdown (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public final fun root (Lkotlin/jvm/functions/Function1;)Ljava/io/File;
+	public final fun shouldFail ([Ljava/lang/String;ZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public static synthetic fun shouldFail$default (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;[Ljava/lang/String;ZZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
+	public final fun shouldSucceed ([Ljava/lang/String;ZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public static synthetic fun shouldSucceed$default (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;[Ljava/lang/String;ZZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
+	public final fun withTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
+	public final fun writeGroovyContent (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public final fun writeJavaContent (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public final fun writeKotlinContent (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public final fun writeMarkdownContent (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory {
+	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/TestVariant;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+}
+
+public final class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory$DefaultImpls {
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/TestVariant;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/HasTestVersions {
+	public abstract fun getTestVersions ()Lcom/rickbusarow/kase/gradle/TestVersions;
+}
+
+public final class com/rickbusarow/kase/gradle/MyTestVersions : com/rickbusarow/kase/Kase3, com/rickbusarow/kase/gradle/TestVersions {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/MyTestVersions$Companion;
+	public fun <init> (Lcom/rickbusarow/kase/gradle/DependencyVersion$Gradle;Lcom/rickbusarow/kase/gradle/DependencyVersion$Agp;Lcom/rickbusarow/kase/gradle/DependencyVersion$Kotlin;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Gradle;
+	public synthetic fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Agp;
+	public synthetic fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Kotlin;
+	public synthetic fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public final fun getAgpVersion ()Ljava/lang/String;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getGradleVersion ()Ljava/lang/String;
+	public final fun getKotlinVersion ()Ljava/lang/String;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase4;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/MyTestVersions$Companion {
+	public final fun from (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/gradle/VersionsMatrix;)Lcom/rickbusarow/kase/gradle/MyTestVersions;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/TestVersions {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/TestVersions$Companion;
+	public abstract fun getGradleVersion ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/TestVersions$Companion {
+	public final fun getEMPTY ()Lcom/rickbusarow/kase/gradle/TestVersions;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/VersionsMatrix {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/VersionsMatrix$Companion;
+	public abstract fun get (Lkotlin/reflect/KClass;)Ljava/util/List;
+	public abstract fun getOrEmpty (Lkotlin/reflect/KClass;)Ljava/util/List;
+	public abstract fun getOrNull (Lkotlin/reflect/KClass;)Ljava/util/List;
+	public abstract fun minus (Ljava/util/List;)Lcom/rickbusarow/kase/gradle/VersionsMatrix;
+	public abstract fun minus (Lkotlin/reflect/KClass;)Lcom/rickbusarow/kase/gradle/VersionsMatrix;
+	public abstract fun plus (Ljava/util/List;)Lcom/rickbusarow/kase/gradle/VersionsMatrix;
+}
+
+public final class com/rickbusarow/kase/gradle/VersionsMatrix$Companion {
+	public final fun invoke (Ljava/util/List;)Lcom/rickbusarow/kase/gradle/VersionsMatrix;
+	public final fun invokeNested (Ljava/util/List;)Lcom/rickbusarow/kase/gradle/VersionsMatrix;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/VersionsMatrix$Element {
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/BuildFileComponents {
+	public abstract fun buildscriptDependencies (Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
+	public abstract fun buildscriptDependenciesBlockContent (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/lang/String;
+	public abstract fun buildscriptDependenciesBlockElements (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/BuildFileComponents$DefaultImpls {
+	public static fun buildscriptDependencies (Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
+	public static fun buildscriptDependenciesBlockContent (Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/lang/String;
+	public static fun buildscriptDependenciesBlockElements (Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/DependencyDeclaration : com/rickbusarow/kase/gradle/generation/DslBuilderComponent {
+	public abstract fun getConfiguration ()Ljava/lang/String;
+	public abstract fun getExclusions ()Ljava/util/List;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/DependencyDeclaration$DefaultImpls {
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration;Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+}
+
+public final class com/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency : com/rickbusarow/kase/gradle/generation/DependencyDeclaration {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getConfiguration ()Ljava/lang/String;
+	public fun getExclusions ()Ljava/util/List;
+	public final fun getGroup ()Ljava/lang/String;
+	public final fun getModule ()Ljava/lang/String;
+	public final fun getVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/DependencyDeclaration$ProjectDependency : com/rickbusarow/kase/gradle/generation/DependencyDeclaration {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getConfiguration ()Ljava/lang/String;
+	public fun getExclusions ()Ljava/util/List;
+	public final fun getProjectPath ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/DependencyDeclarationContainer : java/util/List, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun add (ILcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)V
+	public synthetic fun add (ILjava/lang/Object;)V
+	public fun add (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)Z
+	public synthetic fun add (Ljava/lang/Object;)Z
+	public final fun add (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
+	public fun addAll (ILjava/util/Collection;)Z
+	public fun addAll (Ljava/util/Collection;)Z
+	public fun clear ()V
+	public fun contains (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)Z
+	public final fun contains (Ljava/lang/Object;)Z
+	public fun containsAll (Ljava/util/Collection;)Z
+	public fun get (I)Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;
+	public synthetic fun get (I)Ljava/lang/Object;
+	public fun getSize ()I
+	public fun indexOf (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)I
+	public final fun indexOf (Ljava/lang/Object;)I
+	public fun isEmpty ()Z
+	public fun iterator ()Ljava/util/Iterator;
+	public fun lastIndexOf (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)I
+	public final fun lastIndexOf (Ljava/lang/Object;)I
+	public fun listIterator ()Ljava/util/ListIterator;
+	public fun listIterator (I)Ljava/util/ListIterator;
+	public fun remove (I)Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;
+	public synthetic fun remove (I)Ljava/lang/Object;
+	public fun remove (Ljava/lang/Object;)Z
+	public fun removeAll (Ljava/util/Collection;)Z
+	public fun replaceAll (Ljava/util/function/UnaryOperator;)V
+	public fun retainAll (Ljava/util/Collection;)Z
+	public fun set (ILcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;
+	public synthetic fun set (ILjava/lang/Object;)Ljava/lang/Object;
+	public final fun size ()I
+	public fun sort (Ljava/util/Comparator;)V
+	public fun subList (II)Ljava/util/List;
+	public fun toArray ()[Ljava/lang/Object;
+	public fun toArray ([Ljava/lang/Object;)[Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/DependencyExclusion : com/rickbusarow/kase/gradle/generation/DslBuilderComponent {
+	public fun <init> ()V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getGroup ()Ljava/lang/String;
+	public final fun getModule ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/DslBuilderComponent : java/lang/Comparable {
+	public abstract fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+	public abstract fun write (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/DslBuilderComponent$DefaultImpls {
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+}
+
+public abstract class com/rickbusarow/kase/gradle/generation/DslLanguage {
+	public synthetic fun <init> (CCLkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getLabelDelimiter ()C
+	public final fun getQuote ()C
+	public abstract fun getUseInfix ()Z
+	public final fun invoke (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public final fun invoke (Ljava/lang/StringBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/ParameterList;)Ljava/lang/String;
+	public final fun invoke (Ljava/lang/StringBuilder;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public final fun invoke (Ljava/lang/StringBuilder;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/Parameter;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun invoke$default (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;Ljava/lang/StringBuilder;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/Parameter;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun parens (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)Ljava/lang/String;
+	public abstract fun parens (Ljava/lang/String;Z)Ljava/lang/String;
+	public static synthetic fun parens$default (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+	public final fun quote (Ljava/lang/String;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/DslLanguage$Groovy : com/rickbusarow/kase/gradle/generation/DslLanguage {
+	public fun <init> ()V
+	public fun <init> (ZZ)V
+	public synthetic fun <init> (ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getUseInfix ()Z
+	public fun hashCode ()I
+	public fun parens (Ljava/lang/String;Z)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/DslLanguage$Kotlin : com/rickbusarow/kase/gradle/generation/DslLanguage {
+	public fun <init> ()V
+	public fun <init> (Z)V
+	public synthetic fun <init> (ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getUseInfix ()Z
+	public fun hashCode ()I
+	public fun parens (Ljava/lang/String;Z)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/Lambda : com/rickbusarow/kase/gradle/generation/DslBuilderComponent {
+	public abstract fun getContents ()Ljava/util/Collection;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/Lambda$ConfigurationLambda : com/rickbusarow/kase/gradle/generation/Lambda {
+	public fun <init> (Ljava/util/Collection;Z)V
+	public synthetic fun <init> (Ljava/util/Collection;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getContents ()Ljava/util/Collection;
+	public final fun getWriteIfEmpty ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/Lambda$DefaultImpls {
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/Lambda;Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+}
+
+public final class com/rickbusarow/kase/gradle/generation/Lambda$NamedLambda : com/rickbusarow/kase/gradle/generation/Lambda {
+	public fun <init> (Ljava/lang/String;Ljava/util/Collection;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getContents ()Ljava/util/Collection;
+	public final fun getName ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/Parameter : com/rickbusarow/kase/gradle/generation/DslBuilderComponent {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/Parameter$Companion;
+	public fun <init> (Ljava/lang/String;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getLabel ()Ljava/lang/String;
+	public final fun getValueString ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/Parameter$Companion {
+	public final fun join (Ljava/lang/Iterable;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/ParameterList;
+	public static synthetic fun join$default (Lcom/rickbusarow/kase/gradle/generation/Parameter$Companion;Ljava/lang/Iterable;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/ParameterList;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/ParameterList : com/rickbusarow/kase/gradle/generation/DslBuilderComponent {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/ParameterList$Companion;
+	public static final field SEPARATOR_DEFAULT Ljava/lang/String;
+	public fun <init> (Ljava/util/List;Ljava/lang/String;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getSize ()I
+	public fun hashCode ()I
+	public final fun isEmpty ()Z
+	public final fun isNotEmpty ()Z
+	public fun toString ()Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/ParameterList$Companion {
+}
+
+public abstract class com/rickbusarow/kase/gradle/generation/PluginBlockApplication : com/rickbusarow/kase/gradle/generation/DslBuilderComponent {
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslBuilderComponent;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public abstract fun getApply ()Z
+	public abstract fun getIdentifier ()Ljava/lang/String;
+	public abstract fun getVersion ()Ljava/lang/String;
+	protected abstract fun simpleCase (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+	public final fun write (Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/PluginBlockApplication$Alias : com/rickbusarow/kase/gradle/generation/PluginBlockApplication {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getAliasName ()Ljava/lang/String;
+	public fun getApply ()Z
+	public fun getIdentifier ()Ljava/lang/String;
+	public fun getVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/PluginBlockApplication$ID : com/rickbusarow/kase/gradle/generation/PluginBlockApplication {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getApply ()Z
+	public fun getIdentifier ()Ljava/lang/String;
+	public fun getVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/PluginBlockApplication$KotlinPlugin : com/rickbusarow/kase/gradle/generation/PluginBlockApplication {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getApply ()Z
+	public fun getIdentifier ()Ljava/lang/String;
+	public fun getVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/PluginBlockApplication$Precompiled : com/rickbusarow/kase/gradle/generation/PluginBlockApplication {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getApply ()Z
+	public fun getIdentifier ()Ljava/lang/String;
+	public fun getVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

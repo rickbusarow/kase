@@ -32,6 +32,7 @@ public interface TestEnvironmentFactory<T : TestEnvironment> {
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
     testAction: suspend T.() -> Unit
   ) {
+
     val testEnvironment = newTestEnvironment(kase, testFunctionCoordinates)
 
     runBlocking {

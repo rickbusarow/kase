@@ -12,7 +12,7 @@
     "gradlePath": ":kase-gradle",
     "group": "com.rickbusarow.kase",
     "artifactId": "kase-gradle",
-    "description": "Hermetic test environments and test factories",
+    "description": "Test environments that create Gradle projects for testing Gradle plugins.",
     "packaging": "jar",
     "javaVersion": "1.8",
     "publicationName": "maven"

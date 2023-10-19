@@ -17,12 +17,15 @@ package com.rickbusarow.kase.gradle
 
 import org.gradle.util.GradleVersion
 
+/** Interface for test versions. */
 public interface TestVersions {
 
+  /** The current Gradle version. */
   public val gradleVersion: String
 
   public companion object {
 
+    /** An empty [TestVersions] object containing only the current Gradle TestKit Gradle version. */
     public val EMPTY: TestVersions = object : TestVersions {
       override val gradleVersion: String by lazy {
         GradleVersion.current().version

@@ -108,6 +108,7 @@ public class DirectoryBuilder @PublishedApi internal constructor(
   @PublishedApi
   internal val files: MutableMap<String, FileWithContent> = mutableMapOf()
 
+  /** Applies the [builder] to this directory. */
   public inline operator fun invoke(builder: DirectoryBuilder.() -> Unit): DirectoryBuilder {
     return apply(builder)
   }

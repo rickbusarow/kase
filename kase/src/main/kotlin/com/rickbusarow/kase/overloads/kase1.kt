@@ -31,6 +31,7 @@ public interface Kase1<out A1> : Kase {
 
   /** The 1st parameter. */
   public val a1: A1
+
   /** The 1st parameter. */
   public val a1WithLabel: KaseParameterWithLabel<A1>
 
@@ -135,12 +136,7 @@ context(TestEnvironmentFactory<T>)
 public inline fun <T : TestEnvironment, A1> testFactory(
   kases: Iterable<Kase1<A1>>,
   crossinline testAction: T.(a1: A1) -> Unit
-): Stream<out DynamicNode> {
-  return kases.asTests(
-    testName = { kase -> kase.displayName() },
-    testAction = { kase -> testAction(kase.a1) }
-  )
-}
+): Stream<out DynamicNode> = kases.asTests { kase1: Kase1<A1> -> testAction(kase1.a1) }
 
 /** */
 @JvmName("testFactoryKase1")

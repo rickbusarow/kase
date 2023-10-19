@@ -17,12 +17,15 @@ package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasLabel
 
-public abstract class AbstractDependencyVersion<E : DependencyVersion>(
+/** A type-safe wrapper for a dependency version string, such as "1.0.0" or "1.0.0-alpha01". */
+@Suppress("UnnecessaryAbstractClass")
+public abstract class AbstractDependencyVersion(
   override val value: String
 ) : DependencyVersion {
   override fun toString(): String = "$label: $value"
 }
 
+/** A type-safe wrapper for a dependency version string, such as "1.0.0" or "1.0.0-alpha01". */
 public inline fun <reified E : DependencyVersion> dependencyVersion(
   value: String
 ): DependencyVersion {

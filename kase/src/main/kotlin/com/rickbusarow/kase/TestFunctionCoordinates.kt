@@ -43,6 +43,7 @@ public class TestFunctionCoordinates private constructor(
 
   public companion object {
 
+    /** Finds the stack trace kaseParam corresponding to the invoking test function. */
     public fun get(): TestFunctionCoordinates = from(testStackTraceElement())
 
     /**
@@ -68,47 +69,6 @@ public class TestFunctionCoordinates private constructor(
         callingFunctionSimpleName = stackTraceElement.methodName
       )
     }
-
-    // fun get(): TestFunctionLocation {
-    //   return from(testStackFrame())
-    // }
-    // /**
-    //  * Finds the stack trace kaseParam corresponding to the invoking test
-    //  * function. This should be called as close as possible to the test function.
-    //  */
-    // private fun testStackFrame(): StackFrame = StackWalker
-    //   .getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE)
-    //   .walk { frames ->
-    //
-    //     val allGoodFrames = frames
-    //       // skip the first since it's this function and not the calling test
-    //       .skip(1)
-    //       .filter { it.isTestFunction() }
-    //
-    //     val callingFunctionName = allGoodFrames
-    //       .findFirst()
-    //       .get()
-    //       .callingFunctionName()
-    //
-    //     allGoodFrames.filter { it.methodName == callingFunctionName }
-    //       .asSequence()
-    //       .last()
-    //   }
-    // private fun from(stackFrame: StackFrame): TestFunctionLocation {
-    //   val actualClass = stackFrame.declaringClass.removeSynthetics()
-    //   return TestFunctionLocation(
-    //     packageName = stackFrame.declaringClass.packageName,
-    //     declaringClass = stackFrame.declaringClass,
-    //     declaringClassWithoutSynthetics = actualClass,
-    //     declaringClassSimpleNames = actualClass.declaringClassSimpleNames(),
-    //     callingFunctionSimpleName = stackFrame.declaringClass.name
-    //       .removePrefix(actualClass.name)
-    //       .splitToSequence(Regex("""[.$]+"""))
-    //       .filter { it.isNotBlank() }
-    //       .firstOrNull()
-    //       ?: stackFrame.methodName
-    //   )
-    // }
   }
 }
 
@@ -132,41 +92,6 @@ internal fun StackTraceElement.isTestFunction(): Boolean {
     actualMethodName = this.methodName
   )
 }
-
-// /**
-//  * Checks if the [StackFrame] is for a test function annotated with
-//  * [@TestFactory][org.junit.jupiter.api.TestFactory] or [@Test][org.junit.jupiter.api.Test].
-//  *
-//  * @receiver [StackFrame] The frame to check.
-//  * @return `true` if the [StackFrame] is for a test function.
-//  */
-// @PublishedApi
-// internal fun StackFrame.isTestFunction(): Boolean {
-//   val clazz = declaringClass ?: return false
-//
-//   if (clazz.firstPackageSegment() in sdkPackagePrefixes) {
-//     return false
-//   }
-//
-//   return hasTestAnnotation(
-//     actualClass = clazz.removeSynthetics(),
-//     actualMethodName = callingFunctionName()
-//   )
-// }
-// /**
-//  * Finds the stack trace kaseParam corresponding to the invoking test function.
-//  *
-//  * @return The StackFrame corresponding to the test function.
-//  */
-// internal fun StackFrame.callingFunctionName(
-//   declaringClass: Class<*> = this.declaringClass,
-//   actualClass: Class<*> = declaringClass.removeSynthetics()
-// ): String {
-//   return declaringClass.name.removePrefix(actualClass.name)
-//     .segments()
-//     .firstOrNull()
-//     ?: methodName
-// }
 
 private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
 
@@ -248,6 +173,7 @@ public tailrec fun Class<*>.removeSynthetics(): Class<*> {
   }
 }
 
+/** Returns the simple names of the receiver class and all of its enclosing classes. */
 public fun Class<*>.simpleNames(): List<String> {
   return generateSequence(this) { it.enclosingClass }
     .mapNotNull { it.simpleName }

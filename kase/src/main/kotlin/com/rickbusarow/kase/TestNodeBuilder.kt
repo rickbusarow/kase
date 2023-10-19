@@ -98,6 +98,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
    *
    * @param name the name of the test. action a function containing the test logic.
+   * @param testAction a function containing the test logic.
    */
   public fun test(name: String, testAction: () -> Unit) {
     addTest(name, testAction)
@@ -202,6 +203,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    *
    * @param testName a function to compute the name of each
    *   container. action a function to initialize each container.
+   * @param testAction a function to initialize each container.
    * @receiver the [TestNodeBuilder] to which containers will be added.
    * @return the invoking [TestNodeBuilder], after adding the new containers.
    */
@@ -217,16 +219,14 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   /**
    * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
    *
-   * @param testName the name of the test.
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment, E : AnyKase> Iterable<E>.asTests(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: suspend T.(E) -> Unit
+  public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
+    crossinline testAction: suspend T.(K) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (element in this@asTests) {
-      test(testName(element)) { testAction(element) }
+    for (kase in this@asTests) {
+      test(kase) { testAction(kase) }
     }
   }
 
@@ -257,6 +257,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
     name: String,
     crossinline testAction: suspend T.() -> Unit
   ) {
+    println("%%%%%%% name -- $name")
     addTest(name) {
       this@TestEnvironmentFactory.test(
         testFunctionCoordinates = testFunctionCoordinates,
@@ -371,17 +372,15 @@ public inline fun <E> Sequence<E>.asTests(
 
 /**
  * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
- * by the [testName] function, and the tests themselves are defined by the [testAction] function.
+ * by the kase instance, and the tests themselves are defined by the [testAction] function.
  *
- * @param testName a function to compute the name of each test.
  * @param testAction a function to define each test.
  * @return a stream of dynamic nodes representing the tests.
  */
 context(TestEnvironmentFactory<T>)
 public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
-  crossinline testName: (K) -> String = { it.toString() },
   crossinline testAction: suspend T.(K) -> Unit
-): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
+): Stream<out DynamicNode> = testFactory { asTests(testAction) }
 
 /**
  * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined

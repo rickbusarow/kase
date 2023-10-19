@@ -17,89 +17,18 @@
 
 package com.rickbusarow.kase.gradle.generation
 
-import com.rickbusarow.kase.gradle.generation.DslLanguage.Groovy
-import com.rickbusarow.kase.gradle.generation.DslLanguage.Kotlin
 import com.rickbusarow.kase.gradle.generation.Lambda.ConfigurationLambda
-import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 
-public interface DslBuilderComponent : Comparable<DslBuilderComponent> {
-
-  public fun write(language: DslLanguage): String
-
-  override fun compareTo(other: DslBuilderComponent): Int {
-    return write(Kotlin).compareTo(other.write(Kotlin))
-  }
-}
-
-public sealed interface Lambda : DslBuilderComponent {
-
-  public val contents: Collection<DslBuilderComponent>
-
-  /**
-   * A lambda with no name, such as this configuration block:
-   *
-   * ```
-   * tasks.named("someTask") {
-   *   dependsOn("someOtherTask")
-   * }
-   * ```
-   *
-   * @property contents statements inside the lambda, such
-   *   as `exclude group: "com.acme", module: "rocket"`
-   */
-  @Poko
-  public class ConfigurationLambda(
-    public override val contents: Collection<DslBuilderComponent>,
-    public val writeIfEmpty: Boolean = false
-  ) : Lambda {
-    override fun write(language: DslLanguage): String {
-      return when {
-        contents.isEmpty() && writeIfEmpty -> " { }"
-        contents.isEmpty() && !writeIfEmpty -> ""
-        else -> buildString {
-          appendLine(" {")
-          indent {
-            for (component in contents) {
-              appendLine(component.write(language))
-            }
-          }
-          appendLine("}")
-        }
-      }
-    }
-  }
-
-  /**
-   * A lambda with a name, e.g. `android { ... }` or `dependencies { ... }`
-   *
-   * @property name the name of the lambda, e.g. `android` or `dependencies`
-   * @property contents the contents of the lambda
-   */
-  @Poko
-  public class NamedLambda(
-    public val name: String,
-    public override val contents: Collection<DslBuilderComponent>
-  ) : Lambda {
-    override fun write(language: DslLanguage): String {
-      return when {
-        contents.isEmpty() -> ""
-        else -> buildString {
-          appendLine("{")
-          indent {
-            for (component in contents) {
-              appendLine(component.write(language))
-            }
-          }
-          appendLine("}")
-        }
-      }
-    }
-  }
-}
-
+/**
+ * A dependency declaration like `implementation("com.acme:dynamite:1.0.0")`
+ * or `implementation project(':example')`
+ */
 public sealed interface DependencyDeclaration : DslBuilderComponent {
+  /** The configuration, e.g. `implementation` */
   public val configuration: String
+
+  /** A list of [DependencyExclusion]s, e.g. `exclude group: 'com.acme', module: 'rocket'` */
   public val exclusions: List<DependencyExclusion>
 
   /**
@@ -119,17 +48,11 @@ public sealed interface DependencyDeclaration : DslBuilderComponent {
 
     override fun write(language: DslLanguage): String {
       val lambda = ConfigurationLambda(exclusions, writeIfEmpty = false)
-      return when (language) {
-        Kotlin -> {
 
-          "$configuration(project(\"$projectPath\"))${lambda.write(language)}"
-        }
+      val pathArg = "(${language.quote(projectPath)})"
+      val projectArg = language.parens(pathArg)
 
-        is Groovy -> {
-
-          "$configuration project('$projectPath'))${lambda.write(language)}"
-        }
-      }
+      return "$configuration$projectArg${lambda.write(language)}"
     }
   }
 

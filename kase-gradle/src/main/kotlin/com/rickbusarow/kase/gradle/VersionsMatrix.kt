@@ -49,6 +49,7 @@ public interface VersionsMatrix {
     }
 
     /** */
+    @JvmName("invokeNested")
     public operator fun invoke(elements: List<List<Element>>): VersionsMatrix {
       return invoke(elements.flatten())
     }
