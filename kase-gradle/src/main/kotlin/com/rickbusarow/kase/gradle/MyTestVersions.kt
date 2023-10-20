@@ -49,7 +49,7 @@ public class MyTestVersions(
     public fun from(kase: AnyKase, versionMatrix: VersionMatrix): MyTestVersions {
 
       val versions = kase.elements
-        .mapNotNull { it.value as? DependencyVersion }
+        .mapNotNull { it.value as? DependencyVersion<*, *> }
         .associateBy { it.key }
 
       return MyTestVersions(
@@ -59,7 +59,7 @@ public class MyTestVersions(
       )
     }
 
-    private inline fun <reified T : DependencyVersion> Map<VersionMatrixKey<*>, DependencyVersion>.version(
+    private inline fun <reified T : DependencyVersion<*, *>> Map<VersionMatrixKey<*>, DependencyVersion<*, *>>.version(
       key: VersionMatrixKey<T>,
       default: () -> T
     ): T = get(key) as? T ?: default()

@@ -22,7 +22,7 @@ import com.rickbusarow.kase.gradle.VersionMatrix
 import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixElement
 import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 
-internal typealias AnyKey = VersionMatrixKey<VersionMatrixElement>
+internal typealias AnyKey = VersionMatrixKey<VersionMatrixElement<*>>
 
 internal class DefaultVersionMatrix(
   private val map: Map<AnyKey, VersionList<*, AnyKey>>
@@ -31,14 +31,14 @@ internal class DefaultVersionMatrix(
   override val size: Int get() = map.size
   override fun keys(): Set<AnyKey> = map.keys
 
-  override fun <E : VersionMatrixElement, K : VersionMatrixKey<E>> getOrNull(
+  override fun <E : VersionMatrixElement<*>, K : VersionMatrixKey<E>> getOrNull(
     key: K
   ): VersionList<E, K>? {
     @Suppress("UNCHECKED_CAST")
     return map[key] as? VersionList<E, K>
   }
 
-  override fun <E : VersionMatrixElement, K : VersionMatrixKey<E>> get(
+  override fun <E : VersionMatrixElement<*>, K : VersionMatrixKey<E>> get(
     key: K
   ): VersionList<E, K> {
     return requireNotNull(getOrNull(key)) {
@@ -46,7 +46,7 @@ internal class DefaultVersionMatrix(
     }
   }
 
-  override fun <E : VersionMatrixElement> plus(elements: Iterable<E>): VersionMatrix {
+  override fun <E : VersionMatrixElement<*>> plus(elements: Iterable<E>): VersionMatrix {
 
     if (!elements.iterator().hasNext()) return DefaultVersionMatrix(map.toMap())
 
@@ -66,11 +66,11 @@ internal class DefaultVersionMatrix(
     return DefaultVersionMatrix(map + newElementsMap)
   }
 
-  override fun <E : VersionMatrixElement> minus(key: VersionMatrixKey<E>): VersionMatrix {
+  override fun <E : VersionMatrixElement<*>> minus(key: VersionMatrixKey<E>): VersionMatrix {
     return DefaultVersionMatrix(map.minus(key))
   }
 
-  override fun <E : VersionMatrixElement> minus(elements: Iterable<E>): VersionMatrix {
+  override fun <E : VersionMatrixElement<*>> minus(elements: Iterable<E>): VersionMatrix {
 
     if (!elements.iterator().hasNext()) return DefaultVersionMatrix(map.toMap())
 

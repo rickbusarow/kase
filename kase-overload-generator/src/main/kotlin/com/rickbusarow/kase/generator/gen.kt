@@ -42,25 +42,13 @@ private val IMPORTS = """
 """.trimIndent()
 
 private val kasesKt = File(
-  "/Users/rbusarow/Development/kase/" +
-    "kase-gradle/src/main/kotlin/" +
-    "com/rickbusarow/kase/gradle/kases.kt"
+  "kase-gradle/src/main/kotlin/com/rickbusarow/kase/gradle/kases.kt"
 )
-private val overloads = File(
-  "/Users/rbusarow/Development/kase/" +
-    "kase/src/main/kotlin/" +
-    "com/rickbusarow/kase/overloads"
+private val testElements = File(
+  "kase-gradle/src/test/kotlin/com/rickbusarow/kase/gradle/testElements.kt"
 )
+private val overloads = File("kase/src/main/kotlin/com/rickbusarow/kase/overloads")
 
-/*
-#!/bin/bash
-cd ..
-killAll -9 java
-./gradlew :kase-overload-generator:jar
-/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home/bin/java -Dfile.encoding=UTF-8 -classpath /Users/rbusarow/Development/kase/kase-overload-generator/build/classes/kotlin/main:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.8.22/b25c86d47d6b962b9cf0f8c3f320c8a10eea3dd1/kotlin-stdlib-jdk8-1.8.22.jar:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.8.22/4dabb8248310d833bb6a8b516024a91fd3d275c/kotlin-stdlib-jdk7-1.8.22.jar:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.8.22/636bf8b320e7627482771bbac9ed7246773c02bd/kotlin-stdlib-1.8.22.jar:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.8.22/1a8e3601703ae14bb58757ea6b2d8e8e5935a586/kotlin-stdlib-common-1.8.22.jar:/Users/rbusarow/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar com.rickbusarow.kase.generator.GenKt
-killAll -9 java
-./gradlew detektMain
- */
 private const val MAX_PARAMS = 21
 
 private fun main() {
@@ -68,6 +56,8 @@ private fun main() {
   overloads.deleteRecursively()
 
   writeGradleFile()
+
+  writeTestElements()
 
   for (ct in (1..MAX_PARAMS)) {
 
@@ -85,8 +75,8 @@ private fun main() {
 
     val argsStringWithLabels = args.joinToString(", ") { "$it = $it" }
 
-    val paramsPairs = args.zip(types)
-    val params = paramsPairs.map { "${it.first}: ${it.second}" }
+    val argsTypePairs = args.zip(types)
+    val params = argsTypePairs.map { "${it.first}: ${it.second}" }
     val paramsString = params.joinToString(", ")
 
     val kaseSimpleName = "Kase$ct"
@@ -103,7 +93,7 @@ private fun main() {
 
     val argToLabelPairs = args.zip(labels)
     val withLabelCalls = argToLabelPairs.joinToString(",\n    ") { (value, label) ->
-      "${value}WithLabel = kaseParam(value = $value, label = labels.$label)"
+      "${value}WithLabel = kaseParam(value = $value, label = ($value as? HasLabel)?.label ?: labels.$label)"
     }
 
     val typesEnvironment = (listOf("T : TestEnvironment") + types)
@@ -173,10 +163,6 @@ private fun main() {
       "public val ${it}Label: String = \"$it\""
     }
 
-    val forLoops = forLoops(args) {
-      appendLine("add(kase($argsStringWithLabels, labels = labels))")
-    }
-
     val txt = buildString {
 
       appendLine(
@@ -239,13 +225,14 @@ private fun main() {
         labels = labels
       )
 
-      kasesFun(
+      kasesFun1(
         kaseSimpleName = kaseSimpleName,
         iterableParams = iterableParams,
         iterableParamsWithType = iterableParamsWithTypes,
         kaseLabelSimpleName = kaseLabelSimpleName,
         typesString = typesString,
-        forLoops = forLoops
+        args = args,
+        argsStringWithLabels = argsStringWithLabels
       )
 
       asTests(
@@ -296,7 +283,7 @@ private fun main() {
       defaultKase(
         argsWithLabels = argsWithLabels,
         types = types,
-        paramsPairs = paramsPairs,
+        paramsPairs = argsTypePairs,
         ct = ct,
         kasePlus1WithTypes = kasePlus1WithTypes,
         kasePlus1 = kasePlus1,
@@ -354,13 +341,14 @@ private fun StringBuilder.kaseLabelsClass(
   )
 }
 
-private fun StringBuilder.kasesFun(
+private fun StringBuilder.kasesFun1(
   kaseSimpleName: String,
   iterableParams: List<String>,
   iterableParamsWithType: String,
   kaseLabelSimpleName: String,
   typesString: String,
-  forLoops: String
+  args: List<String>,
+  argsStringWithLabels: String
 ) {
   val kasesKdoc = buildString {
     appendLine("/**")
@@ -372,6 +360,9 @@ private fun StringBuilder.kasesFun(
     appendLine(" * @param labels the [$kaseLabelSimpleName] to use for this [$kaseSimpleName]")
     appendLine(" * @return a [List] of [$kaseSimpleName]s from the given parameters.")
     append(" */")
+  }
+  val forLoops = forLoops(args) {
+    appendLine("add(kase($argsStringWithLabels, labels = labels))")
   }
 
   appendLine(
@@ -425,7 +416,7 @@ private fun writeGradleFile() {
           separator = ",\n",
           prefix = "\n",
           postfix = "\n  "
-        ) { "  reified A$it : VersionMatrixElement" }
+        ) { "  reified A$it : VersionMatrixElement<*>" }
 
       val params = (1..ct)
         .joinToString(
@@ -470,6 +461,50 @@ private fun writeGradleFile() {
   kasesKt.writeText(gradle)
 }
 
+private fun writeTestElements() {
+
+  val classNames = List(MAX_PARAMS) { "TestVersion${it + 1}" }
+
+  val content = buildString {
+
+    appendLine(
+      """
+      |$LICENSE
+      |
+      |$FILE_ANNOTATIONS
+      |
+      |package com.rickbusarow.kase.gradle
+      |
+      |${
+        classNames.sorted()
+          .joinToString("\n") { "import com.rickbusarow.kase.gradle.$it.${it}Key" }
+      }
+      |import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
+      |
+      """.trimMargin()
+    )
+
+    val classes = classNames.map { tv ->
+      """
+      |class $tv(
+      |  override val value: String
+      |): AbstractDependencyVersion<String, $tv, ${tv}Key>(${tv}Key) {
+      |
+      |  companion object ${tv}Key : VersionMatrixKey<$tv>
+      |}
+      |
+      """.trimMargin()
+    }
+
+    for (clazz in classes) {
+      appendLine(clazz)
+    }
+  }
+    .fixBlankLines()
+
+  testElements.writeText(content)
+}
+
 private fun StringBuilder.defaultKase(
   argsWithLabels: List<String>,
   types: List<String>,
@@ -506,6 +541,7 @@ private fun StringBuilder.defaultKase(
   appendLine(
     """
     |@Poko
+    |@PublishedApi
     |internal class Default$kaseSimpleName$typesWithVarianceString(
     |  $argWithLabelValueParams,
     |  override val labelDelimiter: String,
@@ -519,6 +555,8 @@ private fun StringBuilder.defaultKase(
     |  override fun <$aPlus1> plus(label: String, value: $aPlus1): $defaultKasePlus1 {
     |    ${plus1Impl.prependIndentAfterFirst("    ")}
     |  }
+    |
+    |  override fun toString(): String = displayName
     |}
     """.trimMargin()
   )
@@ -706,8 +744,8 @@ private fun StringBuilder.kaseFun(
     |public fun $typesString kase(
     |  $paramsString,
     |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
-    |  labelDelimiter: String = DELIMITER_DEFAULT,
-    |  displayNameSeparator: String = SEPARATOR_DEFAULT
+    |  labelDelimiter: String = labels.labelDelimiter,
+    |  displayNameSeparator: String = labels.displayNameSeparator
     |): $kaseSimpleName$typesString {
     |  return Default$kaseSimpleName(
     |    $withLabelCalls,

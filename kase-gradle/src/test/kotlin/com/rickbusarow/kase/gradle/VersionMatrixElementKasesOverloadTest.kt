@@ -15,12 +15,82 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.TestEnvironment
+import com.rickbusarow.kase.TestEnvironmentFactory
+import com.rickbusarow.kase.asTests
+import com.rickbusarow.kase.gradle.VersionMatrix.Companion
+import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
+import com.rickbusarow.kase.stdlib.createSafely
+import com.rickbusarow.kase.stdlib.toStringPretty
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestFactory
 
-class VersionMatrixElementKasesOverloadTest {
+class VersionMatrixElementKasesOverloadTest : TestEnvironmentFactory<TestEnvironment> {
 
   @Test
   fun `kases1 creates Kase1 kases`() {
-    println(1)
+
+    val matrix = VersionMatrix(List(3) { TestVersion1("1$it") })
+
+    val versionList = matrix[TestVersion1]
+
+    val kases = matrix.kases1(TestVersion1)
+
+    println(
+      """
+      |########################################################
+      |
+      |-- version list
+      |$versionList
+      |
+      |-- kases
+      |${kases.joinToString("\n")}
+      |########################################################
+    """.trimMargin()
+    )
+  }
+
+  @TestFactory
+  fun `kases2 creates Kase2 kases`() =
+    versionMatrix(numVersionTypes = 6, versionsPerType = 4)
+      .kases6(
+        keyForTypeNumber(1),
+        keyForTypeNumber(2),
+        keyForTypeNumber(3),
+        keyForTypeNumber(4),
+        keyForTypeNumber(5),
+        keyForTypeNumber(6),
+      ).asTests { k ->
+        workingDir.resolve(k.hashCode().toString()).createSafely(k.toStringPretty())
+      }
+
+  fun keyForTypeNumber(typeNumber: Int): VersionMatrixKey<*> {
+
+    return Class.forName("com.rickbusarow.kase.gradle.TestVersion$typeNumber")
+      .getField("TestVersion${typeNumber}Key")
+      .get(null) as VersionMatrixKey<*>
+  }
+
+  fun versionMatrix(
+    numVersionTypes: Int,
+    versionsPerType: Int = 3,
+    valueFactory: (Int, Char) -> String = { type, versionChar -> "$type.$versionChar" }
+  ): VersionMatrix {
+
+    val elements =
+      (1..numVersionTypes).flatMap { typeNumber ->
+        (1..versionsPerType).map { versionNumber ->
+
+          val versionChar = 'a' + versionNumber - 1
+
+          val value = valueFactory(typeNumber, versionChar)
+
+          Class.forName("com.rickbusarow.kase.gradle.TestVersion$typeNumber")
+            .declaredConstructors
+            .single()
+            .newInstance(value) as AbstractDependencyVersion<*, *, *>
+        }
+      }
+    return Companion(elements)
   }
 }

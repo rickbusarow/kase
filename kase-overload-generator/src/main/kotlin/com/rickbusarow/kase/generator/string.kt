@@ -112,3 +112,49 @@ internal fun String.trimIndentAfterFirstLine(): String {
   val remaining = split.drop(1).joinToString("\n").trimIndent()
   return "$first\n$remaining"
 }
+
+/**
+ * example:
+ *
+ * ```
+ * override fun toString() = buildString {
+ *   appendLine("SomeClass(")
+ *   indent {
+ *     appendLine("prop1=$prop1")
+ *     appendLine("prop2=$prop2")
+ *   }
+ *   appendLine(")")
+ * }
+ * ```
+ */
+inline fun StringBuilder.indent(
+  leadingIndent: String = "  ",
+  continuationIndent: String = leadingIndent,
+  builder: StringBuilder.() -> Unit
+) {
+
+  append(
+    buildString {
+      append(leadingIndent)
+
+      builder()
+    }
+      .prependContinuationIndent(continuationIndent)
+  )
+}
+
+/**
+ * Prepends [continuationIndent] to every line of the original string.
+ *
+ * Doesn't preserve the original line endings.
+ */
+fun CharSequence.prependContinuationIndent(
+  continuationIndent: String,
+  skipBlankLines: Boolean = true
+): String = mapLinesIndexed { i, line ->
+  when {
+    i == 0 -> line
+    skipBlankLines && line.isBlank() -> line
+    else -> "$continuationIndent$line"
+  }
+}

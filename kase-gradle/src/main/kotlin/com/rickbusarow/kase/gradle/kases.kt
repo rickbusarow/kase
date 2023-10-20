@@ -51,7 +51,7 @@ import com.rickbusarow.kase.kases
  * @return a [List] of [Kase1]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>
   > VersionMatrix.kases1(
   a1Key: VersionMatrixKey<A1>
 ): List<Kase1<A1>> {
@@ -68,8 +68,8 @@ public inline fun <
  * @return a [List] of [Kase2]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>
   > VersionMatrix.kases2(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>
@@ -89,9 +89,9 @@ public inline fun <
  * @return a [List] of [Kase3]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>
   > VersionMatrix.kases3(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -114,10 +114,10 @@ public inline fun <
  * @return a [List] of [Kase4]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>
   > VersionMatrix.kases4(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -143,11 +143,11 @@ public inline fun <
  * @return a [List] of [Kase5]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>
   > VersionMatrix.kases5(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -176,12 +176,12 @@ public inline fun <
  * @return a [List] of [Kase6]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>
   > VersionMatrix.kases6(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -213,13 +213,13 @@ public inline fun <
  * @return a [List] of [Kase7]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>
   > VersionMatrix.kases7(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -254,14 +254,14 @@ public inline fun <
  * @return a [List] of [Kase8]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>
   > VersionMatrix.kases8(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -299,15 +299,15 @@ public inline fun <
  * @return a [List] of [Kase9]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>
   > VersionMatrix.kases9(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -348,16 +348,16 @@ public inline fun <
  * @return a [List] of [Kase10]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>
   > VersionMatrix.kases10(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -401,17 +401,17 @@ public inline fun <
  * @return a [List] of [Kase11]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>
   > VersionMatrix.kases11(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -458,18 +458,18 @@ public inline fun <
  * @return a [List] of [Kase12]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>
   > VersionMatrix.kases12(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -519,19 +519,19 @@ public inline fun <
  * @return a [List] of [Kase13]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement,
-  reified A13 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>,
+  reified A13 : VersionMatrixElement<*>
   > VersionMatrix.kases13(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -584,20 +584,20 @@ public inline fun <
  * @return a [List] of [Kase14]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement,
-  reified A13 : VersionMatrixElement,
-  reified A14 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>,
+  reified A13 : VersionMatrixElement<*>,
+  reified A14 : VersionMatrixElement<*>
   > VersionMatrix.kases14(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -653,21 +653,21 @@ public inline fun <
  * @return a [List] of [Kase15]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement,
-  reified A13 : VersionMatrixElement,
-  reified A14 : VersionMatrixElement,
-  reified A15 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>,
+  reified A13 : VersionMatrixElement<*>,
+  reified A14 : VersionMatrixElement<*>,
+  reified A15 : VersionMatrixElement<*>
   > VersionMatrix.kases15(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -726,22 +726,22 @@ public inline fun <
  * @return a [List] of [Kase16]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement,
-  reified A13 : VersionMatrixElement,
-  reified A14 : VersionMatrixElement,
-  reified A15 : VersionMatrixElement,
-  reified A16 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>,
+  reified A13 : VersionMatrixElement<*>,
+  reified A14 : VersionMatrixElement<*>,
+  reified A15 : VersionMatrixElement<*>,
+  reified A16 : VersionMatrixElement<*>
   > VersionMatrix.kases16(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -803,23 +803,23 @@ public inline fun <
  * @return a [List] of [Kase17]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement,
-  reified A13 : VersionMatrixElement,
-  reified A14 : VersionMatrixElement,
-  reified A15 : VersionMatrixElement,
-  reified A16 : VersionMatrixElement,
-  reified A17 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>,
+  reified A13 : VersionMatrixElement<*>,
+  reified A14 : VersionMatrixElement<*>,
+  reified A15 : VersionMatrixElement<*>,
+  reified A16 : VersionMatrixElement<*>,
+  reified A17 : VersionMatrixElement<*>
   > VersionMatrix.kases17(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -884,24 +884,24 @@ public inline fun <
  * @return a [List] of [Kase18]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement,
-  reified A13 : VersionMatrixElement,
-  reified A14 : VersionMatrixElement,
-  reified A15 : VersionMatrixElement,
-  reified A16 : VersionMatrixElement,
-  reified A17 : VersionMatrixElement,
-  reified A18 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>,
+  reified A13 : VersionMatrixElement<*>,
+  reified A14 : VersionMatrixElement<*>,
+  reified A15 : VersionMatrixElement<*>,
+  reified A16 : VersionMatrixElement<*>,
+  reified A17 : VersionMatrixElement<*>,
+  reified A18 : VersionMatrixElement<*>
   > VersionMatrix.kases18(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -969,25 +969,25 @@ public inline fun <
  * @return a [List] of [Kase19]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement,
-  reified A13 : VersionMatrixElement,
-  reified A14 : VersionMatrixElement,
-  reified A15 : VersionMatrixElement,
-  reified A16 : VersionMatrixElement,
-  reified A17 : VersionMatrixElement,
-  reified A18 : VersionMatrixElement,
-  reified A19 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>,
+  reified A13 : VersionMatrixElement<*>,
+  reified A14 : VersionMatrixElement<*>,
+  reified A15 : VersionMatrixElement<*>,
+  reified A16 : VersionMatrixElement<*>,
+  reified A17 : VersionMatrixElement<*>,
+  reified A18 : VersionMatrixElement<*>,
+  reified A19 : VersionMatrixElement<*>
   > VersionMatrix.kases19(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -1058,26 +1058,26 @@ public inline fun <
  * @return a [List] of [Kase20]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement,
-  reified A13 : VersionMatrixElement,
-  reified A14 : VersionMatrixElement,
-  reified A15 : VersionMatrixElement,
-  reified A16 : VersionMatrixElement,
-  reified A17 : VersionMatrixElement,
-  reified A18 : VersionMatrixElement,
-  reified A19 : VersionMatrixElement,
-  reified A20 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>,
+  reified A13 : VersionMatrixElement<*>,
+  reified A14 : VersionMatrixElement<*>,
+  reified A15 : VersionMatrixElement<*>,
+  reified A16 : VersionMatrixElement<*>,
+  reified A17 : VersionMatrixElement<*>,
+  reified A18 : VersionMatrixElement<*>,
+  reified A19 : VersionMatrixElement<*>,
+  reified A20 : VersionMatrixElement<*>
   > VersionMatrix.kases20(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
@@ -1151,27 +1151,27 @@ public inline fun <
  * @return a [List] of [Kase21]s from this [VersionMatrix] for the given keys
  */
 public inline fun <
-  reified A1 : VersionMatrixElement,
-  reified A2 : VersionMatrixElement,
-  reified A3 : VersionMatrixElement,
-  reified A4 : VersionMatrixElement,
-  reified A5 : VersionMatrixElement,
-  reified A6 : VersionMatrixElement,
-  reified A7 : VersionMatrixElement,
-  reified A8 : VersionMatrixElement,
-  reified A9 : VersionMatrixElement,
-  reified A10 : VersionMatrixElement,
-  reified A11 : VersionMatrixElement,
-  reified A12 : VersionMatrixElement,
-  reified A13 : VersionMatrixElement,
-  reified A14 : VersionMatrixElement,
-  reified A15 : VersionMatrixElement,
-  reified A16 : VersionMatrixElement,
-  reified A17 : VersionMatrixElement,
-  reified A18 : VersionMatrixElement,
-  reified A19 : VersionMatrixElement,
-  reified A20 : VersionMatrixElement,
-  reified A21 : VersionMatrixElement
+  reified A1 : VersionMatrixElement<*>,
+  reified A2 : VersionMatrixElement<*>,
+  reified A3 : VersionMatrixElement<*>,
+  reified A4 : VersionMatrixElement<*>,
+  reified A5 : VersionMatrixElement<*>,
+  reified A6 : VersionMatrixElement<*>,
+  reified A7 : VersionMatrixElement<*>,
+  reified A8 : VersionMatrixElement<*>,
+  reified A9 : VersionMatrixElement<*>,
+  reified A10 : VersionMatrixElement<*>,
+  reified A11 : VersionMatrixElement<*>,
+  reified A12 : VersionMatrixElement<*>,
+  reified A13 : VersionMatrixElement<*>,
+  reified A14 : VersionMatrixElement<*>,
+  reified A15 : VersionMatrixElement<*>,
+  reified A16 : VersionMatrixElement<*>,
+  reified A17 : VersionMatrixElement<*>,
+  reified A18 : VersionMatrixElement<*>,
+  reified A19 : VersionMatrixElement<*>,
+  reified A20 : VersionMatrixElement<*>,
+  reified A21 : VersionMatrixElement<*>
   > VersionMatrix.kases21(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,

@@ -67,11 +67,11 @@ public interface Kase1<out A1> : Kase {
 public fun <A1> kase(
   a1: A1,
   labels: KaseLabels1 = KaseLabels1(),
-  labelDelimiter: String = DELIMITER_DEFAULT,
-  displayNameSeparator: String = SEPARATOR_DEFAULT
+  labelDelimiter: String = labels.labelDelimiter,
+  displayNameSeparator: String = labels.displayNameSeparator
 ): Kase1<A1> {
   return DefaultKase1(
-    a1WithLabel = kaseParam(value = a1, label = labels.a1Label),
+    a1WithLabel = kaseParam(value = a1, label = (a1 as? HasLabel)?.label ?: labels.a1Label),
     labelDelimiter = labelDelimiter,
     displayNameSeparator = displayNameSeparator
   )
@@ -225,6 +225,7 @@ public class KaseLabels1(
 }
 
 @Poko
+@PublishedApi
 internal class DefaultKase1<out A1>(
   override val a1WithLabel: KaseParameterWithLabel<A1>,
   override val labelDelimiter: String,
@@ -243,4 +244,6 @@ internal class DefaultKase1<out A1>(
       displayNameSeparator = displayNameSeparator
     )
   }
+
+  override fun toString(): String = displayName
 }

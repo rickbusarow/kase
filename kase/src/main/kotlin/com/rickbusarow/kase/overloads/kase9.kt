@@ -131,19 +131,19 @@ public interface Kase9<out A1, out A2, out A3, out A4, out A5, out A6, out A7, o
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9,
   labels: KaseLabels9 = KaseLabels9(),
-  labelDelimiter: String = DELIMITER_DEFAULT,
-  displayNameSeparator: String = SEPARATOR_DEFAULT
+  labelDelimiter: String = labels.labelDelimiter,
+  displayNameSeparator: String = labels.displayNameSeparator
 ): Kase9<A1, A2, A3, A4, A5, A6, A7, A8, A9> {
   return DefaultKase9(
-    a1WithLabel = kaseParam(value = a1, label = labels.a1Label),
-    a2WithLabel = kaseParam(value = a2, label = labels.a2Label),
-    a3WithLabel = kaseParam(value = a3, label = labels.a3Label),
-    a4WithLabel = kaseParam(value = a4, label = labels.a4Label),
-    a5WithLabel = kaseParam(value = a5, label = labels.a5Label),
-    a6WithLabel = kaseParam(value = a6, label = labels.a6Label),
-    a7WithLabel = kaseParam(value = a7, label = labels.a7Label),
-    a8WithLabel = kaseParam(value = a8, label = labels.a8Label),
-    a9WithLabel = kaseParam(value = a9, label = labels.a9Label),
+    a1WithLabel = kaseParam(value = a1, label = (a1 as? HasLabel)?.label ?: labels.a1Label),
+    a2WithLabel = kaseParam(value = a2, label = (a2 as? HasLabel)?.label ?: labels.a2Label),
+    a3WithLabel = kaseParam(value = a3, label = (a3 as? HasLabel)?.label ?: labels.a3Label),
+    a4WithLabel = kaseParam(value = a4, label = (a4 as? HasLabel)?.label ?: labels.a4Label),
+    a5WithLabel = kaseParam(value = a5, label = (a5 as? HasLabel)?.label ?: labels.a5Label),
+    a6WithLabel = kaseParam(value = a6, label = (a6 as? HasLabel)?.label ?: labels.a6Label),
+    a7WithLabel = kaseParam(value = a7, label = (a7 as? HasLabel)?.label ?: labels.a7Label),
+    a8WithLabel = kaseParam(value = a8, label = (a8 as? HasLabel)?.label ?: labels.a8Label),
+    a9WithLabel = kaseParam(value = a9, label = (a9 as? HasLabel)?.label ?: labels.a9Label),
     labelDelimiter = labelDelimiter,
     displayNameSeparator = displayNameSeparator
   )
@@ -369,6 +369,7 @@ public class KaseLabels9(
 }
 
 @Poko
+@PublishedApi
 internal class DefaultKase9<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9>(
   override val a1WithLabel: KaseParameterWithLabel<A1>,
   override val a2WithLabel: KaseParameterWithLabel<A2>,
@@ -411,4 +412,6 @@ internal class DefaultKase9<out A1, out A2, out A3, out A4, out A5, out A6, out 
       displayNameSeparator = displayNameSeparator
     )
   }
+
+  override fun toString(): String = displayName
 }

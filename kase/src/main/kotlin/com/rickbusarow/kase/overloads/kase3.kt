@@ -83,13 +83,13 @@ public interface Kase3<out A1, out A2, out A3> : Kase {
 public fun <A1, A2, A3> kase(
   a1: A1, a2: A2, a3: A3,
   labels: KaseLabels3 = KaseLabels3(),
-  labelDelimiter: String = DELIMITER_DEFAULT,
-  displayNameSeparator: String = SEPARATOR_DEFAULT
+  labelDelimiter: String = labels.labelDelimiter,
+  displayNameSeparator: String = labels.displayNameSeparator
 ): Kase3<A1, A2, A3> {
   return DefaultKase3(
-    a1WithLabel = kaseParam(value = a1, label = labels.a1Label),
-    a2WithLabel = kaseParam(value = a2, label = labels.a2Label),
-    a3WithLabel = kaseParam(value = a3, label = labels.a3Label),
+    a1WithLabel = kaseParam(value = a1, label = (a1 as? HasLabel)?.label ?: labels.a1Label),
+    a2WithLabel = kaseParam(value = a2, label = (a2 as? HasLabel)?.label ?: labels.a2Label),
+    a3WithLabel = kaseParam(value = a3, label = (a3 as? HasLabel)?.label ?: labels.a3Label),
     labelDelimiter = labelDelimiter,
     displayNameSeparator = displayNameSeparator
   )
@@ -261,6 +261,7 @@ public class KaseLabels3(
 }
 
 @Poko
+@PublishedApi
 internal class DefaultKase3<out A1, out A2, out A3>(
   override val a1WithLabel: KaseParameterWithLabel<A1>,
   override val a2WithLabel: KaseParameterWithLabel<A2>,
@@ -285,4 +286,6 @@ internal class DefaultKase3<out A1, out A2, out A3>(
       displayNameSeparator = displayNameSeparator
     )
   }
+
+  override fun toString(): String = displayName
 }
