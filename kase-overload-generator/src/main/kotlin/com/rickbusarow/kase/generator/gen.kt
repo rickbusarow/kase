@@ -88,14 +88,14 @@ internal data class Arg(val number: Int) {
 //   }
 // }
 
-fun function(
-  name: String,
-  kdoc: String,
-  context: String?,
-  inline: Boolean
-): String {
-  return ""
-}
+// internal fun function(
+//   name: String,
+//   kdoc: String,
+//   context: String?,
+//   inline: Boolean
+// ): String {
+//   return ""
+// }
 
 private fun main() {
 

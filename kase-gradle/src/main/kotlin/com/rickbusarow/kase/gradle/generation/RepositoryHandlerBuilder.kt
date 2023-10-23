@@ -18,8 +18,15 @@ package com.rickbusarow.kase.gradle.generation
 import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport.GROOVY
 import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport.NONE
 
+/** A `repositories { }` container */
 public class RepositoryHandlerBuilder : DslElementContainer() {
 
+  /**
+   * Adds a new repository to the repository handler.
+   *
+   * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   * @param action the action to perform on the repository
+   */
   public fun maven(
     url: String,
     action: MavenArtifactRepositoryBuilder.() -> Unit = {}
@@ -30,6 +37,25 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
     LambdaParameter(label = "action", builder = action)
   )
 
+  /**
+   * Adds a new repository to the repository handler.
+   *
+   * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   * @param action the action to perform on the repository
+   */
+  public fun maven(
+    url: Quoted,
+    action: MavenArtifactRepositoryBuilder.() -> Unit = {}
+  ): RepositoryHandlerBuilder = functionCall(
+    name = "maven",
+    labelSupport = GROOVY,
+    ValueParameter("url", url),
+    LambdaParameter(label = "action", builder = action)
+  )
+
+  /**
+   * Adds an invocation of `gradlePluginPortal()` to the repository handler
+   */
   public fun gradlePluginPortal(
     action: MavenArtifactRepositoryBuilder.() -> Unit = {}
   ): RepositoryHandlerBuilder = functionCall(
@@ -38,6 +64,9 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
     LambdaParameter("action", action)
   )
 
+  /**
+   * Adds an invocation of `mavenCentral()` to the repository handler
+   */
   public fun mavenCentral(
     action: MavenArtifactRepositoryBuilder.() -> Unit = {}
   ): RepositoryHandlerBuilder = functionCall(
@@ -46,6 +75,9 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
     LambdaParameter("action", action)
   )
 
+  /**
+   * Adds an invocation of `mavenLocal()` to the repository handler
+   */
   public fun mavenLocal(
     action: MavenArtifactRepositoryBuilder.() -> Unit = {}
   ): RepositoryHandlerBuilder = functionCall(
@@ -54,6 +86,9 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
     LambdaParameter("action", action)
   )
 
+  /**
+   * Adds an invocation of `google()` to the repository handler
+   */
   public fun google(
     action: MavenArtifactRepositoryBuilder.() -> Unit = {}
   ): RepositoryHandlerBuilder = functionCall(
@@ -63,13 +98,39 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
   )
 }
 
+/**
+ * The common configuration lambda in a repository declaration, like:
+ *
+ * ```
+ * repositories {
+ *   mavenLocal {
+ *     // this lambda
+ *   }
+ * }
+ */
 public abstract class ArtifactRepositoryBuilder<T : RepositoryContentBuilder> : DslElementContainer() {
 
+  /**
+   * Adds a new `content { }` block to the repository configuration.
+   */
   public abstract fun content(block: T.() -> Unit): ArtifactRepositoryBuilder<T>
 }
 
+/**
+ * The maven-specific configuration lambda in a repository declaration, like:
+ *
+ * ```
+ * repositories {
+ *   mavenLocal {
+ *     // this lambda
+ *   }
+ * }
+ */
 public class MavenArtifactRepositoryBuilder : ArtifactRepositoryBuilder<MavenRepositoryContentBuilder>() {
 
+  /**
+   * Adds a new `mavenContent { }` block to the repository configuration.
+   */
   public fun mavenContent(
     block: MavenRepositoryContentBuilder.() -> Unit
   ): ArtifactRepositoryBuilder<MavenRepositoryContentBuilder> = functionCall(
@@ -87,8 +148,14 @@ public class MavenArtifactRepositoryBuilder : ArtifactRepositoryBuilder<MavenRep
   )
 }
 
+/**
+ * The configuration options for a maven repository's content.
+ */
 public class MavenRepositoryContentBuilder : RepositoryContentBuilder() {
 
+  /**
+   *
+   */
   public fun releasesOnly(): MavenRepositoryContentBuilder = apply {
     add(FunctionCall(name = "releasesOnly", labelSupport = NONE))
   }

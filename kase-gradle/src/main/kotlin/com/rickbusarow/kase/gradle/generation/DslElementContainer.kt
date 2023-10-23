@@ -15,6 +15,10 @@
 
 package com.rickbusarow.kase.gradle.generation
 
+/**
+ * Collects [DslElement]s, to be written to a [DslLanguage]
+ * file. Elements are written in the order they are added.
+ */
 public abstract class DslElementContainer(
   elements: MutableList<DslElement> = mutableListOf()
 ) : DslElement {
@@ -28,6 +32,13 @@ public abstract class DslElementContainer(
     _elements.add(element)
   }
 
+  /**
+   * Adds a new [FunctionCall] to the DSL.
+   *
+   * @param name the name of the function, such as `exclude`
+   * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+   * @param parameters the list of parameters to pass to the function
+   */
   internal fun <T : DslElementContainer> T.functionCall(
     name: String,
     labelSupport: FunctionCall.LabelSupport,
@@ -51,6 +62,7 @@ public abstract class DslElementContainer(
     this._elements.addAll(elements)
   }
 
+  /** Adds a newLine to the DSL. */
   public fun newLine(): DslElementContainer = apply { add(NewLine) }
 
   override fun write(language: DslLanguage): String {

@@ -69,11 +69,25 @@ public interface Parameter : DslElement {
 @Poko
 public class ValueParameter(
   override val label: String?,
-  public val valueString: String
+  public val valueString: (DslLanguage) -> String
 ) : Parameter {
-  public constructor(value: String) : this(label = null, valueString = value)
+  public constructor(value: String) : this(label = null, valueString = { value })
+  public constructor(label: String?, valueString: String) :
+    this(label = label, valueString = {
+      valueString
+    })
+  public constructor(valueElement: DslElement) : this(
+    label = null,
+    valueString = { valueElement.write(it) }
+  )
+
+  public constructor(label: String?, valueElement: DslElement) : this(
+    label = label,
+    valueString = { valueElement.write(it) }
+  )
 
   override fun write(language: DslLanguage, labelSupport: LabelSupport): String {
+    val valueString = valueString(language)
     return label?.takeIf { language.supports(labelSupport) }
       ?.let { labelValue -> "$labelValue${language.labelDelimiter} $valueString" }
       ?: valueString

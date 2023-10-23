@@ -25,7 +25,7 @@ import dev.drewhamilton.poko.Poko
 /**
  * The language of the DSL, e.g. [Groovy] or [Kotlin]
  *
- * @property quote the quote character used for strings in this language, e.g. `'` or `"`
+ * @property quote the quoted character used for strings in this language, e.g. `'` or `"`
  * @property labelDelimiter the delimiter between a label and its value, e.g. ` = ` or `: `
  */
 public sealed class DslLanguage(public val quote: Char, public val labelDelimiter: String) {
@@ -92,6 +92,8 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
    */
   public operator fun String.invoke(param: String): String {
 
+    println("·$this·   ·$param·")
+
     check(param != "()")
 
     return "$this${parens(param)}"
@@ -138,6 +140,7 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
     return invoke("$this${parens(paramString)}")
   }
 
+  /** Whether this language supports some language-specific feature. */
   public fun supports(languageSpecific: LanguageSpecific): Boolean {
     return when (this) {
       is Groovy -> languageSpecific is GroovyCompatible
@@ -145,6 +148,7 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
     }
   }
 
+  /** Whether this language supports labels for this function or parameter */
   public fun supports(labelSupport: LabelSupport): Boolean {
     return when (this) {
       is Groovy -> labelSupport is GroovyCompatible
@@ -194,8 +198,23 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
   }
 }
 
+/**
+ * A marker indicating whether some DSL component is compatible with a specific language.
+ *
+ * Some examples of language-specific features:
+ * - parameter labels or named arguments
+ * - infix method calls
+ * - single or double quotes for strings
+ */
 public sealed interface LanguageSpecific {
+  /** A marker indicating that some DSL component is compatible with the Groovy DSL. */
   public interface GroovyCompatible : LanguageSpecific
+
+  /** A marker indicating that some DSL component is compatible with the Kotlin DSL. */
   public interface KotlinCompatible : LanguageSpecific
+
+  /**
+   * A marker indicating that some DSL component is compatible with both the Groovy and Kotlin DSLs.
+   */
   public interface GroovyAndKotlinCompatible : GroovyCompatible, KotlinCompatible
 }

@@ -20,6 +20,20 @@ import com.rickbusarow.kase.gradle.generation.LanguageSpecific.GroovyCompatible
 import com.rickbusarow.kase.gradle.generation.LanguageSpecific.KotlinCompatible
 import dev.drewhamilton.poko.Poko
 
+/**
+ * A function call
+ *
+ * @property name the name of the function, such as `exclude`
+ * @property parameterList the list of parameters to pass to the function
+ * @property labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+ * @see Parameter
+ * @see ParameterList
+ * @see LambdaParameter
+ * @see ValueParameter
+ * @see DslElement
+ * @see DslLanguage
+ * @see DslLanguage.write
+ */
 @Poko
 public class FunctionCall(
   public val name: String,
@@ -65,13 +79,25 @@ public class FunctionCall(
   )
 
   override fun write(language: DslLanguage): String {
-    return language.write { name.invoke(parameterList.write(language, labelSupport)) }
+    return language.write { "$name${parameterList.write(language, labelSupport)}" }
   }
 
+  /**
+   * Whether this function call supports labels for its parameters.
+   *
+   * Labels will be supported in Kotlin if the function was re-written in the Kotlin DSL.
+   */
   public sealed interface LabelSupport {
+    /** No labels are supported. */
     public object NONE : LabelSupport
+
+    /** Labels are supported in the Kotlin DSL. */
     public object KOTLIN : LabelSupport, KotlinCompatible
+
+    /** Labels are supported in the Groovy DSL. */
     public object GROOVY : LabelSupport, GroovyCompatible
+
+    /** Labels are supported in both the Groovy and Kotlin DSLs. */
     public object BOTH : LabelSupport, GroovyAndKotlinCompatible
   }
 }

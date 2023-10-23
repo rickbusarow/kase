@@ -26,6 +26,18 @@ public interface DslElement : Comparable<DslElement> {
   }
 }
 
+/** Represents a newLine in the DSL code. */
 public object NewLine : DslElement {
   override fun write(language: DslLanguage): String = System.lineSeparator()
+}
+
+/**
+ * Represents a String value that will be wrapped in single
+ * or double quotes, depending upon the dsl language.
+ *
+ * @property value The String value to be quoted.
+ */
+@JvmInline
+public value class Quoted(public val value: String) : DslElement {
+  override fun write(language: DslLanguage): String = language.quote(value)
 }

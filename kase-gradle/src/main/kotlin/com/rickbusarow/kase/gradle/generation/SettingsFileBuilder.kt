@@ -15,8 +15,18 @@
 
 package com.rickbusarow.kase.gradle.generation
 
+public interface DslFileBuilder : DslElement {
+  public fun quoted(stringValue: String): Quoted = Quoted(stringValue)
+}
+
 /** Models a `settings.gradle` or `settings.gradle.kts` file. */
-public class SettingsFileBuilder : DslElementContainer() {
+public class SettingsFileBuilder(build: SettingsFileBuilder.() -> Unit) :
+  DslElementContainer(),
+  DslFileBuilder {
+
+  init {
+    build()
+  }
 
   public fun pluginManagement(
     block: PluginManagementSpecBuilder.() -> Unit

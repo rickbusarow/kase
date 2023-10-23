@@ -22,27 +22,27 @@ class RepositoryHandlerBuilderTest {
   @Test
   fun `canary thing`() {
 
-    val builder = SettingsFileBuilder().apply {
+    val builder = SettingsFileBuilder {
 
       pluginManagement {
         repositories {
           mavenCentral()
-          // google()
-          // gradlePluginPortal()
-          // maven("https://plugins.gradle.org/m2/")
-          // mavenLocal()
-          //
-          // maven("https://jitpack.io") {
-          //
-          //   content {
-          //     excludeGroup("com.android.tools.external.com-intellij")
-          //   }
-          // }
+          google()
+          gradlePluginPortal()
+          maven(quoted("https://plugins.gradle.org/m2/"))
+          mavenLocal()
+
+          maven(quoted("https://jitpack.io")) {
+
+            content {
+              excludeGroup("com.android.tools.external.com-intellij")
+            }
+          }
         }
-        // plugins {
-        //   id("com.rickbusarow.kase")
-        //   alias("libs.plugins.doks")
-        // }
+        plugins {
+          id("com.rickbusarow.kase")
+          alias("libs.plugins.doks")
+        }
       }
     }
 
