@@ -17,11 +17,21 @@ package com.rickbusarow.kase.gradle.generation
 
 import dev.drewhamilton.poko.Poko
 
+/** */
 public sealed interface ValueAssignment : DslElement {
 
+  /** the name of the variable or property being assigned, such as `version` or `group`. */
   public val name: String
+
+  /** the value being assigned, such as `"1.0.0"` or `"com.acme"`. */
   public val value: String
 
+  /**
+   * A variable assignment, such as `version = "1.0.0"`
+   *
+   * @property name the name of the variable, such as `version`
+   * @property value the value being assigned, such as `"1.0.0"`
+   */
   @Poko
   public class SetterAssignment(
     override val name: String,
@@ -30,6 +40,12 @@ public sealed interface ValueAssignment : DslElement {
     override fun write(language: DslLanguage): String = language.write { "$name = $value" }
   }
 
+  /**
+   * A property assignment, such as `version.set("1.0.0")`
+   *
+   * @property name the name of the property, such as `version`
+   * @property value the value being assigned, such as `"1.0.0"`
+   */
   @Poko
   public class PropertyAssignment(
     override val name: String,

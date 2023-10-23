@@ -18,35 +18,25 @@
 package com.rickbusarow.kase.gradle.generation
 
 import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport
-import com.rickbusarow.kase.gradle.generation.LanguageSpecific.GroovyCompatible
-import com.rickbusarow.kase.gradle.generation.LanguageSpecific.KotlinCompatible
 import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 import kotlin.reflect.full.primaryConstructor
 
+/** A parameter to a function call, such as `group: "com.acme"` or `"com.acme"`. */
 public interface Parameter : DslElement {
+  /** The label, such as `group` in `group: "com.acme"`. */
   public val label: String?
 
+  /**
+   * Creates a string representation of this [Parameter] in the given [language].
+   *
+   * @param language the [DslLanguage] to use when writing this [Parameter]
+   * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+   * @return the string representation of this [Parameter] in the given [language]
+   */
   public fun write(language: DslLanguage, labelSupport: LabelSupport): String
 
   override fun write(language: DslLanguage): String = write(language, LabelSupport.BOTH)
-
-  public sealed interface ParameterLabel : LanguageSpecific {
-    public val value: String
-
-    @JvmInline
-    public value class GroovyLabel(override val value: String) : ParameterLabel, GroovyCompatible
-
-    @JvmInline
-    public value class KotlinLabel(override val value: String) : ParameterLabel, KotlinCompatible
-
-    @JvmInline
-    public value class GroovyAndKotlinLabel(
-      override val value: String
-    ) : ParameterLabel,
-      KotlinCompatible,
-      GroovyCompatible
-  }
 
   public companion object {
     /** Joins a list of [Parameter]s into a [ParameterList]. */
@@ -54,6 +44,9 @@ public interface Parameter : DslElement {
       separator: String = ParameterList.SEPARATOR_DEFAULT
     ): ParameterList = ParameterList(parameters = toList(), separator = separator)
 
+    /**
+     * Creates a [Parameter] with an optional label, such as `group: "com.acme"` or `"com.acme"`.
+     */
     public operator fun invoke(value: String): ValueParameter {
       return ValueParameter(label = null, valueString = value)
     }
@@ -76,6 +69,7 @@ public class ValueParameter(
     this(label = label, valueString = {
       valueString
     })
+
   public constructor(valueElement: DslElement) : this(
     label = null,
     valueString = { valueElement.write(it) }
@@ -94,6 +88,12 @@ public class ValueParameter(
   }
 }
 
+/**
+ * A parameter which is a lambda, such as `exclude { group = "com.acme" }`.
+ *
+ * @property label the label, such as `exclude` in `exclude { group = "com.acme" }`
+ * @param elements the list of [DslElement]s which make up the lambda
+ */
 @Poko
 public class LambdaParameter(
   override val label: String?,
@@ -125,6 +125,7 @@ public class LambdaParameter(
   }
 
   public companion object {
+    /** Creates a new [LambdaParameter] using [builder] */
     public operator fun <T : DslElementContainer> invoke(
       receiver: T,
       builder: T.() -> Unit
@@ -133,6 +134,7 @@ public class LambdaParameter(
       elements = receiver.apply(builder).elements.toMutableList()
     )
 
+    /** Creates a new [LambdaParameter] using [builder] */
     public inline operator fun <reified T : DslElementContainer> invoke(
       label: String?,
       builder: T.() -> Unit
@@ -141,6 +143,7 @@ public class LambdaParameter(
       return LambdaParameter(label = label, receiver.apply(builder).elements.toMutableList())
     }
 
+    /** Creates a new [LambdaParameter] using [builder] */
     public operator fun <T : DslElementContainer> invoke(
       label: String?,
       receiver: T,
@@ -168,6 +171,13 @@ public class ParameterList(
   /** @return `true` if [size] is greater than zero, otherwise `false`. */
   public fun isNotEmpty(): Boolean = parameters.isNotEmpty()
 
+  /**
+   * Creates a string representation of this [ParameterList] in the given [language].
+   *
+   * @param language the [DslLanguage] to use when writing this [ParameterList]
+   * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+   * @return the string representation of this [ParameterList] in the given [language]
+   */
   public fun write(language: DslLanguage, labelSupport: LabelSupport): String {
 
     val trailingLambda = parameters.lastOrNull()

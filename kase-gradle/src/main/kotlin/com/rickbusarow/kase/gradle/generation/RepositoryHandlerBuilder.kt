@@ -53,9 +53,7 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
     LambdaParameter(label = "action", builder = action)
   )
 
-  /**
-   * Adds an invocation of `gradlePluginPortal()` to the repository handler
-   */
+  /** Adds an invocation of `gradlePluginPortal()` to the repository handler */
   public fun gradlePluginPortal(
     action: MavenArtifactRepositoryBuilder.() -> Unit = {}
   ): RepositoryHandlerBuilder = functionCall(
@@ -64,9 +62,7 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
     LambdaParameter("action", action)
   )
 
-  /**
-   * Adds an invocation of `mavenCentral()` to the repository handler
-   */
+  /** Adds an invocation of `mavenCentral()` to the repository handler */
   public fun mavenCentral(
     action: MavenArtifactRepositoryBuilder.() -> Unit = {}
   ): RepositoryHandlerBuilder = functionCall(
@@ -75,9 +71,7 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
     LambdaParameter("action", action)
   )
 
-  /**
-   * Adds an invocation of `mavenLocal()` to the repository handler
-   */
+  /** Adds an invocation of `mavenLocal()` to the repository handler */
   public fun mavenLocal(
     action: MavenArtifactRepositoryBuilder.() -> Unit = {}
   ): RepositoryHandlerBuilder = functionCall(
@@ -86,9 +80,7 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
     LambdaParameter("action", action)
   )
 
-  /**
-   * Adds an invocation of `google()` to the repository handler
-   */
+  /** Adds an invocation of `google()` to the repository handler */
   public fun google(
     action: MavenArtifactRepositoryBuilder.() -> Unit = {}
   ): RepositoryHandlerBuilder = functionCall(
@@ -110,9 +102,7 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
  */
 public abstract class ArtifactRepositoryBuilder<T : RepositoryContentBuilder> : DslElementContainer() {
 
-  /**
-   * Adds a new `content { }` block to the repository configuration.
-   */
+  /** Adds a new `content { }` block to the repository configuration. */
   public abstract fun content(block: T.() -> Unit): ArtifactRepositoryBuilder<T>
 }
 
@@ -128,9 +118,7 @@ public abstract class ArtifactRepositoryBuilder<T : RepositoryContentBuilder> : 
  */
 public class MavenArtifactRepositoryBuilder : ArtifactRepositoryBuilder<MavenRepositoryContentBuilder>() {
 
-  /**
-   * Adds a new `mavenContent { }` block to the repository configuration.
-   */
+  /** Adds a new `mavenContent { }` block to the repository configuration. */
   public fun mavenContent(
     block: MavenRepositoryContentBuilder.() -> Unit
   ): ArtifactRepositoryBuilder<MavenRepositoryContentBuilder> = functionCall(
@@ -148,43 +136,107 @@ public class MavenArtifactRepositoryBuilder : ArtifactRepositoryBuilder<MavenRep
   )
 }
 
-/**
- * The configuration options for a maven repository's content.
- */
+/** The configuration options for a maven repository's content. */
 public class MavenRepositoryContentBuilder : RepositoryContentBuilder() {
 
   /**
+   * Adds the `releasesOnly()` invocation to a maven repository configuration.
    *
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     releasesOnly()
+   *   }
+   * }
+   * ```
    */
   public fun releasesOnly(): MavenRepositoryContentBuilder = apply {
     add(FunctionCall(name = "releasesOnly", labelSupport = NONE))
   }
 
+  /**
+   * Adds the `snapshotsOnly()` invocation to a maven repository configuration.
+   *
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     mavenContent {
+   *       snapshotsOnly()
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun snapshotsOnly(): MavenRepositoryContentBuilder = apply {
     add(FunctionCall(name = "snapshotsOnly", labelSupport = NONE))
   }
 }
 
+/** Adds the common configurations to a repository's content, like: */
 public abstract class RepositoryContentBuilder : DslElementContainer() {
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       includeGroup("com.acme")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun includeGroup(group: String): RepositoryContentBuilder = functionCall(
     name = "includeGroup",
     labelSupport = GROOVY,
     ValueParameter("group", group)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       includeGroupByRegex("com.acme.*")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun includeGroupByRegex(groupRegex: String): RepositoryContentBuilder = functionCall(
     name = "includeGroupByRegex",
     labelSupport = GROOVY,
     ValueParameter("groupRegex", groupRegex)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       includeGroupAndSubgroups("com.acme")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun includeGroupAndSubgroups(groupPrefix: String): RepositoryContentBuilder = functionCall(
     name = "includeGroupAndSubgroups",
     labelSupport = GROOVY,
     ValueParameter("groupPrefix", groupPrefix)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       includeModule("com.acme", "my-module")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun includeModule(
     group: String,
     moduleName: String
@@ -195,6 +247,17 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     ValueParameter("moduleName", moduleName)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       includeModuleByRegex("com.acme.*", "my-module.*")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun includeModuleByRegex(
     groupRegex: String,
     moduleNameRegex: String
@@ -205,6 +268,17 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     ValueParameter("moduleNameRegex", moduleNameRegex)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       includeVersion("com.acme", "my-module", "1.0.0")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun includeVersion(
     group: String,
     moduleName: String,
@@ -217,6 +291,17 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     ValueParameter("version", version)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       includeVersionByRegex("com.acme.*", "my-module.*", "\d.0.0")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun includeVersionByRegex(
     groupRegex: String,
     moduleNameRegex: String,
@@ -229,24 +314,68 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     ValueParameter("versionRegex", versionRegex)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       excludeGroup("com.acme")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun excludeGroup(group: String): RepositoryContentBuilder = functionCall(
     name = "excludeGroup",
     labelSupport = GROOVY,
     ValueParameter("group", group)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       excludeGroupByRegex("com.acme.*")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun excludeGroupByRegex(groupRegex: String): RepositoryContentBuilder = functionCall(
     name = "excludeGroupByRegex",
     labelSupport = GROOVY,
     ValueParameter("groupRegex", groupRegex)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       excludeGroupAndSubgroups("com.acme")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun excludeGroupAndSubgroups(groupPrefix: String): RepositoryContentBuilder = functionCall(
     name = "excludeGroupAndSubgroups",
     labelSupport = GROOVY,
     ValueParameter("groupPrefix", groupPrefix)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       excludeModule("com.acme", "my-module")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun excludeModule(
     group: String,
     moduleName: String
@@ -257,6 +386,17 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     ValueParameter("moduleName", moduleName)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       excludeModuleByRegex("com.acme.*", "my-module.*")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun excludeModuleByRegex(
     groupRegex: String,
     moduleNameRegex: String
@@ -267,6 +407,17 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     ValueParameter("moduleNameRegex", moduleNameRegex)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       excludeVersion("com.acme", "my-module", "1.0.0")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun excludeVersion(
     group: String,
     moduleName: String,
@@ -279,6 +430,17 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     ValueParameter("version", version)
   )
 
+  /**
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     content {
+   *       excludeVersionByRegex("com.acme.*", "my-module.*", "\d.0.0")
+   *     }
+   *   }
+   * }
+   * ```
+   */
   public fun excludeVersionByRegex(
     groupRegex: String,
     moduleNameRegex: String,

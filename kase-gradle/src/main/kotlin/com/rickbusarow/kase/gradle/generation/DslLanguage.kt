@@ -90,23 +90,7 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
    * Treats the receiver string as a method name and invokes it with the given
    * [param]. The parameter may be wrapped in parentheses or treated as infix.
    */
-  public operator fun String.invoke(param: String): String {
-
-    println("·$this·   ·$param·")
-
-    check(param != "()")
-
-    return "$this${parens(param)}"
-      // TODO <Rick> delete me
-      .also {
-        println(
-          """  ==================== `$param`
-          --$it--
-          ==${parens(param)}==     $useInfix
-          """.trimIndent()
-        )
-      }
-  }
+  public operator fun String.invoke(param: String): String = "$this${parens(param)}"
 
   /**
    * Treats the receiver string as a method name and invokes it with the given [param].

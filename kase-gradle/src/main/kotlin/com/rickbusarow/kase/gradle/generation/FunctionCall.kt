@@ -26,13 +26,6 @@ import dev.drewhamilton.poko.Poko
  * @property name the name of the function, such as `exclude`
  * @property parameterList the list of parameters to pass to the function
  * @property labelSupport whether to use labels in the function call, such as `group = "com.acme"`
- * @see Parameter
- * @see ParameterList
- * @see LambdaParameter
- * @see ValueParameter
- * @see DslElement
- * @see DslLanguage
- * @see DslLanguage.write
  */
 @Poko
 public class FunctionCall(
