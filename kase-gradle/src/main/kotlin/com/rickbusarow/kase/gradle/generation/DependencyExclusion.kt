@@ -40,7 +40,7 @@ import dev.drewhamilton.poko.Poko
 public class DependencyExclusion(
   public val group: String? = null,
   public val module: String? = null
-) : DslBuilderComponent {
+) : DslElement {
   init {
     require(group != null || module != null) {
       "At least one of group or module must be non-null"
@@ -51,10 +51,20 @@ public class DependencyExclusion(
 
     val params: ParameterList = buildList {
       if (group != null) {
-        add(Parameter("group", group))
+        add(
+          ValueParameter(
+            label = "group",
+            valueString = group
+          )
+        )
       }
       if (module != null) {
-        add(Parameter("module", module))
+        add(
+          ValueParameter(
+            label = "module",
+            valueString = module
+          )
+        )
       }
     }
       .join(", ")

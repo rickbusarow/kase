@@ -17,7 +17,48 @@
 
 package com.rickbusarow.kase.gradle.generation
 
+import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport
+import com.rickbusarow.kase.gradle.generation.LanguageSpecific.GroovyCompatible
+import com.rickbusarow.kase.gradle.generation.LanguageSpecific.KotlinCompatible
+import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
+import kotlin.reflect.full.primaryConstructor
+
+public interface Parameter : DslElement {
+  public val label: String?
+
+  public fun write(language: DslLanguage, labelSupport: LabelSupport): String
+
+  override fun write(language: DslLanguage): String = write(language, LabelSupport.BOTH)
+
+  public sealed interface ParameterLabel : LanguageSpecific {
+    public val value: String
+
+    @JvmInline
+    public value class GroovyLabel(override val value: String) : ParameterLabel, GroovyCompatible
+
+    @JvmInline
+    public value class KotlinLabel(override val value: String) : ParameterLabel, KotlinCompatible
+
+    @JvmInline
+    public value class GroovyAndKotlinLabel(
+      override val value: String
+    ) : ParameterLabel,
+      KotlinCompatible,
+      GroovyCompatible
+  }
+
+  public companion object {
+    /** Joins a list of [Parameter]s into a [ParameterList]. */
+    public fun Iterable<Parameter>.join(
+      separator: String = ParameterList.SEPARATOR_DEFAULT
+    ): ParameterList = ParameterList(parameters = toList(), separator = separator)
+
+    public operator fun invoke(value: String): ValueParameter {
+      return ValueParameter(label = null, valueString = value)
+    }
+  }
+}
 
 /**
  * A parameter with an optional label, such as `group: "com.acme"` or `"com.acme"`.
@@ -26,27 +67,74 @@ import dev.drewhamilton.poko.Poko
  * @property valueString the value, such as `"com.acme"`
  */
 @Poko
-public class Parameter(
-  public val label: String?,
+public class ValueParameter(
+  override val label: String?,
   public val valueString: String
-) : DslBuilderComponent {
+) : Parameter {
   public constructor(value: String) : this(label = null, valueString = value)
 
-  override fun write(language: DslLanguage): String {
-    return if (label != null) {
-      "$label${language.labelDelimiter} $valueString"
-    } else {
-      valueString
+  override fun write(language: DslLanguage, labelSupport: LabelSupport): String {
+    return label?.takeIf { language.supports(labelSupport) }
+      ?.let { labelValue -> "$labelValue${language.labelDelimiter} $valueString" }
+      ?: valueString
+  }
+}
+
+@Poko
+public class LambdaParameter(
+  override val label: String?,
+  elements: MutableList<DslElement> = mutableListOf()
+) : DslElementContainer(elements = elements), Parameter {
+
+  public constructor(elements: MutableList<DslElement>) : this(
+    label = null,
+    elements = elements
+  )
+
+  override fun write(language: DslLanguage): String = buildString {
+    appendLine("{")
+    indent {
+      for (element in elements) {
+        appendLine(element.write(language))
+      }
     }
+    append("}")
+  }
+
+  override fun write(language: DslLanguage, labelSupport: LabelSupport): String {
+
+    val elementString = write(language)
+
+    return label?.takeIf { language.supports(labelSupport) }
+      ?.let { labelValue -> "$labelValue${language.labelDelimiter} $elementString" }
+      ?: elementString
   }
 
   public companion object {
-    /** Joins a list of [Parameter]s into a [ParameterList]. */
-    public fun Iterable<Parameter>.join(
-      separator: String = ParameterList.SEPARATOR_DEFAULT
-    ): ParameterList {
-      return ParameterList(parameters = toList(), separator = separator)
+    public operator fun <T : DslElementContainer> invoke(
+      receiver: T,
+      builder: T.() -> Unit
+    ): LambdaParameter = LambdaParameter(
+      label = null,
+      elements = receiver.apply(builder).elements.toMutableList()
+    )
+
+    public inline operator fun <reified T : DslElementContainer> invoke(
+      label: String?,
+      builder: T.() -> Unit
+    ): LambdaParameter {
+      val receiver = T::class.primaryConstructor!!.call()
+      return LambdaParameter(label = label, receiver.apply(builder).elements.toMutableList())
     }
+
+    public operator fun <T : DslElementContainer> invoke(
+      label: String?,
+      receiver: T,
+      builder: T.() -> Unit
+    ): LambdaParameter = LambdaParameter(
+      label = label,
+      elements = receiver.apply(builder).elements.toMutableList()
+    )
   }
 }
 
@@ -55,7 +143,7 @@ public class Parameter(
 public class ParameterList(
   private val parameters: List<Parameter>,
   private val separator: String = SEPARATOR_DEFAULT
-) : DslBuilderComponent {
+) : DslElement {
 
   /** The number of parameters in this list. */
   public val size: Int get() = parameters.size
@@ -66,9 +154,34 @@ public class ParameterList(
   /** @return `true` if [size] is greater than zero, otherwise `false`. */
   public fun isNotEmpty(): Boolean = parameters.isNotEmpty()
 
-  override fun write(language: DslLanguage): String {
-    return parameters.joinToString(separator = separator) { it.write(language) }
+  public fun write(language: DslLanguage, labelSupport: LabelSupport): String {
+
+    val trailingLambda = parameters.lastOrNull()
+      ?.takeIf { it is LambdaParameter }
+
+    val toJoin = when {
+      trailingLambda != null -> parameters.dropLast(1)
+      else -> parameters
+    }
+
+    val joined = toJoin.joinToString(separator = separator) {
+      it.write(language = language, labelSupport = labelSupport)
+    }
+
+    val wrapInParens = toJoin.isNotEmpty() || trailingLambda == null
+
+    val maybeWrapped = if (wrapInParens) {
+      language.parens(joined)
+    } else {
+      joined
+    }
+
+    val lambdaString = trailingLambda?.let { " ${it.write(language)}" } ?: ""
+
+    return "$maybeWrapped$lambdaString"
   }
+
+  override fun write(language: DslLanguage): String = write(language, LabelSupport.NONE)
 
   public companion object {
     /** The default separator used when joining [Parameter]s into a [ParameterList]. */

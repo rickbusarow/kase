@@ -51,13 +51,59 @@ private val overloads = File("kase/src/main/kotlin/com/rickbusarow/kase/overload
 
 private const val MAX_PARAMS = 21
 
+internal data class Types(val number: Int) {
+  val kaseInterface = "Kase$number"
+  val defaultKase = "DefaultKase$number"
+  val kaseLabels = "KaseLabels$number"
+
+  val testEnvironment = "TestEnvironment"
+  fun testEnvironmentFactory(environmentType: String) = "TestEnvironmentFactory<$environmentType>"
+
+  fun kaseInterface(vararg valueTypeNames: String) =
+    "$kaseInterface<${valueTypeNames.joinToString(", ")}>"
+
+  fun kaseParameterWithLabel(argValueType: String) = "KaseParameterWithLabel<$argValueType>"
+}
+
+internal data class Arg(val number: Int) {
+  val valueName = "a$number"
+  val valueTypeName = "A$number"
+  val labelName = "${valueName}Label"
+  val valueWithLabelName = "${valueName}WithLabel"
+}
+
+// data class TypeParameter(
+//   val name: String,
+//   val variance: Variance,
+//   val bounds: List<String> = emptyList()
+// ) {
+//   constructor(name: String) : this(name, Variance.NONE, emptyList())
+//   constructor(name: String, variance: Variance) : this(name, variance, emptyList())
+//   constructor(name: String, vararg bounds: String) : this(name, Variance.NONE, bounds.toList())
+//
+//   enum class Variance(val asString: String) {
+//     IN("in "),
+//     OUT("out "),
+//     NONE("")
+//   }
+// }
+
+fun function(
+  name: String,
+  kdoc: String,
+  context: String?,
+  inline: Boolean
+): String {
+  return ""
+}
+
 private fun main() {
 
-  overloads.deleteRecursively()
-
   writeGradleFile()
-
   writeTestElements()
+
+  overloads.deleteRecursively()
+  overloads.mkdirs()
 
   for (ct in (1..MAX_PARAMS)) {
 
@@ -176,6 +222,12 @@ private fun main() {
         |$IMPORTS
         """.trimMargin()
       )
+
+      val componentFuns = (1..ct).joinToString("\n  ") { i ->
+        "/** @see $kaseSimpleName.a$i */\n" +
+          "  public operator fun component$i(): A$i = a$i"
+      }
+
       appendLine(
         """
         |/** A strongly-typed version of [Kase] for $ct $parametersPlural. */
@@ -190,6 +242,8 @@ private fun main() {
         |   * The separator between each label/value pair, like `" | "` in `label1: value1 | label2: value2`
         |   */
         |  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
+        |
+        |  $componentFuns
         |
         |  override fun <$aPlus1> plus(label: String, value: $aPlus1): $kasePlus1WithTypes {
         |    ${plus1Impl.prependIndentAfterFirst("    ")}
@@ -281,6 +335,7 @@ private fun main() {
       )
 
       defaultKase(
+        args = args,
         argsWithLabels = argsWithLabels,
         types = types,
         paramsPairs = argsTypePairs,
@@ -294,8 +349,7 @@ private fun main() {
     }
       .fixBlankLines()
 
-    val file = overloads.resolve("kase$ct.kt")
-    file.parentFile.mkdirs()
+    val file = overloads.resolve("Kase$ct.kt")
     file.writeText(txt)
   }
 }
@@ -442,7 +496,7 @@ private fun writeGradleFile() {
       appendLine(
         """
         |$kdoc
-        |public inline fun <$types> VersionMatrix.kases$ct($params): List<Kase$ct<${
+        |public inline fun <$types> VersionMatrix.kases($params): List<Kase$ct<${
           (1..ct).joinToString(", ") { "A$it" }
         }>> {
         |  return kases(${
@@ -480,15 +534,17 @@ private fun writeTestElements() {
           .joinToString("\n") { "import com.rickbusarow.kase.gradle.$it.${it}Key" }
       }
       |import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
+      |import dev.drewhamilton.poko.Poko
       |
       """.trimMargin()
     )
 
     val classes = classNames.map { tv ->
       """
+      |@Poko
       |class $tv(
       |  override val value: String
-      |): AbstractDependencyVersion<String, $tv, ${tv}Key>(${tv}Key) {
+      |) : AbstractDependencyVersion<String, $tv, ${tv}Key>(${tv}Key) {
       |
       |  companion object ${tv}Key : VersionMatrixKey<$tv>
       |}
@@ -506,6 +562,7 @@ private fun writeTestElements() {
 }
 
 private fun StringBuilder.defaultKase(
+  args: List<String>,
   argsWithLabels: List<String>,
   types: List<String>,
   paramsPairs: List<Pair<String, String>>,
@@ -538,6 +595,9 @@ private fun StringBuilder.defaultKase(
   } else {
     """error("A Kase cannot have more than 22 parameters")"""
   }
+  val componentFuns = (1..ct).joinToString("\n  ") { i ->
+    "override fun component$i(): A$i = a$i"
+  }
   appendLine(
     """
     |@Poko
@@ -555,6 +615,8 @@ private fun StringBuilder.defaultKase(
     |  override fun <$aPlus1> plus(label: String, value: $aPlus1): $defaultKasePlus1 {
     |    ${plus1Impl.prependIndentAfterFirst("    ")}
     |  }
+    |
+    |  $componentFuns
     |
     |  override fun toString(): String = displayName
     |}

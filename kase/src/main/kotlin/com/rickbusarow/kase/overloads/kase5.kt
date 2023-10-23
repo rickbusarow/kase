@@ -68,6 +68,17 @@ public interface Kase5<out A1, out A2, out A3, out A4, out A5> : Kase {
    */
   public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 
+  /** @see Kase5.a1 */
+  public operator fun component1(): A1 = a1
+  /** @see Kase5.a2 */
+  public operator fun component2(): A2 = a2
+  /** @see Kase5.a3 */
+  public operator fun component3(): A3 = a3
+  /** @see Kase5.a4 */
+  public operator fun component4(): A4 = a4
+  /** @see Kase5.a5 */
+  public operator fun component5(): A5 = a5
+
   override fun <A6> plus(label: String, value: A6): Kase6<A1, A2, A3, A4, A5, A6> {
     return DefaultKase6(
       a1WithLabel = a1WithLabel,
@@ -328,6 +339,12 @@ internal class DefaultKase5<out A1, out A2, out A3, out A4, out A5>(
       displayNameSeparator = displayNameSeparator
     )
   }
+
+  override fun component1(): A1 = a1
+  override fun component2(): A2 = a2
+  override fun component3(): A3 = a3
+  override fun component4(): A4 = a4
+  override fun component5(): A5 = a5
 
   override fun toString(): String = displayName
 }

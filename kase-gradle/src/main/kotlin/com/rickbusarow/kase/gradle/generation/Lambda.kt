@@ -19,10 +19,10 @@ import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 
 /** Models any lambda in a Gradle DSL */
-public sealed interface Lambda : DslBuilderComponent {
+public interface Lambda : DslElement {
 
   /** The contents of the lambda, such as dependency declarations or property assignments */
-  public val contents: Collection<DslBuilderComponent>
+  public val contents: Collection<DslElement>
 
   /**
    * A lambda with no name, such as this configuration block:
@@ -39,7 +39,7 @@ public sealed interface Lambda : DslBuilderComponent {
    */
   @Poko
   public class ConfigurationLambda(
-    public override val contents: Collection<DslBuilderComponent>,
+    public override val contents: Collection<DslElement>,
     public val writeIfEmpty: Boolean = false
   ) : Lambda {
     override fun write(language: DslLanguage): String {
@@ -48,33 +48,6 @@ public sealed interface Lambda : DslBuilderComponent {
         contents.isEmpty() && !writeIfEmpty -> ""
         else -> buildString {
           appendLine(" {")
-          indent {
-            for (component in contents) {
-              appendLine(component.write(language))
-            }
-          }
-          appendLine("}")
-        }
-      }
-    }
-  }
-
-  /**
-   * A lambda with a name, e.g. `android { ... }` or `dependencies { ... }`
-   *
-   * @property name the name of the lambda, e.g. `android` or `dependencies`
-   * @property contents the contents of the lambda
-   */
-  @Poko
-  public class NamedLambda(
-    public val name: String,
-    public override val contents: Collection<DslBuilderComponent>
-  ) : Lambda {
-    override fun write(language: DslLanguage): String {
-      return when {
-        contents.isEmpty() -> ""
-        else -> buildString {
-          appendLine("{")
           indent {
             for (component in contents) {
               appendLine(component.write(language))

@@ -24,7 +24,7 @@ import dev.drewhamilton.poko.Poko
  * A dependency declaration like `implementation("com.acme:dynamite:1.0.0")`
  * or `implementation project(':example')`
  */
-public sealed interface DependencyDeclaration : DslBuilderComponent {
+public sealed interface DependencyDeclaration : DslElement {
   /** The configuration, e.g. `implementation` */
   public val configuration: String
 

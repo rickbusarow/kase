@@ -15,13 +15,26 @@
 
 package com.rickbusarow.kase.gradle.generation
 
-/** Interface for any DSL builder components. */
-public interface DslBuilderComponent : Comparable<DslBuilderComponent> {
+import dev.drewhamilton.poko.Poko
 
-  /** Returns the DSL code for this component. */
-  public fun write(language: DslLanguage): String
+public sealed interface ValueAssignment : DslElement {
 
-  override fun compareTo(other: DslBuilderComponent): Int {
-    return toString().compareTo(other.toString())
+  public val name: String
+  public val value: String
+
+  @Poko
+  public class SetterAssignment(
+    override val name: String,
+    override val value: String
+  ) : ValueAssignment {
+    override fun write(language: DslLanguage): String = language.write { "$name = $value" }
+  }
+
+  @Poko
+  public class PropertyAssignment(
+    override val name: String,
+    override val value: String
+  ) : ValueAssignment {
+    override fun write(language: DslLanguage): String = language.write { "$name.set($value)" }
   }
 }

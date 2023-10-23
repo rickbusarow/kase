@@ -34,7 +34,7 @@ class VersionMatrixElementKasesOverloadTest : TestEnvironmentFactory<TestEnviron
 
     val versionList = matrix[TestVersion1]
 
-    val kases = matrix.kases1(TestVersion1)
+    val kases = matrix.kases(TestVersion1)
 
     println(
       """
@@ -46,20 +46,20 @@ class VersionMatrixElementKasesOverloadTest : TestEnvironmentFactory<TestEnviron
       |-- kases
       |${kases.joinToString("\n")}
       |########################################################
-    """.trimMargin()
+      """.trimMargin()
     )
   }
 
   @TestFactory
   fun `kases2 creates Kase2 kases`() =
     versionMatrix(numVersionTypes = 6, versionsPerType = 4)
-      .kases6(
+      .kases(
         keyForTypeNumber(1),
         keyForTypeNumber(2),
         keyForTypeNumber(3),
         keyForTypeNumber(4),
         keyForTypeNumber(5),
-        keyForTypeNumber(6),
+        keyForTypeNumber(6)
       ).asTests { k ->
         workingDir.resolve(k.hashCode().toString()).createSafely(k.toStringPretty())
       }

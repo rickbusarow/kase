@@ -34,8 +34,8 @@ public abstract class AbstractDependencyVersion<out T, V, out K>(
   override val key: K
 ) : DependencyVersion<T, K>,
   Comparable<V>
-  where  K : VersionMatrixKey<V>,
-         V : DependencyVersion<T, K> {
+  where K : VersionMatrixKey<V>,
+        V : DependencyVersion<T, K> {
 
   override fun toString(): String = value.toString()
   override fun compareTo(other: V): Int = value.toString().compareTo(other.value.toString())
@@ -61,8 +61,8 @@ public abstract class AbstractDependencyVersion<out T, V, out K>(
 // }
 
 /** */
-public interface DependencyVersion<out T, out K : VersionMatrixKey<DependencyVersion<T, K>>>
-  : VersionMatrix.VersionMatrixElement<T>,
+public interface DependencyVersion<out T, out K : VersionMatrixKey<DependencyVersion<T, K>>> :
+  VersionMatrix.VersionMatrixElement<T>,
   HasLabel {
 
   /** */
@@ -119,7 +119,9 @@ public interface DependencyVersion<out T, out K : VersionMatrixKey<DependencyVer
   /** */
   public class KotlinxSerialization(
     override val value: String
-  ) : AbstractDependencyVersion<String, KotlinxSerialization, KotlinxSerializationKey>(KotlinxSerializationKey) {
+  ) : AbstractDependencyVersion<String, KotlinxSerialization, KotlinxSerializationKey>(
+    KotlinxSerializationKey
+  ) {
     /** Key for [KotlinxSerialization] dependency versions. */
     public companion object KotlinxSerializationKey :
       VersionMatrixKey<KotlinxSerialization>

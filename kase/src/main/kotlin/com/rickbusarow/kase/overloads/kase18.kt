@@ -146,6 +146,43 @@ public interface Kase18<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
    */
   public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 
+  /** @see Kase18.a1 */
+  public operator fun component1(): A1 = a1
+  /** @see Kase18.a2 */
+  public operator fun component2(): A2 = a2
+  /** @see Kase18.a3 */
+  public operator fun component3(): A3 = a3
+  /** @see Kase18.a4 */
+  public operator fun component4(): A4 = a4
+  /** @see Kase18.a5 */
+  public operator fun component5(): A5 = a5
+  /** @see Kase18.a6 */
+  public operator fun component6(): A6 = a6
+  /** @see Kase18.a7 */
+  public operator fun component7(): A7 = a7
+  /** @see Kase18.a8 */
+  public operator fun component8(): A8 = a8
+  /** @see Kase18.a9 */
+  public operator fun component9(): A9 = a9
+  /** @see Kase18.a10 */
+  public operator fun component10(): A10 = a10
+  /** @see Kase18.a11 */
+  public operator fun component11(): A11 = a11
+  /** @see Kase18.a12 */
+  public operator fun component12(): A12 = a12
+  /** @see Kase18.a13 */
+  public operator fun component13(): A13 = a13
+  /** @see Kase18.a14 */
+  public operator fun component14(): A14 = a14
+  /** @see Kase18.a15 */
+  public operator fun component15(): A15 = a15
+  /** @see Kase18.a16 */
+  public operator fun component16(): A16 = a16
+  /** @see Kase18.a17 */
+  public operator fun component17(): A17 = a17
+  /** @see Kase18.a18 */
+  public operator fun component18(): A18 = a18
+
   override fun <A19> plus(label: String, value: A19): Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19> {
     return DefaultKase19(
       a1WithLabel = a1WithLabel,
@@ -601,6 +638,25 @@ internal class DefaultKase18<out A1, out A2, out A3, out A4, out A5, out A6, out
       displayNameSeparator = displayNameSeparator
     )
   }
+
+  override fun component1(): A1 = a1
+  override fun component2(): A2 = a2
+  override fun component3(): A3 = a3
+  override fun component4(): A4 = a4
+  override fun component5(): A5 = a5
+  override fun component6(): A6 = a6
+  override fun component7(): A7 = a7
+  override fun component8(): A8 = a8
+  override fun component9(): A9 = a9
+  override fun component10(): A10 = a10
+  override fun component11(): A11 = a11
+  override fun component12(): A12 = a12
+  override fun component13(): A13 = a13
+  override fun component14(): A14 = a14
+  override fun component15(): A15 = a15
+  override fun component16(): A16 = a16
+  override fun component17(): A17 = a17
+  override fun component18(): A18 = a18
 
   override fun toString(): String = displayName
 }

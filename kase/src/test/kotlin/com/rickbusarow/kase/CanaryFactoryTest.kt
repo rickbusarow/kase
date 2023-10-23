@@ -35,14 +35,16 @@ class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment> {
   fun `my test 2`() = kases(
     listOf("a", "b"),
     listOf(1, 2, 3)
-  ).asTests { k ->
+  ).asTests { a, b ->
+    workingDir.resolve("test.txt").createSafely("hello world")
+    println("$a $b")
   }
 
   @TestFactory
   fun `my test 3`() = kases(
     listOf("a", "b"),
     listOf(1, 2, 3)
-  ).asTests { k ->
+  ).asTests { (a1, a2) ->
   }
 
   @Test

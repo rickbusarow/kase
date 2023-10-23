@@ -17,15 +17,18 @@ package com.rickbusarow.kase.gradle.generation
 
 import com.rickbusarow.kase.gradle.generation.DslLanguage.Groovy
 import com.rickbusarow.kase.gradle.generation.DslLanguage.Kotlin
+import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport
+import com.rickbusarow.kase.gradle.generation.LanguageSpecific.GroovyCompatible
+import com.rickbusarow.kase.gradle.generation.LanguageSpecific.KotlinCompatible
 import dev.drewhamilton.poko.Poko
 
 /**
  * The language of the DSL, e.g. [Groovy] or [Kotlin]
  *
  * @property quote the quote character used for strings in this language, e.g. `'` or `"`
- * @property labelDelimiter the delimiter between a label and its value, e.g. `=` or `:`
+ * @property labelDelimiter the delimiter between a label and its value, e.g. ` = ` or `: `
  */
-public sealed class DslLanguage(public val quote: Char, public val labelDelimiter: Char) {
+public sealed class DslLanguage(public val quote: Char, public val labelDelimiter: String) {
 
   /**
    * Whether to always parenthesize method call parameters, even when not syntactically necessary.
@@ -68,7 +71,7 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
    * @param content the content to parenthesize, e.g. `exclude group: "com.acme", module: "rocket"`
    * @return the parenthesized content, e.g. `(exclude group: "com.acme", module: "rocket")`
    */
-  public fun parens(content: DslBuilderComponent): String {
+  public fun parens(content: DslElement): String {
     return parens(content.write(this))
   }
 
@@ -87,7 +90,21 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
    * Treats the receiver string as a method name and invokes it with the given
    * [param]. The parameter may be wrapped in parentheses or treated as infix.
    */
-  public operator fun String.invoke(param: String): String = "$this${parens(param)}"
+  public operator fun String.invoke(param: String): String {
+
+    check(param != "()")
+
+    return "$this${parens(param)}"
+      // TODO <Rick> delete me
+      .also {
+        println(
+          """  ==================== `$param`
+          --$it--
+          ==${parens(param)}==     $useInfix
+          """.trimIndent()
+        )
+      }
+  }
 
   /**
    * Treats the receiver string as a method name and invokes it with the given [param].
@@ -96,7 +113,7 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
    */
   context (StringBuilder)
   public operator fun String.invoke(param: String): String {
-    return "$this${parens(param)}".also { appendLine(it) }
+    return "$this${parens(param)}".also { append(it) }
   }
 
   /**
@@ -121,16 +138,30 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
     return invoke("$this${parens(paramString)}")
   }
 
+  public fun supports(languageSpecific: LanguageSpecific): Boolean {
+    return when (this) {
+      is Groovy -> languageSpecific is GroovyCompatible
+      is Kotlin -> languageSpecific is KotlinCompatible
+    }
+  }
+
+  public fun supports(labelSupport: LabelSupport): Boolean {
+    return when (this) {
+      is Groovy -> labelSupport is GroovyCompatible
+      is Kotlin -> labelSupport is KotlinCompatible
+    }
+  }
+
   /** The Kotlin DSL, e.g. `build.gradle.kts` or `settings.gradle.kts` */
   @Poko
   public class Kotlin(
     override val useInfix: Boolean = true
   ) : DslLanguage(
     quote = '"',
-    labelDelimiter = '='
+    labelDelimiter = " = "
   ) {
     override fun parens(content: String, infixInKotlin: Boolean): String =
-      if (infixInKotlin && useInfix) {
+      if (infixInKotlin && useInfix && content.isNotBlank()) {
         " $content"
       } else {
         "($content)"
@@ -152,13 +183,19 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
     override val useInfix: Boolean = true
   ) : DslLanguage(
     quote = if (alwaysUseDoubleQuotes) '"' else '\'',
-    labelDelimiter = ':'
+    labelDelimiter = ": "
   ) {
     override fun parens(content: String, infixInKotlin: Boolean): String =
-      if (useInfix) {
+      if (useInfix && content.isNotBlank()) {
         " $content"
       } else {
         "($content)"
       }
   }
+}
+
+public sealed interface LanguageSpecific {
+  public interface GroovyCompatible : LanguageSpecific
+  public interface KotlinCompatible : LanguageSpecific
+  public interface GroovyAndKotlinCompatible : GroovyCompatible, KotlinCompatible
 }

@@ -61,7 +61,8 @@ public interface VersionMatrix {
    * Returns a new [VersionMatrix] instance with the given [key] removed from the existing elements.
    */
   public operator fun <E : VersionMatrixElement<*>> minus(
-    key: VersionMatrixKey<E>): VersionMatrix
+    key: VersionMatrixKey<E>
+  ): VersionMatrix
 
   /**
    * Returns a new [VersionMatrix] instance with the
@@ -108,10 +109,12 @@ public interface VersionMatrix {
      * @return a new [VersionMatrix] instance
      */
     public operator fun invoke(elements: List<VersionMatrixElement<*>>): VersionMatrix {
-      return DefaultVersionMatrix(elements.groupBy { it.key }
-        .mapValues { (key, list) ->
-          VersionList(list, list.first(), key)
-        })
+      return DefaultVersionMatrix(
+        elements.groupBy { it.key }
+          .mapValues { (key, list) ->
+            VersionList(list, list.first(), key)
+          }
+      )
     }
 
     /**

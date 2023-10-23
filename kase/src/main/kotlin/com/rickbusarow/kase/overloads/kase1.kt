@@ -44,6 +44,9 @@ public interface Kase1<out A1> : Kase {
    */
   public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 
+  /** @see Kase1.a1 */
+  public operator fun component1(): A1 = a1
+
   override fun <A2> plus(label: String, value: A2): Kase2<A1, A2> {
     return DefaultKase2(
       a1WithLabel = a1WithLabel,
@@ -244,6 +247,8 @@ internal class DefaultKase1<out A1>(
       displayNameSeparator = displayNameSeparator
     )
   }
+
+  override fun component1(): A1 = a1
 
   override fun toString(): String = displayName
 }

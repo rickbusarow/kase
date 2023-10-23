@@ -20,7 +20,7 @@ import com.rickbusarow.kase.gradle.generation.DslLanguage.Kotlin
 import dev.drewhamilton.poko.Poko
 
 /** A single application of a plugin inside a `plugins { }` block. */
-public sealed class PluginBlockApplication : DslBuilderComponent {
+public sealed class PluginApplication : DslElement {
   /** The plugin identifier, such as `kotlin` or `com.android.application`. */
   public abstract val identifier: String
 
@@ -53,11 +53,10 @@ public sealed class PluginBlockApplication : DslBuilderComponent {
           append(".apply(false)")
         }
       }
-      appendLine()
     }
   }
 
-  protected abstract fun simpleCase(language: DslLanguage): String
+  internal abstract fun simpleCase(language: DslLanguage): String
 
   /** Applied via the typical `id("com.acme.anvil")` syntax. */
   @Poko
@@ -65,7 +64,7 @@ public sealed class PluginBlockApplication : DslBuilderComponent {
     override val identifier: String,
     override val version: String? = null,
     override val apply: Boolean = true
-  ) : PluginBlockApplication() {
+  ) : PluginApplication() {
 
     override fun simpleCase(language: DslLanguage): String = buildString {
       append("id")
@@ -86,13 +85,13 @@ public sealed class PluginBlockApplication : DslBuilderComponent {
     public val aliasName: String,
     override val version: String? = null,
     override val apply: Boolean = true
-  ) : PluginBlockApplication() {
+  ) : PluginApplication() {
 
     public override val identifier: String = aliasName
 
     override fun simpleCase(language: DslLanguage): String = buildString {
       append("alias")
-      append(language.parens(language.quote(identifier), infixInKotlin = false))
+      append(language.parens(identifier, infixInKotlin = false))
     }
   }
 
@@ -110,7 +109,7 @@ public sealed class PluginBlockApplication : DslBuilderComponent {
     override val identifier: String,
     override val version: String? = null,
     override val apply: Boolean = true
-  ) : PluginBlockApplication() {
+  ) : PluginApplication() {
 
     override fun simpleCase(language: DslLanguage): String {
 
@@ -143,7 +142,7 @@ public sealed class PluginBlockApplication : DslBuilderComponent {
     override val identifier: String,
     override val version: String? = null,
     override val apply: Boolean = true
-  ) : PluginBlockApplication() {
+  ) : PluginApplication() {
 
     init {
       require(!identifier.contains('.')) {

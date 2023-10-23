@@ -18,29 +18,6 @@ package com.rickbusarow.kase.gradle.generation
 import com.rickbusarow.kase.gradle.TestVersions
 import com.rickbusarow.kase.gradle.generation.DependencyDeclaration.ExternalDependency
 
-/** Represents a dependency declaration in a Gradle build file. */
-public class DependencyDeclarationContainer(
-  private val dependencies: MutableList<ExternalDependency> = mutableListOf()
-) : List<ExternalDependency> by dependencies {
-
-  /** Adds a dependency declaration to the container. */
-  public fun add(
-    configuration: String,
-    group: String,
-    module: String,
-    version: String
-  ) {
-    dependencies.add(
-      ExternalDependency(
-        configuration = configuration,
-        group = group,
-        module = module,
-        version = version
-      )
-    )
-  }
-}
-
 /** Models the contents of a Gradle build file. */
 public interface BuildFileComponents {
 
@@ -57,16 +34,15 @@ public interface BuildFileComponents {
    * }
    * ```
    */
-  public fun <T : TestVersions> buildscriptDependencies(
-    testVersions: T
-  ): List<ExternalDependency> = listOf(
-    ExternalDependency(
-      configuration = "classpath",
-      group = "com.android.tools.build",
-      module = "gradle",
-      version = testVersions.gradleVersion
+  public fun <T : TestVersions> buildscriptDependencies(testVersions: T): List<ExternalDependency> =
+    listOf(
+      ExternalDependency(
+        configuration = "classpath",
+        group = "com.android.tools.build",
+        module = "gradle",
+        version = testVersions.gradleVersion
+      )
     )
-  )
 
   /**
    * Everything inside the `dependencies { }` block. This would

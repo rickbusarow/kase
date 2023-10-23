@@ -13,15 +13,19 @@
  * limitations under the License.
  */
 
-plugins {
-  id("jvm-module")
-  application
+package com.rickbusarow.kase.gradle.generation
+
+/** Interface for any DSL builder components. */
+public interface DslElement : Comparable<DslElement> {
+
+  /** Returns the DSL code for this component. */
+  public fun write(language: DslLanguage): String
+
+  override fun compareTo(other: DslElement): Int {
+    return toString().compareTo(other.toString())
+  }
 }
 
-jvmModule {
-  explicitApi.set(false)
-}
-
-dependencies {
-  implementation(libs.poko.annotations)
+public object NewLine : DslElement {
+  override fun write(language: DslLanguage): String = System.lineSeparator()
 }

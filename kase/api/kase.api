@@ -3,6 +3,823 @@ public final class com/rickbusarow/kase/CluesKt {
 	public static final fun withClueCatching (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 }
 
+public final class com/rickbusarow/kase/DefaultKase1 : com/rickbusarow/kase/Kase1, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase2;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase2;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase10 : com/rickbusarow/kase/Kase10, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase11;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase11;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase11 : com/rickbusarow/kase/Kase11, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase12;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase12;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase12 : com/rickbusarow/kase/Kase12, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase13;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase13;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase13 : com/rickbusarow/kase/Kase13, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA13 ()Ljava/lang/Object;
+	public fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase14;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase14;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase14 : com/rickbusarow/kase/Kase14, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA13 ()Ljava/lang/Object;
+	public fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA14 ()Ljava/lang/Object;
+	public fun getA14WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase15;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase15;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase15 : com/rickbusarow/kase/Kase15, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA13 ()Ljava/lang/Object;
+	public fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA14 ()Ljava/lang/Object;
+	public fun getA14WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA15 ()Ljava/lang/Object;
+	public fun getA15WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase16;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase16;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase16 : com/rickbusarow/kase/Kase16, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA13 ()Ljava/lang/Object;
+	public fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA14 ()Ljava/lang/Object;
+	public fun getA14WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA15 ()Ljava/lang/Object;
+	public fun getA15WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA16 ()Ljava/lang/Object;
+	public fun getA16WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase17;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase17;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase17 : com/rickbusarow/kase/Kase17, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA13 ()Ljava/lang/Object;
+	public fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA14 ()Ljava/lang/Object;
+	public fun getA14WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA15 ()Ljava/lang/Object;
+	public fun getA15WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA16 ()Ljava/lang/Object;
+	public fun getA16WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA17 ()Ljava/lang/Object;
+	public fun getA17WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase18;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase18;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase18 : com/rickbusarow/kase/Kase18, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA13 ()Ljava/lang/Object;
+	public fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA14 ()Ljava/lang/Object;
+	public fun getA14WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA15 ()Ljava/lang/Object;
+	public fun getA15WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA16 ()Ljava/lang/Object;
+	public fun getA16WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA17 ()Ljava/lang/Object;
+	public fun getA17WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA18 ()Ljava/lang/Object;
+	public fun getA18WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase19;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase19;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase19 : com/rickbusarow/kase/Kase19, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA13 ()Ljava/lang/Object;
+	public fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA14 ()Ljava/lang/Object;
+	public fun getA14WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA15 ()Ljava/lang/Object;
+	public fun getA15WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA16 ()Ljava/lang/Object;
+	public fun getA16WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA17 ()Ljava/lang/Object;
+	public fun getA17WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA18 ()Ljava/lang/Object;
+	public fun getA18WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA19 ()Ljava/lang/Object;
+	public fun getA19WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase20;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase20;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase2 : com/rickbusarow/kase/Kase2, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase3;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase3;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase20 : com/rickbusarow/kase/Kase20, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA13 ()Ljava/lang/Object;
+	public fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA14 ()Ljava/lang/Object;
+	public fun getA14WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA15 ()Ljava/lang/Object;
+	public fun getA15WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA16 ()Ljava/lang/Object;
+	public fun getA16WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA17 ()Ljava/lang/Object;
+	public fun getA17WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA18 ()Ljava/lang/Object;
+	public fun getA18WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA19 ()Ljava/lang/Object;
+	public fun getA19WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA20 ()Ljava/lang/Object;
+	public fun getA20WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase21;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase21;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase21 : com/rickbusarow/kase/Kase21, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA10 ()Ljava/lang/Object;
+	public fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA11 ()Ljava/lang/Object;
+	public fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA12 ()Ljava/lang/Object;
+	public fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA13 ()Ljava/lang/Object;
+	public fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA14 ()Ljava/lang/Object;
+	public fun getA14WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA15 ()Ljava/lang/Object;
+	public fun getA15WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA16 ()Ljava/lang/Object;
+	public fun getA16WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA17 ()Ljava/lang/Object;
+	public fun getA17WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA18 ()Ljava/lang/Object;
+	public fun getA18WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA19 ()Ljava/lang/Object;
+	public fun getA19WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA20 ()Ljava/lang/Object;
+	public fun getA20WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA21 ()Ljava/lang/Object;
+	public fun getA21WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase3 : com/rickbusarow/kase/Kase3, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase4;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase4;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase4 : com/rickbusarow/kase/Kase4, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase5;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase5;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase5 : com/rickbusarow/kase/Kase5, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase6;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase6;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase6 : com/rickbusarow/kase/Kase6, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase7;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase7;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase7 : com/rickbusarow/kase/Kase7, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase8;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase8;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase8 : com/rickbusarow/kase/Kase8, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase9;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase9;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/DefaultKase9 : com/rickbusarow/kase/Kase9, com/rickbusarow/kase/KaseInternal {
+	public fun <init> (Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Lcom/rickbusarow/kase/KaseParameterWithLabel;Ljava/lang/String;Ljava/lang/String;)V
+	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Ljava/lang/Object;
+	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA2 ()Ljava/lang/Object;
+	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA3 ()Ljava/lang/Object;
+	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA4 ()Ljava/lang/Object;
+	public fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA5 ()Ljava/lang/Object;
+	public fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA6 ()Ljava/lang/Object;
+	public fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA7 ()Ljava/lang/Object;
+	public fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA8 ()Ljava/lang/Object;
+	public fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getA9 ()Ljava/lang/Object;
+	public fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getDisplayNameSeparator ()Ljava/lang/String;
+	public fun getDisplayNames ()Ljava/util/List;
+	public fun getElements ()Ljava/util/List;
+	public fun getLabelDelimiter ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/DefaultKase10;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase10;
+	public synthetic fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/rickbusarow/kase/DefaultKaseParameterWithLabel : com/rickbusarow/kase/KaseParameterWithLabel {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/String;)V
 	public fun component1 ()Ljava/lang/String;
@@ -664,71 +1481,14 @@ public abstract interface class com/rickbusarow/kase/Kase21 : com/rickbusarow/ka
 	public abstract fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
 	public abstract fun getDisplayNameSeparator ()Ljava/lang/String;
 	public abstract fun getLabelDelimiter ()Ljava/lang/String;
-	public abstract fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase22;
+	public abstract fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
 }
 
 public final class com/rickbusarow/kase/Kase21$DefaultImpls {
 	public static fun displayName (Lcom/rickbusarow/kase/Kase21;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 	public static fun getDisplayNameSeparator (Lcom/rickbusarow/kase/Kase21;)Ljava/lang/String;
 	public static fun getLabelDelimiter (Lcom/rickbusarow/kase/Kase21;)Ljava/lang/String;
-	public static fun plus (Lcom/rickbusarow/kase/Kase21;Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase22;
-}
-
-public abstract interface class com/rickbusarow/kase/Kase22 : com/rickbusarow/kase/Kase {
-	public abstract fun getA1 ()Ljava/lang/Object;
-	public abstract fun getA10 ()Ljava/lang/Object;
-	public abstract fun getA10WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA11 ()Ljava/lang/Object;
-	public abstract fun getA11WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA12 ()Ljava/lang/Object;
-	public abstract fun getA12WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA13 ()Ljava/lang/Object;
-	public abstract fun getA13WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA14 ()Ljava/lang/Object;
-	public abstract fun getA14WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA15 ()Ljava/lang/Object;
-	public abstract fun getA15WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA16 ()Ljava/lang/Object;
-	public abstract fun getA16WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA17 ()Ljava/lang/Object;
-	public abstract fun getA17WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA18 ()Ljava/lang/Object;
-	public abstract fun getA18WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA19 ()Ljava/lang/Object;
-	public abstract fun getA19WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA2 ()Ljava/lang/Object;
-	public abstract fun getA20 ()Ljava/lang/Object;
-	public abstract fun getA20WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA21 ()Ljava/lang/Object;
-	public abstract fun getA21WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA22 ()Ljava/lang/Object;
-	public abstract fun getA22WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA3 ()Ljava/lang/Object;
-	public abstract fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA4 ()Ljava/lang/Object;
-	public abstract fun getA4WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA5 ()Ljava/lang/Object;
-	public abstract fun getA5WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA6 ()Ljava/lang/Object;
-	public abstract fun getA6WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA7 ()Ljava/lang/Object;
-	public abstract fun getA7WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA8 ()Ljava/lang/Object;
-	public abstract fun getA8WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getA9 ()Ljava/lang/Object;
-	public abstract fun getA9WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
-	public abstract fun getDisplayNameSeparator ()Ljava/lang/String;
-	public abstract fun getLabelDelimiter ()Ljava/lang/String;
-	public abstract fun plus (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
-}
-
-public final class com/rickbusarow/kase/Kase22$DefaultImpls {
-	public static fun displayName (Lcom/rickbusarow/kase/Kase22;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public static fun getDisplayNameSeparator (Lcom/rickbusarow/kase/Kase22;)Ljava/lang/String;
-	public static fun getLabelDelimiter (Lcom/rickbusarow/kase/Kase22;)Ljava/lang/String;
-	public static fun plus (Lcom/rickbusarow/kase/Kase22;Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
+	public static fun plus (Lcom/rickbusarow/kase/Kase21;Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase;
 }
 
 public abstract interface class com/rickbusarow/kase/Kase3 : com/rickbusarow/kase/Kase {
@@ -1295,40 +2055,6 @@ public final class com/rickbusarow/kase/KaseLabels21 : com/rickbusarow/kase/Kase
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/KaseLabels22 : com/rickbusarow/kase/KaseLabels {
-	public fun <init> ()V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getA10Label ()Ljava/lang/String;
-	public final fun getA11Label ()Ljava/lang/String;
-	public final fun getA12Label ()Ljava/lang/String;
-	public final fun getA13Label ()Ljava/lang/String;
-	public final fun getA14Label ()Ljava/lang/String;
-	public final fun getA15Label ()Ljava/lang/String;
-	public final fun getA16Label ()Ljava/lang/String;
-	public final fun getA17Label ()Ljava/lang/String;
-	public final fun getA18Label ()Ljava/lang/String;
-	public final fun getA19Label ()Ljava/lang/String;
-	public final fun getA1Label ()Ljava/lang/String;
-	public final fun getA20Label ()Ljava/lang/String;
-	public final fun getA21Label ()Ljava/lang/String;
-	public final fun getA22Label ()Ljava/lang/String;
-	public final fun getA2Label ()Ljava/lang/String;
-	public final fun getA3Label ()Ljava/lang/String;
-	public final fun getA4Label ()Ljava/lang/String;
-	public final fun getA5Label ()Ljava/lang/String;
-	public final fun getA6Label ()Ljava/lang/String;
-	public final fun getA7Label ()Ljava/lang/String;
-	public final fun getA8Label ()Ljava/lang/String;
-	public final fun getA9Label ()Ljava/lang/String;
-	public fun getDisplayNameSeparator ()Ljava/lang/String;
-	public fun getLabelDelimiter ()Ljava/lang/String;
-	public fun getOrderedLabels ()Ljava/util/List;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-}
-
 public final class com/rickbusarow/kase/KaseLabels3 : com/rickbusarow/kase/KaseLabels {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
@@ -1485,7 +2211,6 @@ public final class com/rickbusarow/kase/KasesKt {
 	public static final fun asTestsKase1DestructuredTestEnvironment (Ljava/lang/Iterable;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public static final fun asTestsKase20DestructuredTestEnvironment (Ljava/lang/Iterable;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/jvm/functions/Function21;)Ljava/util/stream/Stream;
 	public static final fun asTestsKase21DestructuredTestEnvironment (Ljava/lang/Iterable;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/jvm/functions/Function22;)Ljava/util/stream/Stream;
-	public static final fun asTestsKase22DestructuredTestEnvironment (Ljava/lang/Iterable;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/jvm/functions/FunctionN;)Ljava/util/stream/Stream;
 	public static final fun asTestsKase2DestructuredTestEnvironment (Ljava/lang/Iterable;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static final fun asTestsKase3DestructuredTestEnvironment (Ljava/lang/Iterable;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/jvm/functions/Function4;)Ljava/util/stream/Stream;
 	public static final fun asTestsKase4DestructuredTestEnvironment (Ljava/lang/Iterable;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/jvm/functions/Function5;)Ljava/util/stream/Stream;
@@ -1515,7 +2240,6 @@ public final class com/rickbusarow/kase/KasesKt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels19;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/Kase19;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels20;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/Kase20;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels21;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/Kase21;
-	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels22;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/Kase22;
 	public static synthetic fun kase$default (Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels1;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase1;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels2;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase2;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels3;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase3;
@@ -1537,7 +2261,6 @@ public final class com/rickbusarow/kase/KasesKt {
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels19;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase19;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels20;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase20;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels21;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase21;
-	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels22;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase22;
 	public static final fun kases (Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels1;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels2;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels3;)Ljava/util/List;
@@ -1559,7 +2282,6 @@ public final class com/rickbusarow/kase/KasesKt {
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels19;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels20;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels21;)Ljava/util/List;
-	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels22;)Ljava/util/List;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels1;ILjava/lang/Object;)Ljava/util/List;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels2;ILjava/lang/Object;)Ljava/util/List;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels3;ILjava/lang/Object;)Ljava/util/List;
@@ -1581,7 +2303,6 @@ public final class com/rickbusarow/kase/KasesKt {
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels19;ILjava/lang/Object;)Ljava/util/List;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels20;ILjava/lang/Object;)Ljava/util/List;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels21;ILjava/lang/Object;)Ljava/util/List;
-	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseLabels22;ILjava/lang/Object;)Ljava/util/List;
 	public static final fun labels (Ljava/lang/String;)Lcom/rickbusarow/kase/KaseLabels1;
 	public static final fun labels (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/KaseLabels2;
 	public static final fun labels (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/KaseLabels3;
@@ -1603,7 +2324,6 @@ public final class com/rickbusarow/kase/KasesKt {
 	public static final fun labels (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/KaseLabels19;
 	public static final fun labels (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/KaseLabels20;
 	public static final fun labels (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/KaseLabels21;
-	public static final fun labels (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/KaseLabels22;
 	public static synthetic fun labels$default (Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/KaseLabels1;
 	public static synthetic fun labels$default (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/KaseLabels2;
 	public static synthetic fun labels$default (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/KaseLabels3;
@@ -1625,7 +2345,6 @@ public final class com/rickbusarow/kase/KasesKt {
 	public static synthetic fun labels$default (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/KaseLabels19;
 	public static synthetic fun labels$default (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/KaseLabels20;
 	public static synthetic fun labels$default (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/KaseLabels21;
-	public static synthetic fun labels$default (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/KaseLabels22;
 	public static final fun test (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels1;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public static final fun test (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels2;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public static final fun test (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels3;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
@@ -1647,7 +2366,6 @@ public final class com/rickbusarow/kase/KasesKt {
 	public static final fun test (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels19;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public static final fun test (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels20;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public static final fun test (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels21;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
-	public static final fun test (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels22;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public static synthetic fun test$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels1;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
 	public static synthetic fun test$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels2;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
 	public static synthetic fun test$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels3;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
@@ -1669,93 +2387,67 @@ public final class com/rickbusarow/kase/KasesKt {
 	public static synthetic fun test$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels19;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
 	public static synthetic fun test$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels20;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
 	public static synthetic fun test$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels21;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
-	public static synthetic fun test$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseLabels22;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
-	public static final fun testFactoryKase1 ([Lcom/rickbusarow/kase/Kase1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase1$default ([Lcom/rickbusarow/kase/Kase1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase10 ([Lcom/rickbusarow/kase/Kase10;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function10;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase10$default ([Lcom/rickbusarow/kase/Kase10;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function10;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase1 ([Lcom/rickbusarow/kase/Kase1;Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase10 ([Lcom/rickbusarow/kase/Kase10;Lkotlin/jvm/functions/Function10;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase10DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase10DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase10;Lkotlin/jvm/functions/Function11;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase11 ([Lcom/rickbusarow/kase/Kase11;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function11;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase11$default ([Lcom/rickbusarow/kase/Kase11;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function11;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase11 ([Lcom/rickbusarow/kase/Kase11;Lkotlin/jvm/functions/Function11;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase11DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase11DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase11;Lkotlin/jvm/functions/Function12;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase12 ([Lcom/rickbusarow/kase/Kase12;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function12;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase12$default ([Lcom/rickbusarow/kase/Kase12;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function12;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase12 ([Lcom/rickbusarow/kase/Kase12;Lkotlin/jvm/functions/Function12;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase12DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase12DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase12;Lkotlin/jvm/functions/Function13;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase13 ([Lcom/rickbusarow/kase/Kase13;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function13;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase13$default ([Lcom/rickbusarow/kase/Kase13;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function13;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase13 ([Lcom/rickbusarow/kase/Kase13;Lkotlin/jvm/functions/Function13;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase13DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase13DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase13;Lkotlin/jvm/functions/Function14;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase14 ([Lcom/rickbusarow/kase/Kase14;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function14;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase14$default ([Lcom/rickbusarow/kase/Kase14;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function14;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase14 ([Lcom/rickbusarow/kase/Kase14;Lkotlin/jvm/functions/Function14;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase14DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase14DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase14;Lkotlin/jvm/functions/Function15;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase15 ([Lcom/rickbusarow/kase/Kase15;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function15;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase15$default ([Lcom/rickbusarow/kase/Kase15;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function15;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase15 ([Lcom/rickbusarow/kase/Kase15;Lkotlin/jvm/functions/Function15;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase15DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase15DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase15;Lkotlin/jvm/functions/Function16;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase16 ([Lcom/rickbusarow/kase/Kase16;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function16;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase16$default ([Lcom/rickbusarow/kase/Kase16;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function16;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase16 ([Lcom/rickbusarow/kase/Kase16;Lkotlin/jvm/functions/Function16;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase16DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase16DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase16;Lkotlin/jvm/functions/Function17;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase17 ([Lcom/rickbusarow/kase/Kase17;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function17;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase17$default ([Lcom/rickbusarow/kase/Kase17;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function17;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase17 ([Lcom/rickbusarow/kase/Kase17;Lkotlin/jvm/functions/Function17;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase17DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase17DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase17;Lkotlin/jvm/functions/Function18;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase18 ([Lcom/rickbusarow/kase/Kase18;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function18;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase18$default ([Lcom/rickbusarow/kase/Kase18;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function18;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase18 ([Lcom/rickbusarow/kase/Kase18;Lkotlin/jvm/functions/Function18;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase18DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase18DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase18;Lkotlin/jvm/functions/Function19;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase19 ([Lcom/rickbusarow/kase/Kase19;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function19;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase19$default ([Lcom/rickbusarow/kase/Kase19;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function19;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase19 ([Lcom/rickbusarow/kase/Kase19;Lkotlin/jvm/functions/Function19;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase19DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase19DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase19;Lkotlin/jvm/functions/Function20;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase1DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase1DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase2 ([Lcom/rickbusarow/kase/Kase2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase2$default ([Lcom/rickbusarow/kase/Kase2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase20 ([Lcom/rickbusarow/kase/Kase20;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function20;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase20$default ([Lcom/rickbusarow/kase/Kase20;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function20;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase2 ([Lcom/rickbusarow/kase/Kase2;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase20 ([Lcom/rickbusarow/kase/Kase20;Lkotlin/jvm/functions/Function20;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase20DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase20DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase20;Lkotlin/jvm/functions/Function21;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase21 ([Lcom/rickbusarow/kase/Kase21;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function21;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase21$default ([Lcom/rickbusarow/kase/Kase21;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function21;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase21 ([Lcom/rickbusarow/kase/Kase21;Lkotlin/jvm/functions/Function21;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase21DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase21DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase21;Lkotlin/jvm/functions/Function22;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase22 ([Lcom/rickbusarow/kase/Kase22;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function22;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase22$default ([Lcom/rickbusarow/kase/Kase22;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function22;ILjava/lang/Object;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase22DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/FunctionN;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase22DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase22;Lkotlin/jvm/functions/FunctionN;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase2DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase2DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase2;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase3 ([Lcom/rickbusarow/kase/Kase3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase3$default ([Lcom/rickbusarow/kase/Kase3;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase3 ([Lcom/rickbusarow/kase/Kase3;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase3DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function4;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase3DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase3;Lkotlin/jvm/functions/Function4;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase4 ([Lcom/rickbusarow/kase/Kase4;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase4$default ([Lcom/rickbusarow/kase/Kase4;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function4;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase4 ([Lcom/rickbusarow/kase/Kase4;Lkotlin/jvm/functions/Function4;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase4DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase4DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase4;Lkotlin/jvm/functions/Function5;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase5 ([Lcom/rickbusarow/kase/Kase5;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function5;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase5$default ([Lcom/rickbusarow/kase/Kase5;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function5;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase5 ([Lcom/rickbusarow/kase/Kase5;Lkotlin/jvm/functions/Function5;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase5DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase5DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase5;Lkotlin/jvm/functions/Function6;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase6 ([Lcom/rickbusarow/kase/Kase6;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function6;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase6$default ([Lcom/rickbusarow/kase/Kase6;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function6;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase6 ([Lcom/rickbusarow/kase/Kase6;Lkotlin/jvm/functions/Function6;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase6DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase6DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase6;Lkotlin/jvm/functions/Function7;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase7 ([Lcom/rickbusarow/kase/Kase7;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function7;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase7$default ([Lcom/rickbusarow/kase/Kase7;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function7;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase7 ([Lcom/rickbusarow/kase/Kase7;Lkotlin/jvm/functions/Function7;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase7DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase7DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase7;Lkotlin/jvm/functions/Function8;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase8 ([Lcom/rickbusarow/kase/Kase8;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function8;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase8$default ([Lcom/rickbusarow/kase/Kase8;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function8;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase8 ([Lcom/rickbusarow/kase/Kase8;Lkotlin/jvm/functions/Function8;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase8DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase8DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase8;Lkotlin/jvm/functions/Function9;)Ljava/util/stream/Stream;
-	public static final fun testFactoryKase9 ([Lcom/rickbusarow/kase/Kase9;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function9;)Ljava/util/stream/Stream;
-	public static synthetic fun testFactoryKase9$default ([Lcom/rickbusarow/kase/Kase9;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function9;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun testFactoryKase9 ([Lcom/rickbusarow/kase/Kase9;Lkotlin/jvm/functions/Function9;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase9DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/stream/Stream;
 	public static final fun testFactoryKase9DestructuredTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;[Lcom/rickbusarow/kase/Kase9;Lkotlin/jvm/functions/Function10;)Ljava/util/stream/Stream;
 }
@@ -1902,6 +2594,8 @@ public final class com/rickbusarow/kase/stdlib/StringKt {
 	public static final fun getNoInterpuncts (Ljava/lang/String;)Ljava/lang/String;
 	public static final fun indent (Ljava/lang/StringBuilder;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public static synthetic fun indent$default (Ljava/lang/StringBuilder;Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)V
+	public static final fun indentByBrackets (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun indentByBrackets$default (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
 	public static final fun joinToStringIndexed (Ljava/util/List;Ljava/lang/CharSequence;Ljava/lang/CharSequence;Ljava/lang/CharSequence;ILjava/lang/CharSequence;Lkotlin/jvm/functions/Function2;)Ljava/lang/String;
 	public static synthetic fun joinToStringIndexed$default (Ljava/util/List;Ljava/lang/CharSequence;Ljava/lang/CharSequence;Ljava/lang/CharSequence;ILjava/lang/CharSequence;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/lang/String;
 	public static final fun mapLines (Ljava/lang/CharSequence;Lkotlin/jvm/functions/Function1;)Ljava/lang/String;
@@ -1910,8 +2604,10 @@ public final class com/rickbusarow/kase/stdlib/StringKt {
 	public static final fun normaliseLineSeparators (Ljava/lang/String;)Ljava/lang/String;
 	public static final fun prependContinuationIndent (Ljava/lang/CharSequence;Ljava/lang/String;Z)Ljava/lang/String;
 	public static synthetic fun prependContinuationIndent$default (Ljava/lang/CharSequence;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+	public static final fun prettyToString (Ljava/lang/String;)Ljava/lang/String;
 	public static final fun remove (Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/String;
 	public static final fun remove (Ljava/lang/String;[Lkotlin/text/Regex;)Ljava/lang/String;
 	public static final fun replaceIndent (Ljava/lang/String;I)Ljava/lang/String;
+	public static final fun toStringPretty (Ljava/lang/Object;)Ljava/lang/String;
 }
 
