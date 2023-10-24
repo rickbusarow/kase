@@ -82,14 +82,6 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
     )
   )
 
-  public fun <T> LambdaBuilderAction<T>.asLambdaParameter(): LambdaParameter {
-    return LambdaParameter(
-      label = null,
-      receiver = SimpleDslElementContainer(),
-      builder = this
-    )
-  }
-
   /**
    * Adds a new [Gradle Property Assignment][GradlePropertyAssignment] to the DSL.
    *
@@ -193,6 +185,25 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
     return addElement(SetterAssignment(name = this, value = value))
   }
 }
+
+/**
+ * Adds a new [FunctionCall] to the DSL.
+ *
+ * @param name the name of the function, such as `exclude`
+ * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+ * @param parameters the list of parameters to pass to the function
+ */
+internal fun <SELF : DslElementContainer<SELF>> DslElementContainer<SELF>.functionCall(
+  name: String,
+  labelSupport: FunctionCall.LabelSupport,
+  vararg parameters: Parameter?
+): SELF = addElement(
+  FunctionCall(
+    name = name,
+    labelSupport = labelSupport,
+    parameters = listOfNotNull(*parameters)
+  )
+)
 
 internal class SimpleDslElementContainer(
   elements: MutableList<DslElement> = mutableListOf()

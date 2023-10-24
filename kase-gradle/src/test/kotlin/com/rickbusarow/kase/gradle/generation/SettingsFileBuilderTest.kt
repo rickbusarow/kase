@@ -17,8 +17,6 @@ package com.rickbusarow.kase.gradle.generation
 
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.asTests
-import com.rickbusarow.kase.gradle.generation.DslLanguage.Groovy
-import com.rickbusarow.kase.gradle.generation.DslLanguage.Kotlin
 import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport.NONE
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.kases
@@ -29,15 +27,17 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.util.stream.Stream
 
-class RepositoryHandlerBuilderTest {
+typealias SettingsFileBuilderAction = (SettingsFileBuilder) -> Unit
+
+class SettingsFileBuilderTest {
 
   val dslLanguages = listOf(
-    Groovy(alwaysUseDoubleQuotes = true, useInfix = false),
-    Groovy(alwaysUseDoubleQuotes = true, useInfix = true),
-    Groovy(alwaysUseDoubleQuotes = false, useInfix = false),
-    Groovy(alwaysUseDoubleQuotes = false, useInfix = true),
-    Kotlin(useInfix = false),
-    Kotlin(useInfix = true)
+    DslLanguage.Groovy(alwaysUseDoubleQuotes = true, useInfix = false),
+    DslLanguage.Groovy(alwaysUseDoubleQuotes = true, useInfix = true),
+    DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = false),
+    DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = true),
+    DslLanguage.Kotlin(useInfix = false),
+    DslLanguage.Kotlin(useInfix = true)
   )
 
   @TestFactory
@@ -149,7 +149,7 @@ class RepositoryHandlerBuilderTest {
       }
     }
 
-    val content = builder.write(Groovy(alwaysUseDoubleQuotes = false, useInfix = true))
+    val content = builder.write(DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = true))
 
     println(content)
   }

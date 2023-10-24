@@ -25,11 +25,24 @@ public class RepositoryHandlerBuilder : AbstractDslElementContainer<RepositoryHa
    * Adds a new repository to the repository handler.
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   */
+  public fun maven(
+    url: String
+  ): RepositoryHandlerBuilder = functionCall(
+    name = "maven",
+    labelSupport = GROOVY,
+    ValueParameter("url", url)
+  )
+
+  /**
+   * Adds a new repository to the repository handler.
+   *
+   * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    * @param action the action to perform on the repository
    */
   public fun maven(
     url: String,
-    action: (MavenArtifactRepositoryBuilder.() -> Unit)? = null
+    action: MavenArtifactRepositoryBuilder.() -> Unit
   ): RepositoryHandlerBuilder = functionCall(
     name = "maven",
     labelSupport = GROOVY,
@@ -40,11 +53,23 @@ public class RepositoryHandlerBuilder : AbstractDslElementContainer<RepositoryHa
   /**
    * Adds a new repository to the repository handler.
    *  @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   */
+  public fun maven(
+    url: Quoted
+  ): RepositoryHandlerBuilder = functionCall(
+    name = "maven",
+    labelSupport = GROOVY,
+    ValueParameter("url", url)
+  )
+
+  /**
+   * Adds a new repository to the repository handler.
+   *  @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    *  @param action the action to perform on the repository
    */
   public fun maven(
     url: Quoted,
-    action: (MavenArtifactRepositoryBuilder.() -> Unit)? = null
+    action: MavenArtifactRepositoryBuilder.() -> Unit
   ): RepositoryHandlerBuilder = functionCall(
     name = "maven",
     labelSupport = GROOVY,
@@ -53,8 +78,14 @@ public class RepositoryHandlerBuilder : AbstractDslElementContainer<RepositoryHa
   )
 
   /** Adds an invocation of `google()` to the repository handler */
+  public fun google(): RepositoryHandlerBuilder = functionCall(
+    name = "google",
+    labelSupport = GROOVY
+  )
+
+  /** Adds an invocation of `google()` to the repository handler */
   public fun google(
-    action: (MavenArtifactRepositoryBuilder.() -> Unit)? = null
+    action: MavenArtifactRepositoryBuilder.() -> Unit
   ): RepositoryHandlerBuilder = functionCall(
     name = "google",
     labelSupport = GROOVY,
@@ -62,17 +93,29 @@ public class RepositoryHandlerBuilder : AbstractDslElementContainer<RepositoryHa
   )
 
   /** Adds an invocation of `gradlePluginPortal()` to the repository handler */
+  public fun gradlePluginPortal(): RepositoryHandlerBuilder = functionCall(
+    name = "gradlePluginPortal",
+    labelSupport = GROOVY
+  )
+
+  /** Adds an invocation of `gradlePluginPortal()` to the repository handler */
   public fun gradlePluginPortal(
-    action: (MavenArtifactRepositoryBuilder.() -> Unit)? = null
+    action: MavenArtifactRepositoryBuilder.() -> Unit
   ): RepositoryHandlerBuilder = functionCall(
     name = "gradlePluginPortal",
     labelSupport = GROOVY,
-    LambdaParameter(action)
+    action?.let { LambdaParameter(action) }
+  )
+
+  /** Adds an invocation of `mavenCentral()` to the repository handler */
+  public fun mavenCentral(): RepositoryHandlerBuilder = functionCall(
+    name = "mavenCentral",
+    labelSupport = GROOVY
   )
 
   /** Adds an invocation of `mavenCentral()` to the repository handler */
   public fun mavenCentral(
-    action: (MavenArtifactRepositoryBuilder.() -> Unit)? = null
+    action: MavenArtifactRepositoryBuilder.() -> Unit
   ): RepositoryHandlerBuilder = functionCall(
     name = "mavenCentral",
     labelSupport = GROOVY,
@@ -80,8 +123,14 @@ public class RepositoryHandlerBuilder : AbstractDslElementContainer<RepositoryHa
   )
 
   /** Adds an invocation of `mavenLocal()` to the repository handler */
+  public fun mavenLocal(): RepositoryHandlerBuilder = functionCall(
+    name = "mavenLocal",
+    labelSupport = GROOVY
+  )
+
+  /** Adds an invocation of `mavenLocal()` to the repository handler */
   public fun mavenLocal(
-    action: (MavenArtifactRepositoryBuilder.() -> Unit)? = null
+    action: MavenArtifactRepositoryBuilder.() -> Unit
   ): RepositoryHandlerBuilder = functionCall(
     name = "mavenLocal",
     labelSupport = GROOVY,
