@@ -30,7 +30,7 @@ public interface HasPluginsBlock<SELF : HasPluginsBlock<SELF>> : DslElementConta
   ): SELF = functionCall(
     name = "plugins",
     labelSupport = FunctionCall.LabelSupport.NONE,
-    LambdaParameter(label = "action", builder = block)
+    LambdaParameter(builder = block)
   )
 }
 
@@ -52,6 +52,6 @@ public interface HasRepositoriesBlock<SELF : HasRepositoriesBlock<SELF>> :
   ): SELF = functionCall(
     name = "repositories",
     labelSupport = FunctionCall.LabelSupport.NONE,
-    LambdaParameter(label = "repositoriesAction", builder = block)
+    LambdaParameter(builder = block)
   )
 }

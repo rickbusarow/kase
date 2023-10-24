@@ -79,9 +79,16 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
       name = name,
       labelSupport = labelSupport,
       parameters = parameters.toList()
-      // .dropLastWhile { it is LambdaParameter && it.elements.isEmpty() }
     )
   )
+
+  public fun <T> LambdaBuilderAction<T>.asLambdaParameter(): LambdaParameter {
+    return LambdaParameter(
+      label = null,
+      receiver = SimpleDslElementContainer(),
+      builder = this
+    )
+  }
 
   /**
    * Adds a new [Gradle Property Assignment][GradlePropertyAssignment] to the DSL.

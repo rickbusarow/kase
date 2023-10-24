@@ -212,7 +212,7 @@ public abstract interface class com/rickbusarow/kase/gradle/TestVersions {
 }
 
 public final class com/rickbusarow/kase/gradle/TestVersions$Companion {
-	public final fun getEMPTY ()Lcom/rickbusarow/kase/gradle/TestVersions;
+	public final fun getEmpty() ()Lcom/rickbusarow/kase/gradle/TestVersions;
 }
 
 public final class com/rickbusarow/kase/gradle/VersionList : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
@@ -961,4 +961,3 @@ public final class com/rickbusarow/kase/gradle/generation/ValueStringFactory$Com
 	public final fun invoke (Lcom/rickbusarow/kase/gradle/generation/DslElement;)Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;
 	public final fun invoke (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;
 }
-

@@ -95,17 +95,13 @@ public class ValueParameter(
  * @param elements the list of [DslElement]s which make up the lambda
  */
 @Poko
-public class LambdaParameter(
+public class LambdaParameter private constructor(
   override val label: String?,
-  elements: MutableList<DslElement> = mutableListOf()
+  elements: MutableList<DslElement>
 ) : AbstractDslElementContainer<LambdaParameter>(elements = elements), Parameter {
 
-  public constructor(elements: MutableList<DslElement>) : this(
-    label = null,
-    elements = elements
-  )
-
   override fun write(language: DslLanguage): String = buildString {
+
     appendLine("{")
     indent {
       for (element in elements) {
@@ -125,8 +121,19 @@ public class LambdaParameter(
   }
 
   public companion object {
+
     /** Creates a new [LambdaParameter] using [builder] */
-    public operator fun <T : DslElementContainer<T>> invoke(
+    public operator fun <T : DslElementContainer<*>> invoke(
+      label: String?,
+      receiver: T,
+      builder: T.() -> Unit
+    ): LambdaParameter = LambdaParameter(
+      label = label,
+      elements = receiver.apply(builder).elements.toMutableList()
+    )
+
+    /** Creates a new [LambdaParameter] using [builder] */
+    public operator fun <T : DslElementContainer<*>> invoke(
       receiver: T,
       builder: T.() -> Unit
     ): LambdaParameter = LambdaParameter(
@@ -135,83 +142,22 @@ public class LambdaParameter(
     )
 
     /** Creates a new [LambdaParameter] using [builder] */
-    public inline operator fun <reified T : DslElementContainer<T>> invoke(
+    public inline operator fun <reified T : DslElementContainer<*>> invoke(
       label: String?,
-      builder: T.() -> Unit
-    ): LambdaParameter {
-      val receiver = requireNotNull(T::class.primaryConstructor?.call())
-      return LambdaParameter(
-        label = label,
-        elements = receiver.apply(builder).elements.toMutableList()
-      )
-    }
+      noinline builder: T.() -> Unit
+    ): LambdaParameter = invoke(
+      label = label,
+      receiver = requireNotNull(T::class.primaryConstructor?.call()),
+      builder = builder
+    )
 
     /** Creates a new [LambdaParameter] using [builder] */
-    public operator fun <T : DslElementContainer<T>> invoke(
-      label: String?,
-      receiver: T,
-      builder: T.() -> Unit
-    ): LambdaParameter = LambdaParameter(
-      label = label,
-      elements = receiver.apply(builder).elements.toMutableList()
+    public inline operator fun <reified T : DslElementContainer<*>> invoke(
+      noinline builder: T.() -> Unit
+    ): LambdaParameter = invoke(
+      label = null,
+      receiver = requireNotNull(T::class.primaryConstructor?.call()),
+      builder = builder
     )
-  }
-}
-
-/** A list of [Parameter]s. */
-@Poko
-public class ParameterList(
-  private val parameters: List<Parameter>,
-  private val separator: String = SEPARATOR_DEFAULT
-) : DslElement {
-
-  /** The number of parameters in this list. */
-  public val size: Int get() = parameters.size
-
-  /** @return `true` if [size] is zero, otherwise `false`. */
-  public fun isEmpty(): Boolean = parameters.isEmpty()
-
-  /** @return `true` if [size] is greater than zero, otherwise `false`. */
-  public fun isNotEmpty(): Boolean = parameters.isNotEmpty()
-
-  /**
-   * Creates a string representation of this [ParameterList] in the given [language].
-   *
-   * @param language the [DslLanguage] to use when writing this [ParameterList]
-   * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
-   * @return the string representation of this [ParameterList] in the given [language]
-   */
-  public fun write(language: DslLanguage, labelSupport: LabelSupport): String {
-
-    val trailingLambda = parameters.lastOrNull()
-      ?.takeIf { it is LambdaParameter }
-
-    val toJoin = when {
-      trailingLambda != null -> parameters.dropLast(1)
-      else -> parameters
-    }
-
-    val joined = toJoin.joinToString(separator = separator) {
-      it.write(language = language, labelSupport = labelSupport)
-    }
-
-    val wrapInParens = toJoin.isNotEmpty() || trailingLambda == null
-
-    val maybeWrapped = if (wrapInParens) {
-      language.parens(joined)
-    } else {
-      joined
-    }
-
-    val lambdaString = trailingLambda?.let { " ${it.write(language, labelSupport)}" }.orEmpty()
-
-    return "$maybeWrapped$lambdaString"
-  }
-
-  override fun write(language: DslLanguage): String = write(language, LabelSupport.NONE)
-
-  public companion object {
-    /** The default separator used when joining [Parameter]s into a [ParameterList]. */
-    public const val SEPARATOR_DEFAULT: String = ", "
   }
 }

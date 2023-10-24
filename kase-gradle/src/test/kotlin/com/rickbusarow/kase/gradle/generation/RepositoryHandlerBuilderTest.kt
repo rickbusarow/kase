@@ -60,6 +60,27 @@ class RepositoryHandlerBuilderTest {
       }
   }
 
+  @TestFactory
+  fun `repositories block `(): Stream<out DynamicNode> {
+    return listOf<Kase2<SettingsFileBuilderAction, String>>(
+      kase({ it.pluginManagement { repositories { google() } } }, "pluginManagement {\n}")
+      // kase({ it.plugins { } }, "plugins {\n}"),
+      // kase({ it.dependencyResolutionManagement { } }, "dependencyResolutionManagement {\n}")
+    )
+      .times(kases(dslLanguages))
+      .asTests { builderFun, expected, language ->
+
+        val builder = SettingsFileBuilder {
+          builderFun(this)
+        }
+
+        val content = builder.write(language)
+
+        content shouldBe expected
+      }
+      .limit(1)
+  }
+
   @Test
   fun `canary thing`() {
 

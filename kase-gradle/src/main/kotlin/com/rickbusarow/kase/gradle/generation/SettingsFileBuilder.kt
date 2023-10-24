@@ -37,7 +37,7 @@ public class SettingsFileBuilder(
   ): SettingsFileBuilder = functionCall(
     name = "pluginManagement",
     labelSupport = FunctionCall.LabelSupport.NONE,
-    LambdaParameter(label = "block", builder = block)
+    LambdaParameter(block)
   )
 
   /**
@@ -52,7 +52,7 @@ public class SettingsFileBuilder(
   ): SettingsFileBuilder = functionCall(
     name = "dependencyResolutionManagement",
     labelSupport = FunctionCall.LabelSupport.NONE,
-    LambdaParameter(label = "block", builder = block)
+    LambdaParameter(block)
   )
 }
 

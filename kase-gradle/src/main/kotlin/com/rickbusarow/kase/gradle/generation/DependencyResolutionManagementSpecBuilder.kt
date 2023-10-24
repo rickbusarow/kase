@@ -86,8 +86,8 @@ public class DependencyResolutionManagementSpecBuilder :
     block: ComponentMetadataContainer.() -> Unit
   ): DependencyResolutionManagementSpecBuilder = functionCall(
     name = "components",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    LambdaParameter(label = "registration", builder = block)
+    labelSupport = FunctionCall.LabelSupport.NONE,
+    LambdaParameter(builder = block)
   )
 }
 
