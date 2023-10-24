@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode", "MaxLineLength")
+@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode", "MaxLineLength", "DestructuringDeclarationWithTooManyEntries")
 @file:JvmMultifileClass
 @file:JvmName("KasesKt")
 

@@ -16,6 +16,7 @@
 package com.rickbusarow.kase.generator
 
 import org.intellij.lang.annotations.Language
+import java.util.Locale
 
 @Suppress("MagicNumber")
 internal fun Int.withOrdinalSuffix(): String {
@@ -158,3 +159,13 @@ fun CharSequence.prependContinuationIndent(
     else -> "$continuationIndent$line"
   }
 }
+
+/**
+ * Decapitalizes the first character of this [String] using the specified [locale].
+ *
+ * @param locale The [Locale] to be used for decapitalization. Defaults to [Locale.US].
+ * @receiver The original String.
+ * @return The string with the first character decapitalized.
+ */
+fun String.decapitalize(locale: Locale = Locale.US): String =
+  replaceFirstChar { it.lowercase(locale) }

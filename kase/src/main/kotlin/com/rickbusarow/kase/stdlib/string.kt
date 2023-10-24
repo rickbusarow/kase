@@ -190,14 +190,15 @@ public inline fun StringBuilder.indent(
   builder: StringBuilder.() -> Unit
 ) {
 
-  append(
-    buildString {
-      append(leadingIndent)
+  val inner = buildString {
+    append(leadingIndent)
 
-      builder()
-    }
-      .prependContinuationIndent(continuationIndent)
-  )
+    builder()
+  }
+
+  if (inner.isBlank()) return
+
+  append(inner.prependContinuationIndent(continuationIndent))
 }
 
 /**

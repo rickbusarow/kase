@@ -26,9 +26,9 @@ public interface DslElement : Comparable<DslElement> {
   }
 }
 
-/** Represents a newLine in the DSL code. */
-public object NewLine : DslElement {
-  override fun write(language: DslLanguage): String = System.lineSeparator()
+/** Represents a blank line in the generated DSL */
+public object BlankLine : DslElement {
+  override fun write(language: DslLanguage): String = ""
 }
 
 /**

@@ -15,14 +15,58 @@
 
 package com.rickbusarow.kase.gradle.generation
 
+import com.rickbusarow.kase.Kase2
+import com.rickbusarow.kase.asTests
+import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport.NONE
+import com.rickbusarow.kase.kase
+import com.rickbusarow.kase.kases
+import com.rickbusarow.kase.times
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestFactory
+import java.util.stream.Stream
+
+typealias SettingsFileBuilderAction = (SettingsFileBuilder) -> Unit
 
 class RepositoryHandlerBuilderTest {
+
+  val dslLanguages = listOf(
+    DslLanguage.Groovy(alwaysUseDoubleQuotes = true, useInfix = false),
+    DslLanguage.Groovy(alwaysUseDoubleQuotes = true, useInfix = true),
+    DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = false),
+    DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = true),
+    DslLanguage.Kotlin(useInfix = false),
+    DslLanguage.Kotlin(useInfix = true)
+  )
+
+  @TestFactory
+  fun `canary 3`(): Stream<out DynamicNode> {
+    return listOf<Kase2<SettingsFileBuilderAction, String>>(
+      kase({ it.pluginManagement { } }, "pluginManagement {\n}"),
+      kase({ it.plugins { } }, "plugins {\n}"),
+      kase({ it.dependencyResolutionManagement { } }, "dependencyResolutionManagement {\n}")
+    )
+      .times(kases(dslLanguages))
+      .asTests { builderFun, expected, language ->
+
+        val builder = SettingsFileBuilder {
+          builderFun(this)
+        }
+
+        val content = builder.write(language)
+
+        content shouldBe expected
+      }
+  }
 
   @Test
   fun `canary thing`() {
 
     val builder = SettingsFileBuilder {
+
+      "rootProject.name".set("kase-gradle")
+      "rootProject.name" setEquals string("kase-gradle")
 
       pluginManagement {
         repositories {
@@ -42,6 +86,42 @@ class RepositoryHandlerBuilderTest {
         plugins {
           id("com.rickbusarow.kase")
           alias("libs.plugins.doks")
+        }
+      }
+
+      addBlankLine()
+
+      plugins {
+        id("com.rickbusarow.kase")
+        alias("libs.plugins.doks")
+      }
+
+      addBlankLine()
+
+      dependencyResolutionManagement {
+
+        defaultLibrariesExtensionName.set(string("lobs"))
+        defaultProjectsExtensionName.set(defaultLibrariesExtensionName)
+
+        rulesMode.set(repositoriesMode.get())
+
+        rulesMode.set(repositoriesMode.map { functionCall("foo", NONE) })
+
+        versionCatalogs {}
+
+        repositories {
+          mavenCentral()
+          google()
+          gradlePluginPortal()
+          maven(quoted("https://plugins.gradle.org/m2/"))
+          mavenLocal()
+
+          maven(quoted("https://jitpack.io")) {
+
+            content {
+              excludeGroup("com.android.tools.external.com-intellij")
+            }
+          }
         }
       }
     }

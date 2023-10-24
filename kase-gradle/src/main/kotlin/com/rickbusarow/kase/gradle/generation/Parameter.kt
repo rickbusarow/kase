@@ -57,31 +57,31 @@ public interface Parameter : DslElement {
  * A parameter with an optional label, such as `group: "com.acme"` or `"com.acme"`.
  *
  * @property label the label, such as `group` in `group: "com.acme"`
- * @property valueString the value, such as `"com.acme"`
+ * @property valueStringFactory the value, such as `"com.acme"`
  */
 @Poko
 public class ValueParameter(
   override val label: String?,
-  public val valueString: (DslLanguage) -> String
+  public val valueStringFactory: ValueStringFactory
 ) : Parameter {
-  public constructor(value: String) : this(label = null, valueString = { value })
+  public constructor(value: String) : this(label = null, valueStringFactory = { value })
   public constructor(label: String?, valueString: String) :
-    this(label = label, valueString = {
+    this(label = label, valueStringFactory = {
       valueString
     })
 
   public constructor(valueElement: DslElement) : this(
     label = null,
-    valueString = { valueElement.write(it) }
+    valueStringFactory = { valueElement.write(it) }
   )
 
   public constructor(label: String?, valueElement: DslElement) : this(
     label = label,
-    valueString = { valueElement.write(it) }
+    valueStringFactory = { valueElement.write(it) }
   )
 
   override fun write(language: DslLanguage, labelSupport: LabelSupport): String {
-    val valueString = valueString(language)
+    val valueString = valueStringFactory(language)
     return label?.takeIf { language.supports(labelSupport) }
       ?.let { labelValue -> "$labelValue${language.labelDelimiter} $valueString" }
       ?: valueString
@@ -98,7 +98,7 @@ public class ValueParameter(
 public class LambdaParameter(
   override val label: String?,
   elements: MutableList<DslElement> = mutableListOf()
-) : DslElementContainer(elements = elements), Parameter {
+) : AbstractDslElementContainer<LambdaParameter>(elements = elements), Parameter {
 
   public constructor(elements: MutableList<DslElement>) : this(
     label = null,
@@ -126,7 +126,7 @@ public class LambdaParameter(
 
   public companion object {
     /** Creates a new [LambdaParameter] using [builder] */
-    public operator fun <T : DslElementContainer> invoke(
+    public operator fun <T : DslElementContainer<T>> invoke(
       receiver: T,
       builder: T.() -> Unit
     ): LambdaParameter = LambdaParameter(
@@ -135,16 +135,19 @@ public class LambdaParameter(
     )
 
     /** Creates a new [LambdaParameter] using [builder] */
-    public inline operator fun <reified T : DslElementContainer> invoke(
+    public inline operator fun <reified T : DslElementContainer<T>> invoke(
       label: String?,
       builder: T.() -> Unit
     ): LambdaParameter {
-      val receiver = T::class.primaryConstructor!!.call()
-      return LambdaParameter(label = label, receiver.apply(builder).elements.toMutableList())
+      val receiver = requireNotNull(T::class.primaryConstructor?.call())
+      return LambdaParameter(
+        label = label,
+        elements = receiver.apply(builder).elements.toMutableList()
+      )
     }
 
     /** Creates a new [LambdaParameter] using [builder] */
-    public operator fun <T : DslElementContainer> invoke(
+    public operator fun <T : DslElementContainer<T>> invoke(
       label: String?,
       receiver: T,
       builder: T.() -> Unit
@@ -200,7 +203,20 @@ public class ParameterList(
       joined
     }
 
-    val lambdaString = trailingLambda?.let { " ${it.write(language)}" } ?: ""
+    val lambdaString = trailingLambda?.let { " ${it.write(language, labelSupport)}" }.orEmpty()
+
+    println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    println("       parameters: $parameters")
+    println("   trailingLambda: $trailingLambda")
+    println("           toJoin: $toJoin")
+    println("      toJoin size: ${toJoin.size}")
+    println(
+      "     wrapInParens: $wrapInParens   (${toJoin.isNotEmpty()} || ${trailingLambda == null})"
+    )
+    println("     maybeWrapped: $maybeWrapped")
+    println("     lambdaString: $lambdaString")
+    println("           joined: `$joined`")
+    println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 
     return "$maybeWrapped$lambdaString"
   }

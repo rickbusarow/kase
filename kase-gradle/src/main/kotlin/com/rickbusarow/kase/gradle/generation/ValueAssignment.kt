@@ -23,34 +23,64 @@ public sealed interface ValueAssignment : DslElement {
   /** the name of the variable or property being assigned, such as `version` or `group`. */
   public val name: String
 
-  /** the value being assigned, such as `"1.0.0"` or `"com.acme"`. */
-  public val value: String
+  /**
+   * Invoked during [DslLanguage.write] to create the value
+   * being assigned, such as `"1.0.0"` or `"com.acme"`.
+   */
+  public val valueStringFactory: ValueStringFactory
 
   /**
    * A variable assignment, such as `version = "1.0.0"`
    *
    * @property name the name of the variable, such as `version`
-   * @property value the value being assigned, such as `"1.0.0"`
+   * @property valueStringFactory the value being assigned, such as `"1.0.0"`
    */
   @Poko
   public class SetterAssignment(
     override val name: String,
-    override val value: String
+    override val valueStringFactory: ValueStringFactory
   ) : ValueAssignment {
-    override fun write(language: DslLanguage): String = language.write { "$name = $value" }
+    public constructor(name: String, value: String) : this(name, ValueStringFactory(value))
+    public constructor(name: String, value: DslElement) : this(name, ValueStringFactory(value))
+    override fun write(language: DslLanguage): String {
+      return language.write { "$name = ${valueStringFactory.invoke(language)}" }
+    }
   }
 
   /**
-   * A property assignment, such as `version.set("1.0.0")`
+   * A gradle property assignment, such as `version.set("1.0.0")`
    *
    * @property name the name of the property, such as `version`
-   * @property value the value being assigned, such as `"1.0.0"`
+   * @property valueStringFactory the value being assigned, such as `"1.0.0"`
    */
   @Poko
-  public class PropertyAssignment(
+  public class GradlePropertyAssignment(
     override val name: String,
-    override val value: String
+    override val valueStringFactory: ValueStringFactory
   ) : ValueAssignment {
-    override fun write(language: DslLanguage): String = language.write { "$name.set($value)" }
+    public constructor(name: String, value: String) : this(name, ValueStringFactory(value))
+    public constructor(name: String, value: DslElement) : this(name, ValueStringFactory(value))
+
+    override fun write(language: DslLanguage): String {
+      return language.write { "$name.set(${valueStringFactory.invoke(language)})" }
+    }
+  }
+}
+
+/** Invoked during [DslLanguage.write] to create a value string. */
+public fun interface ValueStringFactory {
+  /** @param language the [DslLanguage] being written */
+  public operator fun invoke(language: DslLanguage): String
+
+  public companion object {
+    /** Creates a no-op [ValueStringFactory] which returns the given [value] string. */
+    public operator fun invoke(value: String): ValueStringFactory {
+      return ValueStringFactory { value }
+    }
+
+    /** Shortcut for `ValueStringFactory { value.write(language) }`. */
+    public operator fun invoke(value: DslElement): ValueStringFactory {
+      return ValueStringFactory(value::write)
+    }
   }
 }

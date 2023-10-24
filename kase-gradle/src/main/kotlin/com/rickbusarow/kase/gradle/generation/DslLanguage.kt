@@ -143,7 +143,7 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
   /** The Kotlin DSL, e.g. `build.gradle.kts` or `settings.gradle.kts` */
   @Poko
   public class Kotlin(
-    override val useInfix: Boolean = true
+    override val useInfix: Boolean
   ) : DslLanguage(
     quote = '"',
     labelDelimiter = " = "
@@ -167,8 +167,8 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
    */
   @Poko
   public class Groovy(
-    alwaysUseDoubleQuotes: Boolean = false,
-    override val useInfix: Boolean = true
+    alwaysUseDoubleQuotes: Boolean,
+    override val useInfix: Boolean
   ) : DslLanguage(
     quote = if (alwaysUseDoubleQuotes) '"' else '\'',
     labelDelimiter = ": "

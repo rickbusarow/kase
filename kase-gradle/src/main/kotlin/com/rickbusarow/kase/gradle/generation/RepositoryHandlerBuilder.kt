@@ -19,7 +19,7 @@ import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport.GROOVY
 import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport.NONE
 
 /** A `repositories { }` container */
-public class RepositoryHandlerBuilder : DslElementContainer() {
+public class RepositoryHandlerBuilder : AbstractDslElementContainer<RepositoryHandlerBuilder>() {
 
   /**
    * Adds a new repository to the repository handler.
@@ -100,7 +100,8 @@ public class RepositoryHandlerBuilder : DslElementContainer() {
  *   }
  * }
  */
-public abstract class ArtifactRepositoryBuilder<T : RepositoryContentBuilder> : DslElementContainer() {
+public abstract class ArtifactRepositoryBuilder<T : RepositoryContentBuilder<T>> :
+  AbstractDslElementContainer<ArtifactRepositoryBuilder<T>>() {
 
   /** Adds a new `content { }` block to the repository configuration. */
   public abstract fun content(block: T.() -> Unit): ArtifactRepositoryBuilder<T>
@@ -137,7 +138,7 @@ public class MavenArtifactRepositoryBuilder : ArtifactRepositoryBuilder<MavenRep
 }
 
 /** The configuration options for a maven repository's content. */
-public class MavenRepositoryContentBuilder : RepositoryContentBuilder() {
+public class MavenRepositoryContentBuilder : RepositoryContentBuilder<MavenRepositoryContentBuilder>() {
 
   /**
    * Adds the `releasesOnly()` invocation to a maven repository configuration.
@@ -151,7 +152,7 @@ public class MavenRepositoryContentBuilder : RepositoryContentBuilder() {
    * ```
    */
   public fun releasesOnly(): MavenRepositoryContentBuilder = apply {
-    add(FunctionCall(name = "releasesOnly", labelSupport = NONE))
+    addElement(FunctionCall(name = "releasesOnly", labelSupport = NONE))
   }
 
   /**
@@ -168,12 +169,13 @@ public class MavenRepositoryContentBuilder : RepositoryContentBuilder() {
    * ```
    */
   public fun snapshotsOnly(): MavenRepositoryContentBuilder = apply {
-    add(FunctionCall(name = "snapshotsOnly", labelSupport = NONE))
+    addElement(FunctionCall(name = "snapshotsOnly", labelSupport = NONE))
   }
 }
 
 /** Adds the common configurations to a repository's content, like: */
-public abstract class RepositoryContentBuilder : DslElementContainer() {
+public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SELF>> :
+  AbstractDslElementContainer<SELF>() {
 
   /**
    * ```
@@ -186,7 +188,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun includeGroup(group: String): RepositoryContentBuilder = functionCall(
+  public fun includeGroup(group: String): SELF = functionCall(
     name = "includeGroup",
     labelSupport = GROOVY,
     ValueParameter("group", group)
@@ -203,7 +205,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun includeGroupByRegex(groupRegex: String): RepositoryContentBuilder = functionCall(
+  public fun includeGroupByRegex(groupRegex: String): SELF = functionCall(
     name = "includeGroupByRegex",
     labelSupport = GROOVY,
     ValueParameter("groupRegex", groupRegex)
@@ -220,7 +222,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun includeGroupAndSubgroups(groupPrefix: String): RepositoryContentBuilder = functionCall(
+  public fun includeGroupAndSubgroups(groupPrefix: String): SELF = functionCall(
     name = "includeGroupAndSubgroups",
     labelSupport = GROOVY,
     ValueParameter("groupPrefix", groupPrefix)
@@ -237,10 +239,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun includeModule(
-    group: String,
-    moduleName: String
-  ): RepositoryContentBuilder = functionCall(
+  public fun includeModule(group: String, moduleName: String): SELF = functionCall(
     name = "includeModule",
     labelSupport = GROOVY,
     ValueParameter("group", group),
@@ -258,10 +257,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun includeModuleByRegex(
-    groupRegex: String,
-    moduleNameRegex: String
-  ): RepositoryContentBuilder = functionCall(
+  public fun includeModuleByRegex(groupRegex: String, moduleNameRegex: String): SELF = functionCall(
     name = "includeModuleByRegex",
     labelSupport = GROOVY,
     ValueParameter("groupRegex", groupRegex),
@@ -283,13 +279,14 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     group: String,
     moduleName: String,
     version: String
-  ): RepositoryContentBuilder = functionCall(
-    name = "includeVersion",
-    labelSupport = GROOVY,
-    ValueParameter("group", group),
-    ValueParameter("moduleName", moduleName),
-    ValueParameter("version", version)
-  )
+  ): SELF =
+    functionCall(
+      name = "includeVersion",
+      labelSupport = GROOVY,
+      ValueParameter("group", group),
+      ValueParameter("moduleName", moduleName),
+      ValueParameter("version", version)
+    )
 
   /**
    * ```
@@ -306,7 +303,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     groupRegex: String,
     moduleNameRegex: String,
     versionRegex: String
-  ): RepositoryContentBuilder = functionCall(
+  ): SELF = functionCall(
     name = "includeVersionByRegex",
     labelSupport = GROOVY,
     ValueParameter("groupRegex", groupRegex),
@@ -325,7 +322,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun excludeGroup(group: String): RepositoryContentBuilder = functionCall(
+  public fun excludeGroup(group: String): SELF = functionCall(
     name = "excludeGroup",
     labelSupport = GROOVY,
     ValueParameter("group", group)
@@ -342,7 +339,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun excludeGroupByRegex(groupRegex: String): RepositoryContentBuilder = functionCall(
+  public fun excludeGroupByRegex(groupRegex: String): SELF = functionCall(
     name = "excludeGroupByRegex",
     labelSupport = GROOVY,
     ValueParameter("groupRegex", groupRegex)
@@ -359,7 +356,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun excludeGroupAndSubgroups(groupPrefix: String): RepositoryContentBuilder = functionCall(
+  public fun excludeGroupAndSubgroups(groupPrefix: String): SELF = functionCall(
     name = "excludeGroupAndSubgroups",
     labelSupport = GROOVY,
     ValueParameter("groupPrefix", groupPrefix)
@@ -376,10 +373,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun excludeModule(
-    group: String,
-    moduleName: String
-  ): RepositoryContentBuilder = functionCall(
+  public fun excludeModule(group: String, moduleName: String): SELF = functionCall(
     name = "excludeModule",
     labelSupport = GROOVY,
     ValueParameter("group", group),
@@ -397,10 +391,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
    * }
    * ```
    */
-  public fun excludeModuleByRegex(
-    groupRegex: String,
-    moduleNameRegex: String
-  ): RepositoryContentBuilder = functionCall(
+  public fun excludeModuleByRegex(groupRegex: String, moduleNameRegex: String): SELF = functionCall(
     name = "excludeModuleByRegex",
     labelSupport = GROOVY,
     ValueParameter("groupRegex", groupRegex),
@@ -422,7 +413,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     group: String,
     moduleName: String,
     version: String
-  ): RepositoryContentBuilder = functionCall(
+  ): SELF = functionCall(
     name = "excludeVersion",
     labelSupport = GROOVY,
     ValueParameter("group", group),
@@ -445,7 +436,7 @@ public abstract class RepositoryContentBuilder : DslElementContainer() {
     groupRegex: String,
     moduleNameRegex: String,
     versionRegex: String
-  ): RepositoryContentBuilder = functionCall(
+  ): SELF = functionCall(
     name = "excludeVersionByRegex",
     labelSupport = GROOVY,
     ValueParameter("groupRegex", groupRegex),

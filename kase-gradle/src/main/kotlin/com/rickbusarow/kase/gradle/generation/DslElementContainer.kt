@@ -15,22 +15,53 @@
 
 package com.rickbusarow.kase.gradle.generation
 
+import com.rickbusarow.kase.gradle.generation.ValueAssignment.GradlePropertyAssignment
+import com.rickbusarow.kase.gradle.generation.ValueAssignment.SetterAssignment
+
+/** */
+@DslMarker
+@Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE)
+public annotation class DslElementContainerMarker
+
 /**
  * Collects [DslElement]s, to be written to a [DslLanguage]
  * file. Elements are written in the order they are added.
  */
-public abstract class DslElementContainer(
-  elements: MutableList<DslElement> = mutableListOf()
-) : DslElement {
-  private val _elements: MutableList<DslElement> = elements
+@DslElementContainerMarker
+public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElement {
 
-  @PublishedApi
-  internal val elements: List<DslElement>
-    get() = _elements
+  /** The list of [DslElement]s in this container. */
+  public val elements: List<DslElement>
 
-  internal fun add(element: DslElement) {
-    _elements.add(element)
-  }
+  /**
+   * Adds a new [DslElement] to the DSL.
+   *
+   * @param element the element to add
+   */
+  public fun addElement(element: DslElement): SELF
+
+  /** Adds new [DslElement]s to the DSL. */
+  public fun addAllElements(vararg elements: DslElement): SELF
+
+  /** Adds new [DslElement]s to the DSL. */
+  public fun addAllElements(elements: Collection<DslElement>): SELF
+
+  /** Adds a blank line to the DSL. */
+  public fun addBlankLine(): SELF
+
+  /**
+   * Wraps a String literal in language-specific quotes
+   *
+   * @see string as another code-completion friendly alias for this function
+   */
+  public fun quoted(stringValue: String): Quoted = Quoted(stringValue)
+
+  /**
+   * Wraps a String literal in language-specific quotes
+   *
+   * @see quoted as another code-completion friendly alias for this function
+   */
+  public fun string(stringValue: String): Quoted = Quoted(stringValue)
 
   /**
    * Adds a new [FunctionCall] to the DSL.
@@ -39,40 +70,123 @@ public abstract class DslElementContainer(
    * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
    * @param parameters the list of parameters to pass to the function
    */
-  internal fun <T : DslElementContainer> T.functionCall(
+  public fun functionCall(
     name: String,
     labelSupport: FunctionCall.LabelSupport,
     vararg parameters: Parameter
-  ): T = apply {
-    add(
-      FunctionCall(
-        name = name,
-        labelSupport = labelSupport,
-        parameters = parameters.toList()
-          .dropLastWhile { it is LambdaParameter && it.elements.isEmpty() }
-      )
+  ): SELF = addElement(
+    FunctionCall(
+      name = name,
+      labelSupport = labelSupport,
+      parameters = parameters.toList()
+      // .dropLastWhile { it is LambdaParameter && it.elements.isEmpty() }
     )
+  )
+
+  /**
+   * Adds a new [Gradle Property Assignment][GradlePropertyAssignment] to the DSL.
+   *
+   * ```
+   * myDsl {
+   *   group.set("com.acme")
+   * }
+   * ```
+   *
+   * @param propertyName the name of the property, such as `group`
+   * @param value the value of the property, such as `com.acme`
+   */
+  public fun assignGradleProperty(
+    propertyName: String,
+    value: String
+  ): SELF = addElement(GradlePropertyAssignment(name = propertyName, value = value))
+
+  /**
+   * Adds a new [Gradle Property Assignment][GradlePropertyAssignment] to the DSL.
+   *
+   * Use `set(string(...))` to add a string value wrapped in quotes.
+   *
+   * given:
+   * ```
+   * // builder DSL
+   * myConfig {
+   *   "group".set(GROUP)
+   * }
+   * ```
+   *
+   * ```
+   * myDsl {
+   *   group.set("com.acme")
+   * }
+   * ```
+   */
+  public fun String.set(value: String): SELF {
+    return addElement(GradlePropertyAssignment(name = this, value = value))
   }
 
-  internal fun addAll(vararg elements: DslElement) {
-    this._elements.addAll(elements)
+  /**
+   * Adds a new [Gradle Property Assignment][GradlePropertyAssignment] to the DSL.
+   *
+   * given:
+   * ```
+   * // builder DSL
+   * myConfig {
+   *   "group".set(string("com.acme"))
+   * }
+   * ```
+   *
+   * ```
+   * myDsl {
+   *   group.set("com.acme")
+   * }
+   * ```
+   */
+  public fun String.set(value: DslElement): SELF {
+    return addElement(GradlePropertyAssignment(name = this, value = value))
   }
 
-  internal fun addAll(elements: Collection<DslElement>) {
-    this._elements.addAll(elements)
+  /**
+   * Adds a new [SetterAssignment] to the DSL.
+   *
+   * given:
+   * ```
+   * // builder DSL
+   * myConfig {
+   *   "group" setEquals GROUP
+   * }
+   * ```
+   *
+   * ```
+   * myDsl {
+   *   group = GROUP
+   * }
+   * ```
+   */
+  public infix fun String.setEquals(value: String): SELF {
+    return addElement(SetterAssignment(name = this, value = value))
   }
 
-  /** Adds a newLine to the DSL. */
-  public fun newLine(): DslElementContainer = apply { add(NewLine) }
-
-  override fun write(language: DslLanguage): String {
-
-    return elements.joinToString("\n") {
-      if (it is NewLine) {
-        it.write(language)
-      } else {
-        it.write(language).trimEnd()
-      }
-    }
+  /**
+   * Adds a new [SetterAssignment] to the DSL.
+   *
+   * given:
+   * ```
+   * // builder DSL
+   * myConfig {
+   *   "group" setEquals string("com.acme")
+   * }
+   * ```
+   *
+   * ```
+   * myDsl {
+   *   group = "com.acme"
+   * }
+   * ```
+   */
+  public infix fun String.setEquals(value: DslElement): SELF {
+    return addElement(SetterAssignment(name = this, value = value))
   }
 }
+
+internal class SimpleDslElementContainer(
+  elements: MutableList<DslElement> = mutableListOf()
+) : AbstractDslElementContainer<SimpleDslElementContainer>(elements)

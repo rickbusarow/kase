@@ -233,22 +233,6 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   /**
    * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
    *
-   * @param testName the name of the test.
-   * @param testAction a function containing the test logic.
-   */
-  context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
-    testName: (K) -> String = { it.toString() },
-    crossinline testAction: suspend T.() -> Unit
-  ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (kase in this@asTests) {
-      test(testName(kase)) { testAction() }
-    }
-  }
-
-  /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-   *
    * @param name the name of the test.
    * @param testAction a function containing the test logic.
    */
@@ -288,16 +272,14 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   /**
    * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
    *
-   * @param testName the name of the test.
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
   public inline fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
-    testName: (K) -> String = { it.toString() },
     crossinline testAction: suspend T.(K) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (element in this@asTests) {
-      test(testName(element)) { testAction(element) }
+    for (kase in this@asTests) {
+      test(kase) { testAction(kase) }
     }
   }
 
@@ -316,60 +298,6 @@ public class TestNodeBuilder @PublishedApi internal constructor(
 }
 
 /**
- * Transforms an iterable into a stream of dynamic test containers. The
- * names of the containers are determined by the [testName] function, and
- * the containers themselves are initialized by the [testAction] function.
- *
- * @param testName a function to compute the name of each test container.
- * @param testAction a function to initialize each test container.
- * @return a stream of dynamic nodes representing the containers.
- */
-public inline fun <E> Iterable<E>.asContainers(
-  crossinline testName: (E) -> String = { it.toString() },
-  crossinline testAction: TestNodeBuilder.(E) -> Unit
-): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
-
-/**
- * Transforms an iterable into a stream of dynamic test containers. The
- * names of the containers are determined by the [testName] function, and
- * the containers themselves are initialized by the [testAction] function.
- *
- * @param testName a function to compute the name of each test container.
- * @param testAction a function to initialize each test container.
- * @return a stream of dynamic nodes representing the containers.
- */
-public inline fun <E> Sequence<E>.asContainers(
-  crossinline testName: (E) -> String = { it.toString() },
-  crossinline testAction: TestNodeBuilder.(E) -> Unit
-): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
-
-/**
- * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
- * by the [testName] function, and the tests themselves are defined by the [testAction] function.
- *
- * @param testName a function to compute the name of each test.
- * @param testAction a function to define each test.
- * @return a stream of dynamic nodes representing the tests.
- */
-public inline fun <E> Iterable<E>.asTests(
-  crossinline testName: (E) -> String = { it.toString() },
-  crossinline testAction: (E) -> Unit
-): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
-
-/**
- * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
- * by the [testName] function, and the tests themselves are defined by the [testAction] function.
- *
- * @param testName a function to compute the name of each test.
- * @param testAction a function to define each test.
- * @return a stream of dynamic nodes representing the tests.
- */
-public inline fun <E> Sequence<E>.asTests(
-  crossinline testName: (E) -> String = { it.toString() },
-  crossinline testAction: (E) -> Unit
-): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
-
-/**
  * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
  * by the kase instance, and the tests themselves are defined by the [testAction] function.
  *
@@ -383,28 +311,40 @@ public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
 
 /**
  * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
- * by the [testName] function, and the tests themselves are defined by the [testAction] function.
+ * by the kase instance, and the tests themselves are defined by the [testAction] function.
  *
- * @param testName a function to compute the name of each test.
- * @param testAction a function to define each test.
- * @return a stream of dynamic nodes representing the tests.
- */
-context(TestEnvironmentFactory<T>)
-public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
-  crossinline testName: (K) -> String = { it.toString() },
-  crossinline testAction: suspend T.() -> Unit
-): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
-
-/**
- * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
- * by the [testName] function, and the tests themselves are defined by the [testAction] function.
- *
- * @param testName a function to compute the name of each test.
  * @param testAction a function to define each test.
  * @return a stream of dynamic nodes representing the tests.
  */
 context(TestEnvironmentFactory<T>)
 public inline fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
-  crossinline testName: (K) -> String = { it.toString() },
   crossinline testAction: suspend T.(K) -> Unit
-): Stream<out DynamicNode> = testFactory { asTests(testName, testAction) }
+): Stream<out DynamicNode> = testFactory { asTests(testAction) }
+
+/**
+ * Transforms an iterable into a stream of dynamic test containers. The
+ * names of the containers are determined by the [testName] function, and
+ * the containers themselves are initialized by the [testAction] function.
+ *
+ * @param testName a function to compute the name of each test.
+ * @param testAction a function to initialize each test container.
+ * @return a stream of dynamic nodes representing the containers.
+ */
+public inline fun <K : AnyKase> Iterable<K>.asContainers(
+  crossinline testName: (K) -> String = { it.displayName },
+  crossinline testAction: TestNodeBuilder.(K) -> Unit
+): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
+
+/**
+ * Transforms a sequence into a stream of dynamic test containers. The
+ * names of the containers are determined by the [testName] function, and
+ * the containers themselves are initialized by the [testAction] function.
+ *
+ * @param testName a function to compute the name of each test.
+ * @param testAction a function to initialize each test container.
+ * @return a stream of dynamic nodes representing the containers.
+ */
+public inline fun <K : AnyKase> Sequence<K>.asContainers(
+  crossinline testName: (K) -> String = { it.displayName },
+  crossinline testAction: TestNodeBuilder.(K) -> Unit
+): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }

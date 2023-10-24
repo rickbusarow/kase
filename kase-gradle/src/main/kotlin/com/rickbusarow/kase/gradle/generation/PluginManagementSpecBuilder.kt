@@ -16,24 +16,10 @@
 package com.rickbusarow.kase.gradle.generation
 
 /** Builds the `pluginManagement` block in a `settings.gradle` or `settings.gradle.kts` file. */
-public class PluginManagementSpecBuilder : DslElementContainer() {
-
-  /**
-   * ```
-   * // settings.gradle
-   * pluginManagement {
-   *   repositories {
-   *     // ...
-   *   }
-   * }
-   */
-  public fun repositories(
-    block: RepositoryHandlerBuilder.() -> Unit
-  ): PluginManagementSpecBuilder = functionCall(
-    name = "repositories",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    LambdaParameter(label = "repositoriesAction", builder = block)
-  )
+public class PluginManagementSpecBuilder :
+  AbstractDslElementContainer<PluginManagementSpecBuilder>(),
+  HasRepositoriesBlock<PluginManagementSpecBuilder>,
+  HasPluginsBlock<PluginManagementSpecBuilder> {
 
   /**
    * ```
@@ -48,23 +34,6 @@ public class PluginManagementSpecBuilder : DslElementContainer() {
     block: PluginResolutionStrategyBuilder.() -> Unit
   ): PluginManagementSpecBuilder = functionCall(
     name = "resolutionStrategy",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    LambdaParameter(label = "action", builder = block)
-  )
-
-  /**
-   * ```
-   * // settings.gradle
-   * pluginManagement {
-   *   plugins {
-   *     // ...
-   *   }
-   * }
-   */
-  public fun plugins(
-    block: PluginDependenciesSpecBuilder.() -> Unit
-  ): PluginManagementSpecBuilder = functionCall(
-    name = "plugins",
     labelSupport = FunctionCall.LabelSupport.GROOVY,
     LambdaParameter(label = "action", builder = block)
   )

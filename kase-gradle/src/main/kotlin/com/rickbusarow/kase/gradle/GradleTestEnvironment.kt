@@ -49,7 +49,7 @@ public interface GradleTestEnvironmentFactory<T : TestVersions, K : AnyKase> {
       testFunctionCoordinates = testVariant.testFunctionCoordinates,
       kase = testVariant.kase,
       buildFileComponents = object : BuildFileComponents {},
-      DslLanguage.Groovy()
+      DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = true)
     )
   }
 }

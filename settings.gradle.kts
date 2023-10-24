@@ -72,9 +72,7 @@ dependencyResolutionManagement {
       logger.lifecycle("${rootProject.name} -- allowing mavenLocal for dependencies")
       mavenLocal()
     }
-    google()
     mavenCentral()
-    maven("https://plugins.gradle.org/m2/")
   }
 }
 

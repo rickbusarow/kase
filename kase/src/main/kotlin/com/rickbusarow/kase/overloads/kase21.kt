@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode", "MaxLineLength")
+@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode", "MaxLineLength", "DestructuringDeclarationWithTooManyEntries")
 @file:JvmMultifileClass
 @file:JvmName("KasesKt")
 
@@ -166,49 +166,210 @@ public interface Kase21<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
 
   /** @see Kase21.a1 */
   public operator fun component1(): A1 = a1
+
   /** @see Kase21.a2 */
   public operator fun component2(): A2 = a2
+
   /** @see Kase21.a3 */
   public operator fun component3(): A3 = a3
+
   /** @see Kase21.a4 */
   public operator fun component4(): A4 = a4
+
   /** @see Kase21.a5 */
   public operator fun component5(): A5 = a5
+
   /** @see Kase21.a6 */
   public operator fun component6(): A6 = a6
+
   /** @see Kase21.a7 */
   public operator fun component7(): A7 = a7
+
   /** @see Kase21.a8 */
   public operator fun component8(): A8 = a8
+
   /** @see Kase21.a9 */
   public operator fun component9(): A9 = a9
+
   /** @see Kase21.a10 */
   public operator fun component10(): A10 = a10
+
   /** @see Kase21.a11 */
   public operator fun component11(): A11 = a11
+
   /** @see Kase21.a12 */
   public operator fun component12(): A12 = a12
+
   /** @see Kase21.a13 */
   public operator fun component13(): A13 = a13
+
   /** @see Kase21.a14 */
   public operator fun component14(): A14 = a14
+
   /** @see Kase21.a15 */
   public operator fun component15(): A15 = a15
+
   /** @see Kase21.a16 */
   public operator fun component16(): A16 = a16
+
   /** @see Kase21.a17 */
   public operator fun component17(): A17 = a17
+
   /** @see Kase21.a18 */
   public operator fun component18(): A18 = a18
+
   /** @see Kase21.a19 */
   public operator fun component19(): A19 = a19
+
   /** @see Kase21.a20 */
   public operator fun component20(): A20 = a20
+
   /** @see Kase21.a21 */
   public operator fun component21(): A21 = a21
 
   override fun <A22> plus(label: String, value: A22): AnyKase {
     error("A Kase cannot have more than 22 parameters")
+  }
+}
+
+@Poko
+@PublishedApi
+internal class DefaultKase21<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15, out A16, out A17, out A18, out A19, out A20, out A21>(
+  override val a1WithLabel: KaseParameterWithLabel<A1>,
+  override val a2WithLabel: KaseParameterWithLabel<A2>,
+  override val a3WithLabel: KaseParameterWithLabel<A3>,
+  override val a4WithLabel: KaseParameterWithLabel<A4>,
+  override val a5WithLabel: KaseParameterWithLabel<A5>,
+  override val a6WithLabel: KaseParameterWithLabel<A6>,
+  override val a7WithLabel: KaseParameterWithLabel<A7>,
+  override val a8WithLabel: KaseParameterWithLabel<A8>,
+  override val a9WithLabel: KaseParameterWithLabel<A9>,
+  override val a10WithLabel: KaseParameterWithLabel<A10>,
+  override val a11WithLabel: KaseParameterWithLabel<A11>,
+  override val a12WithLabel: KaseParameterWithLabel<A12>,
+  override val a13WithLabel: KaseParameterWithLabel<A13>,
+  override val a14WithLabel: KaseParameterWithLabel<A14>,
+  override val a15WithLabel: KaseParameterWithLabel<A15>,
+  override val a16WithLabel: KaseParameterWithLabel<A16>,
+  override val a17WithLabel: KaseParameterWithLabel<A17>,
+  override val a18WithLabel: KaseParameterWithLabel<A18>,
+  override val a19WithLabel: KaseParameterWithLabel<A19>,
+  override val a20WithLabel: KaseParameterWithLabel<A20>,
+  override val a21WithLabel: KaseParameterWithLabel<A21>,
+  override val labelDelimiter: String,
+  override val displayNameSeparator: String,
+) : Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>, KaseInternal {
+  override val a1: A1 get() = a1WithLabel.value
+  override val a2: A2 get() = a2WithLabel.value
+  override val a3: A3 get() = a3WithLabel.value
+  override val a4: A4 get() = a4WithLabel.value
+  override val a5: A5 get() = a5WithLabel.value
+  override val a6: A6 get() = a6WithLabel.value
+  override val a7: A7 get() = a7WithLabel.value
+  override val a8: A8 get() = a8WithLabel.value
+  override val a9: A9 get() = a9WithLabel.value
+  override val a10: A10 get() = a10WithLabel.value
+  override val a11: A11 get() = a11WithLabel.value
+  override val a12: A12 get() = a12WithLabel.value
+  override val a13: A13 get() = a13WithLabel.value
+  override val a14: A14 get() = a14WithLabel.value
+  override val a15: A15 get() = a15WithLabel.value
+  override val a16: A16 get() = a16WithLabel.value
+  override val a17: A17 get() = a17WithLabel.value
+  override val a18: A18 get() = a18WithLabel.value
+  override val a19: A19 get() = a19WithLabel.value
+  override val a20: A20 get() = a20WithLabel.value
+  override val a21: A21 get() = a21WithLabel.value
+
+  override val elements: List<KaseParameterWithLabel<Any?>>
+    get() = listOf(a1WithLabel, a2WithLabel, a3WithLabel, a4WithLabel, a5WithLabel, a6WithLabel, a7WithLabel, a8WithLabel, a9WithLabel, a10WithLabel, a11WithLabel, a12WithLabel, a13WithLabel, a14WithLabel, a15WithLabel, a16WithLabel, a17WithLabel, a18WithLabel, a19WithLabel, a20WithLabel, a21WithLabel)
+
+  override fun <A22> plus(label: String, value: A22): AnyKase {
+    error("A Kase cannot have more than 22 parameters")
+  }
+
+  override fun component1(): A1 = a1
+  override fun component2(): A2 = a2
+  override fun component3(): A3 = a3
+  override fun component4(): A4 = a4
+  override fun component5(): A5 = a5
+  override fun component6(): A6 = a6
+  override fun component7(): A7 = a7
+  override fun component8(): A8 = a8
+  override fun component9(): A9 = a9
+  override fun component10(): A10 = a10
+  override fun component11(): A11 = a11
+  override fun component12(): A12 = a12
+  override fun component13(): A13 = a13
+  override fun component14(): A14 = a14
+  override fun component15(): A15 = a15
+  override fun component16(): A16 = a16
+  override fun component17(): A17 = a17
+  override fun component18(): A18 = a18
+  override fun component19(): A19 = a19
+  override fun component20(): A20 = a20
+  override fun component21(): A21 = a21
+
+  override fun toString(): String = displayName
+}
+
+/**
+ * A strongly-typed version of [KaseLabels] for 21 parameters.
+ *
+ * @property a1Label The label for the [Kase21.a1] parameter.
+ * @property a2Label The label for the [Kase21.a2] parameter.
+ * @property a3Label The label for the [Kase21.a3] parameter.
+ * @property a4Label The label for the [Kase21.a4] parameter.
+ * @property a5Label The label for the [Kase21.a5] parameter.
+ * @property a6Label The label for the [Kase21.a6] parameter.
+ * @property a7Label The label for the [Kase21.a7] parameter.
+ * @property a8Label The label for the [Kase21.a8] parameter.
+ * @property a9Label The label for the [Kase21.a9] parameter.
+ * @property a10Label The label for the [Kase21.a10] parameter.
+ * @property a11Label The label for the [Kase21.a11] parameter.
+ * @property a12Label The label for the [Kase21.a12] parameter.
+ * @property a13Label The label for the [Kase21.a13] parameter.
+ * @property a14Label The label for the [Kase21.a14] parameter.
+ * @property a15Label The label for the [Kase21.a15] parameter.
+ * @property a16Label The label for the [Kase21.a16] parameter.
+ * @property a17Label The label for the [Kase21.a17] parameter.
+ * @property a18Label The label for the [Kase21.a18] parameter.
+ * @property a19Label The label for the [Kase21.a19] parameter.
+ * @property a20Label The label for the [Kase21.a20] parameter.
+ * @property a21Label The label for the [Kase21.a21] parameter.
+ * @property labelDelimiter The delimiter between the label and the value. The default is `": "`.
+ * @property displayNameSeparator The separator between
+ *   each label/value pair. The default is `" | "`.
+ */
+@Poko
+public class KaseLabels21(
+  public val a1Label: String = "a1",
+  public val a2Label: String = "a2",
+  public val a3Label: String = "a3",
+  public val a4Label: String = "a4",
+  public val a5Label: String = "a5",
+  public val a6Label: String = "a6",
+  public val a7Label: String = "a7",
+  public val a8Label: String = "a8",
+  public val a9Label: String = "a9",
+  public val a10Label: String = "a10",
+  public val a11Label: String = "a11",
+  public val a12Label: String = "a12",
+  public val a13Label: String = "a13",
+  public val a14Label: String = "a14",
+  public val a15Label: String = "a15",
+  public val a16Label: String = "a16",
+  public val a17Label: String = "a17",
+  public val a18Label: String = "a18",
+  public val a19Label: String = "a19",
+  public val a20Label: String = "a20",
+  public val a21Label: String = "a21",
+  override val labelDelimiter: String = DELIMITER_DEFAULT,
+  override val displayNameSeparator: String = SEPARATOR_DEFAULT
+) : KaseLabels {
+
+  override val orderedLabels: List<String> by lazy {
+    listOf(a1Label, a2Label, a3Label, a4Label, a5Label, a6Label, a7Label, a8Label, a9Label, a10Label, a11Label, a12Label, a13Label, a14Label, a15Label, a16Label, a17Label, a18Label, a19Label, a20Label, a21Label)
   }
 }
 
@@ -313,62 +474,10 @@ public fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A
 ) where T : TestEnvironment,
         K : Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21> {
   this@TestEnvironmentFactory.test(
-    kase = kase(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, labels),
+    kase = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17, a18 = a18, a19 = a19, a20 = a20, a21 = a21, labels = labels),
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )
-}
-
-/**
- * Creates a new [KaseLabels21] with the given labels.
- *
- * @param a1Label the label for the [Kase21.a1] property.
- * @param a2Label the label for the [Kase21.a2] property.
- * @param a3Label the label for the [Kase21.a3] property.
- * @param a4Label the label for the [Kase21.a4] property.
- * @param a5Label the label for the [Kase21.a5] property.
- * @param a6Label the label for the [Kase21.a6] property.
- * @param a7Label the label for the [Kase21.a7] property.
- * @param a8Label the label for the [Kase21.a8] property.
- * @param a9Label the label for the [Kase21.a9] property.
- * @param a10Label the label for the [Kase21.a10] property.
- * @param a11Label the label for the [Kase21.a11] property.
- * @param a12Label the label for the [Kase21.a12] property.
- * @param a13Label the label for the [Kase21.a13] property.
- * @param a14Label the label for the [Kase21.a14] property.
- * @param a15Label the label for the [Kase21.a15] property.
- * @param a16Label the label for the [Kase21.a16] property.
- * @param a17Label the label for the [Kase21.a17] property.
- * @param a18Label the label for the [Kase21.a18] property.
- * @param a19Label the label for the [Kase21.a19] property.
- * @param a20Label the label for the [Kase21.a20] property.
- * @param a21Label the label for the [Kase21.a21] property.
- * @return a new [KaseLabels21] with the given labels.
- */
-public fun labels(
-  a1Label: String = "a1",
-  a2Label: String = "a2",
-  a3Label: String = "a3",
-  a4Label: String = "a4",
-  a5Label: String = "a5",
-  a6Label: String = "a6",
-  a7Label: String = "a7",
-  a8Label: String = "a8",
-  a9Label: String = "a9",
-  a10Label: String = "a10",
-  a11Label: String = "a11",
-  a12Label: String = "a12",
-  a13Label: String = "a13",
-  a14Label: String = "a14",
-  a15Label: String = "a15",
-  a16Label: String = "a16",
-  a17Label: String = "a17",
-  a18Label: String = "a18",
-  a19Label: String = "a19",
-  a20Label: String = "a20",
-  a21Label: String = "a21"
-): KaseLabels21 {
-  return KaseLabels21(a1Label = a1Label, a2Label = a2Label, a3Label = a3Label, a4Label = a4Label, a5Label = a5Label, a6Label = a6Label, a7Label = a7Label, a8Label = a8Label, a9Label = a9Label, a10Label = a10Label, a11Label = a11Label, a12Label = a12Label, a13Label = a13Label, a14Label = a14Label, a15Label = a15Label, a16Label = a16Label, a17Label = a17Label, a18Label = a18Label, a19Label = a19Label, a20Label = a20Label, a21Label = a21Label)
 }
 
 /**
@@ -469,13 +578,37 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A1
   }
 }
 
-/** */
+/**
+ * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase21]s.
+ *
+ * @param testAction the test action to run for each kase.
+ * @return a [Stream] of [DynamicNode]s from these kases.
+ * @see Kase21
+ */
+@JvmName("asTestsKase21Destructured")
+public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21> Iterable<Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>>.asTests(
+  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21) -> Unit
+): Stream<out DynamicNode> {
+  return testFactory {
+    this@asTests.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18, it.a19, it.a20, it.a21) }
+  }
+}
+
+/**
+ * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase21]s.
+ *
+ * @param testAction the test action to run for each kase.
+ * @return a [Stream] of [DynamicNode]s from these kases.
+ * @see Kase21
+ */
 context(TestEnvironmentFactory<T>)
-@JvmName("asTestsKase21DestructuredTestEnvironment")
+@JvmName("asTestsKase21ExtensionDestructuredTestEnvironment")
 public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21> Iterable<Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>>.asTests(
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21) -> Unit
 ): Stream<out DynamicNode> {
-  return testFactory(kases = this@asTests, testAction = testAction)
+  return testFactory {
+    this@asTests.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18, it.a19, it.a20, it.a21) }
+  }
 }
 
 /**
@@ -491,12 +624,14 @@ public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10,
  * @see TestEnvironmentFactory
  */
 context(TestEnvironmentFactory<T>)
-@JvmName("testFactoryKase21DestructuredTestEnvironment")
+@JvmName("testFactoryKase21VarargDestructuredTestEnvironment")
 public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21> testFactory(
   vararg kases: Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21) -> Unit
 ): Stream<out DynamicNode> {
-  return testFactory(kases = kases.toList(), testAction = testAction)
+  return testFactory {
+    kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18, it.a19, it.a20, it.a21) }
+  }
 }
 
 /**
@@ -512,14 +647,14 @@ public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10,
  * @see TestEnvironmentFactory
  */
 context(TestEnvironmentFactory<T>)
-@JvmName("testFactoryKase21DestructuredTestEnvironment")
+@JvmName("testFactoryKase21IterableDestructuredTestEnvironment")
 public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21> testFactory(
   kases: Iterable<Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>>,
   crossinline testAction: T.(a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21) -> Unit
 ): Stream<out DynamicNode> {
-  return kases.asTests(
-    testAction = { kase: Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21> -> testAction(kase.a1, kase.a2, kase.a3, kase.a4, kase.a5, kase.a6, kase.a7, kase.a8, kase.a9, kase.a10, kase.a11, kase.a12, kase.a13, kase.a14, kase.a15, kase.a16, kase.a17, kase.a18, kase.a19, kase.a20, kase.a21) }
-  )
+  return testFactory {
+    kases.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18, it.a19, it.a20, it.a21) }
+  }
 }
 
 /**
@@ -534,151 +669,82 @@ public inline fun <T : TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10,
  * @see Kase21
  * @see TestEnvironmentFactory
  */
-@JvmName("testFactoryKase21")
+@JvmName("testFactoryKase21VarargDestructured")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21> testFactory(
   vararg kases: Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>,
   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21) -> Unit
 ): Stream<out DynamicNode> {
-  return kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18, it.a19, it.a20, it.a21) }
+  return testFactory { kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18, it.a19, it.a20, it.a21) } }
 }
 
 /**
- * A strongly-typed version of [KaseLabels] for 21 parameters.
+ * A test factory which returns a stream of [DynamicNode]s from the given parameters.
+ * - Each [DynamicTest] in the stream uses its [Kase21] element to create
+ *   a new [TestEnvironment] instance, then executes [testAction].
+ * - Each [DynamicNode] has a display name which includes the values of the parameters.
  *
- * @property a1Label The label for the [Kase21.a1] parameter.
- * @property a2Label The label for the [Kase21.a2] parameter.
- * @property a3Label The label for the [Kase21.a3] parameter.
- * @property a4Label The label for the [Kase21.a4] parameter.
- * @property a5Label The label for the [Kase21.a5] parameter.
- * @property a6Label The label for the [Kase21.a6] parameter.
- * @property a7Label The label for the [Kase21.a7] parameter.
- * @property a8Label The label for the [Kase21.a8] parameter.
- * @property a9Label The label for the [Kase21.a9] parameter.
- * @property a10Label The label for the [Kase21.a10] parameter.
- * @property a11Label The label for the [Kase21.a11] parameter.
- * @property a12Label The label for the [Kase21.a12] parameter.
- * @property a13Label The label for the [Kase21.a13] parameter.
- * @property a14Label The label for the [Kase21.a14] parameter.
- * @property a15Label The label for the [Kase21.a15] parameter.
- * @property a16Label The label for the [Kase21.a16] parameter.
- * @property a17Label The label for the [Kase21.a17] parameter.
- * @property a18Label The label for the [Kase21.a18] parameter.
- * @property a19Label The label for the [Kase21.a19] parameter.
- * @property a20Label The label for the [Kase21.a20] parameter.
- * @property a21Label The label for the [Kase21.a21] parameter.
- * @property labelDelimiter The delimiter between the label and the value. The default is `": "`.
- * @property displayNameSeparator The separator between
- *   each label/value pair. The default is `" | "`.
+ * @param kases the [Kase21]s to use for this test factory
+ * @param testAction the test action to execute.
+ * @return a [Stream] of [DynamicNode]s from the given parameters.
+ * @see Kase21
+ * @see TestEnvironmentFactory
  */
-@Poko
-public class KaseLabels21(
-  public val a1Label: String = "a1",
-  public val a2Label: String = "a2",
-  public val a3Label: String = "a3",
-  public val a4Label: String = "a4",
-  public val a5Label: String = "a5",
-  public val a6Label: String = "a6",
-  public val a7Label: String = "a7",
-  public val a8Label: String = "a8",
-  public val a9Label: String = "a9",
-  public val a10Label: String = "a10",
-  public val a11Label: String = "a11",
-  public val a12Label: String = "a12",
-  public val a13Label: String = "a13",
-  public val a14Label: String = "a14",
-  public val a15Label: String = "a15",
-  public val a16Label: String = "a16",
-  public val a17Label: String = "a17",
-  public val a18Label: String = "a18",
-  public val a19Label: String = "a19",
-  public val a20Label: String = "a20",
-  public val a21Label: String = "a21",
-  override val labelDelimiter: String = DELIMITER_DEFAULT,
-  override val displayNameSeparator: String = SEPARATOR_DEFAULT
-) : KaseLabels {
-
-  override val orderedLabels: List<String> by lazy {
-    listOf(a1Label, a2Label, a3Label, a4Label, a5Label, a6Label, a7Label, a8Label, a9Label, a10Label, a11Label, a12Label, a13Label, a14Label, a15Label, a16Label, a17Label, a18Label, a19Label, a20Label, a21Label)
-  }
+@JvmName("testFactoryKase21IterableDestructured")
+public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21> testFactory(
+  kases: Iterable<Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>>,
+  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21) -> Unit
+): Stream<out DynamicNode> {
+  return testFactory { kases.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10, it.a11, it.a12, it.a13, it.a14, it.a15, it.a16, it.a17, it.a18, it.a19, it.a20, it.a21) } }
 }
 
-@Poko
-@PublishedApi
-internal class DefaultKase21<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15, out A16, out A17, out A18, out A19, out A20, out A21>(
-  override val a1WithLabel: KaseParameterWithLabel<A1>,
-  override val a2WithLabel: KaseParameterWithLabel<A2>,
-  override val a3WithLabel: KaseParameterWithLabel<A3>,
-  override val a4WithLabel: KaseParameterWithLabel<A4>,
-  override val a5WithLabel: KaseParameterWithLabel<A5>,
-  override val a6WithLabel: KaseParameterWithLabel<A6>,
-  override val a7WithLabel: KaseParameterWithLabel<A7>,
-  override val a8WithLabel: KaseParameterWithLabel<A8>,
-  override val a9WithLabel: KaseParameterWithLabel<A9>,
-  override val a10WithLabel: KaseParameterWithLabel<A10>,
-  override val a11WithLabel: KaseParameterWithLabel<A11>,
-  override val a12WithLabel: KaseParameterWithLabel<A12>,
-  override val a13WithLabel: KaseParameterWithLabel<A13>,
-  override val a14WithLabel: KaseParameterWithLabel<A14>,
-  override val a15WithLabel: KaseParameterWithLabel<A15>,
-  override val a16WithLabel: KaseParameterWithLabel<A16>,
-  override val a17WithLabel: KaseParameterWithLabel<A17>,
-  override val a18WithLabel: KaseParameterWithLabel<A18>,
-  override val a19WithLabel: KaseParameterWithLabel<A19>,
-  override val a20WithLabel: KaseParameterWithLabel<A20>,
-  override val a21WithLabel: KaseParameterWithLabel<A21>,
-  override val labelDelimiter: String,
-  override val displayNameSeparator: String,
-) : Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>, KaseInternal {
-  override val a1: A1 get() = a1WithLabel.value
-  override val a2: A2 get() = a2WithLabel.value
-  override val a3: A3 get() = a3WithLabel.value
-  override val a4: A4 get() = a4WithLabel.value
-  override val a5: A5 get() = a5WithLabel.value
-  override val a6: A6 get() = a6WithLabel.value
-  override val a7: A7 get() = a7WithLabel.value
-  override val a8: A8 get() = a8WithLabel.value
-  override val a9: A9 get() = a9WithLabel.value
-  override val a10: A10 get() = a10WithLabel.value
-  override val a11: A11 get() = a11WithLabel.value
-  override val a12: A12 get() = a12WithLabel.value
-  override val a13: A13 get() = a13WithLabel.value
-  override val a14: A14 get() = a14WithLabel.value
-  override val a15: A15 get() = a15WithLabel.value
-  override val a16: A16 get() = a16WithLabel.value
-  override val a17: A17 get() = a17WithLabel.value
-  override val a18: A18 get() = a18WithLabel.value
-  override val a19: A19 get() = a19WithLabel.value
-  override val a20: A20 get() = a20WithLabel.value
-  override val a21: A21 get() = a21WithLabel.value
-
-  override val elements: List<KaseParameterWithLabel<Any?>>
-    get() = listOf(a1WithLabel, a2WithLabel, a3WithLabel, a4WithLabel, a5WithLabel, a6WithLabel, a7WithLabel, a8WithLabel, a9WithLabel, a10WithLabel, a11WithLabel, a12WithLabel, a13WithLabel, a14WithLabel, a15WithLabel, a16WithLabel, a17WithLabel, a18WithLabel, a19WithLabel, a20WithLabel, a21WithLabel)
-
-  override fun <A22> plus(label: String, value: A22): AnyKase {
-    error("A Kase cannot have more than 22 parameters")
-  }
-
-  override fun component1(): A1 = a1
-  override fun component2(): A2 = a2
-  override fun component3(): A3 = a3
-  override fun component4(): A4 = a4
-  override fun component5(): A5 = a5
-  override fun component6(): A6 = a6
-  override fun component7(): A7 = a7
-  override fun component8(): A8 = a8
-  override fun component9(): A9 = a9
-  override fun component10(): A10 = a10
-  override fun component11(): A11 = a11
-  override fun component12(): A12 = a12
-  override fun component13(): A13 = a13
-  override fun component14(): A14 = a14
-  override fun component15(): A15 = a15
-  override fun component16(): A16 = a16
-  override fun component17(): A17 = a17
-  override fun component18(): A18 = a18
-  override fun component19(): A19 = a19
-  override fun component20(): A20 = a20
-  override fun component21(): A21 = a21
-
-  override fun toString(): String = displayName
+/**
+ * Creates a new [KaseLabels21] with the given labels.
+ *
+ * @param a1Label the label for the [Kase21.a1] property.
+ * @param a2Label the label for the [Kase21.a2] property.
+ * @param a3Label the label for the [Kase21.a3] property.
+ * @param a4Label the label for the [Kase21.a4] property.
+ * @param a5Label the label for the [Kase21.a5] property.
+ * @param a6Label the label for the [Kase21.a6] property.
+ * @param a7Label the label for the [Kase21.a7] property.
+ * @param a8Label the label for the [Kase21.a8] property.
+ * @param a9Label the label for the [Kase21.a9] property.
+ * @param a10Label the label for the [Kase21.a10] property.
+ * @param a11Label the label for the [Kase21.a11] property.
+ * @param a12Label the label for the [Kase21.a12] property.
+ * @param a13Label the label for the [Kase21.a13] property.
+ * @param a14Label the label for the [Kase21.a14] property.
+ * @param a15Label the label for the [Kase21.a15] property.
+ * @param a16Label the label for the [Kase21.a16] property.
+ * @param a17Label the label for the [Kase21.a17] property.
+ * @param a18Label the label for the [Kase21.a18] property.
+ * @param a19Label the label for the [Kase21.a19] property.
+ * @param a20Label the label for the [Kase21.a20] property.
+ * @param a21Label the label for the [Kase21.a21] property.
+ * @return a new [KaseLabels21] with the given labels.
+ */
+public fun labels(
+  a1Label: String = "a1",
+  a2Label: String = "a2",
+  a3Label: String = "a3",
+  a4Label: String = "a4",
+  a5Label: String = "a5",
+  a6Label: String = "a6",
+  a7Label: String = "a7",
+  a8Label: String = "a8",
+  a9Label: String = "a9",
+  a10Label: String = "a10",
+  a11Label: String = "a11",
+  a12Label: String = "a12",
+  a13Label: String = "a13",
+  a14Label: String = "a14",
+  a15Label: String = "a15",
+  a16Label: String = "a16",
+  a17Label: String = "a17",
+  a18Label: String = "a18",
+  a19Label: String = "a19",
+  a20Label: String = "a20",
+  a21Label: String = "a21"
+): KaseLabels21 {
+  return KaseLabels21(a1Label = a1Label, a2Label = a2Label, a3Label = a3Label, a4Label = a4Label, a5Label = a5Label, a6Label = a6Label, a7Label = a7Label, a8Label = a8Label, a9Label = a9Label, a10Label = a10Label, a11Label = a11Label, a12Label = a12Label, a13Label = a13Label, a14Label = a14Label, a15Label = a15Label, a16Label = a16Label, a17Label = a17Label, a18Label = a18Label, a19Label = a19Label, a20Label = a20Label, a21Label = a21Label)
 }
