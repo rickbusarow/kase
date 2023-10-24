@@ -41,7 +41,7 @@ class RepositoryHandlerBuilderTest {
   )
 
   @TestFactory
-  fun `canary 3`(): Stream<out DynamicNode> {
+  fun `empty lambdas`(): Stream<out DynamicNode> {
     return listOf<Kase2<SettingsFileBuilderAction, String>>(
       kase({ it.pluginManagement { } }, "pluginManagement {\n}"),
       kase({ it.plugins { } }, "plugins {\n}"),
@@ -87,6 +87,8 @@ class RepositoryHandlerBuilderTest {
           id("com.rickbusarow.kase")
           alias("libs.plugins.doks")
         }
+
+        includeBuild(string("aa"))
       }
 
       addBlankLine()

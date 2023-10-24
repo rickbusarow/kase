@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.files.TestFunctionCoordinates
 import kotlinx.coroutines.runBlocking
 
 /** Creates [TestEnvironment]s. */

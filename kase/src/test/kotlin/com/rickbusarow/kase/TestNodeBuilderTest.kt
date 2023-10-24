@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.files.TestFunctionCoordinates
 import io.kotest.inspectors.shouldForAll
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldHaveSize

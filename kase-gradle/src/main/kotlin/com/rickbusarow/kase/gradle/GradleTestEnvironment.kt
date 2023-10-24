@@ -16,11 +16,12 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.AnyKase
-import com.rickbusarow.kase.DirectoryBuilder
+import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.TestEnvironment
-import com.rickbusarow.kase.TestFunctionCoordinates
 import com.rickbusarow.kase.TestVariant
-import com.rickbusarow.kase.buildDirectory
+import com.rickbusarow.kase.files.DirectoryBuilder
+import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.buildDirectory
 import com.rickbusarow.kase.gradle.generation.BuildFileComponents
 import com.rickbusarow.kase.gradle.generation.DslLanguage
 import com.rickbusarow.kase.stdlib.createSafely
@@ -71,7 +72,7 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase>(
   kase: K,
   buildFileComponents: BuildFileComponents,
   dslLanguage: DslLanguage
-) : TestEnvironment(kase.displayNames, testFunctionCoordinates),
+) : DefaultTestEnvironment(kase.displayNames, testFunctionCoordinates),
   TestVersions by testVersions,
   HasTestVersions<T> {
 

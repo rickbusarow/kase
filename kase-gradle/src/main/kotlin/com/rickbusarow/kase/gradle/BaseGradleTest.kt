@@ -18,9 +18,9 @@ package com.rickbusarow.kase.gradle
 import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestEnvironmentFactory
-import com.rickbusarow.kase.TestFunctionCoordinates
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.asClueCatching
+import com.rickbusarow.kase.files.TestFunctionCoordinates
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD

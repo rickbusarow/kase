@@ -13,12 +13,18 @@
  * limitations under the License.
  */
 
-@file:Suppress("PackageDirectoryMismatch", "DuplicatedCode", "MaxLineLength", "DestructuringDeclarationWithTooManyEntries")
+@file:Suppress(
+  "DestructuringDeclarationWithTooManyEntries",
+  "DuplicatedCode",
+  "MaxLineLength",
+  "PackageDirectoryMismatch"
+)
 @file:JvmMultifileClass
 @file:JvmName("KasesKt")
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.files.TestFunctionCoordinates
 import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
 import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam

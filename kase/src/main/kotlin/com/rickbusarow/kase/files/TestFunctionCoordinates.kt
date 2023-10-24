@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase
+package com.rickbusarow.kase.files
 
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.Test

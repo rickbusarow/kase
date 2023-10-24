@@ -25,13 +25,19 @@ internal val LICENSE = File("build.gradle.kts").readText()
   .plus("*/")
 
 internal val FILE_ANNOTATIONS = """
-  @file:Suppress("PackageDirectoryMismatch", "DuplicatedCode", "MaxLineLength", "DestructuringDeclarationWithTooManyEntries")
+  @file:Suppress(
+    "DestructuringDeclarationWithTooManyEntries",
+    "DuplicatedCode",
+    "MaxLineLength",
+    "PackageDirectoryMismatch"
+  )
   @file:JvmMultifileClass
   @file:JvmName("KasesKt")
 """.trimIndent()
 
 @Suppress("SpellCheckingInspection")
 internal val IMPORTS = """
+  import com.rickbusarow.kase.files.TestFunctionCoordinates
   import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
   import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
   import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam

@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase
+package com.rickbusarow.kase.files
 
 import com.rickbusarow.kase.stdlib.div
 import io.kotest.assertions.throwables.shouldThrow
@@ -31,7 +31,7 @@ class HasWorkingDirTest {
     val tempDir = createTempDir()
     val file = File(tempDir, "testFile").apply { createNewFile() }
 
-    val hasWorkingDir = object : HasWorkingDir(tempDir) {}
+    val hasWorkingDir = DefaultHasWorkingDir(tempDir)
 
     hasWorkingDir.workingDir shouldBe tempDir
     file.shouldNotExist()
@@ -43,7 +43,7 @@ class HasWorkingDirTest {
 
     val file = tempDir / "subDir/testFile"
 
-    val hasWorkingDir = object : HasWorkingDir(tempDir) {}
+    val hasWorkingDir = DefaultHasWorkingDir(tempDir)
 
     with(hasWorkingDir) {
       file.relativePath() shouldBe "subDir/testFile"
@@ -54,10 +54,10 @@ class HasWorkingDirTest {
   fun `checkInWorkingDir should throw exception if workingDir is already registered`() {
     val tempDir = createTempDir()
 
-    HasWorkingDir.checkInWorkingDir(tempDir)
+    DefaultHasWorkingDir.checkInWorkingDir(tempDir)
 
     val exception = shouldThrow<IllegalArgumentException> {
-      HasWorkingDir.checkInWorkingDir(tempDir)
+      DefaultHasWorkingDir.checkInWorkingDir(tempDir)
     }
 
     exception.message.shouldBeInstanceOf<String>()
@@ -68,7 +68,7 @@ class HasWorkingDirTest {
     val testVariantNames = listOf("variant1", "variant2")
     val testFunctionCoordinates = TestFunctionCoordinates.get()
 
-    val workingDir = HasWorkingDir.createWorkingDir(testVariantNames, testFunctionCoordinates)
+    val workingDir = HasWorkingDir.createWorkingDirFile(testVariantNames, testFunctionCoordinates)
 
     val thisFun = "HasWorkingDirTest/createWorkingDir_should_create_appropriate_working_directory"
     val expectedPath = "build/kase/$thisFun/variant1/variant2"

@@ -31,10 +31,10 @@ public class PluginManagementSpecBuilder :
    * }
    */
   public fun resolutionStrategy(
-    block: PluginResolutionStrategyBuilder.() -> Unit
+    block: PluginResolutionStrategyBuilder.() -> Unit = {}
   ): PluginManagementSpecBuilder = functionCall(
     name = "resolutionStrategy",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
+    labelSupport = FunctionCall.LabelSupport.NONE,
     LambdaParameter(label = "action", builder = block)
   )
 
@@ -49,10 +49,29 @@ public class PluginManagementSpecBuilder :
    */
   public fun includeBuild(
     rootProject: String,
-    block: IncludedBuildSpecBuilder.() -> Unit
+    block: IncludedBuildSpecBuilder.() -> Unit = {}
   ): PluginManagementSpecBuilder = functionCall(
     name = "includeBuild",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
+    labelSupport = FunctionCall.LabelSupport.NONE,
+    ValueParameter("rootProject", rootProject),
+    LambdaParameter(label = "configuration", builder = block)
+  )
+
+  /**
+   * ```
+   * // settings.gradle
+   * pluginManagement {
+   *   includeBuild("someProject") {
+   *     // ...
+   *   }
+   * }
+   */
+  public fun includeBuild(
+    rootProject: DslElement,
+    block: IncludedBuildSpecBuilder.() -> Unit = {}
+  ): PluginManagementSpecBuilder = functionCall(
+    name = "includeBuild",
+    labelSupport = FunctionCall.LabelSupport.NONE,
     ValueParameter("rootProject", rootProject),
     LambdaParameter(label = "configuration", builder = block)
   )

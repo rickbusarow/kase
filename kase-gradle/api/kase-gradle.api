@@ -8,15 +8,15 @@ public abstract class com/rickbusarow/kase/gradle/AbstractDependencyVersion : co
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/BaseGradleTest : com/rickbusarow/kase/TestEnvironmentFactory, com/rickbusarow/kase/gradle/HasTestVersions {
-	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
 	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/TestVariant;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
 	public abstract fun test (Lkotlin/jvm/functions/Function2;)V
 }
 
 public final class com/rickbusarow/kase/gradle/BaseGradleTest$DefaultImpls {
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
 	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/TestVariant;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun test (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
+	public static fun test (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public static fun test (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lkotlin/jvm/functions/Function2;)V
 }
 
@@ -127,8 +127,8 @@ public final class com/rickbusarow/kase/gradle/DependencyVersion$KtLint : com/ri
 public final class com/rickbusarow/kase/gradle/DependencyVersion$KtLint$KtLintKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
 }
 
-public final class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/TestEnvironment, com/rickbusarow/kase/gradle/HasTestVersions, com/rickbusarow/kase/gradle/TestVersions {
-	public fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/TestFunctionCoordinates;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)V
+public final class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/DefaultTestEnvironment, com/rickbusarow/kase/gradle/HasTestVersions, com/rickbusarow/kase/gradle/TestVersions {
+	public fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/DslLanguage;)V
 	public final fun getDEFAULT_BUILD_FILE ()Ljava/lang/String;
 	public final fun getDEFAULT_SETTINGS_FILE ()Ljava/lang/String;
 	public final fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;

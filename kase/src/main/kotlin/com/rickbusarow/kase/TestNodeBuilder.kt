@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.files.TestFunctionCoordinates
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
@@ -80,13 +81,6 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   public val testFunctionCoordinates: TestFunctionCoordinates,
   public val parent: TestNodeBuilder?
 ) {
-  /** the list of names from the root node to this node */
-  private val namesFromRoot: List<String>
-    get() = if (parent == null) {
-      listOf(name)
-    } else {
-      parent.namesFromRoot + name
-    }
 
   @PublishedApi
   internal val nodes: MutableList<() -> DynamicNode> = mutableListOf()

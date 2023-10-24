@@ -205,19 +205,6 @@ public class ParameterList(
 
     val lambdaString = trailingLambda?.let { " ${it.write(language, labelSupport)}" }.orEmpty()
 
-    println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    println("       parameters: $parameters")
-    println("   trailingLambda: $trailingLambda")
-    println("           toJoin: $toJoin")
-    println("      toJoin size: ${toJoin.size}")
-    println(
-      "     wrapInParens: $wrapInParens   (${toJoin.isNotEmpty()} || ${trailingLambda == null})"
-    )
-    println("     maybeWrapped: $maybeWrapped")
-    println("     lambdaString: $lambdaString")
-    println("           joined: `$joined`")
-    println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-
     return "$maybeWrapped$lambdaString"
   }
 

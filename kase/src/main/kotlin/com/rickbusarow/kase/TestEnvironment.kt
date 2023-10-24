@@ -15,9 +15,41 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.stdlib.cleanOutput
-import com.rickbusarow.kase.stdlib.useRelativePaths
+import com.rickbusarow.kase.files.HasWorkingDir
+import com.rickbusarow.kase.files.TestFunctionCoordinates
 import dev.drewhamilton.poko.Poko
+
+/**
+ * Represents a hermetic testing environment that may
+ * be cleaned up automatically after test execution.
+ */
+public interface TestEnvironment : HasWorkingDir {
+
+  /** Performs any necessary cleanup after the test has run. */
+  public fun tearDown() {}
+
+  public companion object {
+    /**
+     * Creates a new [TestEnvironment] instance.
+     *
+     * @param testParameterDisplayNames The display names of the test parameters, if any.
+     * @param testFunctionCoordinates The [TestFunctionCoordinates]
+     *   from which the test is being run.
+     * @return A new [TestEnvironment] instance.
+     * @see TestEnvironmentFactory
+     * @see DefaultTestEnvironment
+     */
+    public operator fun invoke(
+      testParameterDisplayNames: List<String>,
+      testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+    ): TestEnvironment {
+      return DefaultTestEnvironment(
+        testParameterDisplayNames = testParameterDisplayNames,
+        testFunctionCoordinates = testFunctionCoordinates
+      )
+    }
+  }
+}
 
 /**
  * Represents a hermetic testing environment with an
@@ -26,33 +58,14 @@ import dev.drewhamilton.poko.Poko
  * @param testParameterDisplayNames The display names of the test parameters, if any.
  * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
  */
-public open class TestEnvironment(
+public open class DefaultTestEnvironment(
   testParameterDisplayNames: List<String>,
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
-) : HasWorkingDir(
-  createWorkingDir(
+) : TestEnvironment,
+  HasWorkingDir by HasWorkingDir(
     testVariantNames = testParameterDisplayNames,
     testFunctionCoordinates = testFunctionCoordinates
   )
-) {
-
-  /** replace absolute paths with relative ones */
-  public fun String.useRelativePaths(): String = useRelativePaths(workingDir)
-
-  /**
-   * Cleans the provided string in the context of the [TestEnvironment]'s working directory.
-   *
-   * @receiver The raw string that needs to be cleaned.
-   * @return The cleaned string.
-   */
-  public fun String.cleanOutput(): String = cleanOutput(workingDir)
-}
-
-/** */
-public interface HasTestVariant<K : Kase> {
-  /** The [TestVariant] for this test. */
-  public val testVariant: TestVariant<K>
-}
 
 /**
  * Represents a specific instance of a test case invocation with a specific set of parameters.
