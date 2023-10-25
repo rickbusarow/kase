@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.internal
+
+import com.rickbusarow.kase.gradle.generation.HasPluginsBlock
 
 /** Interface for any DSL builder components. */
 public interface DslFileBuilder<SELF : DslFileBuilder<SELF>> : DslElement, HasPluginsBlock<SELF>

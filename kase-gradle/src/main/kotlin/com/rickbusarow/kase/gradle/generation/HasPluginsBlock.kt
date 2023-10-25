@@ -15,6 +15,9 @@
 
 package com.rickbusarow.kase.gradle.generation
 
+import com.rickbusarow.kase.gradle.generation.internal.DslElementContainer
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
+
 /** Builds a `plugins` block in a `build.gradle` or `build.gradle.kts` file. */
 public interface HasPluginsBlock<SELF : HasPluginsBlock<SELF>> : DslElementContainer<SELF> {
 

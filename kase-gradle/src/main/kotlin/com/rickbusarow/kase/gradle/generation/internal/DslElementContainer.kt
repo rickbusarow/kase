@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.internal
 
+import com.rickbusarow.kase.gradle.generation.Parameter
 import com.rickbusarow.kase.gradle.generation.ValueAssignment.GradlePropertyAssignment
 import com.rickbusarow.kase.gradle.generation.ValueAssignment.SetterAssignment
 

@@ -16,6 +16,12 @@
 package com.rickbusarow.kase.gradle.generation
 
 import com.rickbusarow.kase.gradle.generation.ValueAssignment.SetterAssignment
+import com.rickbusarow.kase.gradle.generation.internal.DslElement
+import com.rickbusarow.kase.gradle.generation.internal.DslElementContainer
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.NONE
+import com.rickbusarow.kase.gradle.generation.internal.SimpleDslElementContainer
 import dev.drewhamilton.poko.Poko
 
 /**
@@ -66,7 +72,7 @@ public class GradlePropertyReference(
 
     withReference = FunctionCall(
       name = "$name.map",
-      labelSupport = FunctionCall.LabelSupport.NONE,
+      labelSupport = NONE,
       LambdaParameter(
         label = null,
         receiver = container,

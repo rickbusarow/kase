@@ -17,6 +17,7 @@ package com.rickbusarow.kase.gradle.generation
 
 import com.rickbusarow.kase.gradle.TestVersions
 import com.rickbusarow.kase.gradle.generation.DependencyDeclaration.ExternalDependency
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
 
 /** Models the contents of a Gradle build file. */
 public interface BuildFileComponents {

@@ -17,7 +17,11 @@
 
 package com.rickbusarow.kase.gradle.generation
 
-import com.rickbusarow.kase.gradle.generation.Lambda.ConfigurationLambda
+import com.rickbusarow.kase.gradle.generation.internal.DslElement
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.BOTH
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.NONE
 import dev.drewhamilton.poko.Poko
 
 /**
@@ -36,23 +40,73 @@ public sealed interface DependencyDeclaration : DslElement {
    *
    * @property configuration the configuration, e.g. `implementation`
    * @property projectPath the path to the project, e.g. `:dynamite`
+   * @property outgoingConfiguration the outgoing configuration, e.g. `api`
    * @property exclusions a list of [DependencyExclusion]s,
    *   e.g. `exclude group: 'com.acme', module: 'rocket'`
    */
   @Poko
-  public class ProjectDependency(
+  public class ProjectDependency private constructor(
     public override val configuration: String,
     public val projectPath: String,
+    public val outgoingConfiguration: String?,
     public override val exclusions: List<DependencyExclusion> = emptyList()
   ) : DependencyDeclaration {
 
+    public constructor(
+      configuration: String,
+      projectPath: String,
+      outgoingConfiguration: String,
+      vararg exclusions: DependencyExclusion
+    ) : this(
+      configuration = configuration,
+      projectPath = projectPath,
+      outgoingConfiguration = outgoingConfiguration,
+      exclusions = exclusions.toList()
+    )
+
+    public constructor(
+      configuration: String,
+      projectPath: String,
+      vararg exclusions: DependencyExclusion
+    ) : this(
+      configuration = configuration,
+      projectPath = projectPath,
+      outgoingConfiguration = null,
+      exclusions = exclusions.toList()
+    )
+
+    public constructor(
+      configuration: String,
+      projectPath: String,
+      exclusions: List<DependencyExclusion>
+    ) : this(
+      configuration = configuration,
+      projectPath = projectPath,
+      outgoingConfiguration = null,
+      exclusions = exclusions
+    )
+
     override fun write(language: DslLanguage): String {
-      val lambda = ConfigurationLambda(exclusions, writeIfEmpty = false)
 
-      val pathArg = "(${language.quote(projectPath)})"
-      val projectArg = language.parens(pathArg)
+      val pathArg = language.quote(projectPath)
 
-      return "$configuration$projectArg${lambda.write(language)}"
+      return FunctionCall(
+        name = configuration,
+        labelSupport = NONE,
+        listOf(
+          ValueParameter(
+            FunctionCall(
+              "project",
+              labelSupport = BOTH,
+              listOfNotNull(
+                ValueParameter("path", pathArg),
+                outgoingConfiguration?.let { ValueParameter("configuration", it) }
+              )
+            )
+          ),
+          LambdaParameter(label = null, elements = exclusions.toMutableList())
+        )
+      ).write(language)
     }
   }
 
@@ -76,7 +130,7 @@ public sealed interface DependencyDeclaration : DslElement {
   ) : DependencyDeclaration {
 
     override fun write(language: DslLanguage): String {
-      val lambda = ConfigurationLambda(exclusions, writeIfEmpty = false)
+      val lambda = LambdaParameter(label = null, elements = exclusions.toMutableList())
 
       val coords = language.quote("$group:$module:$version")
       val args = language.parens(coords)

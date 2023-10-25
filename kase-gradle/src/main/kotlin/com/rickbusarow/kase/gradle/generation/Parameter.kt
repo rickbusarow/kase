@@ -17,7 +17,11 @@
 
 package com.rickbusarow.kase.gradle.generation
 
-import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport
+import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.internal.DslElement
+import com.rickbusarow.kase.gradle.generation.internal.DslElementContainer
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport
 import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 import kotlin.reflect.full.primaryConstructor
@@ -95,7 +99,7 @@ public class ValueParameter(
  * @param elements the list of [DslElement]s which make up the lambda
  */
 @Poko
-public class LambdaParameter private constructor(
+public class LambdaParameter(
   override val label: String?,
   elements: MutableList<DslElement>
 ) : AbstractDslElementContainer<LambdaParameter>(elements = elements), Parameter {

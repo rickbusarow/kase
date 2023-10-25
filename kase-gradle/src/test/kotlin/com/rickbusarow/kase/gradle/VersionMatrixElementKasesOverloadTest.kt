@@ -22,33 +22,9 @@ import com.rickbusarow.kase.gradle.VersionMatrix.Companion
 import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.toStringPretty
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
 class VersionMatrixElementKasesOverloadTest : TestEnvironmentFactory<TestEnvironment> {
-
-  @Test
-  fun `kases1 creates Kase1 kases`() {
-
-    val matrix = VersionMatrix(List(3) { TestVersion1("1$it") })
-
-    val versionList = matrix[TestVersion1]
-
-    val kases = matrix.kases(TestVersion1)
-
-    println(
-      """
-      |########################################################
-      |
-      |-- version list
-      |$versionList
-      |
-      |-- kases
-      |${kases.joinToString("\n")}
-      |########################################################
-      """.trimMargin()
-    )
-  }
 
   @TestFactory
   fun `kases2 creates Kase2 kases`() =

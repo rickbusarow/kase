@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.internal
 
 /** Interface for any DSL builder components. */
 public interface DslElement : Comparable<DslElement> {

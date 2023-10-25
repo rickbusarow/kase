@@ -15,6 +15,10 @@
 
 package com.rickbusarow.kase.gradle.generation
 
+import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.internal.DslFileBuilder
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
+
 /** Models a `settings.gradle` or `settings.gradle.kts` file. */
 public class SettingsFileBuilder(
   build: SettingsFileBuilder.() -> Unit

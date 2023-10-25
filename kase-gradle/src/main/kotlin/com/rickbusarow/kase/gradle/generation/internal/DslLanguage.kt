@@ -13,13 +13,13 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.internal
 
-import com.rickbusarow.kase.gradle.generation.DslLanguage.Groovy
-import com.rickbusarow.kase.gradle.generation.DslLanguage.Kotlin
-import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport
-import com.rickbusarow.kase.gradle.generation.LanguageSpecific.GroovyCompatible
-import com.rickbusarow.kase.gradle.generation.LanguageSpecific.KotlinCompatible
+import com.rickbusarow.kase.gradle.generation.Parameter
+import com.rickbusarow.kase.gradle.generation.ParameterList
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport
+import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.GroovyCompatible
+import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.KotlinCompatible
 import dev.drewhamilton.poko.Poko
 
 /**

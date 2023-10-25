@@ -23,7 +23,7 @@ import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.files.TestFunctionCoordinates
 import com.rickbusarow.kase.files.buildDirectory
 import com.rickbusarow.kase.gradle.generation.BuildFileComponents
-import com.rickbusarow.kase.gradle.generation.DslLanguage
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
 import com.rickbusarow.kase.stdlib.remove

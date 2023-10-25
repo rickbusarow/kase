@@ -15,8 +15,10 @@
 
 package com.rickbusarow.kase.gradle.generation
 
-import com.rickbusarow.kase.gradle.generation.DslLanguage.Groovy
-import com.rickbusarow.kase.gradle.generation.DslLanguage.Kotlin
+import com.rickbusarow.kase.gradle.generation.internal.DslElement
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage.Groovy
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage.Kotlin
 import dev.drewhamilton.poko.Poko
 
 /** A single application of a plugin inside a `plugins { }` block. */

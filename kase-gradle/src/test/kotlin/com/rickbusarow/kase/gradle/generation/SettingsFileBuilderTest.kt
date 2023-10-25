@@ -17,7 +17,10 @@ package com.rickbusarow.kase.gradle.generation
 
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.asTests
-import com.rickbusarow.kase.gradle.generation.FunctionCall.LabelSupport.NONE
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage.Groovy
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage.Kotlin
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.NONE
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.kases
 import com.rickbusarow.kase.times
@@ -27,25 +30,28 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.util.stream.Stream
 
-typealias SettingsFileBuilderAction = (SettingsFileBuilder) -> Unit
+typealias MavenArtifactRepositoryBuilderAction = MavenArtifactRepositoryBuilder.() -> Unit
+typealias PluginManagementSpecBuilderAction = PluginManagementSpecBuilder.() -> Unit
+typealias RepositoryHandlerBuilderAction = RepositoryHandlerBuilder.() -> Unit
+typealias SettingsFileBuilderAction = SettingsFileBuilder.() -> Unit
+
+val dslLanguages = listOf(
+  Groovy(alwaysUseDoubleQuotes = true, useInfix = false),
+  Groovy(alwaysUseDoubleQuotes = true, useInfix = true),
+  Groovy(alwaysUseDoubleQuotes = false, useInfix = false),
+  Groovy(alwaysUseDoubleQuotes = false, useInfix = true),
+  Kotlin(useInfix = false),
+  Kotlin(useInfix = true)
+)
 
 class SettingsFileBuilderTest {
-
-  val dslLanguages = listOf(
-    DslLanguage.Groovy(alwaysUseDoubleQuotes = true, useInfix = false),
-    DslLanguage.Groovy(alwaysUseDoubleQuotes = true, useInfix = true),
-    DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = false),
-    DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = true),
-    DslLanguage.Kotlin(useInfix = false),
-    DslLanguage.Kotlin(useInfix = true)
-  )
 
   @TestFactory
   fun `empty lambdas`(): Stream<out DynamicNode> {
     return listOf<Kase2<SettingsFileBuilderAction, String>>(
-      kase({ it.pluginManagement { } }, "pluginManagement {\n}"),
-      kase({ it.plugins { } }, "plugins {\n}"),
-      kase({ it.dependencyResolutionManagement { } }, "dependencyResolutionManagement {\n}")
+      kase({ pluginManagement { } }, "pluginManagement {\n}"),
+      kase({ plugins { } }, "plugins {\n}"),
+      kase({ dependencyResolutionManagement { } }, "dependencyResolutionManagement {\n}")
     )
       .times(kases(dslLanguages))
       .asTests { builderFun, expected, language ->
@@ -58,27 +64,6 @@ class SettingsFileBuilderTest {
 
         content shouldBe expected
       }
-  }
-
-  @TestFactory
-  fun `repositories block `(): Stream<out DynamicNode> {
-    return listOf<Kase2<SettingsFileBuilderAction, String>>(
-      kase({ it.pluginManagement { repositories { google() } } }, "pluginManagement {\n}")
-      // kase({ it.plugins { } }, "plugins {\n}"),
-      // kase({ it.dependencyResolutionManagement { } }, "dependencyResolutionManagement {\n}")
-    )
-      .times(kases(dslLanguages))
-      .asTests { builderFun, expected, language ->
-
-        val builder = SettingsFileBuilder {
-          builderFun(this)
-        }
-
-        val content = builder.write(language)
-
-        content shouldBe expected
-      }
-      .limit(1)
   }
 
   @Test

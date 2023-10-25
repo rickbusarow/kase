@@ -16,35 +16,27 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.stdlib.createSafely
+import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
 class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment> {
 
   @TestFactory
-  fun `my test`() = kases(
+  fun `asTests individual args`() = kases(
     listOf("a", "b"),
     listOf(1, 2, 3),
     listOf('A', 'B', 'C')
   ).asTests { a, b, c ->
     workingDir.resolve("test.txt").createSafely("hello world")
-    println("$a $b $c")
   }
 
   @TestFactory
-  fun `my test 2`() = kases(
-    listOf("a", "b"),
-    listOf(1, 2, 3)
-  ).asTests { a, b ->
-    workingDir.resolve("test.txt").createSafely("hello world")
-    println("$a $b")
-  }
-
-  @TestFactory
-  fun `my test 3`() = kases(
+  fun `asTests destructured`() = kases(
     listOf("a", "b"),
     listOf(1, 2, 3)
   ).asTests { (a1, a2) ->
+    workingDir.resolve("test.txt").createSafely("hello world")
   }
 
   @Test
@@ -53,15 +45,6 @@ class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment> {
 
     val kase3: Kase3<String, List<Char>, Set<Int>> = kase2.plus("some integers", setOf(1, 2, 3))
 
-    println(kase3.displayNames())
-  }
-
-  @Test
-  fun `just a single test`() = test {
-    val kase2: Kase2<String, List<Char>> = kase(a1 = "a", a2 = listOf('c', 'd'))
-
-    val kase3: Kase3<String, List<Char>, Set<Int>> = kase2.plus("some integers", setOf(1, 2, 3))
-
-    println(kase3.displayNames())
+    kase3.displayName shouldBe "[a1: a | a2: [c, d] | some integers: [1, 2, 3]]"
   }
 }

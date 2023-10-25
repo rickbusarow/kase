@@ -18,6 +18,9 @@
 package com.rickbusarow.kase.gradle.generation
 
 import com.rickbusarow.kase.gradle.generation.Parameter.Companion.join
+import com.rickbusarow.kase.gradle.generation.internal.DslElement
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
 import dev.drewhamilton.poko.Poko
 
 /**
@@ -69,6 +72,11 @@ public class DependencyExclusion(
     }
       .join(", ")
 
-    return "exclude${language.parens(params)}"
+    return FunctionCall(
+      name = "exclude",
+      parameterList = params,
+      labelSupport = FunctionCall.LabelSupport.BOTH
+    )
+      .write(language)
   }
 }

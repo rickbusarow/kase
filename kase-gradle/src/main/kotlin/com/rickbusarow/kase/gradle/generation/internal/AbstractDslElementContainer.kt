@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.internal
 
 /**
  * Collects [DslElement]s, to be written to a [DslLanguage]

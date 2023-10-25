@@ -13,11 +13,14 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.internal
 
-import com.rickbusarow.kase.gradle.generation.LanguageSpecific.GroovyAndKotlinCompatible
-import com.rickbusarow.kase.gradle.generation.LanguageSpecific.GroovyCompatible
-import com.rickbusarow.kase.gradle.generation.LanguageSpecific.KotlinCompatible
+import com.rickbusarow.kase.gradle.generation.Parameter
+import com.rickbusarow.kase.gradle.generation.ParameterList
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.NONE
+import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.GroovyAndKotlinCompatible
+import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.GroovyCompatible
+import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.KotlinCompatible
 import dev.drewhamilton.poko.Poko
 
 /**
@@ -45,6 +48,15 @@ public class FunctionCall(
 
   public constructor(
     name: String,
+    parameters: List<Parameter>
+  ) : this(
+    name = name,
+    parameterList = ParameterList(parameters),
+    labelSupport = NONE
+  )
+
+  public constructor(
+    name: String,
     labelSupport: LabelSupport,
     parameters: List<Parameter>
   ) : this(
@@ -58,7 +70,7 @@ public class FunctionCall(
     vararg parameters: Parameter
   ) : this(
     name = name,
-    labelSupport = LabelSupport.NONE,
+    labelSupport = NONE,
     parameters = parameters.toList()
   )
 
@@ -68,7 +80,7 @@ public class FunctionCall(
   ) : this(
     name = name,
     parameters = parameters.map { Parameter(it) },
-    labelSupport = LabelSupport.NONE
+    labelSupport = NONE
   )
 
   override fun write(language: DslLanguage): String {

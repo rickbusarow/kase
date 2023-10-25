@@ -15,6 +15,8 @@
 
 package com.rickbusarow.kase.gradle.generation
 
+import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
+
 /**
  * Builds a `pluginManagement.plugins { }` block in
  * a `settings.gradle` or `settings.gradle.kts` file.

@@ -15,27 +15,9 @@
 
 package com.rickbusarow.kase.gradle.generation
 
-import com.rickbusarow.kase.gradle.generation.RegularVariableReference.ImmutableVariableReference
-import com.rickbusarow.kase.gradle.generation.RegularVariableReference.MutableVariableReference
-import kotlin.properties.ReadOnlyProperty
-
-internal fun gradlePropertyReference(): ReadOnlyProperty<AbstractDslElementContainer<*>, GradlePropertyReference> {
-  return ReadOnlyProperty { container, kProperty ->
-    GradlePropertyReference(kProperty.name, container)
-  }
-}
-
-internal fun regularVariableReference(
-  mutable: Boolean
-): ReadOnlyProperty<AbstractDslElementContainer<*>, RegularVariableReference> {
-  return ReadOnlyProperty { container, kProperty ->
-    if (mutable) {
-      MutableVariableReference(kProperty.name, container)
-    } else {
-      ImmutableVariableReference(kProperty.name, container)
-    }
-  }
-}
+import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
+import com.rickbusarow.kase.gradle.generation.internal.gradlePropertyReference
 
 /**
  * Builds the `dependencyResolutionManagement` block in

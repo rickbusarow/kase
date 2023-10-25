@@ -15,6 +15,8 @@
 
 package com.rickbusarow.kase.gradle.generation
 
+import com.rickbusarow.kase.gradle.generation.internal.DslElement
+import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
 import dev.drewhamilton.poko.Poko
 
 /** */
