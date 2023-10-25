@@ -13,7 +13,9 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation.internal
+package com.rickbusarow.kase.gradle.generation.model
+
+import dev.drewhamilton.poko.Poko
 
 /** Interface for any DSL builder components. */
 public interface DslElement : Comparable<DslElement> {
@@ -36,8 +38,25 @@ public object BlankLine : DslElement {
  * or double quotes, depending upon the dsl language.
  *
  * @property value The String value to be quoted.
+ * @property useDoubleQuotes whether to use double quotes for strings,
+ *   even when the language is Groovy and single quotes are valid.
+ *   e.g. `project(":myProject")` instead of `project(':myProject')`
  */
-@JvmInline
-public value class Quoted(public val value: String) : DslElement {
-  override fun write(language: DslLanguage): String = language.quote(value)
+@Poko
+public class StringLiteral(
+  public val value: String,
+  private val useDoubleQuotes: Boolean?
+) : DslElement {
+  override fun write(language: DslLanguage): String {
+    return language.quote(
+      content = value,
+      useDoubleQuotes = useDoubleQuotes ?: language.useDoubleQuotes
+    )
+  }
 }
+
+@Deprecated(
+  "Renamed to StringLiteral",
+  ReplaceWith("StringLiteral", "com.rickbusarow.kase.gradle.generation.model.StringLiteral")
+)
+public typealias Quoted = StringLiteral

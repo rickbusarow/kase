@@ -15,12 +15,9 @@
 
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.Parameter.Companion.join
-import com.rickbusarow.kase.gradle.generation.internal.DslElement
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
+import com.rickbusarow.kase.gradle.generation.model.Parameter.Companion.join
 import dev.drewhamilton.poko.Poko
 
 /**
@@ -75,7 +72,7 @@ public class DependencyExclusion(
     return FunctionCall(
       name = "exclude",
       parameterList = params,
-      labelSupport = FunctionCall.LabelSupport.BOTH
+      labelSupport = FunctionCall.LabelSupport.GroovyAndKotlinLabels
     )
       .write(language)
   }

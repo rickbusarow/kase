@@ -13,14 +13,15 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.dsl
 
-import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.NONE
+import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
+import com.rickbusarow.kase.gradle.generation.model.ValueParameter
 
 /** Adds the common configurations to a repository's content, like: */
-public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SELF>> :
+public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   AbstractDslElementContainer<SELF>() {
 
   /**
@@ -36,8 +37,8 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun includeGroup(group: String): SELF = functionCall(
     name = "includeGroup",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("group", group)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("group", group.asStringLiteral())
   )
 
   /**
@@ -53,8 +54,8 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun includeGroupByRegex(groupRegex: String): SELF = functionCall(
     name = "includeGroupByRegex",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("groupRegex", groupRegex)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("groupRegex", groupRegex.asStringLiteral())
   )
 
   /**
@@ -70,8 +71,8 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun includeGroupAndSubgroups(groupPrefix: String): SELF = functionCall(
     name = "includeGroupAndSubgroups",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("groupPrefix", groupPrefix)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("groupPrefix", groupPrefix.asStringLiteral())
   )
 
   /**
@@ -87,9 +88,9 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun includeModule(group: String, moduleName: String): SELF = functionCall(
     name = "includeModule",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("group", group),
-    ValueParameter("moduleName", moduleName)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("group", group.asStringLiteral()),
+    ValueParameter("moduleName", moduleName.asStringLiteral())
   )
 
   /**
@@ -105,9 +106,9 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun includeModuleByRegex(groupRegex: String, moduleNameRegex: String): SELF = functionCall(
     name = "includeModuleByRegex",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("groupRegex", groupRegex),
-    ValueParameter("moduleNameRegex", moduleNameRegex)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("groupRegex", groupRegex.asStringLiteral()),
+    ValueParameter("moduleNameRegex", moduleNameRegex.asStringLiteral())
   )
 
   /**
@@ -128,10 +129,10 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
   ): SELF =
     functionCall(
       name = "includeVersion",
-      labelSupport = FunctionCall.LabelSupport.GROOVY,
-      ValueParameter("group", group),
-      ValueParameter("moduleName", moduleName),
-      ValueParameter("version", version)
+      labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+      ValueParameter("group", group.asStringLiteral()),
+      ValueParameter("moduleName", moduleName.asStringLiteral()),
+      ValueParameter("version", version.asStringLiteral())
     )
 
   /**
@@ -151,10 +152,10 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
     versionRegex: String
   ): SELF = functionCall(
     name = "includeVersionByRegex",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("groupRegex", groupRegex),
-    ValueParameter("moduleNameRegex", moduleNameRegex),
-    ValueParameter("versionRegex", versionRegex)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("groupRegex", groupRegex.asStringLiteral()),
+    ValueParameter("moduleNameRegex", moduleNameRegex.asStringLiteral()),
+    ValueParameter("versionRegex", versionRegex.asStringLiteral())
   )
 
   /**
@@ -170,8 +171,8 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun excludeGroup(group: String): SELF = functionCall(
     name = "excludeGroup",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("group", group)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("group", group.asStringLiteral())
   )
 
   /**
@@ -187,8 +188,8 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun excludeGroupByRegex(groupRegex: String): SELF = functionCall(
     name = "excludeGroupByRegex",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("groupRegex", groupRegex)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("groupRegex", groupRegex.asStringLiteral())
   )
 
   /**
@@ -204,8 +205,8 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun excludeGroupAndSubgroups(groupPrefix: String): SELF = functionCall(
     name = "excludeGroupAndSubgroups",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("groupPrefix", groupPrefix)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("groupPrefix", groupPrefix.asStringLiteral())
   )
 
   /**
@@ -221,9 +222,9 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun excludeModule(group: String, moduleName: String): SELF = functionCall(
     name = "excludeModule",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("group", group),
-    ValueParameter("moduleName", moduleName)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("group", group.asStringLiteral()),
+    ValueParameter("moduleName", moduleName.asStringLiteral())
   )
 
   /**
@@ -239,9 +240,9 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
    */
   public fun excludeModuleByRegex(groupRegex: String, moduleNameRegex: String): SELF = functionCall(
     name = "excludeModuleByRegex",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("groupRegex", groupRegex),
-    ValueParameter("moduleNameRegex", moduleNameRegex)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("groupRegex", groupRegex.asStringLiteral()),
+    ValueParameter("moduleNameRegex", moduleNameRegex.asStringLiteral())
   )
 
   /**
@@ -261,10 +262,10 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
     version: String
   ): SELF = functionCall(
     name = "excludeVersion",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("group", group),
-    ValueParameter("moduleName", moduleName),
-    ValueParameter("version", version)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("group", group.asStringLiteral()),
+    ValueParameter("moduleName", moduleName.asStringLiteral()),
+    ValueParameter("version", version.asStringLiteral())
   )
 
   /**
@@ -284,15 +285,15 @@ public sealed class RepositoryContentBuilder<SELF : RepositoryContentBuilder<SEL
     versionRegex: String
   ): SELF = functionCall(
     name = "excludeVersionByRegex",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
-    ValueParameter("groupRegex", groupRegex),
-    ValueParameter("moduleNameRegex", moduleNameRegex),
-    ValueParameter("versionRegex", versionRegex)
+    labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    ValueParameter("groupRegex", groupRegex.asStringLiteral()),
+    ValueParameter("moduleNameRegex", moduleNameRegex.asStringLiteral()),
+    ValueParameter("versionRegex", versionRegex.asStringLiteral())
   )
 }
 
 /** The configuration options for a maven repository's content. */
-public class MavenRepositoryContentBuilder : RepositoryContentBuilder<MavenRepositoryContentBuilder>() {
+public class MavenRepositoryContentSpec : RepositoryContentSpec<MavenRepositoryContentSpec>() {
 
   /**
    * Adds the `releasesOnly()` invocation to a maven repository configuration.
@@ -305,8 +306,8 @@ public class MavenRepositoryContentBuilder : RepositoryContentBuilder<MavenRepos
    * }
    * ```
    */
-  public fun releasesOnly(): MavenRepositoryContentBuilder = apply {
-    addElement(FunctionCall(name = "releasesOnly", labelSupport = NONE))
+  public fun releasesOnly(): MavenRepositoryContentSpec = apply {
+    addElement(FunctionCall(name = "releasesOnly", labelSupport = NoLabels))
   }
 
   /**
@@ -322,7 +323,7 @@ public class MavenRepositoryContentBuilder : RepositoryContentBuilder<MavenRepos
    * }
    * ```
    */
-  public fun snapshotsOnly(): MavenRepositoryContentBuilder = apply {
-    addElement(FunctionCall(name = "snapshotsOnly", labelSupport = NONE))
+  public fun snapshotsOnly(): MavenRepositoryContentSpec = apply {
+    addElement(FunctionCall(name = "snapshotsOnly", labelSupport = NoLabels))
   }
 }

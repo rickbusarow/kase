@@ -13,29 +13,9 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.internal.DslElementContainer
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
-
-/** Builds a `plugins` block in a `build.gradle` or `build.gradle.kts` file. */
-public interface HasPluginsBlock<SELF : HasPluginsBlock<SELF>> : DslElementContainer<SELF> {
-
-  /**
-   * ```
-   * // build.gradle
-   * plugins {
-   *   // ...
-   * }
-   */
-  public fun plugins(
-    block: PluginDependenciesSpecBuilder.() -> Unit
-  ): SELF = functionCall(
-    name = "plugins",
-    labelSupport = FunctionCall.LabelSupport.NONE,
-    LambdaParameter(builder = block)
-  )
-}
+import com.rickbusarow.kase.gradle.generation.dsl.RepositoryHandlerSpec
 
 /** Builds a `repositories` block in a `build.gradle` or `build.gradle.kts` file. */
 public interface HasRepositoriesBlock<SELF : HasRepositoriesBlock<SELF>> :
@@ -51,10 +31,10 @@ public interface HasRepositoriesBlock<SELF : HasRepositoriesBlock<SELF>> :
    * }
    */
   public fun repositories(
-    block: RepositoryHandlerBuilder.() -> Unit
+    block: RepositoryHandlerSpec.() -> Unit
   ): SELF = functionCall(
     name = "repositories",
-    labelSupport = FunctionCall.LabelSupport.NONE,
+    labelSupport = FunctionCall.LabelSupport.NoLabels,
     LambdaParameter(builder = block)
   )
 }

@@ -13,15 +13,16 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.dsl
 
-import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.PluginApplication
 
 /**
- * Builds a `pluginManagement.plugins { }` block in
+ * Builds a `plugins { }` block in
  * a `settings.gradle` or `settings.gradle.kts` file.
  */
-public class PluginDependenciesSpecBuilder : AbstractDslElementContainer<PluginDependenciesSpecBuilder>() {
+public class PluginDependenciesSpec : AbstractDslElementContainer<PluginDependenciesSpec>() {
 
   /**
    * Applies a plugin via the typical `id(...)` syntax.
@@ -38,7 +39,7 @@ public class PluginDependenciesSpecBuilder : AbstractDslElementContainer<PluginD
     id: String,
     version: String? = null,
     apply: Boolean = true
-  ): PluginDependenciesSpecBuilder = apply {
+  ): PluginDependenciesSpec = apply {
     addElement(PluginApplication.ID(identifier = id, version = version, apply = apply))
   }
 
@@ -57,7 +58,7 @@ public class PluginDependenciesSpecBuilder : AbstractDslElementContainer<PluginD
     aliasName: String,
     version: String? = null,
     apply: Boolean = true
-  ): PluginDependenciesSpecBuilder = apply {
+  ): PluginDependenciesSpec = apply {
     addElement(PluginApplication.Alias(aliasName = aliasName, version = version, apply = apply))
   }
 
@@ -77,7 +78,7 @@ public class PluginDependenciesSpecBuilder : AbstractDslElementContainer<PluginD
     identifier: String,
     version: String? = null,
     apply: Boolean = true
-  ): PluginDependenciesSpecBuilder = apply {
+  ): PluginDependenciesSpec = apply {
     addElement(
       PluginApplication.Precompiled(
         identifier = identifier,
@@ -95,7 +96,7 @@ public class PluginDependenciesSpecBuilder : AbstractDslElementContainer<PluginD
     identifier: String,
     version: String? = null,
     apply: Boolean = true
-  ): PluginDependenciesSpecBuilder = apply {
+  ): PluginDependenciesSpec = apply {
     addElement(
       PluginApplication.KotlinPlugin(
         identifier = identifier,

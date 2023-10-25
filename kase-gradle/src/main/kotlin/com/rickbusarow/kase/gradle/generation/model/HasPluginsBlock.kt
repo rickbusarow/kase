@@ -13,9 +13,24 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation.internal
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.HasPluginsBlock
+import com.rickbusarow.kase.gradle.generation.dsl.PluginDependenciesSpec
 
-/** Interface for any DSL builder components. */
-public interface DslFileBuilder<SELF : DslFileBuilder<SELF>> : DslElement, HasPluginsBlock<SELF>
+/** Builds a `plugins { }` block in a build or settings Gradle file. */
+public interface HasPluginsBlock<SELF : HasPluginsBlock<SELF>> : DslElementContainer<SELF> {
+
+  /**
+   * ```
+   * // build.gradle
+   * plugins {
+   *   // ...
+   * }
+   */
+  public fun plugins(
+    block: PluginDependenciesSpec.() -> Unit
+  ): SELF = functionCall(
+    name = "plugins",
+    LambdaParameter(builder = block)
+  )
+}

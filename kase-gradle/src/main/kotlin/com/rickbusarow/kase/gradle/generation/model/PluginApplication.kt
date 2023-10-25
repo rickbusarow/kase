@@ -13,12 +13,10 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.internal.DslElement
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage.Groovy
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage.Kotlin
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage.GroovyDsl
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage.KotlinDsl
 import dev.drewhamilton.poko.Poko
 
 /** A single application of a plugin inside a `plugins { }` block. */
@@ -116,12 +114,12 @@ public sealed class PluginApplication : DslElement {
     override fun simpleCase(language: DslLanguage): String {
 
       return when (language) {
-        is Groovy -> buildString {
+        is GroovyDsl -> buildString {
           append("id")
           append(language.parens(language.quote(identifier)))
         }
 
-        is Kotlin -> if (identifier.contains('-')) {
+        is KotlinDsl -> if (identifier.contains('-')) {
           "`$identifier`"
         } else {
           identifier
@@ -155,12 +153,12 @@ public sealed class PluginApplication : DslElement {
     override fun simpleCase(language: DslLanguage): String {
 
       return when (language) {
-        is Groovy -> buildString {
+        is GroovyDsl -> buildString {
           append("id")
           append(language.parens(language.quote("org.jetbrains.kotlin.$identifier")))
         }
 
-        is Kotlin -> "kotlin(\"$identifier\")"
+        is KotlinDsl -> "kotlin(\"$identifier\")"
       }
     }
   }

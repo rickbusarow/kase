@@ -13,19 +13,23 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.dsl
 
-import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
-import com.rickbusarow.kase.gradle.generation.internal.gradlePropertyReference
+import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.GroovyLabels
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
+import com.rickbusarow.kase.gradle.generation.model.GradlePropertyReference
+import com.rickbusarow.kase.gradle.generation.model.HasRepositoriesBlock
+import com.rickbusarow.kase.gradle.generation.model.LambdaParameter
+import com.rickbusarow.kase.gradle.generation.model.gradlePropertyReference
 
 /**
  * Builds the `dependencyResolutionManagement` block in
  * a `settings.gradle` or `settings.gradle.kts` file.
  */
-public class DependencyResolutionManagementSpecBuilder :
-  AbstractDslElementContainer<DependencyResolutionManagementSpecBuilder>(),
-  HasRepositoriesBlock<DependencyResolutionManagementSpecBuilder> {
+public class DependencyResolutionManagementSpecSpec :
+  AbstractDslElementContainer<DependencyResolutionManagementSpecSpec>(),
+  HasRepositoriesBlock<DependencyResolutionManagementSpecSpec> {
   /** */
   public val defaultLibrariesExtensionName: GradlePropertyReference by gradlePropertyReference()
 
@@ -49,9 +53,9 @@ public class DependencyResolutionManagementSpecBuilder :
    */
   public fun versionCatalogs(
     block: MutableVersionCatalogContainer.() -> Unit
-  ): DependencyResolutionManagementSpecBuilder = functionCall(
+  ): DependencyResolutionManagementSpecSpec = functionCall(
     name = "versionCatalogs",
-    labelSupport = FunctionCall.LabelSupport.GROOVY,
+    labelSupport = GroovyLabels,
     LambdaParameter(label = "spec", builder = block)
   )
 
@@ -66,9 +70,9 @@ public class DependencyResolutionManagementSpecBuilder :
    */
   public fun components(
     block: ComponentMetadataContainer.() -> Unit
-  ): DependencyResolutionManagementSpecBuilder = functionCall(
+  ): DependencyResolutionManagementSpecSpec = functionCall(
     name = "components",
-    labelSupport = FunctionCall.LabelSupport.NONE,
+    labelSupport = NoLabels,
     LambdaParameter(builder = block)
   )
 }

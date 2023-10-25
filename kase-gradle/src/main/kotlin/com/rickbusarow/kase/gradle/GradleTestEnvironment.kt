@@ -23,7 +23,7 @@ import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.files.TestFunctionCoordinates
 import com.rickbusarow.kase.files.buildDirectory
 import com.rickbusarow.kase.gradle.generation.BuildFileComponents
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.letIf
 import com.rickbusarow.kase.stdlib.remove
@@ -50,7 +50,7 @@ public interface GradleTestEnvironmentFactory<T : TestVersions, K : AnyKase> {
       testFunctionCoordinates = testVariant.testFunctionCoordinates,
       kase = testVariant.kase,
       buildFileComponents = object : BuildFileComponents {},
-      DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = true)
+      DslLanguage.GroovyDsl(useInfix = true, useLabels = true, useDoubleQuotes = false)
     )
   }
 }

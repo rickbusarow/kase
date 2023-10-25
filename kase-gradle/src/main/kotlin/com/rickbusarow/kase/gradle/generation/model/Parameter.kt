@@ -15,13 +15,10 @@
 
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
-import com.rickbusarow.kase.gradle.generation.internal.DslElement
-import com.rickbusarow.kase.gradle.generation.internal.DslElementContainer
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport
+import com.rickbusarow.kase.gradle.generation.ValueStringFactory
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport
 import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 import kotlin.reflect.full.primaryConstructor
@@ -40,7 +37,7 @@ public interface Parameter : DslElement {
    */
   public fun write(language: DslLanguage, labelSupport: LabelSupport): String
 
-  override fun write(language: DslLanguage): String = write(language, LabelSupport.BOTH)
+  override fun write(language: DslLanguage): String = write(language, LabelSupport.NoLabels)
 
   public companion object {
     /** Joins a list of [Parameter]s into a [ParameterList]. */
@@ -87,7 +84,7 @@ public class ValueParameter(
   override fun write(language: DslLanguage, labelSupport: LabelSupport): String {
     val valueString = valueStringFactory(language)
     return label?.takeIf { language.supports(labelSupport) }
-      ?.let { labelValue -> "$labelValue${language.labelDelimiter} $valueString" }
+      ?.let { labelValue -> "$labelValue${language.labelDelimiter}$valueString" }
       ?: valueString
   }
 }
@@ -104,20 +101,23 @@ public class LambdaParameter(
   elements: MutableList<DslElement>
 ) : AbstractDslElementContainer<LambdaParameter>(elements = elements), Parameter {
 
-  override fun write(language: DslLanguage): String = buildString {
-
-    appendLine("{")
-    indent {
-      for (element in elements) {
-        appendLine(element.write(language))
-      }
-    }
-    append("}")
-  }
+  override fun write(language: DslLanguage): String = write(language, LabelSupport.NoLabels)
 
   override fun write(language: DslLanguage, labelSupport: LabelSupport): String {
 
-    val elementString = write(language)
+    val elementString = buildString {
+
+      appendLine("{")
+      indent {
+        for (element in elements) {
+          when (element) {
+            is Parameter -> appendLine(element.write(language, labelSupport))
+            else -> appendLine(element.write(language))
+          }
+        }
+      }
+      append("}")
+    }
 
     return label?.takeIf { language.supports(labelSupport) }
       ?.let { labelValue -> "$labelValue${language.labelDelimiter} $elementString" }

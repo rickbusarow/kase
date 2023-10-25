@@ -13,23 +13,26 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.dsl
 
-import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.GROOVY
-import com.rickbusarow.kase.gradle.generation.internal.Quoted
+import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.GroovyAndKotlinLabels
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.GroovyLabels
+import com.rickbusarow.kase.gradle.generation.model.LambdaParameter
+import com.rickbusarow.kase.gradle.generation.model.StringLiteral
+import com.rickbusarow.kase.gradle.generation.model.ValueParameter
 
 /** A `repositories { }` container */
-public class RepositoryHandlerBuilder : AbstractDslElementContainer<RepositoryHandlerBuilder>() {
+public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandlerSpec>() {
 
   /**
    * Adds a new repository to the repository handler.
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    */
-  public fun maven(url: String): RepositoryHandlerBuilder = functionCall(
+  public fun maven(url: String): RepositoryHandlerSpec = functionCall(
     name = "maven",
-    labelSupport = GROOVY,
+    labelSupport = GroovyAndKotlinLabels,
     ValueParameter("url", url)
   )
 
@@ -41,96 +44,98 @@ public class RepositoryHandlerBuilder : AbstractDslElementContainer<RepositoryHa
    */
   public fun maven(
     url: String,
-    action: MavenArtifactRepositoryBuilder.() -> Unit
-  ): RepositoryHandlerBuilder = functionCall(
+    action: MavenArtifactRepositorySpec.() -> Unit
+  ): RepositoryHandlerSpec = functionCall(
     name = "maven",
-    labelSupport = GROOVY,
+    labelSupport = GroovyAndKotlinLabels,
     ValueParameter("url", url),
     LambdaParameter(action)
   )
 
   /**
    * Adds a new repository to the repository handler.
-   *  @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   *
+   * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    */
-  public fun maven(url: Quoted): RepositoryHandlerBuilder = functionCall(
+  public fun maven(url: StringLiteral): RepositoryHandlerSpec = functionCall(
     name = "maven",
-    labelSupport = GROOVY,
+    labelSupport = GroovyAndKotlinLabels,
     ValueParameter("url", url)
   )
 
   /**
    * Adds a new repository to the repository handler.
-   *  @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
-   *  @param action the action to perform on the repository
+   *
+   * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   * @param action the action to perform on the repository
    */
   public fun maven(
-    url: Quoted,
-    action: MavenArtifactRepositoryBuilder.() -> Unit
-  ): RepositoryHandlerBuilder = functionCall(
+    url: StringLiteral,
+    action: MavenArtifactRepositorySpec.() -> Unit
+  ): RepositoryHandlerSpec = functionCall(
     name = "maven",
-    labelSupport = GROOVY,
+    labelSupport = GroovyAndKotlinLabels,
     ValueParameter("url", url),
     LambdaParameter(action)
   )
 
   /** Adds an invocation of `google()` to the repository handler */
-  public fun google(): RepositoryHandlerBuilder = functionCall(
+  public fun google(): RepositoryHandlerSpec = functionCall(
     name = "google",
-    labelSupport = GROOVY
+    labelSupport = GroovyLabels
   )
 
   /** Adds an invocation of `google()` to the repository handler */
   public fun google(
-    action: MavenArtifactRepositoryBuilder.() -> Unit
-  ): RepositoryHandlerBuilder = functionCall(
+    action: MavenArtifactRepositorySpec.() -> Unit
+  ): RepositoryHandlerSpec = functionCall(
     name = "google",
-    labelSupport = GROOVY,
+    labelSupport = GroovyLabels,
     LambdaParameter(action)
   )
 
   /** Adds an invocation of `gradlePluginPortal()` to the repository handler */
-  public fun gradlePluginPortal(): RepositoryHandlerBuilder = functionCall(
+  public fun gradlePluginPortal(): RepositoryHandlerSpec = functionCall(
     name = "gradlePluginPortal",
-    labelSupport = GROOVY
+    labelSupport = GroovyLabels
   )
 
   /** Adds an invocation of `gradlePluginPortal()` to the repository handler */
   public fun gradlePluginPortal(
-    action: MavenArtifactRepositoryBuilder.() -> Unit
-  ): RepositoryHandlerBuilder = functionCall(
+    action: MavenArtifactRepositorySpec.() -> Unit
+  ): RepositoryHandlerSpec = functionCall(
     name = "gradlePluginPortal",
-    labelSupport = GROOVY,
+    labelSupport = GroovyLabels,
     LambdaParameter(action)
   )
 
   /** Adds an invocation of `mavenCentral()` to the repository handler */
-  public fun mavenCentral(): RepositoryHandlerBuilder = functionCall(
+  public fun mavenCentral(): RepositoryHandlerSpec = functionCall(
     name = "mavenCentral",
-    labelSupport = GROOVY
+    labelSupport = GroovyLabels
   )
 
   /** Adds an invocation of `mavenCentral()` to the repository handler */
   public fun mavenCentral(
-    action: MavenArtifactRepositoryBuilder.() -> Unit
-  ): RepositoryHandlerBuilder = functionCall(
+    action: MavenArtifactRepositorySpec.() -> Unit
+  ): RepositoryHandlerSpec = functionCall(
     name = "mavenCentral",
-    labelSupport = GROOVY,
+    labelSupport = GroovyLabels,
     LambdaParameter(action)
   )
 
   /** Adds an invocation of `mavenLocal()` to the repository handler */
-  public fun mavenLocal(): RepositoryHandlerBuilder = functionCall(
+  public fun mavenLocal(): RepositoryHandlerSpec = functionCall(
     name = "mavenLocal",
-    labelSupport = GROOVY
+    labelSupport = GroovyLabels
   )
 
   /** Adds an invocation of `mavenLocal()` to the repository handler */
   public fun mavenLocal(
-    action: MavenArtifactRepositoryBuilder.() -> Unit
-  ): RepositoryHandlerBuilder = functionCall(
+    action: MavenArtifactRepositorySpec.() -> Unit
+  ): RepositoryHandlerSpec = functionCall(
     name = "mavenLocal",
-    labelSupport = GROOVY,
+    labelSupport = GroovyLabels,
     LambdaParameter(action)
   )
 }

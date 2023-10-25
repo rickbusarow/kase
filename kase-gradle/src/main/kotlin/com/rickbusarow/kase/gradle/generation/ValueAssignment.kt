@@ -15,8 +15,8 @@
 
 package com.rickbusarow.kase.gradle.generation
 
-import com.rickbusarow.kase.gradle.generation.internal.DslElement
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
+import com.rickbusarow.kase.gradle.generation.model.DslElement
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage
 import dev.drewhamilton.poko.Poko
 
 /** */
@@ -44,6 +44,7 @@ public sealed interface ValueAssignment : DslElement {
   ) : ValueAssignment {
     public constructor(name: String, value: String) : this(name, ValueStringFactory(value))
     public constructor(name: String, value: DslElement) : this(name, ValueStringFactory(value))
+
     override fun write(language: DslLanguage): String {
       return language.write { "$name = ${valueStringFactory.invoke(language)}" }
     }

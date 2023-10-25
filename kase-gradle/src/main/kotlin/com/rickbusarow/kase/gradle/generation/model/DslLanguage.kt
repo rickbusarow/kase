@@ -13,22 +13,34 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation.internal
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.Parameter
-import com.rickbusarow.kase.gradle.generation.ParameterList
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport
-import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.GroovyCompatible
-import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.KotlinCompatible
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage.GroovyDsl
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage.KotlinDsl
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport
+import com.rickbusarow.kase.gradle.generation.model.LanguageSpecific.GroovyCompatible
+import com.rickbusarow.kase.gradle.generation.model.LanguageSpecific.KotlinCompatible
 import dev.drewhamilton.poko.Poko
 
 /**
- * The language of the DSL, e.g. [Groovy] or [Kotlin]
+ * The language of the DSL, e.g. [GroovyDsl] or [KotlinDsl]
  *
  * @property quote the quoted character used for strings in this language, e.g. `'` or `"`
  * @property labelDelimiter the delimiter between a label and its value, e.g. ` = ` or `: `
  */
-public sealed class DslLanguage(public val quote: Char, public val labelDelimiter: String) {
+public sealed class DslLanguage(
+  public val quote: Char,
+  public val labelDelimiter: String
+) {
+  private val doubleQuote: Char = '"'
+
+  /**
+   * Whether to use double quotes for strings, even when single quotes are
+   * valid. e.g. `project(":myProject")` instead of `project(':myProject')`
+   *
+   * This is always `true` in [KotlinDsl]
+   */
+  public abstract val useDoubleQuotes: Boolean
 
   /**
    * Whether to always parenthesize method call parameters, even when not syntactically necessary.
@@ -55,8 +67,33 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
   public abstract val useInfix: Boolean
 
   /**
-   * Wraps [content] in parentheses if it's necessary for this syntax,
-   * or if this language is [Groovy] and [Groovy.useInfix] is `true`.
+   * Whether to use labels for the parameters of function calls, where they're supported.
+   *
+   * example in Kotlin:
+   * ```
+   * dependencies {
+   *   // useLabels = true (this is default behavior)
+   *   api(project(path = ":myProject"))
+   *   // useLabels = false
+   *   api(project(":myProject"))
+   * }
+   * ```
+   *
+   * example in Groovy:
+   * ```
+   * dependencies {
+   *   // useLabels = true (this is default behavior)
+   *   api project(path: ':myProject')
+   *   // useLabels = false
+   *   api project(':myProject')
+   * }
+   * ```
+   */
+  public abstract val useLabels: Boolean
+
+  /**
+   * Wraps [content] in parentheses if it's necessary for this syntax, or
+   * if this language is [GroovyDsl] and [GroovyDsl.useInfix] is `true`.
    *
    * @param content the content to parenthesize, e.g. `'com.acme:dynamite:1.0.0'`
    * @param infixInKotlin whether the [content] is an infix method call in the Kotlin DSL
@@ -65,8 +102,8 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
   public abstract fun parens(content: String, infixInKotlin: Boolean = false): String
 
   /**
-   * Wraps [content] in parentheses if it's necessary for this syntax,
-   * or if this language is [Groovy] and [Groovy.useInfix] is `true`.
+   * Wraps [content] in parentheses if it's necessary for this syntax, or
+   * if this language is [GroovyDsl] and [GroovyDsl.useInfix] is `true`.
    *
    * @param content the content to parenthesize, e.g. `exclude group: "com.acme", module: "rocket"`
    * @return the parenthesized content, e.g. `(exclude group: "com.acme", module: "rocket")`
@@ -79,9 +116,20 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
    * Wraps [content] in [quote] characters
    *
    * @param content the content to quote, e.g. `com.acme:dynamite:1.0.0`
+   * @param useDoubleQuotes whether to use double quotes for strings,
+   *   even when the language is Groovy and single quotes are valid.
+   *   e.g. `project(":myProject")` instead of `project(':myProject')`
    * @return the quoted content, e.g. `'com.acme:dynamite:1.0.0'`
    */
-  public fun quote(content: String): String = "$quote$content$quote"
+  public fun quote(
+    content: String,
+    useDoubleQuotes: Boolean = this.useDoubleQuotes
+  ): String {
+    return when {
+      useDoubleQuotes -> "$doubleQuote$content$doubleQuote"
+      else -> "$quote$content$quote"
+    }
+  }
 
   /** invokes [action] within this language's scope and returns the result */
   public inline fun <reified T> write(action: DslLanguage.() -> T): T = action()
@@ -127,27 +175,34 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
   /** Whether this language supports some language-specific feature. */
   public fun supports(languageSpecific: LanguageSpecific): Boolean {
     return when (this) {
-      is Groovy -> languageSpecific is GroovyCompatible
-      is Kotlin -> languageSpecific is KotlinCompatible
+      is GroovyDsl -> languageSpecific is GroovyCompatible
+      is KotlinDsl -> languageSpecific is KotlinCompatible
     }
   }
 
   /** Whether this language supports labels for this function or parameter */
   public fun supports(labelSupport: LabelSupport): Boolean {
-    return when (this) {
-      is Groovy -> labelSupport is GroovyCompatible
-      is Kotlin -> labelSupport is KotlinCompatible
+    return useLabels && when (this) {
+      is GroovyDsl -> labelSupport is GroovyCompatible
+      is KotlinDsl -> labelSupport is KotlinCompatible
     }
   }
 
-  /** The Kotlin DSL, e.g. `build.gradle.kts` or `settings.gradle.kts` */
+  /**
+   * The Kotlin DSL, e.g. `build.gradle.kts` or `settings.gradle.kts`
+   *
+   * @property useInfix whether to always parenthesize method
+   *   call parameters, even when not syntactically necessary.
+   * @property useLabels whether to use labels for the parameters of function calls,
+   */
   @Poko
-  public class Kotlin(
-    override val useInfix: Boolean
-  ) : DslLanguage(
-    quote = '"',
-    labelDelimiter = " = "
-  ) {
+  public class KotlinDsl(
+    override val useInfix: Boolean,
+    override val useLabels: Boolean
+  ) : DslLanguage(quote = '"', labelDelimiter = " = ") {
+
+    override val useDoubleQuotes: Boolean = true
+
     override fun parens(content: String, infixInKotlin: Boolean): String =
       if (infixInKotlin && useInfix && content.isNotBlank()) {
         " $content"
@@ -159,20 +214,18 @@ public sealed class DslLanguage(public val quote: Char, public val labelDelimite
   /**
    * The Groovy DSL, e.g. `build.gradle` or `settings.gradle`
    *
-   * @param alwaysUseDoubleQuotes whether to use double quotes for strings, even when single
-   *   quotes are valid. e.g. `project(":myProject")` instead of `project(':myProject')`
-   * @property useInfix whether to always parenthesize method call
-   *   parameters, even when not syntactically necessary. e.g.
-   *   `api('com.acme:dynamite:1.0.0')` instead of `api 'com.acme:dynamite:1.0.0'`
+   * @property useInfix whether to always parenthesize method
+   *   call parameters, even when not syntactically necessary.
+   * @property useLabels whether to use labels for the parameters of function calls,
+   * @property useDoubleQuotes whether to use double quotes
+   *   for strings, even when single quotes are valid.
    */
   @Poko
-  public class Groovy(
-    alwaysUseDoubleQuotes: Boolean,
-    override val useInfix: Boolean
-  ) : DslLanguage(
-    quote = if (alwaysUseDoubleQuotes) '"' else '\'',
-    labelDelimiter = ": "
-  ) {
+  public class GroovyDsl(
+    override val useInfix: Boolean,
+    override val useLabels: Boolean,
+    override val useDoubleQuotes: Boolean
+  ) : DslLanguage(quote = '\'', labelDelimiter = ": ") {
     override fun parens(content: String, infixInKotlin: Boolean): String =
       if (useInfix && content.isNotBlank()) {
         " $content"

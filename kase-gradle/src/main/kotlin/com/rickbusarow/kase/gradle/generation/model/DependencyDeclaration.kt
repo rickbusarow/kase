@@ -15,13 +15,10 @@
 
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.internal.DslElement
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.BOTH
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.NONE
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.GroovyAndKotlinLabels
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
 import dev.drewhamilton.poko.Poko
 
 /**
@@ -92,12 +89,12 @@ public sealed interface DependencyDeclaration : DslElement {
 
       return FunctionCall(
         name = configuration,
-        labelSupport = NONE,
+        labelSupport = NoLabels,
         listOf(
           ValueParameter(
             FunctionCall(
               "project",
-              labelSupport = BOTH,
+              labelSupport = GroovyAndKotlinLabels,
               listOfNotNull(
                 ValueParameter("path", pathArg),
                 outgoingConfiguration?.let { ValueParameter("configuration", it) }

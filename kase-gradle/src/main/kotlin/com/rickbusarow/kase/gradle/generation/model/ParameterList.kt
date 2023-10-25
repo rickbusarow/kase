@@ -13,12 +13,11 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.internal.DslElement
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
+import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
+import kotlin.LazyThreadSafetyMode.NONE
 
 /** A list of [Parameter]s. */
 @Poko
@@ -29,6 +28,11 @@ public class ParameterList(
 
   /** The number of parameters in this list. */
   public val size: Int get() = parameters.size
+
+  /** True if the last parameter is a [LambdaParameter], otherwise false. */
+  public val hasTrailingLambda: Boolean by lazy(NONE) {
+    parameters.lastOrNull() is LambdaParameter
+  }
 
   /** @return `true` if [size] is zero, otherwise `false`. */
   public fun isEmpty(): Boolean = parameters.isEmpty()
@@ -53,11 +57,17 @@ public class ParameterList(
       else -> parameters
     }
 
-    val joined = toJoin.joinToString(separator = separator) {
-      it.write(language = language, labelSupport = labelSupport)
+    val joined = buildString {
+      indent("", "  ") {
+        append(
+          toJoin.joinToString(separator = separator) {
+            it.write(language, labelSupport)
+          }
+        )
+      }
     }
 
-    val wrapInParens = toJoin.isNotEmpty() || trailingLambda == null
+    val wrapInParens = toJoin.isNotEmpty() || trailingLambda == null || joined.lines().size > 1
 
     val maybeWrapped = if (wrapInParens) {
       language.parens(joined)
@@ -72,7 +82,7 @@ public class ParameterList(
 
   override fun write(language: DslLanguage): String = write(
     language,
-    FunctionCall.LabelSupport.NONE
+    FunctionCall.LabelSupport.NoLabels
   )
 
   public companion object {

@@ -13,14 +13,12 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation.internal
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.Parameter
-import com.rickbusarow.kase.gradle.generation.ParameterList
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.NONE
-import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.GroovyAndKotlinCompatible
-import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.GroovyCompatible
-import com.rickbusarow.kase.gradle.generation.internal.LanguageSpecific.KotlinCompatible
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
+import com.rickbusarow.kase.gradle.generation.model.LanguageSpecific.GroovyAndKotlinCompatible
+import com.rickbusarow.kase.gradle.generation.model.LanguageSpecific.GroovyCompatible
+import com.rickbusarow.kase.gradle.generation.model.LanguageSpecific.KotlinCompatible
 import dev.drewhamilton.poko.Poko
 
 /**
@@ -31,11 +29,12 @@ import dev.drewhamilton.poko.Poko
  * @property labelSupport whether to use labels in the function call, such as `group = "com.acme"`
  */
 @Poko
-public class FunctionCall(
+public class FunctionCall public constructor(
   public val name: String,
   public val parameterList: ParameterList,
   public val labelSupport: LabelSupport
 ) : DslElement {
+
   public constructor(
     name: String,
     labelSupport: LabelSupport,
@@ -52,7 +51,7 @@ public class FunctionCall(
   ) : this(
     name = name,
     parameterList = ParameterList(parameters),
-    labelSupport = NONE
+    labelSupport = NoLabels
   )
 
   public constructor(
@@ -70,7 +69,7 @@ public class FunctionCall(
     vararg parameters: Parameter
   ) : this(
     name = name,
-    labelSupport = NONE,
+    labelSupport = NoLabels,
     parameters = parameters.toList()
   )
 
@@ -80,7 +79,7 @@ public class FunctionCall(
   ) : this(
     name = name,
     parameters = parameters.map { Parameter(it) },
-    labelSupport = NONE
+    labelSupport = NoLabels
   )
 
   override fun write(language: DslLanguage): String {
@@ -92,17 +91,20 @@ public class FunctionCall(
    *
    * Labels will be supported in Kotlin if the function was re-written in the Kotlin DSL.
    */
-  public sealed interface LabelSupport {
-    /** No labels are supported. */
-    public object NONE : LabelSupport
+  public sealed class LabelSupport {
 
-    /** Labels are supported in the Kotlin DSL. */
-    public object KOTLIN : LabelSupport, KotlinCompatible
+    override fun toString(): String = javaClass.simpleName
+
+    /** No labels are supported. */
+    public object NoLabels : LabelSupport()
 
     /** Labels are supported in the Groovy DSL. */
-    public object GROOVY : LabelSupport, GroovyCompatible
+    public object GroovyLabels : LabelSupport(), GroovyCompatible
+
+    /** Labels are supported in the Kotlin DSL. */
+    public object KotlinLabels : LabelSupport(), KotlinCompatible
 
     /** Labels are supported in both the Groovy and Kotlin DSLs. */
-    public object BOTH : LabelSupport, GroovyAndKotlinCompatible
+    public object GroovyAndKotlinLabels : LabelSupport(), GroovyAndKotlinCompatible
   }
 }

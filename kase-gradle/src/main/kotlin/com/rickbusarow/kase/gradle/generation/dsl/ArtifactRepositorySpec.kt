@@ -13,10 +13,13 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.dsl
 
-import com.rickbusarow.kase.gradle.generation.internal.AbstractDslElementContainer
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.GROOVY
+import com.rickbusarow.kase.gradle.generation.MavenRepositoryContentSpec
+import com.rickbusarow.kase.gradle.generation.RepositoryContentSpec
+import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
+import com.rickbusarow.kase.gradle.generation.model.LambdaParameter
 
 /**
  * The common configuration lambda in a repository declaration, like:
@@ -28,11 +31,11 @@ import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport
  *   }
  * }
  */
-public sealed class ArtifactRepositoryBuilder<T : RepositoryContentBuilder<T>> :
-  AbstractDslElementContainer<ArtifactRepositoryBuilder<T>>() {
+public sealed class ArtifactRepositorySpec<T : RepositoryContentSpec<T>> :
+  AbstractDslElementContainer<ArtifactRepositorySpec<T>>() {
 
   /** Adds a new `content { }` block to the repository configuration. */
-  public abstract fun content(block: T.() -> Unit): ArtifactRepositoryBuilder<T>
+  public abstract fun content(block: T.() -> Unit): ArtifactRepositorySpec<T>
 }
 
 /**
@@ -45,22 +48,22 @@ public sealed class ArtifactRepositoryBuilder<T : RepositoryContentBuilder<T>> :
  *   }
  * }
  */
-public class MavenArtifactRepositoryBuilder : ArtifactRepositoryBuilder<MavenRepositoryContentBuilder>() {
+public class MavenArtifactRepositorySpec : ArtifactRepositorySpec<MavenRepositoryContentSpec>() {
 
   /** Adds a new `mavenContent { }` block to the repository configuration. */
   public fun mavenContent(
-    block: MavenRepositoryContentBuilder.() -> Unit
-  ): ArtifactRepositoryBuilder<MavenRepositoryContentBuilder> = functionCall(
+    block: MavenRepositoryContentSpec.() -> Unit
+  ): ArtifactRepositorySpec<MavenRepositoryContentSpec> = functionCall(
     name = "mavenContent",
-    labelSupport = GROOVY,
+    labelSupport = NoLabels,
     LambdaParameter("block", block)
   )
 
   override fun content(
-    block: MavenRepositoryContentBuilder.() -> Unit
-  ): ArtifactRepositoryBuilder<MavenRepositoryContentBuilder> = functionCall(
+    block: MavenRepositoryContentSpec.() -> Unit
+  ): ArtifactRepositorySpec<MavenRepositoryContentSpec> = functionCall(
     name = "content",
-    labelSupport = GROOVY,
+    labelSupport = NoLabels,
     LambdaParameter("block", block)
   )
 }

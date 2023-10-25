@@ -13,11 +13,11 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation.internal
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.Parameter
 import com.rickbusarow.kase.gradle.generation.ValueAssignment.GradlePropertyAssignment
 import com.rickbusarow.kase.gradle.generation.ValueAssignment.SetterAssignment
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport
 
 /** */
 @DslMarker
@@ -53,16 +53,88 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
   /**
    * Wraps a String literal in language-specific quotes
    *
+   * @param stringValue the String value to be quoted.
+   * @param useDoubleQuotes whether to use double quotes for strings, even when single
+   *   quotes are valid. e.g. `project(":myProject")` instead of `project(':myProject')`
    * @see string as another code-completion friendly alias for this function
    */
-  public fun quoted(stringValue: String): Quoted = Quoted(stringValue)
+  @Deprecated(
+    "Renamed to stringLiteral",
+    ReplaceWith("stringLiteral(stringValue, useDoubleQuotes)")
+  )
+  public fun quoted(
+    stringValue: String,
+    useDoubleQuotes: Boolean = false
+  ): StringLiteral = stringLiteral(
+    stringValue = stringValue,
+    useDoubleQuotes = useDoubleQuotes
+  )
 
   /**
    * Wraps a String literal in language-specific quotes
    *
+   * @param stringValue the String value to be quoted.
+   * @param useDoubleQuotes whether to use double quotes for strings, even when single
+   *   quotes are valid. e.g. `project(":myProject")` instead of `project(':myProject')`
    * @see quoted as another code-completion friendly alias for this function
    */
-  public fun string(stringValue: String): Quoted = Quoted(stringValue)
+  @Deprecated(
+    "Renamed to stringLiteral",
+    ReplaceWith("stringLiteral(stringValue, useDoubleQuotes)")
+  )
+  public fun string(
+    stringValue: String,
+    useDoubleQuotes: Boolean = false
+  ): StringLiteral = stringLiteral(
+    stringValue = stringValue,
+    useDoubleQuotes = useDoubleQuotes
+  )
+
+  /**
+   * Wraps a String literal in language-specific quotes
+   *
+   * @param stringValue the String value to be quoted.
+   * @param useDoubleQuotes whether to use double quotes for strings. Defaults to
+   *   `null` so that the setting is inherited from the language configuration.
+   * @see quoted as another code-completion friendly alias for this function
+   */
+  public fun stringLiteral(
+    stringValue: String,
+    useDoubleQuotes: Boolean? = null
+  ): StringLiteral = StringLiteral(
+    value = stringValue,
+    useDoubleQuotes = useDoubleQuotes
+  )
+
+  /**
+   * @param useDoubleQuotes whether to use double quotes for strings. Defaults to
+   *   `null` so that the setting is inherited from the language configuration.
+   * @receiver the String value to be quoted.
+   * @return a [StringLiteral] representing the quoted string
+   */
+  public fun String.asStringLiteral(
+    useDoubleQuotes: Boolean? = null
+  ): StringLiteral = stringLiteral(
+    stringValue = this,
+    useDoubleQuotes = useDoubleQuotes
+  )
+
+  /**
+   * Adds a new [FunctionCall] to the DSL.
+   *
+   * @param name the name of the function, such as `exclude`
+   * @param parameters the list of parameters to pass to the function
+   */
+  public fun functionCall(
+    name: String,
+    vararg parameters: Parameter
+  ): SELF = addElement(
+    FunctionCall(
+      name = name,
+      labelSupport = LabelSupport.NoLabels,
+      parameters = parameters.toList()
+    )
+  )
 
   /**
    * Adds a new [FunctionCall] to the DSL.
@@ -73,13 +145,32 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    */
   public fun functionCall(
     name: String,
-    labelSupport: FunctionCall.LabelSupport,
+    labelSupport: LabelSupport,
     vararg parameters: Parameter
   ): SELF = addElement(
     FunctionCall(
       name = name,
       labelSupport = labelSupport,
       parameters = parameters.toList()
+    )
+  )
+
+  /**
+   * Adds a new [FunctionCall] to the DSL.
+   *
+   * @param name the name of the function, such as `exclude`
+   * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+   * @param parameterList the parameters to pass to the function
+   */
+  public fun functionCall(
+    name: String,
+    labelSupport: LabelSupport,
+    parameterList: ParameterList
+  ): SELF = addElement(
+    FunctionCall(
+      name = name,
+      parameterList = parameterList,
+      labelSupport = labelSupport
     )
   )
 
@@ -196,7 +287,7 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
  */
 internal fun <SELF : DslElementContainer<SELF>> DslElementContainer<SELF>.functionCall(
   name: String,
-  labelSupport: FunctionCall.LabelSupport,
+  labelSupport: LabelSupport,
   vararg parameters: Parameter?
 ): SELF = addElement(
   FunctionCall(

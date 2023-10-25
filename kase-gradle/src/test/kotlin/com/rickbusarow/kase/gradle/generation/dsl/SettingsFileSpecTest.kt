@@ -13,14 +13,14 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.dsl
 
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.asTests
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage.Groovy
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage.Kotlin
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.NONE
+import com.rickbusarow.kase.gradle.generation.SettingsFileBuilderAction
+import com.rickbusarow.kase.gradle.generation.dslLanguages
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.kases
 import com.rickbusarow.kase.times
@@ -30,21 +30,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.util.stream.Stream
 
-typealias MavenArtifactRepositoryBuilderAction = MavenArtifactRepositoryBuilder.() -> Unit
-typealias PluginManagementSpecBuilderAction = PluginManagementSpecBuilder.() -> Unit
-typealias RepositoryHandlerBuilderAction = RepositoryHandlerBuilder.() -> Unit
-typealias SettingsFileBuilderAction = SettingsFileBuilder.() -> Unit
-
-val dslLanguages = listOf(
-  Groovy(alwaysUseDoubleQuotes = true, useInfix = false),
-  Groovy(alwaysUseDoubleQuotes = true, useInfix = true),
-  Groovy(alwaysUseDoubleQuotes = false, useInfix = false),
-  Groovy(alwaysUseDoubleQuotes = false, useInfix = true),
-  Kotlin(useInfix = false),
-  Kotlin(useInfix = true)
-)
-
-class SettingsFileBuilderTest {
+class SettingsFileSpecTest {
 
   @TestFactory
   fun `empty lambdas`(): Stream<out DynamicNode> {
@@ -56,7 +42,7 @@ class SettingsFileBuilderTest {
       .times(kases(dslLanguages))
       .asTests { builderFun, expected, language ->
 
-        val builder = SettingsFileBuilder {
+        val builder = SettingsFileSpec {
           builderFun(this)
         }
 
@@ -69,20 +55,20 @@ class SettingsFileBuilderTest {
   @Test
   fun `canary thing`() {
 
-    val builder = SettingsFileBuilder {
+    val builder = SettingsFileSpec {
 
       "rootProject.name".set("kase-gradle")
-      "rootProject.name" setEquals string("kase-gradle")
+      "rootProject.name" setEquals stringLiteral("kase-gradle")
 
       pluginManagement {
         repositories {
           mavenCentral()
           google()
           gradlePluginPortal()
-          maven(quoted("https://plugins.gradle.org/m2/"))
+          maven(stringLiteral("https://plugins.gradle.org/m2/"))
           mavenLocal()
 
-          maven(quoted("https://jitpack.io")) {
+          maven(stringLiteral("https://jitpack.io")) {
 
             content {
               excludeGroup("com.android.tools.external.com-intellij")
@@ -94,7 +80,7 @@ class SettingsFileBuilderTest {
           alias("libs.plugins.doks")
         }
 
-        includeBuild(string("aa"))
+        includeBuild(stringLiteral("aa"))
       }
 
       addBlankLine()
@@ -106,14 +92,22 @@ class SettingsFileBuilderTest {
 
       addBlankLine()
 
+      include(":project0")
+
+      addBlankLine()
+
+      include(":project1", ":project2", ":more-projects:project3")
+
+      addBlankLine()
+
       dependencyResolutionManagement {
 
-        defaultLibrariesExtensionName.set(string("lobs"))
+        defaultLibrariesExtensionName.set(stringLiteral("lobs"))
         defaultProjectsExtensionName.set(defaultLibrariesExtensionName)
 
         rulesMode.set(repositoriesMode.get())
 
-        rulesMode.set(repositoriesMode.map { functionCall("foo", NONE) })
+        rulesMode.set(repositoriesMode.map { functionCall("foo", NoLabels) })
 
         versionCatalogs {}
 
@@ -121,10 +115,10 @@ class SettingsFileBuilderTest {
           mavenCentral()
           google()
           gradlePluginPortal()
-          maven(quoted("https://plugins.gradle.org/m2/"))
+          maven(stringLiteral("https://plugins.gradle.org/m2/"))
           mavenLocal()
 
-          maven(quoted("https://jitpack.io")) {
+          maven(stringLiteral("https://jitpack.io")) {
 
             content {
               excludeGroup("com.android.tools.external.com-intellij")
@@ -134,7 +128,10 @@ class SettingsFileBuilderTest {
       }
     }
 
-    val content = builder.write(DslLanguage.Groovy(alwaysUseDoubleQuotes = false, useInfix = true))
+    val content = builder.write(
+      DslLanguage.KotlinDsl(useInfix = false, useLabels = false)
+      // DslLanguage.GroovyDsl(useDoubleQuotes = false, useInfix = true)
+    )
 
     println(content)
   }

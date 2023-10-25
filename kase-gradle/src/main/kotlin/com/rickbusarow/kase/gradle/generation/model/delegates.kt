@@ -13,12 +13,10 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation.internal
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.GradlePropertyReference
-import com.rickbusarow.kase.gradle.generation.RegularVariableReference
-import com.rickbusarow.kase.gradle.generation.RegularVariableReference.ImmutableVariableReference
-import com.rickbusarow.kase.gradle.generation.RegularVariableReference.MutableVariableReference
+import com.rickbusarow.kase.gradle.generation.model.RegularVariableReference.ImmutableVariableReference
+import com.rickbusarow.kase.gradle.generation.model.RegularVariableReference.MutableVariableReference
 import kotlin.properties.ReadOnlyProperty
 
 internal fun gradlePropertyReference(): ReadOnlyProperty<AbstractDslElementContainer<*>, GradlePropertyReference> {

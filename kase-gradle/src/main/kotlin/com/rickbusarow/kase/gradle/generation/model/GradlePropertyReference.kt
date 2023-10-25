@@ -13,15 +13,11 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.model
 
+import com.rickbusarow.kase.gradle.generation.ValueAssignment
 import com.rickbusarow.kase.gradle.generation.ValueAssignment.SetterAssignment
-import com.rickbusarow.kase.gradle.generation.internal.DslElement
-import com.rickbusarow.kase.gradle.generation.internal.DslElementContainer
-import com.rickbusarow.kase.gradle.generation.internal.DslLanguage
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall
-import com.rickbusarow.kase.gradle.generation.internal.FunctionCall.LabelSupport.NONE
-import com.rickbusarow.kase.gradle.generation.internal.SimpleDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
 import dev.drewhamilton.poko.Poko
 
 /**
@@ -72,7 +68,7 @@ public class GradlePropertyReference(
 
     withReference = FunctionCall(
       name = "$name.map",
-      labelSupport = NONE,
+      labelSupport = NoLabels,
       LambdaParameter(
         label = null,
         receiver = container,
