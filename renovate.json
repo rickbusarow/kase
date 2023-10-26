@@ -22,10 +22,8 @@
       ]
     },
     {
-      "matchPackagePatterns" : [
-        "^[\\w\\.]+:[\\w-]+$"
-      ],
-      "groupName" : "All updated deps"
+      "groupName": "All updated deps",
+      "matchPackagePatterns": ["^[\\w\\.]+:[\\w-]+$"]
     }
   ],
   "labels": [
