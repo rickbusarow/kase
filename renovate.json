@@ -20,6 +20,12 @@
         "^com\\.rickbusarow\\.ktlint:(?:[\\w-]+)$",
         "^com\\.rickbusarow\\.ktrules:(?:[\\w-]+)$"
       ]
+    },
+    {
+      "matchPackagePatterns" : [
+        "^[\\w\\.]+:[\\w-]+$"
+      ],
+      "groupName" : "All updated deps"
     }
   ],
   "labels": [
