@@ -26,7 +26,7 @@ abstract class BaseModulePlugin : Plugin<Project> {
     target.plugins.apply(CleanPlugin::class.java)
     target.plugins.apply(DependencyGuardConventionPlugin::class.java)
     target.plugins.apply(DetektConventionPlugin::class.java)
-    target.plugins.apply(DokkaConventionPlugin::class.java)
+    target.plugins.apply(DokkatooConventionPlugin::class.java)
     target.plugins.apply(KtLintConventionPlugin::class.java)
     target.plugins.apply(TestConventionPlugin::class.java)
   }

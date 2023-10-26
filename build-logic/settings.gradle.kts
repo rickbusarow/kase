@@ -1,5 +1,3 @@
-
-
 /*
  * Copyright (C) 2023 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,12 +43,6 @@ dependencyResolutionManagement {
     google()
     mavenCentral()
     maven("https://plugins.gradle.org/m2/")
-  }
-
-  versionCatalogs {
-    create("libs") {
-      from(files("../gradle/libs.versions.toml"))
-    }
   }
 }
 

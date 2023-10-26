@@ -28,6 +28,12 @@ plugins {
   base
   alias(libs.plugins.kotlin.jvm)
   alias(libs.plugins.ktlint) apply false
+  alias(libs.plugins.moduleCheck)
+}
+
+moduleCheck {
+  deleteUnused = true
+  checks.sortDependencies = true
 }
 
 val kotlinApiVersion = project.property("KOTLIN_API").toString()

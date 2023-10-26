@@ -43,7 +43,7 @@ gradlePlugin {
     }
     create("builds.dokka") {
       id = "builds.dokka"
-      implementationClass = "builds.DokkaConventionPlugin"
+      implementationClass = "builds.DokkatooConventionPlugin"
     }
     create("builds.dokka-versioning") {
       id = "builds.dokka-versioning"
@@ -78,6 +78,7 @@ gradlePlugin {
 
 dependencies {
 
+  api(libs.breadmoirai.github.release)
   api(libs.rickBusarow.doks)
   api(libs.rickBusarow.kgx)
   api(libs.rickBusarow.ktlint)
@@ -86,20 +87,20 @@ dependencies {
 
   compileOnly(gradleApi())
 
-  api(libs.breadmoirai.github.release)
   implementation(libs.benManes.versions)
   implementation(libs.detekt.gradle)
   implementation(libs.diffplug.spotless)
   implementation(libs.dokka.core)
   implementation(libs.dokka.gradle)
   implementation(libs.dokka.versioning)
+  implementation(libs.dokkatoo.plugin)
   implementation(libs.dropbox.dependencyGuard)
   implementation(libs.johnrengelman.shadowJar)
   implementation(libs.kotlin.gradle.plugin)
   implementation(libs.kotlin.gradle.plugin.api)
-  implementation(libs.poko.gradle.plugin)
   implementation(libs.kotlin.reflect)
   implementation(libs.kotlinx.binaryCompatibility)
+  implementation(libs.poko.gradle.plugin)
   implementation(libs.vanniktech.publish)
 
   ksp(libs.square.moshi.codegen)

@@ -10,6 +10,7 @@ dependencyAnalysis = "1.21.0"
 detekt = "1.23.1"
 diffplug-spotless = "6.21.0"
 dokka = "1.9.10"
+dokkatoo = "2.0.0"
 dropbox-dependencyGuard = "0.4.3"
 ec4j = "0.3.0"
 github-release = "2.5.1"
@@ -28,13 +29,15 @@ rickBusarow-ktlint = "0.1.8"
 rickBusarow-ktrules = "1.1.4"
 rickBusarow-moduleCheck = "0.12.5"
 square-kotlinPoet = "1.14.2"
-square-okio = "3.6.0"
 square-moshi = "1.15.0"
+square-okio = "3.6.0"
 vanniktech-publish = "0.25.3"
 
 [plugins]
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
+dokkatoo = { id = "dev.adamko.dokkatoo", version.ref = "dokkatoo" }
+dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version.ref = "dokkatoo" }
 doks = { id = "com.rickbusarow.doks", version.ref = "rickBusarow-doks" }
 github-release = { id = "com.github.breadmoirai.github-release", version.ref = "github-release" }
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
@@ -64,9 +67,12 @@ detekt-test-utils = { module = "io.gitlab.arturbosch.detekt:detekt-test-utils", 
 
 diffplug-spotless = { module = "com.diffplug.spotless:spotless-plugin-gradle", version.ref = "diffplug-spotless" }
 
+dokka-all-modules = { module = "org.jetbrains.dokka:all-modules-page-plugin", version.ref = "dokka" }
 dokka-core = { module = "org.jetbrains.dokka:dokka-core", version.ref = "dokka" }
 dokka-gradle = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
 dokka-versioning = { module = "org.jetbrains.dokka:versioning-plugin", version.ref = "dokka" }
+
+dokkatoo-plugin = { module = "dev.adamko.dokkatoo:dokkatoo-plugin", version.ref = "dokkatoo" }
 
 dropbox-dependencyGuard = { module = "com.dropbox.dependency-guard:dependency-guard", version.ref = "dropbox-dependencyGuard" }
 
