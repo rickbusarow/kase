@@ -15,9 +15,8 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.ValueAssignment
-import com.rickbusarow.kase.gradle.generation.ValueAssignment.SetterAssignment
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
+import com.rickbusarow.kase.gradle.generation.model.ValueAssignment.SetterAssignment
 import dev.drewhamilton.poko.Poko
 
 /**

@@ -16,7 +16,7 @@
 package com.rickbusarow.kase.gradle.generation.dsl
 
 import com.rickbusarow.kase.asTests
-import com.rickbusarow.kase.gradle.generation.ExpectedGenerator
+import com.rickbusarow.kase.gradle.generation.ExpectedCodeGenerator
 import com.rickbusarow.kase.gradle.generation.dslLanguages
 import com.rickbusarow.kase.kases
 import io.kotest.matchers.shouldBe
@@ -74,7 +74,7 @@ class RepositoryContentSpecTest {
         }
       }
 
-      val expectedGenerator = ExpectedGenerator(
+      val expectedGenerator = ExpectedCodeGenerator(
         language = language,
         kotlinLabels = false,
         kotlinInfix = false
@@ -82,26 +82,22 @@ class RepositoryContentSpecTest {
 
       val excludeGroupAndSubgroups = expectedGenerator.create(
         functionName = "excludeGroupAndSubgroups",
-        language = language,
         "groupPrefix" to "art"
       )
 
       val excludeGroup = expectedGenerator.create(
         functionName = "excludeGroup",
-        language = language,
         "group" to "a"
       )
 
       val excludeModule = expectedGenerator.create(
         functionName = "excludeModule",
-        language = language,
         "group" to "a",
         "moduleName" to "b"
       )
 
       val excludeVersion = expectedGenerator.create(
         functionName = "excludeVersion",
-        language = language,
         "group" to "a",
         "moduleName" to "b",
         "version" to "c"
@@ -109,20 +105,17 @@ class RepositoryContentSpecTest {
 
       val excludeGroupByRegex = expectedGenerator.create(
         functionName = "excludeGroupByRegex",
-        language = language,
         "groupRegex" to "a\\.z\\..*"
       )
 
       val excludeModuleByRegex = expectedGenerator.create(
         functionName = "excludeModuleByRegex",
-        language = language,
         "groupRegex" to "a\\.z\\..*",
         "moduleNameRegex" to "b.*"
       )
 
       val excludeVersionByRegex = expectedGenerator.create(
         functionName = "excludeVersionByRegex",
-        language = language,
         "groupRegex" to "a\\.z\\..*",
         "moduleNameRegex" to "b.*",
         "versionRegex" to "c\\.q\\.r"
@@ -130,26 +123,22 @@ class RepositoryContentSpecTest {
 
       val includeGroupAndSubgroups = expectedGenerator.create(
         functionName = "includeGroupAndSubgroups",
-        language = language,
         "groupPrefix" to "art"
       )
 
       val includeGroup = expectedGenerator.create(
         functionName = "includeGroup",
-        language = language,
         "group" to "a"
       )
 
       val includeModule = expectedGenerator.create(
         functionName = "includeModule",
-        language = language,
         "group" to "a",
         "moduleName" to "b"
       )
 
       val includeVersion = expectedGenerator.create(
         functionName = "includeVersion",
-        language = language,
         "group" to "a",
         "moduleName" to "b",
         "version" to "c"
@@ -157,20 +146,17 @@ class RepositoryContentSpecTest {
 
       val includeGroupByRegex = expectedGenerator.create(
         functionName = "includeGroupByRegex",
-        language = language,
         "groupRegex" to "a\\.z\\..*"
       )
 
       val includeModuleByRegex = expectedGenerator.create(
         functionName = "includeModuleByRegex",
-        language = language,
         "groupRegex" to "a\\.z\\..*",
         "moduleNameRegex" to "b.*"
       )
 
       val includeVersionByRegex = expectedGenerator.create(
         functionName = "includeVersionByRegex",
-        language = language,
         "groupRegex" to "a\\.z\\..*",
         "moduleNameRegex" to "b.*",
         "versionRegex" to "c\\.q\\.r"

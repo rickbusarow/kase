@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.IncludedBuildSpec
+import com.rickbusarow.kase.gradle.generation.dsl.IncludedBuildSpec
 
 /**
  * Adds either of:

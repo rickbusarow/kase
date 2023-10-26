@@ -36,6 +36,8 @@ dependencies {
   api(libs.kotest.common)
   api(libs.kotest.extensions)
   api(libs.kotest.property.jvm)
+  api(libs.rickBusarow.kgx)
+  api(libs.rickBusarow.kgx.names)
 
   api(project(":kase"))
 

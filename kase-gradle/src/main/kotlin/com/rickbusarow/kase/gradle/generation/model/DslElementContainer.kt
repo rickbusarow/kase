@@ -15,9 +15,9 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.ValueAssignment.GradlePropertyAssignment
-import com.rickbusarow.kase.gradle.generation.ValueAssignment.SetterAssignment
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport
+import com.rickbusarow.kase.gradle.generation.model.ValueAssignment.GradlePropertyAssignment
+import com.rickbusarow.kase.gradle.generation.model.ValueAssignment.SetterAssignment
 
 /** */
 @DslMarker

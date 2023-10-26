@@ -17,48 +17,18 @@ package com.rickbusarow.kase.gradle.generation.dsl
 
 import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.generation.model.DslFileBuilder
-import com.rickbusarow.kase.gradle.generation.model.FunctionCall
+import com.rickbusarow.kase.gradle.generation.model.HasDependenciesBlock
 import com.rickbusarow.kase.gradle.generation.model.HasPluginsBlock
-import com.rickbusarow.kase.gradle.generation.model.LambdaParameter
 
 /** Models a `settings.gradle` or `settings.gradle.kts` file. */
 public class BuildFileSpec(
   build: BuildFileSpec.() -> Unit
 ) : AbstractDslElementContainer<BuildFileSpec>(),
   DslFileBuilder<BuildFileSpec>,
+  HasDependenciesBlock<BuildFileSpec>,
   HasPluginsBlock<BuildFileSpec> {
 
   init {
     build()
   }
-
-  /**
-   * ```
-   * // settings.gradle
-   * pluginManagement {
-   *   // ...
-   * }
-   */
-  public fun pluginManagement(
-    block: PluginManagementSpecSpec.() -> Unit
-  ): BuildFileSpec = functionCall(
-    name = "pluginManagement",
-    labelSupport = FunctionCall.LabelSupport.NoLabels,
-    LambdaParameter(block)
-  )
-
-  /**
-   * ```
-   * // settings.gradle
-   * dependencyResolutionManagement {
-   *   // ...
-   * }
-   */
-  public fun dependencyResolutionManagement(
-    block: DependencyResolutionManagementSpecSpec.() -> Unit
-  ): BuildFileSpec = functionCall(
-    name = "dependencyResolutionManagement",
-    labelSupport = FunctionCall.LabelSupport.NoLabels,
-    LambdaParameter(block)
-  )
 }

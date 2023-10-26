@@ -15,8 +15,6 @@
 
 package com.rickbusarow.kase.gradle.generation.dsl
 
-import com.rickbusarow.kase.gradle.generation.MavenRepositoryContentSpec
-import com.rickbusarow.kase.gradle.generation.RepositoryContentSpec
 import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
 import com.rickbusarow.kase.gradle.generation.model.LambdaParameter

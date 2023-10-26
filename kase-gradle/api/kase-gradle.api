@@ -128,7 +128,7 @@ public final class com/rickbusarow/kase/gradle/DependencyVersion$KtLint$KtLintKe
 }
 
 public final class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/DefaultTestEnvironment, com/rickbusarow/kase/gradle/HasTestVersions, com/rickbusarow/kase/gradle/TestVersions {
-	public fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)V
+	public fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)V
 	public final fun getDEFAULT_BUILD_FILE ()Ljava/lang/String;
 	public final fun getDEFAULT_SETTINGS_FILE ()Ljava/lang/String;
 	public final fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
@@ -264,39 +264,302 @@ public final class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElemen
 public abstract interface class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
 }
 
-public abstract class com/rickbusarow/kase/gradle/generation/ArtifactRepositoryBuilder : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer {
-	public abstract fun content (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/ArtifactRepositoryBuilder;
-}
-
 public abstract interface class com/rickbusarow/kase/gradle/generation/BuildFileComponents {
 	public abstract fun buildscriptDependencies (Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
-	public abstract fun buildscriptDependenciesBlockContent (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/lang/String;
-	public abstract fun buildscriptDependenciesBlockElements (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
+	public abstract fun buildscriptDependenciesBlockContent (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/lang/String;
+	public abstract fun buildscriptDependenciesBlockElements (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/BuildFileComponents$DefaultImpls {
 	public static fun buildscriptDependencies (Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
-	public static fun buildscriptDependenciesBlockContent (Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/lang/String;
-	public static fun buildscriptDependenciesBlockElements (Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
+	public static fun buildscriptDependenciesBlockContent (Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/lang/String;
+	public static fun buildscriptDependenciesBlockElements (Lcom/rickbusarow/kase/gradle/generation/BuildFileComponents;Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/TestVersions;)Ljava/util/List;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/ComponentMetadataContainer : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer {
+public abstract class com/rickbusarow/kase/gradle/generation/dsl/ArtifactRepositorySpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
+	public abstract fun content (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/ArtifactRepositorySpec;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/BuildFileSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/model/DslFileBuilder, com/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock, com/rickbusarow/kase/gradle/generation/model/HasPluginsBlock {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public fun dependencies (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/BuildFileSpec;
+	public synthetic fun dependencies (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/BuildFileSpec;
+	public synthetic fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/ComponentMetadataContainer : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
 	public fun <init> ()V
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/generation/DependencyDeclaration : com/rickbusarow/kase/gradle/generation/internal/DslElement {
+public final class com/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
+	public fun <init> ()V
+	public final fun add (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun add (Ljava/lang/String;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun androidTestApi (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun androidTestApi (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun androidTestCompileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun androidTestCompileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun androidTestImplementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun androidTestImplementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun androidTestRuntimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun androidTestRuntimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun api (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun api (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmApi (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmApi (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmCompileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmCompileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmImplementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmImplementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmRuntimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmRuntimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmTestApi (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmTestApi (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmTestCompileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmTestCompileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmTestImplementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmTestImplementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmTestRuntimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonJvmTestRuntimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonMainApi (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonMainApi (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonMainCompileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonMainCompileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonMainImplementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonMainImplementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonMainRuntimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonMainRuntimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonTestApi (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonTestApi (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonTestCompileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonTestCompileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonTestImplementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonTestImplementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonTestRuntimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun commonTestRuntimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun compileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun compileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun debugApi (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun debugApi (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun debugCompileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun debugCompileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun debugImplementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun debugImplementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun debugRuntimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun debugRuntimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun implementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun implementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun releaseApi (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun releaseApi (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun releaseCompileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun releaseCompileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun releaseImplementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun releaseImplementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun releaseRuntimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun releaseRuntimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun runtimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun runtimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testApi (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testApi (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testCompileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testCompileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testFixturesApi (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testFixturesApi (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testFixturesCompileOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testFixturesCompileOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testFixturesImplementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testFixturesImplementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testFixturesRuntimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testFixturesRuntimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testImplementation (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testImplementation (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testRuntimeOnly (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+	public final fun testRuntimeOnly (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependenciesSpec;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/DependencyResolutionManagementSpecSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock {
+	public fun <init> ()V
+	public final fun components (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependencyResolutionManagementSpecSpec;
+	public final fun getDefaultLibrariesExtensionName ()Lcom/rickbusarow/kase/gradle/generation/model/GradlePropertyReference;
+	public final fun getDefaultProjectsExtensionName ()Lcom/rickbusarow/kase/gradle/generation/model/GradlePropertyReference;
+	public final fun getRepositoriesMode ()Lcom/rickbusarow/kase/gradle/generation/model/GradlePropertyReference;
+	public final fun getRulesMode ()Lcom/rickbusarow/kase/gradle/generation/model/GradlePropertyReference;
+	public fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependencyResolutionManagementSpecSpec;
+	public synthetic fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public final fun versionCatalogs (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/DependencyResolutionManagementSpecSpec;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/IncludedBuildSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
+	public fun <init> ()V
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/MavenArtifactRepositorySpec : com/rickbusarow/kase/gradle/generation/dsl/ArtifactRepositorySpec {
+	public fun <init> ()V
+	public fun content (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/ArtifactRepositorySpec;
+	public final fun mavenContent (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/ArtifactRepositorySpec;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/MavenRepositoryContentSpec : com/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec {
+	public fun <init> ()V
+	public final fun releasesOnly ()Lcom/rickbusarow/kase/gradle/generation/dsl/MavenRepositoryContentSpec;
+	public final fun snapshotsOnly ()Lcom/rickbusarow/kase/gradle/generation/dsl/MavenRepositoryContentSpec;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/ModuleDependencySpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
+	public fun <init> ()V
+	public final fun exclude (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/ModuleDependencySpec;
+	public static synthetic fun exclude$default (Lcom/rickbusarow/kase/gradle/generation/dsl/ModuleDependencySpec;Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/ModuleDependencySpec;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/MutableVersionCatalogContainer : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
+	public fun <init> ()V
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/model/HasIncludedBuild, com/rickbusarow/kase/gradle/generation/model/HasPluginsBlock, com/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock {
+	public fun <init> ()V
+	public fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec;
+	public synthetic fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec;
+	public synthetic fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public fun includeBuild (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec;
+	public synthetic fun includeBuild (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public fun includeBuild (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec;
+	public synthetic fun includeBuild (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec;
+	public synthetic fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec;
+	public synthetic fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public final fun resolutionStrategy (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec;
+	public static synthetic fun resolutionStrategy$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginManagementSpecSpec;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/PluginResolutionStrategySpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
+	public fun <init> ()V
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/PluginsSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
+	public fun <init> ()V
+	public final fun alias (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+	public static synthetic fun alias$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+	public final fun id (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+	public static synthetic fun id$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+	public final fun kotlinPlugin (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+	public static synthetic fun kotlinPlugin$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+	public final fun precompiled (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+	public static synthetic fun precompiled$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+}
+
+public abstract class com/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
+	public final fun excludeGroup (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun excludeGroupAndSubgroups (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun excludeGroupByRegex (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun excludeModule (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun excludeModuleByRegex (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun excludeVersion (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun excludeVersionByRegex (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun includeGroup (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun includeGroupAndSubgroups (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun includeGroupByRegex (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun includeModule (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun includeModuleByRegex (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun includeVersion (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+	public final fun includeVersionByRegex (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryContentSpec;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer {
+	public fun <init> ()V
+	public final fun google ()Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun google (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun gradlePluginPortal ()Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun gradlePluginPortal (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun maven (Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun maven (Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun maven (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun maven (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun mavenCentral ()Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun mavenCentral (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun mavenLocal ()Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+	public final fun mavenLocal (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/model/DslFileBuilder, com/rickbusarow/kase/gradle/generation/model/HasIncludedBuild, com/rickbusarow/kase/gradle/generation/model/HasIncludes {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
+	public final fun dependencyResolutionManagement (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
+	public fun include ([Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
+	public synthetic fun include ([Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
+	public synthetic fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
+	public synthetic fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public fun includeBuild (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
+	public synthetic fun includeBuild (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public fun includeBuild (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
+	public synthetic fun includeBuild (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public final fun pluginManagement (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
+	public fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
+	public synthetic fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+}
+
+public abstract class com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;)V
+	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun addAllElements (Ljava/util/Collection;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun addAllElements (Ljava/util/Collection;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun addAllElements ([Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun addAllElements ([Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun addBlankLine ()Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun addBlankLine ()Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun addElement (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun addElement (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun asStringLiteral (Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public fun assignGradleProperty (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun assignGradleProperty (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun functionCall (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun functionCall (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun functionCall (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun functionCall (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun functionCall (Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun functionCall (Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun getElements ()Ljava/util/List;
+	protected final fun getMutableElements ()Ljava/util/List;
+	public fun quoted (Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public fun set (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun set (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun set (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun set (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun setEquals (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun setEquals (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun setEquals (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer;
+	public synthetic fun setEquals (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun string (Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public fun stringLiteral (Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/BlankLine : com/rickbusarow/kase/gradle/generation/model/DslElement {
+	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/model/BlankLine;
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration : com/rickbusarow/kase/gradle/generation/model/DslElement {
 	public abstract fun getConfiguration ()Ljava/lang/String;
 	public abstract fun getExclusions ()Ljava/util/List;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/DependencyDeclaration$DefaultImpls {
-	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$DefaultImpls {
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 }
 
-public final class com/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency : com/rickbusarow/kase/gradle/generation/DependencyDeclaration {
+public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency : com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getConfiguration ()Ljava/lang/String;
@@ -306,14 +569,14 @@ public final class com/rickbusarow/kase/gradle/generation/DependencyDeclaration$
 	public final fun getVersion ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/DependencyDeclaration$ProjectDependency : com/rickbusarow/kase/gradle/generation/DependencyDeclaration {
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/DependencyExclusion;)V
+public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ProjectDependency : com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration {
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/DependencyExclusion;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Ljava/util/List;)V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/DependencyExclusion;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+	public fun <init> (Ljava/lang/String;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/DependencyExclusion;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getConfiguration ()Ljava/lang/String;
@@ -322,44 +585,44 @@ public final class com/rickbusarow/kase/gradle/generation/DependencyDeclaration$
 	public final fun getProjectPath ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/DependencyDeclarationContainer : java/util/List, kotlin/jvm/internal/markers/KMappedMarker {
+public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclarationContainer : java/util/List, kotlin/jvm/internal/markers/KMappedMarker {
 	public fun <init> ()V
 	public fun <init> (Ljava/util/List;)V
 	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun add (ILcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)V
+	public fun add (ILcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency;)V
 	public synthetic fun add (ILjava/lang/Object;)V
-	public fun add (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)Z
+	public fun add (Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency;)Z
 	public synthetic fun add (Ljava/lang/Object;)Z
 	public final fun add (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V
 	public fun addAll (ILjava/util/Collection;)Z
 	public fun addAll (Ljava/util/Collection;)Z
 	public fun clear ()V
-	public fun contains (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)Z
+	public fun contains (Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency;)Z
 	public final fun contains (Ljava/lang/Object;)Z
 	public fun containsAll (Ljava/util/Collection;)Z
 	public fun equals (Ljava/lang/Object;)Z
-	public fun get (I)Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;
+	public fun get (I)Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency;
 	public synthetic fun get (I)Ljava/lang/Object;
 	public fun getSize ()I
 	public fun hashCode ()I
-	public fun indexOf (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)I
+	public fun indexOf (Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency;)I
 	public final fun indexOf (Ljava/lang/Object;)I
 	public fun isEmpty ()Z
 	public fun iterator ()Ljava/util/Iterator;
-	public fun lastIndexOf (Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)I
+	public fun lastIndexOf (Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency;)I
 	public final fun lastIndexOf (Ljava/lang/Object;)I
 	public fun listIterator ()Ljava/util/ListIterator;
 	public fun listIterator (I)Ljava/util/ListIterator;
-	public fun remove (I)Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;
+	public fun remove (I)Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency;
 	public synthetic fun remove (I)Ljava/lang/Object;
 	public fun remove (Ljava/lang/Object;)Z
 	public fun removeAll (Ljava/util/Collection;)Z
 	public fun replaceAll (Ljava/util/function/UnaryOperator;)V
 	public fun retainAll (Ljava/util/Collection;)Z
-	public fun set (ILcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;)Lcom/rickbusarow/kase/gradle/generation/DependencyDeclaration$ExternalDependency;
+	public fun set (ILcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency;)Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency;
 	public synthetic fun set (ILjava/lang/Object;)Ljava/lang/Object;
 	public final fun size ()I
 	public fun sort (Ljava/util/Comparator;)V
@@ -369,175 +632,387 @@ public final class com/rickbusarow/kase/gradle/generation/DependencyDeclarationC
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/DependencyExclusion : com/rickbusarow/kase/gradle/generation/internal/DslElement {
+public final class com/rickbusarow/kase/gradle/generation/model/DependencyExclusion : com/rickbusarow/kase/gradle/generation/model/DslElement {
 	public fun <init> ()V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getGroup ()Ljava/lang/String;
 	public final fun getModule ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/DependencyResolutionManagementSpecBuilder : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/HasRepositoriesBlock {
-	public fun <init> ()V
-	public final fun components (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/DependencyResolutionManagementSpecBuilder;
-	public final fun getDefaultLibrariesExtensionName ()Lcom/rickbusarow/kase/gradle/generation/GradlePropertyReference;
-	public final fun getDefaultProjectsExtensionName ()Lcom/rickbusarow/kase/gradle/generation/GradlePropertyReference;
-	public final fun getRepositoriesMode ()Lcom/rickbusarow/kase/gradle/generation/GradlePropertyReference;
-	public final fun getRulesMode ()Lcom/rickbusarow/kase/gradle/generation/GradlePropertyReference;
-	public fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/DependencyResolutionManagementSpecBuilder;
-	public synthetic fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
-	public final fun versionCatalogs (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/DependencyResolutionManagementSpecBuilder;
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/DslElement : java/lang/Comparable {
+	public abstract fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public abstract fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/generation/DslValueReference : com/rickbusarow/kase/gradle/generation/internal/DslElement {
+public final class com/rickbusarow/kase/gradle/generation/model/DslElement$DefaultImpls {
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/DslElementContainer : com/rickbusarow/kase/gradle/generation/model/DslElement {
+	public abstract fun addAllElements (Ljava/util/Collection;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun addAllElements ([Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun addBlankLine ()Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun addElement (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun asStringLiteral (Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public abstract fun assignGradleProperty (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun functionCall (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun functionCall (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun functionCall (Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun getElements ()Ljava/util/List;
+	public abstract fun quoted (Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public abstract fun set (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun set (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun setEquals (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun setEquals (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public abstract fun string (Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public abstract fun stringLiteral (Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/DslElementContainer$DefaultImpls {
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static synthetic fun asStringLiteral$default (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public static fun quoted (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static synthetic fun quoted$default (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static synthetic fun string$default (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static synthetic fun stringLiteral$default (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+}
+
+public abstract interface annotation class com/rickbusarow/kase/gradle/generation/model/DslElementContainerMarker : java/lang/annotation/Annotation {
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/DslFileBuilder : com/rickbusarow/kase/gradle/generation/model/DslElement, com/rickbusarow/kase/gradle/generation/model/HasPluginsBlock {
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/DslFileBuilder$DefaultImpls {
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
+	public static fun plugins (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
+	public static fun quoted (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
+	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+}
+
+public abstract class com/rickbusarow/kase/gradle/generation/model/DslLanguage {
+	public synthetic fun <init> (CLjava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getLabelDelimiter ()Ljava/lang/String;
+	public final fun getQuote ()C
+	public abstract fun getUseDoubleQuotes ()Z
+	public abstract fun getUseInfix ()Z
+	public abstract fun getUseLabels ()Z
+	public final fun invoke (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public final fun invoke (Ljava/lang/StringBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Ljava/lang/String;
+	public final fun invoke (Ljava/lang/StringBuilder;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public final fun invoke (Ljava/lang/StringBuilder;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;Ljava/lang/String;)Ljava/lang/String;
+	public static synthetic fun invoke$default (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Ljava/lang/StringBuilder;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
+	public final fun parens (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Ljava/lang/String;
+	public abstract fun parens (Ljava/lang/String;Z)Ljava/lang/String;
+	public static synthetic fun parens$default (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+	public final fun quote (Ljava/lang/String;Z)Ljava/lang/String;
+	public static synthetic fun quote$default (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
+	public final fun supports (Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;)Z
+	public final fun supports (Lcom/rickbusarow/kase/gradle/generation/model/LanguageSpecific;)Z
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/DslLanguage$GroovyDsl : com/rickbusarow/kase/gradle/generation/model/DslLanguage {
+	public fun <init> (ZZZ)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getUseDoubleQuotes ()Z
+	public fun getUseInfix ()Z
+	public fun getUseLabels ()Z
+	public fun hashCode ()I
+	public fun parens (Ljava/lang/String;Z)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/DslLanguage$KotlinDsl : com/rickbusarow/kase/gradle/generation/model/DslLanguage {
+	public fun <init> (ZZ)V
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getUseDoubleQuotes ()Z
+	public fun getUseInfix ()Z
+	public fun getUseLabels ()Z
+	public fun hashCode ()I
+	public fun parens (Ljava/lang/String;Z)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/DslValueReference : com/rickbusarow/kase/gradle/generation/model/DslElement {
 	public abstract fun getName ()Ljava/lang/String;
-	public abstract fun getParentContainer ()Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
+	public abstract fun getParentContainer ()Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/DslValueReference$DefaultImpls {
-	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/DslValueReference;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+public final class com/rickbusarow/kase/gradle/generation/model/DslValueReference$DefaultImpls {
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslValueReference;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 }
 
-public final class com/rickbusarow/kase/gradle/generation/GradlePropertyReference : com/rickbusarow/kase/gradle/generation/DslValueReference {
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+public final class com/rickbusarow/kase/gradle/generation/model/FunctionCall : com/rickbusarow/kase/gradle/generation/model/DslElement {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Ljava/util/List;)V
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)V
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;)V
+	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
+	public fun <init> (Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)V
+	public fun <init> (Ljava/lang/String;[Ljava/lang/String;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun get ()Lcom/rickbusarow/kase/gradle/generation/GradlePropertyReference;
-	public fun getName ()Ljava/lang/String;
-	public fun getParentContainer ()Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
+	public final fun getLabelSupport ()Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;
+	public final fun getName ()Ljava/lang/String;
+	public final fun getParameterList ()Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;
 	public fun hashCode ()I
-	public final fun map (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/GradlePropertyReference;
-	public final fun set (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/GradlePropertyReference;
-	public final fun set (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/GradlePropertyReference;
 	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/generation/HasPluginsBlock : com/rickbusarow/kase/gradle/generation/internal/DslElementContainer {
-	public abstract fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
+public abstract class com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport {
+	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/HasPluginsBlock$DefaultImpls {
-	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
-	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/Parameter;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
-	public static fun plugins (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
-	public static fun quoted-qyDbX00 (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Ljava/lang/String;)Ljava/lang/String;
-	public static fun set (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
-	public static fun set (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
-	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
-	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
-	public static fun string-qyDbX00 (Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;Ljava/lang/String;)Ljava/lang/String;
+public final class com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport$GroovyAndKotlinLabels : com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport, com/rickbusarow/kase/gradle/generation/model/LanguageSpecific$GroovyAndKotlinCompatible {
+	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport$GroovyAndKotlinLabels;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/generation/HasRepositoriesBlock : com/rickbusarow/kase/gradle/generation/internal/DslElementContainer {
-	public abstract fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
+public final class com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport$GroovyLabels : com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport, com/rickbusarow/kase/gradle/generation/model/LanguageSpecific$GroovyCompatible {
+	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport$GroovyLabels;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/HasRepositoriesBlock$DefaultImpls {
-	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
-	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/Parameter;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
-	public static fun quoted-qyDbX00 (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Ljava/lang/String;)Ljava/lang/String;
-	public static fun repositories (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
-	public static fun set (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
-	public static fun set (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
-	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
-	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
-	public static fun string-qyDbX00 (Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;Ljava/lang/String;)Ljava/lang/String;
+public final class com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport$KotlinLabels : com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport, com/rickbusarow/kase/gradle/generation/model/LanguageSpecific$KotlinCompatible {
+	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport$KotlinLabels;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/IncludedBuildSpecBuilder : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer {
-	public fun <init> ()V
+public final class com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport$NoLabels : com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport {
+	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport$NoLabels;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/LambdaParameter : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/Parameter {
-	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/LambdaParameter$Companion;
+public final class com/rickbusarow/kase/gradle/generation/model/GradlePropertyReference : com/rickbusarow/kase/gradle/generation/model/DslValueReference {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun get ()Lcom/rickbusarow/kase/gradle/generation/model/GradlePropertyReference;
+	public fun getName ()Ljava/lang/String;
+	public fun getParentContainer ()Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
+	public fun hashCode ()I
+	public final fun map (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/GradlePropertyReference;
+	public final fun set (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/GradlePropertyReference;
+	public final fun set (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/GradlePropertyReference;
+	public fun toString ()Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
+	public abstract fun dependencies (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock$DefaultImpls {
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun dependencies (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public static fun quoted (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
+	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasIncludedBuild : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
+	public abstract fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public abstract fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public abstract fun includeBuild (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public abstract fun includeBuild (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/HasIncludedBuild$DefaultImpls {
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun quoted (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasIncludes : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
+	public abstract fun include ([Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/HasIncludes$DefaultImpls {
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun include (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;[Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static synthetic fun include$default (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;[Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun quoted (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
+	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasPluginsBlock : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
+	public abstract fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/HasPluginsBlock$DefaultImpls {
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public static fun plugins (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public static fun quoted (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
+	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
+	public abstract fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock$DefaultImpls {
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/model/Parameter;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public static fun quoted (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun repositories (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public static fun set (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
+	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+}
+
+public final class com/rickbusarow/kase/gradle/generation/model/LambdaParameter : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/model/Parameter {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/model/LambdaParameter$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getLabel ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/LambdaParameter$Companion {
-	public final fun invoke (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/LambdaParameter;
-	public final fun invoke (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/LambdaParameter;
+public final class com/rickbusarow/kase/gradle/generation/model/LambdaParameter$Companion {
+	public final fun invoke (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/LambdaParameter;
+	public final fun invoke (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/model/LambdaParameter;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/MavenArtifactRepositoryBuilder : com/rickbusarow/kase/gradle/generation/ArtifactRepositoryBuilder {
-	public fun <init> ()V
-	public fun content (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/ArtifactRepositoryBuilder;
-	public final fun mavenContent (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/ArtifactRepositoryBuilder;
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/LanguageSpecific {
 }
 
-public final class com/rickbusarow/kase/gradle/generation/MavenRepositoryContentBuilder : com/rickbusarow/kase/gradle/generation/RepositoryContentBuilder {
-	public fun <init> ()V
-	public final fun releasesOnly ()Lcom/rickbusarow/kase/gradle/generation/MavenRepositoryContentBuilder;
-	public final fun snapshotsOnly ()Lcom/rickbusarow/kase/gradle/generation/MavenRepositoryContentBuilder;
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/LanguageSpecific$GroovyAndKotlinCompatible : com/rickbusarow/kase/gradle/generation/model/LanguageSpecific$GroovyCompatible, com/rickbusarow/kase/gradle/generation/model/LanguageSpecific$KotlinCompatible {
 }
 
-public final class com/rickbusarow/kase/gradle/generation/MutableVersionCatalogContainer : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer {
-	public fun <init> ()V
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/LanguageSpecific$GroovyCompatible : com/rickbusarow/kase/gradle/generation/model/LanguageSpecific {
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/generation/Parameter : com/rickbusarow/kase/gradle/generation/internal/DslElement {
-	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/Parameter$Companion;
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/LanguageSpecific$KotlinCompatible : com/rickbusarow/kase/gradle/generation/model/LanguageSpecific {
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/Parameter : com/rickbusarow/kase/gradle/generation/model/DslElement {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/model/Parameter$Companion;
 	public abstract fun getLabel ()Ljava/lang/String;
-	public abstract fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
-	public abstract fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;)Ljava/lang/String;
+	public abstract fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public abstract fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/Parameter$Companion {
-	public final fun invoke (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/ValueParameter;
-	public final fun join (Ljava/lang/Iterable;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/ParameterList;
-	public static synthetic fun join$default (Lcom/rickbusarow/kase/gradle/generation/Parameter$Companion;Ljava/lang/Iterable;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/ParameterList;
+public final class com/rickbusarow/kase/gradle/generation/model/Parameter$Companion {
+	public final fun invoke (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/ValueParameter;
+	public final fun join (Ljava/lang/Iterable;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;
+	public static synthetic fun join$default (Lcom/rickbusarow/kase/gradle/generation/model/Parameter$Companion;Ljava/lang/Iterable;Ljava/lang/String;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/model/ParameterList;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/Parameter$DefaultImpls {
-	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/Parameter;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public static fun write (Lcom/rickbusarow/kase/gradle/generation/Parameter;Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+public final class com/rickbusarow/kase/gradle/generation/model/Parameter$DefaultImpls {
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/Parameter;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun write (Lcom/rickbusarow/kase/gradle/generation/model/Parameter;Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/ParameterList : com/rickbusarow/kase/gradle/generation/internal/DslElement {
-	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/ParameterList$Companion;
+public final class com/rickbusarow/kase/gradle/generation/model/ParameterList : com/rickbusarow/kase/gradle/generation/model/DslElement {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/model/ParameterList$Companion;
 	public static final field SEPARATOR_DEFAULT Ljava/lang/String;
 	public fun <init> (Ljava/util/List;Ljava/lang/String;)V
 	public synthetic fun <init> (Ljava/util/List;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getHasTrailingLambda ()Z
 	public final fun getSize ()I
 	public fun hashCode ()I
 	public final fun isEmpty ()Z
 	public final fun isNotEmpty ()Z
 	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
-	public final fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public final fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/ParameterList$Companion {
+public final class com/rickbusarow/kase/gradle/generation/model/ParameterList$Companion {
 }
 
-public abstract class com/rickbusarow/kase/gradle/generation/PluginApplication : com/rickbusarow/kase/gradle/generation/internal/DslElement {
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+public abstract class com/rickbusarow/kase/gradle/generation/model/PluginApplication : com/rickbusarow/kase/gradle/generation/model/DslElement {
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public abstract fun getApply ()Z
 	public abstract fun getIdentifier ()Ljava/lang/String;
 	public abstract fun getVersion ()Ljava/lang/String;
-	public final fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+	public final fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/PluginApplication$Alias : com/rickbusarow/kase/gradle/generation/PluginApplication {
+public final class com/rickbusarow/kase/gradle/generation/model/PluginApplication$Alias : com/rickbusarow/kase/gradle/generation/model/PluginApplication {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -549,7 +1024,7 @@ public final class com/rickbusarow/kase/gradle/generation/PluginApplication$Alia
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/PluginApplication$ID : com/rickbusarow/kase/gradle/generation/PluginApplication {
+public final class com/rickbusarow/kase/gradle/generation/model/PluginApplication$ID : com/rickbusarow/kase/gradle/generation/model/PluginApplication {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -560,7 +1035,7 @@ public final class com/rickbusarow/kase/gradle/generation/PluginApplication$ID :
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/PluginApplication$KotlinPlugin : com/rickbusarow/kase/gradle/generation/PluginApplication {
+public final class com/rickbusarow/kase/gradle/generation/model/PluginApplication$KotlinPlugin : com/rickbusarow/kase/gradle/generation/model/PluginApplication {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -571,7 +1046,7 @@ public final class com/rickbusarow/kase/gradle/generation/PluginApplication$Kotl
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/PluginApplication$Precompiled : com/rickbusarow/kase/gradle/generation/PluginApplication {
+public final class com/rickbusarow/kase/gradle/generation/model/PluginApplication$Precompiled : com/rickbusarow/kase/gradle/generation/model/PluginApplication {
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;Z)V
 	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/String;ZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -582,366 +1057,106 @@ public final class com/rickbusarow/kase/gradle/generation/PluginApplication$Prec
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer {
-	public fun <init> ()V
-	public final fun alias (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;
-	public static synthetic fun alias$default (Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;
-	public final fun id (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;
-	public static synthetic fun id$default (Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;
-	public final fun kotlinPlugin (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;
-	public static synthetic fun kotlinPlugin$default (Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;
-	public final fun precompiled (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;
-	public static synthetic fun precompiled$default (Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/PluginDependenciesSpecBuilder;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/HasPluginsBlock, com/rickbusarow/kase/gradle/generation/HasRepositoriesBlock {
-	public fun <init> ()V
-	public final fun includeBuild (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;
-	public final fun includeBuild (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;
-	public static synthetic fun includeBuild$default (Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;
-	public static synthetic fun includeBuild$default (Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;
-	public synthetic fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
-	public fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;
-	public synthetic fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/HasRepositoriesBlock;
-	public fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;
-	public final fun resolutionStrategy (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;
-	public static synthetic fun resolutionStrategy$default (Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/PluginManagementSpecBuilder;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/PluginResolutionStrategyBuilder : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer {
-	public fun <init> ()V
-}
-
-public abstract class com/rickbusarow/kase/gradle/generation/RegularVariableReference : com/rickbusarow/kase/gradle/generation/DslValueReference {
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+public abstract class com/rickbusarow/kase/gradle/generation/model/RegularVariableReference : com/rickbusarow/kase/gradle/generation/model/DslValueReference {
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	protected final fun getWithReference ()Ljava/lang/Object;
 	protected final fun setWithReference (Ljava/lang/Object;)V
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/RegularVariableReference$ImmutableVariableReference : com/rickbusarow/kase/gradle/generation/RegularVariableReference {
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;)V
+public final class com/rickbusarow/kase/gradle/generation/model/RegularVariableReference$ImmutableVariableReference : com/rickbusarow/kase/gradle/generation/model/RegularVariableReference {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getName ()Ljava/lang/String;
-	public fun getParentContainer ()Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
+	public fun getParentContainer ()Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/RegularVariableReference$MutableVariableReference : com/rickbusarow/kase/gradle/generation/RegularVariableReference {
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;)V
+public final class com/rickbusarow/kase/gradle/generation/model/RegularVariableReference$MutableVariableReference : com/rickbusarow/kase/gradle/generation/model/RegularVariableReference {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getName ()Ljava/lang/String;
-	public fun getParentContainer ()Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
+	public fun getParentContainer ()Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;
 	public fun hashCode ()I
-	public final fun set (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/RegularVariableReference;
-	public final fun set (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RegularVariableReference;
+	public final fun set (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/RegularVariableReference;
+	public final fun set (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/RegularVariableReference;
 	public fun toString ()Ljava/lang/String;
 }
 
-public abstract class com/rickbusarow/kase/gradle/generation/RepositoryContentBuilder : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer {
-	public final fun excludeGroup (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun excludeGroupAndSubgroups (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun excludeGroupByRegex (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun excludeModule (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun excludeModuleByRegex (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun excludeVersion (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun excludeVersionByRegex (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun includeGroup (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun includeGroupAndSubgroups (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun includeGroupByRegex (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun includeModule (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun includeModuleByRegex (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun includeVersion (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
-	public final fun includeVersionByRegex (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryContentBuilder;
+public final class com/rickbusarow/kase/gradle/generation/model/StringLiteral : com/rickbusarow/kase/gradle/generation/model/DslElement {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Boolean;)V
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer {
-	public fun <init> ()V
-	public final fun google ()Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun google (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun gradlePluginPortal ()Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun gradlePluginPortal (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun maven (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun maven (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun maven-1pbDN9c (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun maven-m7Ka6dQ (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun mavenCentral ()Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun mavenCentral (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun mavenLocal ()Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-	public final fun mavenLocal (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/RepositoryHandlerBuilder;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/SettingsFileBuilder : com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/internal/DslFileBuilder {
-	public fun <init> (Lkotlin/jvm/functions/Function1;)V
-	public final fun dependencyResolutionManagement (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/SettingsFileBuilder;
-	public final fun pluginManagement (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/SettingsFileBuilder;
-	public synthetic fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/HasPluginsBlock;
-	public fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/SettingsFileBuilder;
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/generation/ValueAssignment : com/rickbusarow/kase/gradle/generation/internal/DslElement {
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/ValueAssignment : com/rickbusarow/kase/gradle/generation/model/DslElement {
 	public abstract fun getName ()Ljava/lang/String;
-	public abstract fun getValueStringFactory ()Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;
+	public abstract fun getValueStringFactory ()Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/ValueAssignment$DefaultImpls {
-	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/ValueAssignment;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+public final class com/rickbusarow/kase/gradle/generation/model/ValueAssignment$DefaultImpls {
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/ValueAssignment;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 }
 
-public final class com/rickbusarow/kase/gradle/generation/ValueAssignment$GradlePropertyAssignment : com/rickbusarow/kase/gradle/generation/ValueAssignment {
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;)V
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)V
+public final class com/rickbusarow/kase/gradle/generation/model/ValueAssignment$GradlePropertyAssignment : com/rickbusarow/kase/gradle/generation/model/ValueAssignment {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)V
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getName ()Ljava/lang/String;
-	public fun getValueStringFactory ()Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;
+	public fun getValueStringFactory ()Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/ValueAssignment$SetterAssignment : com/rickbusarow/kase/gradle/generation/ValueAssignment {
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;)V
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)V
+public final class com/rickbusarow/kase/gradle/generation/model/ValueAssignment$SetterAssignment : com/rickbusarow/kase/gradle/generation/model/ValueAssignment {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)V
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getName ()Ljava/lang/String;
-	public fun getValueStringFactory ()Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;
+	public fun getValueStringFactory ()Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/ValueParameter : com/rickbusarow/kase/gradle/generation/Parameter {
-	public fun <init> (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)V
+public final class com/rickbusarow/kase/gradle/generation/model/ValueParameter : com/rickbusarow/kase/gradle/generation/model/Parameter {
+	public fun <init> (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)V
 	public fun <init> (Ljava/lang/String;)V
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;)V
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)V
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)V
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory;)V
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
+	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getLabel ()Ljava/lang/String;
-	public final fun getValueStringFactory ()Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;
+	public final fun getValueStringFactory ()Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;)Ljava/lang/String;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/generation/ValueStringFactory {
-	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory$Companion;
-	public abstract fun invoke (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+public abstract interface class com/rickbusarow/kase/gradle/generation/model/ValueStringFactory {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory$Companion;
+	public abstract fun invoke (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/ValueStringFactory$Companion {
-	public final fun invoke (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;
-	public final fun invoke (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/ValueStringFactory;
-}
-
-public abstract class com/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer : com/rickbusarow/kase/gradle/generation/internal/DslElementContainer {
-	public fun <init> ()V
-	public fun <init> (Ljava/util/List;)V
-	public synthetic fun <init> (Ljava/util/List;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun addAllElements (Ljava/util/Collection;)Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun addAllElements (Ljava/util/Collection;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun addAllElements ([Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun addAllElements ([Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun addBlankLine ()Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun addBlankLine ()Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun addElement (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun addElement (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun assignGradleProperty (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun assignGradleProperty (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public synthetic fun compareTo (Ljava/lang/Object;)I
-	public fun functionCall (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/Parameter;)Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun functionCall (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/Parameter;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun getElements ()Ljava/util/List;
-	protected final fun getMutableElements ()Ljava/util/List;
-	public fun quoted-qyDbX00 (Ljava/lang/String;)Ljava/lang/String;
-	public fun set (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun set (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun set (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun set (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun setEquals (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun setEquals (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun setEquals (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/AbstractDslElementContainer;
-	public synthetic fun setEquals (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public fun string-qyDbX00 (Ljava/lang/String;)Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/BlankLine : com/rickbusarow/kase/gradle/generation/internal/DslElement {
-	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/internal/BlankLine;
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public synthetic fun compareTo (Ljava/lang/Object;)I
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/generation/internal/DslElement : java/lang/Comparable {
-	public abstract fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public abstract fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/DslElement$DefaultImpls {
-	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/generation/internal/DslElementContainer : com/rickbusarow/kase/gradle/generation/internal/DslElement {
-	public abstract fun addAllElements (Ljava/util/Collection;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun addAllElements ([Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun addBlankLine ()Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun addElement (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun assignGradleProperty (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun functionCall (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/Parameter;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun getElements ()Ljava/util/List;
-	public abstract fun quoted-qyDbX00 (Ljava/lang/String;)Ljava/lang/String;
-	public abstract fun set (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun set (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun setEquals (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun setEquals (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public abstract fun string-qyDbX00 (Ljava/lang/String;)Ljava/lang/String;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/DslElementContainer$DefaultImpls {
-	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/Parameter;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public static fun quoted-qyDbX00 (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Ljava/lang/String;)Ljava/lang/String;
-	public static fun set (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public static fun set (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;
-	public static fun string-qyDbX00 (Lcom/rickbusarow/kase/gradle/generation/internal/DslElementContainer;Ljava/lang/String;)Ljava/lang/String;
-}
-
-public abstract interface annotation class com/rickbusarow/kase/gradle/generation/internal/DslElementContainerMarker : java/lang/annotation/Annotation {
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/generation/internal/DslFileBuilder : com/rickbusarow/kase/gradle/generation/HasPluginsBlock, com/rickbusarow/kase/gradle/generation/internal/DslElement {
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/DslFileBuilder$DefaultImpls {
-	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;
-	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public static fun functionCall (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/Parameter;)Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;
-	public static fun plugins (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;
-	public static fun quoted-qyDbX00 (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Ljava/lang/String;)Ljava/lang/String;
-	public static fun set (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;
-	public static fun set (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;
-	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;
-	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;
-	public static fun string-qyDbX00 (Lcom/rickbusarow/kase/gradle/generation/internal/DslFileBuilder;Ljava/lang/String;)Ljava/lang/String;
-}
-
-public abstract class com/rickbusarow/kase/gradle/generation/internal/DslLanguage {
-	public synthetic fun <init> (CLjava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun getLabelDelimiter ()Ljava/lang/String;
-	public final fun getQuote ()C
-	public abstract fun getUseInfix ()Z
-	public final fun invoke (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public final fun invoke (Ljava/lang/StringBuilder;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/ParameterList;)Ljava/lang/String;
-	public final fun invoke (Ljava/lang/StringBuilder;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public final fun invoke (Ljava/lang/StringBuilder;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/Parameter;Ljava/lang/String;)Ljava/lang/String;
-	public static synthetic fun invoke$default (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Ljava/lang/StringBuilder;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/Parameter;Ljava/lang/String;ILjava/lang/Object;)Ljava/lang/String;
-	public final fun parens (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)Ljava/lang/String;
-	public abstract fun parens (Ljava/lang/String;Z)Ljava/lang/String;
-	public static synthetic fun parens$default (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;Ljava/lang/String;ZILjava/lang/Object;)Ljava/lang/String;
-	public final fun quote (Ljava/lang/String;)Ljava/lang/String;
-	public final fun supports (Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;)Z
-	public final fun supports (Lcom/rickbusarow/kase/gradle/generation/internal/LanguageSpecific;)Z
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/DslLanguage$Groovy : com/rickbusarow/kase/gradle/generation/internal/DslLanguage {
-	public fun <init> (ZZ)V
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getUseInfix ()Z
-	public fun hashCode ()I
-	public fun parens (Ljava/lang/String;Z)Ljava/lang/String;
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/DslLanguage$Kotlin : com/rickbusarow/kase/gradle/generation/internal/DslLanguage {
-	public fun <init> (Z)V
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getUseInfix ()Z
-	public fun hashCode ()I
-	public fun parens (Ljava/lang/String;Z)Ljava/lang/String;
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/FunctionCall : com/rickbusarow/kase/gradle/generation/internal/DslElement {
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/ParameterList;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;)V
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;Ljava/util/List;)V
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;[Lcom/rickbusarow/kase/gradle/generation/Parameter;)V
-	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
-	public fun <init> (Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/generation/Parameter;)V
-	public fun <init> (Ljava/lang/String;[Ljava/lang/String;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public synthetic fun compareTo (Ljava/lang/Object;)I
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getLabelSupport ()Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport;
-	public final fun getName ()Ljava/lang/String;
-	public final fun getParameterList ()Lcom/rickbusarow/kase/gradle/generation/ParameterList;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport {
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport$BOTH : com/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport, com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific$GroovyAndKotlinCompatible {
-	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport$BOTH;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport$GROOVY : com/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport, com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific$GroovyCompatible {
-	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport$GROOVY;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport$KOTLIN : com/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport, com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific$KotlinCompatible {
-	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport$KOTLIN;
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport$NONE : com/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport {
-	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/generation/internal/FunctionCall$LabelSupport$NONE;
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific {
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific$GroovyAndKotlinCompatible : com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific$GroovyCompatible, com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific$KotlinCompatible {
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific$GroovyCompatible : com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific {
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific$KotlinCompatible : com/rickbusarow/kase/gradle/generation/internal/LanguageSpecific {
-}
-
-public final class com/rickbusarow/kase/gradle/generation/internal/Quoted : com/rickbusarow/kase/gradle/generation/internal/DslElement {
-	public static final synthetic fun box-impl (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/internal/Quoted;
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public synthetic fun compareTo (Ljava/lang/Object;)I
-	public static fun compareTo-impl (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslElement;)I
-	public static fun constructor-impl (Ljava/lang/String;)Ljava/lang/String;
-	public fun equals (Ljava/lang/Object;)Z
-	public static fun equals-impl (Ljava/lang/String;Ljava/lang/Object;)Z
-	public static final fun equals-impl0 (Ljava/lang/String;Ljava/lang/String;)Z
-	public final fun getValue ()Ljava/lang/String;
-	public fun hashCode ()I
-	public static fun hashCode-impl (Ljava/lang/String;)I
-	public fun toString ()Ljava/lang/String;
-	public static fun toString-impl (Ljava/lang/String;)Ljava/lang/String;
-	public final synthetic fun unbox-impl ()Ljava/lang/String;
-	public fun write (Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
-	public static fun write-impl (Ljava/lang/String;Lcom/rickbusarow/kase/gradle/generation/internal/DslLanguage;)Ljava/lang/String;
+public final class com/rickbusarow/kase/gradle/generation/model/ValueStringFactory$Companion {
+	public final fun invoke (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory;
+	public final fun invoke (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/ValueStringFactory;
 }
 

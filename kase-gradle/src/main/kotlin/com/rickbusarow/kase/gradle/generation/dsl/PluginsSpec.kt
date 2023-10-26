@@ -18,11 +18,8 @@ package com.rickbusarow.kase.gradle.generation.dsl
 import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.generation.model.PluginApplication
 
-/**
- * Builds a `plugins { }` block in
- * a `settings.gradle` or `settings.gradle.kts` file.
- */
-public class PluginDependenciesSpec : AbstractDslElementContainer<PluginDependenciesSpec>() {
+/** Builds a `plugins { }` block in a settings or build file. */
+public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
 
   /**
    * Applies a plugin via the typical `id(...)` syntax.
@@ -39,7 +36,7 @@ public class PluginDependenciesSpec : AbstractDslElementContainer<PluginDependen
     id: String,
     version: String? = null,
     apply: Boolean = true
-  ): PluginDependenciesSpec = apply {
+  ): PluginsSpec = apply {
     addElement(PluginApplication.ID(identifier = id, version = version, apply = apply))
   }
 
@@ -58,7 +55,7 @@ public class PluginDependenciesSpec : AbstractDslElementContainer<PluginDependen
     aliasName: String,
     version: String? = null,
     apply: Boolean = true
-  ): PluginDependenciesSpec = apply {
+  ): PluginsSpec = apply {
     addElement(PluginApplication.Alias(aliasName = aliasName, version = version, apply = apply))
   }
 
@@ -78,7 +75,7 @@ public class PluginDependenciesSpec : AbstractDslElementContainer<PluginDependen
     identifier: String,
     version: String? = null,
     apply: Boolean = true
-  ): PluginDependenciesSpec = apply {
+  ): PluginsSpec = apply {
     addElement(
       PluginApplication.Precompiled(
         identifier = identifier,
@@ -96,7 +93,7 @@ public class PluginDependenciesSpec : AbstractDslElementContainer<PluginDependen
     identifier: String,
     version: String? = null,
     apply: Boolean = true
-  ): PluginDependenciesSpec = apply {
+  ): PluginsSpec = apply {
     addElement(
       PluginApplication.KotlinPlugin(
         identifier = identifier,

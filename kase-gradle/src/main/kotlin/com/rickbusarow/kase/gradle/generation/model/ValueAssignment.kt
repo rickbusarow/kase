@@ -13,10 +13,8 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.generation
+package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.model.DslElement
-import com.rickbusarow.kase.gradle.generation.model.DslLanguage
 import dev.drewhamilton.poko.Poko
 
 /** */

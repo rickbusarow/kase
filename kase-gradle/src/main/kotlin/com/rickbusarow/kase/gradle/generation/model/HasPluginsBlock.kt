@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.dsl.PluginDependenciesSpec
+import com.rickbusarow.kase.gradle.generation.dsl.PluginsSpec
 
 /** Builds a `plugins { }` block in a build or settings Gradle file. */
 public interface HasPluginsBlock<SELF : HasPluginsBlock<SELF>> : DslElementContainer<SELF> {
@@ -28,7 +28,7 @@ public interface HasPluginsBlock<SELF : HasPluginsBlock<SELF>> : DslElementConta
    * }
    */
   public fun plugins(
-    block: PluginDependenciesSpec.() -> Unit
+    block: PluginsSpec.() -> Unit
   ): SELF = functionCall(
     name = "plugins",
     LambdaParameter(builder = block)
