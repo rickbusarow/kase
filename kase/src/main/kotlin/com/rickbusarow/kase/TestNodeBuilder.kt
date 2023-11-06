@@ -20,11 +20,7 @@ import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
-import java.io.File
-import java.net.URI
-import java.nio.file.Paths
 import java.util.stream.Stream
-import kotlin.io.path.div
 import kotlin.streams.asStream
 
 /**
@@ -130,7 +126,12 @@ public class TestNodeBuilder @PublishedApi internal constructor(
 
   @PublishedApi
   internal fun addTest(name: String, testAction: () -> Unit) {
-    nodes.add { DynamicTest.dynamicTest(name, testUri()) { testAction() } }
+    nodes.add {
+      DynamicTest.dynamicTest(
+        name,
+        testFunctionCoordinates.testUriOrNull()
+      ) { testAction() }
+    }
   }
 
   /**
@@ -143,9 +144,9 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @receiver the [TestNodeBuilder] to which tests will be added.
    * @return the invoking [TestNodeBuilder], after adding the new tests.
    */
-  public inline fun <E> Iterable<E>.asTests(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: (E) -> Unit
+  public fun <E> Iterable<E>.asTests(
+    testName: (E) -> String = { if (it is HasDisplayName) it.displayName else it.toString() },
+    testAction: (E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asTests) {
       test(testName(element)) { testAction(element) }
@@ -162,9 +163,9 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @receiver the [TestNodeBuilder] to which tests will be added.
    * @return the invoking [TestNodeBuilder], after adding the new tests.
    */
-  public inline fun <E> Sequence<E>.asTests(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: (E) -> Unit
+  public fun <E> Sequence<E>.asTests(
+    testName: (E) -> String = { if (it is HasDisplayName) it.displayName else it.toString() },
+    testAction: (E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asTests) {
       test(testName(element)) { testAction(element) }
@@ -181,9 +182,9 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @receiver the [TestNodeBuilder] to which containers will be added.
    * @return the invoking [TestNodeBuilder], after adding the new containers.
    */
-  public inline fun <E> Iterable<E>.asContainers(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: TestNodeBuilder.(E) -> Unit
+  public fun <E> Iterable<E>.asContainers(
+    testName: (E) -> String = { if (it is HasDisplayName) it.displayName else it.toString() },
+    testAction: TestNodeBuilder.(E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asContainers) {
       container(testName(element)) { testAction(element) }
@@ -201,9 +202,9 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @receiver the [TestNodeBuilder] to which containers will be added.
    * @return the invoking [TestNodeBuilder], after adding the new containers.
    */
-  public inline fun <E> Sequence<E>.asContainers(
-    testName: (E) -> String = { it.toString() },
-    crossinline testAction: TestNodeBuilder.(E) -> Unit
+  public fun <E> Sequence<E>.asContainers(
+    testName: (E) -> String = { if (it is HasDisplayName) it.displayName else it.toString() },
+    testAction: TestNodeBuilder.(E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asContainers) {
       container(testName(element)) { testAction(element) }
@@ -216,8 +217,8 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
-    crossinline testAction: suspend T.(K) -> Unit
+  public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
+    testAction: suspend T.(K) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (kase in this@asTests) {
       test(kase) { testAction(kase) }
@@ -231,9 +232,9 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment> test(
+  public fun <T : TestEnvironment> test(
     name: String,
-    crossinline testAction: suspend T.() -> Unit
+    testAction: suspend T.() -> Unit
   ) {
     addTest(name) {
       this@TestEnvironmentFactory.test(
@@ -250,11 +251,11 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment, K : AnyKase> test(
+  public fun <T : TestEnvironment, K : AnyKase> test(
     kase: K,
-    crossinline testAction: suspend T.() -> Unit
+    testAction: suspend T.() -> Unit
   ) {
-    addTest(kase.displayNames().toString()) {
+    addTest(kase.displayName) {
       this@TestEnvironmentFactory.test(
         kase = kase,
         testFunctionCoordinates = testFunctionCoordinates,
@@ -269,25 +270,12 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function containing the test logic.
    */
   context(TestEnvironmentFactory<T>)
-  public inline fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
-    crossinline testAction: suspend T.(K) -> Unit
+  public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
+    testAction: suspend T.(K) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (kase in this@asTests) {
       test(kase) { testAction(kase) }
     }
-  }
-
-  @PublishedApi
-  internal fun testUri(): URI {
-
-    val here = Paths.get("").toAbsolutePath()
-    val srcTestKotlin = here / "src/test/kotlin"
-    val packageDir = testFunctionCoordinates.packageName
-      .replace('.', File.separatorChar)
-    val classFile = srcTestKotlin / packageDir / testFunctionCoordinates.fileName
-    val lineNumber = testFunctionCoordinates.lineNumber
-
-    return URI.create(File("$classFile").toURI().toString() + "?line=$lineNumber")
   }
 }
 
@@ -299,8 +287,8 @@ public class TestNodeBuilder @PublishedApi internal constructor(
  * @return a stream of dynamic nodes representing the tests.
  */
 context(TestEnvironmentFactory<T>)
-public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
-  crossinline testAction: suspend T.(K) -> Unit
+public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
+  testAction: suspend T.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testAction) }
 
 /**
@@ -311,8 +299,8 @@ public inline fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
  * @return a stream of dynamic nodes representing the tests.
  */
 context(TestEnvironmentFactory<T>)
-public inline fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
-  crossinline testAction: suspend T.(K) -> Unit
+public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
+  testAction: suspend T.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testAction) }
 
 /**
@@ -324,9 +312,9 @@ public inline fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
  * @param testAction a function to initialize each test container.
  * @return a stream of dynamic nodes representing the containers.
  */
-public inline fun <K : AnyKase> Iterable<K>.asContainers(
-  crossinline testName: (K) -> String = { it.displayName },
-  crossinline testAction: TestNodeBuilder.(K) -> Unit
+public fun <K : AnyKase> Iterable<K>.asContainers(
+  testName: (K) -> String = { it.displayName },
+  testAction: TestNodeBuilder.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
 
 /**
@@ -338,7 +326,16 @@ public inline fun <K : AnyKase> Iterable<K>.asContainers(
  * @param testAction a function to initialize each test container.
  * @return a stream of dynamic nodes representing the containers.
  */
-public inline fun <K : AnyKase> Sequence<K>.asContainers(
-  crossinline testName: (K) -> String = { it.displayName },
-  crossinline testAction: TestNodeBuilder.(K) -> Unit
+public fun <K : AnyKase> Sequence<K>.asContainers(
+  testName: (K) -> String = { it.displayName },
+  testAction: TestNodeBuilder.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
+
+@JvmName("asTestsStringKasePairs")
+public fun <K : AnyKase> Iterable<Pair<String, K>>.asTests(
+  testAction: (kase: K) -> Unit
+): Stream<out DynamicNode> {
+  return testFactory {
+    this@asTests.asTests(testName = { it.first }) { testAction(it.second) }
+  }
+}

@@ -55,17 +55,30 @@ public interface TestEnvironment : HasWorkingDir {
  * Represents a hermetic testing environment with an
  * associated working directory and certain assertions.
  *
- * @param testParameterDisplayNames The display names of the test parameters, if any.
- * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
+ * @param hasWorkingDir The associated working directory.
  */
-public open class DefaultTestEnvironment(
-  testParameterDisplayNames: List<String>,
-  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+public open class DefaultTestEnvironment public constructor(
+  hasWorkingDir: HasWorkingDir
 ) : TestEnvironment,
-  HasWorkingDir by HasWorkingDir(
-    testVariantNames = testParameterDisplayNames,
-    testFunctionCoordinates = testFunctionCoordinates
+  HasWorkingDir by hasWorkingDir {
+
+  /**
+   * Represents a hermetic testing environment with an
+   * associated working directory and certain assertions.
+   *
+   * @param testParameterDisplayNames The display names of the test parameters, if any.
+   * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
+   */
+  public constructor(
+    testParameterDisplayNames: List<String>,
+    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+  ) : this(
+    HasWorkingDir(
+      testVariantNames = testParameterDisplayNames,
+      testFunctionCoordinates = testFunctionCoordinates
+    )
   )
+}
 
 /**
  * Represents a specific instance of a test case invocation with a specific set of parameters.

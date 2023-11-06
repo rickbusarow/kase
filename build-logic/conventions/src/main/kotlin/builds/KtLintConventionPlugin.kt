@@ -16,30 +16,30 @@
 package builds
 
 import com.rickbusarow.kgx.EagerGradleApi
+import com.rickbusarow.kgx.applyOnce
 import com.rickbusarow.kgx.dependency
-import com.rickbusarow.kgx.isRealRootProject
 import com.rickbusarow.kgx.libsCatalog
 import com.rickbusarow.kgx.matchingName
-import com.rickbusarow.ktlint.KtLintPlugin
 import com.rickbusarow.ktlint.KtLintTask
 import kotlinx.validation.KotlinApiBuildTask
 import kotlinx.validation.KotlinApiCompareTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import java.nio.file.Files
 import kotlin.text.RegexOption.MULTILINE
 
 abstract class KtLintConventionPlugin : Plugin<Project> {
-
-  @OptIn(EagerGradleApi::class)
   override fun apply(target: Project) {
 
-    target.plugins.apply(KtLintPlugin::class.java)
+    target.plugins.applyOnce("com.rickbusarow.ktlint")
 
     target.dependencies
       .add("ktlint", target.libsCatalog.dependency("rickBusarow-ktrules"))
 
     target.tasks.withType(KtLintTask::class.java).configureEach { task ->
       task.dependsOn(":updateEditorConfigVersion")
+
+      @OptIn(EagerGradleApi::class)
       task.mustRunAfter(
         target.tasks.matchingName("apiDump"),
         target.tasks.matchingName("dependencyGuard"),
@@ -49,21 +49,21 @@ abstract class KtLintConventionPlugin : Plugin<Project> {
       )
     }
 
-    if (target.isRealRootProject()) {
+    val editorconfig = target.file(".editorconfig")
+
+    if (editorconfig.exists() && !Files.isSymbolicLink(editorconfig.toPath())) {
 
       target.tasks.register("updateEditorConfigVersion") { task ->
-
-        val file = target.file(".editorconfig")
-
+        val versionName = target.VERSION_NAME
         task.doLast {
-          val oldText = file.readText()
+          val oldText = editorconfig.readText()
 
           val reg = """^(kt-rules_project_version *?= *?)\S*$""".toRegex(MULTILINE)
 
-          val newText = oldText.replace(reg, "$1${target.VERSION_NAME}")
+          val newText = oldText.replace(reg, "$1$versionName")
 
           if (newText != oldText) {
-            file.writeText(newText)
+            editorconfig.writeText(newText)
           }
         }
       }

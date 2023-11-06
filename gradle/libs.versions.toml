@@ -21,6 +21,7 @@ kotest = "5.7.2"
 kotlinx-binaryCompatibility = "0.13.2"
 kotlinx-coroutines = "1.7.3"
 ktlint-lib = "0.50.0"
+picnic = "0.4.0"
 prettier = "2.8.4"
 prettier-plugin-sh = "0.12.8"
 rickBusarow-doks = "0.1.4"
@@ -120,6 +121,8 @@ kotlinx-coroutines-jdk8 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-j
 kotlinx-coroutines-jvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+
+picnic = { module = "com.jakewharton.picnic:picnic", version.ref = "picnic" }
 
 poko-annotations = { module = "dev.drewhamilton.poko:poko-annotations", version.ref = "poko" }
 poko-compiler = { module = "dev.drewhamilton.poko:poko-compiler-plugin", version.ref = "poko" }

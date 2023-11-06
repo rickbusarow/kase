@@ -15,11 +15,16 @@
 
 package com.rickbusarow.kase.files
 
+import com.rickbusarow.kase.stdlib.div
 import dev.drewhamilton.poko.Poko
+import org.jetbrains.annotations.VisibleForTesting
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
+import java.io.File
 import java.lang.reflect.AnnotatedElement
 import java.lang.reflect.Method
+import java.net.URI
+import java.nio.file.Paths
 
 /**
  * @property fileName ex: `com/example/foo/Outer.kt`
@@ -31,7 +36,8 @@ import java.lang.reflect.Method
  * @property callingFunctionSimpleName ex: `some function should return false`
  */
 @Poko
-public class TestFunctionCoordinates private constructor(
+public class TestFunctionCoordinates
+@VisibleForTesting internal constructor(
   public val fileName: String,
   public val lineNumber: Int,
   public val packageName: String,
@@ -40,6 +46,73 @@ public class TestFunctionCoordinates private constructor(
   public val declaringClassSimpleNames: List<String>,
   public val callingFunctionSimpleName: String
 ) {
+
+  @PublishedApi
+  internal fun testUriOrNull(): URI? {
+
+    infix operator fun String.div(other: String) = "$this${File.separatorChar}$other"
+
+    val userDir = Paths.get("").toAbsolutePath().toFile()
+
+    val packageDir = packageName.replace('.', File.separatorChar)
+
+    val bestGuessSourceDirs = bestGuessSourceSetSimpleNames(userDir)
+      .flatMapTo(mutableListOf()) { sourceSetName ->
+        listOf(
+          userDir / "src" / sourceSetName / "kotlin",
+          userDir / "src" / sourceSetName / "java",
+          userDir / "src" / sourceSetName
+        )
+      }
+
+    val visited = mutableSetOf(userDir / "build")
+
+    val sourceFile = setOf(
+      *bestGuessSourceDirs.toTypedArray(),
+      userDir / "src/test/kotlin",
+      userDir / "src/test/java",
+      userDir / "src/integrationTest/kotlin",
+      userDir / "src/integrationTest/java",
+      userDir / "src",
+      userDir
+    )
+      .firstNotNullOfOrNull { base ->
+        base.walkTopDown()
+          .onEnter {
+            when {
+              !visited.add(it) -> false
+              it.path.endsWith(packageDir) -> it.resolve(fileName).exists()
+              else -> true
+            }
+          }
+          .firstOrNull { it.isFile && it.path.endsWith("$packageDir/$fileName") }
+      }
+      ?: return null
+
+    return URI.create("${sourceFile.toURI()}?line=$lineNumber")
+  }
+
+  private fun bestGuessSourceSetSimpleNames(userDir: File): Sequence<String> {
+
+    val buildClassesKotlin = listOf("build", "classes", "kotlin")
+    val classesDirSegmentCount = buildClassesKotlin.size + 1
+    val classpath = System.getProperty("java.class.path") ?: return emptySequence()
+
+    return classpath.splitToSequence(File.pathSeparator)
+      .filter { !it.endsWith(".jar") }
+      .mapNotNull {
+        val split = it.split(File.separatorChar)
+
+        fun subList() = split.subList(split.lastIndex - classesDirSegmentCount, split.lastIndex)
+
+        when {
+          split.size < classesDirSegmentCount -> null
+          !it.startsWith(userDir.absolutePath) -> null
+          subList() == buildClassesKotlin -> split.last()
+          else -> null
+        }
+      }
+  }
 
   public companion object {
 
@@ -52,7 +125,7 @@ public class TestFunctionCoordinates private constructor(
      */
     internal fun testStackTraceElement(): StackTraceElement {
       val stackTrace = Thread.currentThread().stackTrace
-      val testElement = stackTrace.firstOrNull { it.isTestFunction() }
+      val testElement = stackTrace.firstNotNullOfOrNull { it.testStackTraceElementOrNull() }
       return testElement ?: error("No test StackTraceElement found.")
     }
 
@@ -72,25 +145,36 @@ public class TestFunctionCoordinates private constructor(
   }
 }
 
-/**
- * Checks if the [StackTraceElement] is for a test function annotated with
- * [@TestFactory][org.junit.jupiter.api.TestFactory] or [@Test][org.junit.jupiter.api.Test].
- *
- * @receiver [StackTraceElement] The kaseParam to check.
- * @return `true` if the [StackTraceElement] is for a test function.
- */
+internal fun StackTraceElement.clazz(): Class<*> = Class.forName(className)
+
+/** Returns a [StackTraceElement] if the receiver is a test function, otherwise `null`. */
 @PublishedApi
-internal fun StackTraceElement.isTestFunction(): Boolean {
-  val clazz = Class.forName(this.className) ?: return false
+internal fun StackTraceElement.testStackTraceElementOrNull(): StackTraceElement? {
+  val clazz = Class.forName(this.className) ?: return null
 
   if (clazz.firstPackageSegment() in sdkPackagePrefixes) {
-    return false
+    return null
   }
 
-  return hasTestAnnotation(
-    actualClass = clazz.removeSynthetics(),
-    actualMethodName = this.methodName
-  )
+  val actualClass = clazz.removeSynthetics()
+
+  val actualMethodName = if (actualClass == clazz) {
+    this.methodName
+  } else {
+    val actualClassSegments = actualClass.segments()
+    clazz.segments()[actualClassSegments.size]
+  }
+
+  return if (hasTestAnnotation(actualClass, actualMethodName)) {
+    StackTraceElement(
+      actualClass.name,
+      actualMethodName,
+      fileName,
+      lineNumber
+    )
+  } else {
+    null
+  }
 }
 
 private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
@@ -127,11 +211,15 @@ internal fun hasTestAnnotation(actualClass: Class<*>, actualMethodName: String):
  * nested classes and functions have the java `$`
  * labelDelimiter ex: "com.example.MyTest$nested class$my test"
  */
-internal fun String.segments(): List<String> = split(".", "$")
+internal fun Class<*>.segments(): List<String> = name.split(".", "$")
   .filter { it.isNotBlank() }
 
+internal fun Class<*>.simpleBinaryName(): String {
+  return segments().last { it.firstOrNull()?.isDigit() == false }
+}
+
 /** Returns the name before the first period */
-private fun Class<*>.firstPackageSegment(): String? = canonicalName?.substringBefore('.')
+private fun Class<*>.firstPackageSegment(): String? = `package`?.name?.substringBefore('.')
 
 /**
  * Validates that all methods in the list are either annotated with
@@ -145,6 +233,8 @@ private fun Class<*>.firstPackageSegment(): String? = canonicalName?.substringBe
 internal fun List<Method>.requireAllOrNoneAreAnnotated(
   hasAnnotation: (Method) -> Boolean
 ): Boolean {
+
+  if (isEmpty()) return false
 
   val (annotated, notAnnotated) = partition(hasAnnotation)
 
@@ -179,4 +269,18 @@ public fun Class<*>.simpleNames(): List<String> {
     .mapNotNull { it.simpleName }
     .toList()
     .asReversed()
+}
+
+/**
+ * Returns the simple names of the receiver class and all of
+ * its enclosing classes, starting with the outermost class.
+ */
+internal fun Class<*>.enclosingClasses(): Sequence<Class<*>> {
+  return generateSequence(this) { it.enclosingClass }
+}
+
+internal fun Sequence<Class<*>>.simpleNames() = map { it.simpleName }
+
+internal fun Class<*>.enclosingClassesSimpleNames(): Sequence<String> {
+  return enclosingClasses().map { it.simpleName }
 }

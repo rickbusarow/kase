@@ -1063,13 +1063,11 @@ public final class com/rickbusarow/kase/DefaultKaseParameterWithLabel : com/rick
 }
 
 public class com/rickbusarow/kase/DefaultTestEnvironment : com/rickbusarow/kase/TestEnvironment, com/rickbusarow/kase/files/HasWorkingDir {
+	public fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;)V
 	public fun <init> (Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)V
 	public synthetic fun <init> (Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public fun getWorkingDir ()Ljava/io/File;
-	public fun relativePath (Ljava/io/File;)Ljava/lang/String;
 	public fun tearDown ()V
-	public fun useRelativePaths (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/HasDisplayName {
@@ -3365,10 +3363,7 @@ public final class com/rickbusarow/kase/TestEnvironment$Companion {
 }
 
 public final class com/rickbusarow/kase/TestEnvironment$DefaultImpls {
-	public static fun cleanOutput (Lcom/rickbusarow/kase/TestEnvironment;Ljava/lang/String;)Ljava/lang/String;
-	public static fun relativePath (Lcom/rickbusarow/kase/TestEnvironment;Ljava/io/File;)Ljava/lang/String;
 	public static fun tearDown (Lcom/rickbusarow/kase/TestEnvironment;)V
-	public static fun useRelativePaths (Lcom/rickbusarow/kase/TestEnvironment;Ljava/lang/String;)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/TestEnvironmentFactory {
@@ -3410,7 +3405,6 @@ public final class com/rickbusarow/kase/TestNodeBuilder {
 	public final fun test (Lcom/rickbusarow/kase/TestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function2;)V
 	public final fun test (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/String;Lkotlin/jvm/functions/Function2;)V
 	public final fun test (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
-	public final fun testUri ()Ljava/net/URI;
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -3421,6 +3415,7 @@ public final class com/rickbusarow/kase/TestNodeBuilderKt {
 	public static synthetic fun asContainers$default (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static final fun asTests (Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static final fun asTestsStringKasePairs (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
 	public static final fun testFactory (Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
 }
 
@@ -3436,11 +3431,8 @@ public final class com/rickbusarow/kase/TestVariant {
 public class com/rickbusarow/kase/files/DefaultHasWorkingDir : com/rickbusarow/kase/files/HasWorkingDir {
 	public static final field Companion Lcom/rickbusarow/kase/files/DefaultHasWorkingDir$Companion;
 	public fun <init> (Ljava/io/File;)V
-	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public fun getWorkingDir ()Ljava/io/File;
-	public fun relativePath (Ljava/io/File;)Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
-	public fun useRelativePaths (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/files/DefaultHasWorkingDir$Companion {
@@ -3482,10 +3474,7 @@ public final class com/rickbusarow/kase/files/DirectoryBuilderKt {
 
 public abstract interface class com/rickbusarow/kase/files/HasWorkingDir {
 	public static final field Companion Lcom/rickbusarow/kase/files/HasWorkingDir$Companion;
-	public abstract fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public abstract fun getWorkingDir ()Ljava/io/File;
-	public abstract fun relativePath (Ljava/io/File;)Ljava/lang/String;
-	public abstract fun useRelativePaths (Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/files/HasWorkingDir$Companion {
@@ -3498,15 +3487,14 @@ public final class com/rickbusarow/kase/files/HasWorkingDir$Companion {
 	public static synthetic fun invoke$default (Lcom/rickbusarow/kase/files/HasWorkingDir$Companion;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;ILjava/lang/Object;)Lcom/rickbusarow/kase/files/DefaultHasWorkingDir;
 }
 
-public final class com/rickbusarow/kase/files/HasWorkingDir$DefaultImpls {
-	public static fun cleanOutput (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/lang/String;)Ljava/lang/String;
-	public static fun relativePath (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/io/File;)Ljava/lang/String;
-	public static fun useRelativePaths (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/lang/String;)Ljava/lang/String;
+public final class com/rickbusarow/kase/files/HasWorkingDirKt {
+	public static final fun cleanOutput (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/lang/String;)Ljava/lang/String;
+	public static final fun relativePath (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/io/File;)Ljava/lang/String;
+	public static final fun useRelativePaths (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/files/TestFunctionCoordinates {
 	public static final field Companion Lcom/rickbusarow/kase/files/TestFunctionCoordinates$Companion;
-	public synthetic fun <init> (Ljava/lang/String;ILjava/lang/String;Ljava/lang/Class;Ljava/lang/Class;Ljava/util/List;Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getCallingFunctionSimpleName ()Ljava/lang/String;
 	public final fun getDeclaringClass ()Ljava/lang/Class;
@@ -3516,6 +3504,7 @@ public final class com/rickbusarow/kase/files/TestFunctionCoordinates {
 	public final fun getLineNumber ()I
 	public final fun getPackageName ()Ljava/lang/String;
 	public fun hashCode ()I
+	public final fun testUriOrNull ()Ljava/net/URI;
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -3525,10 +3514,34 @@ public final class com/rickbusarow/kase/files/TestFunctionCoordinates$Companion 
 
 public final class com/rickbusarow/kase/files/TestFunctionCoordinatesKt {
 	public static final fun hasTestAnnotation (Ljava/lang/reflect/AnnotatedElement;)Z
-	public static final fun isTestFunction (Ljava/lang/StackTraceElement;)Z
 	public static final fun removeSynthetics (Ljava/lang/Class;)Ljava/lang/Class;
 	public static final fun requireAllOrNoneAreAnnotated (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Z
 	public static final fun simpleNames (Ljava/lang/Class;)Ljava/util/List;
+	public static final fun testStackTraceElementOrNull (Ljava/lang/StackTraceElement;)Ljava/lang/StackTraceElement;
+}
+
+public abstract interface class com/rickbusarow/kase/files/WritesFiles {
+	public abstract fun groovy (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public abstract fun groovy (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public abstract fun invoke (Ljava/io/File;Lkotlin/jvm/functions/Function0;)V
+	public abstract fun java (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public abstract fun java (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public abstract fun kotlin (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public abstract fun kotlin (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public abstract fun markdown (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public abstract fun markdown (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+}
+
+public final class com/rickbusarow/kase/files/WritesFiles$DefaultImpls {
+	public static fun groovy (Lcom/rickbusarow/kase/files/WritesFiles;Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static fun groovy (Lcom/rickbusarow/kase/files/WritesFiles;Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public static fun invoke (Lcom/rickbusarow/kase/files/WritesFiles;Ljava/io/File;Lkotlin/jvm/functions/Function0;)V
+	public static fun java (Lcom/rickbusarow/kase/files/WritesFiles;Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static fun java (Lcom/rickbusarow/kase/files/WritesFiles;Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public static fun kotlin (Lcom/rickbusarow/kase/files/WritesFiles;Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static fun kotlin (Lcom/rickbusarow/kase/files/WritesFiles;Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public static fun markdown (Lcom/rickbusarow/kase/files/WritesFiles;Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public static fun markdown (Lcom/rickbusarow/kase/files/WritesFiles;Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
 }
 
 public final class com/rickbusarow/kase/stdlib/ApplyKt {

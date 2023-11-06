@@ -24,10 +24,10 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.files.TestFunctionCoordinates
 import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
 import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
+import com.rickbusarow.kase.files.TestFunctionCoordinates
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
@@ -186,7 +186,7 @@ public inline fun <A1> Iterable<Kase1<A1>>.asTests(
   crossinline testAction: (a1: A1) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory {
-    this@asTests.asTests { testAction(it.a1) }
+    this@asTests.asTests(testName = { it.displayName }) { testAction(it.a1) }
   }
 }
 
@@ -494,11 +494,12 @@ public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13,
 @JvmName("kase1timesKase15")
 public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15> Iterable<Kase1<A1>>.times(
   others: Iterable<Kase15<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15>>
-): List<Kase16<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15>> = flatMap { (a1) ->
-  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15) ->
-    kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15)
+): List<Kase16<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15>> =
+  flatMap { (a1) ->
+    others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15) ->
+      kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15)
+    }
   }
-}
 
 /**
  * @param others the [Kase16] to combine with this [Kase1]
@@ -507,11 +508,12 @@ public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13,
 @JvmName("kase1timesKase16")
 public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16> Iterable<Kase1<A1>>.times(
   others: Iterable<Kase16<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16>>
-): List<Kase17<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16>> = flatMap { (a1) ->
-  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16) ->
-    kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16)
+): List<Kase17<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16>> =
+  flatMap { (a1) ->
+    others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16) ->
+      kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16)
+    }
   }
-}
 
 /**
  * @param others the [Kase17] to combine with this [Kase1]
@@ -520,11 +522,12 @@ public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13,
 @JvmName("kase1timesKase17")
 public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17> Iterable<Kase1<A1>>.times(
   others: Iterable<Kase17<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17>>
-): List<Kase18<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17>> = flatMap { (a1) ->
-  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17) ->
-    kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17)
+): List<Kase18<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17>> =
+  flatMap { (a1) ->
+    others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17) ->
+      kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17)
+    }
   }
-}
 
 /**
  * @param others the [Kase18] to combine with this [Kase1]
@@ -533,11 +536,12 @@ public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13,
 @JvmName("kase1timesKase18")
 public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18> Iterable<Kase1<A1>>.times(
   others: Iterable<Kase18<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18>>
-): List<Kase19<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18>> = flatMap { (a1) ->
-  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18) ->
-    kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18)
+): List<Kase19<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18>> =
+  flatMap { (a1) ->
+    others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18) ->
+      kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18)
+    }
   }
-}
 
 /**
  * @param others the [Kase19] to combine with this [Kase1]
@@ -546,11 +550,12 @@ public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13,
 @JvmName("kase1timesKase19")
 public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19> Iterable<Kase1<A1>>.times(
   others: Iterable<Kase19<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19>>
-): List<Kase20<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19>> = flatMap { (a1) ->
-  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19) ->
-    kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19)
+): List<Kase20<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19>> =
+  flatMap { (a1) ->
+    others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19) ->
+      kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19)
+    }
   }
-}
 
 /**
  * @param others the [Kase20] to combine with this [Kase1]
@@ -559,8 +564,31 @@ public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13,
 @JvmName("kase1timesKase20")
 public operator fun <A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20> Iterable<Kase1<A1>>.times(
   others: Iterable<Kase20<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20>>
-): List<Kase21<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20>> = flatMap { (a1) ->
-  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20) ->
-    kase(a1, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20)
+): List<Kase21<A1, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, B19, B20>> =
+  flatMap { (a1) ->
+    others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18, b19, b20) ->
+      kase(
+        a1,
+        b1,
+        b2,
+        b3,
+        b4,
+        b5,
+        b6,
+        b7,
+        b8,
+        b9,
+        b10,
+        b11,
+        b12,
+        b13,
+        b14,
+        b15,
+        b16,
+        b17,
+        b18,
+        b19,
+        b20
+      )
+    }
   }
-}
