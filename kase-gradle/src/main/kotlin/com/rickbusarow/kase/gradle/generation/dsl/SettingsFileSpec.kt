@@ -20,6 +20,7 @@ import com.rickbusarow.kase.gradle.generation.model.DslFileBuilder
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall
 import com.rickbusarow.kase.gradle.generation.model.HasIncludedBuild
 import com.rickbusarow.kase.gradle.generation.model.HasIncludes
+import com.rickbusarow.kase.gradle.generation.model.HasPluginsBlock
 import com.rickbusarow.kase.gradle.generation.model.LambdaParameter
 
 /** Models a `settings.gradle` or `settings.gradle.kts` file. */
@@ -27,6 +28,7 @@ public class SettingsFileSpec(
   build: SettingsFileSpec.() -> Unit
 ) : AbstractDslElementContainer<SettingsFileSpec>(),
   DslFileBuilder<SettingsFileSpec>,
+  HasPluginsBlock<SettingsFileSpec>,
   HasIncludes<SettingsFileSpec>,
   HasIncludedBuild<SettingsFileSpec> {
 

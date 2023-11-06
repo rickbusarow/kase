@@ -89,7 +89,7 @@ public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
    * Applies a Kotlin plugin via the `kotlin(...)` syntax if the [DslLanguage] is Kotlin,
    * or via the `id 'org.jetbrains.kotlin.___'` syntax if the [DslLanguage] is Groovy.
    */
-  public fun kotlinPlugin(
+  public fun kotlin(
     identifier: String,
     version: String? = null,
     apply: Boolean = true

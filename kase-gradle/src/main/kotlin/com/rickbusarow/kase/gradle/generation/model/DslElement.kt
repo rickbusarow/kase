@@ -15,6 +15,8 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage.GroovyDsl
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage.KotlinDsl
 import dev.drewhamilton.poko.Poko
 
 /** Interface for any DSL builder components. */
@@ -22,6 +24,29 @@ public interface DslElement : Comparable<DslElement> {
 
   /** Returns the DSL code for this component. */
   public fun write(language: DslLanguage): String
+
+  /**
+   * shorthand for `write(KotlinDsl(useInfix, useLabels))`
+   */
+  public fun writeKotlin(
+    useInfix: Boolean = true,
+    useLabels: Boolean = false
+  ): String = write(KotlinDsl(useInfix = useInfix, useLabels = useLabels))
+
+  /**
+   * shorthand for `write(GroovyDsl(useInfix, useLabels, useDoubleQuotes))`
+   */
+  public fun writeGroovy(
+    useInfix: Boolean = true,
+    useLabels: Boolean = false,
+    useDoubleQuotes: Boolean = false
+  ): String = write(
+    GroovyDsl(
+      useInfix = useInfix,
+      useLabels = useLabels,
+      useDoubleQuotes = useDoubleQuotes
+    )
+  )
 
   override fun compareTo(other: DslElement): Int {
     return toString().compareTo(other.toString())

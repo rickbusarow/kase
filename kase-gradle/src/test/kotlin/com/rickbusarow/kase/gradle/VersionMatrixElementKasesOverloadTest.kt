@@ -15,16 +15,16 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestEnvironmentFactory
-import com.rickbusarow.kase.asTests
 import com.rickbusarow.kase.gradle.VersionMatrix.Companion
 import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.toStringPretty
 import org.junit.jupiter.api.TestFactory
 
-class VersionMatrixElementKasesOverloadTest : TestEnvironmentFactory<TestEnvironment> {
+class VersionMatrixElementKasesOverloadTest : TestEnvironmentFactory<TestEnvironment, AnyKase> {
 
   @TestFactory
   fun `kases2 creates Kase2 kases`() =

@@ -338,22 +338,22 @@ private fun main() {
         kaseTypes = kaseTypes
       )
 
-      asTests_Destructured_TestEnvironment(
-        args = args2,
-        kaseTypes = kaseTypes
-      )
+      // asTests_Destructured_TestEnvironment(
+      //   args = args2,
+      //   kaseTypes = kaseTypes
+      // )
 
-      testFactory_vararg_Destructured_TestEnvironment(
-        kdoc = testFactoryKdoc,
-        args = args2,
-        kaseTypes = kaseTypes
-      )
+      // testFactory_vararg_Destructured_TestEnvironment(
+      //   kdoc = testFactoryKdoc,
+      //   args = args2,
+      //   kaseTypes = kaseTypes
+      // )
 
-      testFactory_iterable_Destructured_TestEnvironment(
-        kdoc = testFactoryKdoc,
-        args = args2,
-        kaseTypes = kaseTypes
-      )
+      // testFactory_iterable_Destructured_TestEnvironment(
+      //   kdoc = testFactoryKdoc,
+      //   args = args2,
+      //   kaseTypes = kaseTypes
+      // )
 
       testFactory_vararg_Destructured(
         kdoc = testFactoryKdoc,

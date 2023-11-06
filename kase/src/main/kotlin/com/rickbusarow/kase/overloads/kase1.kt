@@ -142,7 +142,7 @@ public fun <A1> kase(
  * @param testAction the test action to execute.
  * @see TestEnvironmentFactory
  */
-public fun <T, K, A1> TestEnvironmentFactory<T, K>.test(
+public fun <T, K, A1> TestEnvironmentFactory<T, Kase1<A1>>.test(
   a1: A1,
   labels: KaseLabels1 = KaseLabels1(),
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
@@ -188,67 +188,6 @@ public inline fun <A1> Iterable<Kase1<A1>>.asTests(
   return testFactory {
     this@asTests.asTests { testAction(it.a1) }
   }
-}
-
-/**
- * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase1]s.
- *
- * @param testAction the test action to run for each kase.
- * @return a [Stream] of [DynamicNode]s from these kases.
- * @see Kase1
- */
-context(TestEnvironmentFactory<T, Kase1<A1>>)
-@JvmName("asTestsKase1ExtensionDestructuredTestEnvironment")
-public inline fun <T : TestEnvironment, A1> Iterable<Kase1<A1>>.asTests(
-  crossinline testAction: T.(a1: A1) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory(init =  {
-    this@asTests.asTests { testAction(it.a1) }
-  })
-}
-
-/**
- * A test factory which returns a stream of [DynamicNode]s from the given parameters.
- * - Each [DynamicTest] in the stream uses its [Kase1] element to create
- *   a new [TestEnvironment] instance, then executes [testAction].
- * - Each [DynamicNode] has a display name which includes the values of the parameters.
- *
- * @param kases the [Kase1]s to use for this test factory
- * @param testAction the test action to execute.
- * @return a [Stream] of [DynamicNode]s from the given parameters.
- * @see Kase1
- * @see TestEnvironmentFactory
- */
-@JvmName("testFactoryKase1VarargDestructuredTestEnvironment")
-public inline fun <T : TestEnvironment, K : Kase1<A1>, A1> TestEnvironmentFactory<T, K>.testFactory(
-  vararg kases: K,
-  crossinline testAction: T.(a1: A1) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory(init = {
-    kases.asSequence().asTests { testAction(it.a1) }
-  })
-}
-
-/**
- * A test factory which returns a stream of [DynamicNode]s from the given parameters.
- * - Each [DynamicTest] in the stream uses its [Kase1] element to create
- *   a new [TestEnvironment] instance, then executes [testAction].
- * - Each [DynamicNode] has a display name which includes the values of the parameters.
- *
- * @param kases the [Kase1]s to use for this test factory
- * @param testAction the test action to execute.
- * @return a [Stream] of [DynamicNode]s from the given parameters.
- * @see Kase1
- * @see TestEnvironmentFactory
- */
-@JvmName("testFactoryKase1IterableDestructuredTestEnvironment")
-public inline fun <T : TestEnvironment, K : Kase1<A1>, A1> TestEnvironmentFactory<T, K>.testFactory(
-  kases: Iterable<K>,
-  crossinline testAction: T.(a1: A1) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory(init = {
-    kases.asTests { testAction(it.a1) }
-  })
 }
 
 /**

@@ -28,61 +28,6 @@ import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome.FAILED
 import org.gradle.util.GradleVersion
 
-public open class DefaultHasGradleRunner(
-  hasWorkingDir: HasWorkingDir,
-  gradleVersion: () -> String = { GradleVersion.current().version }
-) : HasGradleRunner, HasWorkingDir by hasWorkingDir {
-
-  /** The [GradleRunner] used to execute Gradle builds. */
-  override val gradleRunner: GradleRunner by lazy {
-    GradleRunner.create()
-      .forwardOutput()
-      .withGradleVersion(gradleVersion())
-      .withDebug(true)
-      .withProjectDir(workingDir)
-  }
-
-  override fun build(
-    tasks: List<String>,
-    withPluginClasspath: Boolean,
-    withHermeticTestKit: Boolean,
-    stacktrace: Boolean,
-    shouldFail: Boolean
-  ): BuildResult {
-    val withOptions = gradleRunner
-      .letIf(withPluginClasspath) { it.withPluginClasspath() }
-      .letIf(withHermeticTestKit) { it.withTestKitDir(workingDir / "testKit") }
-      .withArguments(tasks.letIf(stacktrace) { it.plus("--stacktrace") })
-
-    return if (shouldFail) {
-      withOptions.buildAndFail()
-    } else {
-      withOptions.build()
-        .also { result ->
-          result.tasks
-            .forAll { buildTask ->
-              buildTask.outcome shouldNotBe FAILED
-            }
-        }
-    }
-  }
-
-  override fun BuildResult.trimGradleNoise(shortenPaths: Boolean): String {
-    return output
-      .remove(
-        "FAILURE: Build failed with an exception.",
-        "* What went wrong:",
-        "* Try:",
-        "> Run with --stacktrace option to get the stack trace.",
-        "> Run with --info or --debug option to get more log output.",
-        "> Run with --scan to get full insights.",
-        "* Get more help at https://help.gradle.org",
-        "Daemon will be stopped at the end of the build after running out of JVM memory"
-      )
-      .letIf(shortenPaths) { it.useRelativePaths() }
-  }
-}
-
 public interface HasGradleRunner {
 
   /** The [GradleRunner] used to execute Gradle builds. */
@@ -99,9 +44,9 @@ public interface HasGradleRunner {
    */
   public fun build(
     tasks: List<String>,
-    withPluginClasspath: Boolean,
-    withHermeticTestKit: Boolean,
-    stacktrace: Boolean,
+    withPluginClasspath: Boolean = false,
+    withHermeticTestKit: Boolean = false,
+    stacktrace: Boolean = true,
     shouldFail: Boolean = false
   ): BuildResult
 
@@ -189,4 +134,59 @@ public interface HasGradleRunner {
    * @param shortenPaths whether to shorten absolute paths to relative ones
    */
   public fun BuildResult.trimGradleNoise(shortenPaths: Boolean = true): String
+}
+
+public open class DefaultHasGradleRunner(
+  hasWorkingDir: HasWorkingDir,
+  gradleVersion: () -> String = { GradleVersion.current().version }
+) : HasGradleRunner, HasWorkingDir by hasWorkingDir {
+
+  /** The [GradleRunner] used to execute Gradle builds. */
+  override val gradleRunner: GradleRunner by lazy {
+    GradleRunner.create()
+      .forwardOutput()
+      .withGradleVersion(gradleVersion())
+      .withDebug(true)
+      .withProjectDir(workingDir)
+  }
+
+  override fun build(
+    tasks: List<String>,
+    withPluginClasspath: Boolean,
+    withHermeticTestKit: Boolean,
+    stacktrace: Boolean,
+    shouldFail: Boolean
+  ): BuildResult {
+    val withOptions = gradleRunner
+      .letIf(withPluginClasspath) { it.withPluginClasspath() }
+      .letIf(withHermeticTestKit) { it.withTestKitDir(workingDir / "testKit") }
+      .withArguments(tasks.letIf(stacktrace) { it.plus("--stacktrace") })
+
+    return if (shouldFail) {
+      withOptions.buildAndFail()
+    } else {
+      withOptions.build()
+        .also { result ->
+          result.tasks
+            .forAll { buildTask ->
+              buildTask.outcome shouldNotBe FAILED
+            }
+        }
+    }
+  }
+
+  override fun BuildResult.trimGradleNoise(shortenPaths: Boolean): String {
+    return output
+      .remove(
+        "FAILURE: Build failed with an exception.",
+        "* What went wrong:",
+        "* Try:",
+        "> Run with --stacktrace option to get the stack trace.",
+        "> Run with --info or --debug option to get more log output.",
+        "> Run with --scan to get full insights.",
+        "* Get more help at https://help.gradle.org",
+        "Daemon will be stopped at the end of the build after running out of JVM memory"
+      )
+      .letIf(shortenPaths) { it.useRelativePaths() }
+  }
 }

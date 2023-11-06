@@ -67,6 +67,12 @@ public class GradleKotlinTestVersions(
 
   public companion object {
     /** */
+    public fun from(versionMatrix: VersionMatrix): List<GradleKotlinTestVersions> {
+
+      return versionMatrix.kases(Gradle, Kotlin).map { GradleKotlinTestVersions(it.a1, it.a2) }
+    }
+
+    /** */
     public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleKotlinTestVersions {
 
       val versions = kase.elements
@@ -107,6 +113,13 @@ public class GradleAgpKotlinTestVersions(
   override fun toString(): String = displayName
 
   public companion object {
+    /** */
+    public fun from(versionMatrix: VersionMatrix): List<GradleAgpKotlinTestVersions> {
+
+      return versionMatrix.kases(Gradle, Agp, Kotlin)
+        .map { GradleAgpKotlinTestVersions(it.a1, it.a2, it.a3) }
+    }
+
     /** */
     public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleAgpKotlinTestVersions {
 

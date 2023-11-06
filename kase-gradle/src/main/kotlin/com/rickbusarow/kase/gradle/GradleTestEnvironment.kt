@@ -31,21 +31,37 @@ import com.rickbusarow.kase.gradle.generation.model.DslLanguage
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.replaceIndent
 import org.gradle.testkit.runner.GradleRunner
+import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD
 import java.io.File
+import java.util.stream.Stream
 
 /** A base class for Gradle plugin tests. */
 @Execution(SAME_THREAD)
 public interface BaseGradleTest<E : GradleTestEnvironment<V>, V> :
   GradleTestEnvironmentFactory<V>,
-  HasVersionMatrix
+  HasVersionMatrix<V>
   where V : TestVersions,
         V : AnyKase
 
+public interface HasKases<K : AnyKase> {
+  public val kases: List<K>
+}
+
 public interface KaseTestFactory<T : TestEnvironment, K : AnyKase> :
-  HasVersionMatrix,
-  TestEnvironmentFactory<T, K>
+  HasVersionMatrix<K>,
+  HasKases<K>,
+  TestEnvironmentFactory<T, K> {
+
+  public fun testFactory(
+    testAction: T.(K) -> Unit
+  ): Stream<out DynamicNode> = com.rickbusarow.kase.testFactory {
+    kases.asTests {
+      newTestEnvironment(it, testFunctionCoordinates).testAction(it)
+    }
+  }
+}
 
 /** A factory for creating [GradleTestEnvironment]s. */
 public interface GradleTestEnvironmentFactory<T> :

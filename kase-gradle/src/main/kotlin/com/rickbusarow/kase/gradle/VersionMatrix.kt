@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.HasLabel
 import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixElement
 import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
@@ -22,7 +23,7 @@ import com.rickbusarow.kase.gradle.internal.DefaultVersionMatrix
 import dev.drewhamilton.poko.Poko
 
 /** */
-public interface HasVersionMatrix {
+public interface HasVersionMatrix<K : AnyKase> : HasKases<K> {
   public val versionMatrix: VersionMatrix
 }
 

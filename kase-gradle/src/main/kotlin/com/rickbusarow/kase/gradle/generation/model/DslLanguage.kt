@@ -197,8 +197,8 @@ public sealed class DslLanguage(
    */
   @Poko
   public class KotlinDsl(
-    override val useInfix: Boolean,
-    override val useLabels: Boolean
+    override val useInfix: Boolean = true,
+    override val useLabels: Boolean = false
   ) : DslLanguage(quote = '"', labelDelimiter = " = ") {
 
     override val useDoubleQuotes: Boolean = true
@@ -222,9 +222,9 @@ public sealed class DslLanguage(
    */
   @Poko
   public class GroovyDsl(
-    override val useInfix: Boolean,
-    override val useLabels: Boolean,
-    override val useDoubleQuotes: Boolean
+    override val useInfix: Boolean = true,
+    override val useLabels: Boolean = false,
+    override val useDoubleQuotes: Boolean = false
   ) : DslLanguage(quote = '\'', labelDelimiter = ": ") {
     override fun parens(content: String, infixInKotlin: Boolean): String =
       if (useInfix && content.isNotBlank()) {

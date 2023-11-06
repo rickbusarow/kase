@@ -144,9 +144,9 @@ public class KaseLabels3(
 /**
  * Creates a new [Kase] with the given parameters.
  *
- * @param a1 the [Kase3:a1] parameter.
- * @param a2 the [Kase3:a2] parameter.
- * @param a3 the [Kase3:a3] parameter.
+ * @param a1 the [Kase3.a1] parameter.
+ * @param a2 the [Kase3.a2] parameter.
+ * @param a3 the [Kase3.a3] parameter.
  * @param labels the [KaseLabels3] to use for this [Kase3]
  * @param labelDelimiter the delimiter between the
  *   label and the value, like `": "` in `label: value`
@@ -172,15 +172,15 @@ public fun <A1, A2, A3> kase(
  * Creates a new [Kase3] instance and [TestEnvironment]
  * from these parameters, then executes [testAction].
  *
- * @param a1 the [Kase3:a1] parameter.
- * @param a2 the [Kase3:a2] parameter.
- * @param a3 the [Kase3:a3] parameter.
+ * @param a1 the [Kase3.a1] parameter.
+ * @param a2 the [Kase3.a2] parameter.
+ * @param a3 the [Kase3.a3] parameter.
  * @param labels the [KaseLabels3] to use for this [Kase3]
  * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
  * @param testAction the test action to execute.
  * @see TestEnvironmentFactory
  */
-public fun <T, K, A1, A2, A3> TestEnvironmentFactory<T>.test(
+public fun <T, K, A1, A2, A3> TestEnvironmentFactory<T, Kase3<A1, A2, A3>>.test(
   a1: A1, a2: A2, a3: A3,
   labels: KaseLabels3 = KaseLabels3(),
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
@@ -233,69 +233,6 @@ public inline fun <A1, A2, A3> Iterable<Kase3<A1, A2, A3>>.asTests(
 ): Stream<out DynamicNode> {
   return testFactory {
     this@asTests.asTests { testAction(it.a1, it.a2, it.a3) }
-  }
-}
-
-/**
- * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase3]s.
- *
- * @param testAction the test action to run for each kase.
- * @return a [Stream] of [DynamicNode]s from these kases.
- * @see Kase3
- */
-context(TestEnvironmentFactory<T>)
-@JvmName("asTestsKase3ExtensionDestructuredTestEnvironment")
-public inline fun <T : TestEnvironment, A1, A2, A3> Iterable<Kase3<A1, A2, A3>>.asTests(
-  crossinline testAction: T.(a1: A1, a2: A2, a3: A3) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory {
-    this@asTests.asTests { testAction(it.a1, it.a2, it.a3) }
-  }
-}
-
-/**
- * A test factory which returns a stream of [DynamicNode]s from the given parameters.
- * - Each [DynamicTest] in the stream uses its [Kase3] element to create
- *   a new [TestEnvironment] instance, then executes [testAction].
- * - Each [DynamicNode] has a display name which includes the values of the parameters.
- *
- * @param kases the [Kase3]s to use for this test factory
- * @param testAction the test action to execute.
- * @return a [Stream] of [DynamicNode]s from the given parameters.
- * @see Kase3
- * @see TestEnvironmentFactory
- */
-context(TestEnvironmentFactory<T>)
-@JvmName("testFactoryKase3VarargDestructuredTestEnvironment")
-public inline fun <T : TestEnvironment, A1, A2, A3> testFactory(
-  vararg kases: Kase3<A1, A2, A3>,
-  crossinline testAction: T.(a1: A1, a2: A2, a3: A3) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory {
-    kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3) }
-  }
-}
-
-/**
- * A test factory which returns a stream of [DynamicNode]s from the given parameters.
- * - Each [DynamicTest] in the stream uses its [Kase3] element to create
- *   a new [TestEnvironment] instance, then executes [testAction].
- * - Each [DynamicNode] has a display name which includes the values of the parameters.
- *
- * @param kases the [Kase3]s to use for this test factory
- * @param testAction the test action to execute.
- * @return a [Stream] of [DynamicNode]s from the given parameters.
- * @see Kase3
- * @see TestEnvironmentFactory
- */
-context(TestEnvironmentFactory<T>)
-@JvmName("testFactoryKase3IterableDestructuredTestEnvironment")
-public inline fun <T : TestEnvironment, A1, A2, A3> testFactory(
-  kases: Iterable<Kase3<A1, A2, A3>>,
-  crossinline testAction: T.(a1: A1, a2: A2, a3: A3) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory {
-    kases.asTests { testAction(it.a1, it.a2, it.a3) }
   }
 }
 

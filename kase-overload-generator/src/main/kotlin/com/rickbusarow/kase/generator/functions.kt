@@ -594,8 +594,8 @@ internal fun StringBuilder.testFun(
   appendLine(
     """
     |$kdoc
-    |public fun $typesKaseEnvironment TestEnvironmentFactory<T, K>.test(
-    |  $paramsString,
+    |public fun $typesKaseEnvironment TestEnvironmentFactory<T, ${kaseTypes.kaseInterface}>.test(
+    |  ${args.paramsString},
     |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
     |  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
     |  testAction: suspend T.() -> Unit

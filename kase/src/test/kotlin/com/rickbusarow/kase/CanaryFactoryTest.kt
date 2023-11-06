@@ -20,22 +20,14 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
-class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment> {
-
-  @TestFactory
-  fun `asTests individual args`() = kases(
-    listOf("a", "b"),
-    listOf(1, 2, 3),
-    listOf('A', 'B', 'C')
-  ).asTests { a, b, c ->
-    workingDir.resolve("test.txt").createSafely("hello world")
-  }
+class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment, AnyKase> {
 
   @TestFactory
   fun `asTests destructured`() = kases(
     listOf("a", "b"),
-    listOf(1, 2, 3)
-  ).asTests { (a1, a2) ->
+    listOf(1, 2, 3),
+    listOf('A', 'B', 'C')
+  ).asTests { (a, b, c) ->
     workingDir.resolve("test.txt").createSafely("hello world")
   }
 

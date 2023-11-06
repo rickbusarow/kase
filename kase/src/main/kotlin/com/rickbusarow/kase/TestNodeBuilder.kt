@@ -211,97 +211,97 @@ public class TestNodeBuilder @PublishedApi internal constructor(
     }
   }
 
-  /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-   *
-   * @param testAction a function containing the test logic.
-   */
-  context(TestEnvironmentFactory<T, K>)
-  public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
-    testAction: suspend T.(K) -> Unit
-  ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (kase in this@asTests) {
-      test(kase) { testAction(kase) }
-    }
-  }
+  // /**
+  //  * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
+  //  *
+  //  * @param testAction a function containing the test logic.
+  //  */
+  // context(TestEnvironmentFactory<T, K>)
+  // public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
+  //   testAction: suspend T.(K) -> Unit
+  // ): TestNodeBuilder = this@TestNodeBuilder.apply {
+  //   for (kase in this@asTests) {
+  //     test(kase) { testAction(kase) }
+  //   }
+  // }
 
-  /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-   *
-   * @param name the name of the test.
-   * @param testAction a function containing the test logic.
-   */
-  context(TestEnvironmentFactory<T, AnyKase>)
-  public fun <T : TestEnvironment> test(
-    name: String,
-    testAction: suspend T.() -> Unit
-  ) {
-    addTest(name) {
-      this@TestEnvironmentFactory.test(
-        testFunctionCoordinates = testFunctionCoordinates,
-        testAction = { testAction() }
-      )
-    }
-  }
+  // /**
+  //  * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
+  //  *
+  //  * @param name the name of the test.
+  //  * @param testAction a function containing the test logic.
+  //  */
+  // public fun <T : TestEnvironment> TestEnvironmentFactory<T, AnyKase>.test(
+  //   name: String,
+  //   testAction: suspend T.() -> Unit
+  // ) {
+  //   addTest(name) {
+  //     this@TestEnvironmentFactory.test(
+  //       kase = Kase.EMPTY,
+  //       testFunctionCoordinates = testFunctionCoordinates,
+  //       testAction = { testAction() }
+  //     )
+  //   }
+  // }
 
-  /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-   *
-   * @param kase the test Kase
-   * @param testAction a function containing the test logic.
-   */
-  context(TestEnvironmentFactory<T, K>)
-  public fun <T : TestEnvironment, K : AnyKase> test(
-    kase: K,
-    testAction: suspend T.() -> Unit
-  ) {
-    addTest(kase.displayName) {
-      this@TestEnvironmentFactory.test(
-        kase = kase,
-        testFunctionCoordinates = testFunctionCoordinates,
-        testAction = { testAction() }
-      )
-    }
-  }
+  // /**
+  //  * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
+  //  *
+  //  * @param kase the test Kase
+  //  * @param testAction a function containing the test logic.
+  //  */
+  // context(TestEnvironmentFactory<T, K>)
+  // public fun <T : TestEnvironment, K : AnyKase> test(
+  //   kase: K,
+  //   testAction: suspend T.() -> Unit
+  // ) {
+  //   addTest(kase.displayName) {
+  //     this@TestEnvironmentFactory.test(
+  //       kase = kase,
+  //       testFunctionCoordinates = testFunctionCoordinates,
+  //       testAction = { testAction() }
+  //     )
+  //   }
+  // }
 
-  /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-   *
-   * @param testAction a function containing the test logic.
-   */
-  context(TestEnvironmentFactory<T, K>)
-  public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
-    testAction: suspend T.(K) -> Unit
-  ): TestNodeBuilder = this@TestNodeBuilder.apply {
-    for (kase in this@asTests) {
-      test(kase) { testAction(kase) }
-    }
-  }
+  // /**
+  //  * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
+  //  *
+  //  * @param testAction a function containing the test logic.
+  //  */
+  // context(TestEnvironmentFactory<T, K>)
+  // public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
+  //   testAction: suspend T.(K) -> Unit
+  // ): TestNodeBuilder = this@TestNodeBuilder.apply {
+  //   for (kase in this@asTests) {
+  //     test(kase) { testAction(kase) }
+  //   }
+  // }
 }
 
-/**
- * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
- * by the kase instance, and the tests themselves are defined by the [testAction] function.
- *
- * @param testAction a function to define each test.
- * @return a stream of dynamic nodes representing the tests.
- */
-context(TestEnvironmentFactory<T, K>)
-public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
-  testAction: suspend T.(K) -> Unit
-): Stream<out DynamicNode> = testFactory { asTests(testAction) }
+// /**
+//  * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
+//  * by the kase instance, and the tests themselves are defined by the [testAction] function.
+//  *
+//  * @param testAction a function to define each test.
+//  * @return a stream of dynamic nodes representing the tests.
+//  */
+// context(TestEnvironmentFactory<T, K>)
+// public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
+//   testAction: suspend T.(K) -> Unit
+// ): Stream<out DynamicNode> = testFactory { asTests(testAction) }
 
-/**
- * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
- * by the kase instance, and the tests themselves are defined by the [testAction] function.
- *
- * @param testAction a function to define each test.
- * @return a stream of dynamic nodes representing the tests.
- */
-context(TestEnvironmentFactory<T, K>)
-public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
-  testAction: suspend T.(K) -> Unit
-): Stream<out DynamicNode> = testFactory { asTests(testAction) }
+// /**
+//  * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
+//  * by the kase instance, and the tests themselves are defined by the [testAction] function.
+//  *
+//  * @param testAction a function to define each test.
+//  * @return a stream of dynamic nodes representing the tests.
+//  */
+// context(TestEnvironmentFactory<T, K>)
+// public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
+//   testAction: suspend T.(K) -> Unit
+// ): Stream<out DynamicNode> = testFactory { asTests(testAction) }
 
 /**
  * Transforms an iterable into a stream of dynamic test containers. The

@@ -125,6 +125,11 @@ public class TestFunctionCoordinates
      */
     internal fun testStackTraceElement(): StackTraceElement {
       val stackTrace = Thread.currentThread().stackTrace
+
+      println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+      println(stackTrace.joinToString("\n"))
+      println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
       val testElement = stackTrace.firstNotNullOfOrNull { it.testStackTraceElementOrNull() }
       return testElement ?: error("No test StackTraceElement found.")
     }
