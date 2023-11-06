@@ -145,7 +145,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @return the invoking [TestNodeBuilder], after adding the new tests.
    */
   public fun <E> Iterable<E>.asTests(
-    testName: (E) -> String = { if (it is HasDisplayName) it.displayName else it.toString() },
+    testName: (E) -> String = { it.toString() },
     testAction: (E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asTests) {
@@ -216,7 +216,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    *
    * @param testAction a function containing the test logic.
    */
-  context(TestEnvironmentFactory<T>)
+  context(TestEnvironmentFactory<T, K>)
   public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
     testAction: suspend T.(K) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
@@ -231,7 +231,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param name the name of the test.
    * @param testAction a function containing the test logic.
    */
-  context(TestEnvironmentFactory<T>)
+  context(TestEnvironmentFactory<T, AnyKase>)
   public fun <T : TestEnvironment> test(
     name: String,
     testAction: suspend T.() -> Unit
@@ -250,7 +250,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param kase the test Kase
    * @param testAction a function containing the test logic.
    */
-  context(TestEnvironmentFactory<T>)
+  context(TestEnvironmentFactory<T, K>)
   public fun <T : TestEnvironment, K : AnyKase> test(
     kase: K,
     testAction: suspend T.() -> Unit
@@ -269,7 +269,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    *
    * @param testAction a function containing the test logic.
    */
-  context(TestEnvironmentFactory<T>)
+  context(TestEnvironmentFactory<T, K>)
   public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
     testAction: suspend T.(K) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
@@ -286,7 +286,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
  * @param testAction a function to define each test.
  * @return a stream of dynamic nodes representing the tests.
  */
-context(TestEnvironmentFactory<T>)
+context(TestEnvironmentFactory<T, K>)
 public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
   testAction: suspend T.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testAction) }
@@ -298,7 +298,7 @@ public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
  * @param testAction a function to define each test.
  * @return a stream of dynamic nodes representing the tests.
  */
-context(TestEnvironmentFactory<T>)
+context(TestEnvironmentFactory<T, K>)
 public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
   testAction: suspend T.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asTests(testAction) }

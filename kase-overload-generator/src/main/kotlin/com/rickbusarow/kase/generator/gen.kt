@@ -303,22 +303,24 @@ private fun main() {
 
       kaseFun(
         typesString = typesString,
-        args = args,
         parametersPlural = parametersPlural,
         paramsString = paramsString,
         kaseLabelSimpleName = kaseLabelSimpleName,
         kaseSimpleName = kaseSimpleName,
-        withLabelCalls = withLabelCalls
+        withLabelCalls = withLabelCalls,
+        args = args2,
+        kaseTypes = kaseTypes
       )
 
       testFun(
-        args = args,
         typesKaseEnvironment = typesKaseEnvironment,
         typesString = typesString,
         paramsString = paramsString,
         kaseLabelSimpleName = kaseLabelSimpleName,
         argsStringWithLabels = argsStringWithLabels,
-        kaseSimpleName = kaseSimpleName
+        kaseSimpleName = kaseSimpleName,
+        args = args2,
+        kaseTypes = kaseTypes
       )
 
       kasesFun1(

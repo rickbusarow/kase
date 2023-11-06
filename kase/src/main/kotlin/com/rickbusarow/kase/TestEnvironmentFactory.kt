@@ -19,7 +19,7 @@ import com.rickbusarow.kase.files.TestFunctionCoordinates
 import kotlinx.coroutines.runBlocking
 
 /** Creates [TestEnvironment]s. */
-public interface TestEnvironmentFactory<T : TestEnvironment> {
+public interface TestEnvironmentFactory<T : TestEnvironment, K : AnyKase> {
 
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
@@ -29,7 +29,7 @@ public interface TestEnvironmentFactory<T : TestEnvironment> {
    * @param testAction The test action to run within the [TestEnvironment].
    */
   public fun test(
-    kase: AnyKase = Kase.EMPTY,
+    kase: K,
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
     testAction: suspend T.() -> Unit
   ) {
@@ -49,7 +49,7 @@ public interface TestEnvironmentFactory<T : TestEnvironment> {
    *
    * @return A new [TestEnvironment] of type [T].
    */
-  public fun <K : AnyKase> newTestEnvironment(
+  public fun newTestEnvironment(
     kase: K,
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
   ): T {

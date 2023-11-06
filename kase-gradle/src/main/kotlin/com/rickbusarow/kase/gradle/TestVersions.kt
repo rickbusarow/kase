@@ -15,6 +15,15 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.AnyKase
+import com.rickbusarow.kase.Kase2
+import com.rickbusarow.kase.Kase3
+import com.rickbusarow.kase.gradle.DependencyVersion.Agp
+import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
+import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
+import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
+import com.rickbusarow.kase.kase
+import dev.drewhamilton.poko.Poko
 import org.gradle.util.GradleVersion
 
 /** Interface for test versions. */
@@ -38,4 +47,83 @@ public interface TestVersions {
 public interface HasTestVersions<T : TestVersions> {
   /** immutable */
   public val testVersions: T
+}
+
+/** The versions of dependencies which are changed during parameterized tests. */
+@Poko
+public class GradleKotlinTestVersions(
+  override val a1: Gradle,
+  override val a2: Kotlin
+) : TestVersions,
+  Kase2<Gradle, Kotlin> by kase(a1, a2) {
+
+  /** not semver. ex: `8.0` or `8.1.1` */
+  public override val gradleVersion: String get() = a1.value
+
+  /** normal semver. ex `1.8.10` */
+  public val kotlinVersion: String get() = a2.value
+
+  override fun toString(): String = displayName
+
+  public companion object {
+    /** */
+    public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleKotlinTestVersions {
+
+      val versions = kase.elements
+        .mapNotNull { it.value as? DependencyVersion<*, *> }
+        .associateBy { it.key }
+
+      return GradleKotlinTestVersions(
+        a1 = versions.version(Gradle) { versionMatrix[Gradle].first() },
+        a2 = versions.version(Kotlin) { versionMatrix[Kotlin].first() }
+      )
+    }
+
+    private inline fun <reified T : DependencyVersion<*, *>> Map<VersionMatrixKey<*>, DependencyVersion<*, *>>.version(
+      key: VersionMatrixKey<T>,
+      default: () -> T
+    ): T = get(key) as? T ?: default()
+  }
+}
+
+/** The versions of dependencies which are changed during parameterized tests. */
+@Poko
+public class GradleAgpKotlinTestVersions(
+  override val a1: Gradle,
+  override val a2: Agp,
+  override val a3: Kotlin
+) : TestVersions,
+  Kase3<Gradle, Agp, Kotlin> by kase(a1, a2, a3) {
+
+  /** not semver. ex: `8.0` or `8.1.1` */
+  public override val gradleVersion: String get() = a1.value
+
+  /** normal semver. ex `8.1.1` */
+  public val agpVersion: String get() = a2.value
+
+  /** normal semver. ex `1.8.10` */
+  public val kotlinVersion: String get() = a3.value
+
+  override fun toString(): String = displayName
+
+  public companion object {
+    /** */
+    public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleAgpKotlinTestVersions {
+
+      val versions = kase.elements
+        .mapNotNull { it.value as? DependencyVersion<*, *> }
+        .associateBy { it.key }
+
+      return GradleAgpKotlinTestVersions(
+        versions.version(Gradle) { versionMatrix[Gradle].first() },
+        versions.version(Agp) { versionMatrix[Agp].first() },
+        versions.version(Kotlin) { versionMatrix[Kotlin].first() }
+      )
+    }
+
+    private inline fun <reified T : DependencyVersion<*, *>> Map<VersionMatrixKey<*>, DependencyVersion<*, *>>.version(
+      key: VersionMatrixKey<T>,
+      default: () -> T
+    ): T = get(key) as? T ?: default()
+  }
 }

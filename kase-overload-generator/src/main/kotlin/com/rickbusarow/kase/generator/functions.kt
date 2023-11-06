@@ -366,14 +366,14 @@ internal fun StringBuilder.asTests_Destructured_TestEnvironment(
      * @return a [Stream] of [DynamicNode]s from these kases.
      * @see ${kaseTypes.kaseInterfaceNoTypes}
      */
-    context(TestEnvironmentFactory<T>)
+    context(TestEnvironmentFactory<T, ${kaseTypes.kaseInterface}>)
     @JvmName("asTests${kaseTypes.kaseInterfaceNoTypes}ExtensionDestructuredTestEnvironment")
     public inline fun <T : TestEnvironment, ${args.valueTypesString}> Iterable<${kaseTypes.kaseInterface}>.asTests(
       crossinline testAction: T.(${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
-      return testFactory {
+      return testFactory(init =  {
         this@asTests.asTests { testAction(${args.valuesFromItString}) }
-      }
+      })
     }
     """.trimIndent()
   )
@@ -388,15 +388,14 @@ internal fun StringBuilder.testFactory_vararg_Destructured_TestEnvironment(
   appendLine(kdoc)
   appendLine(
     """
-    context(TestEnvironmentFactory<T>)
     @JvmName("testFactory${kaseTypes.kaseInterfaceNoTypes}VarargDestructuredTestEnvironment")
-    public inline fun <T : TestEnvironment, ${args.valueTypesString}> testFactory(
-      vararg kases: ${kaseTypes.kaseInterface},
+    public inline fun <T : TestEnvironment, K : ${kaseTypes.kaseInterface}, ${args.valueTypesString}> TestEnvironmentFactory<T, K>.testFactory(
+      vararg kases: K,
       crossinline testAction: T.(${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
-      return testFactory {
+      return testFactory(init = {
         kases.asSequence().asTests { testAction(${args.valuesFromItString}) }
-      }
+      })
     }
     """.trimIndent()
   )
@@ -411,15 +410,14 @@ internal fun StringBuilder.testFactory_iterable_Destructured_TestEnvironment(
   appendLine(kdoc)
   appendLine(
     """
-    context(TestEnvironmentFactory<T>)
     @JvmName("testFactory${kaseTypes.kaseInterfaceNoTypes}IterableDestructuredTestEnvironment")
-    public inline fun <T : TestEnvironment, ${args.valueTypesString}> testFactory(
-      kases: Iterable<${kaseTypes.kaseInterface}>,
+    public inline fun <T : TestEnvironment, K : ${kaseTypes.kaseInterface}, ${args.valueTypesString}> TestEnvironmentFactory<T, K>.testFactory(
+      kases: Iterable<K>,
       crossinline testAction: T.(${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
-      return testFactory {
+      return testFactory(init = {
         kases.asTests { testAction(${args.valuesFromItString}) }
-      }
+      })
     }
     """.trimIndent()
   )
@@ -523,12 +521,13 @@ internal fun StringBuilder.labelsFun(
 
 internal fun StringBuilder.kaseFun(
   typesString: String,
-  args: List<String>,
   parametersPlural: String,
   paramsString: String,
   kaseLabelSimpleName: String,
   kaseSimpleName: String,
-  withLabelCalls: String
+  withLabelCalls: String,
+  args: List<KaseArg>,
+  kaseTypes: KaseTypes
 ) {
 
   val kdoc = buildString {
@@ -536,7 +535,7 @@ internal fun StringBuilder.kaseFun(
     appendLine(" * Creates a new [Kase] with the given $parametersPlural.")
     appendLine(" *")
     for (arg in args) {
-      appendLine(" * @param $arg the [$kaseSimpleName:$arg] parameter.")
+      appendLine(" * @param ${arg.valueName} the [$kaseSimpleName.${arg.valueName}] parameter.")
     }
     appendLine(" * @param labels the [$kaseLabelSimpleName] to use for this [$kaseSimpleName]")
     appendLine(" * @param labelDelimiter the delimiter between the")
@@ -566,13 +565,14 @@ internal fun StringBuilder.kaseFun(
 }
 
 internal fun StringBuilder.testFun(
-  args: List<String>,
   typesKaseEnvironment: String,
   typesString: String,
   paramsString: String,
   kaseLabelSimpleName: String,
   argsStringWithLabels: String,
-  kaseSimpleName: String
+  kaseSimpleName: String,
+  args: List<KaseArg>,
+  kaseTypes: KaseTypes
 ) {
 
   val kdoc = buildString {
@@ -581,7 +581,7 @@ internal fun StringBuilder.testFun(
     appendLine(" * from these parameters, then executes [testAction].")
     appendLine(" *")
     for (arg in args) {
-      appendLine(" * @param $arg the [$kaseSimpleName:$arg] parameter.")
+      appendLine(" * @param ${arg.valueName} the [$kaseSimpleName.${arg.valueName}] parameter.")
     }
     appendLine(" * @param labels the [$kaseLabelSimpleName] to use for this [$kaseSimpleName]")
     appendLine(
@@ -594,7 +594,7 @@ internal fun StringBuilder.testFun(
   appendLine(
     """
     |$kdoc
-    |public fun $typesKaseEnvironment TestEnvironmentFactory<T>.test(
+    |public fun $typesKaseEnvironment TestEnvironmentFactory<T, K>.test(
     |  $paramsString,
     |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
     |  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),

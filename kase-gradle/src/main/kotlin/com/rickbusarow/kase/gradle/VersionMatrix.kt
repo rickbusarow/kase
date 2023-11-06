@@ -22,6 +22,11 @@ import com.rickbusarow.kase.gradle.internal.DefaultVersionMatrix
 import dev.drewhamilton.poko.Poko
 
 /** */
+public interface HasVersionMatrix {
+  public val versionMatrix: VersionMatrix
+}
+
+/** */
 public interface VersionMatrix {
 
   /** @return a set of all [VersionMatrixKey]s in this version matrix. */
@@ -100,6 +105,22 @@ public interface VersionMatrix {
   public interface VersionMatrixKey<out E : VersionMatrixElement<*>>
 
   public companion object {
+
+    /**
+     * Creates a new [VersionMatrix] instance from the given [elements]. The [elements]
+     * can be retrieved from the matrix by their [VersionMatrixElement.key]s.
+     *
+     * @param elements the [VersionMatrixElement]s to group into a [VersionMatrix]
+     * @return a new [VersionMatrix] instance
+     */
+    public operator fun invoke(vararg elements: VersionMatrixElement<*>): VersionMatrix {
+      return DefaultVersionMatrix(
+        elements.groupBy { it.key }
+          .mapValues { (key, list) ->
+            VersionList(list, list.first(), key)
+          }
+      )
+    }
 
     /**
      * Creates a new [VersionMatrix] instance from the given [elements]. The [elements]

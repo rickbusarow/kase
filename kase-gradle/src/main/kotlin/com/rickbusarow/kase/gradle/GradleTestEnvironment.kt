@@ -18,6 +18,7 @@ package com.rickbusarow.kase.gradle
 import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.TestEnvironment
+import com.rickbusarow.kase.TestEnvironmentFactory
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.files.HasWorkingDir
@@ -30,16 +31,33 @@ import com.rickbusarow.kase.gradle.generation.model.DslLanguage
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.replaceIndent
 import org.gradle.testkit.runner.GradleRunner
+import org.junit.jupiter.api.parallel.Execution
+import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD
 import java.io.File
 
+/** A base class for Gradle plugin tests. */
+@Execution(SAME_THREAD)
+public interface BaseGradleTest<E : GradleTestEnvironment<V>, V> :
+  GradleTestEnvironmentFactory<V>,
+  HasVersionMatrix
+  where V : TestVersions,
+        V : AnyKase
+
+public interface KaseTestFactory<T : TestEnvironment, K : AnyKase> :
+  HasVersionMatrix,
+  TestEnvironmentFactory<T, K>
+
 /** A factory for creating [GradleTestEnvironment]s. */
-public interface GradleTestEnvironmentFactory<T : TestVersions, K : AnyKase> {
+public interface GradleTestEnvironmentFactory<T> :
+  TestEnvironmentFactory<GradleTestEnvironment<T>, T>
+  where T : TestVersions,
+        T : AnyKase {
 
   /** Creates a new [GradleTestEnvironment] for the given [testVariant] and [testVersions]. */
   public fun newTestEnvironment(
-    testVariant: TestVariant<K>,
+    testVariant: TestVariant<T>,
     testVersions: T
-  ): GradleTestEnvironment<T, K> {
+  ): GradleTestEnvironment<T> {
     return GradleTestEnvironment(
       testVersions = testVersions,
       testFunctionCoordinates = testVariant.testFunctionCoordinates,
@@ -47,6 +65,23 @@ public interface GradleTestEnvironmentFactory<T : TestVersions, K : AnyKase> {
       buildFileComponents = object : BuildFileComponents {},
       DslLanguage.GroovyDsl(useInfix = true, useLabels = true, useDoubleQuotes = false)
     )
+  }
+
+  override fun newTestEnvironment(
+    kase: T,
+    testFunctionCoordinates: TestFunctionCoordinates
+  ): GradleTestEnvironment<T> {
+    return GradleTestEnvironment(
+      testVersions = kase,
+      testFunctionCoordinates = testFunctionCoordinates,
+      kase = kase,
+      buildFileComponents = object : BuildFileComponents {},
+      DslLanguage.GroovyDsl(useInfix = true, useLabels = true, useDoubleQuotes = false)
+    )
+  }
+
+  override fun newTestEnvironment(params: TestVariant<out AnyKase>): GradleTestEnvironment<T> {
+    return super.newTestEnvironment(params)
   }
 }
 
@@ -60,7 +95,7 @@ public interface GradleTestEnvironmentFactory<T : TestVersions, K : AnyKase> {
  * @param dslLanguage the [DslLanguage] for this test environment
  */
 @Suppress("PropertyName", "VariableNaming", "MemberVisibilityCanBePrivate", "MagicNumber")
-public class GradleTestEnvironment<T : TestVersions, K : AnyKase> public constructor(
+public class GradleTestEnvironment<T> public constructor(
   hasWorkingDir: HasWorkingDir,
   override val testVersions: T,
   buildFileComponents: BuildFileComponents,
@@ -72,7 +107,9 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase> public constru
     gradleVersion = { testVersions.gradleVersion }
   ),
   HasTestVersions<T>,
-  WritesFiles {
+  WritesFiles
+  where T : TestVersions,
+        T : AnyKase {
 
   /**
    * @param testVersions the [TestVersions] for this test environment
@@ -84,7 +121,7 @@ public class GradleTestEnvironment<T : TestVersions, K : AnyKase> public constru
   public constructor (
     testVersions: T,
     testFunctionCoordinates: TestFunctionCoordinates,
-    kase: K,
+    kase: T,
     buildFileComponents: BuildFileComponents,
     dslLanguage: DslLanguage
   ) : this(
