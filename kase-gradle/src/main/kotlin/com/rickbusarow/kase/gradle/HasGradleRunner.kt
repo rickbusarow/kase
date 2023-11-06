@@ -28,6 +28,7 @@ import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome.FAILED
 import org.gradle.util.GradleVersion
 
+/** Trait interface for a test environment with a [GradleRunner]. */
 public interface HasGradleRunner {
 
   /** The [GradleRunner] used to execute Gradle builds. */
@@ -136,6 +137,7 @@ public interface HasGradleRunner {
   public fun BuildResult.trimGradleNoise(shortenPaths: Boolean = true): String
 }
 
+/** Default implementation of [HasGradleRunner]. */
 public open class DefaultHasGradleRunner(
   hasWorkingDir: HasWorkingDir,
   gradleVersion: () -> String = { GradleVersion.current().version }

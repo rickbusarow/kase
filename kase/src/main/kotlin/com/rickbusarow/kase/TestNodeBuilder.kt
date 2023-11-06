@@ -331,6 +331,7 @@ public fun <K : AnyKase> Sequence<K>.asContainers(
   testAction: TestNodeBuilder.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
 
+/** Creates dynamic tests where the pair's String element is the display name */
 @JvmName("asTestsStringKasePairs")
 public fun <K : AnyKase> Iterable<Pair<String, K>>.asTests(
   testAction: (kase: K) -> Unit

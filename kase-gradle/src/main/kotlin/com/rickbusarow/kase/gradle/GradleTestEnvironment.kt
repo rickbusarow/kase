@@ -45,15 +45,22 @@ public interface BaseGradleTest<E : GradleTestEnvironment<V>, V> :
   where V : TestVersions,
         V : AnyKase
 
+/** Trait interface for a test class with default [kases] */
 public interface HasKases<K : AnyKase> {
+  /** The default kases for tests in this class. */
   public val kases: List<K>
 }
 
+/**
+ * Common interface for creating dynamic tests with
+ * predefined [kases] and a unique [TestEnvironment]
+ */
 public interface KaseTestFactory<T : TestEnvironment, K : AnyKase> :
   HasVersionMatrix<K>,
   HasKases<K>,
   TestEnvironmentFactory<T, K> {
 
+  /** Creates a stream of tests from [kases] */
   public fun testFactory(
     testAction: T.(K) -> Unit
   ): Stream<out DynamicNode> = com.rickbusarow.kase.testFactory {
@@ -242,13 +249,5 @@ public class GradleTestEnvironment<T> public constructor(
         postfix = "\n"
       ) { "include(\"$it\")" }
     rootSettings.appendText(includes)
-  }
-
-  private fun writeFilesToEnvironment() {
-    rootBuild
-    rootSettings
-    workingDir.walkTopDown()
-      .filter { it.isFile }
-      .forEach { println("file://$it") }
   }
 }

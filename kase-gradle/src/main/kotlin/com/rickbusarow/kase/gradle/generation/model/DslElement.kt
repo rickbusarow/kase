@@ -25,17 +25,13 @@ public interface DslElement : Comparable<DslElement> {
   /** Returns the DSL code for this component. */
   public fun write(language: DslLanguage): String
 
-  /**
-   * shorthand for `write(KotlinDsl(useInfix, useLabels))`
-   */
+  /** shorthand for `write(KotlinDsl(useInfix, useLabels))` */
   public fun writeKotlin(
     useInfix: Boolean = true,
     useLabels: Boolean = false
   ): String = write(KotlinDsl(useInfix = useInfix, useLabels = useLabels))
 
-  /**
-   * shorthand for `write(GroovyDsl(useInfix, useLabels, useDoubleQuotes))`
-   */
+  /** shorthand for `write(GroovyDsl(useInfix, useLabels, useDoubleQuotes))` */
   public fun writeGroovy(
     useInfix: Boolean = true,
     useLabels: Boolean = false,

@@ -22,8 +22,9 @@ import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 import com.rickbusarow.kase.gradle.internal.DefaultVersionMatrix
 import dev.drewhamilton.poko.Poko
 
-/** */
+/** Trait interface for a [VersionMatrix]. */
 public interface HasVersionMatrix<K : AnyKase> : HasKases<K> {
+  /** The [VersionMatrix] for this test class. */
   public val versionMatrix: VersionMatrix
 }
 

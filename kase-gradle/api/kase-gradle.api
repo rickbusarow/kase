@@ -549,8 +549,8 @@ public final class com/rickbusarow/kase/gradle/generation/dsl/PluginsSpec : com/
 	public static synthetic fun alias$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
 	public final fun id (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
 	public static synthetic fun id$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
-	public final fun kotlinPlugin (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
-	public static synthetic fun kotlinPlugin$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+	public final fun kotlin (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
+	public static synthetic fun kotlin$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
 	public final fun precompiled (Ljava/lang/String;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
 	public static synthetic fun precompiled$default (Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;Ljava/lang/String;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/dsl/PluginsSpec;
 }
@@ -588,7 +588,7 @@ public final class com/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerS
 	public final fun mavenLocal (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/RepositoryHandlerSpec;
 }
 
-public final class com/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/model/DslFileBuilder, com/rickbusarow/kase/gradle/generation/model/HasIncludedBuild, com/rickbusarow/kase/gradle/generation/model/HasIncludes {
+public final class com/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/model/DslFileBuilder, com/rickbusarow/kase/gradle/generation/model/HasIncludedBuild, com/rickbusarow/kase/gradle/generation/model/HasIncludes, com/rickbusarow/kase/gradle/generation/model/HasPluginsBlock {
 	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public final fun dependencyResolutionManagement (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
 	public fun include ([Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/dsl/SettingsFileSpec;
@@ -643,6 +643,8 @@ public abstract class com/rickbusarow/kase/gradle/generation/model/AbstractDslEl
 	public fun string (Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public fun stringLiteral (Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/BlankLine : com/rickbusarow/kase/gradle/generation/model/DslElement {
@@ -650,6 +652,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/BlankLine : com/
 	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration : com/rickbusarow/kase/gradle/generation/model/DslElement {
@@ -659,6 +663,8 @@ public abstract interface class com/rickbusarow/kase/gradle/generation/model/Dep
 
 public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$DefaultImpls {
 	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/DependencyDeclaration;ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ExternalDependency : com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration {
@@ -675,6 +681,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclar
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration$ProjectDependency : com/rickbusarow/kase/gradle/generation/model/DependencyDeclaration {
@@ -691,6 +699,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclar
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/DependencyDeclarationContainer : java/util/List, kotlin/jvm/internal/markers/KMappedMarker {
@@ -749,15 +759,23 @@ public final class com/rickbusarow/kase/gradle/generation/model/DependencyExclus
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/DslElement : java/lang/Comparable {
 	public abstract fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public abstract fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public abstract fun writeGroovy (ZZZ)Ljava/lang/String;
+	public abstract fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/DslElement$DefaultImpls {
 	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;ZZZ)Ljava/lang/String;
+	public static synthetic fun writeGroovy$default (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;ZZZILjava/lang/Object;)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;ZZ)Ljava/lang/String;
+	public static synthetic fun writeKotlin$default (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;ZZILjava/lang/Object;)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/DslElementContainer : com/rickbusarow/kase/gradle/generation/model/DslElement {
@@ -798,6 +816,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/DslElementContai
 	public static synthetic fun string$default (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;ZILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public static synthetic fun stringLiteral$default (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;Ljava/lang/String;Ljava/lang/Boolean;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/DslElementContainer;ZZ)Ljava/lang/String;
 }
 
 public abstract interface annotation class com/rickbusarow/kase/gradle/generation/model/DslElementContainerMarker : java/lang/annotation/Annotation {
@@ -821,6 +841,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/DslFileBuilder$D
 	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;
 	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/DslFileBuilder;ZZ)Ljava/lang/String;
 }
 
 public abstract class com/rickbusarow/kase/gradle/generation/model/DslLanguage {
@@ -845,7 +867,9 @@ public abstract class com/rickbusarow/kase/gradle/generation/model/DslLanguage {
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/DslLanguage$GroovyDsl : com/rickbusarow/kase/gradle/generation/model/DslLanguage {
+	public fun <init> ()V
 	public fun <init> (ZZZ)V
+	public synthetic fun <init> (ZZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getUseDoubleQuotes ()Z
 	public fun getUseInfix ()Z
@@ -856,7 +880,9 @@ public final class com/rickbusarow/kase/gradle/generation/model/DslLanguage$Groo
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/DslLanguage$KotlinDsl : com/rickbusarow/kase/gradle/generation/model/DslLanguage {
+	public fun <init> ()V
 	public fun <init> (ZZ)V
+	public synthetic fun <init> (ZZILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getUseDoubleQuotes ()Z
 	public fun getUseInfix ()Z
@@ -873,6 +899,8 @@ public abstract interface class com/rickbusarow/kase/gradle/generation/model/Dsl
 
 public final class com/rickbusarow/kase/gradle/generation/model/DslValueReference$DefaultImpls {
 	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslValueReference;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/DslValueReference;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/DslValueReference;ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/FunctionCall : com/rickbusarow/kase/gradle/generation/model/DslElement {
@@ -891,6 +919,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/FunctionCall : c
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public abstract class com/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport {
@@ -927,6 +957,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/GradlePropertyRe
 	public final fun set (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/GradlePropertyReference;
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
@@ -948,6 +980,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/HasDependenciesB
 	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;
 	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/HasDependenciesBlock;ZZ)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasIncludedBuild : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
@@ -975,6 +1009,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/HasIncludedBuild
 	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
 	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;ZZ)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasIncludes : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
@@ -997,6 +1033,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/HasIncludes$Defa
 	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasIncludedBuild;
 	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/HasIncludes;ZZ)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasPluginsBlock : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
@@ -1018,6 +1056,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/HasPluginsBlock$
 	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;
 	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/HasPluginsBlock;ZZ)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock : com/rickbusarow/kase/gradle/generation/model/DslElementContainer {
@@ -1039,6 +1079,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/HasRepositoriesB
 	public static fun setEquals (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;
 	public static fun string (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Z)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
 	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/generation/model/StringLiteral;
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/HasRepositoriesBlock;ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/LambdaParameter : com/rickbusarow/kase/gradle/generation/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/generation/model/Parameter {
@@ -1085,6 +1127,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/Parameter$Compan
 public final class com/rickbusarow/kase/gradle/generation/model/Parameter$DefaultImpls {
 	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/Parameter;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public static fun write (Lcom/rickbusarow/kase/gradle/generation/model/Parameter;Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/Parameter;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/Parameter;ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/ParameterList : com/rickbusarow/kase/gradle/generation/model/DslElement {
@@ -1103,6 +1147,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/ParameterList : 
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 	public final fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/ParameterList$Companion {
@@ -1115,6 +1161,8 @@ public abstract class com/rickbusarow/kase/gradle/generation/model/PluginApplica
 	public abstract fun getIdentifier ()Ljava/lang/String;
 	public abstract fun getVersion ()Ljava/lang/String;
 	public final fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/PluginApplication$Alias : com/rickbusarow/kase/gradle/generation/model/PluginApplication {
@@ -1168,6 +1216,8 @@ public abstract class com/rickbusarow/kase/gradle/generation/model/RegularVariab
 	protected final fun getWithReference ()Ljava/lang/Object;
 	protected final fun setWithReference (Ljava/lang/Object;)V
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/RegularVariableReference$ImmutableVariableReference : com/rickbusarow/kase/gradle/generation/model/RegularVariableReference {
@@ -1199,6 +1249,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/StringLiteral : 
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/ValueAssignment : com/rickbusarow/kase/gradle/generation/model/DslElement {
@@ -1208,6 +1260,8 @@ public abstract interface class com/rickbusarow/kase/gradle/generation/model/Val
 
 public final class com/rickbusarow/kase/gradle/generation/model/ValueAssignment$DefaultImpls {
 	public static fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/ValueAssignment;Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
+	public static fun writeGroovy (Lcom/rickbusarow/kase/gradle/generation/model/ValueAssignment;ZZZ)Ljava/lang/String;
+	public static fun writeKotlin (Lcom/rickbusarow/kase/gradle/generation/model/ValueAssignment;ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/ValueAssignment$GradlePropertyAssignment : com/rickbusarow/kase/gradle/generation/model/ValueAssignment {
@@ -1222,6 +1276,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/ValueAssignment$
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/ValueAssignment$SetterAssignment : com/rickbusarow/kase/gradle/generation/model/ValueAssignment {
@@ -1236,6 +1292,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/ValueAssignment$
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/generation/model/ValueParameter : com/rickbusarow/kase/gradle/generation/model/Parameter {
@@ -1253,6 +1311,8 @@ public final class com/rickbusarow/kase/gradle/generation/model/ValueParameter :
 	public fun toString ()Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;)Ljava/lang/String;
 	public fun write (Lcom/rickbusarow/kase/gradle/generation/model/DslLanguage;Lcom/rickbusarow/kase/gradle/generation/model/FunctionCall$LabelSupport;)Ljava/lang/String;
+	public fun writeGroovy (ZZZ)Ljava/lang/String;
+	public fun writeKotlin (ZZ)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/generation/model/ValueStringFactory {

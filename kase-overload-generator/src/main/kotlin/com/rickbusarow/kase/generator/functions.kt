@@ -520,7 +520,6 @@ internal fun StringBuilder.labelsFun(
 }
 
 internal fun StringBuilder.kaseFun(
-  typesString: String,
   parametersPlural: String,
   paramsString: String,
   kaseLabelSimpleName: String,
@@ -548,12 +547,12 @@ internal fun StringBuilder.kaseFun(
   appendLine(
     """
     |$kdoc
-    |public fun $typesString kase(
+    |public fun <${args.valueTypesString}> kase(
     |  $paramsString,
-    |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
+    |  labels: ${kaseTypes.kaseLabels} = ${kaseTypes.kaseLabels}(),
     |  labelDelimiter: String = labels.labelDelimiter,
     |  displayNameSeparator: String = labels.displayNameSeparator
-    |): $kaseSimpleName$typesString {
+    |): ${kaseTypes.kaseInterface} {
     |  return Default$kaseSimpleName(
     |    $withLabelCalls,
     |    labelDelimiter = labelDelimiter,
@@ -567,7 +566,6 @@ internal fun StringBuilder.kaseFun(
 internal fun StringBuilder.testFun(
   typesKaseEnvironment: String,
   typesString: String,
-  paramsString: String,
   kaseLabelSimpleName: String,
   argsStringWithLabels: String,
   kaseSimpleName: String,

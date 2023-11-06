@@ -302,7 +302,6 @@ private fun main() {
       )
 
       kaseFun(
-        typesString = typesString,
         parametersPlural = parametersPlural,
         paramsString = paramsString,
         kaseLabelSimpleName = kaseLabelSimpleName,
@@ -315,7 +314,6 @@ private fun main() {
       testFun(
         typesKaseEnvironment = typesKaseEnvironment,
         typesString = typesString,
-        paramsString = paramsString,
         kaseLabelSimpleName = kaseLabelSimpleName,
         argsStringWithLabels = argsStringWithLabels,
         kaseSimpleName = kaseSimpleName,
