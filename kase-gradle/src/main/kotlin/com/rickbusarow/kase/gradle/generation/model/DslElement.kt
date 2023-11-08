@@ -54,6 +54,12 @@ public object BlankLine : DslElement {
   override fun write(language: DslLanguage): String = ""
 }
 
+/** Represents exact text to be written to the DSL, without modification. */
+@JvmInline
+public value class RawLiteral(public val value: String) : DslElement {
+  override fun write(language: DslLanguage): String = value
+}
+
 /**
  * Represents a String value that will be wrapped in single
  * or double quotes, depending upon the dsl language.

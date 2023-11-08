@@ -15,20 +15,22 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.PropertyAccessSupport
 import com.rickbusarow.kase.gradle.generation.model.ValueAssignment.GradlePropertyAssignment
 import com.rickbusarow.kase.gradle.generation.model.ValueAssignment.SetterAssignment
 
 /** */
 @DslMarker
-@Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE)
-public annotation class DslElementContainerMarker
+@Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
+public annotation class GradleBuilderDsl
 
 /**
  * Collects [DslElement]s, to be written to a [DslLanguage]
  * file. Elements are written in the order they are added.
  */
-@DslElementContainerMarker
+@GradleBuilderDsl
 public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElement {
 
   /** The list of [DslElement]s in this container. */
@@ -54,49 +56,8 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    * Wraps a String literal in language-specific quotes
    *
    * @param stringValue the String value to be quoted.
-   * @param useDoubleQuotes whether to use double quotes for strings, even when single
-   *   quotes are valid. e.g. `project(":myProject")` instead of `project(':myProject')`
-   * @see string as another code-completion friendly alias for this function
-   */
-  @Deprecated(
-    "Renamed to stringLiteral",
-    ReplaceWith("stringLiteral(stringValue, useDoubleQuotes)")
-  )
-  public fun quoted(
-    stringValue: String,
-    useDoubleQuotes: Boolean = false
-  ): StringLiteral = stringLiteral(
-    stringValue = stringValue,
-    useDoubleQuotes = useDoubleQuotes
-  )
-
-  /**
-   * Wraps a String literal in language-specific quotes
-   *
-   * @param stringValue the String value to be quoted.
-   * @param useDoubleQuotes whether to use double quotes for strings, even when single
-   *   quotes are valid. e.g. `project(":myProject")` instead of `project(':myProject')`
-   * @see quoted as another code-completion friendly alias for this function
-   */
-  @Deprecated(
-    "Renamed to stringLiteral",
-    ReplaceWith("stringLiteral(stringValue, useDoubleQuotes)")
-  )
-  public fun string(
-    stringValue: String,
-    useDoubleQuotes: Boolean = false
-  ): StringLiteral = stringLiteral(
-    stringValue = stringValue,
-    useDoubleQuotes = useDoubleQuotes
-  )
-
-  /**
-   * Wraps a String literal in language-specific quotes
-   *
-   * @param stringValue the String value to be quoted.
    * @param useDoubleQuotes whether to use double quotes for strings. Defaults to
    *   `null` so that the setting is inherited from the language configuration.
-   * @see quoted as another code-completion friendly alias for this function
    */
   public fun stringLiteral(
     stringValue: String,
@@ -119,6 +80,9 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
     useDoubleQuotes = useDoubleQuotes
   )
 
+  /** Adds some exact text to be written to the DSL, without modification. */
+  public fun raw(value: String): SELF = addElement(RawLiteral(value = value))
+
   /**
    * Adds a new [FunctionCall] to the DSL.
    *
@@ -127,12 +91,13 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    */
   public fun functionCall(
     name: String,
-    vararg parameters: Parameter
+    vararg parameters: Parameter?
   ): SELF = addElement(
     FunctionCall(
       name = name,
       labelSupport = LabelSupport.NoLabels,
-      parameters = parameters.toList()
+      infixSupport = InfixSupport.NoInfix,
+      parameters = parameters.filterNotNull()
     )
   )
 
@@ -141,17 +106,36 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *
    * @param name the name of the function, such as `exclude`
    * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+   * @param infixSupport whether to use infix in the function call, such as `foo t`
    * @param parameters the list of parameters to pass to the function
    */
   public fun functionCall(
     name: String,
     labelSupport: LabelSupport,
-    vararg parameters: Parameter
+    infixSupport: InfixSupport,
+    vararg parameters: Parameter?
   ): SELF = addElement(
     FunctionCall(
       name = name,
       labelSupport = labelSupport,
-      parameters = parameters.toList()
+      infixSupport = infixSupport,
+      parameters = parameters.filterNotNull()
+    )
+  )
+
+  /**
+   * Adds a new [DecidingDslElement] to the DSL.
+   *
+   * @param kotlinElement invoked for the Kotlin DSL
+   * @param groovyElement invoked for the Groovy DSL
+   */
+  public fun <T : DslElement> deciding(
+    kotlinElement: () -> T,
+    groovyElement: () -> T
+  ): SELF = addElement(
+    DecidingDslElement(
+      kotlinElement = kotlinElement,
+      groovyElement = groovyElement
     )
   )
 
@@ -160,17 +144,47 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *
    * @param name the name of the function, such as `exclude`
    * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+   * @param infixSupport whether to use infix in the function call, such as `foo t`
    * @param parameterList the parameters to pass to the function
    */
   public fun functionCall(
     name: String,
     labelSupport: LabelSupport,
+    infixSupport: InfixSupport,
     parameterList: ParameterList
   ): SELF = addElement(
     FunctionCall(
       name = name,
-      parameterList = parameterList,
-      labelSupport = labelSupport
+      labelSupport = labelSupport,
+      infixSupport = infixSupport,
+      parameterList = parameterList
+    )
+  )
+
+  /**
+   * Adds a new [SetterFunctionCall] to the DSL.
+   *
+   * @param propertyName the name of the "property" if property
+   *   access is used, like "foo" for a `setFoo(...)` function
+   * @param parameter the new value to be set
+   * @param propertyAccessSupport whether to use property
+   *   access in the function call, such as `foo = t`
+   * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+   * @param infixSupport whether to use infix in the function call, such as `foo t`
+   */
+  public fun setterFunctionCall(
+    propertyName: String,
+    parameter: ValueParameter,
+    propertyAccessSupport: PropertyAccessSupport,
+    labelSupport: LabelSupport,
+    infixSupport: InfixSupport
+  ): SELF = addElement(
+    SetterFunctionCall(
+      propertyName = propertyName,
+      propertyAccessSupport = propertyAccessSupport,
+      labelSupport = labelSupport,
+      infixSupport = infixSupport,
+      parameter = parameter
     )
   )
 
@@ -277,25 +291,6 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
     return addElement(SetterAssignment(name = this, value = value))
   }
 }
-
-/**
- * Adds a new [FunctionCall] to the DSL.
- *
- * @param name the name of the function, such as `exclude`
- * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
- * @param parameters the list of parameters to pass to the function
- */
-internal fun <SELF : DslElementContainer<SELF>> DslElementContainer<SELF>.functionCall(
-  name: String,
-  labelSupport: LabelSupport,
-  vararg parameters: Parameter?
-): SELF = addElement(
-  FunctionCall(
-    name = name,
-    labelSupport = labelSupport,
-    parameters = listOfNotNull(*parameters)
-  )
-)
 
 internal class SimpleDslElementContainer(
   elements: MutableList<DslElement> = mutableListOf()

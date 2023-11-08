@@ -31,6 +31,7 @@ public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
    *     id("somePlugin") version "1.0.0"
    *   }
    * }
+   * ```
    */
   public fun id(
     id: String,
@@ -50,6 +51,7 @@ public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
    *     alias(libs.plugins.kotlin.jvm)
    *   }
    * }
+   * ```
    */
   public fun alias(
     aliasName: String,
@@ -70,6 +72,7 @@ public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
    *     `java-platform`
    *   }
    * }
+   * ```
    */
   public fun precompiled(
     identifier: String,

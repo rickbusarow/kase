@@ -18,8 +18,6 @@ package com.rickbusarow.kase.gradle
 import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.TestEnvironment
-import com.rickbusarow.kase.TestEnvironmentFactory
-import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.TestFunctionCoordinates
@@ -27,86 +25,14 @@ import com.rickbusarow.kase.files.WritesFiles
 import com.rickbusarow.kase.files.buildDirectory
 import com.rickbusarow.kase.files.relativePath
 import com.rickbusarow.kase.gradle.generation.BuildFileComponents
+import com.rickbusarow.kase.gradle.generation.dsl.BuildFileSpec
+import com.rickbusarow.kase.gradle.generation.dsl.SettingsFileSpec
+import com.rickbusarow.kase.gradle.generation.model.DslElement
 import com.rickbusarow.kase.gradle.generation.model.DslLanguage
+import com.rickbusarow.kase.gradle.generation.model.HasDslLanguage
 import com.rickbusarow.kase.stdlib.createSafely
-import com.rickbusarow.kase.stdlib.replaceIndent
 import org.gradle.testkit.runner.GradleRunner
-import org.junit.jupiter.api.DynamicNode
-import org.junit.jupiter.api.parallel.Execution
-import org.junit.jupiter.api.parallel.ExecutionMode.SAME_THREAD
 import java.io.File
-import java.util.stream.Stream
-
-/** A base class for Gradle plugin tests. */
-@Execution(SAME_THREAD)
-public interface BaseGradleTest<E : GradleTestEnvironment<V>, V> :
-  GradleTestEnvironmentFactory<V>,
-  HasVersionMatrix<V>
-  where V : TestVersions,
-        V : AnyKase
-
-/** Trait interface for a test class with default [kases] */
-public interface HasKases<K : AnyKase> {
-  /** The default kases for tests in this class. */
-  public val kases: List<K>
-}
-
-/**
- * Common interface for creating dynamic tests with
- * predefined [kases] and a unique [TestEnvironment]
- */
-public interface KaseTestFactory<T : TestEnvironment, K : AnyKase> :
-  HasVersionMatrix<K>,
-  HasKases<K>,
-  TestEnvironmentFactory<T, K> {
-
-  /** Creates a stream of tests from [kases] */
-  public fun testFactory(
-    testAction: T.(K) -> Unit
-  ): Stream<out DynamicNode> = com.rickbusarow.kase.testFactory {
-    kases.asTests {
-      newTestEnvironment(it, testFunctionCoordinates).testAction(it)
-    }
-  }
-}
-
-/** A factory for creating [GradleTestEnvironment]s. */
-public interface GradleTestEnvironmentFactory<T> :
-  TestEnvironmentFactory<GradleTestEnvironment<T>, T>
-  where T : TestVersions,
-        T : AnyKase {
-
-  /** Creates a new [GradleTestEnvironment] for the given [testVariant] and [testVersions]. */
-  public fun newTestEnvironment(
-    testVariant: TestVariant<T>,
-    testVersions: T
-  ): GradleTestEnvironment<T> {
-    return GradleTestEnvironment(
-      testVersions = testVersions,
-      testFunctionCoordinates = testVariant.testFunctionCoordinates,
-      kase = testVariant.kase,
-      buildFileComponents = object : BuildFileComponents {},
-      DslLanguage.GroovyDsl(useInfix = true, useLabels = true, useDoubleQuotes = false)
-    )
-  }
-
-  override fun newTestEnvironment(
-    kase: T,
-    testFunctionCoordinates: TestFunctionCoordinates
-  ): GradleTestEnvironment<T> {
-    return GradleTestEnvironment(
-      testVersions = kase,
-      testFunctionCoordinates = testFunctionCoordinates,
-      kase = kase,
-      buildFileComponents = object : BuildFileComponents {},
-      DslLanguage.GroovyDsl(useInfix = true, useLabels = true, useDoubleQuotes = false)
-    )
-  }
-
-  override fun newTestEnvironment(params: TestVariant<out AnyKase>): GradleTestEnvironment<T> {
-    return super.newTestEnvironment(params)
-  }
-}
 
 /**
  * A [TestEnvironment] which provides a [GradleRunner]
@@ -115,24 +41,27 @@ public interface GradleTestEnvironmentFactory<T> :
  * @param hasWorkingDir the [HasWorkingDir] for this test environment
  * @property testVersions the [TestVersions] for this test environment
  * @param buildFileComponents the [BuildFileComponents] for this test environment
- * @param dslLanguage the [DslLanguage] for this test environment
+ * @property dslLanguage the [DslLanguage] for this test environment
+ * @param localM2Path the local maven repository path
  */
 @Suppress("PropertyName", "VariableNaming", "MemberVisibilityCanBePrivate", "MagicNumber")
-public class GradleTestEnvironment<T> public constructor(
+public class GradleTestEnvironment<TV> public constructor(
   hasWorkingDir: HasWorkingDir,
-  override val testVersions: T,
+  override val testVersions: TV,
   buildFileComponents: BuildFileComponents,
-  dslLanguage: DslLanguage
+  override val dslLanguage: DslLanguage,
+  localM2Path: File
 ) : DefaultTestEnvironment(hasWorkingDir),
   TestVersions by testVersions,
   HasGradleRunner by DefaultHasGradleRunner(
     hasWorkingDir = hasWorkingDir,
     gradleVersion = { testVersions.gradleVersion }
   ),
-  HasTestVersions<T>,
-  WritesFiles
-  where T : TestVersions,
-        T : AnyKase {
+  HasTestVersions<TV>,
+  WritesFiles,
+  HasDslLanguage
+  where TV : TestVersions,
+        TV : AnyKase {
 
   /**
    * @param testVersions the [TestVersions] for this test environment
@@ -140,18 +69,21 @@ public class GradleTestEnvironment<T> public constructor(
    * @param kase the variant names related to the test
    * @param buildFileComponents the [BuildFileComponents] for this test environment
    * @param dslLanguage the [DslLanguage] for this test environment
+   * @param localM2Path the local maven repository path
    */
   public constructor (
-    testVersions: T,
+    testVersions: TV,
     testFunctionCoordinates: TestFunctionCoordinates,
-    kase: T,
+    kase: TV,
     buildFileComponents: BuildFileComponents,
-    dslLanguage: DslLanguage
+    dslLanguage: DslLanguage,
+    localM2Path: File
   ) : this(
-    HasWorkingDir(kase.displayNames, testFunctionCoordinates),
-    testVersions,
-    buildFileComponents,
-    dslLanguage
+    hasWorkingDir = HasWorkingDir(kase.displayNames, testFunctionCoordinates),
+    testVersions = testVersions,
+    buildFileComponents = buildFileComponents,
+    dslLanguage = dslLanguage,
+    localM2Path = localM2Path
   )
 
   /** The [File] representing the root project directory. */
@@ -164,57 +96,75 @@ public class GradleTestEnvironment<T> public constructor(
 
   /** The default build.gradle file. */
   public val DEFAULT_BUILD_FILE: String by lazy {
-    """
-    buildscript {
-      dependencies {
-        ${
-      buildFileComponents.buildscriptDependenciesBlockContent(dslLanguage, testVersions)
-        .replaceIndent(4)
-    }
+    BuildFileSpec {
+      buildscript {
       }
-    }
 
-    plugins {
-
-    }
-    """.trimIndent()
+      plugins {
+        kotlin("jvm", KotlinVersion.CURRENT.toString(), apply = false)
+      }
+    }.write(dslLanguage)
   }
 
   /** The default build.gradle file. */
-  public val rootBuild: File by lazy {
-    root.resolve("build.gradle.kts")
-      .createSafely(DEFAULT_BUILD_FILE, overwrite = false)
-  }
+  public val rootBuild: File = root.resolve(dslLanguage.buildFileName)
+    .createSafely(DEFAULT_BUILD_FILE, overwrite = false)
+
+  /** Applies [builder] to the root `build.gradle[.kts]` file. */
+  public fun rootBuild(
+    dslLanguage: DslLanguage = this.dslLanguage,
+    builder: BuildFileSpec.() -> Unit
+  ): File = rootBuild.fromDslElement(dslLanguage, BuildFileSpec(builder))
 
   /** The default settings.gradle file. */
   public val DEFAULT_SETTINGS_FILE: String by lazy {
-    """
-      rootProject.name = "root"
+    SettingsFileSpec {
 
       pluginManagement {
         repositories {
+          maven(localM2Path)
           gradlePluginPortal()
           mavenCentral()
-          mavenLocal()
           google()
         }
       }
       dependencyResolutionManagement {
-        @Suppress("UnstableApiUsage")
         repositories {
+          maven(localM2Path)
           mavenCentral()
-          mavenLocal()
           google()
         }
       }
-    """.trimIndent()
+
+      rootProjectName.setEquals("root")
+    }.write(dslLanguage)
   }
 
   /** The root settings.gradle file. */
-  public val rootSettings: File by lazy {
-    root.resolve("settings.gradle.kts")
-      .createSafely(DEFAULT_SETTINGS_FILE)
-  }
+  public val rootSettings: File = root.resolve(dslLanguage.settingsFileName)
+    .createSafely(DEFAULT_SETTINGS_FILE)
+
+  /** Applies [builder] to the root `settings.gradle[.kts]` file. */
+  public fun rootSettings(
+    dslLanguage: DslLanguage = this.dslLanguage,
+    builder: SettingsFileSpec.() -> Unit
+  ): File = rootSettings.fromDslElement(dslLanguage, SettingsFileSpec(builder))
+
+  public fun DirectoryBuilder.buildFile(
+    dslLanguage: DslLanguage = this@GradleTestEnvironment.dslLanguage,
+    builder: BuildFileSpec.() -> Unit
+  ): DirectoryBuilder = file(
+    nameWithExtension = dslLanguage.buildFileName,
+    content = BuildFileSpec(builder).write(dslLanguage)
+  )
+
+  public fun DirectoryBuilder.settingsFile(
+    dslLanguage: DslLanguage = this@GradleTestEnvironment.dslLanguage,
+    builder: SettingsFileSpec.() -> Unit
+  ): DirectoryBuilder = file(
+    nameWithExtension = dslLanguage.settingsFileName,
+    content = SettingsFileSpec(builder).write(dslLanguage)
+  )
 
   /** The root project directory. */
   public val rootProject: File by lazy {
@@ -224,12 +174,15 @@ public class GradleTestEnvironment<T> public constructor(
   }
 
   @Suppress("UnusedPrivateMember")
-  private fun addIncludes() {
+  public fun addIncludes() {
 
     val subprojectDirs = root.walkTopDown()
       .onEnter {
-        !it.resolve("settings.gradle").exists() &&
-          !it.resolve("settings.gradle.kts").exists()
+        it == root ||
+          (
+            !it.resolve("settings.gradle").exists() &&
+              !it.resolve("settings.gradle.kts").exists()
+            )
       }
       .filter { it.isDirectory }
       .filter {
@@ -241,6 +194,7 @@ public class GradleTestEnvironment<T> public constructor(
       it.relativePath()
         .replace(File.separatorChar, ':')
     }
+      .filterNot { it.isBlank() }
 
     val includes = subprojectPaths
       .joinToString(
@@ -248,6 +202,53 @@ public class GradleTestEnvironment<T> public constructor(
         prefix = "\n",
         postfix = "\n"
       ) { "include(\"$it\")" }
-    rootSettings.appendText(includes)
+    rootSettings.appendText("\n$includes")
   }
+
+  /** Writes the output of [dslElement] to this [File]. */
+  public fun File.fromDslElement(
+    dslLanguage: DslLanguage,
+    dslElement: DslElement
+  ): File = createSafely(dslElement.write(dslLanguage))
+
+  /**
+   * Writes the output of [dslElement] to this [File]
+   * using the [GroovyDsl][DslLanguage.GroovyDsl] language.
+   */
+  public fun File.groovy(dslElement: DslElement): File = createSafely(dslElement.writeGroovy())
+
+  /**
+   * Writes the output of [dslElement] to this [File]
+   * using the [GroovyDsl][DslLanguage.GroovyDsl] language.
+   */
+  public fun File.groovy(
+    useInfix: Boolean = true,
+    useLabels: Boolean = false,
+    useDoubleQuotes: Boolean = false,
+    dslElement: DslElement
+  ): File = createSafely(
+    dslElement.writeGroovy(
+      useInfix = useInfix,
+      useLabels = useLabels,
+      useDoubleQuotes = useDoubleQuotes
+    )
+  )
+
+  /**
+   * Writes the output of [dslElement] to this [File]
+   * using the [KotlinDsl][DslLanguage.KotlinDsl] language.
+   */
+  public fun File.kotlin(dslElement: DslElement): File = createSafely(dslElement.writeKotlin())
+
+  /**
+   * Writes the output of [dslElement] to this [File]
+   * using the [KotlinDsl][DslLanguage.KotlinDsl] language.
+   */
+  public fun File.kotlin(
+    useInfix: Boolean = true,
+    useLabels: Boolean = false,
+    dslElement: DslElement
+  ): File = createSafely(
+    dslElement.writeKotlin(useInfix = useInfix, useLabels = useLabels)
+  )
 }

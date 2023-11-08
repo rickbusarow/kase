@@ -20,7 +20,7 @@ import org.intellij.lang.annotations.Language
 import java.io.File
 import java.nio.file.Path
 import kotlin.io.path.Path
-import kotlin.io.path.createDirectory
+import kotlin.io.path.createDirectories
 import kotlin.io.path.div
 import kotlin.io.path.name
 import kotlin.io.path.writeText
@@ -87,7 +87,7 @@ public inline fun buildDirectory(
 }
 
 /** A DSL for building a directory tree. */
-public class DirectoryBuilder @PublishedApi internal constructor(
+public class DirectoryBuilder constructor(
   private val simpleName: String
 ) {
 
@@ -128,10 +128,10 @@ public class DirectoryBuilder @PublishedApi internal constructor(
    */
   public inline fun dir(segments: List<String>, builder: DirectoryBuilder.() -> Unit) {
     var currentSegments = segments
-    var currentChild: DirectoryBuilder
+    var currentChild: DirectoryBuilder? = null
 
     while (currentSegments.isNotEmpty()) {
-      currentChild = childDirs.getOrPut(currentSegments.first()) {
+      currentChild = (currentChild ?: this).childDirs.getOrPut(currentSegments.first()) {
         DirectoryBuilder(currentSegments.first())
       }
 
@@ -154,12 +154,16 @@ public class DirectoryBuilder @PublishedApi internal constructor(
     val nameWithoutExtension = segments.last()
     if (segments.size > 1) {
       dir(segments.subList(0, segments.lastIndex - 1)) {
-        files[nameWithoutExtension] =
-          (FileWithContent(nameWithExtension = nameWithoutExtension, content = content))
+        files[nameWithoutExtension] = FileWithContent(
+          nameWithExtension = nameWithoutExtension,
+          content = content
+        )
       }
     } else {
-      files[nameWithoutExtension] =
-        (FileWithContent(nameWithExtension = nameWithoutExtension, content = content))
+      files[nameWithoutExtension] = FileWithContent(
+        nameWithExtension = nameWithoutExtension,
+        content = content
+      )
     }
   }
 
@@ -205,9 +209,12 @@ public class DirectoryBuilder @PublishedApi internal constructor(
   public fun write(parentDir: String): Path = write(parentDir.toPath())
 
   /** Writes the directory tree to the given [parentDir]. */
+  public fun write(parentDir: File): File = write(parentDir.toPath()).toFile()
+
+  /** Writes the directory tree to the given [parentDir]. */
   public fun write(parentDir: Path): Path {
     val dirPath = parentDir / simpleName
-    dirPath.createDirectory()
+    dirPath.createDirectories()
 
     for (file in files.values) {
       val fileAsPath = dirPath / file.nameWithExtension

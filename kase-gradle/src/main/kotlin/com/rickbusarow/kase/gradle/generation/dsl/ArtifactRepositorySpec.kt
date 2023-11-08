@@ -16,52 +16,156 @@
 package com.rickbusarow.kase.gradle.generation.dsl
 
 import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.DslElement
+import com.rickbusarow.kase.gradle.generation.model.DslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport.GroovyInfix
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport.NoInfix
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.GroovyLabels
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.PropertyAccessSupport.GroovyPropertyAccess
+import com.rickbusarow.kase.gradle.generation.model.GradleBuilderDsl
 import com.rickbusarow.kase.gradle.generation.model.LambdaParameter
+import com.rickbusarow.kase.gradle.generation.model.RegularVariableReference.MutableVariableReference
+import com.rickbusarow.kase.gradle.generation.model.ValueParameter
+import com.rickbusarow.kase.gradle.generation.model.mutableVariableReference
+import java.net.URI
+
+/** Adds the `url` property access to repository configurations */
+public interface UrlArtifactRepositorySpec<SELF : DslElementContainer<SELF>> :
+  DslElementContainer<SELF> {
+
+  /**
+   * The `url` property in a repository configuration. This
+   * is overloaded with different `setUrl(...)` functions.
+   *
+   * ```
+   * repositories { // RepositoryHandlerSpec
+   *   maven { // MavenArtifactRepositorySpec
+   *     url = "https://maven.pkg.jetbrains.space/public/p/compose/dev"
+   *   }
+   * }
+   * ```
+   * @see setUrl
+   */
+  public val url: MutableVariableReference<URI>
+
+  /**
+   * The overloaded setter for the `url` property in a repository configuration.
+   *
+   * ```groovy
+   * repositories { // RepositoryHandlerSpec
+   *   maven { // MavenArtifactRepositorySpec
+   *     url 'https://maven.pkg.jetbrains.space/public/p/compose/dev'
+   *   }
+   * }
+   * ```
+   *
+   * ```kotlin
+   * repositories { // RepositoryHandlerSpec
+   *   maven { // MavenArtifactRepositorySpec
+   *     setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+   *   }
+   * }
+   * ```
+   *
+   * @see setUrl
+   */
+  public fun setUrl(url: String): SELF = setterFunctionCall(
+    propertyName = "url",
+    parameter = ValueParameter(url),
+    propertyAccessSupport = GroovyPropertyAccess,
+    labelSupport = GroovyLabels,
+    infixSupport = GroovyInfix
+  )
+
+  /**
+   * The overloaded setter for the `url` property in a repository configuration.
+   *
+   * ```groovy
+   * repositories { // RepositoryHandlerSpec
+   *   maven { // MavenArtifactRepositorySpec
+   *     url 'https://maven.pkg.jetbrains.space/public/p/compose/dev'
+   *   }
+   * }
+   * ```
+   *
+   * ```kotlin
+   * repositories { // RepositoryHandlerSpec
+   *   maven { // MavenArtifactRepositorySpec
+   *     setUrl("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+   *   }
+   * }
+   * ```
+   *
+   * @see setUrl
+   */
+  public fun setUrl(url: DslElement): SELF = setterFunctionCall(
+    propertyName = "url",
+    parameter = ValueParameter(url),
+    propertyAccessSupport = GroovyPropertyAccess,
+    labelSupport = GroovyLabels,
+    infixSupport = GroovyInfix
+  )
+}
 
 /**
  * The common configuration lambda in a repository declaration, like:
  *
  * ```
- * repositories {
- *   mavenLocal {
+ * repositories { // RepositoryHandlerSpec
+ *   mavenLocal { // MavenArtifactRepositorySpec
  *     // this lambda
  *   }
  * }
+ * ```
  */
-public sealed class ArtifactRepositorySpec<T : RepositoryContentSpec<T>> :
-  AbstractDslElementContainer<ArtifactRepositorySpec<T>>() {
+public sealed class ArtifactRepositorySpec<SELF : ArtifactRepositorySpec<SELF>> :
+  AbstractDslElementContainer<SELF>() {
 
   /** Adds a new `content { }` block to the repository configuration. */
-  public abstract fun content(block: T.() -> Unit): ArtifactRepositorySpec<T>
+  public abstract fun content(
+    block: RepositoryContentDescriptorSpec<*>.() -> Unit
+  ): SELF
 }
 
 /**
  * The maven-specific configuration lambda in a repository declaration, like:
  *
  * ```
- * repositories {
- *   mavenLocal {
+ * repositories { // RepositoryHandlerSpec
+ *   mavenLocal { // MavenArtifactRepositorySpec
  *     // this lambda
  *   }
  * }
+ * ```
  */
-public class MavenArtifactRepositorySpec : ArtifactRepositorySpec<MavenRepositoryContentSpec>() {
+@GradleBuilderDsl
+public class MavenArtifactRepositorySpec :
+  ArtifactRepositorySpec<MavenArtifactRepositorySpec>(),
+  UrlArtifactRepositorySpec<MavenArtifactRepositorySpec> {
+
+  override val url: MutableVariableReference<URI> by mutableVariableReference("url") { uri ->
+    FunctionCall("path", NoLabels, NoInfix, ValueParameter(uri.toString()))
+  }
+
+  /** Adds a new `content { }` block to the repository configuration. */
+  public override fun content(
+    block: RepositoryContentDescriptorSpec<*>.() -> Unit
+  ): MavenArtifactRepositorySpec = functionCall(
+    name = "content",
+    labelSupport = NoLabels,
+    infixSupport = NoInfix,
+    LambdaParameter("block", MavenRepositoryContentDescriptorSpec(), block)
+  )
 
   /** Adds a new `mavenContent { }` block to the repository configuration. */
   public fun mavenContent(
-    block: MavenRepositoryContentSpec.() -> Unit
-  ): ArtifactRepositorySpec<MavenRepositoryContentSpec> = functionCall(
+    block: MavenRepositoryContentDescriptorSpec.() -> Unit
+  ): MavenArtifactRepositorySpec = functionCall(
     name = "mavenContent",
     labelSupport = NoLabels,
-    LambdaParameter("block", block)
-  )
-
-  override fun content(
-    block: MavenRepositoryContentSpec.() -> Unit
-  ): ArtifactRepositorySpec<MavenRepositoryContentSpec> = functionCall(
-    name = "content",
-    labelSupport = NoLabels,
-    LambdaParameter("block", block)
+    infixSupport = NoInfix,
+    LambdaParameter("block", MavenRepositoryContentDescriptorSpec(), block)
   )
 }

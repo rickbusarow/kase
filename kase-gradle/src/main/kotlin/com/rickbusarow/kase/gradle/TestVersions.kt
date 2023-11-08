@@ -16,6 +16,7 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.AnyKase
+import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.Kase3
 import com.rickbusarow.kase.gradle.DependencyVersion.Agp
@@ -43,13 +44,50 @@ public interface TestVersions {
   }
 }
 
-/** Trait interface for [TestVersions]*/
+/** Trait interface for [TestVersions] */
 public interface HasTestVersions<T : TestVersions> {
   /** immutable */
   public val testVersions: T
 }
 
-/** The versions of dependencies which are changed during parameterized tests. */
+/** Holds a [Gradle] version only */
+@Poko
+public class GradleTestVersions(
+  override val a1: Gradle
+) : TestVersions,
+  Kase1<Gradle> by kase(a1) {
+
+  /** not semver. ex: `8.0` or `8.1.1` */
+  public override val gradleVersion: String get() = a1.value
+
+  override fun toString(): String = displayName
+
+  public companion object {
+    /** */
+    public fun from(versionMatrix: VersionMatrix): List<GradleTestVersions> {
+      return versionMatrix.kases(Gradle).map { GradleTestVersions(it.a1) }
+    }
+
+    /** */
+    public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleTestVersions {
+
+      val versions = kase.elements
+        .mapNotNull { it.value as? DependencyVersion<*, *> }
+        .associateBy { it.key }
+
+      return GradleTestVersions(
+        a1 = versions.version(Gradle) { versionMatrix[Gradle].first() }
+      )
+    }
+
+    private inline fun <reified T : DependencyVersion<*, *>> Map<VersionMatrixKey<*>, DependencyVersion<*, *>>.version(
+      key: VersionMatrixKey<T>,
+      default: () -> T
+    ): T = get(key) as? T ?: default()
+  }
+}
+
+/** Holds [Gradle] and [Kotlin] versions */
 @Poko
 public class GradleKotlinTestVersions(
   override val a1: Gradle,
@@ -92,45 +130,45 @@ public class GradleKotlinTestVersions(
   }
 }
 
-/** The versions of dependencies which are changed during parameterized tests. */
+/** Holds [Gradle], [Kotlin], and [Agp] versions */
 @Poko
-public class GradleAgpKotlinTestVersions(
+public class GradleKotlinAgpTestVersions(
   override val a1: Gradle,
-  override val a2: Agp,
-  override val a3: Kotlin
+  override val a2: Kotlin,
+  override val a3: Agp
 ) : TestVersions,
-  Kase3<Gradle, Agp, Kotlin> by kase(a1, a2, a3) {
+  Kase3<Gradle, Kotlin, Agp> by kase(a1, a2, a3) {
 
   /** not semver. ex: `8.0` or `8.1.1` */
   public override val gradleVersion: String get() = a1.value
 
-  /** normal semver. ex `8.1.1` */
-  public val agpVersion: String get() = a2.value
-
   /** normal semver. ex `1.8.10` */
-  public val kotlinVersion: String get() = a3.value
+  public val kotlinVersion: String get() = a2.value
+
+  /** normal semver. ex `8.1.1` */
+  public val agpVersion: String get() = a3.value
 
   override fun toString(): String = displayName
 
   public companion object {
     /** */
-    public fun from(versionMatrix: VersionMatrix): List<GradleAgpKotlinTestVersions> {
+    public fun from(versionMatrix: VersionMatrix): List<GradleKotlinAgpTestVersions> {
 
-      return versionMatrix.kases(Gradle, Agp, Kotlin)
-        .map { GradleAgpKotlinTestVersions(it.a1, it.a2, it.a3) }
+      return versionMatrix.kases(Gradle, Kotlin, Agp)
+        .map { GradleKotlinAgpTestVersions(it.a1, it.a2, it.a3) }
     }
 
     /** */
-    public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleAgpKotlinTestVersions {
+    public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleKotlinAgpTestVersions {
 
       val versions = kase.elements
         .mapNotNull { it.value as? DependencyVersion<*, *> }
         .associateBy { it.key }
 
-      return GradleAgpKotlinTestVersions(
+      return GradleKotlinAgpTestVersions(
         versions.version(Gradle) { versionMatrix[Gradle].first() },
-        versions.version(Agp) { versionMatrix[Agp].first() },
-        versions.version(Kotlin) { versionMatrix[Kotlin].first() }
+        versions.version(Kotlin) { versionMatrix[Kotlin].first() },
+        versions.version(Agp) { versionMatrix[Agp].first() }
       )
     }
 

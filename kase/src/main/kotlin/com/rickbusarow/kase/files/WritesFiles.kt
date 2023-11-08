@@ -39,7 +39,6 @@ public interface WritesFiles {
    * @receiver the file to write to
    * @return the receiver [File]
    */
-  // @JvmName("writeMarkdownContent")
   public fun File.markdown(@Language("markdown") content: String): File =
     createSafely(content.trimIndent())
 
@@ -60,7 +59,6 @@ public interface WritesFiles {
    * @receiver the file to write to
    * @return the receiver [File]
    */
-  // @JvmName("writeJavaContent")
   public fun File.java(@Language("java") content: String): File = createSafely(content.trimIndent())
 
   /**
@@ -80,7 +78,6 @@ public interface WritesFiles {
    * @receiver the file to write to
    * @return the receiver [File]
    */
-  // @JvmName("writeGroovyContent")
   public fun File.groovy(@Language("groovy") content: String): File =
     createSafely(content.trimIndent())
 
@@ -101,7 +98,6 @@ public interface WritesFiles {
    * @receiver the file to write to
    * @return the receiver [File]
    */
-  // @JvmName("writeKotlinContent")
   public fun File.kotlin(@Language("kotlin") content: String): File =
     createSafely(content.trimIndent())
 

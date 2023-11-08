@@ -16,9 +16,10 @@
 package com.rickbusarow.kase.gradle.generation.dsl
 
 import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport.GroovyInfix
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.GroovyLabels
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
-import com.rickbusarow.kase.gradle.generation.model.GradlePropertyReference
+import com.rickbusarow.kase.gradle.generation.model.GradleProviderReference.GradlePropertyReference
 import com.rickbusarow.kase.gradle.generation.model.HasRepositoriesBlock
 import com.rickbusarow.kase.gradle.generation.model.LambdaParameter
 import com.rickbusarow.kase.gradle.generation.model.gradlePropertyReference
@@ -50,12 +51,14 @@ public class DependencyResolutionManagementSpecSpec :
    *     // ...
    *   }
    * }
+   * ```
    */
   public fun versionCatalogs(
     block: MutableVersionCatalogContainer.() -> Unit
   ): DependencyResolutionManagementSpecSpec = functionCall(
     name = "versionCatalogs",
     labelSupport = GroovyLabels,
+    infixSupport = GroovyInfix,
     LambdaParameter(label = "spec", builder = block)
   )
 
@@ -67,12 +70,14 @@ public class DependencyResolutionManagementSpecSpec :
    *     // ...
    *   }
    * }
+   * ```
    */
   public fun components(
     block: ComponentMetadataContainer.() -> Unit
   ): DependencyResolutionManagementSpecSpec = functionCall(
     name = "components",
     labelSupport = NoLabels,
+    infixSupport = GroovyInfix,
     LambdaParameter(builder = block)
   )
 }
@@ -85,6 +90,7 @@ public class DependencyResolutionManagementSpecSpec :
  *     // ...
  *   }
  * }
+ * ```
  */
 public class MutableVersionCatalogContainer : AbstractDslElementContainer<MutableVersionCatalogContainer>()
 
@@ -96,5 +102,6 @@ public class MutableVersionCatalogContainer : AbstractDslElementContainer<Mutabl
  *     // ...
  *   }
  * }
+ * ```
  */
 public class ComponentMetadataContainer : AbstractDslElementContainer<ComponentMetadataContainer>()

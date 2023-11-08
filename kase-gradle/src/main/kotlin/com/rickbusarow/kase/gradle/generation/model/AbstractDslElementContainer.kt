@@ -15,6 +15,8 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
+import kotlin.properties.ReadOnlyProperty
+
 /**
  * Collects [DslElement]s, to be written to a [DslLanguage]
  * file. Elements are written in the order they are added.
@@ -59,3 +61,5 @@ public abstract class AbstractDslElementContainer<SELF : AbstractDslElementConta
     }
   }
 }
+
+internal typealias DslContainerProperty<T> = ReadOnlyProperty<AbstractDslElementContainer<*>, T>

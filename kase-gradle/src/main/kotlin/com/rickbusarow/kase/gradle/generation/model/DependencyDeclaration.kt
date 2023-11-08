@@ -17,6 +17,7 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport.NoInfix
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.GroovyAndKotlinLabels
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
 import dev.drewhamilton.poko.Poko
@@ -90,11 +91,13 @@ public sealed interface DependencyDeclaration : DslElement {
       return FunctionCall(
         name = configuration,
         labelSupport = NoLabels,
+        infixSupport = NoInfix,
         listOf(
           ValueParameter(
             FunctionCall(
               "project",
               labelSupport = GroovyAndKotlinLabels,
+              infixSupport = NoInfix,
               listOfNotNull(
                 ValueParameter("path", pathArg),
                 outgoingConfiguration?.let { ValueParameter("configuration", it) }

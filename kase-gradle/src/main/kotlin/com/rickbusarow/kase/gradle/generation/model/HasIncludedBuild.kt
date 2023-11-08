@@ -39,10 +39,12 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
    * pluginManagement {
    *   includeBuild("someProject")
    * }
+   * ```
    */
   public fun includeBuild(rootProject: String): SELF = functionCall(
     name = "includeBuild",
     labelSupport = FunctionCall.LabelSupport.GroovyAndKotlinLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("rootProject", rootProject.asStringLiteral())
   )
 
@@ -52,10 +54,12 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
    * pluginManagement {
    *   includeBuild("someProject")
    * }
+   * ```
    */
   public fun includeBuild(rootProject: DslElement): SELF = functionCall(
     name = "includeBuild",
     labelSupport = FunctionCall.LabelSupport.GroovyAndKotlinLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("rootProject", rootProject)
   )
 
@@ -67,6 +71,7 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
    *     // ...
    *   }
    * }
+   * ```
    */
   public fun includeBuild(
     rootProject: String,
@@ -74,6 +79,7 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
   ): SELF = functionCall(
     name = "includeBuild",
     labelSupport = FunctionCall.LabelSupport.GroovyAndKotlinLabels,
+    infixSupport = FunctionCall.InfixSupport.NoInfix,
     ValueParameter("rootProject", rootProject.asStringLiteral()),
     LambdaParameter("configuration", block)
   )
@@ -86,6 +92,7 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
    *     // ...
    *   }
    * }
+   * ```
    */
   public fun includeBuild(
     rootProject: DslElement,
@@ -93,6 +100,7 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
   ): SELF = functionCall(
     name = "includeBuild",
     labelSupport = FunctionCall.LabelSupport.GroovyAndKotlinLabels,
+    infixSupport = FunctionCall.InfixSupport.NoInfix,
     ValueParameter("rootProject", rootProject),
     LambdaParameter("configuration", block)
   )
@@ -134,10 +142,7 @@ public interface HasIncludes<SELF : HasIncludedBuild<SELF>> : DslElementContaine
   ): SELF = functionCall(
     name = "include",
     labelSupport = FunctionCall.LabelSupport.NoLabels,
+    infixSupport = FunctionCall.InfixSupport.NoInfix,
     *projectPaths.map { ValueParameter(it.asStringLiteral()) }.toTypedArray()
-    // ParameterList(
-    //   projectPaths.map { ValueParameter(it.asStringLiteral()) },
-    //   separator = separator
-    // )
   )
 }

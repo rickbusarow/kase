@@ -16,19 +16,36 @@
 package com.rickbusarow.kase.gradle.generation.dsl
 
 import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.BuildscriptSpec
 import com.rickbusarow.kase.gradle.generation.model.DslFileBuilder
 import com.rickbusarow.kase.gradle.generation.model.HasDependenciesBlock
 import com.rickbusarow.kase.gradle.generation.model.HasPluginsBlock
+import com.rickbusarow.kase.gradle.generation.model.LambdaParameter
 
 /** Models a `settings.gradle` or `settings.gradle.kts` file. */
 public class BuildFileSpec(
   build: BuildFileSpec.() -> Unit
 ) : AbstractDslElementContainer<BuildFileSpec>(),
   DslFileBuilder<BuildFileSpec>,
-  HasDependenciesBlock<BuildFileSpec>,
-  HasPluginsBlock<BuildFileSpec> {
+  HasPluginsBlock<BuildFileSpec>,
+  HasDependenciesBlock<BuildFileSpec> {
 
   init {
     build()
   }
+
+  /**
+   * ```
+   * // build.gradle
+   * buildscript {
+   *   // ...
+   * }
+   * ```
+   */
+  public fun buildscript(
+    block: BuildscriptSpec.() -> Unit
+  ): BuildFileSpec = functionCall(
+    name = "buildscript",
+    LambdaParameter(builder = block)
+  )
 }

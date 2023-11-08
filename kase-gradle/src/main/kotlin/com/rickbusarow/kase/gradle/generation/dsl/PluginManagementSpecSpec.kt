@@ -37,12 +37,14 @@ public class PluginManagementSpecSpec :
    *     // ...
    *   }
    * }
+   * ```
    */
   public fun resolutionStrategy(
     block: PluginResolutionStrategySpec.() -> Unit = {}
   ): PluginManagementSpecSpec = functionCall(
     name = "resolutionStrategy",
     labelSupport = FunctionCall.LabelSupport.NoLabels,
+    infixSupport = FunctionCall.InfixSupport.NoInfix,
     LambdaParameter(label = "action", builder = block)
   )
 }

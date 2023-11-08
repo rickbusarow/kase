@@ -71,8 +71,9 @@ public class DependencyExclusion(
 
     return FunctionCall(
       name = "exclude",
-      parameterList = params,
-      labelSupport = FunctionCall.LabelSupport.GroovyAndKotlinLabels
+      labelSupport = FunctionCall.LabelSupport.GroovyAndKotlinLabels,
+      infixSupport = FunctionCall.InfixSupport.GroovyInfix,
+      parameterList = params
     )
       .write(language)
   }

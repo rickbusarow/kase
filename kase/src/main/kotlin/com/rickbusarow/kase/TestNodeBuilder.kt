@@ -16,6 +16,7 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.stdlib.toStringPretty
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
@@ -338,5 +339,22 @@ public fun <K : AnyKase> Iterable<Pair<String, K>>.asTests(
 ): Stream<out DynamicNode> {
   return testFactory {
     this@asTests.asTests(testName = { it.first }) { testAction(it.second) }
+  }
+}
+
+/** TODO */
+public fun <T> List<T>.dynamic(testAction: (T) -> Unit): List<DynamicTest> {
+  val coords = TestFunctionCoordinates.get().toStringPretty()
+
+  return map { element ->
+    DynamicTest.dynamicTest(element.toString()) {
+      // val coords = Thread.currentThread().stackTrace.toList().joinToString("\n")
+
+      println("#########################################################")
+      println(coords)
+      println("#########################################################")
+
+      testAction(element)
+    }
   }
 }
