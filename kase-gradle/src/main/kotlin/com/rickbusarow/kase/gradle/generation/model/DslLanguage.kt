@@ -17,10 +17,14 @@ package com.rickbusarow.kase.gradle.generation.model
 
 import com.rickbusarow.kase.gradle.generation.model.DslLanguage.GroovyDsl
 import com.rickbusarow.kase.gradle.generation.model.DslLanguage.KotlinDsl
-import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport
 import com.rickbusarow.kase.gradle.generation.model.LanguageSpecific.GroovyCompatible
 import com.rickbusarow.kase.gradle.generation.model.LanguageSpecific.KotlinCompatible
 import dev.drewhamilton.poko.Poko
+
+public interface HasDslLanguage {
+  public val dslLanguage: DslLanguage
+}
 
 /**
  * The language of the DSL, e.g. [GroovyDsl] or [KotlinDsl]
@@ -91,15 +95,26 @@ public sealed class DslLanguage(
    */
   public abstract val useLabels: Boolean
 
+  /** Returns `settings.gradle` for Groovy and `settings.gradle.kts` for Kotlin. */
+  public val settingsFileName: String = scriptFileName("settings")
+
+  /** Returns `build.gradle` for Groovy and `build.gradle.kts` for Kotlin. */
+  public val buildFileName: String = scriptFileName("build")
+
   /**
    * Wraps [content] in parentheses if it's necessary for this syntax, or
    * if this language is [GroovyDsl] and [GroovyDsl.useInfix] is `true`.
    *
    * @param content the content to parenthesize, e.g. `'com.acme:dynamite:1.0.0'`
-   * @param infixInKotlin whether the [content] is an infix method call in the Kotlin DSL
+   * @param force overrides the default behavior of the language's [useInfix] setting
    * @return the parenthesized content, e.g. `('com.acme:dynamite:1.0.0')`
    */
-  public abstract fun parens(content: String, infixInKotlin: Boolean = false): String
+  public fun parens(content: String, force: InfixSupport? = null): String =
+    if (force != null && supports(force) && useInfix && content.isNotBlank()) {
+      " $content"
+    } else {
+      "($content)"
+    }
 
   /**
    * Wraps [content] in parentheses if it's necessary for this syntax, or
@@ -133,6 +148,12 @@ public sealed class DslLanguage(
 
   /** invokes [action] within this language's scope and returns the result */
   public inline fun <reified T> write(action: DslLanguage.() -> T): T = action()
+
+  /** Returns `$simpleName.gradle` for Groovy and `$simpleName.gradle.kts` for Kotlin. */
+  public fun scriptFileName(simpleName: String): String = when (this) {
+    is GroovyDsl -> "$simpleName.gradle"
+    is KotlinDsl -> "$simpleName.gradle.kts"
+  }
 
   /**
    * Treats the receiver string as a method name and invokes it with the given
@@ -180,14 +201,6 @@ public sealed class DslLanguage(
     }
   }
 
-  /** Whether this language supports labels for this function or parameter */
-  public fun supports(labelSupport: LabelSupport): Boolean {
-    return useLabels && when (this) {
-      is GroovyDsl -> labelSupport is GroovyCompatible
-      is KotlinDsl -> labelSupport is KotlinCompatible
-    }
-  }
-
   /**
    * The Kotlin DSL, e.g. `build.gradle.kts` or `settings.gradle.kts`
    *
@@ -202,13 +215,6 @@ public sealed class DslLanguage(
   ) : DslLanguage(quote = '"', labelDelimiter = " = ") {
 
     override val useDoubleQuotes: Boolean = true
-
-    override fun parens(content: String, infixInKotlin: Boolean): String =
-      if (infixInKotlin && useInfix && content.isNotBlank()) {
-        " $content"
-      } else {
-        "($content)"
-      }
   }
 
   /**
@@ -225,14 +231,7 @@ public sealed class DslLanguage(
     override val useInfix: Boolean = true,
     override val useLabels: Boolean = false,
     override val useDoubleQuotes: Boolean = false
-  ) : DslLanguage(quote = '\'', labelDelimiter = ": ") {
-    override fun parens(content: String, infixInKotlin: Boolean): String =
-      if (useInfix && content.isNotBlank()) {
-        " $content"
-      } else {
-        "($content)"
-      }
-  }
+  ) : DslLanguage(quote = '\'', labelDelimiter = ": ")
 }
 
 /**

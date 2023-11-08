@@ -29,12 +29,14 @@ public interface HasRepositoriesBlock<SELF : HasRepositoriesBlock<SELF>> :
    *     // ...
    *   }
    * }
+   * ```
    */
   public fun repositories(
     block: RepositoryHandlerSpec.() -> Unit
   ): SELF = functionCall(
     name = "repositories",
     labelSupport = FunctionCall.LabelSupport.NoLabels,
+    infixSupport = FunctionCall.InfixSupport.NoInfix,
     LambdaParameter(builder = block)
   )
 }

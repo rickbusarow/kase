@@ -17,6 +17,7 @@ package com.rickbusarow.kase.gradle.generation.model
 
 import com.rickbusarow.kase.gradle.generation.model.DslLanguage.GroovyDsl
 import com.rickbusarow.kase.gradle.generation.model.DslLanguage.KotlinDsl
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport
 import dev.drewhamilton.poko.Poko
 
 /** A single application of a plugin inside a `plugins { }` block. */
@@ -68,7 +69,7 @@ public sealed class PluginApplication : DslElement {
 
     override fun simpleCase(language: DslLanguage): String = buildString {
       append("id")
-      append(language.parens(language.quote(identifier), infixInKotlin = false))
+      append(language.parens(language.quote(identifier), force = InfixSupport.GroovyInfix))
     }
   }
 
@@ -91,7 +92,7 @@ public sealed class PluginApplication : DslElement {
 
     override fun simpleCase(language: DslLanguage): String = buildString {
       append("alias")
-      append(language.parens(identifier, infixInKotlin = false))
+      append(language.parens(identifier, force = InfixSupport.GroovyInfix))
     }
   }
 

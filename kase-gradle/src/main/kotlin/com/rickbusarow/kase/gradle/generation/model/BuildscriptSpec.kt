@@ -15,23 +15,8 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
-import com.rickbusarow.kase.gradle.generation.dsl.DependenciesSpec
-
-/** Builds a `dependencies { }` block in a build or settings Gradle file. */
-public interface HasDependenciesBlock<SELF : HasDependenciesBlock<SELF>> : DslElementContainer<SELF> {
-
-  /**
-   * ```
-   * // build.gradle
-   * dependencies {
-   *   // ...
-   * }
-   * ```
-   */
-  public fun dependencies(
-    block: DependenciesSpec.() -> Unit
-  ): SELF = functionCall(
-    name = "dependencies",
-    LambdaParameter(builder = block)
-  )
-}
+/** Builds a `buildscript { }` block in a build file. */
+public class BuildscriptSpec :
+  AbstractDslElementContainer<BuildscriptSpec>(),
+  HasRepositoriesBlock<BuildscriptSpec>,
+  HasDependenciesBlock<BuildscriptSpec>

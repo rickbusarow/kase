@@ -22,6 +22,8 @@ import com.rickbusarow.kase.gradle.generation.model.HasIncludedBuild
 import com.rickbusarow.kase.gradle.generation.model.HasIncludes
 import com.rickbusarow.kase.gradle.generation.model.HasPluginsBlock
 import com.rickbusarow.kase.gradle.generation.model.LambdaParameter
+import com.rickbusarow.kase.gradle.generation.model.RegularVariableReference.MutableVariableReference
+import com.rickbusarow.kase.gradle.generation.model.mutableVariableReference
 
 /** Models a `settings.gradle` or `settings.gradle.kts` file. */
 public class SettingsFileSpec(
@@ -31,6 +33,14 @@ public class SettingsFileSpec(
   HasPluginsBlock<SettingsFileSpec>,
   HasIncludes<SettingsFileSpec>,
   HasIncludedBuild<SettingsFileSpec> {
+
+  /**
+   * ```
+   * rootProject.name = 'my-project'
+   * ```
+   */
+  public val rootProjectName: MutableVariableReference<String>
+    by mutableVariableReference("rootProject.name") { stringLiteral(it) }
 
   init {
     build()
@@ -42,12 +52,14 @@ public class SettingsFileSpec(
    * pluginManagement {
    *   // ...
    * }
+   * ```
    */
   public fun pluginManagement(
     block: PluginManagementSpecSpec.() -> Unit
   ): SettingsFileSpec = functionCall(
     name = "pluginManagement",
     labelSupport = FunctionCall.LabelSupport.NoLabels,
+    infixSupport = FunctionCall.InfixSupport.NoInfix,
     LambdaParameter(block)
   )
 
@@ -57,12 +69,14 @@ public class SettingsFileSpec(
    * dependencyResolutionManagement {
    *   // ...
    * }
+   * ```
    */
   public fun dependencyResolutionManagement(
     block: DependencyResolutionManagementSpecSpec.() -> Unit
   ): SettingsFileSpec = functionCall(
     name = "dependencyResolutionManagement",
     labelSupport = FunctionCall.LabelSupport.NoLabels,
+    infixSupport = FunctionCall.InfixSupport.NoInfix,
     LambdaParameter(block)
   )
 }

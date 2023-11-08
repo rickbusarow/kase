@@ -117,20 +117,23 @@ public class TestFunctionCoordinates
   public companion object {
 
     /** Finds the stack trace kaseParam corresponding to the invoking test function. */
-    public fun get(): TestFunctionCoordinates = from(testStackTraceElement())
+    public fun get(): TestFunctionCoordinates {
+      val ele = testStackTraceElement()
+      return from(ele)
+    }
 
     /**
      * Finds the stack trace kaseParam corresponding to the invoking test
      * function. This should be called as close as possible to the test function.
      */
-    internal fun testStackTraceElement(): StackTraceElement {
+    @PublishedApi internal fun testStackTraceElement(): StackTraceElement {
       val stackTrace = Thread.currentThread().stackTrace
 
       val testElement = stackTrace.firstNotNullOfOrNull { it.testStackTraceElementOrNull() }
       return testElement ?: error("No test StackTraceElement found.")
     }
 
-    private fun from(stackTraceElement: StackTraceElement): TestFunctionCoordinates {
+    @PublishedApi internal fun from(stackTraceElement: StackTraceElement): TestFunctionCoordinates {
       val actualClass = Class.forName(stackTraceElement.className).removeSynthetics()
 
       return TestFunctionCoordinates(
@@ -151,7 +154,12 @@ internal fun StackTraceElement.clazz(): Class<*> = Class.forName(className)
 /** Returns a [StackTraceElement] if the receiver is a test function, otherwise `null`. */
 @PublishedApi
 internal fun StackTraceElement.testStackTraceElementOrNull(): StackTraceElement? {
-  val clazz = Class.forName(this.className) ?: return null
+  @Suppress("SwallowedException")
+  val clazz = try {
+    Class.forName(this.className)
+  } catch (e: ClassNotFoundException) {
+    return null
+  }
 
   if (clazz.firstPackageSegment() in sdkPackagePrefixes) {
     return null

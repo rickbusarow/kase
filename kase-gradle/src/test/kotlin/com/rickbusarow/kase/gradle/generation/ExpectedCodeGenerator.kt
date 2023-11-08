@@ -25,16 +25,16 @@ internal data class ExpectedCodeGenerator(
   val groovyLabels: Boolean = language.useLabels
 ) {
 
-  internal fun create(
+  internal fun createFunction(
     functionName: String,
     labelName: String,
     valueString: String
-  ): String = create(
+  ): String = createFunction(
     functionName = functionName,
     labelName to valueString
   )
 
-  internal fun create(
+  internal fun createFunction(
     functionName: String,
     vararg labeledValues: Pair<String, String>
   ): String {

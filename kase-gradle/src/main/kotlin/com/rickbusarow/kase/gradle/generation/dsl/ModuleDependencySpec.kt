@@ -16,6 +16,7 @@
 package com.rickbusarow.kase.gradle.generation.dsl
 
 import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport.GroovyInfix
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.GroovyAndKotlinLabels
 import com.rickbusarow.kase.gradle.generation.model.ParameterList
 import com.rickbusarow.kase.gradle.generation.model.ValueParameter
@@ -36,6 +37,7 @@ public class ModuleDependencySpec : AbstractDslElementContainer<ModuleDependency
   ): ModuleDependencySpec = functionCall(
     name = "exclude",
     labelSupport = GroovyAndKotlinLabels,
+    infixSupport = GroovyInfix,
     ParameterList(
       listOfNotNull(
         group?.let { ValueParameter("group", it.asStringLiteral()) },

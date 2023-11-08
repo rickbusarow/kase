@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
+import com.rickbusarow.kase.gradle.generation.model.DslLanguage.KotlinDsl
 import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 import kotlin.LazyThreadSafetyMode.NONE
@@ -25,6 +26,14 @@ public class ParameterList(
   private val parameters: List<Parameter>,
   private val separator: String = SEPARATOR_DEFAULT
 ) : DslElement {
+
+  public constructor(
+    vararg parameters: Parameter,
+    separator: String = SEPARATOR_DEFAULT
+  ) : this(
+    parameters.toList(),
+    separator
+  )
 
   /** The number of parameters in this list. */
   public val size: Int get() = parameters.size
@@ -45,9 +54,14 @@ public class ParameterList(
    *
    * @param language the [DslLanguage] to use when writing this [ParameterList]
    * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
+   * @param infixSupport whether the associated function call supports infix notation
    * @return the string representation of this [ParameterList] in the given [language]
    */
-  public fun write(language: DslLanguage, labelSupport: FunctionCall.LabelSupport): String {
+  public fun write(
+    language: DslLanguage,
+    labelSupport: FunctionCall.LabelSupport,
+    infixSupport: FunctionCall.InfixSupport
+  ): String {
 
     val trailingLambda = parameters.lastOrNull()
       ?.takeIf { it is LambdaParameter }
@@ -67,10 +81,19 @@ public class ParameterList(
       }
     }
 
-    val wrapInParens = toJoin.isNotEmpty() || trailingLambda == null || joined.lines().size > 1
+    val wrapInParens = when {
+      !language.useInfix -> true
+      !language.supports(infixSupport) -> true
+      // !language.supports(infixSupport) && trailingLambda == null -> true
+      toJoin.isNotEmpty() -> true
+      trailingLambda == null -> true
+      language is KotlinDsl && parameters.size != 1 -> true
+      joined.lines().size > 1 -> true
+      else -> false
+    }
 
     val maybeWrapped = if (wrapInParens) {
-      language.parens(joined)
+      language.parens(joined, infixSupport)
     } else {
       joined
     }
@@ -82,7 +105,8 @@ public class ParameterList(
 
   override fun write(language: DslLanguage): String = write(
     language,
-    FunctionCall.LabelSupport.NoLabels
+    FunctionCall.LabelSupport.NoLabels,
+    FunctionCall.InfixSupport.NoInfix
   )
 
   public companion object {

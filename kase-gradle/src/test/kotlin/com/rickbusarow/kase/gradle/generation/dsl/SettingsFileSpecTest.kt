@@ -20,6 +20,7 @@ import com.rickbusarow.kase.asTests
 import com.rickbusarow.kase.gradle.generation.SettingsFileBuilderAction
 import com.rickbusarow.kase.gradle.generation.dslLanguages
 import com.rickbusarow.kase.gradle.generation.model.DslLanguage
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport.NoInfix
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.kases
@@ -107,7 +108,7 @@ class SettingsFileSpecTest {
 
         rulesMode.set(repositoriesMode.get())
 
-        rulesMode.set(repositoriesMode.map { functionCall("foo", NoLabels) })
+        rulesMode.set(repositoriesMode.map { functionCall("foo", NoLabels, NoInfix) })
 
         versionCatalogs {}
 

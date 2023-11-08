@@ -26,6 +26,7 @@ public interface HasPluginsBlock<SELF : HasPluginsBlock<SELF>> : DslElementConta
    * plugins {
    *   // ...
    * }
+   * ```
    */
   public fun plugins(
     block: PluginsSpec.() -> Unit

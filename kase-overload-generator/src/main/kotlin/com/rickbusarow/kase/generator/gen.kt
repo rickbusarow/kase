@@ -62,44 +62,77 @@ internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
 
   private val argsValueTypesString: String by lazy { args.valueTypesString }
 
+  /** `Kase3` */
   val kaseInterfaceNoTypes = "Kase$number"
+
+  /** `Kase3<A1, A2, A3>` */
   val kaseInterface: String = "$kaseInterfaceNoTypes<$argsValueTypesString>"
 
+  /** `DefaultKase3` */
   val defaultKaseNoTypes = "DefaultKase$number"
+
+  /** `DefaultKase3<A1, A2, A3>` */
   val defaultKase = "DefaultKase$number<$argsValueTypesString>"
 
+  /** `KaseLabels3` */
   val kaseLabels = "KaseLabels$number"
 
+  /** `TestEnvironment` */
   val testEnvironment = "TestEnvironment"
 
+  /** `TestEnvironmentFactory<TestEnvironment, Kase3<A1, A2, A3>>` */
   fun testEnvironmentFactory(environmentType: String) = "TestEnvironmentFactory<$environmentType>"
+
+  /** `KaseParameterWithLabel<A1, A2, A3>` */
   fun kaseParameterWithLabel(argValueType: String) = "KaseParameterWithLabel<$argValueType>"
 }
 
 internal data class KaseArg(
+  /** 1-21 */
   val number: Int,
+  /** `a_` as in `a1` */
   val valuePrefix: String = "a",
+  /** `A_` as in `A1` */
   val valueTypeNamePrefix: String = "A"
 ) {
+  /** `a1` */
   val valueName = "$valuePrefix$number"
+
+  /** `A1` */
   val valueTypeName = "$valueTypeNamePrefix$number"
+
+  /** `a1Label` */
   val labelName = "${valueName}Label"
+
+  /** `a1WithLabel` */
   val valueWithLabelName = "${valueName}WithLabel"
 
   companion object {
+    /** [a1, a2, a3, ...] */
     val List<KaseArg>.valueNames: List<String>
       get() = map { it.valueName }
+
+    /** [A1, A2, A3, ...] */
     val List<KaseArg>.valueTypes: List<String>
       get() = map { it.valueTypeName }
+
+    /** `"A1, A2, A3"` */
     val List<KaseArg>.valueTypesString: String
       get() = valueTypes.joinToString(", ")
 
+    /** `["a1" to "A1", "a2" to "A2", "a3" to "A3", ...]` */
     val List<KaseArg>.argsTypePairs: List<Pair<String, String>>
       get() = valueNames.zip(valueTypes)
+
+    /** `["a1: A1", "a2: A2", "a3: A3", ...]` */
     val List<KaseArg>.params: List<String>
       get() = argsTypePairs.map { "${it.first}: ${it.second}" }
+
+    /** `"a1: A1, a2: A2, a3: A3"` */
     val List<KaseArg>.paramsString: String
       get() = params.joinToString(", ")
+
+    /** `"it.a1, it.a2, it.a3"` */
     val List<KaseArg>.valuesFromItString: String
       get() = valueNames.joinToString(", ") { arg -> "it.$arg" }
   }
@@ -154,10 +187,6 @@ private fun main() {
 
     val args = nums.map { "a$it" }
 
-    val argsString = args.joinToString(", ")
-    val argsFromItString = args.joinToString(", ") { arg -> "it.$arg" }
-    val argsFromKaseString = args.joinToString(", ") { arg -> "kase.$arg" }
-
     val argsStringWithLabels = args.joinToString(", ") { "$it = $it" }
 
     val argsTypePairs = args.zip(types)
@@ -181,12 +210,8 @@ private fun main() {
       "${value}WithLabel = kaseParam(value = $value, label = ($value as? HasLabel)?.label ?: labels.$label)"
     }
 
-    val typesEnvironment = (listOf("T : TestEnvironment") + types)
-      .joinToString(separator = ", ", prefix = "<", postfix = ">")
     val typesKaseEnvironment = (listOf("T", "K") + types)
       .joinToString(separator = ", ", prefix = "<", postfix = ">")
-
-    val testActionTDestructured = "T.($paramsString) -> Unit"
 
     val parametersPlural = if (ct == 1) "parameter" else "parameters"
 

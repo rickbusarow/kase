@@ -24,7 +24,7 @@ import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.TestFactory
 import java.util.stream.Stream
 
-class RepositoryContentSpecTest {
+class RepositoryContentDescriptorSpecTest {
 
   @TestFactory
   fun `custom mavenContent configuration`(): Stream<out DynamicNode> =
@@ -80,82 +80,82 @@ class RepositoryContentSpecTest {
         kotlinInfix = false
       )
 
-      val excludeGroupAndSubgroups = expectedGenerator.create(
+      val excludeGroupAndSubgroups = expectedGenerator.createFunction(
         functionName = "excludeGroupAndSubgroups",
         "groupPrefix" to "art"
       )
 
-      val excludeGroup = expectedGenerator.create(
+      val excludeGroup = expectedGenerator.createFunction(
         functionName = "excludeGroup",
         "group" to "a"
       )
 
-      val excludeModule = expectedGenerator.create(
+      val excludeModule = expectedGenerator.createFunction(
         functionName = "excludeModule",
         "group" to "a",
         "moduleName" to "b"
       )
 
-      val excludeVersion = expectedGenerator.create(
+      val excludeVersion = expectedGenerator.createFunction(
         functionName = "excludeVersion",
         "group" to "a",
         "moduleName" to "b",
         "version" to "c"
       )
 
-      val excludeGroupByRegex = expectedGenerator.create(
+      val excludeGroupByRegex = expectedGenerator.createFunction(
         functionName = "excludeGroupByRegex",
         "groupRegex" to "a\\.z\\..*"
       )
 
-      val excludeModuleByRegex = expectedGenerator.create(
+      val excludeModuleByRegex = expectedGenerator.createFunction(
         functionName = "excludeModuleByRegex",
         "groupRegex" to "a\\.z\\..*",
         "moduleNameRegex" to "b.*"
       )
 
-      val excludeVersionByRegex = expectedGenerator.create(
+      val excludeVersionByRegex = expectedGenerator.createFunction(
         functionName = "excludeVersionByRegex",
         "groupRegex" to "a\\.z\\..*",
         "moduleNameRegex" to "b.*",
         "versionRegex" to "c\\.q\\.r"
       )
 
-      val includeGroupAndSubgroups = expectedGenerator.create(
+      val includeGroupAndSubgroups = expectedGenerator.createFunction(
         functionName = "includeGroupAndSubgroups",
         "groupPrefix" to "art"
       )
 
-      val includeGroup = expectedGenerator.create(
+      val includeGroup = expectedGenerator.createFunction(
         functionName = "includeGroup",
         "group" to "a"
       )
 
-      val includeModule = expectedGenerator.create(
+      val includeModule = expectedGenerator.createFunction(
         functionName = "includeModule",
         "group" to "a",
         "moduleName" to "b"
       )
 
-      val includeVersion = expectedGenerator.create(
+      val includeVersion = expectedGenerator.createFunction(
         functionName = "includeVersion",
         "group" to "a",
         "moduleName" to "b",
         "version" to "c"
       )
 
-      val includeGroupByRegex = expectedGenerator.create(
+      val includeGroupByRegex = expectedGenerator.createFunction(
         functionName = "includeGroupByRegex",
         "groupRegex" to "a\\.z\\..*"
       )
 
-      val includeModuleByRegex = expectedGenerator.create(
+      val includeModuleByRegex = expectedGenerator.createFunction(
         functionName = "includeModuleByRegex",
         "groupRegex" to "a\\.z\\..*",
         "moduleNameRegex" to "b.*"
       )
 
-      val includeVersionByRegex = expectedGenerator.create(
+      val includeVersionByRegex = expectedGenerator.createFunction(
         functionName = "includeVersionByRegex",
         "groupRegex" to "a\\.z\\..*",
         "moduleNameRegex" to "b.*",

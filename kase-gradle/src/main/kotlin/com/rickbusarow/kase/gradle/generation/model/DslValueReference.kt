@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport.NoInfix
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
 import com.rickbusarow.kase.gradle.generation.model.ValueAssignment.SetterAssignment
 import dev.drewhamilton.poko.Poko
@@ -22,7 +23,7 @@ import dev.drewhamilton.poko.Poko
 /**
  * Represents accessing a property or variable, and optionally performing some operation on it.
  *
- * @see GradlePropertyReference for variables like `val acmeVersion: Property<String>`
+ * @see GradleProviderReference for variables like `val acmeVersion: Property<String>`
  * @see RegularVariableReference for variables like `val acmeVersion: String`
  */
 public sealed interface DslValueReference : DslElement {
@@ -42,32 +43,29 @@ public sealed interface DslValueReference : DslElement {
 }
 
 /**
- * Represents a Gradle property reference, like 'acmeVersion' in:
+ * Represents a Gradle provider reference, like 'acmeVersion' in:
  *
  * ```
- * val acmeVersion: Property<String> = ...
+ * val acmeVersion: Provider<String> = ...
  *
  * val coords = acmeVersion.map { "com.acme:rocket:$it" }
  * ```
  */
-@Poko
-public class GradlePropertyReference(
-  override val name: String,
-  override val parentContainer: DslElementContainer<*>
-) : DslValueReference {
+public sealed class GradleProviderReference : DslValueReference {
 
-  private var withReference: Any? = null
+  protected var withReference: Any? = null
 
   /**
-   * Adds a `.map { }` operator to this property reference, like '.map { "com.acme:rocket:$it" }'
+   * Adds a `.map { }` operator to this provider reference, like '.map { "com.acme:rocket:$it" }'
    */
-  public fun map(transform: DslElementContainer<*>.() -> Unit): GradlePropertyReference = apply {
+  public fun map(transform: DslElementContainer<*>.() -> Unit): GradleProviderReference = apply {
 
     val container = SimpleDslElementContainer()
 
     withReference = FunctionCall(
       name = "$name.map",
       labelSupport = NoLabels,
+      infixSupport = NoInfix,
       LambdaParameter(
         label = null,
         receiver = container,
@@ -77,24 +75,53 @@ public class GradlePropertyReference(
   }
 
   /** Gets the value for this mutable variable, like '.get()' in: `acmeVersion.get()` */
-  public fun get(): GradlePropertyReference = apply {
+  public fun get(): GradleProviderReference = apply {
     withReference = "$name.get()"
   }
 
   /**
-   * Sets the value for this mutable variable, like '.set("1.0.0")' in: `acmeVersion.set("1.0.0")`
+   * Represents a Gradle provider reference, like 'acmeVersion' in:
+   *
+   * ```
+   * val acmeVersion: Provider<String> = ...
+   *
+   * val coords = acmeVersion.map { "com.acme:rocket:$it" }
+   * ```
    */
-  public fun set(value: String): GradlePropertyReference = apply {
-    withReference =
-      ValueAssignment.GradlePropertyAssignment(name, value).also(parentContainer::addElement)
-  }
+  @Poko
+  public open class GradleReadOnlyProviderReference(
+    override val name: String,
+    override val parentContainer: DslElementContainer<*>
+  ) : GradleProviderReference()
 
   /**
-   * Sets the value for this mutable variable, like '.set("1.0.0")' in: `acmeVersion.set("1.0.0")`
+   * Represents a Gradle property reference, like 'acmeVersion' in:
+   *
+   * ```
+   * val acmeVersion: Property<String> = ...
+   *
+   * val coords = acmeVersion.map { "com.acme:rocket:$it" }
+   * ```
    */
-  public fun set(value: DslElement): GradlePropertyReference = apply {
-    withReference =
-      ValueAssignment.GradlePropertyAssignment(name, value).also(parentContainer::addElement)
+  @Poko
+  public class GradlePropertyReference(
+    override val name: String,
+    override val parentContainer: DslElementContainer<*>
+  ) : GradleProviderReference() {
+
+    /**
+     * Sets the value for this mutable variable, like '.set("1.0.0")' in: `acmeVersion.set("1.0.0")`
+     */
+    public fun set(value: Any): GradlePropertyReference = apply {
+      withReference = ValueAssignment.GradlePropertyAssignment(name) { language ->
+        when (value) {
+          is DslElement -> value.write(language)
+          is String -> value
+          else -> value.toString()
+        }
+      }
+        .also(parentContainer::addElement)
+    }
   }
 
   override fun write(language: DslLanguage): String {
@@ -131,18 +158,24 @@ public sealed class RegularVariableReference : DslValueReference {
 
   /** Represents a mutable variable reference, like 'acmeVersion' in: `var acmeVersion = "1.0.0"` */
   @Poko
-  public class MutableVariableReference(
+  public class MutableVariableReference<T>(
     override val name: String,
-    override val parentContainer: DslElementContainer<*>
+    override val parentContainer: DslElementContainer<*>,
+    private val dslElement: (T) -> DslElement
   ) : RegularVariableReference() {
 
     /** Sets the value for this mutable variable, like ' = "1.0.0"' in: `acmeVersion = "1.0.0"` */
-    public fun set(value: String): RegularVariableReference = apply {
-      withReference = SetterAssignment(name, value).also(parentContainer::addElement)
+    public fun setEquals(value: T): RegularVariableReference = apply {
+      withReference = SetterAssignment(name, dslElement(value)).also(parentContainer::addElement)
     }
 
     /** Sets the value for this mutable variable, like ' = "1.0.0"' in: `acmeVersion = "1.0.0"` */
-    public fun set(value: DslElement): RegularVariableReference = apply {
+    public fun setEquals(value: CharSequence): RegularVariableReference = apply {
+      withReference = SetterAssignment(name, value.toString()).also(parentContainer::addElement)
+    }
+
+    /** Sets the value for this mutable variable, like ' = "1.0.0"' in: `acmeVersion = "1.0.0"` */
+    public fun setEquals(value: DslElement): RegularVariableReference = apply {
       withReference = SetterAssignment(name, value).also(parentContainer::addElement)
     }
   }

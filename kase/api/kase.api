@@ -3357,6 +3357,7 @@ public final class com/rickbusarow/kase/TestNodeBuilderKt {
 	public static synthetic fun asContainers$default (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static synthetic fun asContainers$default (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static final fun asTestsStringKasePairs (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
+	public static final fun dynamic (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
 	public static final fun testFactory (Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
 }
 
@@ -3455,7 +3456,9 @@ public final class com/rickbusarow/kase/files/TestFunctionCoordinates {
 }
 
 public final class com/rickbusarow/kase/files/TestFunctionCoordinates$Companion {
+	public final fun from (Ljava/lang/StackTraceElement;)Lcom/rickbusarow/kase/files/TestFunctionCoordinates;
 	public final fun get ()Lcom/rickbusarow/kase/files/TestFunctionCoordinates;
+	public final fun testStackTraceElement ()Ljava/lang/StackTraceElement;
 }
 
 public final class com/rickbusarow/kase/files/TestFunctionCoordinatesKt {

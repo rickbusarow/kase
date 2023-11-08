@@ -17,11 +17,12 @@ package com.rickbusarow.kase.gradle.generation.dsl
 
 import com.rickbusarow.kase.gradle.generation.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport.NoInfix
 import com.rickbusarow.kase.gradle.generation.model.FunctionCall.LabelSupport.NoLabels
 import com.rickbusarow.kase.gradle.generation.model.ValueParameter
 
 /** Adds the common configurations to a repository's content, like: */
-public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
+public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDescriptorSpec<SELF>> :
   AbstractDslElementContainer<SELF>() {
 
   /**
@@ -38,6 +39,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun includeGroup(group: String): SELF = functionCall(
     name = "includeGroup",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("group", group.asStringLiteral())
   )
 
@@ -55,6 +57,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun includeGroupByRegex(groupRegex: String): SELF = functionCall(
     name = "includeGroupByRegex",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("groupRegex", groupRegex.asStringLiteral())
   )
 
@@ -72,6 +75,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun includeGroupAndSubgroups(groupPrefix: String): SELF = functionCall(
     name = "includeGroupAndSubgroups",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("groupPrefix", groupPrefix.asStringLiteral())
   )
 
@@ -89,6 +93,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun includeModule(group: String, moduleName: String): SELF = functionCall(
     name = "includeModule",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("group", group.asStringLiteral()),
     ValueParameter("moduleName", moduleName.asStringLiteral())
   )
@@ -107,6 +112,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun includeModuleByRegex(groupRegex: String, moduleNameRegex: String): SELF = functionCall(
     name = "includeModuleByRegex",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("groupRegex", groupRegex.asStringLiteral()),
     ValueParameter("moduleNameRegex", moduleNameRegex.asStringLiteral())
   )
@@ -130,6 +136,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
     functionCall(
       name = "includeVersion",
       labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+      infixSupport = FunctionCall.InfixSupport.GroovyInfix,
       ValueParameter("group", group.asStringLiteral()),
       ValueParameter("moduleName", moduleName.asStringLiteral()),
       ValueParameter("version", version.asStringLiteral())
@@ -153,6 +160,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   ): SELF = functionCall(
     name = "includeVersionByRegex",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("groupRegex", groupRegex.asStringLiteral()),
     ValueParameter("moduleNameRegex", moduleNameRegex.asStringLiteral()),
     ValueParameter("versionRegex", versionRegex.asStringLiteral())
@@ -172,6 +180,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun excludeGroup(group: String): SELF = functionCall(
     name = "excludeGroup",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("group", group.asStringLiteral())
   )
 
@@ -189,6 +198,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun excludeGroupByRegex(groupRegex: String): SELF = functionCall(
     name = "excludeGroupByRegex",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("groupRegex", groupRegex.asStringLiteral())
   )
 
@@ -206,6 +216,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun excludeGroupAndSubgroups(groupPrefix: String): SELF = functionCall(
     name = "excludeGroupAndSubgroups",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("groupPrefix", groupPrefix.asStringLiteral())
   )
 
@@ -223,6 +234,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun excludeModule(group: String, moduleName: String): SELF = functionCall(
     name = "excludeModule",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("group", group.asStringLiteral()),
     ValueParameter("moduleName", moduleName.asStringLiteral())
   )
@@ -241,6 +253,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   public fun excludeModuleByRegex(groupRegex: String, moduleNameRegex: String): SELF = functionCall(
     name = "excludeModuleByRegex",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("groupRegex", groupRegex.asStringLiteral()),
     ValueParameter("moduleNameRegex", moduleNameRegex.asStringLiteral())
   )
@@ -263,6 +276,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   ): SELF = functionCall(
     name = "excludeVersion",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("group", group.asStringLiteral()),
     ValueParameter("moduleName", moduleName.asStringLiteral()),
     ValueParameter("version", version.asStringLiteral())
@@ -286,6 +300,7 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
   ): SELF = functionCall(
     name = "excludeVersionByRegex",
     labelSupport = FunctionCall.LabelSupport.GroovyLabels,
+    infixSupport = FunctionCall.InfixSupport.GroovyInfix,
     ValueParameter("groupRegex", groupRegex.asStringLiteral()),
     ValueParameter("moduleNameRegex", moduleNameRegex.asStringLiteral()),
     ValueParameter("versionRegex", versionRegex.asStringLiteral())
@@ -293,7 +308,8 @@ public sealed class RepositoryContentSpec<SELF : RepositoryContentSpec<SELF>> :
 }
 
 /** The configuration options for a maven repository's content. */
-public class MavenRepositoryContentSpec : RepositoryContentSpec<MavenRepositoryContentSpec>() {
+public class MavenRepositoryContentDescriptorSpec :
+  RepositoryContentDescriptorSpec<MavenRepositoryContentDescriptorSpec>() {
 
   /**
    * Adds the `releasesOnly()` invocation to a maven repository configuration.
@@ -306,8 +322,8 @@ public class MavenRepositoryContentSpec : RepositoryContentSpec<MavenRepositoryC
    * }
    * ```
    */
-  public fun releasesOnly(): MavenRepositoryContentSpec = apply {
-    addElement(FunctionCall(name = "releasesOnly", labelSupport = NoLabels))
+  public fun releasesOnly(): MavenRepositoryContentDescriptorSpec = apply {
+    addElement(FunctionCall(name = "releasesOnly", labelSupport = NoLabels, infixSupport = NoInfix))
   }
 
   /**
@@ -323,7 +339,9 @@ public class MavenRepositoryContentSpec : RepositoryContentSpec<MavenRepositoryC
    * }
    * ```
    */
-  public fun snapshotsOnly(): MavenRepositoryContentSpec = apply {
-    addElement(FunctionCall(name = "snapshotsOnly", labelSupport = NoLabels))
+  public fun snapshotsOnly(): MavenRepositoryContentDescriptorSpec = apply {
+    addElement(
+      FunctionCall(name = "snapshotsOnly", labelSupport = NoLabels, infixSupport = NoInfix)
+    )
   }
 }

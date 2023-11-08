@@ -15,24 +15,40 @@
 
 package com.rickbusarow.kase.gradle.generation.model
 
+import com.rickbusarow.kase.gradle.generation.model.GradleProviderReference.GradlePropertyReference
+import com.rickbusarow.kase.gradle.generation.model.GradleProviderReference.GradleReadOnlyProviderReference
 import com.rickbusarow.kase.gradle.generation.model.RegularVariableReference.ImmutableVariableReference
 import com.rickbusarow.kase.gradle.generation.model.RegularVariableReference.MutableVariableReference
-import kotlin.properties.ReadOnlyProperty
 
-internal fun gradlePropertyReference(): ReadOnlyProperty<AbstractDslElementContainer<*>, GradlePropertyReference> {
-  return ReadOnlyProperty { container, kProperty ->
-    GradlePropertyReference(kProperty.name, container)
+public fun gradlePropertyReference(
+  name: String? = null
+): DslContainerProperty<GradlePropertyReference> {
+  return DslContainerProperty { container, kProperty ->
+    GradlePropertyReference(name ?: kProperty.name, container)
   }
 }
 
-internal fun regularVariableReference(
-  mutable: Boolean
-): ReadOnlyProperty<AbstractDslElementContainer<*>, RegularVariableReference> {
-  return ReadOnlyProperty { container, kProperty ->
-    if (mutable) {
-      MutableVariableReference(kProperty.name, container)
-    } else {
-      ImmutableVariableReference(kProperty.name, container)
-    }
+public fun gradleProviderReference(
+  name: String? = null
+): DslContainerProperty<GradleReadOnlyProviderReference> {
+  return DslContainerProperty { container, kProperty ->
+    GradleReadOnlyProviderReference(name ?: kProperty.name, container)
+  }
+}
+
+public inline fun <reified T> mutableVariableReference(
+  name: String? = null,
+  noinline tAsDslElement: (T) -> DslElement
+): DslContainerProperty<MutableVariableReference<T>> {
+  return DslContainerProperty { container, kProperty ->
+    MutableVariableReference(name ?: kProperty.name, container, tAsDslElement)
+  }
+}
+
+public fun immutableVariableReference(
+  name: String? = null
+): DslContainerProperty<ImmutableVariableReference> {
+  return DslContainerProperty { container, kProperty ->
+    ImmutableVariableReference(name ?: kProperty.name, container)
   }
 }

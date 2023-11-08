@@ -66,9 +66,7 @@ public class ValueParameter(
 ) : Parameter {
   public constructor(value: String) : this(label = null, valueStringFactory = { value })
   public constructor(label: String?, valueString: String) :
-    this(label = label, valueStringFactory = {
-      valueString
-    })
+    this(label = label, valueStringFactory = { valueString })
 
   public constructor(valueElement: DslElement) : this(
     label = null,
@@ -82,7 +80,8 @@ public class ValueParameter(
 
   override fun write(language: DslLanguage, labelSupport: LabelSupport): String {
     val valueString = valueStringFactory(language)
-    return label?.takeIf { language.supports(labelSupport) }
+
+    return label?.takeIf { language.useLabels && language.supports(labelSupport) }
       ?.let { labelValue -> "$labelValue${language.labelDelimiter}$valueString" }
       ?: valueString
   }

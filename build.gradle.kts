@@ -19,6 +19,13 @@ import com.rickbusarow.doks.DoksTask
 import com.rickbusarow.kgx.mustRunAfter
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+buildscript {
+
+  dependencies {
+    classpath(libs.kotlin.gradle.plugin)
+  }
+}
+
 plugins {
   id("root")
   alias(libs.plugins.doks)
