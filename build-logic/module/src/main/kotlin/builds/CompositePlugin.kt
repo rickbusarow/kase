@@ -22,6 +22,7 @@ import com.github.jengelman.gradle.plugins.shadow.internal.JavaJarExec
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import com.rickbusarow.kgx.checkProjectIsRoot
 import com.rickbusarow.kgx.dependsOn
+import com.rickbusarow.kgx.internal.InternalGradleApiAccess
 import com.rickbusarow.kgx.internal.allProjects
 import com.rickbusarow.kgx.undecoratedTypeName
 import com.rickbusarow.ktlint.KtLintTask
@@ -48,6 +49,7 @@ import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.dokka.gradle.DokkaTask
 
 abstract class CompositePlugin : Plugin<Project> {
+  @OptIn(InternalGradleApiAccess::class)
   override fun apply(target: Project) {
 
     target.checkProjectIsRoot()
