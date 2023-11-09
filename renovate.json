@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "extends": [
+    "config:base"
+  ],
   "rebaseWhen": "conflicted",
   "rebaseLabel": "rebase",
   "packageRules": [
@@ -20,10 +22,6 @@
         "^com\\.rickbusarow\\.ktlint:(?:[\\w-]+)$",
         "^com\\.rickbusarow\\.ktrules:(?:[\\w-]+)$"
       ]
-    },
-    {
-      "groupName": "All updated deps",
-      "matchPackagePatterns": ["^[\\w\\.]+:[\\w-]+$"]
     }
   ],
   "labels": [
