@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import java.util.Properties
+
 pluginManagement {
   val allowMavenLocal = providers
     .gradleProperty("kase.allow-maven-local")
@@ -44,6 +46,11 @@ dependencyResolutionManagement {
     mavenCentral()
     maven("https://plugins.gradle.org/m2/")
   }
+  versionCatalogs {
+    create("libs") {
+      from(files("../gradle/libs.versions.toml"))
+    }
+  }
 }
 
 rootProject.name = "build-logic"
@@ -54,3 +61,23 @@ include(
   ":core",
   ":module"
 )
+
+gradle.beforeProject {
+
+  if (project != rootProject) return@beforeProject
+
+  val extras = project.extra
+  file("../gradle.properties").inputStream()
+    .use { Properties().apply { load(it) } }
+    .asSequence()
+    .mapNotNull { (key, value) ->
+      when (val k = key) {
+        !is String -> null
+        extra.has(k) -> null
+        else -> (key as String) to value
+      }
+    }
+    .forEach { (key, value) ->
+      extras.set(key, value)
+    }
+}

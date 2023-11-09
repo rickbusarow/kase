@@ -72,24 +72,6 @@ jobs:
           arguments: artifactsCheck
           cache-read-only: false
 
-      - name: detekt
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: detektAll
-          cache-read-only: false
-
-      - name: merge detekt SARIF reports
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: detektReportMerge
-          cache-read-only: false
-
-      - name: Upload SARIF to Github using the upload-sarif action
-        uses: github/codeql-action/upload-sarif@v2
-        if: success() || failure()
-        with:
-          sarif_file: build/reports/detekt/merged.sarif
-
       - name: KtLint format (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
         uses: gradle/gradle-build-action@v2
@@ -155,6 +137,25 @@ jobs:
         with:
           arguments: moduleCheck
           cache-read-only: false
+
+      - name: detekt
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: detektAll
+          cache-read-only: false
+
+      - name: merge detekt SARIF reports
+        uses: gradle/gradle-build-action@v2
+        if: failure()
+        with:
+          arguments: detektReportMerge
+          cache-read-only: false
+
+      - name: Upload SARIF to Github using the upload-sarif action
+        uses: github/codeql-action/upload-sarif@v2
+        if: failure()
+        with:
+          sarif_file: build/reports/detekt/merged.sarif
 
   tests-macos:
     runs-on: ubuntu-latest
