@@ -1246,6 +1246,7 @@ public final class com/rickbusarow/kase/gradle/generation/model/StringLiteral : 
 	public fun compareTo (Lcom/rickbusarow/kase/gradle/generation/model/DslElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public fun equals (Ljava/lang/Object;)Z
+	public final fun getUseDoubleQuotes ()Ljava/lang/Boolean;
 	public final fun getValue ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
