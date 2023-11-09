@@ -66,7 +66,7 @@ public object BlankLine : DslElement {
 @Poko
 public class StringLiteral(
   public val value: String,
-  private val useDoubleQuotes: Boolean?
+  public val useDoubleQuotes: Boolean?
 ) : DslElement {
   override fun write(language: DslLanguage): String {
     return language.quote(
