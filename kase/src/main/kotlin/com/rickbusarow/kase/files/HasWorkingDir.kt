@@ -28,22 +28,22 @@ public fun File.relativePath(): String = relativeTo(workingDir).path
 context(HasWorkingDir)
 public fun String.useRelativePaths(): String = useRelativePaths(workingDir)
 
-/**
- * Removes various bits of noise and machine-specific variables from a console or report output.
- * Cleans the provided string by applying various modifications such as normalising line separators,
- * using relative paths, enforcing Unix file separators, and removing specific strings or patterns.
- *
- * @receiver The raw string that needs to be cleaned.
- * @return The cleaned string.
- * @see com.rickbusarow.kase.stdlib.cleanOutput
- */
-context(HasWorkingDir)
-public fun String.cleanOutput(): String = cleanOutput(workingDir)
-
 /** Represents a test that has a working directory. */
 public interface HasWorkingDir {
   /** the directory containing all source and generated files to be used in this test */
   public val workingDir: File
+
+  /**
+   * Removes various bits of noise and machine-specific variables from a
+   * console or report output. Cleans the provided string by applying various
+   * modifications such as normalising line separators, using relative paths,
+   * enforcing Unix file separators, and removing specific strings or patterns.
+   *
+   * @receiver The raw string that needs to be cleaned.
+   * @return The cleaned string.
+   * @see com.rickbusarow.kase.stdlib.cleanOutput
+   */
+  public fun String.cleanOutput(): String = cleanOutput(workingDir)
 
   public companion object {
 
