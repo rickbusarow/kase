@@ -16,6 +16,7 @@
 package com.rickbusarow.kase.files
 
 import com.rickbusarow.kase.asTests
+import com.rickbusarow.kase.files.HasWorkingDir.Companion.div
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.stdlib.remove
 import com.rickbusarow.kase.stdlib.toStringPretty
@@ -23,12 +24,14 @@ import io.kotest.assertions.asClue
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.fail
 import io.kotest.matchers.comparables.shouldBeGreaterThan
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldEndWith
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
-import java.io.File
+import java.nio.file.Paths
 import java.util.stream.Stream
 
 private fun coords() = CoordinatesTestClass()
@@ -269,24 +272,30 @@ class TestFunctionCoordinatesTest {
     @Test
     fun `test uri for Test annotation`() {
 
-      val userDir = System.getProperty("user.dir") as String
+      val userDir = Paths.get("").toAbsolutePath().toFile()
+        .invariantSeparatorsPath
 
       val rawUri = TestFunctionCoordinates.get().testUriOrNull()?.toString()
 
-      // strip out the userDir so that we're not machine-specific
-      val uri = rawUri?.removePrefix("file:$userDir")
-        // make all file separators Unix-style so that the tests can actually pass on Windows
-        ?.replace(File.separatorChar, '/')
+      rawUri.shouldNotBeNull()
 
       // line numbers change too easily for a literal assertion
-      val uriWithoutLineNumber = uri?.remove("\\?line=\\d+$".toRegex())
+      val uriWithoutLineNumber = rawUri.remove("\\?line=\\d+$".toRegex())
 
-      uriWithoutLineNumber shouldBe
-        "/src/test/kotlin/com/rickbusarow/kase/files/TestFunctionCoordinatesTest.kt"
+      """
+        |--
+        |  userDir: $userDir
+        |   rawUri: $rawUri
+        |--
+      """.trimMargin().asClue {
 
-      val lineNumber = requireNotNull(uri?.substringAfterLast("line=")?.toInt())
+        uriWithoutLineNumber shouldEndWith
+          "$userDir/src/test/kotlin/com/rickbusarow/kase/files/TestFunctionCoordinatesTest.kt"
 
-      lineNumber shouldBeGreaterThan 0
+        val lineNumber = requireNotNull(rawUri.substringAfterLast("line=").toInt())
+
+        lineNumber shouldBeGreaterThan 0
+      }
     }
   }
 

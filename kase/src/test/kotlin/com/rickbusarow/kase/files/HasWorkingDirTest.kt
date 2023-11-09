@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.files
 
+import com.rickbusarow.kase.stdlib.alwaysUnixFileSeparators
 import com.rickbusarow.kase.stdlib.div
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.file.shouldNotExist
@@ -46,7 +47,7 @@ class HasWorkingDirTest {
     val hasWorkingDir = DefaultHasWorkingDir(tempDir)
 
     with(hasWorkingDir) {
-      file.relativePath() shouldBe "subDir/testFile"
+      file.relativePath().alwaysUnixFileSeparators() shouldBe "subDir/testFile"
     }
   }
 
@@ -75,7 +76,8 @@ class HasWorkingDirTest {
 
     val projectRoot = File("").absoluteFile
 
-    workingDir.toRelativeString(projectRoot) shouldBe expectedPath
+    workingDir.toRelativeString(projectRoot)
+      .alwaysUnixFileSeparators() shouldBe expectedPath
   }
 }
 
