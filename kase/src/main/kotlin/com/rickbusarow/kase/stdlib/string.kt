@@ -119,7 +119,7 @@ internal fun String.useRelativePaths(workingDir: File): String {
 }
 
 /** Replace Windows file separators with Unix ones, just for string comparison in tests */
-internal fun String.alwaysUnixFileSeparators(): String = replace(File.separator, "/")
+public fun String.alwaysUnixFileSeparators(): String = replace(File.separator, "/")
 
 internal fun String.osFileSeparators(): String {
   return if ("win" in System.getProperty("os.name").lowercase()) {

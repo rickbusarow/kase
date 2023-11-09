@@ -23,23 +23,21 @@ import dev.drewhamilton.poko.Poko
 
 public typealias AnyKase = Kase
 
-/** 
- * Represents a case for testing. It contains a display name and a list of parameters with their labels.
+/**
+ * Represents a case for testing. It contains a display
+ * name and a list of parameters with their labels.
  */
 public sealed interface Kase : HasDisplayName, HasDisplayNames {
 
-  /** 
-   * Adds a new parameter to the case with the given label and value.
-   */
+  /** Adds a new parameter to the case with the given label and value. */
   public fun <A> plus(label: String, value: A): AnyKase
 
-  /** 
-   * Returns a list of display names for the case, separated by the given delimiter.
-   */
+  /** Returns a list of display names for the case, separated by the given delimiter. */
   public fun displayNames(delimiter: String = DELIMITER_DEFAULT): List<String>
 
-  /** 
-   * Returns a single display name for the case, constructed from the display names of its parameters.
+  /**
+   * Returns a single display name for the case,
+   * constructed from the display names of its parameters.
    */
   public fun displayName(
     labelDelimiter: String = DELIMITER_DEFAULT,

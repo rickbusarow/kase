@@ -1066,6 +1066,7 @@ public class com/rickbusarow/kase/DefaultTestEnvironment : com/rickbusarow/kase/
 	public fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;)V
 	public fun <init> (Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)V
 	public synthetic fun <init> (Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public fun getWorkingDir ()Ljava/io/File;
 	public fun tearDown ()V
 }
@@ -3300,6 +3301,7 @@ public final class com/rickbusarow/kase/TestEnvironment$Companion {
 }
 
 public final class com/rickbusarow/kase/TestEnvironment$DefaultImpls {
+	public static fun cleanOutput (Lcom/rickbusarow/kase/TestEnvironment;Ljava/lang/String;)Ljava/lang/String;
 	public static fun tearDown (Lcom/rickbusarow/kase/TestEnvironment;)V
 }
 
@@ -3370,6 +3372,7 @@ public final class com/rickbusarow/kase/TestVariant {
 public class com/rickbusarow/kase/files/DefaultHasWorkingDir : com/rickbusarow/kase/files/HasWorkingDir {
 	public static final field Companion Lcom/rickbusarow/kase/files/DefaultHasWorkingDir$Companion;
 	public fun <init> (Ljava/io/File;)V
+	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public fun getWorkingDir ()Ljava/io/File;
 	public fun toString ()Ljava/lang/String;
 }
@@ -3413,6 +3416,7 @@ public final class com/rickbusarow/kase/files/DirectoryBuilderKt {
 
 public abstract interface class com/rickbusarow/kase/files/HasWorkingDir {
 	public static final field Companion Lcom/rickbusarow/kase/files/HasWorkingDir$Companion;
+	public abstract fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public abstract fun getWorkingDir ()Ljava/io/File;
 }
 
@@ -3426,8 +3430,11 @@ public final class com/rickbusarow/kase/files/HasWorkingDir$Companion {
 	public static synthetic fun invoke$default (Lcom/rickbusarow/kase/files/HasWorkingDir$Companion;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;ILjava/lang/Object;)Lcom/rickbusarow/kase/files/DefaultHasWorkingDir;
 }
 
+public final class com/rickbusarow/kase/files/HasWorkingDir$DefaultImpls {
+	public static fun cleanOutput (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/lang/String;)Ljava/lang/String;
+}
+
 public final class com/rickbusarow/kase/files/HasWorkingDirKt {
-	public static final fun cleanOutput (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/lang/String;)Ljava/lang/String;
 	public static final fun relativePath (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/io/File;)Ljava/lang/String;
 	public static final fun useRelativePaths (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/lang/String;)Ljava/lang/String;
 }
@@ -3511,6 +3518,7 @@ public final class com/rickbusarow/kase/stdlib/FileKt {
 }
 
 public final class com/rickbusarow/kase/stdlib/StringKt {
+	public static final fun alwaysUnixFileSeparators (Ljava/lang/String;)Ljava/lang/String;
 	public static final fun capitalize (Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/String;
 	public static synthetic fun capitalize$default (Ljava/lang/String;Ljava/util/Locale;ILjava/lang/Object;)Ljava/lang/String;
 	public static final fun decapitalize (Ljava/lang/String;Ljava/util/Locale;)Ljava/lang/String;

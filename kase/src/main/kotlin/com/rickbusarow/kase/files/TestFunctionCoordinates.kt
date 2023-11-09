@@ -85,7 +85,7 @@ public class TestFunctionCoordinates
               else -> true
             }
           }
-          .firstOrNull { it.isFile && it.path.endsWith("$packageDir/$fileName") }
+          .firstOrNull { it.isFile && it.path.endsWith(packageDir / fileName) }
       }
       ?: return null
 
