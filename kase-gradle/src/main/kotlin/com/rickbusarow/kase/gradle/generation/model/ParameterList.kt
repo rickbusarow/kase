@@ -16,6 +16,7 @@
 package com.rickbusarow.kase.gradle.generation.model
 
 import com.rickbusarow.kase.gradle.generation.model.DslLanguage.KotlinDsl
+import com.rickbusarow.kase.gradle.generation.model.FunctionCall.InfixSupport
 import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 import kotlin.LazyThreadSafetyMode.NONE
@@ -66,7 +67,7 @@ public class ParameterList(
     val trailingLambda = parameters.lastOrNull()
       ?.takeIf { it is LambdaParameter }
 
-    val toJoin = when {
+    val paramsWithoutLambda = when {
       trailingLambda != null -> parameters.dropLast(1)
       else -> parameters
     }
@@ -74,7 +75,7 @@ public class ParameterList(
     val joined = buildString {
       indent("", "  ") {
         append(
-          toJoin.joinToString(separator = separator) {
+          paramsWithoutLambda.joinToString(separator = separator) {
             it.write(language, labelSupport)
           }
         )
@@ -82,20 +83,21 @@ public class ParameterList(
     }
 
     val wrapInParens = when {
-      !language.useInfix -> true
-      !language.supports(infixSupport) -> true
-      // !language.supports(infixSupport) && trailingLambda == null -> true
-      toJoin.isNotEmpty() -> true
-      trailingLambda == null -> true
-      language is KotlinDsl && parameters.size != 1 -> true
       joined.lines().size > 1 -> true
-      else -> false
+      // If there are no parameters, it can't be infix
+      parameters.isEmpty() -> true
+      // Kotlin only supports infix for a single parameter.  Technically Groovy does too,
+      // but things get weird when that parameter is a map.
+      language is KotlinDsl && parameters.size > 1 -> true
+      // If the lambda isn't null, any parameters before it must be wrapped in parens.
+      trailingLambda != null -> paramsWithoutLambda.isNotEmpty()
+      else -> !language.useInfix || !language.supports(infixSupport)
     }
 
-    val maybeWrapped = if (wrapInParens) {
-      language.parens(joined, infixSupport)
-    } else {
-      joined
+    val maybeWrapped = when {
+      wrapInParens -> language.parens(joined, InfixSupport.NoInfix)
+      paramsWithoutLambda.isNotEmpty() -> " $joined"
+      else -> joined
     }
 
     val lambdaString = trailingLambda?.let { " ${it.write(language, labelSupport)}" }.orEmpty()

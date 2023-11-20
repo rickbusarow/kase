@@ -110,10 +110,12 @@ public sealed class DslLanguage(
    * @return the parenthesized content, e.g. `('com.acme:dynamite:1.0.0')`
    */
   public fun parens(content: String, force: InfixSupport? = null): String =
-    if (force != null && supports(force) && useInfix && content.isNotBlank()) {
-      " $content"
-    } else {
-      "($content)"
+    when {
+      content.isBlank() -> "()"
+      force != null && !supports(force) -> "($content)"
+      force != null && supports(force) -> " $content"
+      useInfix -> " $content"
+      else -> "($content)"
     }
 
   /**

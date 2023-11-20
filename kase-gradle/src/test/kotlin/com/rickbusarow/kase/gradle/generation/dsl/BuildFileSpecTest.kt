@@ -109,26 +109,36 @@ class BuildFileSpecTest {
 
       val content = builder.write(language)
 
-      val expectedGenerator = ExpectedCodeGenerator(language = language, kotlinInfix = false)
+      val expectedGenerator = ExpectedCodeGenerator(
+        language = language,
+        kotlinInfix = false,
+        groovyLabels = false
+      )
 
       content shouldBe """
         |dependencies {
         |  ${expectedGenerator.createFunction("androidTestApi", "dependencyNotation", "a:b:c")}
-        |  ${expectedGenerator.createFunction(
-        "androidTestCompileOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "androidTestImplementation",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "androidTestRuntimeOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
+        |  ${
+        expectedGenerator.createFunction(
+          "androidTestCompileOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "androidTestImplementation",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "androidTestRuntimeOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
         |  ${expectedGenerator.createFunction("anvil", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("anvilAndroidTest", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("anvilDebug", "dependencyNotation", "a:b:c")}
@@ -136,61 +146,93 @@ class BuildFileSpecTest {
         |  ${expectedGenerator.createFunction("anvilTest", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("api", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("commonJvmApi", "dependencyNotation", "a:b:c")}
-        |  ${expectedGenerator.createFunction("commonJvmCompileOnly", "dependencyNotation", "a:b:c")}
-        |  ${expectedGenerator.createFunction(
-        "commonJvmImplementation",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction("commonJvmRuntimeOnly", "dependencyNotation", "a:b:c")}
+        |  ${
+        expectedGenerator.createFunction(
+          "commonJvmCompileOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "commonJvmImplementation",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "commonJvmRuntimeOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
         |  ${expectedGenerator.createFunction("commonJvmTestApi", "dependencyNotation", "a:b:c")}
-        |  ${expectedGenerator.createFunction(
-        "commonJvmTestCompileOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "commonJvmTestImplementation",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "commonJvmTestRuntimeOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
+        |  ${
+        expectedGenerator.createFunction(
+          "commonJvmTestCompileOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "commonJvmTestImplementation",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "commonJvmTestRuntimeOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
         |  ${expectedGenerator.createFunction("commonMainApi", "dependencyNotation", "a:b:c")}
-        |  ${expectedGenerator.createFunction(
-        "commonMainCompileOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "commonMainImplementation",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "commonMainRuntimeOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
+        |  ${
+        expectedGenerator.createFunction(
+          "commonMainCompileOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "commonMainImplementation",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "commonMainRuntimeOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
         |  ${expectedGenerator.createFunction("commonTestApi", "dependencyNotation", "a:b:c")}
-        |  ${expectedGenerator.createFunction(
-        "commonTestCompileOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "commonTestImplementation",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "commonTestRuntimeOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
+        |  ${
+        expectedGenerator.createFunction(
+          "commonTestCompileOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "commonTestImplementation",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "commonTestRuntimeOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
         |  ${expectedGenerator.createFunction("compileOnly", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("debugApi", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("debugCompileOnly", "dependencyNotation", "a:b:c")}
@@ -209,31 +251,39 @@ class BuildFileSpecTest {
         |  ${expectedGenerator.createFunction("kspTest", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("releaseApi", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("releaseCompileOnly", "dependencyNotation", "a:b:c")}
-        |  ${expectedGenerator.createFunction(
-        "releaseImplementation",
-        "dependencyNotation",
-        "a:b:c"
-      )}
+        |  ${
+        expectedGenerator.createFunction(
+          "releaseImplementation",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
         |  ${expectedGenerator.createFunction("releaseRuntimeOnly", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("runtimeOnly", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("testApi", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("testCompileOnly", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("testFixturesApi", "dependencyNotation", "a:b:c")}
-        |  ${expectedGenerator.createFunction(
-        "testFixturesCompileOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "testFixturesImplementation",
-        "dependencyNotation",
-        "a:b:c"
-      )}
-        |  ${expectedGenerator.createFunction(
-        "testFixturesRuntimeOnly",
-        "dependencyNotation",
-        "a:b:c"
-      )}
+        |  ${
+        expectedGenerator.createFunction(
+          "testFixturesCompileOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "testFixturesImplementation",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
+        |  ${
+        expectedGenerator.createFunction(
+          "testFixturesRuntimeOnly",
+          "dependencyNotation",
+          "a:b:c"
+        )
+      }
         |  ${expectedGenerator.createFunction("testImplementation", "dependencyNotation", "a:b:c")}
         |  ${expectedGenerator.createFunction("testRuntimeOnly", "dependencyNotation", "a:b:c")}
         |}

@@ -35,7 +35,6 @@ internal val FILE_ANNOTATIONS = """
   @file:JvmName("KasesKt")
 """.trimIndent()
 
-@Suppress("SpellCheckingInspection")
 internal val IMPORTS = """
   import com.rickbusarow.kase.files.TestFunctionCoordinates
   import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
@@ -56,7 +55,7 @@ internal val testElements = File(
 )
 internal val overloads = File("kase/src/main/kotlin/com/rickbusarow/kase/overloads")
 
-internal const val MAX_PARAMS = 21
+internal const val MAX_PARAMS = 3
 
 internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
 
@@ -67,6 +66,13 @@ internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
 
   /** `Kase3<A1, A2, A3>` */
   val kaseInterface: String = "$kaseInterfaceNoTypes<$argsValueTypesString>"
+
+  /**  */
+  val kaseSuperInterface: String = if (number == 1) {
+    "Kase"
+  } else {
+    KaseTypes(number - 1, args.dropLast(1)).kaseInterface
+  }
 
   /** `DefaultKase3` */
   val defaultKaseNoTypes = "DefaultKase$number"
@@ -137,31 +143,6 @@ internal data class KaseArg(
       get() = valueNames.joinToString(", ") { arg -> "it.$arg" }
   }
 }
-
-// data class TypeParameter(
-//   val name: String,
-//   val variance: Variance,
-//   val bounds: List<String> = emptyList()
-// ) {
-//   constructor(name: String) : this(name, Variance.NONE, emptyList())
-//   constructor(name: String, variance: Variance) : this(name, variance, emptyList())
-//   constructor(name: String, vararg bounds: String) : this(name, Variance.NONE, bounds.toList())
-//
-//   enum class Variance(val asString: String) {
-//     IN("in "),
-//     OUT("out "),
-//     NONE("")
-//   }
-// }
-//
-// internal fun function(
-//   name: String,
-//   kdoc: String,
-//   context: String?,
-//   inline: Boolean
-// ): String {
-//   return ""
-// }
 
 private fun main() {
 
@@ -245,7 +226,7 @@ private fun main() {
         |)
       """.trimMargin()
     } else {
-      """error("A Kase cannot have more than 22 parameters")"""
+      """error("A Kase cannot have more than $MAX_PARAMS parameters")"""
     }
 
     val testFactoryKdoc = buildString {
@@ -298,10 +279,7 @@ private fun main() {
         kaseSimpleName = kaseSimpleName,
         typesWithVarianceString = typesWithVarianceString,
         propertiesString = propertiesString,
-        componentFuns = componentFuns,
-        aPlus1 = aPlus1,
-        kasePlus1WithTypes = kasePlus1WithTypes,
-        plus1Impl = plus1Impl
+        componentFuns = componentFuns
       )
 
       defaultKase(
@@ -309,8 +287,6 @@ private fun main() {
         types = types,
         paramsPairs = argsTypePairs,
         ct = ct,
-        kasePlus1WithTypes = kasePlus1WithTypes,
-        kasePlus1 = kasePlus1,
         kaseSimpleName = kaseSimpleName,
         typesWithVarianceString = typesWithVarianceString,
         typesString = typesString

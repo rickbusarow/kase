@@ -53,11 +53,7 @@ public abstract class AbstractDslElementContainer<SELF : AbstractDslElementConta
 
   override fun write(language: DslLanguage): String {
     return elements.joinToString("\n") {
-      if (it is BlankLine) {
-        it.write(language)
-      } else {
-        it.write(language) // .trimEnd()
-      }
+      it.write(language)
     }
   }
 }
