@@ -27,10 +27,7 @@ internal fun StringBuilder.kaseInterface(
   kaseSimpleName: String,
   typesWithVarianceString: String,
   propertiesString: String,
-  componentFuns: String,
-  aPlus1: String,
-  kasePlus1WithTypes: String,
-  plus1Impl: String
+  componentFuns: String
 ) {
   appendLine(
     """
@@ -48,10 +45,6 @@ internal fun StringBuilder.kaseInterface(
     |  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
     |
     |  $componentFuns
-    |
-    |  override fun <$aPlus1> plus(label: String, value: $aPlus1): $kasePlus1WithTypes {
-    |    ${plus1Impl.prependIndentAfterFirst("    ")}
-    |  }
     |}
     """.trimMargin()
   )
@@ -269,8 +262,6 @@ internal fun StringBuilder.defaultKase(
   types: List<String>,
   paramsPairs: List<Pair<String, String>>,
   ct: Int,
-  kasePlus1WithTypes: String,
-  kasePlus1: String,
   kaseSimpleName: String,
   typesWithVarianceString: String,
   typesString: String
@@ -282,21 +273,6 @@ internal fun StringBuilder.defaultKase(
     "override val $arg: $type get() = ${arg}WithLabel.value"
   }
 
-  val defaultKasePlus1 = if (ct != MAX_PARAMS) "Default$kasePlus1WithTypes" else kasePlus1
-
-  val aPlus1 = "A${ct + 1}"
-  val plus1Impl = if (ct != MAX_PARAMS) {
-    """
-    |return Default$kasePlus1(
-    |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
-    |  a${ct + 1}WithLabel = kaseParam(label = label, value = value),
-    |  labelDelimiter = labelDelimiter,
-    |  displayNameSeparator = displayNameSeparator
-    |)
-    """.trimMargin()
-  } else {
-    """error("A Kase cannot have more than 22 parameters")"""
-  }
   val componentFuns = (1..ct).joinToString("\n  ") { i ->
     "override fun component$i(): A$i = a$i"
   }
@@ -313,10 +289,6 @@ internal fun StringBuilder.defaultKase(
     |
     |  override val elements: List<KaseParameterWithLabel<Any?>>
     |    get() = listOf(${argsWithLabels.joinToString(", ")})
-    |
-    |  override fun <$aPlus1> plus(label: String, value: $aPlus1): $defaultKasePlus1 {
-    |    ${plus1Impl.prependIndentAfterFirst("    ")}
-    |  }
     |
     |  $componentFuns
     |

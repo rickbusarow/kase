@@ -15,7 +15,6 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.Kase3
@@ -67,23 +66,6 @@ public class GradleTestVersions(
     public fun from(versionMatrix: VersionMatrix): List<GradleTestVersions> {
       return versionMatrix.kases(Gradle).map { GradleTestVersions(it.a1) }
     }
-
-    /** */
-    public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleTestVersions {
-
-      val versions = kase.elements
-        .mapNotNull { it.value as? DependencyVersion<*, *> }
-        .associateBy { it.key }
-
-      return GradleTestVersions(
-        a1 = versions.version(Gradle) { versionMatrix[Gradle].first() }
-      )
-    }
-
-    private inline fun <reified T : DependencyVersion<*, *>> Map<VersionMatrixKey<*>, DependencyVersion<*, *>>.version(
-      key: VersionMatrixKey<T>,
-      default: () -> T
-    ): T = get(key) as? T ?: default()
   }
 }
 
@@ -109,24 +91,6 @@ public class GradleKotlinTestVersions(
 
       return versionMatrix.kases(Gradle, Kotlin).map { GradleKotlinTestVersions(it.a1, it.a2) }
     }
-
-    /** */
-    public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleKotlinTestVersions {
-
-      val versions = kase.elements
-        .mapNotNull { it.value as? DependencyVersion<*, *> }
-        .associateBy { it.key }
-
-      return GradleKotlinTestVersions(
-        a1 = versions.version(Gradle) { versionMatrix[Gradle].first() },
-        a2 = versions.version(Kotlin) { versionMatrix[Kotlin].first() }
-      )
-    }
-
-    private inline fun <reified T : DependencyVersion<*, *>> Map<VersionMatrixKey<*>, DependencyVersion<*, *>>.version(
-      key: VersionMatrixKey<T>,
-      default: () -> T
-    ): T = get(key) as? T ?: default()
   }
 }
 
@@ -156,20 +120,6 @@ public class GradleKotlinAgpTestVersions(
 
       return versionMatrix.kases(Gradle, Kotlin, Agp)
         .map { GradleKotlinAgpTestVersions(it.a1, it.a2, it.a3) }
-    }
-
-    /** */
-    public fun from(kase: AnyKase, versionMatrix: VersionMatrix): GradleKotlinAgpTestVersions {
-
-      val versions = kase.elements
-        .mapNotNull { it.value as? DependencyVersion<*, *> }
-        .associateBy { it.key }
-
-      return GradleKotlinAgpTestVersions(
-        versions.version(Gradle) { versionMatrix[Gradle].first() },
-        versions.version(Kotlin) { versionMatrix[Kotlin].first() },
-        versions.version(Agp) { versionMatrix[Agp].first() }
-      )
     }
 
     private inline fun <reified T : DependencyVersion<*, *>> Map<VersionMatrixKey<*>, DependencyVersion<*, *>>.version(

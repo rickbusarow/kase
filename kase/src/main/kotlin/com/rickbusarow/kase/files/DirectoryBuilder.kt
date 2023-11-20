@@ -87,7 +87,7 @@ public inline fun buildDirectory(
 }
 
 /** A DSL for building a directory tree. */
-public class DirectoryBuilder constructor(
+public class DirectoryBuilder(
   private val simpleName: String
 ) {
 

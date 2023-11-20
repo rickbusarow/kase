@@ -29,9 +29,6 @@ public typealias AnyKase = Kase
  */
 public sealed interface Kase : HasDisplayName, HasDisplayNames {
 
-  /** Adds a new parameter to the case with the given label and value. */
-  public fun <A> plus(label: String, value: A): AnyKase
-
   /** Returns a list of display names for the case, separated by the given delimiter. */
   public fun displayNames(delimiter: String = DELIMITER_DEFAULT): List<String>
 
@@ -62,10 +59,6 @@ public sealed interface Kase : HasDisplayName, HasDisplayNames {
     override val displayNames: List<String> = emptyList()
 
     override fun displayNames(delimiter: String): List<String> = displayNames
-
-    override fun <T> plus(label: String, value: T): Kase1<T> {
-      return kase(a1 = value, labels = KaseLabels1(label))
-    }
   }
 }
 
