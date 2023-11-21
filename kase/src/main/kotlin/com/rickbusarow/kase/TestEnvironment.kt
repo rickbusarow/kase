@@ -58,7 +58,7 @@ public interface TestEnvironment : HasWorkingDir {
  * @param hasWorkingDir The associated working directory.
  */
 public open class DefaultTestEnvironment public constructor(
-  hasWorkingDir: HasWorkingDir
+  private val hasWorkingDir: HasWorkingDir
 ) : TestEnvironment,
   HasWorkingDir by hasWorkingDir {
 
@@ -78,6 +78,8 @@ public open class DefaultTestEnvironment public constructor(
       testFunctionCoordinates = testFunctionCoordinates
     )
   )
+
+  override fun toString(): String = hasWorkingDir.toString()
 }
 
 /**
