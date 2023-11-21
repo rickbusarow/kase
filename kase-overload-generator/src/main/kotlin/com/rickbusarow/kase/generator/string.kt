@@ -78,21 +78,6 @@ internal fun CharSequence.mapLinesIndexed(
   .mapIndexed(transform)
   .joinToString("\n")
 
-/**
- * Prepends [indent] to every line of the original string, except for the first.
- *
- * Doesn't preserve the original line endings.
- */
-internal fun CharSequence.prependIndentAfterFirst(indent: String): String {
-  return mapLinesIndexed { i, line ->
-    when {
-      i == 0 -> line
-      line.isBlank() -> line
-      else -> indent + line
-    }
-  }
-}
-
 internal fun String.replaceRegex(@Language("regexp") pattern: String, replacement: String): String {
   return replace(Regex(pattern), replacement)
 }

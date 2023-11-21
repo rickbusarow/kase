@@ -69,14 +69,14 @@ public interface HasLabelParameters {
    *
    * ex: the ':' in "label: value"
    */
-  public val labelDelimiter: String
+  public val labelDelimiter: String get() = DELIMITER_DEFAULT
 
   /**
    * between each label/value pair.
    *
    * ex: the " | " in "label1: value1 | label2: value2"
    */
-  public val displayNameSeparator: String
+  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
 }
 
 /** */

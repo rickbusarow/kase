@@ -17,34 +17,32 @@
 
 package com.rickbusarow.kase.generator
 
+import com.rickbusarow.kase.generator.KaseArg.Companion.argsWithLabelValueParams
 import com.rickbusarow.kase.generator.KaseArg.Companion.paramsString
+import com.rickbusarow.kase.generator.KaseArg.Companion.valueTypePairs
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueTypesString
 import com.rickbusarow.kase.generator.KaseArg.Companion.valuesFromItString
 
 internal fun StringBuilder.kaseInterface(
   ct: Int,
   parametersPlural: String,
-  kaseSimpleName: String,
-  typesWithVarianceString: String,
-  propertiesString: String,
-  componentFuns: String
+  args: List<KaseArg>,
+  types: KaseTypes
 ) {
+  val lastArg = args.last()
+
   appendLine(
     """
     |/** A strongly-typed version of [Kase] for $ct $parametersPlural. */
-    |public interface $kaseSimpleName$typesWithVarianceString : Kase {
+    |public interface ${types.kaseInterface} : ${types.kaseSuperInterface} {
     |
-    |  ${propertiesString.prependIndentAfterFirst("  ")}
+    |  /** The ${types.number.withOrdinalSuffix()} parameter. */
+    |  public val ${lastArg.valueName}: ${lastArg.valueTypeName}
     |
-    |  /** The delimiter between the label and the value, like `": "` in `label: value` */
-    |  public val labelDelimiter: String get() = DELIMITER_DEFAULT
+    |  /** The ${types.number.withOrdinalSuffix()} parameter with its label. */
+    |  public val ${lastArg.valueWithLabelName}: ${lastArg.valueWithLabelTypeName}
     |
-    |  /**
-    |   * The separator between each label/value pair, like `" | "` in `label1: value1 | label2: value2`
-    |   */
-    |  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
-    |
-    |  $componentFuns
+    |  ${lastArg.componentFun.prependContinuationIndent("  ")}
     |}
     """.trimMargin()
   )
@@ -258,37 +256,30 @@ internal fun writeTestElements() {
 }
 
 internal fun StringBuilder.defaultKase(
-  argsWithLabels: List<String>,
-  types: List<String>,
-  paramsPairs: List<Pair<String, String>>,
-  ct: Int,
-  kaseSimpleName: String,
-  typesWithVarianceString: String,
-  typesString: String
+  args: List<KaseArg>,
+  types: KaseTypes
 ) {
-  val argWithLabelValueParams = argsWithLabels.zip(types).joinToString(",\n  ") { (element, type) ->
-    "override val $element: KaseParameterWithLabel<$type>"
-  }
-  val argMemberProperties = paramsPairs.joinToString("\n  ") { (arg, type) ->
+
+  val argMemberProperties = args.valueTypePairs.joinToString("\n  ") { (arg, type) ->
     "override val $arg: $type get() = ${arg}WithLabel.value"
   }
 
-  val componentFuns = (1..ct).joinToString("\n  ") { i ->
-    "override fun component$i(): A$i = a$i"
+  val componentFuns = args.joinToString("\n  ") { arg ->
+    arg.componentFunOverride
   }
   appendLine(
     """
     |@Poko
     |@PublishedApi
-    |internal class Default$kaseSimpleName$typesWithVarianceString(
-    |  $argWithLabelValueParams,
+    |internal class ${types.defaultKase}(
+    |  ${args.argsWithLabelValueParams},
     |  override val labelDelimiter: String,
     |  override val displayNameSeparator: String,
-    |) : Kase$ct$typesString, KaseInternal {
+    |) : ${types.kaseInterface}, KaseInternal {
     |  $argMemberProperties
     |
     |  override val elements: List<KaseParameterWithLabel<Any?>>
-    |    get() = listOf(${argsWithLabels.joinToString(", ")})
+    |    get() = listOf(${args.joinToString(", ") { it.valueWithLabelName }})
     |
     |  $componentFuns
     |
@@ -608,19 +599,19 @@ internal fun StringBuilder.timesFunctions(
 
       appendLine(
         """
-            |/**
-            | * @param others the [${bTypes.kaseInterfaceNoTypes}] to combine with this [${aTypes.kaseInterfaceNoTypes}]
-            | * @return a list of [${cTypes.kaseInterfaceNoTypes}]s from the cartesian product of this [${aTypes.kaseInterfaceNoTypes}] and the given [${bTypes.kaseInterfaceNoTypes}].
-            | */
-            |@JvmName("${aTypes.kaseInterfaceNoTypes.decapitalize()}times${bTypes.kaseInterfaceNoTypes}")
-            |public operator fun <$cArgTypesString> Iterable<${aTypes.kaseInterface}>.times(
-            |  others: Iterable<${bTypes.kaseInterface}>
-            |): List<${cTypes.kaseInterface}> = flatMap { ($aValueString) ->
-            |  others.map { ($bValueString) ->
-            |    kase(${cArgs.joinToString(", ") { it.valueName }})
-            |  }
-            |}
-            |
+        |/**
+        | * @param others the [${bTypes.kaseInterfaceNoTypes}] to combine with this [${aTypes.kaseInterfaceNoTypes}]
+        | * @return a list of [${cTypes.kaseInterfaceNoTypes}]s from the cartesian product of this [${aTypes.kaseInterfaceNoTypes}] and the given [${bTypes.kaseInterfaceNoTypes}].
+        | */
+        |@JvmName("${aTypes.kaseInterfaceNoTypes.decapitalize()}times${bTypes.kaseInterfaceNoTypes}")
+        |public operator fun <$cArgTypesString> Iterable<${aTypes.kaseInterface}>.times(
+        |  others: Iterable<${bTypes.kaseInterface}>
+        |): List<${cTypes.kaseInterface}> = flatMap { ($aValueString) ->
+        |  others.map { ($bValueString) ->
+        |    kase(${cArgs.joinToString(", ") { it.valueName }})
+        |  }
+        |}
+        |
         """.trimMargin()
       )
     }
