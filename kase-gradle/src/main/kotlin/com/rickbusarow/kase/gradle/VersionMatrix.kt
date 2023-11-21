@@ -16,6 +16,7 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.AnyKase
+import com.rickbusarow.kase.HasKases
 import com.rickbusarow.kase.HasLabel
 import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixElement
 import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey

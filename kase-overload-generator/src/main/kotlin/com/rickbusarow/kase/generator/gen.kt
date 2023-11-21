@@ -55,7 +55,7 @@ internal val testElements = File(
 )
 internal val overloads = File("kase/src/main/kotlin/com/rickbusarow/kase/overloads")
 
-internal const val MAX_PARAMS = 3
+internal const val MAX_PARAMS = 21
 
 internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
 
@@ -113,6 +113,28 @@ internal data class KaseArg(
   /** `a1WithLabel` */
   val valueWithLabelName = "${valueName}WithLabel"
 
+  /** `KaseParameterWithLabel<A1>` */
+  val valueWithLabelTypeName = "KaseParameterWithLabel<$valueTypeName>"
+
+  /**
+   * ```
+   * /** @see Kase1.ai */
+   * public operator fun component1(): Ai = ai
+   * ```
+   */
+  val componentFun = """
+    /** @see Kase$number.$valueName */
+    public operator fun component$number(): $valueTypeName = $valueName
+  """.trimIndent()
+
+  /**
+   * ```
+   * override operator fun component1(): Ai = ai
+   * ```
+   */
+  val componentFunOverride =
+    "override operator fun component$number(): $valueTypeName = $valueName"
+
   companion object {
     /** [a1, a2, a3, ...] */
     val List<KaseArg>.valueNames: List<String>
@@ -127,12 +149,12 @@ internal data class KaseArg(
       get() = valueTypes.joinToString(", ")
 
     /** `["a1" to "A1", "a2" to "A2", "a3" to "A3", ...]` */
-    val List<KaseArg>.argsTypePairs: List<Pair<String, String>>
+    val List<KaseArg>.valueTypePairs: List<Pair<String, String>>
       get() = valueNames.zip(valueTypes)
 
     /** `["a1: A1", "a2: A2", "a3: A3", ...]` */
     val List<KaseArg>.params: List<String>
-      get() = argsTypePairs.map { "${it.first}: ${it.second}" }
+      get() = valueTypePairs.map { "${it.first}: ${it.second}" }
 
     /** `"a1: A1, a2: A2, a3: A3"` */
     val List<KaseArg>.paramsString: String
@@ -141,6 +163,17 @@ internal data class KaseArg(
     /** `"it.a1, it.a2, it.a3"` */
     val List<KaseArg>.valuesFromItString: String
       get() = valueNames.joinToString(", ") { arg -> "it.$arg" }
+
+    /**
+     * ```
+     *   override val arg1WithLabel: KaseParameterWithLabel<A1>,
+     *   override val arg2WithLabel: KaseParameterWithLabel<A2>
+     * ```
+     */
+    val List<KaseArg>.argsWithLabelValueParams: String
+      get() = joinToString(",\n  ") { arg ->
+        "override val ${arg.valueWithLabelName}: ${arg.valueWithLabelTypeName}"
+      }
   }
 }
 
@@ -161,10 +194,6 @@ private fun main() {
 
     val types = nums.map { "A$it" }
     val typesString = types.joinToString(separator = ", ", prefix = "<", postfix = ">")
-    val typesWithVarianceString =
-      types.joinToString(separator = ", ", prefix = "<", postfix = ">") {
-        "out $it"
-      }
 
     val args = nums.map { "a$it" }
 
@@ -195,39 +224,6 @@ private fun main() {
       .joinToString(separator = ", ", prefix = "<", postfix = ">")
 
     val parametersPlural = if (ct == 1) "parameter" else "parameters"
-
-    val propertiesString = args.zip(types).joinToStringIndexed("\n\n") { i, (arg, type) ->
-      """
-          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
-          public val $arg: $type
-
-          /** The ${(i + 1).withOrdinalSuffix()} parameter. */
-          public val ${arg}WithLabel: KaseParameterWithLabel<$type>
-      """.trimIndent()
-    }
-
-    val kasePlus1 = if (ct != MAX_PARAMS) "Kase${ct + 1}" else "AnyKase"
-    val aPlus1 = "A${ct + 1}"
-
-    val kasePlus1WithTypes = if (ct != MAX_PARAMS) {
-      "$kasePlus1${types.joinToString(separator = ", ", prefix = "<", postfix = ", $aPlus1>")}"
-    } else {
-      kasePlus1
-    }
-
-    val argsWithLabels = args.map { arg -> "${arg}WithLabel" }
-    val plus1Impl = if (ct != MAX_PARAMS) {
-      """
-        |return Default$kasePlus1(
-        |  ${argsWithLabels.joinToString(",\n  ") { "$it = $it" }},
-        |  a${ct + 1}WithLabel = kaseParam(label = label, value = value),
-        |  labelDelimiter = labelDelimiter,
-        |  displayNameSeparator = displayNameSeparator
-        |)
-      """.trimMargin()
-    } else {
-      """error("A Kase cannot have more than $MAX_PARAMS parameters")"""
-    }
 
     val testFactoryKdoc = buildString {
       appendLine("/**")
@@ -268,28 +264,16 @@ private fun main() {
         """.trimMargin()
       )
 
-      val componentFuns = (1..ct).joinToString("\n\n  ") { i ->
-        "/** @see $kaseSimpleName.a$i */\n" +
-          "  public operator fun component$i(): A$i = a$i"
-      }
-
       kaseInterface(
         ct = ct,
         parametersPlural = parametersPlural,
-        kaseSimpleName = kaseSimpleName,
-        typesWithVarianceString = typesWithVarianceString,
-        propertiesString = propertiesString,
-        componentFuns = componentFuns
+        args = args2,
+        types = kaseTypes
       )
 
       defaultKase(
-        argsWithLabels = argsWithLabels,
-        types = types,
-        paramsPairs = argsTypePairs,
-        ct = ct,
-        kaseSimpleName = kaseSimpleName,
-        typesWithVarianceString = typesWithVarianceString,
-        typesString = typesString
+        args = args2,
+        types = kaseTypes
       )
 
       kaseLabelsClass(
@@ -336,23 +320,6 @@ private fun main() {
         args = args2,
         kaseTypes = kaseTypes
       )
-
-      // asTests_Destructured_TestEnvironment(
-      //   args = args2,
-      //   kaseTypes = kaseTypes
-      // )
-
-      // testFactory_vararg_Destructured_TestEnvironment(
-      //   kdoc = testFactoryKdoc,
-      //   args = args2,
-      //   kaseTypes = kaseTypes
-      // )
-
-      // testFactory_iterable_Destructured_TestEnvironment(
-      //   kdoc = testFactoryKdoc,
-      //   args = args2,
-      //   kaseTypes = kaseTypes
-      // )
 
       testFactory_vararg_Destructured(
         kdoc = testFactoryKdoc,
