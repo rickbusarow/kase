@@ -81,5 +81,6 @@ rootProject.name = "kase"
 include(
   ":kase",
   ":kase-gradle",
+  ":kase-gradle-dsl",
   ":kase-overload-generator"
 )

@@ -20,8 +20,6 @@ import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironmentFactory
 import com.rickbusarow.kase.TestVariant
 import com.rickbusarow.kase.files.TestFunctionCoordinates
-import com.rickbusarow.kase.gradle.generation.BuildFileComponents
-import com.rickbusarow.kase.gradle.generation.model.DslLanguage
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode
 import java.io.File
@@ -41,10 +39,15 @@ public interface GradleTestEnvironmentFactory<K> :
   where K : TestVersions,
         K : AnyKase {
 
-  public val dslLanguages: List<DslLanguage>
-    get() = listOf(DslLanguage.KotlinDsl(useInfix = true, useLabels = false))
+  /** The [DslLanguage] to use for generating build and settings files. */
+  public val dslLanguage: DslLanguage
+    get() = DslLanguage.KotlinDsl(useInfix = true, useLabels = false)
 
-  public val localM2Path: File
+  /**
+   * A local Maven repository to use for resolving
+   * dependencies, such as `<projectRoot>/build/m2` or `~/.m2`.
+   */
+  public val localM2Path: File? get() = null
 
   /** Creates a new [GradleTestEnvironment] for the given [testVariant] and [testVersions]. */
   public fun newTestEnvironment(
@@ -62,7 +65,7 @@ public interface GradleTestEnvironmentFactory<K> :
     testVersions = kase,
     testFunctionCoordinates = testFunctionCoordinates,
     kase = kase,
-    buildFileComponents = object : BuildFileComponents {},
+
     dslLanguage = DslLanguage.GroovyDsl(useInfix = true, useLabels = true, useDoubleQuotes = false),
     localM2Path = localM2Path
   )

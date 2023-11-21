@@ -16,5 +16,14 @@
     "packaging": "jar",
     "javaVersion": "1.8",
     "publicationName": "maven"
+  },
+  {
+    "gradlePath": ":kase-gradle-dsl",
+    "group": "com.rickbusarow.kase",
+    "artifactId": "kase-gradle-dsl",
+    "description": "A DSL for generating Gradle DSL files.",
+    "packaging": "jar",
+    "javaVersion": "1.8",
+    "publicationName": "maven"
   }
 ]

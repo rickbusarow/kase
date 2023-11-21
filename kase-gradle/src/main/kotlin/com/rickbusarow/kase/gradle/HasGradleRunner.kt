@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.useRelativePaths
 import com.rickbusarow.kase.stdlib.div
@@ -27,6 +28,21 @@ import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome.FAILED
 import org.gradle.util.GradleVersion
+
+/** Models the contents of a Gradle project. */
+// public interface GradleProjectSpec {
+//   public val projectDir: File
+//   public val buildFile: File
+//   public val gradleDotProperties: File?
+// }
+//
+// public interface RootGradleProjectSpec : GradleProjectSpec {
+//   public val settingsFile: File
+// }
+//
+// public fun interface WritesGradleScripts {
+//   public fun writeGradleFiles()
+// }
 
 /** Trait interface for a test environment with a [GradleRunner]. */
 public interface HasGradleRunner {
@@ -140,8 +156,10 @@ public interface HasGradleRunner {
 /** Default implementation of [HasGradleRunner]. */
 public open class DefaultHasGradleRunner(
   hasWorkingDir: HasWorkingDir,
+  private val rootDirectoryBuilder: DirectoryBuilder,
   gradleVersion: () -> String = { GradleVersion.current().version }
-) : HasGradleRunner, HasWorkingDir by hasWorkingDir {
+) : HasGradleRunner,
+  HasWorkingDir by hasWorkingDir {
 
   /** The [GradleRunner] used to execute Gradle builds. */
   override val gradleRunner: GradleRunner by lazy {
@@ -163,6 +181,8 @@ public open class DefaultHasGradleRunner(
       .letIf(withPluginClasspath) { it.withPluginClasspath() }
       .letIf(withHermeticTestKit) { it.withTestKitDir(workingDir / "testKit") }
       .withArguments(tasks.letIf(stacktrace) { it.plus("--stacktrace") })
+
+    rootDirectoryBuilder.write()
 
     return if (shouldFail) {
       withOptions.buildAndFail()

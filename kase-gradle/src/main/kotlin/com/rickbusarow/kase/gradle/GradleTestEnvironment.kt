@@ -19,18 +19,15 @@ import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.files.DirectoryBuilder
+import com.rickbusarow.kase.files.DirectoryBuilder.FileWithContent
 import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.TestFunctionCoordinates
-import com.rickbusarow.kase.files.WritesFiles
 import com.rickbusarow.kase.files.buildDirectory
+import com.rickbusarow.kase.files.directoryBuilder
 import com.rickbusarow.kase.files.relativePath
-import com.rickbusarow.kase.gradle.generation.BuildFileComponents
-import com.rickbusarow.kase.gradle.generation.dsl.BuildFileSpec
-import com.rickbusarow.kase.gradle.generation.dsl.SettingsFileSpec
-import com.rickbusarow.kase.gradle.generation.model.DslElement
-import com.rickbusarow.kase.gradle.generation.model.DslLanguage
-import com.rickbusarow.kase.gradle.generation.model.HasDslLanguage
-import com.rickbusarow.kase.stdlib.createSafely
+import com.rickbusarow.kase.gradle.DslLanguage.GroovyDsl
+import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
+import com.rickbusarow.kase.gradle.internal.DslStringFactory
 import org.gradle.testkit.runner.GradleRunner
 import java.io.File
 
@@ -39,49 +36,67 @@ import java.io.File
  * and a [File] representing the root project directory.
  *
  * @param hasWorkingDir the [HasWorkingDir] for this test environment
+ * @param rootDirectoryBuilder the [DirectoryBuilder] for this test environment
  * @property testVersions the [TestVersions] for this test environment
- * @param buildFileComponents the [BuildFileComponents] for this test environment
- * @property dslLanguage the [DslLanguage] for this test environment
- * @param localM2Path the local maven repository path
+ * @property dslLanguage the [DslLanguage] for this
+ *   test environment (default: [DslLanguage.KotlinDsl])
+ * @param defaultBuildFile the default [DslStringFactory] for the root `build.gradle[.kts]` file
+ * @param defaultSettingsFile the default [DslStringFactory]
+ *   for the root `settings.gradle[.kts]` file
  */
-@Suppress("PropertyName", "VariableNaming", "MemberVisibilityCanBePrivate", "MagicNumber")
-public class GradleTestEnvironment<TV> public constructor(
+@Suppress("VariableNaming", "MemberVisibilityCanBePrivate", "MagicNumber")
+public class GradleTestEnvironment<K> private constructor(
   hasWorkingDir: HasWorkingDir,
-  override val testVersions: TV,
-  buildFileComponents: BuildFileComponents,
+  rootDirectoryBuilder: DirectoryBuilder,
+  override val testVersions: K,
   override val dslLanguage: DslLanguage,
-  localM2Path: File
+  defaultBuildFile: DslStringFactory,
+  defaultSettingsFile: DslStringFactory
 ) : DefaultTestEnvironment(hasWorkingDir),
   TestVersions by testVersions,
+  DirectoryBuilder by rootDirectoryBuilder,
   HasGradleRunner by DefaultHasGradleRunner(
     hasWorkingDir = hasWorkingDir,
+    rootDirectoryBuilder = rootDirectoryBuilder,
     gradleVersion = { testVersions.gradleVersion }
   ),
-  HasTestVersions<TV>,
-  WritesFiles,
+  HasTestVersions<K>,
   HasDslLanguage
-  where TV : TestVersions,
-        TV : AnyKase {
+  where K : TestVersions,
+        K : AnyKase {
+
+  public constructor(
+    hasWorkingDir: HasWorkingDir,
+    testVersions: K,
+    dslLanguage: DslLanguage,
+    localM2Path: File? = null,
+    defaultBuildFile: DslStringFactory = buildFileDefault,
+    defaultSettingsFile: DslStringFactory = getSettingsFileDefault(localM2Path)
+  ) : this(
+    hasWorkingDir = hasWorkingDir,
+    rootDirectoryBuilder = hasWorkingDir.workingDir.directoryBuilder(),
+    testVersions = testVersions,
+    dslLanguage = dslLanguage,
+    defaultBuildFile = defaultBuildFile,
+    defaultSettingsFile = defaultSettingsFile
+  )
 
   /**
    * @param testVersions the [TestVersions] for this test environment
    * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run
    * @param kase the variant names related to the test
-   * @param buildFileComponents the [BuildFileComponents] for this test environment
    * @param dslLanguage the [DslLanguage] for this test environment
    * @param localM2Path the local maven repository path
    */
-  public constructor (
-    testVersions: TV,
+  public constructor(
+    testVersions: K,
     testFunctionCoordinates: TestFunctionCoordinates,
-    kase: TV,
-    buildFileComponents: BuildFileComponents,
+    kase: K,
     dslLanguage: DslLanguage,
-    localM2Path: File
+    localM2Path: File? = null
   ) : this(
     hasWorkingDir = HasWorkingDir(kase.displayNames, testFunctionCoordinates),
     testVersions = testVersions,
-    buildFileComponents = buildFileComponents,
     dslLanguage = dslLanguage,
     localM2Path = localM2Path
   )
@@ -95,84 +110,40 @@ public class GradleTestEnvironment<TV> public constructor(
   }
 
   /** The default build.gradle file. */
-  public val DEFAULT_BUILD_FILE: String by lazy {
-    BuildFileSpec {
-      buildscript {
-      }
+  public val rootBuild: FileWithContent = file(
+    relativeName = dslLanguage.buildFileName,
+    content = defaultBuildFile.write(dslLanguage)
+  )
 
-      plugins {
-        kotlin("jvm", KotlinVersion.CURRENT.toString(), apply = false)
-      }
-    }.write(dslLanguage)
-  }
-
-  /** The default build.gradle file. */
-  public val rootBuild: File = root.resolve(dslLanguage.buildFileName)
-    .createSafely(DEFAULT_BUILD_FILE, overwrite = false)
-
-  /** Applies [builder] to the root `build.gradle[.kts]` file. */
-  public fun rootBuild(
-    dslLanguage: DslLanguage = this.dslLanguage,
-    builder: BuildFileSpec.() -> Unit
-  ): File = rootBuild.fromDslElement(dslLanguage, BuildFileSpec(builder))
-
-  /** The default settings.gradle file. */
-  public val DEFAULT_SETTINGS_FILE: String by lazy {
-    SettingsFileSpec {
-
-      pluginManagement {
-        repositories {
-          maven(localM2Path)
-          gradlePluginPortal()
-          mavenCentral()
-          google()
-        }
-      }
-      dependencyResolutionManagement {
-        repositories {
-          maven(localM2Path)
-          mavenCentral()
-          google()
-        }
-      }
-
-      rootProjectName.setEquals("root")
-    }.write(dslLanguage)
-  }
+  // /** Applies [builder] to the root `build.gradle[.kts]` file. */
+  // public fun rootBuild(
+  //   dslLanguage: DslLanguage = this.dslLanguage,
+  //   builder: BuildFileSpec.() -> Unit
+  // ): FileWithContent = file(dslLanguage.buildFileName, BuildFileSpec(builder).write(dslLanguage))
 
   /** The root settings.gradle file. */
-  public val rootSettings: File = root.resolve(dslLanguage.settingsFileName)
-    .createSafely(DEFAULT_SETTINGS_FILE)
-
-  /** Applies [builder] to the root `settings.gradle[.kts]` file. */
-  public fun rootSettings(
-    dslLanguage: DslLanguage = this.dslLanguage,
-    builder: SettingsFileSpec.() -> Unit
-  ): File = rootSettings.fromDslElement(dslLanguage, SettingsFileSpec(builder))
-
-  public fun DirectoryBuilder.buildFile(
-    dslLanguage: DslLanguage = this@GradleTestEnvironment.dslLanguage,
-    builder: BuildFileSpec.() -> Unit
-  ): DirectoryBuilder = file(
-    nameWithExtension = dslLanguage.buildFileName,
-    content = BuildFileSpec(builder).write(dslLanguage)
+  public val rootSettings: FileWithContent = file(
+    relativeName = dslLanguage.settingsFileName,
+    content = defaultSettingsFile.write(dslLanguage)
   )
 
-  public fun DirectoryBuilder.settingsFile(
-    dslLanguage: DslLanguage = this@GradleTestEnvironment.dslLanguage,
-    builder: SettingsFileSpec.() -> Unit
-  ): DirectoryBuilder = file(
-    nameWithExtension = dslLanguage.settingsFileName,
-    content = SettingsFileSpec(builder).write(dslLanguage)
-  )
+  // /** Applies [builder] to the root `settings.gradle[.kts]` file. */
+  // public fun rootSettings(
+  //   dslLanguage: DslLanguage = this.dslLanguage,
+  //   builder: SettingsFileSpec.() -> Unit
+  // ): FileWithContent = file(dslLanguage.buildFileName, SettingsFileSpec(builder).write(dslLanguage))
 
-  /** The root project directory. */
-  public val rootProject: File by lazy {
-    rootBuild
-    rootSettings
-    root
-  }
+  // /** The root project directory. */
+  // public val rootProject: File by lazy {
+  //   rootBuild
+  //   rootSettings
+  //   root
+  // }
 
+  /**
+   * Walks the root project directory and adds `include("path")`
+   * statements to the root settings.gradle file for every subproject.
+   */
   @Suppress("UnusedPrivateMember")
   public fun addIncludes() {
 
@@ -202,53 +173,58 @@ public class GradleTestEnvironment<TV> public constructor(
         prefix = "\n",
         postfix = "\n"
       ) { "include(\"$it\")" }
-    rootSettings.appendText("\n$includes")
+    rootSettings.content += "\n$includes"
   }
 
-  /** Writes the output of [dslElement] to this [File]. */
-  public fun File.fromDslElement(
-    dslLanguage: DslLanguage,
-    dslElement: DslElement
-  ): File = createSafely(dslElement.write(dslLanguage))
+  internal companion object {
 
-  /**
-   * Writes the output of [dslElement] to this [File]
-   * using the [GroovyDsl][DslLanguage.GroovyDsl] language.
-   */
-  public fun File.groovy(dslElement: DslElement): File = createSafely(dslElement.writeGroovy())
+    private val buildFileDefault = DslStringFactory { language ->
+      when (language) {
+        is GroovyDsl -> """
+          plugins {
+            id 'org.jetbrains.kotlin.jvm' version '${KotlinVersion.CURRENT}'
+          }
+        """.trimIndent()
 
-  /**
-   * Writes the output of [dslElement] to this [File]
-   * using the [GroovyDsl][DslLanguage.GroovyDsl] language.
-   */
-  public fun File.groovy(
-    useInfix: Boolean = true,
-    useLabels: Boolean = false,
-    useDoubleQuotes: Boolean = false,
-    dslElement: DslElement
-  ): File = createSafely(
-    dslElement.writeGroovy(
-      useInfix = useInfix,
-      useLabels = useLabels,
-      useDoubleQuotes = useDoubleQuotes
-    )
-  )
+        is KotlinDsl -> """
+          plugins {
+            kotlin("jvm") version "${KotlinVersion.CURRENT}"
+          }
+        """.trimIndent()
+      }
+    }
 
-  /**
-   * Writes the output of [dslElement] to this [File]
-   * using the [KotlinDsl][DslLanguage.KotlinDsl] language.
-   */
-  public fun File.kotlin(dslElement: DslElement): File = createSafely(dslElement.writeKotlin())
+    private fun getSettingsFileDefault(localM2Path: File?): DslStringFactory =
+      DslStringFactory { language ->
 
-  /**
-   * Writes the output of [dslElement] to this [File]
-   * using the [KotlinDsl][DslLanguage.KotlinDsl] language.
-   */
-  public fun File.kotlin(
-    useInfix: Boolean = true,
-    useLabels: Boolean = false,
-    dslElement: DslElement
-  ): File = createSafely(
-    dslElement.writeKotlin(useInfix = useInfix, useLabels = useLabels)
-  )
+        val maybeLocal = if (localM2Path == null) {
+          ""
+        } else {
+          when (language) {
+            is GroovyDsl -> """maven { url files("$localM2Path") }\n"""
+            is KotlinDsl -> """maven(files($localM2Path))\n"""
+          }
+        }
+
+        """
+        pluginManagement {
+          repositories {
+            $maybeLocal
+            gradlePluginPortal()
+            mavenCentral()
+            google()
+          }
+        }
+        dependencyResolutionManagement {
+          repositories {
+            $maybeLocal
+            mavenCentral()
+            google()
+          }
+        }
+
+        rootProject.name = "root"
+        """.trimIndent()
+      }
+  }
 }
