@@ -38,6 +38,7 @@ import com.rickbusarow.kase.gradle.TestVersion19.TestVersion19Key
 import com.rickbusarow.kase.gradle.TestVersion2.TestVersion2Key
 import com.rickbusarow.kase.gradle.TestVersion20.TestVersion20Key
 import com.rickbusarow.kase.gradle.TestVersion21.TestVersion21Key
+import com.rickbusarow.kase.gradle.TestVersion22.TestVersion22Key
 import com.rickbusarow.kase.gradle.TestVersion3.TestVersion3Key
 import com.rickbusarow.kase.gradle.TestVersion4.TestVersion4Key
 import com.rickbusarow.kase.gradle.TestVersion5.TestVersion5Key
@@ -214,4 +215,12 @@ class TestVersion21(
 ) : AbstractDependencyVersion<String, TestVersion21, TestVersion21Key>(TestVersion21Key) {
 
   companion object TestVersion21Key : VersionMatrixKey<TestVersion21>
+}
+
+@Poko
+class TestVersion22(
+  override val value: String
+) : AbstractDependencyVersion<String, TestVersion22, TestVersion22Key>(TestVersion22Key) {
+
+  companion object TestVersion22Key : VersionMatrixKey<TestVersion22>
 }

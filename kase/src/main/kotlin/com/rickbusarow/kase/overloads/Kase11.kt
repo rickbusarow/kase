@@ -485,3 +485,16 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, B1, B2, B3, B
     kase(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10)
   }
 }
+
+/**
+ * @param others the [Kase11] to combine with this [Kase11]
+ * @return a list of [Kase22]s from the cartesian product of this [Kase11] and the given [Kase11].
+ */
+@JvmName("kase11timesKase11")
+public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11> Iterable<Kase11<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>>.times(
+  others: Iterable<Kase11<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11>>
+): List<Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11>> = flatMap { (a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11) ->
+    kase(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11)
+  }
+}
