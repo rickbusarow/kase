@@ -55,7 +55,7 @@ internal val testElements = File(
 )
 internal val overloads = File("kase/src/main/kotlin/com/rickbusarow/kase/overloads")
 
-internal const val MAX_PARAMS = 21
+internal const val MAX_PARAMS = 22
 
 internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
 
