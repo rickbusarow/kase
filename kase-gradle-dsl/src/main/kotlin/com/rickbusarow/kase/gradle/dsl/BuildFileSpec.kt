@@ -18,6 +18,7 @@ package com.rickbusarow.kase.gradle.dsl
 import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.files.DirectoryBuilder.FileWithContent
 import com.rickbusarow.kase.gradle.DslLanguage
+import com.rickbusarow.kase.gradle.GradleProjectBuilder
 import com.rickbusarow.kase.gradle.HasDslLanguage
 import com.rickbusarow.kase.gradle.dsl.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.dsl.model.BuildscriptSpec
@@ -59,7 +60,7 @@ public fun DirectoryBuilder.buildFile(
   dslLanguage: DslLanguage,
   builder: BuildFileSpec.() -> Unit
 ): FileWithContent = file(
-  relativeName = dslLanguage.buildFileName,
+  relativePath = dslLanguage.buildFileName,
   content = BuildFileSpec(builder).write(dslLanguage)
 )
 
@@ -69,6 +70,15 @@ public fun DirectoryBuilder.buildFile(
   dslLanguage: DslLanguage = this@HasDslLanguage.dslLanguage,
   builder: BuildFileSpec.() -> Unit
 ): FileWithContent = file(
-  relativeName = dslLanguage.buildFileName,
+  relativePath = dslLanguage.buildFileName,
+  content = BuildFileSpec(builder).write(dslLanguage)
+)
+
+/** Creates a `build.gradle[.kts]` file in the directory builder's current directory. */
+public fun GradleProjectBuilder.buildFile(
+  dslLanguage: DslLanguage = this@GradleProjectBuilder.dslLanguage,
+  builder: BuildFileSpec.() -> Unit
+): FileWithContent = file(
+  relativePath = dslLanguage.buildFileName,
   content = BuildFileSpec(builder).write(dslLanguage)
 )

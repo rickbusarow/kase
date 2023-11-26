@@ -13,19 +13,21 @@
  * limitations under the License.
  */
 
-plugins {
-  id("jvm-module")
-  application
-}
+package com.rickbusarow.kase.gradle
 
-application {
-  mainClass = "com.rickbusarow.kase.generator.GenKt"
-}
+import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
+import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
+import com.rickbusarow.kase.times
 
-jvmModule {
-  explicitApi.set(false)
-}
+class GradleProjectBuilderTest :
+  BaseGradleTest<TestVersions>,
+  HasVersionMatrix {
 
-dependencies {
-  implementation(libs.poko.annotations)
+  override val versionMatrix: VersionMatrix
+    get() = VersionMatrix(
+      Kotlin("1.9.10"),
+      Gradle("8.4")
+    )
+  override val kases: List<TestVersions>
+    get() = TODO("Not yet implemented")
 }

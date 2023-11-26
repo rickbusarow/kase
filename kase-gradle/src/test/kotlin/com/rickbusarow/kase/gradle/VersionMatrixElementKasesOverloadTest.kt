@@ -15,30 +15,54 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.AnyKase
+import com.rickbusarow.kase.Kase
+import com.rickbusarow.kase.Kase2
+import com.rickbusarow.kase.Kase3
+import com.rickbusarow.kase.Kase6
+import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironment
-import com.rickbusarow.kase.TestEnvironmentFactory
 import com.rickbusarow.kase.gradle.VersionMatrix.Companion
 import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
-import com.rickbusarow.kase.stdlib.createSafely
-import com.rickbusarow.kase.stdlib.toStringPretty
+import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.jupiter.api.TestFactory
 
-class VersionMatrixElementKasesOverloadTest : TestEnvironmentFactory<TestEnvironment, AnyKase> {
+class VersionMatrixElementKasesOverloadTest : KaseTestFactory<TestEnvironment, Kase> {
+
+  override val kases: List<Kase>
+    get() = error("not used")
 
   @TestFactory
-  fun `kases2 creates Kase2 kases`() =
-    versionMatrix(numVersionTypes = 6, versionsPerType = 4)
-      .kases(
-        keyForTypeNumber(1),
-        keyForTypeNumber(2),
-        keyForTypeNumber(3),
-        keyForTypeNumber(4),
-        keyForTypeNumber(5),
-        keyForTypeNumber(6)
-      ).asTests { k ->
-        workingDir.resolve(k.hashCode().toString()).createSafely(k.toStringPretty())
-      }
+  fun `kases creates Kase2 kases`() =
+    versionMatrix(numVersionTypes = 6, versionsPerType = 2).kases(
+      keyForTypeNumber(1),
+      keyForTypeNumber(2)
+    ).asTests { k ->
+
+      k.shouldBeInstanceOf<Kase2<*, *>>()
+    }
+
+  @TestFactory
+  fun `kases creates Kase3 kases`() =
+    versionMatrix(numVersionTypes = 6, versionsPerType = 2).kases(
+      keyForTypeNumber(1),
+      keyForTypeNumber(2),
+      keyForTypeNumber(3)
+    ).asTests { k ->
+      k.shouldBeInstanceOf<Kase3<*, *, *>>()
+    }
+
+  @TestFactory
+  fun `kases creates Kase6 kases`() =
+    versionMatrix(numVersionTypes = 6, versionsPerType = 2).kases(
+      keyForTypeNumber(1),
+      keyForTypeNumber(2),
+      keyForTypeNumber(3),
+      keyForTypeNumber(4),
+      keyForTypeNumber(5),
+      keyForTypeNumber(6)
+    ).asTests { k ->
+      k.shouldBeInstanceOf<Kase6<*, *, *, *, *, *>>()
+    }
 
   fun keyForTypeNumber(typeNumber: Int): VersionMatrixKey<*> {
 

@@ -15,22 +15,18 @@
 
 package com.rickbusarow.kase.gradle.dsl.model
 
+import com.rickbusarow.kase.KaseDsl
 import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport
 import com.rickbusarow.kase.gradle.DslLanguageSettings.LabelSupport
 import com.rickbusarow.kase.gradle.DslLanguageSettings.PropertyAccessSupport
 import com.rickbusarow.kase.gradle.dsl.model.ValueAssignment.GradlePropertyAssignment
 import com.rickbusarow.kase.gradle.dsl.model.ValueAssignment.SetterAssignment
 
-/** */
-@DslMarker
-@Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
-public annotation class GradleBuilderDsl
-
 /**
  * Collects [DslElement]s, to be written to a [DslLanguage]
  * file. Elements are written in the order they are added.
  */
-@GradleBuilderDsl
+@KaseDsl
 public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElement {
 
   /** The list of [DslElement]s in this container. */

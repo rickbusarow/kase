@@ -20,6 +20,7 @@ import com.rickbusarow.kase.files.DirectoryBuilder.FileWithContent
 import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport
 import com.rickbusarow.kase.gradle.DslLanguageSettings.LabelSupport
+import com.rickbusarow.kase.gradle.GradleProjectBuilder
 import com.rickbusarow.kase.gradle.HasDslLanguage
 import com.rickbusarow.kase.gradle.dsl.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.dsl.model.DslFileBuilder
@@ -91,7 +92,7 @@ public fun DirectoryBuilder.settingsFile(
   dslLanguage: DslLanguage,
   builder: SettingsFileSpec.() -> Unit
 ): FileWithContent = file(
-  relativeName = dslLanguage.settingsFileName,
+  relativePath = dslLanguage.settingsFileName,
   content = SettingsFileSpec(builder).write(dslLanguage)
 )
 
@@ -101,6 +102,15 @@ public fun DirectoryBuilder.settingsFile(
   dslLanguage: DslLanguage = this@HasDslLanguage.dslLanguage,
   builder: SettingsFileSpec.() -> Unit
 ): FileWithContent = file(
-  relativeName = dslLanguage.settingsFileName,
+  relativePath = dslLanguage.settingsFileName,
+  content = SettingsFileSpec(builder).write(dslLanguage)
+)
+
+/** Creates a `settings.gradle[.kts]` file in the directory builder's current directory. */
+public fun GradleProjectBuilder.settingsFile(
+  dslLanguage: DslLanguage = this@GradleProjectBuilder.dslLanguage,
+  builder: SettingsFileSpec.() -> Unit
+): FileWithContent = file(
+  relativePath = dslLanguage.settingsFileName,
   content = SettingsFileSpec(builder).write(dslLanguage)
 )

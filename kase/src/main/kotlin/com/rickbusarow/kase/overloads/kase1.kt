@@ -25,6 +25,7 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.internal.KaseInternal
 import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
 import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
@@ -114,16 +115,16 @@ public fun <A1> kase(
  * @param labels the [KaseLabels1] to use for this [Kase1]
  * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
  * @param testAction the test action to execute.
- * @see TestEnvironmentFactory
+ * @see KaseTestFactory
  */
-public fun <T, K, A1> TestEnvironmentFactory<T, Kase1<A1>>.test(
+public fun <T, K, A1> KaseTestFactory<T, Kase1<A1>>.test(
   a1: A1,
   labels: KaseLabels1 = KaseLabels1(),
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend T.() -> Unit
 ) where T : TestEnvironment,
         K : Kase1<A1> {
-  this@TestEnvironmentFactory.test(
+  this@KaseTestFactory.test(
     kase = kase(a1 = a1, labels = labels),
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction

@@ -15,7 +15,6 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.useRelativePaths
 import com.rickbusarow.kase.stdlib.div
@@ -156,7 +155,7 @@ public interface HasGradleRunner {
 /** Default implementation of [HasGradleRunner]. */
 public open class DefaultHasGradleRunner(
   hasWorkingDir: HasWorkingDir,
-  private val rootDirectoryBuilder: DirectoryBuilder,
+  private val rootProjectBuilder: GradleRootProjectBuilder,
   gradleVersion: () -> String = { GradleVersion.current().version }
 ) : HasGradleRunner,
   HasWorkingDir by hasWorkingDir {
@@ -182,7 +181,7 @@ public open class DefaultHasGradleRunner(
       .letIf(withHermeticTestKit) { it.withTestKitDir(workingDir / "testKit") }
       .withArguments(tasks.letIf(stacktrace) { it.plus("--stacktrace") })
 
-    rootDirectoryBuilder.write()
+    rootProjectBuilder.write()
 
     return if (shouldFail) {
       withOptions.buildAndFail()

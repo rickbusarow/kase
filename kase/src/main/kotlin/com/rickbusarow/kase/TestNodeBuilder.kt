@@ -16,7 +16,6 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
-import com.rickbusarow.kase.stdlib.toStringPretty
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
@@ -211,98 +210,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
       container(testName(element)) { testAction(element) }
     }
   }
-
-  // /**
-  //  * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-  //  *
-  //  * @param testAction a function containing the test logic.
-  //  */
-  // context(TestEnvironmentFactory<T, K>)
-  // public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
-  //   testAction: suspend T.(K) -> Unit
-  // ): TestNodeBuilder = this@TestNodeBuilder.apply {
-  //   for (kase in this@asTests) {
-  //     test(kase) { testAction(kase) }
-  //   }
-  // }
-
-  // /**
-  //  * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-  //  *
-  //  * @param name the name of the test.
-  //  * @param testAction a function containing the test logic.
-  //  */
-  // public fun <T : TestEnvironment> TestEnvironmentFactory<T, AnyKase>.test(
-  //   name: String,
-  //   testAction: suspend T.() -> Unit
-  // ) {
-  //   addTest(name) {
-  //     this@TestEnvironmentFactory.test(
-  //       kase = Kase.EMPTY,
-  //       testFunctionCoordinates = testFunctionCoordinates,
-  //       testAction = { testAction() }
-  //     )
-  //   }
-  // }
-
-  // /**
-  //  * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-  //  *
-  //  * @param kase the test Kase
-  //  * @param testAction a function containing the test logic.
-  //  */
-  // context(TestEnvironmentFactory<T, K>)
-  // public fun <T : TestEnvironment, K : AnyKase> test(
-  //   kase: K,
-  //   testAction: suspend T.() -> Unit
-  // ) {
-  //   addTest(kase.displayName) {
-  //     this@TestEnvironmentFactory.test(
-  //       kase = kase,
-  //       testFunctionCoordinates = testFunctionCoordinates,
-  //       testAction = { testAction() }
-  //     )
-  //   }
-  // }
-
-  // /**
-  //  * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
-  //  *
-  //  * @param testAction a function containing the test logic.
-  //  */
-  // context(TestEnvironmentFactory<T, K>)
-  // public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
-  //   testAction: suspend T.(K) -> Unit
-  // ): TestNodeBuilder = this@TestNodeBuilder.apply {
-  //   for (kase in this@asTests) {
-  //     test(kase) { testAction(kase) }
-  //   }
-  // }
 }
-
-// /**
-//  * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
-//  * by the kase instance, and the tests themselves are defined by the [testAction] function.
-//  *
-//  * @param testAction a function to define each test.
-//  * @return a stream of dynamic nodes representing the tests.
-//  */
-// context(TestEnvironmentFactory<T, K>)
-// public fun <T : TestEnvironment, K : AnyKase> Iterable<K>.asTests(
-//   testAction: suspend T.(K) -> Unit
-// ): Stream<out DynamicNode> = testFactory { asTests(testAction) }
-
-// /**
-//  * Transforms an iterable into a stream of dynamic tests. The names of the tests are determined
-//  * by the kase instance, and the tests themselves are defined by the [testAction] function.
-//  *
-//  * @param testAction a function to define each test.
-//  * @return a stream of dynamic nodes representing the tests.
-//  */
-// context(TestEnvironmentFactory<T, K>)
-// public fun <T : TestEnvironment, K : AnyKase> Sequence<K>.asTests(
-//   testAction: suspend T.(K) -> Unit
-// ): Stream<out DynamicNode> = testFactory { asTests(testAction) }
 
 /**
  * Transforms an iterable into a stream of dynamic test containers. The
@@ -313,7 +221,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
  * @param testAction a function to initialize each test container.
  * @return a stream of dynamic nodes representing the containers.
  */
-public fun <K : AnyKase> Iterable<K>.asContainers(
+public fun <K : Kase> Iterable<K>.asContainers(
   testName: (K) -> String = { it.displayName },
   testAction: TestNodeBuilder.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
@@ -327,34 +235,17 @@ public fun <K : AnyKase> Iterable<K>.asContainers(
  * @param testAction a function to initialize each test container.
  * @return a stream of dynamic nodes representing the containers.
  */
-public fun <K : AnyKase> Sequence<K>.asContainers(
+public fun <K : Kase> Sequence<K>.asContainers(
   testName: (K) -> String = { it.displayName },
   testAction: TestNodeBuilder.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
 
 /** Creates dynamic tests where the pair's String element is the display name */
 @JvmName("asTestsStringKasePairs")
-public fun <K : AnyKase> Iterable<Pair<String, K>>.asTests(
+public fun <K : Kase> Iterable<Pair<String, K>>.asTests(
   testAction: (kase: K) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory {
     this@asTests.asTests(testName = { it.first }) { testAction(it.second) }
-  }
-}
-
-/** TODO */
-public fun <T> List<T>.dynamic(testAction: (T) -> Unit): List<DynamicTest> {
-  val coords = TestFunctionCoordinates.get().toStringPretty()
-
-  return map { element ->
-    DynamicTest.dynamicTest(element.toString()) {
-      // val coords = Thread.currentThread().stackTrace.toList().joinToString("\n")
-
-      println("#########################################################")
-      println(coords)
-      println("#########################################################")
-
-      testAction(element)
-    }
   }
 }

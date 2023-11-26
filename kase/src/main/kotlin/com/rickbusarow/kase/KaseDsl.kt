@@ -13,19 +13,9 @@
  * limitations under the License.
  */
 
-plugins {
-  id("jvm-module")
-  application
-}
+package com.rickbusarow.kase
 
-application {
-  mainClass = "com.rickbusarow.kase.generator.GenKt"
-}
-
-jvmModule {
-  explicitApi.set(false)
-}
-
-dependencies {
-  implementation(libs.poko.annotations)
-}
+/** */
+@DslMarker
+@Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
+public annotation class KaseDsl

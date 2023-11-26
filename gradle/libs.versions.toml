@@ -137,9 +137,15 @@ rickBusarow-ktrules48 = { module = "com.rickbusarow.ktrules:ktrules-48", version
 rickBusarow-moduleCheck-gradle-plugin = { module = "com.rickbusarow.modulecheck:plugin", version.ref = "rickBusarow-moduleCheck" }
 
 square-kotlinPoet = { module = "com.squareup:kotlinpoet", version.ref = "square-kotlinPoet" }
+
 square-moshi = { module = "com.squareup.moshi:moshi", version.ref = "square-moshi" }
 square-moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "square-moshi" }
+
 square-okio = { module = "com.squareup.okio:okio", version.ref = "square-okio" }
+square-okio-bom = { module = "com.squareup.okio:okio-bom", version.ref = "square-okio" }
+square-okio-fakefilesystem = { module = "com.squareup.okio:okio-fakefilesystem-jvm", version.ref = "square-okio" }
+square-okio-jvm = { module = "com.squareup.okio:okio-jvm", version.ref = "square-okio" }
+
 vanniktech-publish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "vanniktech-publish" }
 
 [bundles]

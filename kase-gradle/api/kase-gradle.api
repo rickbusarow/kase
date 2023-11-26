@@ -11,22 +11,22 @@ public abstract interface class com/rickbusarow/kase/gradle/BaseGradleTest : com
 }
 
 public final class com/rickbusarow/kase/gradle/BaseGradleTest$DefaultImpls {
-	public static fun asTests (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static fun asTests (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static fun asTests (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun asTests (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public static fun getDslLanguage (Lcom/rickbusarow/kase/gradle/BaseGradleTest;)Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public static fun getLocalM2Path (Lcom/rickbusarow/kase/gradle/BaseGradleTest;)Ljava/io/File;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/TestVariant;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/TestVariant;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
 	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public static fun test (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
-	public static fun testFactory (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static fun testFactory (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static fun testFactory (Lcom/rickbusarow/kase/gradle/BaseGradleTest;[Lcom/rickbusarow/kase/gradle/TestVersions;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/gradle/BaseGradleTest;[Lcom/rickbusarow/kase/gradle/TestVersions;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 }
 
 public class com/rickbusarow/kase/gradle/DefaultHasGradleRunner : com/rickbusarow/kase/files/HasWorkingDir, com/rickbusarow/kase/gradle/HasGradleRunner {
-	public fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lkotlin/jvm/functions/Function0;)V
-	public synthetic fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun build (Ljava/util/List;ZZZZ)Lorg/gradle/testkit/runner/BuildResult;
 	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
@@ -259,6 +259,16 @@ public final class com/rickbusarow/kase/gradle/DslLanguageSettings$PropertyAcces
 	public static final field INSTANCE Lcom/rickbusarow/kase/gradle/DslLanguageSettings$PropertyAccessSupport$None;
 }
 
+public abstract interface class com/rickbusarow/kase/gradle/DslStringFactory {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/DslStringFactory$Companion;
+	public abstract fun write (Lcom/rickbusarow/kase/gradle/DslLanguage;)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DslStringFactory$Companion {
+	public final fun invoke (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+}
+
 public final class com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions : com/rickbusarow/kase/Kase3, com/rickbusarow/kase/gradle/TestVersions {
 	public static final field Companion Lcom/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions$Companion;
 	public fun <init> (Lcom/rickbusarow/kase/gradle/DependencyVersion$Gradle;Lcom/rickbusarow/kase/gradle/DependencyVersion$Kotlin;Lcom/rickbusarow/kase/gradle/DependencyVersion$Agp;)V
@@ -323,74 +333,80 @@ public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions$Companio
 	public final fun from (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/DefaultTestEnvironment, com/rickbusarow/kase/files/DirectoryBuilder, com/rickbusarow/kase/gradle/HasDslLanguage, com/rickbusarow/kase/gradle/HasGradleRunner, com/rickbusarow/kase/gradle/HasTestVersions, com/rickbusarow/kase/gradle/TestVersions {
-	public fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/gradle/DslLanguage;Ljava/io/File;Lcom/rickbusarow/kase/gradle/internal/DslStringFactory;Lcom/rickbusarow/kase/gradle/internal/DslStringFactory;)V
-	public synthetic fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/gradle/DslLanguage;Ljava/io/File;Lcom/rickbusarow/kase/gradle/internal/DslStringFactory;Lcom/rickbusarow/kase/gradle/internal/DslStringFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/gradle/DslLanguage;Ljava/io/File;)V
-	public synthetic fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/gradle/DslLanguage;Ljava/io/File;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun addIncludes ()V
+public abstract interface class com/rickbusarow/kase/gradle/GradleProjectBuilder : com/rickbusarow/kase/files/DirectoryBuilder, com/rickbusarow/kase/gradle/HasDslLanguage {
+	public abstract fun buildFile (Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public abstract fun buildFile (Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public abstract fun getSubprojects ()Ljava/util/List;
+	public abstract fun gradlePropertiesFile (Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public abstract fun project (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)V
+	public abstract fun project (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class com/rickbusarow/kase/gradle/GradleProjectBuilder$DefaultImpls {
+	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun dir (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/util/Collection;Lkotlin/jvm/functions/Function1;)V
+	public static fun div (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static fun file (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/util/Collection;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun gradlePropertiesFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun joinToPathString (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/Iterable;)Ljava/lang/String;
+	public static fun project (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class com/rickbusarow/kase/gradle/GradleProjectBuilderKt {
+	public static final fun rootProject (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
+	public static final fun rootProject (Lcom/rickbusarow/kase/files/HasWorkingDir;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
+	public static final fun rootProject (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Ljava/io/File;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
+	public static final fun rootProject (Ljava/io/File;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/GradleRootProjectBuilder : com/rickbusarow/kase/gradle/GradleProjectBuilder {
+	public abstract fun settingsFile (Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public abstract fun settingsFile (Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+}
+
+public final class com/rickbusarow/kase/gradle/GradleRootProjectBuilder$DefaultImpls {
+	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun dir (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/util/Collection;Lkotlin/jvm/functions/Function1;)V
+	public static fun div (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+	public static fun file (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/util/Collection;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun gradlePropertiesFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun joinToPathString (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/Iterable;)Ljava/lang/String;
+	public static fun project (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)V
+	public static fun settingsFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun settingsFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+}
+
+public final class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/DefaultTestEnvironment, com/rickbusarow/kase/gradle/HasDslLanguage, com/rickbusarow/kase/gradle/HasGradleRunner, com/rickbusarow/kase/gradle/HasTestVersions {
+	public fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/gradle/DslLanguage;Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/DslStringFactory;Lcom/rickbusarow/kase/gradle/DslStringFactory;)V
 	public fun build (Ljava/util/List;ZZZZ)Lorg/gradle/testkit/runner/BuildResult;
-	public fun dir (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
-	public fun div (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public fun file (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
 	public fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
-	public fun getGradleVersion ()Ljava/lang/String;
-	public fun getParent ()Lcom/rickbusarow/kase/files/DirectoryBuilder;
-	public fun getPath ()Ljava/nio/file/Path;
-	public final fun getRoot ()Ljava/io/File;
-	public final fun getRootBuild ()Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public final fun getRootSettings ()Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public final fun getRootProject ()Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
 	public fun getTestVersions ()Lcom/rickbusarow/kase/gradle/TestVersions;
-	public fun groovy (Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun groovy (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
-	public fun groovy (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun groovy (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
-	public fun invoke (Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;Lkotlin/jvm/functions/Function0;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun invoke (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
-	public fun java (Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun java (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
-	public fun java (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun java (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
-	public fun kotlin (Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun kotlin (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
-	public fun kotlin (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun kotlin (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
-	public fun markdown (Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun markdown (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
-	public fun markdown (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun markdown (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
-	public final fun root (Lkotlin/jvm/functions/Function1;)Ljava/io/File;
+	public final fun rootProject (Lkotlin/jvm/functions/Function1;)Ljava/io/File;
 	public fun shouldFail ([Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
 	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
 	public fun shouldSucceed ([Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
-	public fun write ()Ljava/nio/file/Path;
-	public fun xml (Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun xml (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
-	public fun xml (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public synthetic fun xml (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory : com/rickbusarow/kase/TestEnvironmentFactory {
+	public abstract fun buildFileDefault (Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public abstract fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public abstract fun getLocalM2Path ()Ljava/io/File;
-	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/TestVariant;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
 	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public abstract fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory$DefaultImpls {
-	public static fun asTests (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static fun asTests (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public static fun getDslLanguage (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;)Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public static fun getLocalM2Path (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;)Ljava/io/File;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/TestVariant;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/TestVariant;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
 	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun test (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
-	public static fun testFactory (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static fun testFactory (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;[Lcom/rickbusarow/kase/gradle/TestVersions;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleTestVersions : com/rickbusarow/kase/Kase1, com/rickbusarow/kase/gradle/TestVersions {
@@ -445,17 +461,21 @@ public abstract interface class com/rickbusarow/kase/gradle/HasTestVersions {
 	public abstract fun getTestVersions ()Lcom/rickbusarow/kase/gradle/TestVersions;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/HasVersionMatrix : com/rickbusarow/kase/HasKases {
+public abstract interface class com/rickbusarow/kase/gradle/HasVersionMatrix {
 	public abstract fun getVersionMatrix ()Lcom/rickbusarow/kase/gradle/VersionMatrix;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/TestVersions {
+public abstract interface class com/rickbusarow/kase/gradle/TestVersions : com/rickbusarow/kase/Kase {
 	public static final field Companion Lcom/rickbusarow/kase/gradle/TestVersions$Companion;
 	public abstract fun getGradleVersion ()Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/TestVersions$Companion {
 	public final fun getEMPTY ()Lcom/rickbusarow/kase/gradle/TestVersions;
+}
+
+public final class com/rickbusarow/kase/gradle/TestVersions$DefaultImpls {
+	public static fun displayName (Lcom/rickbusarow/kase/gradle/TestVersions;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/VersionList : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
@@ -506,14 +526,5 @@ public final class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElemen
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/internal/DslStringFactory {
-	public static final field Companion Lcom/rickbusarow/kase/gradle/internal/DslStringFactory$Companion;
-	public abstract fun write (Lcom/rickbusarow/kase/gradle/DslLanguage;)Ljava/lang/String;
-}
-
-public final class com/rickbusarow/kase/gradle/internal/DslStringFactory$Companion {
-	public final fun invoke (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/internal/DslStringFactory;
 }
 

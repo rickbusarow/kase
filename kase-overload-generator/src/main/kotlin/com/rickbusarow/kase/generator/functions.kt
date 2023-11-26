@@ -315,7 +315,7 @@ internal fun StringBuilder.asTests_Destructured(
   )
 }
 
-internal fun StringBuilder.asTests_Destructured_TestEnvironment(
+internal fun StringBuilder.asTests_Destructured_TestFactory(
   args: List<KaseArg>,
   kaseTypes: KaseTypes
 ) {
@@ -329,8 +329,8 @@ internal fun StringBuilder.asTests_Destructured_TestEnvironment(
      * @return a [Stream] of [DynamicNode]s from these kases.
      * @see ${kaseTypes.kaseInterfaceNoTypes}
      */
-    context(TestEnvironmentFactory<T, ${kaseTypes.kaseInterface}>)
-    @JvmName("asTests${kaseTypes.kaseInterfaceNoTypes}ExtensionDestructuredTestEnvironment")
+    context(KaseTestFactory<T, ${kaseTypes.kaseInterface}>)
+    @JvmName("asTests${kaseTypes.kaseInterfaceNoTypes}ExtensionDestructuredTestFactory")
     public inline fun <T : TestEnvironment, ${args.valueTypesString}> Iterable<${kaseTypes.kaseInterface}>.asTests(
       crossinline testAction: T.(${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
@@ -342,7 +342,7 @@ internal fun StringBuilder.asTests_Destructured_TestEnvironment(
   )
 }
 
-internal fun StringBuilder.testFactory_vararg_Destructured_TestEnvironment(
+internal fun StringBuilder.testFactory_vararg_Destructured_TestFactory(
   kdoc: String,
   args: List<KaseArg>,
   kaseTypes: KaseTypes
@@ -351,8 +351,8 @@ internal fun StringBuilder.testFactory_vararg_Destructured_TestEnvironment(
   appendLine(kdoc)
   appendLine(
     """
-    @JvmName("testFactory${kaseTypes.kaseInterfaceNoTypes}VarargDestructuredTestEnvironment")
-    public inline fun <T : TestEnvironment, K : ${kaseTypes.kaseInterface}, ${args.valueTypesString}> TestEnvironmentFactory<T, K>.testFactory(
+    @JvmName("testFactory${kaseTypes.kaseInterfaceNoTypes}VarargDestructuredTestFactory")
+    public inline fun <T : TestEnvironment, K : ${kaseTypes.kaseInterface}, ${args.valueTypesString}> KaseTestFactory<T, K>.testFactory(
       vararg kases: K,
       crossinline testAction: T.(${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
@@ -364,7 +364,7 @@ internal fun StringBuilder.testFactory_vararg_Destructured_TestEnvironment(
   )
 }
 
-internal fun StringBuilder.testFactory_iterable_Destructured_TestEnvironment(
+internal fun StringBuilder.testFactory_iterable_Destructured_TestFactory(
   kdoc: String,
   args: List<KaseArg>,
   kaseTypes: KaseTypes
@@ -373,8 +373,8 @@ internal fun StringBuilder.testFactory_iterable_Destructured_TestEnvironment(
   appendLine(kdoc)
   appendLine(
     """
-    @JvmName("testFactory${kaseTypes.kaseInterfaceNoTypes}IterableDestructuredTestEnvironment")
-    public inline fun <T : TestEnvironment, K : ${kaseTypes.kaseInterface}, ${args.valueTypesString}> TestEnvironmentFactory<T, K>.testFactory(
+    @JvmName("testFactory${kaseTypes.kaseInterfaceNoTypes}IterableDestructuredTestFactory")
+    public inline fun <T : TestEnvironment, K : ${kaseTypes.kaseInterface}, ${args.valueTypesString}> KaseTestFactory<T, K>.testFactory(
       kases: Iterable<K>,
       crossinline testAction: T.(${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
@@ -549,20 +549,20 @@ internal fun StringBuilder.testFun(
       " * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run."
     )
     appendLine(" * @param testAction the test action to execute.")
-    appendLine(" * @see TestEnvironmentFactory")
+    appendLine(" * @see KaseTestFactory")
     append(" */")
   }
   appendLine(
     """
     |$kdoc
-    |public fun $typesKaseEnvironment TestEnvironmentFactory<T, ${kaseTypes.kaseInterface}>.test(
+    |public fun $typesKaseEnvironment KaseTestFactory<T, ${kaseTypes.kaseInterface}>.test(
     |  ${args.paramsString},
     |  labels: $kaseLabelSimpleName = $kaseLabelSimpleName(),
     |  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
     |  testAction: suspend T.() -> Unit
     |) where T : TestEnvironment,
     |        K : $kaseSimpleName$typesString {
-    |  this@TestEnvironmentFactory.test(
+    |  this@KaseTestFactory.test(
     |    kase = kase($argsStringWithLabels, labels = labels),
     |    testFunctionCoordinates = testFunctionCoordinates,
     |    testAction = testAction

@@ -16,7 +16,7 @@
 package com.rickbusarow.kase.gradle.dsl.model
 
 import com.rickbusarow.kase.gradle.DslLanguage
-import com.rickbusarow.kase.gradle.internal.DslStringFactory
+import com.rickbusarow.kase.gradle.DslStringFactory
 import dev.drewhamilton.poko.Poko
 
 /** */

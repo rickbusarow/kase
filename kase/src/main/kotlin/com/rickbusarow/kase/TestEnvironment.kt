@@ -17,7 +17,6 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.TestFunctionCoordinates
-import dev.drewhamilton.poko.Poko
 
 /**
  * Represents a hermetic testing environment that may
@@ -81,16 +80,3 @@ public open class DefaultTestEnvironment public constructor(
 
   override fun toString(): String = hasWorkingDir.toString()
 }
-
-/**
- * Represents a specific instance of a test case invocation with a specific set of parameters.
- *
- * @property kase The parameters for the test.
- * @property testFunctionCoordinates The [TestFunctionCoordinates] from
- *   which the test is being run. Defaults to the current stack frame.
- */
-@Poko
-public class TestVariant<K : Kase>(
-  public val kase: K,
-  public val testFunctionCoordinates: TestFunctionCoordinates
-)

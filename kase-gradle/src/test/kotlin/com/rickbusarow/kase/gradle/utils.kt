@@ -13,19 +13,20 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.gradle.internal
+package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.gradle.DslLanguage
+import com.rickbusarow.kase.gradle.DslLanguage.GroovyDsl
+import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
+import com.rickbusarow.kase.kases
 
-/** Invoked during [DslLanguage.write] to create a value string. */
-public fun interface DslStringFactory {
-  /** @param language the [DslLanguage] being written */
-  public fun write(language: DslLanguage): String
-
-  public companion object {
-    /** Creates a no-op [DslStringFactory] which returns the given [value] string. */
-    public operator fun invoke(value: String): DslStringFactory {
-      return DslStringFactory { value }
-    }
+inline val dslLanguages: List<DslLanguage>
+  get() = kases(
+    listOf(true, false),
+    listOf(true, false)
+  ).flatMap { (useInfix, useLabels) ->
+    listOf(
+      KotlinDsl(useInfix, useLabels),
+      GroovyDsl(useInfix = useInfix, useLabels = useLabels, useDoubleQuotes = true),
+      GroovyDsl(useInfix = useInfix, useLabels = useLabels, useDoubleQuotes = false)
+    )
   }
-}
