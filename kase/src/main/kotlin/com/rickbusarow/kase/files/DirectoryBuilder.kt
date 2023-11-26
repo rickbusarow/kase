@@ -15,16 +15,12 @@
 
 package com.rickbusarow.kase.files
 
-import com.rickbusarow.kase.files.DirectoryBuilder.FileWithContent
+import com.rickbusarow.kase.KaseDsl
+import com.rickbusarow.kase.files.internal.DefaultDirectoryBuilder
 import dev.drewhamilton.poko.Poko
 import java.io.File
 import java.nio.file.Path
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.io.path.Path
-import kotlin.io.path.createDirectories
-import kotlin.io.path.div
-import kotlin.io.path.name
-import kotlin.io.path.writeText
 
 /**
  * A DSL for building a directory tree.
@@ -51,20 +47,19 @@ import kotlin.io.path.writeText
 public inline fun buildDirectory(
   file: File,
   builder: DirectoryBuilder.() -> Unit
-): File = buildDirectory(
-  path = file.toPath(),
-  builder = builder
-).toFile()
+): File = DirectoryBuilder(file = file)
+  .apply(builder)
+  .write()
 
-/** */
+/**
+ * Builds a directory using the specified builder function and returns a DirectoryBuilder object.
+ *
+ * @param builder The builder function to customize the directory.
+ * @return A DirectoryBuilder object for the receiver file path.
+ */
 public inline fun File.directoryBuilder(
   builder: DirectoryBuilder.() -> Unit = {}
-): DirectoryBuilder = DirectoryBuilder(path = toPath()).apply(builder)
-
-/** */
-public inline fun Path.directoryBuilder(
-  builder: DirectoryBuilder.() -> Unit = {}
-): DirectoryBuilder = DirectoryBuilder(path = this).apply(builder)
+): DirectoryBuilder = DirectoryBuilder(file = this).apply(builder)
 
 /**
  * A DSL for building a directory tree.
@@ -91,32 +86,87 @@ public inline fun Path.directoryBuilder(
 public inline fun buildDirectory(
   path: Path,
   builder: DirectoryBuilder.() -> Unit
-): Path = path.also {
-  DirectoryBuilder(path = path)
-    .apply(builder)
-    .write()
-}
+): Path = buildDirectory(file = path.toFile(), builder = builder).toPath()
 
-/** A DSL for building a directory tree. */
+/**
+ * Builds a directory using the specified builder function and returns a DirectoryBuilder object.
+ *
+ * @param builder The builder function to customize the directory.
+ * @return A DirectoryBuilder object for the receiver file path.
+ */
+public inline fun Path.directoryBuilder(
+  builder: DirectoryBuilder.() -> Unit = {}
+): DirectoryBuilder = DirectoryBuilder(file = toFile()).apply(builder)
+
+/**
+ * A DSL for building a directory tree.
+ *
+ * example:
+ * ```
+ * DirectoryBuilder(myProjectDir) {
+ *   dir("src/main/kotlin") {
+ *     kotlinFile(
+ *       "MyClass.kt",
+ *       """
+ *       package com.example
+ *
+ *       class MyClass
+ *       """.trimIndent()
+ *     )
+ *   }
+ * }
+ * ```
+ */
+@KaseDsl
 public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithContent> {
 
   /** The [Path] of the directory being built. */
-  public val path: Path
+  public val path: File
 
   /** The parent directory builder, or null if this is the root. */
   public val parent: DirectoryBuilder?
 
-  /** Creates a child directory with the given [name] and applies the [builder] to it. */
-  public fun dir(name: String, builder: DirectoryBuilder.() -> Unit)
+  /** Creates a child directory with the given [relativePath] and applies the [builder] to it. */
+  public fun dir(relativePath: String, builder: DirectoryBuilder.() -> Unit)
 
-  /** Creates a file with the given [relativeName] and [content]. */
-  public fun file(relativeName: String, content: String): FileWithContent
+  /**
+   * Creates a child directory with the given relative
+   * [pathSegments] and applies the [builder] to it.
+   */
+  public fun dir(pathSegments: Collection<String>, builder: DirectoryBuilder.() -> Unit) {
+    check(pathSegments.isNotEmpty()) { "pathSegments must not be empty" }
+    dir(pathSegments.joinToPathString(), builder)
+  }
+
+  /** Creates a file with the given [relativePath] and [content]. */
+  public fun file(relativePath: String, content: String): FileWithContent
+
+  /** Creates a file with the given [pathSegments] and [content]. */
+  public fun file(pathSegments: Collection<String>, content: String): FileWithContent {
+    check(pathSegments.isNotEmpty()) { "pathSegments must not be empty" }
+    return file(pathSegments.joinToPathString(), content)
+  }
 
   /** Writes the directory tree to this [path]. */
-  public fun write(): Path
+  public fun write(): File
 
-  /** Shorthand for `"$this${File.separatorChar}$other"`. */
+  /**
+   * Joins two "path" segments together using the
+   * system-dependent [File.separatorChar] as a separator.
+   *
+   * ```
+   * val joined = "path" / "to" / "file.txt"
+   * ```
+   */
   public operator fun String.div(other: String): String = "$this${File.separatorChar}$other"
+
+  /**
+   * Joins the receiver path segments together using the
+   * system-dependent [File.separatorChar] as a separator.
+   *
+   * @receiver A list of path segments, like `["path", "to", "file.txt"]`
+   */
+  public fun Iterable<String>.joinToPathString(): String = joinToString(File.separator)
 
   /**
    * Models a "file" with a path and content, but it only exists in memory
@@ -125,17 +175,17 @@ public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithC
    * @property content the content of the file
    */
   @Poko
-  public class FileWithContent(public val path: Path, public var content: String)
+  public class FileWithContent(public val path: File, public var content: String)
 
   public companion object {
     /** Creates a new [DirectoryBuilder] instance. */
-    public operator fun invoke(path: Path): DirectoryBuilder {
-      return DefaultDirectoryBuilder(path, ConcurrentHashMap())
+    public operator fun invoke(file: File): DirectoryBuilder {
+      return DefaultDirectoryBuilder(path = file, parent = null)
     }
 
     /** Creates a new [DirectoryBuilder] instance. */
-    public operator fun invoke(file: File): DirectoryBuilder {
-      return DefaultDirectoryBuilder(file.toPath(), ConcurrentHashMap())
+    public operator fun invoke(path: Path): DirectoryBuilder {
+      return DefaultDirectoryBuilder(path = path.toFile(), parent = null)
     }
 
     /** Applies the [builder] to this directory. */
@@ -143,77 +193,4 @@ public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithC
       return apply(builder)
     }
   }
-}
-
-internal fun String.toPath(): Path = Path(this)
-
-internal class DefaultDirectoryBuilder(
-  override val path: Path,
-  private val context: ConcurrentHashMap<Path, DefaultDirectoryBuilder>
-) : DirectoryBuilder,
-  LanguageInjectionInternal<DirectoryBuilder.FileWithContent> by LanguageInjectionImpl() {
-
-  init {
-    context[path] = this
-  }
-
-  override val parent: DirectoryBuilder?
-    get() = path.parent?.let {
-      context.computeIfAbsent(it) { parentPath ->
-        DefaultDirectoryBuilder(parentPath, context)
-      }
-    }
-
-  @PublishedApi
-  internal val childDirs: MutableMap<Path, DefaultDirectoryBuilder> = mutableMapOf()
-
-  @PublishedApi
-  internal val files: MutableMap<Path, FileWithContent> = mutableMapOf()
-
-  /** Creates a child directory with the given [name] and applies the [builder] to it. */
-  override fun dir(name: String, builder: DirectoryBuilder.() -> Unit) {
-    val child = DefaultDirectoryBuilder(
-      path = path / name,
-      context = context
-    )
-    child.builder()
-  }
-
-  /** Creates a file with the given [relativeName] and [content]. */
-  override fun file(relativeName: String, content: String): FileWithContent {
-
-    val segments = relativeName.segments()
-    val name = segments.last()
-    val filePath = path / name
-
-    val file = FileWithContent(path = filePath, content = content)
-
-    if (segments.size > 1) {
-
-      val dirPath = segments.subList(0, segments.lastIndex - 1).joinToString(File.separator)
-
-      dir(dirPath) { files[filePath] = file }
-    } else {
-      files[filePath] = file
-    }
-
-    return file
-  }
-
-  /** Writes the directory tree to the given [parentDir]. */
-  override fun write(): Path {
-    path.createDirectories()
-
-    for (file in files.values) {
-      file.path.writeText(file.content)
-    }
-    for (dir in childDirs.values) {
-      dir.write()
-    }
-
-    return path
-  }
-
-  @PublishedApi
-  internal fun String.segments(): List<String> = toPath().normalize().map { it.toString() }
 }

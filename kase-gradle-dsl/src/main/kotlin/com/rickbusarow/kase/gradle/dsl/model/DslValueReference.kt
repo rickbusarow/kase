@@ -114,13 +114,16 @@ public sealed class GradleProviderReference : DslValueReference {
      * Sets the value for this mutable variable, like '.set("1.0.0")' in: `acmeVersion.set("1.0.0")`
      */
     public fun set(value: Any): GradlePropertyReference = apply {
-      withReference = ValueAssignment.GradlePropertyAssignment(name) { language ->
-        when (value) {
-          is DslElement -> value.write(language)
-          is String -> value
-          else -> value.toString()
+      withReference = ValueAssignment.GradlePropertyAssignment(
+        name,
+        DslStringFactory { language ->
+          when (value) {
+            is DslElement -> value.write(language)
+            is String -> value
+            else -> value.toString()
+          }
         }
-      }
+      )
         .also(parentContainer::addElement)
     }
   }

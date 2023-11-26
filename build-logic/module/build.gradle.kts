@@ -18,6 +18,8 @@ plugins {
   id("java-gradle-plugin")
 }
 
+group = "builds"
+
 gradlePlugin {
   plugins {
     create("composite") {
@@ -42,9 +44,6 @@ gradlePlugin {
 dependencies {
 
   api(libs.breadmoirai.github.release)
-  api(libs.integration.test) {
-    exclude(group = "org.jetbrains.kotlin")
-  }
   api(libs.rickBusarow.doks)
   api(libs.rickBusarow.ktlint)
 

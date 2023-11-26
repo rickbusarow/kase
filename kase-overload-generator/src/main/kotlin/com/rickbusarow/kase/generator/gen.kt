@@ -19,6 +19,7 @@ package com.rickbusarow.kase.generator
 
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueTypesString
 import java.io.File
+import java.nio.file.Paths
 
 internal val LICENSE = File("build.gradle.kts").readText()
   .substringBefore("*/")
@@ -37,6 +38,7 @@ internal val FILE_ANNOTATIONS = """
 
 internal val IMPORTS = """
   import com.rickbusarow.kase.files.TestFunctionCoordinates
+  import com.rickbusarow.kase.internal.KaseInternal
   import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
   import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
   import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
@@ -46,14 +48,6 @@ internal val IMPORTS = """
   import java.util.stream.Stream
 
 """.trimIndent()
-
-internal val kasesKt = File(
-  "kase-gradle/src/main/kotlin/com/rickbusarow/kase/gradle/kases.kt"
-)
-internal val testElements = File(
-  "kase-gradle/src/test/kotlin/com/rickbusarow/kase/gradle/testElements.kt"
-)
-internal val overloads = File("kase/src/main/kotlin/com/rickbusarow/kase/overloads")
 
 internal const val MAX_PARAMS = 22
 
@@ -176,6 +170,17 @@ internal data class KaseArg(
       }
   }
 }
+
+private val workingDir = Paths.get("").toAbsolutePath().toFile()
+private val projectRoot = generateSequence(workingDir) { it.parentFile }
+  .first { it.resolve("settings.gradle.kts").exists() }
+
+internal val kasesKt = projectRoot
+  .resolve("kase-gradle/src/main/kotlin/com/rickbusarow/kase/gradle/kases.kt")
+internal val testElements = projectRoot
+  .resolve("kase-gradle/src/test/kotlin/com/rickbusarow/kase/gradle/testElements.kt")
+internal val overloads = projectRoot
+  .resolve("kase/src/main/kotlin/com/rickbusarow/kase/overloads")
 
 private fun main() {
 

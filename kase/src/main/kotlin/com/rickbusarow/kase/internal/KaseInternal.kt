@@ -13,7 +13,10 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase
+package com.rickbusarow.kase.internal
+
+import com.rickbusarow.kase.Kase
+import com.rickbusarow.kase.KaseLabels
 
 /** Common implementation details for a [Kase]. */
 public interface KaseInternal : Kase {

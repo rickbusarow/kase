@@ -21,13 +21,17 @@ import com.rickbusarow.kase.KaseLabels.Companion.PREFIX_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
 import dev.drewhamilton.poko.Poko
 
-public typealias AnyKase = Kase
+/** Trait interface for a test class with default [kases] */
+public interface HasKases<K : Kase> {
+  /** The default kases for tests in this class. */
+  public val kases: List<K>
+}
 
 /**
  * Represents a case for testing. It contains a display
  * name and a list of parameters with their labels.
  */
-public sealed interface Kase : HasDisplayName, HasDisplayNames {
+public interface Kase : HasDisplayName, HasDisplayNames {
 
   /** Returns a list of display names for the case, separated by the given delimiter. */
   public fun displayNames(delimiter: String = DELIMITER_DEFAULT): List<String>
@@ -50,16 +54,21 @@ public sealed interface Kase : HasDisplayName, HasDisplayNames {
   /** An ordered list of all parameter values and their labels for this kase */
   public val elements: List<KaseParameterWithLabel<Any?>>
 
-  /** An empty [Kase] instance with no parameters. */
-  public object EMPTY : KaseInternal {
-    override val elements: List<KaseParameterWithLabel<Any?>>
-      get() = emptyList()
-
-    override val displayName: String = ""
-    override val displayNames: List<String> = emptyList()
-
-    override fun displayNames(delimiter: String): List<String> = displayNames
+  public companion object {
+    /** An empty [Kase] instance with no parameters. */
+    public inline val EMPTY: Kase get() = EmptyCase()
   }
+}
+
+/** An empty [Kase] instance with no parameters. */
+public class EmptyCase : Kase {
+  override val elements: List<KaseParameterWithLabel<Any?>>
+    get() = emptyList()
+
+  override val displayName: String = ""
+  override val displayNames: List<String> = emptyList()
+
+  override fun displayNames(delimiter: String): List<String> = displayNames
 }
 
 /** Trait for [labelDelimiter] and [displayNameSeparator] */

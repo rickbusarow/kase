@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.Kase3
@@ -27,7 +28,7 @@ import dev.drewhamilton.poko.Poko
 import org.gradle.util.GradleVersion
 
 /** Interface for test versions. */
-public interface TestVersions {
+public interface TestVersions : Kase {
 
   /** The current Gradle version. */
   public val gradleVersion: String
@@ -35,7 +36,9 @@ public interface TestVersions {
   public companion object {
 
     /** An empty [TestVersions] object containing only the current Gradle TestKit Gradle version. */
-    public val EMPTY: TestVersions = object : TestVersions {
+    public val EMPTY: TestVersions = object :
+      TestVersions,
+      Kase by Kase.EMPTY {
       override val gradleVersion: String by lazy {
         GradleVersion.current().version
       }
@@ -58,6 +61,15 @@ public class GradleTestVersions(
 
   /** not semver. ex: `8.0` or `8.1.1` */
   public override val gradleVersion: String get() = a1.value
+
+  override fun displayName(
+    labelDelimiter: String,
+    displayNameSeparator: String,
+    prefix: String,
+    postfix: String
+  ): String {
+    return elements.joinToString { it.value.toString() }
+  }
 
   override fun toString(): String = displayName
 

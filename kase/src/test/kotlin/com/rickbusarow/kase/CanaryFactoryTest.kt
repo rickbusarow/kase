@@ -19,7 +19,9 @@ import com.rickbusarow.kase.stdlib.createSafely
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 
-class CanaryFactoryTest : TestEnvironmentFactory<TestEnvironment, AnyKase> {
+class CanaryFactoryTest : KaseTestFactory<TestEnvironment, Kase> {
+
+  override val kases get() = error("not used")
 
   @TestFactory
   fun `asTests destructured`() = kases(

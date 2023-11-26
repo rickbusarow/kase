@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.files
 
+import com.rickbusarow.kase.files.internal.DefaultHasWorkingDir
 import com.rickbusarow.kase.stdlib.cleanOutput
 import com.rickbusarow.kase.stdlib.div
 import com.rickbusarow.kase.stdlib.useRelativePaths

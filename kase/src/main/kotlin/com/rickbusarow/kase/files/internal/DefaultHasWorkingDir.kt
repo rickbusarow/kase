@@ -13,8 +13,9 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase.files
+package com.rickbusarow.kase.files.internal
 
+import com.rickbusarow.kase.files.HasWorkingDir
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 

@@ -41,25 +41,6 @@ public abstract class AbstractDependencyVersion<out T, V, out K>(
   override fun compareTo(other: V): Int = value.toString().compareTo(other.value.toString())
 }
 
-// /** A type-safe wrapper for a dependency version string, such as "1.0.0" or "1.0.0-alpha01". */
-// public inline fun <reified E, reified K> dependencyVersion(
-//   value: String,
-//   key: K
-// ): DependencyVersion
-//   where E : DependencyVersion,
-//         K : VersionMatrixKey<E> {
-//   return object :
-//     DependencyVersion,
-//     Comparable<E>,
-//     CharSequence by value {
-//
-//     override val value: String = value
-//     override val key: K = key
-//
-//     override fun compareTo(other: E): Int = value.compareTo(other.value)
-//   }
-// }
-
 /** */
 public interface DependencyVersion<out T, out K : VersionMatrixKey<DependencyVersion<T, K>>> :
   VersionMatrix.VersionMatrixElement<T>,

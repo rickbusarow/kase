@@ -25,6 +25,7 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.internal.KaseInternal
 import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
 import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
 import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
@@ -194,16 +195,16 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11> kase(
  * @param labels the [KaseLabels11] to use for this [Kase11]
  * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
  * @param testAction the test action to execute.
- * @see TestEnvironmentFactory
+ * @see KaseTestFactory
  */
-public fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11> TestEnvironmentFactory<T, Kase11<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>>.test(
+public fun <T, K, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11> KaseTestFactory<T, Kase11<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11>>.test(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11,
   labels: KaseLabels11 = KaseLabels11(),
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend T.() -> Unit
 ) where T : TestEnvironment,
         K : Kase11<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11> {
-  this@TestEnvironmentFactory.test(
+  this@KaseTestFactory.test(
     kase = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, labels = labels),
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction

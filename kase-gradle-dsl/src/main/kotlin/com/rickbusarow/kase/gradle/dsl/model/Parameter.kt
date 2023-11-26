@@ -19,7 +19,7 @@ package com.rickbusarow.kase.gradle.dsl.model
 
 import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.DslLanguageSettings.LabelSupport
-import com.rickbusarow.kase.gradle.internal.DslStringFactory
+import com.rickbusarow.kase.gradle.DslStringFactory
 import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 import kotlin.reflect.full.primaryConstructor
@@ -66,18 +66,22 @@ public class ValueParameter(
   override val label: String?,
   public val dslStringFactory: DslStringFactory
 ) : Parameter {
-  public constructor(value: String) : this(label = null, dslStringFactory = { value })
+  public constructor(value: String) : this(
+    label = null,
+    dslStringFactory = DslStringFactory { value }
+  )
+
   public constructor(label: String?, valueString: String) :
-    this(label = label, dslStringFactory = { valueString })
+    this(label = label, dslStringFactory = DslStringFactory { valueString })
 
   public constructor(valueElement: DslElement) : this(
     label = null,
-    dslStringFactory = { valueElement.write(it) }
+    dslStringFactory = DslStringFactory { valueElement.write(it) }
   )
 
   public constructor(label: String?, valueElement: DslElement) : this(
     label = label,
-    dslStringFactory = { valueElement.write(it) }
+    dslStringFactory = DslStringFactory { valueElement.write(it) }
   )
 
   override fun write(language: DslLanguage, labelSupport: LabelSupport): String {

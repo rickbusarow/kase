@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle.dsl
 
+import com.rickbusarow.kase.KaseDsl
 import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport.GroovyInfix
 import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport.NoInfix
 import com.rickbusarow.kase.gradle.DslLanguageSettings.LabelSupport.GroovyLabels
@@ -24,7 +25,6 @@ import com.rickbusarow.kase.gradle.dsl.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.dsl.model.DslElement
 import com.rickbusarow.kase.gradle.dsl.model.DslElementContainer
 import com.rickbusarow.kase.gradle.dsl.model.FunctionCall
-import com.rickbusarow.kase.gradle.dsl.model.GradleBuilderDsl
 import com.rickbusarow.kase.gradle.dsl.model.LambdaParameter
 import com.rickbusarow.kase.gradle.dsl.model.RegularVariableReference.MutableVariableReference
 import com.rickbusarow.kase.gradle.dsl.model.ValueParameter
@@ -140,7 +140,7 @@ public sealed class ArtifactRepositorySpec<SELF : ArtifactRepositorySpec<SELF>> 
  * }
  * ```
  */
-@GradleBuilderDsl
+@KaseDsl
 public class MavenArtifactRepositorySpec :
   ArtifactRepositorySpec<MavenArtifactRepositorySpec>(),
   UrlArtifactRepositorySpec<MavenArtifactRepositorySpec> {

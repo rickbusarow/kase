@@ -15,33 +15,30 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.AnyKase
 import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironmentFactory
-import com.rickbusarow.kase.TestVariant
+import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.gradle.DslLanguage.GroovyDsl
+import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
 import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode
 import java.io.File
 
 /** A base class for Gradle plugin tests. */
 @Execution(ExecutionMode.SAME_THREAD)
-public interface BaseGradleTest<K> :
+public interface BaseGradleTest<K : TestVersions> :
   GradleTestEnvironmentFactory<K>,
-  HasVersionMatrix<K>,
+  HasVersionMatrix,
   KaseTestFactory<GradleTestEnvironment<K>, K>
-  where K : TestVersions,
-        K : AnyKase
 
 /** A factory for creating [GradleTestEnvironment]s. */
-public interface GradleTestEnvironmentFactory<K> :
-  TestEnvironmentFactory<GradleTestEnvironment<K>, K>
-  where K : TestVersions,
-        K : AnyKase {
+public interface GradleTestEnvironmentFactory<K : TestVersions> :
+  TestEnvironmentFactory<GradleTestEnvironment<K>, K> {
 
   /** The [DslLanguage] to use for generating build and settings files. */
   public val dslLanguage: DslLanguage
-    get() = DslLanguage.KotlinDsl(useInfix = true, useLabels = false)
+    get() = KotlinDsl(useInfix = true, useLabels = false)
 
   /**
    * A local Maven repository to use for resolving
@@ -49,24 +46,50 @@ public interface GradleTestEnvironmentFactory<K> :
    */
   public val localM2Path: File? get() = null
 
-  /** Creates a new [GradleTestEnvironment] for the given [testVariant] and [testVersions]. */
-  public fun newTestEnvironment(
-    testVariant: TestVariant<K>,
-    testVersions: K
-  ): GradleTestEnvironment<K> = newTestEnvironment(
-    kase = testVersions,
-    testFunctionCoordinates = testVariant.testFunctionCoordinates
-  )
+  /** Defines the default contents of the root project's `build.gradle(.kts)` file. */
+  public fun buildFileDefault(versions: K): DslStringFactory = DslStringFactory { "" }
+
+  /** Defines the default contents of the root project's `settings.gradle(.kts)` file. */
+  public fun settingsFileDefault(versions: K): DslStringFactory = DslStringFactory { language ->
+
+    val maybeLocal = if (localM2Path == null) {
+      ""
+    } else {
+      when (language) {
+        is GroovyDsl -> """maven { url "$localM2Path" }"""
+        is KotlinDsl -> """maven("$localM2Path")"""
+      }
+    }
+
+    """
+    pluginManagement {
+      repositories {
+        $maybeLocal
+        gradlePluginPortal()
+        mavenCentral()
+        google()
+      }
+    }
+    dependencyResolutionManagement {
+      repositories {
+        $maybeLocal
+        mavenCentral()
+        google()
+      }
+    }
+
+    rootProject.name = "root"
+    """.trimIndent()
+  }
 
   override fun newTestEnvironment(
     kase: K,
     testFunctionCoordinates: TestFunctionCoordinates
   ): GradleTestEnvironment<K> = GradleTestEnvironment(
     testVersions = kase,
-    testFunctionCoordinates = testFunctionCoordinates,
-    kase = kase,
-
-    dslLanguage = DslLanguage.GroovyDsl(useInfix = true, useLabels = true, useDoubleQuotes = false),
-    localM2Path = localM2Path
+    dslLanguage = this.dslLanguage,
+    hasWorkingDir = HasWorkingDir(kase.displayNames, testFunctionCoordinates),
+    defaultBuildFile = buildFileDefault(kase),
+    defaultSettingsFile = settingsFileDefault(kase)
   )
 }
