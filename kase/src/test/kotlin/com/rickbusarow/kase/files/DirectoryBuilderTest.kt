@@ -15,29 +15,27 @@
 
 package com.rickbusarow.kase.files
 
-import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironment
-import com.rickbusarow.kase.files.DirectoryBuilder.Companion.invoke
-import com.rickbusarow.kase.kases
+import com.rickbusarow.kase.kase
+import io.kotest.matchers.types.shouldBeInstanceOf
+import org.junit.jupiter.api.TestFactory
 import java.io.File
 
-class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase> {
+class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase1<(File) -> DirectoryBuilder>> {
   override val kases: List<Kase1<(File) -> DirectoryBuilder>>
-    get() = kases(
-      listOf(
-        { it.directoryBuilder() },
-        { it.toPath().directoryBuilder() },
-        { DirectoryBuilder(it) }
-      )
+    get() = listOf(
+      kase(displayName = "extension - java.io.File ") { it.directoryBuilder() },
+      kase(displayName = "extension - java.nio.files.Path ") { it.toPath().directoryBuilder() },
+      kase(displayName = "invoke() - java.io.File") { DirectoryBuilder(it) },
+      kase(displayName = "invoke() - java.nio.files.Path") { DirectoryBuilder(it.toPath()) }
     )
 
-  val factories = listOf<Pair<String, (File) -> DirectoryBuilder>>(
-    "java.io.File extension" to { it.directoryBuilder() },
-    "java.nio.files.Path extension" to { it.toPath().directoryBuilder() },
-    "java.io.File invoke constructor" to { DirectoryBuilder(it) },
-    "java.nio.files.Path invoke constructor" to { DirectoryBuilder(it.toPath()) }
+  @TestFactory
+  fun `canary`() = testFactory { (builderFactory) ->
+    val builder = builderFactory(workingDir)
 
-  )
+    builder.shouldBeInstanceOf<DirectoryBuilder>()
+  }
 }

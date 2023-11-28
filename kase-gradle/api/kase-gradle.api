@@ -278,22 +278,15 @@ public final class com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions : com
 	public synthetic fun component2 ()Ljava/lang/Object;
 	public fun component3 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Agp;
 	public synthetic fun component3 ()Ljava/lang/Object;
-	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getA1 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Gradle;
 	public synthetic fun getA1 ()Ljava/lang/Object;
-	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
 	public fun getA2 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Kotlin;
 	public synthetic fun getA2 ()Ljava/lang/Object;
-	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
 	public fun getA3 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Agp;
 	public synthetic fun getA3 ()Ljava/lang/Object;
-	public fun getA3WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
 	public final fun getAgpVersion ()Ljava/lang/String;
 	public fun getDisplayName ()Ljava/lang/String;
-	public fun getDisplayNames ()Ljava/util/List;
-	public fun getElements ()Ljava/util/List;
 	public fun getGradleVersion ()Ljava/lang/String;
 	public final fun getKotlinVersion ()Ljava/lang/String;
 	public fun hashCode ()I
@@ -311,18 +304,12 @@ public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions : com/ri
 	public synthetic fun component1 ()Ljava/lang/Object;
 	public fun component2 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Kotlin;
 	public synthetic fun component2 ()Ljava/lang/Object;
-	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getA1 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Gradle;
 	public synthetic fun getA1 ()Ljava/lang/Object;
-	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
 	public fun getA2 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Kotlin;
 	public synthetic fun getA2 ()Ljava/lang/Object;
-	public fun getA2WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
 	public fun getDisplayName ()Ljava/lang/String;
-	public fun getDisplayNames ()Ljava/util/List;
-	public fun getElements ()Ljava/util/List;
 	public fun getGradleVersion ()Ljava/lang/String;
 	public final fun getKotlinVersion ()Ljava/lang/String;
 	public fun hashCode ()I
@@ -414,15 +401,10 @@ public final class com/rickbusarow/kase/gradle/GradleTestVersions : com/rickbusa
 	public fun <init> (Lcom/rickbusarow/kase/gradle/DependencyVersion$Gradle;)V
 	public fun component1 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Gradle;
 	public synthetic fun component1 ()Ljava/lang/Object;
-	public fun displayName (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public fun displayNames (Ljava/lang/String;)Ljava/util/List;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getA1 ()Lcom/rickbusarow/kase/gradle/DependencyVersion$Gradle;
 	public synthetic fun getA1 ()Ljava/lang/Object;
-	public fun getA1WithLabel ()Lcom/rickbusarow/kase/KaseParameterWithLabel;
 	public fun getDisplayName ()Ljava/lang/String;
-	public fun getDisplayNames ()Ljava/util/List;
-	public fun getElements ()Ljava/util/List;
 	public fun getGradleVersion ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -472,10 +454,6 @@ public abstract interface class com/rickbusarow/kase/gradle/TestVersions : com/r
 
 public final class com/rickbusarow/kase/gradle/TestVersions$Companion {
 	public final fun getEMPTY ()Lcom/rickbusarow/kase/gradle/TestVersions;
-}
-
-public final class com/rickbusarow/kase/gradle/TestVersions$DefaultImpls {
-	public static fun displayName (Lcom/rickbusarow/kase/gradle/TestVersions;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/VersionList : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {

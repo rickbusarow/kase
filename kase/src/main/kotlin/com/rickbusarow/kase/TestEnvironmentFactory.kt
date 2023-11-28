@@ -31,7 +31,7 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
   ): T {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(
-      kase.displayNames,
+      kase.displayName,
       testFunctionCoordinates = testFunctionCoordinates
     ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")

@@ -88,7 +88,7 @@ public interface GradleTestEnvironmentFactory<K : TestVersions> :
   ): GradleTestEnvironment<K> = GradleTestEnvironment(
     testVersions = kase,
     dslLanguage = this.dslLanguage,
-    hasWorkingDir = HasWorkingDir(kase.displayNames, testFunctionCoordinates),
+    hasWorkingDir = HasWorkingDir(listOf(kase.displayName), testFunctionCoordinates),
     defaultBuildFile = buildFileDefault(kase),
     defaultSettingsFile = settingsFileDefault(kase)
   )

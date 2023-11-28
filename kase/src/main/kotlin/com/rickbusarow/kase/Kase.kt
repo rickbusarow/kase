@@ -15,12 +15,6 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
-import com.rickbusarow.kase.KaseLabels.Companion.POSTFIX_DEFAULT
-import com.rickbusarow.kase.KaseLabels.Companion.PREFIX_DEFAULT
-import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-import dev.drewhamilton.poko.Poko
-
 /** Trait interface for a test class with default [kases] */
 public interface HasKases<K : Kase> {
   /** The default kases for tests in this class. */
@@ -31,28 +25,7 @@ public interface HasKases<K : Kase> {
  * Represents a case for testing. It contains a display
  * name and a list of parameters with their labels.
  */
-public interface Kase : HasDisplayName, HasDisplayNames {
-
-  /** Returns a list of display names for the case, separated by the given delimiter. */
-  public fun displayNames(delimiter: String = DELIMITER_DEFAULT): List<String>
-
-  /**
-   * Returns a single display name for the case,
-   * constructed from the display names of its parameters.
-   */
-  public fun displayName(
-    labelDelimiter: String = DELIMITER_DEFAULT,
-    displayNameSeparator: String = SEPARATOR_DEFAULT,
-    prefix: String = PREFIX_DEFAULT,
-    postfix: String = POSTFIX_DEFAULT
-  ): String = displayNames(labelDelimiter).joinToString(
-    separator = displayNameSeparator,
-    prefix = prefix,
-    postfix = postfix
-  )
-
-  /** An ordered list of all parameter values and their labels for this kase */
-  public val elements: List<KaseParameterWithLabel<Any?>>
+public interface Kase : HasDisplayName {
 
   public companion object {
     /** An empty [Kase] instance with no parameters. */
@@ -62,88 +35,17 @@ public interface Kase : HasDisplayName, HasDisplayNames {
 
 /** An empty [Kase] instance with no parameters. */
 public class EmptyCase : Kase {
-  override val elements: List<KaseParameterWithLabel<Any?>>
-    get() = emptyList()
 
   override val displayName: String = ""
-  override val displayNames: List<String> = emptyList()
-
-  override fun displayNames(delimiter: String): List<String> = displayNames
-}
-
-/** Trait for [labelDelimiter] and [displayNameSeparator] */
-public interface HasLabelParameters {
-  /**
-   * between the label and the value.
-   *
-   * ex: the ':' in "label: value"
-   */
-  public val labelDelimiter: String get() = DELIMITER_DEFAULT
-
-  /**
-   * between each label/value pair.
-   *
-   * ex: the " | " in "label1: value1 | label2: value2"
-   */
-  public val displayNameSeparator: String get() = SEPARATOR_DEFAULT
-}
-
-/** */
-public interface KaseLabels : HasLabels, HasLabelParameters {
-
-  public companion object {
-    /** The default [labelDelimiter] and [displayNameSeparator]. */
-    public const val DELIMITER_DEFAULT: String = ": "
-
-    /**
-     * The default separator between each label/value pair,
-     * like `" | "` in `label1: value1 | label2: value2`
-     */
-    public const val SEPARATOR_DEFAULT: String = " | "
-
-    /** The default prefix for the display name. */
-    public const val PREFIX_DEFAULT: String = "["
-
-    /** The default postfix for the display name. */
-    public const val POSTFIX_DEFAULT: String = "]"
-  }
 }
 
 /**
- * Holds an individual [Kase] parameter and its label.
- *
- * This type supports destructuring, where `component1()`
- * is the label and `component2()` is the value.
- *
- * ex:
- * ```
- * val (label, value) = kaseParam("label", "value")
- * ```
+ * Generates a [displayName][HasDisplayName.displayName] from a [Kase] instance. The display
+ * name is used when creating a [TestEnvironment]'s working directory and in dynamic tests.
  */
-public interface KaseParameterWithLabel<out T> : HasLabel {
-  /** The value of the parameter. */
-  public val value: T
-
-  /** @return the [label] */
-  public operator fun component1(): String = label
-
-  /** @return the [value] */
-  public operator fun component2(): T = value
-
-  public companion object {
-    /**
-     * Creates a new [KaseParameterWithLabel] instance.
-     *
-     * @param label the label
-     * @param value the value
-     * @return a new [KaseParameterWithLabel] instance
-     * @see KaseParameterWithLabel
-     * @see DefaultKaseParameterWithLabel
-     */
-    public fun <T> kaseParam(label: String, value: T): KaseParameterWithLabel<T> {
-      return DefaultKaseParameterWithLabel(value, label)
-    }
-  }
+public fun interface KaseDisplayNameFactory<K : Kase> {
+  /** */
+  public fun K.createDisplayName(): String
 }
 
 /** Trait for a class which has a label. */
@@ -185,15 +87,3 @@ public interface HasDisplayNames {
    */
   public val displayNames: List<String>
 }
-
-/**
- * A [KaseParameterWithLabel] implementation.
- *
- * @property value the value
- * @property label the label
- */
-@Poko
-public class DefaultKaseParameterWithLabel<out T>(
-  override val value: T,
-  override val label: String
-) : KaseParameterWithLabel<T>
