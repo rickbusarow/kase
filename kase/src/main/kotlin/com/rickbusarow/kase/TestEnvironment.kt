@@ -41,12 +41,28 @@ public interface TestEnvironment : HasWorkingDir {
     public operator fun invoke(
       testParameterDisplayNames: List<String>,
       testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
-    ): TestEnvironment {
-      return DefaultTestEnvironment(
-        testParameterDisplayNames = testParameterDisplayNames,
-        testFunctionCoordinates = testFunctionCoordinates
-      )
-    }
+    ): TestEnvironment = DefaultTestEnvironment(
+      testParameterDisplayNames = testParameterDisplayNames,
+      testFunctionCoordinates = testFunctionCoordinates
+    )
+
+    /**
+     * Creates a new [TestEnvironment] instance.
+     *
+     * @param testParameterDisplayNames The display names of the test parameters, if any.
+     * @param testFunctionCoordinates The [TestFunctionCoordinates]
+     *   from which the test is being run.
+     * @return A new [TestEnvironment] instance.
+     * @see TestEnvironmentFactory
+     * @see DefaultTestEnvironment
+     */
+    public operator fun invoke(
+      vararg testParameterDisplayNames: String,
+      testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+    ): TestEnvironment = DefaultTestEnvironment(
+      testParameterDisplayNames = testParameterDisplayNames.toList(),
+      testFunctionCoordinates = testFunctionCoordinates
+    )
   }
 }
 

@@ -26,22 +26,16 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
 import com.rickbusarow.kase.internal.KaseInternal
-import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
-import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
 
-/** A strongly-typed version of [Kase] for 5 parameters. */
+/** A strongly typed version of [Kase] for 5 parameters. */
 public interface Kase5<A1, A2, A3, A4, A5> : Kase4<A1, A2, A3, A4> {
 
   /** The 5th parameter. */
   public val a5: A5
-
-  /** The 5th parameter with its label. */
-  public val a5WithLabel: KaseParameterWithLabel<A5>
 
   /** @see Kase5.a5 */
   public operator fun component5(): A5 = a5
@@ -50,57 +44,27 @@ public interface Kase5<A1, A2, A3, A4, A5> : Kase4<A1, A2, A3, A4> {
 @Poko
 @PublishedApi
 internal class DefaultKase5<A1, A2, A3, A4, A5>(
-  override val a1WithLabel: KaseParameterWithLabel<A1>,
-  override val a2WithLabel: KaseParameterWithLabel<A2>,
-  override val a3WithLabel: KaseParameterWithLabel<A3>,
-  override val a4WithLabel: KaseParameterWithLabel<A4>,
-  override val a5WithLabel: KaseParameterWithLabel<A5>,
-  override val labelDelimiter: String,
-  override val displayNameSeparator: String,
+  override val a1: A1,
+  override val a2: A2,
+  override val a3: A3,
+  override val a4: A4,
+  override val a5: A5,
+  private val displayNameFactory: KaseDisplayNameFactory<Kase5<A1, A2, A3, A4, A5>>
 ) : Kase5<A1, A2, A3, A4, A5>, KaseInternal {
-  override val a1: A1 get() = a1WithLabel.value
-  override val a2: A2 get() = a2WithLabel.value
-  override val a3: A3 get() = a3WithLabel.value
-  override val a4: A4 get() = a4WithLabel.value
-  override val a5: A5 get() = a5WithLabel.value
 
-  override val elements: List<KaseParameterWithLabel<Any?>>
-    get() = listOf(a1WithLabel, a2WithLabel, a3WithLabel, a4WithLabel, a5WithLabel)
+  override val displayName: String
+    get() = with(displayNameFactory) { createDisplayName() }
 
   override operator fun component1(): A1 = a1
   override operator fun component2(): A2 = a2
   override operator fun component3(): A3 = a3
   override operator fun component4(): A4 = a4
   override operator fun component5(): A5 = a5
-
-  override fun toString(): String = displayName
 }
 
-/**
- * A strongly-typed version of [KaseLabels] for 5 parameters.
- *
- * @property a1Label The label for the [Kase5.a1] parameter.
- * @property a2Label The label for the [Kase5.a2] parameter.
- * @property a3Label The label for the [Kase5.a3] parameter.
- * @property a4Label The label for the [Kase5.a4] parameter.
- * @property a5Label The label for the [Kase5.a5] parameter.
- * @property labelDelimiter The delimiter between the label and the value. The default is `": "`.
- * @property displayNameSeparator The separator between
- *   each label/value pair. The default is `" | "`.
- */
-@Poko
-public class KaseLabels5(
-  public val a1Label: String = "a1",
-  public val a2Label: String = "a2",
-  public val a3Label: String = "a3",
-  public val a4Label: String = "a4",
-  public val a5Label: String = "a5",
-  override val labelDelimiter: String = DELIMITER_DEFAULT,
-  override val displayNameSeparator: String = SEPARATOR_DEFAULT
-) : KaseLabels {
-
-  override val orderedLabels: List<String> by lazy {
-    listOf(a1Label, a2Label, a3Label, a4Label, a5Label)
+private fun <A1, A2, A3, A4, A5> defaultKase5DisplayNameFactory(): KaseDisplayNameFactory<Kase5<A1, A2, A3, A4, A5>> {
+  return KaseDisplayNameFactory {
+    "a1: $a1 | a2: $a2 | a3: $a3 | a4: $a4 | a5: $a5"
   }
 }
 
@@ -112,29 +76,32 @@ public class KaseLabels5(
  * @param a3 the [Kase5.a3] parameter.
  * @param a4 the [Kase5.a4] parameter.
  * @param a5 the [Kase5.a5] parameter.
- * @param labels the [KaseLabels5] to use for this [Kase5]
- * @param labelDelimiter the delimiter between the
- *   label and the value, like `": "` in `label: value`
- * @param displayNameSeparator the separator between each label/value
- *   pair, like `" | "` in `label1: value1 | label2: value2`
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
  */
 public fun <A1, A2, A3, A4, A5> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5,
-  labels: KaseLabels5 = KaseLabels5(),
-  labelDelimiter: String = labels.labelDelimiter,
-  displayNameSeparator: String = labels.displayNameSeparator
-): Kase5<A1, A2, A3, A4, A5> {
-  return DefaultKase5(
-    a1WithLabel = kaseParam(value = a1, label = (a1 as? HasLabel)?.label ?: labels.a1Label),
-    a2WithLabel = kaseParam(value = a2, label = (a2 as? HasLabel)?.label ?: labels.a2Label),
-    a3WithLabel = kaseParam(value = a3, label = (a3 as? HasLabel)?.label ?: labels.a3Label),
-    a4WithLabel = kaseParam(value = a4, label = (a4 as? HasLabel)?.label ?: labels.a4Label),
-    a5WithLabel = kaseParam(value = a5, label = (a5 as? HasLabel)?.label ?: labels.a5Label),
-    labelDelimiter = labelDelimiter,
-    displayNameSeparator = displayNameSeparator
-  )
-}
-
+  displayNameFactory: KaseDisplayNameFactory<Kase5<A1, A2, A3, A4, A5>> = defaultKase5DisplayNameFactory()
+): Kase5<A1, A2, A3, A4, A5> = DefaultKase5(
+  a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5,
+  displayNameFactory = displayNameFactory
+)
+/**
+ * Creates a new [Kase] with the given parameters.
+ *
+ * @param displayName the name used in test environments and dynamic tests
+ * @param a1 the [Kase5.a1] parameter.
+ * @param a2 the [Kase5.a2] parameter.
+ * @param a3 the [Kase5.a3] parameter.
+ * @param a4 the [Kase5.a4] parameter.
+ * @param a5 the [Kase5.a5] parameter.
+ */
+public fun <A1, A2, A3, A4, A5> kase(
+  displayName: String,
+  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5
+): Kase5<A1, A2, A3, A4, A5> = DefaultKase5(
+  a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5,
+  displayNameFactory = { displayName }
+)
 /**
  * Creates a new [Kase5] instance and [TestEnvironment]
  * from these parameters, then executes [testAction].
@@ -144,20 +111,19 @@ public fun <A1, A2, A3, A4, A5> kase(
  * @param a3 the [Kase5.a3] parameter.
  * @param a4 the [Kase5.a4] parameter.
  * @param a5 the [Kase5.a5] parameter.
- * @param labels the [KaseLabels5] to use for this [Kase5]
+ * @param displayNameFactory defines the name used for this test environment's working directory
  * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
  * @param testAction the test action to execute.
  * @see KaseTestFactory
  */
-public fun <T, K, A1, A2, A3, A4, A5> KaseTestFactory<T, Kase5<A1, A2, A3, A4, A5>>.test(
+public fun <T: TestEnvironment, A1, A2, A3, A4, A5> KaseTestFactory<T, Kase5<A1, A2, A3, A4, A5>>.test(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5,
-  labels: KaseLabels5 = KaseLabels5(),
+  displayNameFactory: KaseDisplayNameFactory<Kase5<A1, A2, A3, A4, A5>> = defaultKase5DisplayNameFactory(),
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend T.() -> Unit
-) where T : TestEnvironment,
-        K : Kase5<A1, A2, A3, A4, A5> {
+) {
   this@KaseTestFactory.test(
-    kase = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, labels = labels),
+    kase = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, displayNameFactory = displayNameFactory),
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )
@@ -171,7 +137,7 @@ public fun <T, K, A1, A2, A3, A4, A5> KaseTestFactory<T, Kase5<A1, A2, A3, A4, A
  * @param args3 values mapped to the [Kase5.a3] parameter.
  * @param args4 values mapped to the [Kase5.a4] parameter.
  * @param args5 values mapped to the [Kase5.a5] parameter.
- * @param labels the [KaseLabels5] to use for this [Kase5]
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
  * @return a [List] of [Kase5]s from the given parameters.
  */
 public fun <A1, A2, A3, A4, A5> kases(
@@ -180,7 +146,7 @@ public fun <A1, A2, A3, A4, A5> kases(
   args3: Iterable<A3>,
   args4: Iterable<A4>,
   args5: Iterable<A5>,
-  labels: KaseLabels5 = KaseLabels5()
+  displayNameFactory: KaseDisplayNameFactory<Kase5<A1, A2, A3, A4, A5>> = defaultKase5DisplayNameFactory()
 ): List<Kase5<A1, A2, A3, A4, A5>> {
   return buildList {
     for (a1 in args1) {
@@ -188,7 +154,7 @@ public fun <A1, A2, A3, A4, A5> kases(
         for (a3 in args3) {
           for (a4 in args4) {
             for (a5 in args5) {
-              add(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, labels = labels))
+              add(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, displayNameFactory = displayNameFactory))
             }
           }
         }
@@ -251,26 +217,6 @@ public inline fun <A1, A2, A3, A4, A5> testFactory(
   crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory { kases.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5) } }
-}
-
-/**
- * Creates a new [KaseLabels5] with the given labels.
- *
- * @param a1Label the label for the [Kase5.a1] property.
- * @param a2Label the label for the [Kase5.a2] property.
- * @param a3Label the label for the [Kase5.a3] property.
- * @param a4Label the label for the [Kase5.a4] property.
- * @param a5Label the label for the [Kase5.a5] property.
- * @return a new [KaseLabels5] with the given labels.
- */
-public fun labels(
-  a1Label: String = "a1",
-  a2Label: String = "a2",
-  a3Label: String = "a3",
-  a4Label: String = "a4",
-  a5Label: String = "a5"
-): KaseLabels5 {
-  return KaseLabels5(a1Label = a1Label, a2Label = a2Label, a3Label = a3Label, a4Label = a4Label, a5Label = a5Label)
 }
 
 /**

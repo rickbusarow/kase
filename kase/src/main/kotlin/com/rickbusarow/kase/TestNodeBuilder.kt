@@ -145,7 +145,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @return the invoking [TestNodeBuilder], after adding the new tests.
    */
   public fun <E> Iterable<E>.asTests(
-    testName: (E) -> String = { it.toString() },
+    testName: (E) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
     testAction: (E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asTests) {

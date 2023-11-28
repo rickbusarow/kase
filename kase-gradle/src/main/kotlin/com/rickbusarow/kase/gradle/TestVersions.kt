@@ -62,15 +62,6 @@ public class GradleTestVersions(
   /** not semver. ex: `8.0` or `8.1.1` */
   public override val gradleVersion: String get() = a1.value
 
-  override fun displayName(
-    labelDelimiter: String,
-    displayNameSeparator: String,
-    prefix: String,
-    postfix: String
-  ): String {
-    return elements.joinToString { it.value.toString() }
-  }
-
   override fun toString(): String = displayName
 
   public companion object {

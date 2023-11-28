@@ -39,9 +39,6 @@ internal val FILE_ANNOTATIONS = """
 internal val IMPORTS = """
   import com.rickbusarow.kase.files.TestFunctionCoordinates
   import com.rickbusarow.kase.internal.KaseInternal
-  import com.rickbusarow.kase.KaseLabels.Companion.DELIMITER_DEFAULT
-  import com.rickbusarow.kase.KaseLabels.Companion.SEPARATOR_DEFAULT
-  import com.rickbusarow.kase.KaseParameterWithLabel.Companion.kaseParam
   import dev.drewhamilton.poko.Poko
   import org.junit.jupiter.api.DynamicNode
   import org.junit.jupiter.api.DynamicTest
@@ -67,6 +64,12 @@ internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
   } else {
     KaseTypes(number - 1, args.dropLast(1)).kaseInterface
   }
+
+  /** `defaultKase2DisplayNameFactory` */
+  val defaultDisplayNameFactory: String = "default${kaseInterfaceNoTypes}DisplayNameFactory"
+
+  /** `KaseDisplayNameFactory<Kase2<A1, A2>>` */
+  val displayNameFactory: String = "KaseDisplayNameFactory<$kaseInterface>"
 
   /** `DefaultKase3` */
   val defaultKaseNoTypes = "DefaultKase$number"
@@ -130,9 +133,18 @@ internal data class KaseArg(
     "override operator fun component$number(): $valueTypeName = $valueName"
 
   companion object {
+
+    /** `parameter` or `parameters` */
+    val List<KaseArg>.parametersPlural
+      get() = if (size == 1) "parameter" else "parameters"
+
     /** [a1, a2, a3, ...] */
     val List<KaseArg>.valueNames: List<String>
       get() = map { it.valueName }
+
+    /** [a1, a2, a3, ...] */
+    val List<KaseArg>.valueNamesString: String
+      get() = joinToString(", ") { it.valueName }
 
     /** [A1, A2, A3, ...] */
     val List<KaseArg>.valueTypes: List<String>
@@ -157,6 +169,21 @@ internal data class KaseArg(
     /** `"it.a1, it.a2, it.a3"` */
     val List<KaseArg>.valuesFromItString: String
       get() = valueNames.joinToString(", ") { arg -> "it.$arg" }
+
+    /** `"a1 = a1, a2 = a2, a3 = a3"` */
+    val List<KaseArg>.argsWithParamNames: String
+      get() = valueNames.joinToString(", ") { arg -> "$arg = $arg" }
+
+    /**
+     * ```
+     *   override val a1: A1,
+     *   override val a2: A2
+     * ```
+     */
+    val List<KaseArg>.argsValueParams: String
+      get() = joinToString(",\n  ") { arg ->
+        "override val ${arg.valueName}: ${arg.valueTypeName}"
+      }
 
     /**
      * ```
@@ -209,24 +236,12 @@ private fun main() {
     val paramsString = params.joinToString(", ")
 
     val kaseSimpleName = "Kase$ct"
-    val kaseLabelSimpleName = "KaseLabels$ct"
-
-    val labels = args.map { "${it}Label" }
-    val labelsParamsDefaults = args.joinToString(",\n  ") { "${it}Label: String = \"$it\"" }
 
     val iterableParams = nums.map { "args$it" }
 
     val iterableParamsWithTypes = nums.zip(types).joinToString(",\n  ") { (i, type) ->
       "args$i: Iterable<$type>"
     }
-
-    val argToLabelPairs = args.zip(labels)
-    val withLabelCalls = argToLabelPairs.joinToString(",\n    ") { (value, label) ->
-      "${value}WithLabel = kaseParam(value = $value, label = ($value as? HasLabel)?.label ?: labels.$label)"
-    }
-
-    val typesKaseEnvironment = (listOf("T", "K") + types)
-      .joinToString(separator = ", ", prefix = "<", postfix = ">")
 
     val parametersPlural = if (ct == 1) "parameter" else "parameters"
 
@@ -251,10 +266,6 @@ private fun main() {
       append(" */")
     }
 
-    val labelsProperties = args.joinToString(",\n  ") {
-      "public val ${it}Label: String = \"$it\""
-    }
-
     val txt = buildString {
 
       appendLine(
@@ -276,49 +287,24 @@ private fun main() {
         types = kaseTypes
       )
 
-      defaultKase(
-        args = args2,
-        types = kaseTypes
-      )
+      defaultKase(args = args2, types = kaseTypes)
 
-      kaseLabelsClass(
-        ct = ct,
-        parametersPlural = parametersPlural,
-        argToLabelPairs = argToLabelPairs,
-        kaseSimpleName = kaseSimpleName,
-        kaseLabelSimpleName = kaseLabelSimpleName,
-        labelsProperties = labelsProperties,
-        labels = labels
-      )
+      defaultDisplayNameFactory(args = args2, types = kaseTypes)
 
-      kaseFun(
-        parametersPlural = parametersPlural,
-        paramsString = paramsString,
-        kaseLabelSimpleName = kaseLabelSimpleName,
-        kaseSimpleName = kaseSimpleName,
-        withLabelCalls = withLabelCalls,
-        args = args2,
-        kaseTypes = kaseTypes
-      )
+      kaseFun1(args = args2, types = kaseTypes)
 
-      testFun(
-        typesKaseEnvironment = typesKaseEnvironment,
-        typesString = typesString,
-        kaseLabelSimpleName = kaseLabelSimpleName,
-        argsStringWithLabels = argsStringWithLabels,
-        kaseSimpleName = kaseSimpleName,
-        args = args2,
-        kaseTypes = kaseTypes
-      )
+      kaseFun2(args = args2, types = kaseTypes)
+
+      testFun(args = args2, types = kaseTypes)
 
       kasesFun1(
         kaseSimpleName = kaseSimpleName,
         iterableParams = iterableParams,
         iterableParamsWithType = iterableParamsWithTypes,
-        kaseLabelSimpleName = kaseLabelSimpleName,
         typesString = typesString,
         args = args,
-        argsStringWithLabels = argsStringWithLabels
+        argsStringWithLabels = argsStringWithLabels,
+        types = kaseTypes
       )
 
       asTests_Destructured(
@@ -336,13 +322,6 @@ private fun main() {
         kdoc = testFactoryKdoc,
         args = args2,
         kaseTypes = kaseTypes
-      )
-
-      labelsFun(
-        labelsParamsDefaults = labelsParamsDefaults,
-        kaseLabelSimpleName = kaseLabelSimpleName,
-        kaseSimpleName = kaseSimpleName,
-        labels = labels
       )
 
       timesFunctions(ct = ct, aArgs = args2, aTypes = kaseTypes)

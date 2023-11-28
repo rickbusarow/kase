@@ -16,37 +16,6 @@
 package com.rickbusarow.kase.internal
 
 import com.rickbusarow.kase.Kase
-import com.rickbusarow.kase.KaseLabels
 
 /** Common implementation details for a [Kase]. */
-public interface KaseInternal : Kase {
-
-  /**
-   * between the label and the value.
-   *
-   * ex: the ':' in "label: value"
-   */
-  public val labelDelimiter: String get() = KaseLabels.DELIMITER_DEFAULT
-
-  /**
-   * between each label/value pair.
-   *
-   * ex: the " | " in "label1: value1 | label2: value2"
-   */
-  public val displayNameSeparator: String get() = KaseLabels.SEPARATOR_DEFAULT
-
-  override val displayName: String
-    get() = displayName(
-      labelDelimiter = labelDelimiter,
-      displayNameSeparator = displayNameSeparator
-    )
-
-  override val displayNames: List<String>
-    get() = displayNames(delimiter = labelDelimiter)
-
-  override fun displayNames(delimiter: String): List<String> {
-    return elements.map { (label, value) ->
-      "$label${delimiter}$value"
-    }
-  }
-}
+public interface KaseInternal : Kase

@@ -118,7 +118,7 @@ class TestNodeBuilderTest {
   fun `Iterable asTests extension creates dynamic tests`() {
     val elements = listOf("Element1", "Element2")
 
-    val dynamicNodesStream = kases(elements, labels("e")).asTests { }
+    val dynamicNodesStream = kases(elements) { "[e: $a1]" }.asTests { }
 
     val dynamicNodes = dynamicNodesStream.asList()
     dynamicNodes shouldHaveSize 2
@@ -132,7 +132,7 @@ class TestNodeBuilderTest {
     val items = kases(listOf("Item1", "Item2"))
     val dynamicNodes = items.asContainers(testAction = { }).asList()
 
-    dynamicNodes.names() shouldBe listOf("[a1: Item1]", "[a1: Item2]")
+    dynamicNodes.names() shouldBe listOf("a1: Item1", "a1: Item2")
   }
 
   @Test
@@ -140,7 +140,7 @@ class TestNodeBuilderTest {
     val items = kases(listOf("Item1", "Item2"))
     val dynamicNodes = items.asTests(testAction = { }).asList()
 
-    dynamicNodes.names() shouldBe listOf("[a1: Item1]", "[a1: Item2]")
+    dynamicNodes.names() shouldBe listOf("a1: Item1", "a1: Item2")
   }
 
   @Test
