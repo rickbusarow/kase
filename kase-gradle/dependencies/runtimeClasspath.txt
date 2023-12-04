@@ -1,8 +1,8 @@
 com.github.ajalt:colormath:1.2.0
 com.github.ajalt:mordant:1.2.1
 com.github.curious-odd-man:rgxgen:1.4
-com.rickbusarow.kgx:kotlin-gradle-extensions:0.1.8
-com.rickbusarow.kgx:names:0.1.8
+com.rickbusarow.kgx:kotlin-gradle-extensions:0.1.9
+com.rickbusarow.kgx:names:0.1.9
 io.github.classgraph:classgraph:4.8.162
 io.github.java-diff-utils:java-diff-utils:4.12
 io.kotest:kotest-assertions-api-jvm:5.8.0
