@@ -83,7 +83,7 @@ class RepositoryHandlerSpecTest {
         is KotlinDsl -> generator.createFunction(
           functionName = "maven",
           labelName = "url",
-          valueString = "com.apple"
+          valueString = language.quote("com.apple")
         )
       }
       val urlGenerator = generator.copy(
@@ -102,7 +102,7 @@ class RepositoryHandlerSpecTest {
         language is GroovyDsl -> urlGenerator.createFunction(
           functionName = "url",
           labelName = "url",
-          valueString = "com.apple"
+          valueString = language.quote("com.apple")
         )
 
         else -> ""
@@ -159,7 +159,7 @@ class RepositoryHandlerSpecTest {
         is KotlinDsl -> generator.createFunction(
           functionName = "maven",
           labelName = "url",
-          valueString = "com.apple"
+          valueString = language.quote("com.apple")
         )
       }
       val urlGenerator = generator.copy(
@@ -178,7 +178,7 @@ class RepositoryHandlerSpecTest {
         language is GroovyDsl -> urlGenerator.createFunction(
           functionName = "url",
           labelName = "url",
-          valueString = "com.apple"
+          valueString = language.quote("com.apple")
         )
 
         else -> ""

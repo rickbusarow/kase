@@ -17,7 +17,7 @@ package com.rickbusarow.kase.gradle.dsl
 
 import com.rickbusarow.kase.gradle.DslLanguage
 
-internal data class ExpectedCodeGenerator(
+data class ExpectedCodeGenerator(
   val language: DslLanguage,
   val kotlinInfix: Boolean = language.useInfix,
   val kotlinLabels: Boolean = language.useLabels,
@@ -49,15 +49,15 @@ internal data class ExpectedCodeGenerator(
 
         when (this) {
           is DslLanguage.KotlinDsl -> when {
-            labels -> "$label = \"$value\""
-            else -> "\"$value\""
+            labels -> "$label = $value"
+            else -> value
           }
 
           is DslLanguage.GroovyDsl -> when {
-            useDoubleQuotes && labels -> """$label: "$value""""
-            useDoubleQuotes && !labels -> """"$value""""
-            labels -> "$label: '$value'"
-            else -> "'$value'"
+            useDoubleQuotes && labels -> """$label: $value"""
+            useDoubleQuotes && !labels -> value
+            labels -> "$label: $value"
+            else -> value
           }
         }
       }

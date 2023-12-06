@@ -21,38 +21,26 @@ import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.GradleProjectBuilder
 import com.rickbusarow.kase.gradle.HasDslLanguage
 import com.rickbusarow.kase.gradle.dsl.model.AbstractDslElementContainer
-import com.rickbusarow.kase.gradle.dsl.model.BuildscriptSpec
 import com.rickbusarow.kase.gradle.dsl.model.DslFileBuilder
+import com.rickbusarow.kase.gradle.dsl.model.HasAndroidBlock
+import com.rickbusarow.kase.gradle.dsl.model.HasAndroidComponentsBlock
 import com.rickbusarow.kase.gradle.dsl.model.HasDependenciesBlock
 import com.rickbusarow.kase.gradle.dsl.model.HasPluginsBlock
-import com.rickbusarow.kase.gradle.dsl.model.LambdaParameter
 
 /** Models a `settings.gradle` or `settings.gradle.kts` file. */
 public class BuildFileSpec(
   build: BuildFileSpec.() -> Unit
 ) : AbstractDslElementContainer<BuildFileSpec>(),
   DslFileBuilder<BuildFileSpec>,
+  HasDependenciesBlock<BuildFileSpec>,
   HasPluginsBlock<BuildFileSpec>,
-  HasDependenciesBlock<BuildFileSpec> {
+  HasAndroidBlock,
+  HasAndroidComponentsBlock,
+  HasBuildscriptBlock {
 
   init {
     build()
   }
-
-  /**
-   * ```
-   * // build.gradle
-   * buildscript {
-   *   // ...
-   * }
-   * ```
-   */
-  public fun buildscript(
-    block: BuildscriptSpec.() -> Unit
-  ): BuildFileSpec = functionCall(
-    name = "buildscript",
-    LambdaParameter(builder = block)
-  )
 }
 
 /** Creates a `build.gradle[.kts]` file in the directory builder's current directory. */

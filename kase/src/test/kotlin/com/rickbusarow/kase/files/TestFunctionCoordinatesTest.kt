@@ -15,8 +15,8 @@
 
 package com.rickbusarow.kase.files
 
+import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.asTests
-import com.rickbusarow.kase.files.HasWorkingDir.Companion.div
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.stdlib.remove
 import com.rickbusarow.kase.stdlib.toStringPretty
@@ -39,19 +39,35 @@ private fun coords2() = CoordinatesTestClass(Unit)
 
 class TestFunctionCoordinatesTest {
 
-  private val factoryKases
+  private inline val factoryKases: List<Kase1<() -> TestFunctionCoordinates?>>
     get() = listOf(
-      "primary constructor initialization" to kase({ coords().primaryConstructorCoords }),
-      "secondary constructor" to kase({ coords2().secondaryConstructorCoords }),
-      "set inside init block" to kase({ coords().initBlockCoords }),
-      "eager property initialization" to kase({ coords().eagerPropertyCoords }),
-      "lazy property initialization" to kase({ coords().lazyPropertyCoords }),
-      "getter delegate property initialization" to kase({ coords().getterDelegatePropertyCoords }),
-      "function setter block" to kase({
+      kase(displayName = "primary constructor initialization") {
+        coords().primaryConstructorCoords
+      },
+      kase(displayName = "secondary constructor") {
+        coords2().secondaryConstructorCoords
+      },
+      kase(displayName = "set inside init block") {
+        coords().initBlockCoords
+      },
+      kase(displayName = "eager property initialization") {
+        coords().eagerPropertyCoords
+      },
+      kase(displayName = "lazy property initialization") {
+        coords().lazyPropertyCoords
+      },
+      kase(displayName = "getter delegate property initialization") {
+        coords().getterDelegatePropertyCoords
+      },
+      kase(displayName = "function setter block") {
         coords().apply { setterFunction() }.functionSetterBlockCoords
-      }),
-      "coordinates from a non-inline function" to kase({ coords().coordsFromFunction() }),
-      "coordinates from an inline function" to kase({ coords().coordsFromInlineFunction() })
+      },
+      kase(displayName = "coordinates from a non-inline function") {
+        coords().coordsFromFunction()
+      },
+      kase(displayName = "coordinates from an inline function") {
+        coords().coordsFromInlineFunction()
+      }
     )
 
   @Test
@@ -148,7 +164,7 @@ class TestFunctionCoordinatesTest {
 
   @TestFactory
   fun `testFactory annotation in an expression syntax`(): Stream<out DynamicNode> =
-    factoryKases.asTests { (coordsFactory) ->
+    factoryKases.asTests { coordsFactory ->
 
       coordsFactory() shouldBe expectedCoords(
         "testFactory annotation in an expression syntax"
@@ -158,7 +174,7 @@ class TestFunctionCoordinatesTest {
   @TestFactory
   fun `testFactory annotation inside a block body`(): Stream<out DynamicNode> {
     val expected = TestFunctionCoordinates.get()
-    return factoryKases.asTests { (coordsFactory) ->
+    return factoryKases.asTests { coordsFactory ->
       coordsFactory() shouldBe expected
     }
   }
@@ -182,7 +198,7 @@ class TestFunctionCoordinatesTest {
 
     @TestFactory
     fun `testFactory annotation in an expression syntax`(): Stream<out DynamicNode> =
-      factoryKases.asTests { (coordsFactory) ->
+      factoryKases.asTests { coordsFactory ->
 
         coordsFactory() shouldBe expectedCoordsNested(
           "testFactory annotation in an expression syntax"
@@ -192,14 +208,14 @@ class TestFunctionCoordinatesTest {
     @TestFactory
     fun `testFactory annotation inside a block body`(): Stream<out DynamicNode> {
       val expected = TestFunctionCoordinates.get()
-      return factoryKases.asTests { (coordsFactory) ->
+      return factoryKases.asTests { coordsFactory ->
         coordsFactory() shouldBe expected
       }
     }
 
     fun expectedCoordsNested(functionName: String): TestFunctionCoordinates {
       val clazz =
-        TestFunctionCoordinatesTest.`testFactory annotations in a nested class`::class.java
+        `testFactory annotations in a nested class`::class.java
       return TestFunctionCoordinates(
         fileName = "${clazz.enclosingClass!!.simpleName}.kt",
         // line numbers don't matter since they're excluded from comparison
@@ -275,7 +291,7 @@ class TestFunctionCoordinatesTest {
       val userDir = Paths.get("").toAbsolutePath().toFile()
         .invariantSeparatorsPath
 
-      val rawUri = TestFunctionCoordinates.get().testUriOrNull()?.toString()
+      val rawUri = TestFunctionCoordinates.get().testUriOrNull?.toString()
 
       rawUri.shouldNotBeNull()
 

@@ -134,9 +134,8 @@ public fun <A1> kases(
  * @return a [Stream] of [DynamicNode]s from these kases.
  * @see Kase1
  */
-@JvmName("asTestsKase1Destructured")
-public inline fun <A1> Iterable<Kase1<A1>>.asTests(
-  crossinline testAction: (a1: A1) -> Unit
+public fun <A1> Iterable<Kase1<A1>>.asTests(
+  testAction: (a1: A1) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory {
     this@asTests.asTests { testAction(it.a1) }
@@ -155,10 +154,9 @@ public inline fun <A1> Iterable<Kase1<A1>>.asTests(
  * @see Kase1
  * @see TestEnvironmentFactory
  */
-@JvmName("testFactoryKase1VarargDestructured")
-public inline fun <A1> testFactory(
+public fun <A1> testFactory(
   vararg kases: Kase1<A1>,
-  crossinline testAction: (a1: A1) -> Unit
+  testAction: (a1: A1) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory { kases.asSequence().asTests { testAction(it.a1) } }
 }
@@ -175,10 +173,9 @@ public inline fun <A1> testFactory(
  * @see Kase1
  * @see TestEnvironmentFactory
  */
-@JvmName("testFactoryKase1IterableDestructured")
-public inline fun <A1> testFactory(
+public fun <A1> testFactory(
   kases: Iterable<Kase1<A1>>,
-  crossinline testAction: (a1: A1) -> Unit
+  testAction: (a1: A1) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory { kases.asTests { testAction(it.a1) } }
 }

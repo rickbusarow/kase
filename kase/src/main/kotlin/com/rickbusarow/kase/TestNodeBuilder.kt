@@ -68,7 +68,7 @@ public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode
  *
  * @property name the name of the test container.
  * @property testFunctionCoordinates Captured before executing any
- *   tests, meaning that it's the frame which called `asTests { ... }`
+ *   tests, meaning that it's the frame that called `asTests { ... }`
  * @property parent the parent node, or `null` if this is the root container
  */
 @Poko
@@ -84,14 +84,20 @@ public class TestNodeBuilder @PublishedApi internal constructor(
   @PublishedApi
   internal fun nodeSequence(): Sequence<DynamicNode> = nodes.asSequence().map { it() }
 
+  private fun build(): DynamicNode {
+    return DynamicContainer.dynamicContainer(name, nodeSequence().asStream())
+  }
+
   /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the nodes list.
+   * Creates a dynamic test with the provided name and test logic, adds it to the list of nodes.
    *
    * @param name the name of the test. action a function containing the test logic.
    * @param testAction a function containing the test logic.
    */
   public fun test(name: String, testAction: () -> Unit) {
-    addTest(name, testAction)
+    nodes.add {
+      DynamicTest.dynamicTest(name, testFunctionCoordinates.testUriOrNull) { testAction() }
+    }
   }
 
   /**
@@ -102,7 +108,6 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param init a lambda with receiver that initializes the [TestNodeBuilder].
    */
   public fun container(name: String, init: TestNodeBuilder.() -> Unit) {
-
     nodes.add {
       TestNodeBuilder(
         name = name,
@@ -111,26 +116,6 @@ public class TestNodeBuilder @PublishedApi internal constructor(
       )
         .apply(init)
         .build()
-    }
-  }
-
-  /**
-   * Builds the test container from the current state of this builder.
-   *
-   * @return a dynamic container with the defined name and nodes.
-   */
-  @PublishedApi
-  internal fun build(): DynamicNode {
-    return DynamicContainer.dynamicContainer(name, nodeSequence().asStream())
-  }
-
-  @PublishedApi
-  internal fun addTest(name: String, testAction: () -> Unit) {
-    nodes.add {
-      DynamicTest.dynamicTest(
-        name,
-        testFunctionCoordinates.testUriOrNull()
-      ) { testAction() }
     }
   }
 
@@ -159,12 +144,36 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * and the tests themselves are defined by the [testAction] function.
    *
    * @param testName a function to compute the name of each test.
+   * @param testEnvironmentFactory creates a new [TestEnvironment] for each test.
+   * @param testAction a function to define each test.
+   * @receiver the [TestNodeBuilder] to which tests will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new tests.
+   */
+  public fun <T : TestEnvironment, K : Kase> Iterable<K>.asTests(
+    testName: (K) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
+    testEnvironmentFactory: (kase: K) -> T,
+    testAction: T.(K) -> Unit
+  ): TestNodeBuilder = this@TestNodeBuilder.apply {
+    for (kase in this@asTests) {
+      test(testName(kase)) {
+        val environment = testEnvironmentFactory.invoke(kase)
+        environment.testAction(kase)
+      }
+    }
+  }
+
+  /**
+   * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
+   * iterable. The names of the tests are determined by the [testName] function,
+   * and the tests themselves are defined by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each test.
    * @param testAction a function to define each test.
    * @receiver the [TestNodeBuilder] to which tests will be added.
    * @return the invoking [TestNodeBuilder], after adding the new tests.
    */
   public fun <E> Sequence<E>.asTests(
-    testName: (E) -> String = { if (it is HasDisplayName) it.displayName else it.toString() },
+    testName: (E) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
     testAction: (E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asTests) {
@@ -183,7 +192,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @return the invoking [TestNodeBuilder], after adding the new containers.
    */
   public fun <E> Iterable<E>.asContainers(
-    testName: (E) -> String = { if (it is HasDisplayName) it.displayName else it.toString() },
+    testName: (E) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
     testAction: TestNodeBuilder.(E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asContainers) {
@@ -203,7 +212,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @return the invoking [TestNodeBuilder], after adding the new containers.
    */
   public fun <E> Sequence<E>.asContainers(
-    testName: (E) -> String = { if (it is HasDisplayName) it.displayName else it.toString() },
+    testName: (E) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
     testAction: TestNodeBuilder.(E) -> Unit
   ): TestNodeBuilder = this@TestNodeBuilder.apply {
     for (element in this@asContainers) {
@@ -225,27 +234,3 @@ public fun <K : Kase> Iterable<K>.asContainers(
   testName: (K) -> String = { it.displayName },
   testAction: TestNodeBuilder.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
-
-/**
- * Transforms a sequence into a stream of dynamic test containers. The
- * names of the containers are determined by the [testName] function, and
- * the containers themselves are initialized by the [testAction] function.
- *
- * @param testName a function to compute the name of each test.
- * @param testAction a function to initialize each test container.
- * @return a stream of dynamic nodes representing the containers.
- */
-public fun <K : Kase> Sequence<K>.asContainers(
-  testName: (K) -> String = { it.displayName },
-  testAction: TestNodeBuilder.(K) -> Unit
-): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
-
-/** Creates dynamic tests where the pair's String element is the display name */
-@JvmName("asTestsStringKasePairs")
-public fun <K : Kase> Iterable<Pair<String, K>>.asTests(
-  testAction: (kase: K) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory {
-    this@asTests.asTests(testName = { it.first }) { testAction(it.second) }
-  }
-}

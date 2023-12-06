@@ -15,154 +15,153 @@
 
 package com.rickbusarow.kase.gradle.dsl
 
-import com.rickbusarow.kase.asTests
-import com.rickbusarow.kase.kases
+import com.rickbusarow.kase.Kase1
+import com.rickbusarow.kase.gradle.DslLanguage
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.TestFactory
 import java.util.stream.Stream
 
-class RepositoryContentDescriptorSpecTest {
+class RepositoryContentDescriptorSpecTest : DslKaseTestFactory<DslTestEnvironment, Kase1<DslLanguage>> {
 
   @TestFactory
-  fun `custom mavenContent configuration`(): Stream<out DynamicNode> =
-    kases(dslLanguages).asTests { language ->
+  fun `custom mavenContent configuration`(): Stream<out DynamicNode> = testFactory {
 
-      val builder = SettingsFileSpec {
-        pluginManagement {
-          repositories {
-            mavenLocal {
-              mavenContent {
+    val builder = SettingsFileSpec {
+      pluginManagement {
+        repositories {
+          mavenLocal {
+            mavenContent {
 
-                excludeGroupAndSubgroups(groupPrefix = "art")
+              excludeGroupAndSubgroups(groupPrefix = "art")
 
-                addBlankLine()
-                excludeGroup(group = "a")
-                excludeModule(group = "a", moduleName = "b")
-                excludeVersion(group = "a", moduleName = "b", version = "c")
+              addBlankLine()
+              excludeGroup(group = "a")
+              excludeModule(group = "a", moduleName = "b")
+              excludeVersion(group = "a", moduleName = "b", version = "c")
 
-                addBlankLine()
-                excludeGroupByRegex(groupRegex = "a\\.z\\..*")
-                excludeModuleByRegex(groupRegex = "a\\.z\\..*", moduleNameRegex = "b.*")
-                excludeVersionByRegex(
-                  groupRegex = "a\\.z\\..*",
-                  moduleNameRegex = "b.*",
-                  versionRegex = "c\\.q\\.r"
-                )
+              addBlankLine()
+              excludeGroupByRegex(groupRegex = "a\\.z\\..*")
+              excludeModuleByRegex(groupRegex = "a\\.z\\..*", moduleNameRegex = "b.*")
+              excludeVersionByRegex(
+                groupRegex = "a\\.z\\..*",
+                moduleNameRegex = "b.*",
+                versionRegex = "c\\.q\\.r"
+              )
 
-                addBlankLine()
-                includeGroupAndSubgroups(groupPrefix = "art")
+              addBlankLine()
+              includeGroupAndSubgroups(groupPrefix = "art")
 
-                addBlankLine()
-                includeGroup(group = "a")
-                includeModule(group = "a", moduleName = "b")
-                includeVersion(group = "a", moduleName = "b", version = "c")
+              addBlankLine()
+              includeGroup(group = "a")
+              includeModule(group = "a", moduleName = "b")
+              includeVersion(group = "a", moduleName = "b", version = "c")
 
-                addBlankLine()
-                includeGroupByRegex(groupRegex = "a\\.z\\..*")
-                includeModuleByRegex(groupRegex = "a\\.z\\..*", moduleNameRegex = "b.*")
-                includeVersionByRegex(
-                  groupRegex = "a\\.z\\..*",
-                  moduleNameRegex = "b.*",
-                  versionRegex = "c\\.q\\.r"
-                )
-              }
+              addBlankLine()
+              includeGroupByRegex(groupRegex = "a\\.z\\..*")
+              includeModuleByRegex(groupRegex = "a\\.z\\..*", moduleNameRegex = "b.*")
+              includeVersionByRegex(
+                groupRegex = "a\\.z\\..*",
+                moduleNameRegex = "b.*",
+                versionRegex = "c\\.q\\.r"
+              )
             }
           }
         }
       }
+    }
 
-      val expectedGenerator = ExpectedCodeGenerator(
-        language = language,
-        kotlinLabels = false,
-        kotlinInfix = false
-      )
+    val expectedGenerator = ExpectedCodeGenerator(
+      language = language,
+      kotlinLabels = false,
+      kotlinInfix = false
+    )
 
-      val excludeGroupAndSubgroups = expectedGenerator.createFunction(
-        functionName = "excludeGroupAndSubgroups",
-        "groupPrefix" to "art"
-      )
+    val excludeGroupAndSubgroups = expectedGenerator.createFunction(
+      functionName = "excludeGroupAndSubgroups",
+      "groupPrefix" to language.quote("art")
+    )
 
-      val excludeGroup = expectedGenerator.createFunction(
-        functionName = "excludeGroup",
-        "group" to "a"
-      )
+    val excludeGroup = expectedGenerator.createFunction(
+      functionName = "excludeGroup",
+      "group" to language.quote("a")
+    )
 
-      val excludeModule = expectedGenerator.createFunction(
-        functionName = "excludeModule",
-        "group" to "a",
-        "moduleName" to "b"
-      )
+    val excludeModule = expectedGenerator.createFunction(
+      functionName = "excludeModule",
+      "group" to language.quote("a"),
+      "moduleName" to language.quote("b")
+    )
 
-      val excludeVersion = expectedGenerator.createFunction(
-        functionName = "excludeVersion",
-        "group" to "a",
-        "moduleName" to "b",
-        "version" to "c"
-      )
+    val excludeVersion = expectedGenerator.createFunction(
+      functionName = "excludeVersion",
+      "group" to language.quote("a"),
+      "moduleName" to language.quote("b"),
+      "version" to language.quote("c")
+    )
 
-      val excludeGroupByRegex = expectedGenerator.createFunction(
-        functionName = "excludeGroupByRegex",
-        "groupRegex" to "a\\.z\\..*"
-      )
+    val excludeGroupByRegex = expectedGenerator.createFunction(
+      functionName = "excludeGroupByRegex",
+      "groupRegex" to language.quote("a\\.z\\..*")
+    )
 
-      val excludeModuleByRegex = expectedGenerator.createFunction(
-        functionName = "excludeModuleByRegex",
-        "groupRegex" to "a\\.z\\..*",
-        "moduleNameRegex" to "b.*"
-      )
+    val excludeModuleByRegex = expectedGenerator.createFunction(
+      functionName = "excludeModuleByRegex",
+      "groupRegex" to language.quote("a\\.z\\..*"),
+      "moduleNameRegex" to language.quote("b.*")
+    )
 
-      val excludeVersionByRegex = expectedGenerator.createFunction(
-        functionName = "excludeVersionByRegex",
-        "groupRegex" to "a\\.z\\..*",
-        "moduleNameRegex" to "b.*",
-        "versionRegex" to "c\\.q\\.r"
-      )
+    val excludeVersionByRegex = expectedGenerator.createFunction(
+      functionName = "excludeVersionByRegex",
+      "groupRegex" to language.quote("a\\.z\\..*"),
+      "moduleNameRegex" to language.quote("b.*"),
+      "versionRegex" to language.quote("c\\.q\\.r")
+    )
 
-      val includeGroupAndSubgroups = expectedGenerator.createFunction(
-        functionName = "includeGroupAndSubgroups",
-        "groupPrefix" to "art"
-      )
+    val includeGroupAndSubgroups = expectedGenerator.createFunction(
+      functionName = "includeGroupAndSubgroups",
+      "groupPrefix" to language.quote("art")
+    )
 
-      val includeGroup = expectedGenerator.createFunction(
-        functionName = "includeGroup",
-        "group" to "a"
-      )
+    val includeGroup = expectedGenerator.createFunction(
+      functionName = "includeGroup",
+      "group" to language.quote("a")
+    )
 
-      val includeModule = expectedGenerator.createFunction(
-        functionName = "includeModule",
-        "group" to "a",
-        "moduleName" to "b"
-      )
+    val includeModule = expectedGenerator.createFunction(
+      functionName = "includeModule",
+      "group" to language.quote("a"),
+      "moduleName" to language.quote("b")
+    )
 
-      val includeVersion = expectedGenerator.createFunction(
-        functionName = "includeVersion",
-        "group" to "a",
-        "moduleName" to "b",
-        "version" to "c"
-      )
+    val includeVersion = expectedGenerator.createFunction(
+      functionName = "includeVersion",
+      "group" to language.quote("a"),
+      "moduleName" to language.quote("b"),
+      "version" to language.quote("c")
+    )
 
-      val includeGroupByRegex = expectedGenerator.createFunction(
-        functionName = "includeGroupByRegex",
-        "groupRegex" to "a\\.z\\..*"
-      )
+    val includeGroupByRegex = expectedGenerator.createFunction(
+      functionName = "includeGroupByRegex",
+      "groupRegex" to language.quote("a\\.z\\..*")
+    )
 
-      val includeModuleByRegex = expectedGenerator.createFunction(
-        functionName = "includeModuleByRegex",
-        "groupRegex" to "a\\.z\\..*",
-        "moduleNameRegex" to "b.*"
-      )
+    val includeModuleByRegex = expectedGenerator.createFunction(
+      functionName = "includeModuleByRegex",
+      "groupRegex" to language.quote("a\\.z\\..*"),
+      "moduleNameRegex" to language.quote("b.*")
+    )
 
-      val includeVersionByRegex = expectedGenerator.createFunction(
-        functionName = "includeVersionByRegex",
-        "groupRegex" to "a\\.z\\..*",
-        "moduleNameRegex" to "b.*",
-        "versionRegex" to "c\\.q\\.r"
-      )
+    val includeVersionByRegex = expectedGenerator.createFunction(
+      functionName = "includeVersionByRegex",
+      "groupRegex" to language.quote("a\\.z\\..*"),
+      "moduleNameRegex" to language.quote("b.*"),
+      "versionRegex" to language.quote("c\\.q\\.r")
+    )
 
-      val content = builder.write(language)
+    val content = builder.write(language)
 
-      content shouldBe """
+    content shouldBe """
         |pluginManagement {
         |  repositories {
         |    mavenLocal {
@@ -190,6 +189,6 @@ class RepositoryContentDescriptorSpecTest {
         |    }
         |  }
         |}
-      """.trimMargin()
-    }
+    """.trimMargin()
+  }
 }

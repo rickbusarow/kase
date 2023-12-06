@@ -48,7 +48,9 @@ public class TestFunctionCoordinates
 ) {
 
   @PublishedApi
-  internal fun testUriOrNull(): URI? {
+  internal val testUriOrNull: URI? by lazy { testUriOrNull() }
+
+  private fun testUriOrNull(): URI? {
 
     infix operator fun String.div(other: String) = "$this${File.separatorChar}$other"
 
@@ -126,21 +128,26 @@ public class TestFunctionCoordinates
      * Finds the stack trace kaseParam corresponding to the invoking test
      * function. This should be called as close as possible to the test function.
      */
-    @PublishedApi internal fun testStackTraceElement(): StackTraceElement {
+    internal fun testStackTraceElement(): StackTraceElement {
       val stackTrace = Thread.currentThread().stackTrace
 
-      val testElement = stackTrace.firstNotNullOfOrNull { it.testStackTraceElementOrNull() }
-      return testElement ?: error("No test StackTraceElement found.")
+      return stackTrace.firstNotNullOfOrNull { it.testStackTraceElementOrNull() }
+        ?: error("No test StackTraceElement found.")
     }
 
-    @PublishedApi internal fun from(stackTraceElement: StackTraceElement): TestFunctionCoordinates {
-      val actualClass = Class.forName(stackTraceElement.className).removeSynthetics()
+    private fun from(stackTraceElement: StackTraceElement): TestFunctionCoordinates {
+      val declaringClass = Class.forName(stackTraceElement.className)
+      val actualClass = declaringClass.removeSynthetics()
+
+      requireNotNull(actualClass) {
+        "Could not find a non-synthetic class for ${stackTraceElement.className}"
+      }
 
       return TestFunctionCoordinates(
         fileName = stackTraceElement.fileName as String,
         lineNumber = stackTraceElement.lineNumber,
         packageName = actualClass.`package`.name,
-        declaringClass = Class.forName(stackTraceElement.className),
+        declaringClass = declaringClass,
         declaringClassWithoutSynthetics = actualClass,
         declaringClassSimpleNames = actualClass.simpleNames(),
         callingFunctionSimpleName = stackTraceElement.methodName
@@ -152,7 +159,6 @@ public class TestFunctionCoordinates
 internal fun StackTraceElement.clazz(): Class<*> = Class.forName(className)
 
 /** Returns a [StackTraceElement] if the receiver is a test function, otherwise `null`. */
-@PublishedApi
 internal fun StackTraceElement.testStackTraceElementOrNull(): StackTraceElement? {
   @Suppress("SwallowedException")
   val clazz = try {
@@ -165,7 +171,7 @@ internal fun StackTraceElement.testStackTraceElementOrNull(): StackTraceElement?
     return null
   }
 
-  val actualClass = clazz.removeSynthetics()
+  val actualClass = clazz.removeSynthetics() ?: return null
 
   val actualMethodName = if (actualClass == clazz) {
     this.methodName
@@ -263,12 +269,13 @@ internal fun List<Method>.requireAllOrNoneAreAnnotated(
  * In practical terms, this strips away Kotlin's anonymous lambda
  * "classes" and other compatibility shims, returning the real class.
  */
-public tailrec fun Class<*>.removeSynthetics(): Class<*> {
+public tailrec fun Class<*>.removeSynthetics(): Class<*>? {
+  val enclosing: Class<*>? = enclosingClass
   return when {
-    isAnnotationPresent(JvmSynthetic::class.java) -> enclosingClass.removeSynthetics()
-    isSynthetic -> enclosingClass.removeSynthetics()
+    isAnnotationPresent(JvmSynthetic::class.java) -> enclosing?.removeSynthetics()
+    isSynthetic -> enclosing?.removeSynthetics()
     canonicalName != null -> this
-    else -> enclosingClass.removeSynthetics()
+    else -> enclosing?.removeSynthetics()
   }
 }
 

@@ -160,28 +160,23 @@ internal fun StringBuilder.testFun(
   types: KaseTypes
 ) {
 
-  val kdoc = buildString {
-    appendLine("/**")
-    appendLine(
-      " * Creates a new [${types.kaseInterfaceNoTypes}] instance and [TestEnvironment]"
-    )
-    appendLine(" * from these parameters, then executes [testAction].")
-    appendLine(" *")
-    for (arg in args) {
-      appendLine(
-        " * @param ${arg.valueName} the [${types.kaseInterfaceNoTypes}.${arg.valueName}] parameter."
-      )
+  val kdoc = buildList {
+    add("Creates a new [${types.kaseInterfaceNoTypes}] instance and [TestEnvironment]")
+    add("from these parameters, then executes [testAction].")
+    add("")
+    addAll(args) { arg ->
+      "@param ${arg.valueName} the [${types.kaseInterfaceNoTypes}.${arg.valueName}] parameter."
     }
-    appendLine(
-      " * @param displayNameFactory defines the name used for this test environment's working directory"
+    add(
+      "@param displayNameFactory defines the name used for this test environment's working directory"
     )
-    appendLine(
-      " * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run."
+    add(
+      "@param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run."
     )
-    appendLine(" * @param testAction the test action to execute.")
-    appendLine(" * @see KaseTestFactory")
-    append(" */")
+    add("@param testAction the test action to execute.")
+    add("@see KaseTestFactory")
   }
+    .makeKdoc()
   appendLine(
     """
     |$kdoc
@@ -200,6 +195,7 @@ internal fun StringBuilder.testFun(
     """.trimMargin()
   )
 }
+
 internal fun StringBuilder.kasesFun1(
   kaseSimpleName: String,
   iterableParams: List<String>,
@@ -209,19 +205,16 @@ internal fun StringBuilder.kasesFun1(
   argsStringWithLabels: String,
   types: KaseTypes
 ) {
-  val kasesKdoc = buildString {
-    appendLine("/**")
-    appendLine(" * Returns a [List] of [$kaseSimpleName]s from the given parameters.")
-    appendLine(" *")
-    for ((i, iterable) in iterableParams.withIndex()) {
-      appendLine(" * @param $iterable values mapped to the [$kaseSimpleName.a${i + 1}] parameter.")
+  val kasesKdoc = buildList {
+    add("Returns a [List] of [$kaseSimpleName]s from the given parameters.")
+    add("")
+    addAll(iterableParams.withIndex()) { (i, iterable) ->
+      "@param $iterable values mapped to the [$kaseSimpleName.a${i + 1}] parameter."
     }
-    appendLine(
-      " * @param displayNameFactory defines the name used in test environments and dynamic tests"
-    )
-    appendLine(" * @return a [List] of [$kaseSimpleName]s from the given parameters.")
-    append(" */")
+    add("@param displayNameFactory defines the name used in test environments and dynamic tests")
+    add("@return a [List] of [$kaseSimpleName]s from the given parameters.")
   }
+    .makeKdoc()
   val forLoops = forLoops(args) {
     appendLine("add(kase($argsStringWithLabels, displayNameFactory = displayNameFactory))")
   }
@@ -247,127 +240,6 @@ internal fun String.fixBlankLines(): String {
     .plus("\n")
 }
 
-internal fun writeGradleFile() {
-  val gradle = buildString {
-
-    appendLine(
-      """
-      |$LICENSE
-      |
-      |$FILE_ANNOTATIONS
-      |
-      |package com.rickbusarow.kase.gradle
-      |
-      """.trimMargin()
-    )
-
-    List(MAX_PARAMS) { it + 1 }
-      .map { "import com.rickbusarow.kase.Kase$it" }
-      .sorted()
-      .forEach(::appendLine)
-
-    appendLine("import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixElement")
-    appendLine("import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey")
-    appendLine("import com.rickbusarow.kase.kases")
-    appendLine()
-
-    for (ct in (1..MAX_PARAMS)) {
-      val types = (1..ct)
-        .joinToString(
-          separator = ",\n",
-          prefix = "\n",
-          postfix = "\n  "
-        ) { "  reified A$it : VersionMatrixElement<*>" }
-
-      val params = (1..ct)
-        .joinToString(
-          separator = ",\n",
-          prefix = "\n",
-          postfix = "\n"
-        ) { "  a${it}Key: VersionMatrixKey<A$it>" }
-
-      val kdoc = """
-        |/**
-        | * Returns a [List] of [Kase$ct]s from this [VersionMatrix] for the given keys.
-        | *
-        |${
-        (1..ct)
-          .joinToString("\n") {
-            "| * @param a${it}Key the key for the ${it.withOrdinalSuffix()} parameter."
-          }
-      }
-        | * @return a [List] of [Kase$ct]s from this [VersionMatrix] for the given keys
-        | */
-      """.trimMargin()
-
-      appendLine(
-        """
-        |$kdoc
-        |public inline fun <$types> VersionMatrix.kases($params): List<Kase$ct<${
-          (1..ct).joinToString(", ") { "A$it" }
-        }>> {
-        |  return kases(${
-          (1..ct).joinToString(separator = ",\n", prefix = "\n", postfix = "\n  ") {
-            "    args$it = get(a${it}Key)"
-          }
-        })
-        |}
-        |
-        """.trimMargin()
-      )
-    }
-  }
-    .fixBlankLines()
-
-  kasesKt.writeText(gradle)
-}
-
-internal fun writeTestElements() {
-
-  val classNames = List(MAX_PARAMS) { "TestVersion${it + 1}" }
-
-  val content = buildString {
-
-    appendLine(
-      """
-      |$LICENSE
-      |
-      |$FILE_ANNOTATIONS
-      |
-      |package com.rickbusarow.kase.gradle
-      |
-      |${
-        classNames.sorted()
-          .joinToString("\n") { "import com.rickbusarow.kase.gradle.$it.${it}Key" }
-      }
-      |import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
-      |import dev.drewhamilton.poko.Poko
-      |
-      """.trimMargin()
-    )
-
-    val classes = classNames.map { tv ->
-      """
-      |@Poko
-      |class $tv(
-      |  override val value: String
-      |) : AbstractDependencyVersion<String, $tv, ${tv}Key>(${tv}Key) {
-      |
-      |  companion object ${tv}Key : VersionMatrixKey<$tv>
-      |}
-      |
-      """.trimMargin()
-    }
-
-    for (clazz in classes) {
-      appendLine(clazz)
-    }
-  }
-    .fixBlankLines()
-
-  testElements.writeText(content)
-}
-
 internal fun StringBuilder.asTests_Destructured(
   args: List<KaseArg>,
   kaseTypes: KaseTypes
@@ -382,9 +254,8 @@ internal fun StringBuilder.asTests_Destructured(
      * @return a [Stream] of [DynamicNode]s from these kases.
      * @see ${kaseTypes.kaseInterfaceNoTypes}
      */
-    @JvmName("asTests${kaseTypes.kaseInterfaceNoTypes}Destructured")
-    public inline fun <${args.valueTypesString}> Iterable<${kaseTypes.kaseInterface}>.asTests(
-      crossinline testAction: (${args.paramsString}) -> Unit
+    public fun <${args.valueTypesString}> Iterable<${kaseTypes.kaseInterface}>.asTests(
+      testAction: (${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
       return testFactory {
         this@asTests.asTests { testAction(${args.valuesFromItString}) }
@@ -393,7 +264,8 @@ internal fun StringBuilder.asTests_Destructured(
     """.trimIndent()
   )
 }
-internal fun StringBuilder.testFactory_vararg_Destructured(
+
+internal fun StringBuilder.testFactory_vararg(
   kdoc: String,
   args: List<KaseArg>,
   kaseTypes: KaseTypes
@@ -402,10 +274,9 @@ internal fun StringBuilder.testFactory_vararg_Destructured(
   appendLine(kdoc)
   appendLine(
     """
-    @JvmName("testFactory${kaseTypes.kaseInterfaceNoTypes}VarargDestructured")
-    public inline fun <${args.valueTypesString}> testFactory(
+    public fun <${args.valueTypesString}> testFactory(
       vararg kases: ${kaseTypes.kaseInterface},
-      crossinline testAction: (${args.paramsString}) -> Unit
+      testAction: (${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
       return testFactory { kases.asSequence().asTests { testAction(${args.valuesFromItString}) } }
     }
@@ -413,7 +284,7 @@ internal fun StringBuilder.testFactory_vararg_Destructured(
   )
 }
 
-internal fun StringBuilder.testFactory_Iterable_Destructured(
+internal fun StringBuilder.testFactory_Iterable(
   kdoc: String,
   args: List<KaseArg>,
   kaseTypes: KaseTypes
@@ -422,10 +293,9 @@ internal fun StringBuilder.testFactory_Iterable_Destructured(
   appendLine(kdoc)
   appendLine(
     """
-    @JvmName("testFactory${kaseTypes.kaseInterfaceNoTypes}IterableDestructured")
-    public inline fun <${args.valueTypesString}> testFactory(
+    public fun <${args.valueTypesString}> testFactory(
       kases: Iterable<${kaseTypes.kaseInterface}>,
-      crossinline testAction: (${args.paramsString}) -> Unit
+      testAction: (${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
       return testFactory { kases.asTests { testAction(${args.valuesFromItString}) } }
     }
@@ -436,18 +306,18 @@ internal fun StringBuilder.testFactory_Iterable_Destructured(
 internal fun forLoops(args: List<String>, center: StringBuilder.() -> Unit): String {
   return buildString {
 
-    var idt = 1
-    fun tab() = "  ".repeat(idt)
+    var indent = 1
+    fun tab() = "  ".repeat(indent)
 
     appendLine("buildList {")
-    idt++
+    indent++
 
     for ((index, arg) in args.withIndex()) {
 
       val i = index + 1
 
       appendLine("${tab()}for ($arg in args$i) {")
-      idt++
+      indent++
     }
 
     append(tab())
@@ -455,7 +325,7 @@ internal fun forLoops(args: List<String>, center: StringBuilder.() -> Unit): Str
     center()
 
     repeat(args.size + 1) {
-      idt--
+      indent--
       appendLine("${tab()}}")
     }
   }.trim()

@@ -38,8 +38,8 @@ public fun gradlePropertyReference(
 }
 
 /**
- * Creates a reference to an immutable Gradle provider (like `Provider<String>`). If a [name]
- * argument is not provided, the name of the provider will be inferred by the delegate.
+ * Creates a reference to an immutable Gradle provider (like `Provider<String>`). If
+ * a [name] argument is not provided, the name of the delegated property will be used.
  *
  * ```
  * val myProvider by gradleProviderReference()
@@ -56,7 +56,7 @@ public fun gradleProviderReference(
 
 /**
  * Creates a reference to a mutable variable (like `var foo: String`). If a [name]
- * argument is not provided, the name of the variable will be inferred by the delegate.
+ * argument is not provided, the name of the delegated property will be used.
  *
  * ```
  * val myVariable by mutableVariableReference()
@@ -65,7 +65,9 @@ public fun gradleProviderReference(
  */
 public inline fun <reified T> mutableVariableReference(
   name: String? = null,
-  noinline tAsDslElement: (T) -> DslElement
+  noinline tAsDslElement: (T) -> DslElement = {
+    if (T::class == String::class) StringLiteral(it.toString()) else RawLiteral(it.toString())
+  }
 ): DslContainerProperty<MutableVariableReference<T>> {
   return DslContainerProperty { container, kProperty ->
     MutableVariableReference(name ?: kProperty.name, container, tAsDslElement)
@@ -73,8 +75,8 @@ public inline fun <reified T> mutableVariableReference(
 }
 
 /**
- * Creates a reference to an immutable variable (like `val foo: String`). If a [name]
- * argument is not provided, the name of the variable will be inferred by the delegate.
+ * Creates a reference to an immutable variable (like `val foo: String`). If a
+ * [name] argument is not provided, the name of the delegated property will be used.
  *
  * ```
  * val myVariable by immutableVariableReference()

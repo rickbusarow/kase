@@ -11,6 +11,8 @@ public abstract interface class com/rickbusarow/kase/gradle/BaseGradleTest : com
 }
 
 public final class com/rickbusarow/kase/gradle/BaseGradleTest$DefaultImpls {
+	public static fun asContainers (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static fun asContainers (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public static fun asTests (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static fun asTests (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/BaseGradleTest;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;

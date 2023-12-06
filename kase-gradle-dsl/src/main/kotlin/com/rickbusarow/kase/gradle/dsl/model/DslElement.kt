@@ -79,7 +79,7 @@ public value class RawLiteral(public val value: String) : DslElement {
 @Poko
 public class StringLiteral(
   public val value: String,
-  public val useDoubleQuotes: Boolean?
+  public val useDoubleQuotes: Boolean? = null
 ) : DslElement {
   override fun write(language: DslLanguage): String {
     return language.quote(

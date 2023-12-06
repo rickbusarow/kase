@@ -29,6 +29,17 @@ internal fun Int.withOrdinalSuffix(): String {
   }
 }
 
+internal fun String.makeKdoc(): String = lines().makeKdoc()
+internal fun List<String>.makeKdoc(): String = joinToString(
+  separator = "\n",
+  prefix = "/**\n",
+  postfix = "\n */"
+) { if (it.isBlank()) " *" else " * $it" }
+
+internal fun <T> MutableList<String>.addAll(elements: Iterable<T>, transform: (T) -> String) {
+  addAll(elements.map(transform))
+}
+
 /**
  * Creates a string from all the elements separated using [separator]
  * and using the given [prefix] and [postfix] if supplied.

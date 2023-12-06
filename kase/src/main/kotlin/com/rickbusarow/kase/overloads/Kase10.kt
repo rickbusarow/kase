@@ -215,9 +215,8 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> kases(
  * @return a [Stream] of [DynamicNode]s from these kases.
  * @see Kase10
  */
-@JvmName("asTestsKase10Destructured")
-public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> Iterable<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>>.asTests(
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10) -> Unit
+public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> Iterable<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>>.asTests(
+  testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory {
     this@asTests.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10) }
@@ -236,10 +235,9 @@ public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> Iterable<Kase10<A1, 
  * @see Kase10
  * @see TestEnvironmentFactory
  */
-@JvmName("testFactoryKase10VarargDestructured")
-public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> testFactory(
+public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> testFactory(
   vararg kases: Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>,
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10) -> Unit
+  testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory { kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10) } }
 }
@@ -256,10 +254,9 @@ public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> testFactory(
  * @see Kase10
  * @see TestEnvironmentFactory
  */
-@JvmName("testFactoryKase10IterableDestructured")
-public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> testFactory(
+public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> testFactory(
   kases: Iterable<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>>,
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10) -> Unit
+  testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory { kases.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8, it.a9, it.a10) } }
 }

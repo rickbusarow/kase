@@ -1,10 +1,35 @@
+public class com/rickbusarow/kase/gradle/dsl/AndroidCompileOptionsSpec : com/rickbusarow/kase/gradle/dsl/model/AbstractDslElementContainer {
+	public fun <init> ()V
+	public final fun getEncoding ()Lcom/rickbusarow/kase/gradle/dsl/model/RegularVariableReference$MutableVariableReference;
+	public final fun getSourceCompatibility ()Lcom/rickbusarow/kase/gradle/dsl/model/RegularVariableReference$MutableVariableReference;
+	public final fun getTargetCompatibility ()Lcom/rickbusarow/kase/gradle/dsl/model/RegularVariableReference$MutableVariableReference;
+	public final fun isCoreLibraryDesugaringEnabled ()Lcom/rickbusarow/kase/gradle/dsl/model/RegularVariableReference$MutableVariableReference;
+	public final fun sourceCompatibility (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/AndroidCompileOptionsSpec;
+	public final fun targetCompatibility (Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/AndroidCompileOptionsSpec;
+}
+
+public class com/rickbusarow/kase/gradle/dsl/AndroidComponentsExtensionSpec : com/rickbusarow/kase/gradle/dsl/model/AbstractDslElementContainer {
+	public fun <init> ()V
+	public final fun finalizeDsl (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/AndroidComponentsExtensionSpec;
+}
+
+public class com/rickbusarow/kase/gradle/dsl/AndroidExtensionSpec : com/rickbusarow/kase/gradle/dsl/model/AbstractDslElementContainer {
+	public fun <init> ()V
+	public final fun compileOptions (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/AndroidExtensionSpec;
+	public final fun getCompileSdk ()Lcom/rickbusarow/kase/gradle/dsl/model/RegularVariableReference$MutableVariableReference;
+	public final fun getNamespace ()Lcom/rickbusarow/kase/gradle/dsl/model/RegularVariableReference$MutableVariableReference;
+	public final fun getResourcePrefix ()Lcom/rickbusarow/kase/gradle/dsl/model/RegularVariableReference$MutableVariableReference;
+}
+
 public abstract class com/rickbusarow/kase/gradle/dsl/ArtifactRepositorySpec : com/rickbusarow/kase/gradle/dsl/model/AbstractDslElementContainer {
 	public abstract fun content (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/ArtifactRepositorySpec;
 }
 
-public final class com/rickbusarow/kase/gradle/dsl/BuildFileSpec : com/rickbusarow/kase/gradle/dsl/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/dsl/model/DslFileBuilder, com/rickbusarow/kase/gradle/dsl/model/HasDependenciesBlock, com/rickbusarow/kase/gradle/dsl/model/HasPluginsBlock {
+public final class com/rickbusarow/kase/gradle/dsl/BuildFileSpec : com/rickbusarow/kase/gradle/dsl/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock, com/rickbusarow/kase/gradle/dsl/model/DslFileBuilder, com/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock, com/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock, com/rickbusarow/kase/gradle/dsl/model/HasDependenciesBlock, com/rickbusarow/kase/gradle/dsl/model/HasPluginsBlock {
 	public fun <init> (Lkotlin/jvm/functions/Function1;)V
-	public final fun buildscript (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public fun android (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public fun androidComponents (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public fun buildscript (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
 	public fun dependencies (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
 	public synthetic fun dependencies (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/model/HasDependenciesBlock;
 	public fun plugins (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
@@ -261,6 +286,27 @@ public final class com/rickbusarow/kase/gradle/dsl/DependencyResolutionManagemen
 	public fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/DependencyResolutionManagementSpecSpec;
 	public synthetic fun repositories (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/model/HasRepositoriesBlock;
 	public final fun versionCatalogs (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/DependencyResolutionManagementSpecSpec;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock : com/rickbusarow/kase/gradle/dsl/model/DslElementContainer {
+	public abstract fun buildscript (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+}
+
+public final class com/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock$DefaultImpls {
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/dsl/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun buildscript (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun deciding (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$LabelSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$InfixSupport;Lcom/rickbusarow/kase/gradle/dsl/model/ParameterList;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$LabelSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$InfixSupport;[Lcom/rickbusarow/kase/gradle/dsl/model/Parameter;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/dsl/model/Parameter;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun raw (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun set (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/dsl/model/DslElement;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun set (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/dsl/model/DslElement;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun setterFunctionCall (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/dsl/model/ValueParameter;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$PropertyAccessSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$LabelSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$InfixSupport;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/dsl/HasBuildscriptBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/dsl/model/StringLiteral;
 }
 
 public final class com/rickbusarow/kase/gradle/dsl/IncludedBuildSpec : com/rickbusarow/kase/gradle/dsl/model/AbstractDslElementContainer {
@@ -700,6 +746,48 @@ public class com/rickbusarow/kase/gradle/dsl/model/GradleProviderReference$Gradl
 	public fun toString ()Ljava/lang/String;
 }
 
+public abstract interface class com/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock : com/rickbusarow/kase/gradle/dsl/model/DslElementContainer {
+	public abstract fun android (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+}
+
+public final class com/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock$DefaultImpls {
+	public static fun android (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/dsl/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun deciding (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$LabelSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$InfixSupport;Lcom/rickbusarow/kase/gradle/dsl/model/ParameterList;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$LabelSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$InfixSupport;[Lcom/rickbusarow/kase/gradle/dsl/model/Parameter;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/dsl/model/Parameter;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun raw (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun set (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/dsl/model/DslElement;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun set (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/dsl/model/DslElement;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun setterFunctionCall (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/dsl/model/ValueParameter;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$PropertyAccessSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$LabelSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$InfixSupport;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/dsl/model/StringLiteral;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock : com/rickbusarow/kase/gradle/dsl/model/DslElementContainer {
+	public abstract fun androidComponents (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+}
+
+public final class com/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock$DefaultImpls {
+	public static fun androidComponents (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun asStringLiteral (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/dsl/model/StringLiteral;
+	public static fun assignGradleProperty (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun deciding (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$LabelSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$InfixSupport;Lcom/rickbusarow/kase/gradle/dsl/model/ParameterList;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$LabelSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$InfixSupport;[Lcom/rickbusarow/kase/gradle/dsl/model/Parameter;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun functionCall (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;[Lcom/rickbusarow/kase/gradle/dsl/model/Parameter;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun raw (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun set (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/dsl/model/DslElement;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun set (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/dsl/model/DslElement;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun setEquals (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun setterFunctionCall (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Lcom/rickbusarow/kase/gradle/dsl/model/ValueParameter;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$PropertyAccessSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$LabelSupport;Lcom/rickbusarow/kase/gradle/DslLanguageSettings$InfixSupport;)Lcom/rickbusarow/kase/gradle/dsl/BuildFileSpec;
+	public static fun stringLiteral (Lcom/rickbusarow/kase/gradle/dsl/model/HasAndroidComponentsBlock;Ljava/lang/String;Ljava/lang/Boolean;)Lcom/rickbusarow/kase/gradle/dsl/model/StringLiteral;
+}
+
 public abstract interface class com/rickbusarow/kase/gradle/dsl/model/HasDependenciesBlock : com/rickbusarow/kase/gradle/dsl/model/DslElementContainer {
 	public abstract fun dependencies (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/model/HasDependenciesBlock;
 }
@@ -976,6 +1064,7 @@ public final class com/rickbusarow/kase/gradle/dsl/model/SetterFunctionCall : co
 
 public final class com/rickbusarow/kase/gradle/dsl/model/StringLiteral : com/rickbusarow/kase/gradle/dsl/model/DslElement {
 	public fun <init> (Ljava/lang/String;Ljava/lang/Boolean;)V
+	public synthetic fun <init> (Ljava/lang/String;Ljava/lang/Boolean;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getUseDoubleQuotes ()Ljava/lang/Boolean;
 	public final fun getValue ()Ljava/lang/String;

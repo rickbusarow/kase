@@ -25,6 +25,7 @@ import java.util.stream.Stream
  * Common interface for creating dynamic tests with predefined
  * [kases][HasKases.kases] and a unique [TestEnvironment]
  */
+@KaseDsl
 public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   HasKases<K>,
   TestEnvironmentFactory<T, K> {
@@ -44,14 +45,10 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
 
     val testEnvironment = newTestEnvironment(kase, testFunctionCoordinates)
 
-    test(testEnvironment, testAction)
-  }
-
-  private fun test(environment: T, testAction: suspend T.() -> Unit) {
     runBlocking {
-      environment.asClueCatching {
+      testEnvironment.asClueCatching {
         testAction()
-        println(environment)
+        println(testEnvironment)
       }
     }
   }
@@ -77,7 +74,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   ): Stream<out DynamicNode> {
     return com.rickbusarow.kase.testFactory {
       this@asTests.asTests { kaseElement ->
-        test(newTestEnvironment(kaseElement, testFunctionCoordinates)) { testAction(kaseElement) }
+        test(kaseElement, testFunctionCoordinates) { testAction(kaseElement) }
       }
     }
   }
@@ -120,4 +117,34 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
     kases: Iterable<E>,
     testAction: suspend T.(kase: E) -> Unit
   ): Stream<out DynamicNode> = kases.asSequence().asTests(testAction)
+
+  /**
+   * Transforms an iterable into a stream of dynamic test containers. The
+   * names of the containers are determined by the [testName] function, and
+   * the containers themselves are initialized by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each test.
+   * @param testAction a function to initialize each test container.
+   * @return a stream of dynamic nodes representing the containers.
+   */
+  public fun <K : Kase> Iterable<K>.asContainers(
+    testName: (K) -> String = { it.displayName },
+    testAction: TestNodeBuilder.(K) -> Unit
+  ): Stream<out DynamicNode> = asSequence().asContainers(testName, testAction)
+
+  /**
+   * Transforms a sequence into a stream of dynamic test containers. The
+   * names of the containers are determined by the [testName] function, and
+   * the containers themselves are initialized by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each test.
+   * @param testAction a function to initialize each test container.
+   * @return a stream of dynamic nodes representing the containers.
+   */
+  public fun <K : Kase> Sequence<K>.asContainers(
+    testName: (K) -> String = { it.displayName },
+    testAction: TestNodeBuilder.(K) -> Unit
+  ): Stream<out DynamicNode> = com.rickbusarow.kase.testFactory {
+    asContainers(testName, testAction)
+  }
 }

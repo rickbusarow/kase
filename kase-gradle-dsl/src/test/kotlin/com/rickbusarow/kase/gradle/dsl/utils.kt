@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle.dsl
 
+import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.DslLanguage.GroovyDsl
 import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
@@ -36,3 +37,7 @@ inline val dslLanguages: List<DslLanguage>
       GroovyDsl(useInfix = useInfix, useLabels = useLabels, useDoubleQuotes = false)
     )
   }
+
+fun List<DslLanguage>.kases(): List<Kase1<DslLanguage>> {
+  return kases(args1 = this@kases, displayNameFactory = { a1.displayName })
+}

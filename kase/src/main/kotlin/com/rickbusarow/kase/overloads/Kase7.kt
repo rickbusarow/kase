@@ -188,9 +188,8 @@ public fun <A1, A2, A3, A4, A5, A6, A7> kases(
  * @return a [Stream] of [DynamicNode]s from these kases.
  * @see Kase7
  */
-@JvmName("asTestsKase7Destructured")
-public inline fun <A1, A2, A3, A4, A5, A6, A7> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.asTests(
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
+public fun <A1, A2, A3, A4, A5, A6, A7> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.asTests(
+  testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory {
     this@asTests.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7) }
@@ -209,10 +208,9 @@ public inline fun <A1, A2, A3, A4, A5, A6, A7> Iterable<Kase7<A1, A2, A3, A4, A5
  * @see Kase7
  * @see TestEnvironmentFactory
  */
-@JvmName("testFactoryKase7VarargDestructured")
-public inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
+public fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   vararg kases: Kase7<A1, A2, A3, A4, A5, A6, A7>,
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
+  testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory { kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7) } }
 }
@@ -229,10 +227,9 @@ public inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
  * @see Kase7
  * @see TestEnvironmentFactory
  */
-@JvmName("testFactoryKase7IterableDestructured")
-public inline fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
+public fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   kases: Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>,
-  crossinline testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
+  testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
 ): Stream<out DynamicNode> {
   return testFactory { kases.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7) } }
 }
