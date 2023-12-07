@@ -1,4 +1,2 @@
-dev.drewhamilton.poko:poko-annotations-jvm:0.15.1
-dev.drewhamilton.poko:poko-annotations:0.15.1
 org.jetbrains.kotlin:kotlin-stdlib:1.9.21
 org.jetbrains:annotations:13.0

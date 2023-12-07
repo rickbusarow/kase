@@ -51,8 +51,9 @@ internal class DefaultKase4<A1, A2, A3, A4>(
   private val displayNameFactory: KaseDisplayNameFactory<Kase4<A1, A2, A3, A4>>
 ) : Kase4<A1, A2, A3, A4>, KaseInternal {
 
-  override val displayName: String
-    get() = with(displayNameFactory) { createDisplayName() }
+  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
+    with(displayNameFactory) { createDisplayName() }
+  }
 
   override operator fun component1(): A1 = a1
   override operator fun component2(): A2 = a2
@@ -99,6 +100,66 @@ public fun <A1, A2, A3, A4> kase(
   displayNameFactory = { displayName }
 )
 /**
+ * Returns a list of [Kase4]s from the given parameters.
+ *
+ * @param args1 values mapped to the [Kase4.a1] parameter.
+ * @param args2 values mapped to the [Kase4.a2] parameter.
+ * @param args3 values mapped to the [Kase4.a3] parameter.
+ * @param args4 values mapped to the [Kase4.a4] parameter.
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @return a list of [Kase4]s from the given parameters.
+ */
+public fun <A1, A2, A3, A4> kases(
+  args1: Iterable<A1>,
+  args2: Iterable<A2>,
+  args3: Iterable<A3>,
+  args4: Iterable<A4>,
+  displayNameFactory: KaseDisplayNameFactory<Kase4<A1, A2, A3, A4>> = defaultKase4DisplayNameFactory()
+): List<Kase4<A1, A2, A3, A4>> {
+  return buildList {
+    for (a1 in args1) {
+      for (a2 in args2) {
+        for (a3 in args3) {
+          for (a4 in args4) {
+            add(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, displayNameFactory = displayNameFactory))
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Returns a sequence of [Kase4]s from the given parameters.
+ *
+ * @param args1 values mapped to the [Kase4.a1] parameter.
+ * @param args2 values mapped to the [Kase4.a2] parameter.
+ * @param args3 values mapped to the [Kase4.a3] parameter.
+ * @param args4 values mapped to the [Kase4.a4] parameter.
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @return a sequence of [Kase4]s from the given parameters.
+ */
+public fun <A1, A2, A3, A4> kases(
+  args1: Sequence<A1>,
+  args2: Sequence<A2>,
+  args3: Sequence<A3>,
+  args4: Sequence<A4>,
+  displayNameFactory: KaseDisplayNameFactory<Kase4<A1, A2, A3, A4>> = defaultKase4DisplayNameFactory()
+): Sequence<Kase4<A1, A2, A3, A4>> {
+  return sequence {
+    for (a1 in args1) {
+      for (a2 in args2) {
+        for (a3 in args3) {
+          for (a4 in args4) {
+            yield(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, displayNameFactory = displayNameFactory))
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
  * Creates a new [Kase4] instance and [TestEnvironment]
  * from these parameters, then executes [testAction].
  *
@@ -122,36 +183,6 @@ public fun <T: TestEnvironment, A1, A2, A3, A4> KaseTestFactory<T, Kase4<A1, A2,
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )
-}
-
-/**
- * Returns a [List] of [Kase4]s from the given parameters.
- *
- * @param args1 values mapped to the [Kase4.a1] parameter.
- * @param args2 values mapped to the [Kase4.a2] parameter.
- * @param args3 values mapped to the [Kase4.a3] parameter.
- * @param args4 values mapped to the [Kase4.a4] parameter.
- * @param displayNameFactory defines the name used in test environments and dynamic tests
- * @return a [List] of [Kase4]s from the given parameters.
- */
-public fun <A1, A2, A3, A4> kases(
-  args1: Iterable<A1>,
-  args2: Iterable<A2>,
-  args3: Iterable<A3>,
-  args4: Iterable<A4>,
-  displayNameFactory: KaseDisplayNameFactory<Kase4<A1, A2, A3, A4>> = defaultKase4DisplayNameFactory()
-): List<Kase4<A1, A2, A3, A4>> {
-  return buildList {
-    for (a1 in args1) {
-      for (a2 in args2) {
-        for (a3 in args3) {
-          for (a4 in args4) {
-            add(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, displayNameFactory = displayNameFactory))
-          }
-        }
-      }
-    }
-  }
 }
 
 /**

@@ -25,7 +25,3 @@ application {
 jvmModule {
   explicitApi.set(false)
 }
-
-dependencies {
-  implementation(libs.poko.annotations)
-}

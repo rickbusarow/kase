@@ -57,8 +57,9 @@ internal class DefaultKase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>(
   private val displayNameFactory: KaseDisplayNameFactory<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>>
 ) : Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>, KaseInternal {
 
-  override val displayName: String
-    get() = with(displayNameFactory) { createDisplayName() }
+  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
+    with(displayNameFactory) { createDisplayName() }
+  }
 
   override operator fun component1(): A1 = a1
   override operator fun component2(): A2 = a2
@@ -123,39 +124,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> kase(
   displayNameFactory = { displayName }
 )
 /**
- * Creates a new [Kase10] instance and [TestEnvironment]
- * from these parameters, then executes [testAction].
- *
- * @param a1 the [Kase10.a1] parameter.
- * @param a2 the [Kase10.a2] parameter.
- * @param a3 the [Kase10.a3] parameter.
- * @param a4 the [Kase10.a4] parameter.
- * @param a5 the [Kase10.a5] parameter.
- * @param a6 the [Kase10.a6] parameter.
- * @param a7 the [Kase10.a7] parameter.
- * @param a8 the [Kase10.a8] parameter.
- * @param a9 the [Kase10.a9] parameter.
- * @param a10 the [Kase10.a10] parameter.
- * @param displayNameFactory defines the name used for this test environment's working directory
- * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
- * @param testAction the test action to execute.
- * @see KaseTestFactory
- */
-public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> KaseTestFactory<T, Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>>.test(
-  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10,
-  displayNameFactory: KaseDisplayNameFactory<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>> = defaultKase10DisplayNameFactory(),
-  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
-  testAction: suspend T.() -> Unit
-) {
-  this@KaseTestFactory.test(
-    kase = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, displayNameFactory = displayNameFactory),
-    testFunctionCoordinates = testFunctionCoordinates,
-    testAction = testAction
-  )
-}
-
-/**
- * Returns a [List] of [Kase10]s from the given parameters.
+ * Returns a list of [Kase10]s from the given parameters.
  *
  * @param args1 values mapped to the [Kase10.a1] parameter.
  * @param args2 values mapped to the [Kase10.a2] parameter.
@@ -168,7 +137,7 @@ public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> KaseTes
  * @param args9 values mapped to the [Kase10.a9] parameter.
  * @param args10 values mapped to the [Kase10.a10] parameter.
  * @param displayNameFactory defines the name used in test environments and dynamic tests
- * @return a [List] of [Kase10]s from the given parameters.
+ * @return a list of [Kase10]s from the given parameters.
  */
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> kases(
   args1: Iterable<A1>,
@@ -206,6 +175,92 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> kases(
       }
     }
   }
+}
+
+/**
+ * Returns a sequence of [Kase10]s from the given parameters.
+ *
+ * @param args1 values mapped to the [Kase10.a1] parameter.
+ * @param args2 values mapped to the [Kase10.a2] parameter.
+ * @param args3 values mapped to the [Kase10.a3] parameter.
+ * @param args4 values mapped to the [Kase10.a4] parameter.
+ * @param args5 values mapped to the [Kase10.a5] parameter.
+ * @param args6 values mapped to the [Kase10.a6] parameter.
+ * @param args7 values mapped to the [Kase10.a7] parameter.
+ * @param args8 values mapped to the [Kase10.a8] parameter.
+ * @param args9 values mapped to the [Kase10.a9] parameter.
+ * @param args10 values mapped to the [Kase10.a10] parameter.
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @return a sequence of [Kase10]s from the given parameters.
+ */
+public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> kases(
+  args1: Sequence<A1>,
+  args2: Sequence<A2>,
+  args3: Sequence<A3>,
+  args4: Sequence<A4>,
+  args5: Sequence<A5>,
+  args6: Sequence<A6>,
+  args7: Sequence<A7>,
+  args8: Sequence<A8>,
+  args9: Sequence<A9>,
+  args10: Sequence<A10>,
+  displayNameFactory: KaseDisplayNameFactory<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>> = defaultKase10DisplayNameFactory()
+): Sequence<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>> {
+  return sequence {
+    for (a1 in args1) {
+      for (a2 in args2) {
+        for (a3 in args3) {
+          for (a4 in args4) {
+            for (a5 in args5) {
+              for (a6 in args6) {
+                for (a7 in args7) {
+                  for (a8 in args8) {
+                    for (a9 in args9) {
+                      for (a10 in args10) {
+                        yield(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, displayNameFactory = displayNameFactory))
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Creates a new [Kase10] instance and [TestEnvironment]
+ * from these parameters, then executes [testAction].
+ *
+ * @param a1 the [Kase10.a1] parameter.
+ * @param a2 the [Kase10.a2] parameter.
+ * @param a3 the [Kase10.a3] parameter.
+ * @param a4 the [Kase10.a4] parameter.
+ * @param a5 the [Kase10.a5] parameter.
+ * @param a6 the [Kase10.a6] parameter.
+ * @param a7 the [Kase10.a7] parameter.
+ * @param a8 the [Kase10.a8] parameter.
+ * @param a9 the [Kase10.a9] parameter.
+ * @param a10 the [Kase10.a10] parameter.
+ * @param displayNameFactory defines the name used for this test environment's working directory
+ * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
+ * @param testAction the test action to execute.
+ * @see KaseTestFactory
+ */
+public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10> KaseTestFactory<T, Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>>.test(
+  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10,
+  displayNameFactory: KaseDisplayNameFactory<Kase10<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10>> = defaultKase10DisplayNameFactory(),
+  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
+  testAction: suspend T.() -> Unit
+) {
+  this@KaseTestFactory.test(
+    kase = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, displayNameFactory = displayNameFactory),
+    testFunctionCoordinates = testFunctionCoordinates,
+    testAction = testAction
+  )
 }
 
 /**

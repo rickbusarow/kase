@@ -49,8 +49,9 @@ internal class DefaultKase2<A1, A2>(
   private val displayNameFactory: KaseDisplayNameFactory<Kase2<A1, A2>>
 ) : Kase2<A1, A2>, KaseInternal {
 
-  override val displayName: String
-    get() = with(displayNameFactory) { createDisplayName() }
+  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
+    with(displayNameFactory) { createDisplayName() }
+  }
 
   override operator fun component1(): A1 = a1
   override operator fun component2(): A2 = a2
@@ -91,6 +92,50 @@ public fun <A1, A2> kase(
   displayNameFactory = { displayName }
 )
 /**
+ * Returns a list of [Kase2]s from the given parameters.
+ *
+ * @param args1 values mapped to the [Kase2.a1] parameter.
+ * @param args2 values mapped to the [Kase2.a2] parameter.
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @return a list of [Kase2]s from the given parameters.
+ */
+public fun <A1, A2> kases(
+  args1: Iterable<A1>,
+  args2: Iterable<A2>,
+  displayNameFactory: KaseDisplayNameFactory<Kase2<A1, A2>> = defaultKase2DisplayNameFactory()
+): List<Kase2<A1, A2>> {
+  return buildList {
+    for (a1 in args1) {
+      for (a2 in args2) {
+        add(kase(a1 = a1, a2 = a2, displayNameFactory = displayNameFactory))
+      }
+    }
+  }
+}
+
+/**
+ * Returns a sequence of [Kase2]s from the given parameters.
+ *
+ * @param args1 values mapped to the [Kase2.a1] parameter.
+ * @param args2 values mapped to the [Kase2.a2] parameter.
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @return a sequence of [Kase2]s from the given parameters.
+ */
+public fun <A1, A2> kases(
+  args1: Sequence<A1>,
+  args2: Sequence<A2>,
+  displayNameFactory: KaseDisplayNameFactory<Kase2<A1, A2>> = defaultKase2DisplayNameFactory()
+): Sequence<Kase2<A1, A2>> {
+  return sequence {
+    for (a1 in args1) {
+      for (a2 in args2) {
+        yield(kase(a1 = a1, a2 = a2, displayNameFactory = displayNameFactory))
+      }
+    }
+  }
+}
+
+/**
  * Creates a new [Kase2] instance and [TestEnvironment]
  * from these parameters, then executes [testAction].
  *
@@ -112,28 +157,6 @@ public fun <T: TestEnvironment, A1, A2> KaseTestFactory<T, Kase2<A1, A2>>.test(
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )
-}
-
-/**
- * Returns a [List] of [Kase2]s from the given parameters.
- *
- * @param args1 values mapped to the [Kase2.a1] parameter.
- * @param args2 values mapped to the [Kase2.a2] parameter.
- * @param displayNameFactory defines the name used in test environments and dynamic tests
- * @return a [List] of [Kase2]s from the given parameters.
- */
-public fun <A1, A2> kases(
-  args1: Iterable<A1>,
-  args2: Iterable<A2>,
-  displayNameFactory: KaseDisplayNameFactory<Kase2<A1, A2>> = defaultKase2DisplayNameFactory()
-): List<Kase2<A1, A2>> {
-  return buildList {
-    for (a1 in args1) {
-      for (a2 in args2) {
-        add(kase(a1 = a1, a2 = a2, displayNameFactory = displayNameFactory))
-      }
-    }
-  }
 }
 
 /**

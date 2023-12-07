@@ -25,6 +25,11 @@ jvmModule {
   poko()
 }
 
+// the overloaded functions can take 10+ minutes
+tasks.named("detektMain", io.gitlab.arturbosch.detekt.Detekt::class) {
+  exclude("**/overloads/**")
+}
+
 dependencies {
 
   api(libs.junit.engine)

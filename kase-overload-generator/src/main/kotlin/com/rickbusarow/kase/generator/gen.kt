@@ -68,48 +68,25 @@ private fun main() {
 
   for (ct in (1..MAX_PARAMS)) {
 
-    val nums = 1..ct
+    val args = (1..ct).map { KaseArg(it) }
 
-    val args2 = (1..ct).map { KaseArg(it) }
-    val kaseTypes = KaseTypes(ct, args2)
+    val types = KaseTypes(ct, args)
 
-    val types = nums.map { "A$it" }
-    val typesString = types.joinToString(separator = ", ", prefix = "<", postfix = ">")
+    val testFactoryKdoc = buildList {
+      val kaseSimpleName = types.kaseInterfaceNoTypes
 
-    val args = nums.map { "a$it" }
-
-    val argsStringWithLabels = args.joinToString(", ") { "$it = $it" }
-
-    val kaseSimpleName = "Kase$ct"
-
-    val iterableParams = nums.map { "args$it" }
-
-    val iterableParamsWithTypes = nums.zip(types).joinToString(",\n  ") { (i, type) ->
-      "args$i: Iterable<$type>"
+      add("A test factory which returns a stream of [DynamicNode]s from the given parameters.")
+      add("- Each [DynamicTest] in the stream uses its [$kaseSimpleName] element to create")
+      add("  a new [TestEnvironment] instance, then executes [testAction].")
+      add("- Each [DynamicNode] has a display name which includes the values of the parameters.")
+      add("")
+      add("@param kases the [$kaseSimpleName]s to use for this test factory")
+      add("@param testAction the test action to execute.")
+      add("@return a [Stream] of [DynamicNode]s from the given parameters.")
+      add("@see $kaseSimpleName")
+      add("@see TestEnvironmentFactory")
     }
-
-    val parametersPlural = if (ct == 1) "parameter" else "parameters"
-
-    val testFactoryKdoc = buildString {
-      appendLine("/**")
-      appendLine(
-        " * A test factory which returns a stream of [DynamicNode]s from the given parameters."
-      )
-      appendLine(
-        " * - Each [DynamicTest] in the stream uses its [$kaseSimpleName] element to create"
-      )
-      appendLine(" *   a new [TestEnvironment] instance, then executes [testAction].")
-      appendLine(
-        " * - Each [DynamicNode] has a display name which includes the values of the parameters."
-      )
-      appendLine(" *")
-      appendLine(" * @param kases the [$kaseSimpleName]s to use for this test factory")
-      appendLine(" * @param testAction the test action to execute.")
-      appendLine(" * @return a [Stream] of [DynamicNode]s from the given parameters.")
-      appendLine(" * @see $kaseSimpleName")
-      appendLine(" * @see TestEnvironmentFactory")
-      append(" */")
-    }
+      .makeKdoc()
 
     val txt = buildString {
 
@@ -125,51 +102,38 @@ private fun main() {
         """.trimMargin()
       )
 
-      kaseInterface(
-        ct = ct,
-        parametersPlural = parametersPlural,
-        args = args2,
-        types = kaseTypes
-      )
+      kaseInterface(args = args, types = types)
 
-      defaultKase(args = args2, types = kaseTypes)
+      defaultKase(args = args, types = types)
 
-      defaultDisplayNameFactory(args = args2, types = kaseTypes)
+      defaultKaseDisplayNameFactory(args = args, types = types)
 
-      kaseFun1(args = args2, types = kaseTypes)
+      kase_displayNameFactory(args = args, types = types)
+      kase_displayName(args = args, types = types)
 
-      kaseFun2(args = args2, types = kaseTypes)
+      kases_iterable(args = args, types = types)
+      kases_sequence(args = args, types = types)
 
-      testFun(args = args2, types = kaseTypes)
-
-      kasesFun1(
-        kaseSimpleName = kaseSimpleName,
-        iterableParams = iterableParams,
-        iterableParamsWithType = iterableParamsWithTypes,
-        typesString = typesString,
-        args = args,
-        argsStringWithLabels = argsStringWithLabels,
-        types = kaseTypes
-      )
+      testFun(args = args, types = types)
 
       asTests_Destructured(
-        args = args2,
-        kaseTypes = kaseTypes
+        args = args,
+        kaseTypes = types
       )
 
       testFactory_vararg(
         kdoc = testFactoryKdoc,
-        args = args2,
-        kaseTypes = kaseTypes
+        args = args,
+        kaseTypes = types
       )
 
       testFactory_Iterable(
         kdoc = testFactoryKdoc,
-        args = args2,
-        kaseTypes = kaseTypes
+        args = args,
+        kaseTypes = types
       )
 
-      timesFunctions(ct = ct, aArgs = args2, aTypes = kaseTypes)
+      timesFunctions(aArgs = args, aTypes = types)
     }
       .fixBlankLines()
 

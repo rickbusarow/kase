@@ -13,14 +13,13 @@
  * limitations under the License.
  */
 
-package builds
-
-import org.gradle.api.DefaultTask
+package com.rickbusarow.kase.generator
 
 /**
- * This is a simple way to tag a task so that it's found by the 'composite' convention
- * plugin, which means it will be automatically propagated to composite builds.
+ * Returns a view of the list with the first [n] elements dropped.
+ *
+ * @param n The number of elements to drop from the beginning of the list.
+ * @return A list excluding the first [n] elements or an
+ *   empty list if [n] is greater than the size of the list.
  */
-abstract class BuildLogicTask : DefaultTask()
-
-abstract class BuildLogicCodeGeneratorTask : BuildLogicTask()
+fun <E> List<E>.dropView(n: Int): List<E> = subList(n.coerceAtLeast(0), size)

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="generate kase overloads" type="JetRunConfigurationType">
+  <configuration default="false" name="generate kase overloads" type="JetRunConfigurationType" activateToolWindowBeforeRun="false">
     <option name="MAIN_CLASS_NAME" value="com.rickbusarow.kase.generator.GenKt" />
     <module name="kase.kase-overload-generator.main" />
     <shortenClasspath name="NONE" />

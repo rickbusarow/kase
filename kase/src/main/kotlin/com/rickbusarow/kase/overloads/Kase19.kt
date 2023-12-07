@@ -66,8 +66,9 @@ internal class DefaultKase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, 
   private val displayNameFactory: KaseDisplayNameFactory<Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>>
 ) : Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>, KaseInternal {
 
-  override val displayName: String
-    get() = with(displayNameFactory) { createDisplayName() }
+  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
+    with(displayNameFactory) { createDisplayName() }
+  }
 
   override operator fun component1(): A1 = a1
   override operator fun component2(): A2 = a2
@@ -159,48 +160,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A1
   displayNameFactory = { displayName }
 )
 /**
- * Creates a new [Kase19] instance and [TestEnvironment]
- * from these parameters, then executes [testAction].
- *
- * @param a1 the [Kase19.a1] parameter.
- * @param a2 the [Kase19.a2] parameter.
- * @param a3 the [Kase19.a3] parameter.
- * @param a4 the [Kase19.a4] parameter.
- * @param a5 the [Kase19.a5] parameter.
- * @param a6 the [Kase19.a6] parameter.
- * @param a7 the [Kase19.a7] parameter.
- * @param a8 the [Kase19.a8] parameter.
- * @param a9 the [Kase19.a9] parameter.
- * @param a10 the [Kase19.a10] parameter.
- * @param a11 the [Kase19.a11] parameter.
- * @param a12 the [Kase19.a12] parameter.
- * @param a13 the [Kase19.a13] parameter.
- * @param a14 the [Kase19.a14] parameter.
- * @param a15 the [Kase19.a15] parameter.
- * @param a16 the [Kase19.a16] parameter.
- * @param a17 the [Kase19.a17] parameter.
- * @param a18 the [Kase19.a18] parameter.
- * @param a19 the [Kase19.a19] parameter.
- * @param displayNameFactory defines the name used for this test environment's working directory
- * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
- * @param testAction the test action to execute.
- * @see KaseTestFactory
- */
-public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19> KaseTestFactory<T, Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>>.test(
-  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19,
-  displayNameFactory: KaseDisplayNameFactory<Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>> = defaultKase19DisplayNameFactory(),
-  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
-  testAction: suspend T.() -> Unit
-) {
-  this@KaseTestFactory.test(
-    kase = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17, a18 = a18, a19 = a19, displayNameFactory = displayNameFactory),
-    testFunctionCoordinates = testFunctionCoordinates,
-    testAction = testAction
-  )
-}
-
-/**
- * Returns a [List] of [Kase19]s from the given parameters.
+ * Returns a list of [Kase19]s from the given parameters.
  *
  * @param args1 values mapped to the [Kase19.a1] parameter.
  * @param args2 values mapped to the [Kase19.a2] parameter.
@@ -222,7 +182,7 @@ public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A1
  * @param args18 values mapped to the [Kase19.a18] parameter.
  * @param args19 values mapped to the [Kase19.a19] parameter.
  * @param displayNameFactory defines the name used in test environments and dynamic tests
- * @return a [List] of [Kase19]s from the given parameters.
+ * @return a list of [Kase19]s from the given parameters.
  */
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19> kases(
   args1: Iterable<A1>,
@@ -287,6 +247,137 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A1
       }
     }
   }
+}
+
+/**
+ * Returns a sequence of [Kase19]s from the given parameters.
+ *
+ * @param args1 values mapped to the [Kase19.a1] parameter.
+ * @param args2 values mapped to the [Kase19.a2] parameter.
+ * @param args3 values mapped to the [Kase19.a3] parameter.
+ * @param args4 values mapped to the [Kase19.a4] parameter.
+ * @param args5 values mapped to the [Kase19.a5] parameter.
+ * @param args6 values mapped to the [Kase19.a6] parameter.
+ * @param args7 values mapped to the [Kase19.a7] parameter.
+ * @param args8 values mapped to the [Kase19.a8] parameter.
+ * @param args9 values mapped to the [Kase19.a9] parameter.
+ * @param args10 values mapped to the [Kase19.a10] parameter.
+ * @param args11 values mapped to the [Kase19.a11] parameter.
+ * @param args12 values mapped to the [Kase19.a12] parameter.
+ * @param args13 values mapped to the [Kase19.a13] parameter.
+ * @param args14 values mapped to the [Kase19.a14] parameter.
+ * @param args15 values mapped to the [Kase19.a15] parameter.
+ * @param args16 values mapped to the [Kase19.a16] parameter.
+ * @param args17 values mapped to the [Kase19.a17] parameter.
+ * @param args18 values mapped to the [Kase19.a18] parameter.
+ * @param args19 values mapped to the [Kase19.a19] parameter.
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @return a sequence of [Kase19]s from the given parameters.
+ */
+public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19> kases(
+  args1: Sequence<A1>,
+  args2: Sequence<A2>,
+  args3: Sequence<A3>,
+  args4: Sequence<A4>,
+  args5: Sequence<A5>,
+  args6: Sequence<A6>,
+  args7: Sequence<A7>,
+  args8: Sequence<A8>,
+  args9: Sequence<A9>,
+  args10: Sequence<A10>,
+  args11: Sequence<A11>,
+  args12: Sequence<A12>,
+  args13: Sequence<A13>,
+  args14: Sequence<A14>,
+  args15: Sequence<A15>,
+  args16: Sequence<A16>,
+  args17: Sequence<A17>,
+  args18: Sequence<A18>,
+  args19: Sequence<A19>,
+  displayNameFactory: KaseDisplayNameFactory<Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>> = defaultKase19DisplayNameFactory()
+): Sequence<Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>> {
+  return sequence {
+    for (a1 in args1) {
+      for (a2 in args2) {
+        for (a3 in args3) {
+          for (a4 in args4) {
+            for (a5 in args5) {
+              for (a6 in args6) {
+                for (a7 in args7) {
+                  for (a8 in args8) {
+                    for (a9 in args9) {
+                      for (a10 in args10) {
+                        for (a11 in args11) {
+                          for (a12 in args12) {
+                            for (a13 in args13) {
+                              for (a14 in args14) {
+                                for (a15 in args15) {
+                                  for (a16 in args16) {
+                                    for (a17 in args17) {
+                                      for (a18 in args18) {
+                                        for (a19 in args19) {
+                                          yield(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17, a18 = a18, a19 = a19, displayNameFactory = displayNameFactory))
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Creates a new [Kase19] instance and [TestEnvironment]
+ * from these parameters, then executes [testAction].
+ *
+ * @param a1 the [Kase19.a1] parameter.
+ * @param a2 the [Kase19.a2] parameter.
+ * @param a3 the [Kase19.a3] parameter.
+ * @param a4 the [Kase19.a4] parameter.
+ * @param a5 the [Kase19.a5] parameter.
+ * @param a6 the [Kase19.a6] parameter.
+ * @param a7 the [Kase19.a7] parameter.
+ * @param a8 the [Kase19.a8] parameter.
+ * @param a9 the [Kase19.a9] parameter.
+ * @param a10 the [Kase19.a10] parameter.
+ * @param a11 the [Kase19.a11] parameter.
+ * @param a12 the [Kase19.a12] parameter.
+ * @param a13 the [Kase19.a13] parameter.
+ * @param a14 the [Kase19.a14] parameter.
+ * @param a15 the [Kase19.a15] parameter.
+ * @param a16 the [Kase19.a16] parameter.
+ * @param a17 the [Kase19.a17] parameter.
+ * @param a18 the [Kase19.a18] parameter.
+ * @param a19 the [Kase19.a19] parameter.
+ * @param displayNameFactory defines the name used for this test environment's working directory
+ * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
+ * @param testAction the test action to execute.
+ * @see KaseTestFactory
+ */
+public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19> KaseTestFactory<T, Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>>.test(
+  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19,
+  displayNameFactory: KaseDisplayNameFactory<Kase19<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19>> = defaultKase19DisplayNameFactory(),
+  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
+  testAction: suspend T.() -> Unit
+) {
+  this@KaseTestFactory.test(
+    kase = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, a16 = a16, a17 = a17, a18 = a18, a19 = a19, displayNameFactory = displayNameFactory),
+    testFunctionCoordinates = testFunctionCoordinates,
+    testAction = testAction
+  )
 }
 
 /**
