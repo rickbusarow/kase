@@ -25,8 +25,6 @@ import com.diffplug.gradle.spotless.SpotlessTask
 import com.rickbusarow.kgx.EagerGradleApi
 import com.rickbusarow.kgx.allProjectsTasksMatchingName
 import com.rickbusarow.kgx.checkProjectIsRoot
-import com.rickbusarow.kgx.libsCatalog
-import com.rickbusarow.kgx.version
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.ConfigurableFileTree
@@ -63,7 +61,7 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
         include("**/*.yml")
       }
 
-      yaml.prettier(target.libsCatalog.version("prettier"))
+      yaml.prettier(target.libs.versions.prettier.get())
     }
   }
 
@@ -85,7 +83,7 @@ abstract class SpotlessConventionPlugin : Plugin<Project> {
         include("**/*.mdx")
       }
 
-      markdown.prettier(target.libsCatalog.version("prettier"))
+      markdown.prettier(target.libs.versions.prettier.get())
 
       markdown.withinBlocksRegex(
         "groovy block in markdown",

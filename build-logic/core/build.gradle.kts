@@ -23,4 +23,6 @@ dependencies {
   api(libs.rickBusarow.kgx)
 
   compileOnly(gradleApi())
+
+  api(files(libs::class.java.protectionDomain.codeSource.location))
 }

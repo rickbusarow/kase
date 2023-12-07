@@ -84,6 +84,10 @@ public interface VersionMatrix {
    */
   public operator fun <E : VersionMatrixElement<*>> minus(elements: Iterable<E>): VersionMatrix
 
+  public fun <T : TestVersions, TF : TestVersionsFactory<T>> versions(factory: TF): List<T> {
+    return factory.extract(this)
+  }
+
   /** An element in a [VersionMatrix]. */
   public sealed interface VersionMatrixElement<out T> : HasLabel {
 

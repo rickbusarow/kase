@@ -22,7 +22,6 @@ import com.rickbusarow.kase.Kase3
 import com.rickbusarow.kase.gradle.DependencyVersion.Agp
 import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
 import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
-import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 import com.rickbusarow.kase.kase
 import dev.drewhamilton.poko.Poko
 import org.gradle.util.GradleVersion
@@ -52,6 +51,10 @@ public interface HasTestVersions<T : TestVersions> {
   public val testVersions: T
 }
 
+public fun interface TestVersionsFactory<T : TestVersions> {
+  public fun extract(matrix: VersionMatrix): List<T>
+}
+
 /** Holds a [Gradle] version only */
 @Poko
 public class GradleTestVersions(
@@ -64,10 +67,11 @@ public class GradleTestVersions(
 
   override fun toString(): String = displayName
 
-  public companion object {
-    /** */
-    public fun from(versionMatrix: VersionMatrix): List<GradleTestVersions> {
-      return versionMatrix.kases(Gradle).map { GradleTestVersions(it.a1) }
+  public companion object : TestVersionsFactory<GradleTestVersions> {
+
+    override fun extract(matrix: VersionMatrix): List<GradleTestVersions> {
+      return matrix.kases(a1Key = Gradle)
+        .map { GradleTestVersions(a1 = it.a1) }
     }
   }
 }
@@ -88,11 +92,11 @@ public class GradleKotlinTestVersions(
 
   override fun toString(): String = displayName
 
-  public companion object {
-    /** */
-    public fun from(versionMatrix: VersionMatrix): List<GradleKotlinTestVersions> {
+  public companion object : TestVersionsFactory<GradleKotlinTestVersions> {
 
-      return versionMatrix.kases(Gradle, Kotlin).map { GradleKotlinTestVersions(it.a1, it.a2) }
+    override fun extract(matrix: VersionMatrix): List<GradleKotlinTestVersions> {
+      return matrix.kases(a1Key = Gradle, a2Key = Kotlin)
+        .map { GradleKotlinTestVersions(a1 = it.a1, a2 = it.a2) }
     }
   }
 }
@@ -117,17 +121,10 @@ public class GradleKotlinAgpTestVersions(
 
   override fun toString(): String = displayName
 
-  public companion object {
-    /** */
-    public fun from(versionMatrix: VersionMatrix): List<GradleKotlinAgpTestVersions> {
-
-      return versionMatrix.kases(Gradle, Kotlin, Agp)
-        .map { GradleKotlinAgpTestVersions(it.a1, it.a2, it.a3) }
+  public companion object : TestVersionsFactory<GradleKotlinAgpTestVersions> {
+    override fun extract(matrix: VersionMatrix): List<GradleKotlinAgpTestVersions> {
+      return matrix.kases(a1Key = Gradle, a2Key = Kotlin, a3Key = Agp)
+        .map { GradleKotlinAgpTestVersions(a1 = it.a1, a2 = it.a2, a3 = it.a3) }
     }
-
-    private inline fun <reified T : DependencyVersion<*, *>> Map<VersionMatrixKey<*>, DependencyVersion<*, *>>.version(
-      key: VersionMatrixKey<T>,
-      default: () -> T
-    ): T = get(key) as? T ?: default()
   }
 }

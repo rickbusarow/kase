@@ -58,7 +58,7 @@ import com.rickbusarow.kase.kases
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>
 ): List<Kase1<A1>> {
   return kases(
@@ -76,7 +76,7 @@ public inline fun <
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
   reified A2 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>
 ): List<Kase2<A1, A2>> {
@@ -98,7 +98,7 @@ public inline fun <
   reified A1 : VersionMatrixElement<*>,
   reified A2 : VersionMatrixElement<*>,
   reified A3 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>
@@ -124,7 +124,7 @@ public inline fun <
   reified A2 : VersionMatrixElement<*>,
   reified A3 : VersionMatrixElement<*>,
   reified A4 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -154,7 +154,7 @@ public inline fun <
   reified A3 : VersionMatrixElement<*>,
   reified A4 : VersionMatrixElement<*>,
   reified A5 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -188,7 +188,7 @@ public inline fun <
   reified A4 : VersionMatrixElement<*>,
   reified A5 : VersionMatrixElement<*>,
   reified A6 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -226,7 +226,7 @@ public inline fun <
   reified A5 : VersionMatrixElement<*>,
   reified A6 : VersionMatrixElement<*>,
   reified A7 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -268,7 +268,7 @@ public inline fun <
   reified A6 : VersionMatrixElement<*>,
   reified A7 : VersionMatrixElement<*>,
   reified A8 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -314,7 +314,7 @@ public inline fun <
   reified A7 : VersionMatrixElement<*>,
   reified A8 : VersionMatrixElement<*>,
   reified A9 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -364,7 +364,7 @@ public inline fun <
   reified A8 : VersionMatrixElement<*>,
   reified A9 : VersionMatrixElement<*>,
   reified A10 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -418,7 +418,7 @@ public inline fun <
   reified A9 : VersionMatrixElement<*>,
   reified A10 : VersionMatrixElement<*>,
   reified A11 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -476,7 +476,7 @@ public inline fun <
   reified A10 : VersionMatrixElement<*>,
   reified A11 : VersionMatrixElement<*>,
   reified A12 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -538,7 +538,7 @@ public inline fun <
   reified A11 : VersionMatrixElement<*>,
   reified A12 : VersionMatrixElement<*>,
   reified A13 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -604,7 +604,7 @@ public inline fun <
   reified A12 : VersionMatrixElement<*>,
   reified A13 : VersionMatrixElement<*>,
   reified A14 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -674,7 +674,7 @@ public inline fun <
   reified A13 : VersionMatrixElement<*>,
   reified A14 : VersionMatrixElement<*>,
   reified A15 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -748,7 +748,7 @@ public inline fun <
   reified A14 : VersionMatrixElement<*>,
   reified A15 : VersionMatrixElement<*>,
   reified A16 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -826,7 +826,7 @@ public inline fun <
   reified A15 : VersionMatrixElement<*>,
   reified A16 : VersionMatrixElement<*>,
   reified A17 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -908,7 +908,7 @@ public inline fun <
   reified A16 : VersionMatrixElement<*>,
   reified A17 : VersionMatrixElement<*>,
   reified A18 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -994,7 +994,7 @@ public inline fun <
   reified A17 : VersionMatrixElement<*>,
   reified A18 : VersionMatrixElement<*>,
   reified A19 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -1084,7 +1084,7 @@ public inline fun <
   reified A18 : VersionMatrixElement<*>,
   reified A19 : VersionMatrixElement<*>,
   reified A20 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -1178,7 +1178,7 @@ public inline fun <
   reified A19 : VersionMatrixElement<*>,
   reified A20 : VersionMatrixElement<*>,
   reified A21 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -1276,7 +1276,7 @@ public inline fun <
   reified A20 : VersionMatrixElement<*>,
   reified A21 : VersionMatrixElement<*>,
   reified A22 : VersionMatrixElement<*>
-> VersionMatrix.kases(
+  > VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,

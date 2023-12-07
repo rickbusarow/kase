@@ -15,7 +15,6 @@
 
 package builds
 
-import com.rickbusarow.kgx.dependency
 import com.rickbusarow.kgx.dependsOn
 import com.rickbusarow.kgx.isRootProject
 import com.rickbusarow.kgx.libsCatalog
@@ -108,14 +107,8 @@ abstract class DokkatooConventionPlugin : Plugin<Project> {
 
         val pluginConfig = "dokkatooPluginHtml"
 
-        target.dependencies.add(
-          pluginConfig,
-          target.libsCatalog.dependency("dokka-all-modules")
-        )
-        target.dependencies.add(
-          pluginConfig,
-          target.libsCatalog.dependency("dokka-versioning")
-        )
+        target.dependencies.add(pluginConfig, target.libs.dokka.all.modules)
+        target.dependencies.add(pluginConfig, target.libs.dokka.versioning)
 
         val dokkaArchiveBuildDir = target.rootProject.layout
           .buildDirectory
@@ -177,6 +170,7 @@ abstract class DokkatooConventionPlugin : Plugin<Project> {
       )
     }
   }
+
   companion object {
     internal const val DOKKATOO_HTML_TASK_NAME = "dokkatooGeneratePublicationHtml"
   }

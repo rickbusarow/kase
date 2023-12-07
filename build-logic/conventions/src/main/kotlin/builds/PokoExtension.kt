@@ -15,7 +15,6 @@
 
 package builds
 
-import com.rickbusarow.kgx.dependency
 import com.rickbusarow.kgx.libsCatalog
 import com.rickbusarow.kgx.pluginId
 import org.gradle.api.Project
@@ -28,7 +27,7 @@ interface PokoExtension {
     val implementation = configurations.getByName("implementation")
     val testCompileOnly = configurations.getByName("testCompileOnly")
 
-    val pokoAnnotationsProvider = project.libsCatalog.dependency("poko-annotations")
+    val pokoAnnotationsProvider = project.libs.poko.annotations
     val pokoAnnotations = pokoAnnotationsProvider.get()
     val pokoAnnotationsModule = pokoAnnotations.module
 

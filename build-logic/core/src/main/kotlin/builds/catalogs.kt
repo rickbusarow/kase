@@ -17,7 +17,16 @@ package builds
 
 import com.rickbusarow.kgx.extras
 import com.rickbusarow.kgx.getOrPut
+import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
+import org.gradle.api.internal.catalog.ExternalModuleDependencyFactory
+
+/** */
+val Project.libs: LibrariesForLibs
+  get() = extensions.getByType(LibrariesForLibs::class.java)
+
+/** */
+fun ExternalModuleDependencyFactory.VersionNotationSupplier.get(): String = asProvider().get()
 
 /** */
 val Project.VERSION_NAME: String
