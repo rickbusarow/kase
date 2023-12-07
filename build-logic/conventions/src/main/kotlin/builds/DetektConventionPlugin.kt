@@ -17,7 +17,7 @@ package builds
 
 import com.rickbusarow.kgx.applyOnce
 import com.rickbusarow.kgx.buildDir
-import com.rickbusarow.kgx.dependency
+import com.rickbusarow.kgx.library
 import com.rickbusarow.kgx.libsCatalog
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.DetektCreateBaselineTask
@@ -52,7 +52,7 @@ abstract class DetektConventionPlugin : Plugin<Project> {
 
     target.dependencies.add(
       "detektPlugins",
-      target.libsCatalog.dependency("detekt-rules-libraries")
+      target.libsCatalog.library("detekt-rules-libraries")
     )
 
     target.extensions.configure(DetektExtension::class.java) { extension ->
@@ -93,7 +93,7 @@ abstract class DetektConventionPlugin : Plugin<Project> {
       // https://github.com/detekt/detekt/issues/4127
       task.exclude { "/build/generated/" in it.file.absolutePath }
 
-      task.dependsOn(target.tasks.withType(BuildCodeGeneratorLogicTask::class.java))
+      task.dependsOn(target.tasks.withType(BuildLogicCodeGeneratorTask::class.java))
     }
 
     target.tasks.register("detektAll", Detekt::class.java) {

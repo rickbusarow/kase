@@ -30,6 +30,7 @@ internal fun Int.withOrdinalSuffix(): String {
 }
 
 internal fun String.makeKdoc(): String = lines().makeKdoc()
+
 internal fun List<String>.makeKdoc(): String = joinToString(
   separator = "\n",
   prefix = "/**\n",
@@ -38,6 +39,14 @@ internal fun List<String>.makeKdoc(): String = joinToString(
 
 internal fun <T> MutableList<String>.addAll(elements: Iterable<T>, transform: (T) -> String) {
   addAll(elements.map(transform))
+}
+
+internal fun String.fixBlankLines(): String {
+  return mapLines { it.trimEnd() }
+    .replace("""( *}\n)(?=[/\n@])""".toRegex(), "$1\n")
+    .replace(Regex("\\n{3,}"), "\n\n")
+    .trimEnd()
+    .plus("\n")
 }
 
 /**
@@ -125,7 +134,27 @@ internal fun String.trimIndentAfterFirstLine(): String {
  * ```
  */
 inline fun StringBuilder.indent(
-  leadingIndent: String = "  ",
+  builder: StringBuilder.() -> Unit
+) {
+  indent(leadingIndent = "  ", builder = builder)
+}
+
+/**
+ * example:
+ *
+ * ```
+ * override fun toString() = buildString {
+ *   appendLine("SomeClass(")
+ *   indent {
+ *     appendLine("prop1=$prop1")
+ *     appendLine("prop2=$prop2")
+ *   }
+ *   appendLine(")")
+ * }
+ * ```
+ */
+inline fun StringBuilder.indent(
+  leadingIndent: String,
   continuationIndent: String = leadingIndent,
   builder: StringBuilder.() -> Unit
 ) {

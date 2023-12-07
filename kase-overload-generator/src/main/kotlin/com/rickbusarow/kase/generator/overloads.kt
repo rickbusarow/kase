@@ -17,6 +17,8 @@
 
 package com.rickbusarow.kase.generator
 
+import com.rickbusarow.kase.generator.KaseArg.Companion.argsIterableValueParams
+import com.rickbusarow.kase.generator.KaseArg.Companion.argsSequenceValueParams
 import com.rickbusarow.kase.generator.KaseArg.Companion.argsValueParams
 import com.rickbusarow.kase.generator.KaseArg.Companion.argsWithParamNames
 import com.rickbusarow.kase.generator.KaseArg.Companion.parametersPlural
@@ -26,8 +28,6 @@ import com.rickbusarow.kase.generator.KaseArg.Companion.valueTypesString
 import com.rickbusarow.kase.generator.KaseArg.Companion.valuesFromItString
 
 internal fun StringBuilder.kaseInterface(
-  ct: Int,
-  parametersPlural: String,
   args: List<KaseArg>,
   types: KaseTypes
 ) {
@@ -35,7 +35,7 @@ internal fun StringBuilder.kaseInterface(
 
   appendLine(
     """
-    |/** A strongly typed version of [Kase] for $ct $parametersPlural. */
+    |/** A strongly typed version of [Kase] for ${args.size} ${args.parametersPlural}. */
     |public interface ${types.kaseInterface} : ${types.kaseSuperInterface} {
     |
     |  /** The ${types.number.withOrdinalSuffix()} parameter. */
@@ -55,6 +55,7 @@ internal fun StringBuilder.defaultKase(
   val componentFuns = args.joinToString("\n  ") { arg ->
     arg.componentFunOverride
   }
+
   appendLine(
     """
     |@Poko
@@ -64,8 +65,9 @@ internal fun StringBuilder.defaultKase(
     |  private val displayNameFactory: ${types.displayNameFactory}
     |) : ${types.kaseInterface}, KaseInternal {
     |
-    |  override val displayName: String
-    |    get() = with(displayNameFactory) { createDisplayName() }
+    |  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
+    |    with(displayNameFactory) { createDisplayName() }
+    |  }
     |
     |  $componentFuns
     |}
@@ -73,7 +75,7 @@ internal fun StringBuilder.defaultKase(
   )
 }
 
-internal fun StringBuilder.defaultDisplayNameFactory(
+internal fun StringBuilder.defaultKaseDisplayNameFactory(
   args: List<KaseArg>,
   types: KaseTypes
 ) {
@@ -89,7 +91,7 @@ internal fun StringBuilder.defaultDisplayNameFactory(
   )
 }
 
-internal fun StringBuilder.kaseFun1(
+internal fun StringBuilder.kase_displayNameFactory(
   args: List<KaseArg>,
   types: KaseTypes
 ) {
@@ -123,7 +125,7 @@ internal fun StringBuilder.kaseFun1(
   )
 }
 
-internal fun StringBuilder.kaseFun2(
+internal fun StringBuilder.kase_displayName(
   args: List<KaseArg>,
   types: KaseTypes
 ) {
@@ -151,6 +153,72 @@ internal fun StringBuilder.kaseFun2(
     |  ${args.argsWithParamNames},
     |  displayNameFactory = { displayName }
     |)
+    """.trimMargin()
+  )
+}
+
+internal fun StringBuilder.kases_iterable(
+  args: List<KaseArg>,
+  types: KaseTypes
+) {
+
+  val kasesKdoc = buildList {
+    add("Returns a list of [${types.kaseInterfaceNoTypes}]s from the given parameters.")
+    add("")
+    addAll(args) { arg ->
+      "@param ${arg.iterableName} values mapped to the [${types.kaseInterfaceNoTypes}.${arg.valueName}] parameter."
+    }
+    add("@param displayNameFactory defines the name used in test environments and dynamic tests")
+    add("@return a list of [${types.kaseInterfaceNoTypes}]s from the given parameters.")
+  }
+    .makeKdoc()
+
+  val forLoops = forLoops(args = args, builderName = "buildList") {
+    "add(kase(${args.argsWithParamNames}, displayNameFactory = displayNameFactory))"
+  }
+
+  appendLine(
+    """
+    |$kasesKdoc
+    |public fun <${args.valueTypesString}> kases(
+    |  ${args.argsIterableValueParams},
+    |  displayNameFactory: ${types.displayNameFactory} = ${types.defaultDisplayNameFactory}()
+    |): List<${types.kaseInterface}> {
+    |  return $forLoops
+    |}
+    """.trimMargin()
+  )
+}
+
+internal fun StringBuilder.kases_sequence(
+  args: List<KaseArg>,
+  types: KaseTypes
+) {
+
+  val kasesKdoc = buildList {
+    add("Returns a sequence of [${types.kaseInterfaceNoTypes}]s from the given parameters.")
+    add("")
+    addAll(args) { arg ->
+      "@param ${arg.iterableName} values mapped to the [${types.kaseInterfaceNoTypes}.${arg.valueName}] parameter."
+    }
+    add("@param displayNameFactory defines the name used in test environments and dynamic tests")
+    add("@return a sequence of [${types.kaseInterfaceNoTypes}]s from the given parameters.")
+  }
+    .makeKdoc()
+
+  val forLoops = forLoops(args = args, builderName = "sequence") {
+    "yield(kase(${args.argsWithParamNames}, displayNameFactory = displayNameFactory))"
+  }
+
+  appendLine(
+    """
+    |$kasesKdoc
+    |public fun <${args.valueTypesString}> kases(
+    |  ${args.argsSequenceValueParams},
+    |  displayNameFactory: ${types.displayNameFactory} = ${types.defaultDisplayNameFactory}()
+    |): Sequence<${types.kaseInterface}> {
+    |  return $forLoops
+    |}
     """.trimMargin()
   )
 }
@@ -194,50 +262,6 @@ internal fun StringBuilder.testFun(
     |}
     """.trimMargin()
   )
-}
-
-internal fun StringBuilder.kasesFun1(
-  kaseSimpleName: String,
-  iterableParams: List<String>,
-  iterableParamsWithType: String,
-  typesString: String,
-  args: List<String>,
-  argsStringWithLabels: String,
-  types: KaseTypes
-) {
-  val kasesKdoc = buildList {
-    add("Returns a [List] of [$kaseSimpleName]s from the given parameters.")
-    add("")
-    addAll(iterableParams.withIndex()) { (i, iterable) ->
-      "@param $iterable values mapped to the [$kaseSimpleName.a${i + 1}] parameter."
-    }
-    add("@param displayNameFactory defines the name used in test environments and dynamic tests")
-    add("@return a [List] of [$kaseSimpleName]s from the given parameters.")
-  }
-    .makeKdoc()
-  val forLoops = forLoops(args) {
-    appendLine("add(kase($argsStringWithLabels, displayNameFactory = displayNameFactory))")
-  }
-
-  appendLine(
-    """
-    |$kasesKdoc
-    |public fun $typesString kases(
-    |  $iterableParamsWithType,
-    |  displayNameFactory: ${types.displayNameFactory} = ${types.defaultDisplayNameFactory}()
-    |): List<$kaseSimpleName$typesString> {
-    |  return $forLoops
-    |}
-    """.trimMargin()
-  )
-}
-
-internal fun String.fixBlankLines(): String {
-  return mapLines { it.trimEnd() }
-    .replace("""( *}\n)(?=[/\n@])""".toRegex(), "$1\n")
-    .replace(Regex("\\n{3,}"), "\n\n")
-    .trimEnd()
-    .plus("\n")
 }
 
 internal fun StringBuilder.asTests_Destructured(
@@ -303,39 +327,55 @@ internal fun StringBuilder.testFactory_Iterable(
   )
 }
 
-internal fun forLoops(args: List<String>, center: StringBuilder.() -> Unit): String {
+/**
+ * ```
+ * buildList {
+ *   for (a1 in args1) {
+ *     for (a2 in args2) {
+ *       for (a3 in args3) {
+ *         [...]
+ *       }
+ *     }
+ *   }
+ * }
+ * ```
+ * @param args the [KaseArg]s to iterate over
+ * @param builderName the name of the builder function to invoke (e.g. `buildList` or `sequence`)
+ * @param center the code to execute at the center of the nested for loops
+ */
+internal fun forLoops(
+  args: List<KaseArg>,
+  builderName: String,
+  center: () -> String
+): String {
+
+  fun StringBuilder.loop(args: List<KaseArg>, center: () -> String) {
+    if (args.isEmpty()) {
+      appendLine(center())
+    } else {
+      val arg = args.first()
+      appendLine("for (${arg.valueName} in ${arg.iterableName}) {")
+      indent {
+        loop(args.dropView(1), center)
+      }
+      appendLine("}")
+    }
+  }
+
   return buildString {
-
-    var indent = 1
-    fun tab() = "  ".repeat(indent)
-
-    appendLine("buildList {")
-    indent++
-
-    for ((index, arg) in args.withIndex()) {
-
-      val i = index + 1
-
-      appendLine("${tab()}for ($arg in args$i) {")
-      indent++
+    appendLine("$builderName {")
+    indent("    ") {
+      loop(args, center)
     }
-
-    append(tab())
-
-    center()
-
-    repeat(args.size + 1) {
-      indent--
-      appendLine("${tab()}}")
-    }
+    appendLine("  }")
   }.trim()
 }
 
 internal fun StringBuilder.timesFunctions(
-  ct: Int,
   aArgs: List<KaseArg>,
   aTypes: KaseTypes
 ) {
+  val ct = aTypes.number
   val maxTimes = MAX_PARAMS - ct
   if (maxTimes != 0) {
 

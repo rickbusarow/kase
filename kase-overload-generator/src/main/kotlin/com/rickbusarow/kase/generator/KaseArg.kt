@@ -32,6 +32,9 @@ internal data class KaseArg(
   /** `a1Label` */
   val labelName = "${valueName}Label"
 
+  /** `args1` */
+  val iterableName = "args$number"
+
   /** `a1WithLabel` */
   val valueWithLabelName = "${valueName}WithLabel"
 
@@ -62,18 +65,14 @@ internal data class KaseArg(
   companion object {
 
     /** `parameter` or `parameters` */
-    val List<KaseArg>.parametersPlural
+    val List<KaseArg>.parametersPlural: String
       get() = if (size == 1) "parameter" else "parameters"
 
-    /** [a1, a2, a3, ...] */
+    /** [`a1`, `a2`, `a3`, ...] */
     val List<KaseArg>.valueNames: List<String>
       get() = map { it.valueName }
 
-    /** [a1, a2, a3, ...] */
-    val List<KaseArg>.valueNamesString: String
-      get() = joinToString(", ") { it.valueName }
-
-    /** [A1, A2, A3, ...] */
+    /** [`A1`, `A2`, `A3`, ...] */
     val List<KaseArg>.valueTypes: List<String>
       get() = map { it.valueTypeName }
 
@@ -103,6 +102,28 @@ internal data class KaseArg(
 
     /**
      * ```
+     *   args1: Iterable<A1>,
+     *   args2: Iterable<A2>
+     * ```
+     */
+    val List<KaseArg>.argsIterableValueParams: String
+      get() = joinToString(",\n  ") { arg ->
+        "args${arg.number}: Iterable<${arg.valueTypeName}>"
+      }
+
+    /**
+     * ```
+     *   args1: Sequence<A1>,
+     *   args2: Sequence<A2>
+     * ```
+     */
+    val List<KaseArg>.argsSequenceValueParams: String
+      get() = joinToString(",\n  ") { arg ->
+        "args${arg.number}: Sequence<${arg.valueTypeName}>"
+      }
+
+    /**
+     * ```
      *   override val a1: A1,
      *   override val a2: A2
      * ```
@@ -110,17 +131,6 @@ internal data class KaseArg(
     val List<KaseArg>.argsValueParams: String
       get() = joinToString(",\n  ") { arg ->
         "override val ${arg.valueName}: ${arg.valueTypeName}"
-      }
-
-    /**
-     * ```
-     *   override val arg1WithLabel: KaseParameterWithLabel<A1>,
-     *   override val arg2WithLabel: KaseParameterWithLabel<A2>
-     * ```
-     */
-    val List<KaseArg>.argsWithLabelValueParams: String
-      get() = joinToString(",\n  ") { arg ->
-        "override val ${arg.valueWithLabelName}: ${arg.valueWithLabelTypeName}"
       }
   }
 }

@@ -52,8 +52,9 @@ internal class DefaultKase5<A1, A2, A3, A4, A5>(
   private val displayNameFactory: KaseDisplayNameFactory<Kase5<A1, A2, A3, A4, A5>>
 ) : Kase5<A1, A2, A3, A4, A5>, KaseInternal {
 
-  override val displayName: String
-    get() = with(displayNameFactory) { createDisplayName() }
+  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
+    with(displayNameFactory) { createDisplayName() }
+  }
 
   override operator fun component1(): A1 = a1
   override operator fun component2(): A2 = a2
@@ -103,6 +104,74 @@ public fun <A1, A2, A3, A4, A5> kase(
   displayNameFactory = { displayName }
 )
 /**
+ * Returns a list of [Kase5]s from the given parameters.
+ *
+ * @param args1 values mapped to the [Kase5.a1] parameter.
+ * @param args2 values mapped to the [Kase5.a2] parameter.
+ * @param args3 values mapped to the [Kase5.a3] parameter.
+ * @param args4 values mapped to the [Kase5.a4] parameter.
+ * @param args5 values mapped to the [Kase5.a5] parameter.
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @return a list of [Kase5]s from the given parameters.
+ */
+public fun <A1, A2, A3, A4, A5> kases(
+  args1: Iterable<A1>,
+  args2: Iterable<A2>,
+  args3: Iterable<A3>,
+  args4: Iterable<A4>,
+  args5: Iterable<A5>,
+  displayNameFactory: KaseDisplayNameFactory<Kase5<A1, A2, A3, A4, A5>> = defaultKase5DisplayNameFactory()
+): List<Kase5<A1, A2, A3, A4, A5>> {
+  return buildList {
+    for (a1 in args1) {
+      for (a2 in args2) {
+        for (a3 in args3) {
+          for (a4 in args4) {
+            for (a5 in args5) {
+              add(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, displayNameFactory = displayNameFactory))
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Returns a sequence of [Kase5]s from the given parameters.
+ *
+ * @param args1 values mapped to the [Kase5.a1] parameter.
+ * @param args2 values mapped to the [Kase5.a2] parameter.
+ * @param args3 values mapped to the [Kase5.a3] parameter.
+ * @param args4 values mapped to the [Kase5.a4] parameter.
+ * @param args5 values mapped to the [Kase5.a5] parameter.
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @return a sequence of [Kase5]s from the given parameters.
+ */
+public fun <A1, A2, A3, A4, A5> kases(
+  args1: Sequence<A1>,
+  args2: Sequence<A2>,
+  args3: Sequence<A3>,
+  args4: Sequence<A4>,
+  args5: Sequence<A5>,
+  displayNameFactory: KaseDisplayNameFactory<Kase5<A1, A2, A3, A4, A5>> = defaultKase5DisplayNameFactory()
+): Sequence<Kase5<A1, A2, A3, A4, A5>> {
+  return sequence {
+    for (a1 in args1) {
+      for (a2 in args2) {
+        for (a3 in args3) {
+          for (a4 in args4) {
+            for (a5 in args5) {
+              yield(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, displayNameFactory = displayNameFactory))
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
  * Creates a new [Kase5] instance and [TestEnvironment]
  * from these parameters, then executes [testAction].
  *
@@ -127,40 +196,6 @@ public fun <T: TestEnvironment, A1, A2, A3, A4, A5> KaseTestFactory<T, Kase5<A1,
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )
-}
-
-/**
- * Returns a [List] of [Kase5]s from the given parameters.
- *
- * @param args1 values mapped to the [Kase5.a1] parameter.
- * @param args2 values mapped to the [Kase5.a2] parameter.
- * @param args3 values mapped to the [Kase5.a3] parameter.
- * @param args4 values mapped to the [Kase5.a4] parameter.
- * @param args5 values mapped to the [Kase5.a5] parameter.
- * @param displayNameFactory defines the name used in test environments and dynamic tests
- * @return a [List] of [Kase5]s from the given parameters.
- */
-public fun <A1, A2, A3, A4, A5> kases(
-  args1: Iterable<A1>,
-  args2: Iterable<A2>,
-  args3: Iterable<A3>,
-  args4: Iterable<A4>,
-  args5: Iterable<A5>,
-  displayNameFactory: KaseDisplayNameFactory<Kase5<A1, A2, A3, A4, A5>> = defaultKase5DisplayNameFactory()
-): List<Kase5<A1, A2, A3, A4, A5>> {
-  return buildList {
-    for (a1 in args1) {
-      for (a2 in args2) {
-        for (a3 in args3) {
-          for (a4 in args4) {
-            for (a5 in args5) {
-              add(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, displayNameFactory = displayNameFactory))
-            }
-          }
-        }
-      }
-    }
-  }
 }
 
 /**
