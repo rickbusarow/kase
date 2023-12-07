@@ -25,7 +25,6 @@ import java.util.stream.Stream
  * Common interface for creating dynamic tests with predefined
  * [kases][HasKases.kases] and a unique [TestEnvironment]
  */
-@KaseDsl
 public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   HasKases<K>,
   TestEnvironmentFactory<T, K> {

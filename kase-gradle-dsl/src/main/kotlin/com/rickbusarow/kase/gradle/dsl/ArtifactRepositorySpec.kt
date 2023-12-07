@@ -15,7 +15,6 @@
 
 package com.rickbusarow.kase.gradle.dsl
 
-import com.rickbusarow.kase.KaseDsl
 import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport.GroovyInfix
 import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport.NoInfix
 import com.rickbusarow.kase.gradle.DslLanguageSettings.LabelSupport.GroovyLabels
@@ -140,7 +139,6 @@ public sealed class ArtifactRepositorySpec<SELF : ArtifactRepositorySpec<SELF>> 
  * }
  * ```
  */
-@KaseDsl
 public class MavenArtifactRepositorySpec :
   ArtifactRepositorySpec<MavenArtifactRepositorySpec>(),
   UrlArtifactRepositorySpec<MavenArtifactRepositorySpec> {
