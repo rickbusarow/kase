@@ -15,61 +15,65 @@
 
 package builds
 
+import com.github.breadmoirai.githubreleaseplugin.GithubReleaseExtension
+import com.github.breadmoirai.githubreleaseplugin.GithubReleasePlugin
+import com.rickbusarow.kgx.applyOnce
+import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 abstract class GitHubReleasePlugin : Plugin<Project> {
   override fun apply(target: Project) {
 
-    // target.plugins.applyOnce<GithubReleasePlugin>()
-    //
-    // target.extensions.configure(GithubReleaseExtension::class.java) { release ->
-    //   release.token {
-    //     target.properties["GITHUB_PERSONAL_ACCESS_TOKEN"] as? String
-    //       ?: throw GradleException(
-    //         "In order to release, you must provide a GitHub Personal Access Token " +
-    //           "as a property named 'GITHUB_PERSONAL_ACCESS_TOKEN'."
-    //       )
-    //   }
-    //   release.owner.set("rbusarow")
-    //
-    //   release.generateReleaseNotes.set(false)
-    //   release.overwrite.set(false)
-    //   release.dryRun.set(false)
-    //   release.draft.set(false)
-    //
-    //   release.tagName.set(target.VERSION_NAME)
-    //   release.releaseName.set(target.VERSION_NAME)
-    //
-    //   release.body.set(
-    //     target.provider {
-    //       if (target.versionIsSnapshot) {
-    //         throw GradleException(
-    //           "do not create a GitHub release for a snapshot. (version is $${target.VERSION_NAME})."
-    //         )
-    //       }
-    //
-    //       val versionHeaderRegex = """## \[?$SEMVER_REGEX]?(?: .*)?""".toRegex()
-    //
-    //       val split = target.file("CHANGELOG.md").readLines()
-    //         .splitInclusive { versionHeaderRegex.matches(it) }
-    //
-    //       split.singleOrNull { it[0].startsWith("## [${target.VERSION_NAME}]") }
-    //         ?.joinToString("\n") { it.trim() }
-    //         ?.trim()
-    //         ?.also { body ->
-    //
-    //           if (body.isBlank()) {
-    //             throw GradleException("The changelog for this version cannot be blank.")
-    //           }
-    //         }
-    //         ?: throw GradleException(
-    //           "There should be exactly one Changelog header matching ${target.VERSION_NAME}, " +
-    //             "but there are ${split.size}:\n" +
-    //             split.map { it.first() }.joinToString("\n") { "\t$it" }
-    //         )
-    //     }
-    //   )
-    // }
+    target.plugins.applyOnce<GithubReleasePlugin>()
+
+    target.extensions.configure(GithubReleaseExtension::class.java) { release ->
+      release.token {
+        target.properties["GITHUB_PERSONAL_ACCESS_TOKEN"] as? String
+          ?: throw GradleException(
+            "In order to release, you must provide a GitHub Personal Access Token " +
+              "as a property named 'GITHUB_PERSONAL_ACCESS_TOKEN'."
+          )
+      }
+      release.owner.set("rickbusarow")
+
+      release.generateReleaseNotes.set(false)
+      release.overwrite.set(false)
+      release.dryRun.set(false)
+      release.draft.set(false)
+
+      release.tagName.set(target.VERSION_NAME)
+      release.releaseName.set(target.VERSION_NAME)
+
+      release.body.set(
+        target.provider {
+          if (target.versionIsSnapshot) {
+            throw GradleException(
+              "do not create a GitHub release for a snapshot. (version is $${target.VERSION_NAME})."
+            )
+          }
+
+          val versionHeaderRegex = """## \[?$SEMVER_REGEX]?(?: .*)?""".toRegex()
+
+          val split = target.file("CHANGELOG.md").readLines()
+            .splitInclusive { versionHeaderRegex.matches(it) }
+
+          split.singleOrNull { it[0].startsWith("## [${target.VERSION_NAME}]") }
+            ?.joinToString("\n") { it.trim() }
+            ?.trim()
+            ?.also { body ->
+
+              if (body.isBlank()) {
+                throw GradleException("The changelog for this version cannot be blank.")
+              }
+            }
+            ?: throw GradleException(
+              "There should be exactly one Changelog header matching ${target.VERSION_NAME}, " +
+                "but there are ${split.size}:\n" +
+                split.map { it.first() }.joinToString("\n") { "\t$it" }
+            )
+        }
+      )
+    }
   }
 }
