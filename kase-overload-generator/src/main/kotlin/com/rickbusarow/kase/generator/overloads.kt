@@ -342,6 +342,7 @@ internal fun StringBuilder.testFactory_Iterable(
  * @param args the [KaseArg]s to iterate over
  * @param builderName the name of the builder function to invoke (e.g. `buildList` or `sequence`)
  * @param center the code to execute at the center of the nested for loops
+ * @since 0.1.0
  */
 internal fun forLoops(
   args: List<KaseArg>,

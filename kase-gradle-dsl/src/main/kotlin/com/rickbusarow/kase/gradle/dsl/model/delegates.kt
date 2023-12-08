@@ -28,6 +28,8 @@ import com.rickbusarow.kase.gradle.dsl.model.RegularVariableReference.MutableVar
  * val myProperty by gradlePropertyReference()
  * myProperty.set("foo")
  * ```
+ *
+ * @since 0.1.0
  */
 public fun gradlePropertyReference(
   name: String? = null
@@ -45,6 +47,8 @@ public fun gradlePropertyReference(
  * val myProvider by gradleProviderReference()
  * val value = myProvider.get()
  * ```
+ *
+ * @since 0.1.0
  */
 public fun gradleProviderReference(
   name: String? = null
@@ -62,6 +66,8 @@ public fun gradleProviderReference(
  * val myVariable by mutableVariableReference()
  * myVariable.value = "foo"
  * ```
+ *
+ * @since 0.1.0
  */
 public inline fun <reified T> mutableVariableReference(
   name: String? = null,
@@ -82,6 +88,8 @@ public inline fun <reified T> mutableVariableReference(
  * val myVariable by immutableVariableReference()
  * val value = myVariable.value
  * ```
+ *
+ * @since 0.1.0
  */
 public fun immutableVariableReference(
   name: String? = null

@@ -21,6 +21,8 @@ import kotlin.properties.ReadOnlyProperty
 /**
  * Collects [DslElement]s, to be written to a [DslLanguage]
  * file. Elements are written in the order they are added.
+ *
+ * @since 0.1.0
  */
 @Suppress("UnnecessaryAbstractClass")
 public abstract class AbstractDslElementContainer<SELF : AbstractDslElementContainer<SELF>>(

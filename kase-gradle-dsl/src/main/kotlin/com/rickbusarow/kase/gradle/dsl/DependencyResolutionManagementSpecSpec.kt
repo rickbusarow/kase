@@ -27,20 +27,22 @@ import com.rickbusarow.kase.gradle.dsl.model.gradlePropertyReference
 /**
  * Builds the `dependencyResolutionManagement` block in
  * a `settings.gradle` or `settings.gradle.kts` file.
+ *
+ * @since 0.1.0
  */
 public class DependencyResolutionManagementSpecSpec :
   AbstractDslElementContainer<DependencyResolutionManagementSpecSpec>(),
   HasRepositoriesBlock<DependencyResolutionManagementSpecSpec> {
-  /** */
+  /** @since 0.1.0 */
   public val defaultLibrariesExtensionName: GradlePropertyReference by gradlePropertyReference()
 
-  /** */
+  /** @since 0.1.0 */
   public val defaultProjectsExtensionName: GradlePropertyReference by gradlePropertyReference()
 
-  /** */
+  /** @since 0.1.0 */
   public val rulesMode: GradlePropertyReference by gradlePropertyReference()
 
-  /** */
+  /** @since 0.1.0 */
   public val repositoriesMode: GradlePropertyReference by gradlePropertyReference()
 
   /**
@@ -52,6 +54,8 @@ public class DependencyResolutionManagementSpecSpec :
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun versionCatalogs(
     block: MutableVersionCatalogContainer.() -> Unit
@@ -71,6 +75,8 @@ public class DependencyResolutionManagementSpecSpec :
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun components(
     block: ComponentMetadataContainer.() -> Unit
@@ -91,6 +97,8 @@ public class DependencyResolutionManagementSpecSpec :
  *   }
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 public class MutableVersionCatalogContainer : AbstractDslElementContainer<MutableVersionCatalogContainer>()
 
@@ -103,5 +111,7 @@ public class MutableVersionCatalogContainer : AbstractDslElementContainer<Mutabl
  *   }
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 public class ComponentMetadataContainer : AbstractDslElementContainer<ComponentMetadataContainer>()

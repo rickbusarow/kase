@@ -21,15 +21,31 @@ import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
 import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport
 import dev.drewhamilton.poko.Poko
 
-/** A single application of a plugin inside a `plugins { }` block. */
+/**
+ * A single application of a plugin inside a `plugins { }` block.
+ *
+ * @since 0.1.0
+ */
 public sealed class PluginApplication : DslElement {
-  /** The plugin identifier, such as `kotlin` or `com.android.application`. */
+  /**
+   * The plugin identifier, such as `kotlin` or `com.android.application`.
+   *
+   * @since 0.1.0
+   */
   public abstract val identifier: String
 
-  /** The plugin version, such as `1.3.50`. */
+  /**
+   * The plugin version, such as `1.3.50`.
+   *
+   * @since 0.1.0
+   */
   public abstract val version: String?
 
-  /** If false, appends `apply false`. */
+  /**
+   * If false, appends `apply false`.
+   *
+   * @since 0.1.0
+   */
   public abstract val apply: Boolean
 
   final override fun write(language: DslLanguage): String {
@@ -60,7 +76,11 @@ public sealed class PluginApplication : DslElement {
 
   internal abstract fun simpleCase(language: DslLanguage): String
 
-  /** Applied via the typical `id("com.acme.anvil")` syntax. */
+  /**
+   * Applied via the typical `id("com.acme.anvil")` syntax.
+   *
+   * @since 0.1.0
+   */
   @Poko
   public class ID(
     override val identifier: String,
@@ -81,6 +101,7 @@ public sealed class PluginApplication : DslElement {
    * @property aliasName the name of the alias, such as `libs.plugins.kotlin.jvm`
    * @property version the version of the plugin, such as `1.3.50`
    * @property apply whether to apply the plugin, or just add it to the classpath
+   * @since 0.1.0
    */
   @Poko
   public class Alias(
@@ -105,6 +126,8 @@ public sealed class PluginApplication : DslElement {
    *   `kotlin-dsl`
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   @Poko
   public class Precompiled(
@@ -138,6 +161,8 @@ public sealed class PluginApplication : DslElement {
    *   kotlin("jvm")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   @Poko
   public class KotlinPlugin(

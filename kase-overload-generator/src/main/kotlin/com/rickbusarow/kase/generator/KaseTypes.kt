@@ -21,40 +21,84 @@ internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
 
   private val argsValueTypesString: String by lazy { args.valueTypesString }
 
-  /** `Kase3` */
+  /**
+   * `Kase3`
+   *
+   * @since 0.1.0
+   */
   val kaseInterfaceNoTypes = "Kase$number"
 
-  /** `Kase3<A1, A2, A3>` */
+  /**
+   * `Kase3<A1, A2, A3>`
+   *
+   * @since 0.1.0
+   */
   val kaseInterface: String = "$kaseInterfaceNoTypes<$argsValueTypesString>"
 
-  /** `Kase2<A1, A2>` in `Kase3<A1, A2, A3> : Kase2<A1, A2>` */
+  /**
+   * `Kase2<A1, A2>` in `Kase3<A1, A2, A3> : Kase2<A1, A2>`
+   *
+   * @since 0.1.0
+   */
   val kaseSuperInterface: String = if (number == 1) {
     "Kase"
   } else {
     KaseTypes(number - 1, args.dropLast(1)).kaseInterface
   }
 
-  /** `defaultKase2DisplayNameFactory` */
+  /**
+   * `defaultKase2DisplayNameFactory`
+   *
+   * @since 0.1.0
+   */
   val defaultDisplayNameFactory: String = "default${kaseInterfaceNoTypes}DisplayNameFactory"
 
-  /** `KaseDisplayNameFactory<Kase2<A1, A2>>` */
+  /**
+   * `KaseDisplayNameFactory<Kase2<A1, A2>>`
+   *
+   * @since 0.1.0
+   */
   val displayNameFactory: String = "KaseDisplayNameFactory<$kaseInterface>"
 
-  /** `DefaultKase3` */
+  /**
+   * `DefaultKase3`
+   *
+   * @since 0.1.0
+   */
   val defaultKaseNoTypes = "DefaultKase$number"
 
-  /** `DefaultKase3<A1, A2, A3>` */
+  /**
+   * `DefaultKase3<A1, A2, A3>`
+   *
+   * @since 0.1.0
+   */
   val defaultKase = "DefaultKase$number<$argsValueTypesString>"
 
-  /** `KaseLabels3` */
+  /**
+   * `KaseLabels3`
+   *
+   * @since 0.1.0
+   */
   val kaseLabels = "KaseLabels$number"
 
-  /** `TestEnvironment` */
+  /**
+   * `TestEnvironment`
+   *
+   * @since 0.1.0
+   */
   val testEnvironment = "TestEnvironment"
 
-  /** `TestEnvironmentFactory<TestEnvironment, Kase3<A1, A2, A3>>` */
+  /**
+   * `TestEnvironmentFactory<TestEnvironment, Kase3<A1, A2, A3>>`
+   *
+   * @since 0.1.0
+   */
   fun testEnvironmentFactory(environmentType: String) = "TestEnvironmentFactory<$environmentType>"
 
-  /** `KaseParameterWithLabel<A1, A2, A3>` */
+  /**
+   * `KaseParameterWithLabel<A1, A2, A3>`
+   *
+   * @since 0.1.0
+   */
   fun kaseParameterWithLabel(argValueType: String) = "KaseParameterWithLabel<$argValueType>"
 }

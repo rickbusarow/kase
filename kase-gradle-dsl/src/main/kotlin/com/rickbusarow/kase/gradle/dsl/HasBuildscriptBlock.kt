@@ -19,7 +19,11 @@ import com.rickbusarow.kase.gradle.dsl.model.BuildscriptSpec
 import com.rickbusarow.kase.gradle.dsl.model.DslElementContainer
 import com.rickbusarow.kase.gradle.dsl.model.LambdaParameter
 
-/** Builds a `buildscript { }` block in a build file. */
+/**
+ * Builds a `buildscript { }` block in a build file.
+ *
+ * @since 0.1.0
+ */
 public interface HasBuildscriptBlock : DslElementContainer<BuildFileSpec> {
 
   /**
@@ -29,6 +33,8 @@ public interface HasBuildscriptBlock : DslElementContainer<BuildFileSpec> {
    *   // ...
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun buildscript(
     block: BuildscriptSpec.() -> Unit

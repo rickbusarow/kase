@@ -15,7 +15,11 @@
 
 package com.rickbusarow.kase.gradle.dsl.model
 
-/** Builds a `buildscript { }` block in a build file. */
+/**
+ * Builds a `buildscript { }` block in a build file.
+ *
+ * @since 0.1.0
+ */
 public class BuildscriptSpec :
   AbstractDslElementContainer<BuildscriptSpec>(),
   HasRepositoriesBlock<BuildscriptSpec>,

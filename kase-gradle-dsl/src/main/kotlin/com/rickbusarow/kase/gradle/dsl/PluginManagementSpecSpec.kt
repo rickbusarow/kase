@@ -23,7 +23,11 @@ import com.rickbusarow.kase.gradle.dsl.model.HasPluginsBlock
 import com.rickbusarow.kase.gradle.dsl.model.HasRepositoriesBlock
 import com.rickbusarow.kase.gradle.dsl.model.LambdaParameter
 
-/** Builds the `pluginManagement` block in a `settings.gradle` or `settings.gradle.kts` file. */
+/**
+ * Builds the `pluginManagement` block in a `settings.gradle` or `settings.gradle.kts` file.
+ *
+ * @since 0.1.0
+ */
 public class PluginManagementSpecSpec :
   AbstractDslElementContainer<PluginManagementSpecSpec>(),
   HasRepositoriesBlock<PluginManagementSpecSpec>,
@@ -39,6 +43,8 @@ public class PluginManagementSpecSpec :
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun resolutionStrategy(
     block: PluginResolutionStrategySpec.() -> Unit = {}

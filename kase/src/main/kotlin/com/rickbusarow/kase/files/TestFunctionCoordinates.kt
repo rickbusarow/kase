@@ -34,6 +34,7 @@ import java.nio.file.Paths
  * @property declaringClassWithoutSynthetics ex: `com.example.foo.Outer.Middle.Inner`
  * @property declaringClassSimpleNames ex: `[Outer, Middle, Inner]`
  * @property callingFunctionSimpleName ex: `some function should return false`
+ * @since 0.1.0
  */
 @Poko
 public class TestFunctionCoordinates
@@ -118,7 +119,11 @@ public class TestFunctionCoordinates
 
   public companion object {
 
-    /** Finds the stack trace kaseParam corresponding to the invoking test function. */
+    /**
+     * Finds the stack trace kaseParam corresponding to the invoking test function.
+     *
+     * @since 0.1.0
+     */
     public fun get(): TestFunctionCoordinates {
       val ele = testStackTraceElement()
       return from(ele)
@@ -127,6 +132,8 @@ public class TestFunctionCoordinates
     /**
      * Finds the stack trace kaseParam corresponding to the invoking test
      * function. This should be called as close as possible to the test function.
+     *
+     * @since 0.1.0
      */
     internal fun testStackTraceElement(): StackTraceElement {
       val stackTrace = Thread.currentThread().stackTrace
@@ -158,7 +165,11 @@ public class TestFunctionCoordinates
 
 internal fun StackTraceElement.clazz(): Class<*> = Class.forName(className)
 
-/** Returns a [StackTraceElement] if the receiver is a test function, otherwise `null`. */
+/**
+ * Returns a [StackTraceElement] if the receiver is a test function, otherwise `null`.
+ *
+ * @since 0.1.0
+ */
 internal fun StackTraceElement.testStackTraceElementOrNull(): StackTraceElement? {
   @Suppress("SwallowedException")
   val clazz = try {
@@ -200,6 +211,7 @@ private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
  *
  * @receiver [AnnotatedElement] The kaseParam to check.
  * @return `true` if the [AnnotatedElement] is annotated, `false` otherwise.
+ * @since 0.1.0
  */
 @PublishedApi
 internal fun AnnotatedElement.hasTestAnnotation(): Boolean {
@@ -213,6 +225,7 @@ internal fun AnnotatedElement.hasTestAnnotation(): Boolean {
  * @param actualClass The class in which the method is declared.
  * @param actualMethodName The name of the method.
  * @return `true` if the method should be skipped, `false` otherwise.
+ * @since 0.1.0
  */
 internal fun hasTestAnnotation(actualClass: Class<*>, actualMethodName: String): Boolean {
 
@@ -225,6 +238,8 @@ internal fun hasTestAnnotation(actualClass: Class<*>, actualMethodName: String):
 /**
  * nested classes and functions have the java `$`
  * labelDelimiter ex: "com.example.MyTest$nested class$my test"
+ *
+ * @since 0.1.0
  */
 internal fun Class<*>.segments(): List<String> = name.split(".", "$")
   .filter { it.isNotBlank() }
@@ -233,7 +248,11 @@ internal fun Class<*>.simpleBinaryName(): String {
   return segments().last { it.firstOrNull()?.isDigit() == false }
 }
 
-/** Returns the name before the first period */
+/**
+ * Returns the name before the first period
+ *
+ * @since 0.1.0
+ */
 private fun Class<*>.firstPackageSegment(): String? = `package`?.name?.substringBefore('.')
 
 /**
@@ -243,6 +262,7 @@ private fun Class<*>.firstPackageSegment(): String? = `package`?.name?.substring
  *
  * @receiver List of [Method] to check.
  * @return `true` if all methods are annotated as tests, `false` otherwise.
+ * @since 0.1.0
  */
 @PublishedApi
 internal fun List<Method>.requireAllOrNoneAreAnnotated(
@@ -268,6 +288,8 @@ internal fun List<Method>.requireAllOrNoneAreAnnotated(
  *
  * In practical terms, this strips away Kotlin's anonymous lambda
  * "classes" and other compatibility shims, returning the real class.
+ *
+ * @since 0.1.0
  */
 public tailrec fun Class<*>.removeSynthetics(): Class<*>? {
   val enclosing: Class<*>? = enclosingClass
@@ -279,7 +301,11 @@ public tailrec fun Class<*>.removeSynthetics(): Class<*>? {
   }
 }
 
-/** Returns the simple names of the receiver class and all of its enclosing classes. */
+/**
+ * Returns the simple names of the receiver class and all of its enclosing classes.
+ *
+ * @since 0.1.0
+ */
 public fun Class<*>.simpleNames(): List<String> {
   return generateSequence(this) { it.enclosingClass }
     .mapNotNull { it.simpleName }
@@ -290,6 +316,8 @@ public fun Class<*>.simpleNames(): List<String> {
 /**
  * Returns the simple names of the receiver class and all of
  * its enclosing classes, starting with the outermost class.
+ *
+ * @since 0.1.0
  */
 internal fun Class<*>.enclosingClasses(): Sequence<Class<*>> {
   return generateSequence(this) { it.enclosingClass }

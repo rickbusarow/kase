@@ -32,6 +32,8 @@ import com.rickbusarow.kase.gradle.dsl.IncludedBuildSpec
  * ```
  *
  * to a `settings.gradle` or `settings.gradle.kts` file.
+ *
+ * @since 0.1.0
  */
 public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementContainer<SELF> {
 
@@ -42,6 +44,8 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
    *   includeBuild("someProject")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeBuild(rootProject: String): SELF = functionCall(
     name = "includeBuild",
@@ -57,6 +61,8 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
    *   includeBuild("someProject")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeBuild(rootProject: DslElement): SELF = functionCall(
     name = "includeBuild",
@@ -74,6 +80,8 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeBuild(
     rootProject: String,
@@ -95,6 +103,8 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeBuild(
     rootProject: DslElement,
@@ -122,6 +132,8 @@ public interface HasIncludedBuild<SELF : HasIncludedBuild<SELF>> : DslElementCon
  * ```
  *
  * to a `settings.gradle` or `settings.gradle.kts` file.
+ *
+ * @since 0.1.0
  */
 public interface HasIncludes<SELF : HasIncludedBuild<SELF>> : DslElementContainer<SELF> {
 
@@ -137,6 +149,7 @@ public interface HasIncludes<SELF : HasIncludedBuild<SELF>> : DslElementContaine
    * ```
    * @param projectPaths the paths to include, such as `":someProject"` or `"../someProject"`
    * @param separator the separator between each path, such as `",\n"`
+   * @since 0.1.0
    */
   public fun include(
     vararg projectPaths: String,

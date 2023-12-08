@@ -18,12 +18,17 @@ package com.rickbusarow.kase
 import com.rickbusarow.kase.files.TestFunctionCoordinates
 import kotlinx.coroutines.runBlocking
 
-/** Creates [TestEnvironment]s. */
+/**
+ * Creates [TestEnvironment]s.
+ *
+ * @since 0.1.0
+ */
 public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
   /**
    * Creates a new [TestEnvironment].
    *
    * @return A new [TestEnvironment] of type [T].
+   * @since 0.1.0
    */
   public fun newTestEnvironment(
     kase: K,
@@ -38,7 +43,11 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
   }
 }
 
-/** Convenience for invoking a test action with a `TestEnvironment` when no [Kase] is needed. */
+/**
+ * Convenience for invoking a test action with a `TestEnvironment` when no [Kase] is needed.
+ *
+ * @since 0.1.0
+ */
 public fun <T : TestEnvironment> TestEnvironmentFactory<T, Kase>.test(
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend T.() -> Unit

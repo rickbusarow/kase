@@ -19,15 +19,21 @@ import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.DslStringFactory
 import dev.drewhamilton.poko.Poko
 
-/** */
+/** @since 0.1.0 */
 public sealed interface ValueAssignment : DslElement {
 
-  /** the name of the variable or property being assigned, such as `version` or `group`. */
+  /**
+   * the name of the variable or property being assigned, such as `version` or `group`.
+   *
+   * @since 0.1.0
+   */
   public val name: String
 
   /**
    * Invoked during [DslLanguage.write] to create the value
    * being assigned, such as `"1.0.0"` or `"com.acme"`.
+   *
+   * @since 0.1.0
    */
   public val dslStringFactory: DslStringFactory
 
@@ -36,6 +42,7 @@ public sealed interface ValueAssignment : DslElement {
    *
    * @property name the name of the variable, such as `version`
    * @property dslStringFactory the value being assigned, such as `"1.0.0"`
+   * @since 0.1.0
    */
   @Poko
   public class SetterAssignment(
@@ -54,6 +61,7 @@ public sealed interface ValueAssignment : DslElement {
    *
    * @property name the name of the property, such as `version`
    * @property dslStringFactory the value being assigned, such as `"1.0.0"`
+   * @since 0.1.0
    */
   @Poko
   public class GradlePropertyAssignment(

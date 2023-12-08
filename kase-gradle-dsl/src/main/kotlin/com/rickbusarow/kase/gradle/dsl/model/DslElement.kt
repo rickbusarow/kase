@@ -21,14 +21,26 @@ import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
 import com.rickbusarow.kase.gradle.DslStringFactory
 import dev.drewhamilton.poko.Poko
 
-/** Interface for any DSL builder components. */
+/**
+ * Interface for any DSL builder components.
+ *
+ * @since 0.1.0
+ */
 public fun interface DslElement : DslStringFactory {
 
-  /** Returns the DSL code for this component. */
+  /**
+   * Returns the DSL code for this component.
+   *
+   * @since 0.1.0
+   */
   override fun write(language: DslLanguage): String
 }
 
-/** shorthand for `write(GroovyDsl(useInfix, useLabels, useDoubleQuotes))` */
+/**
+ * shorthand for `write(GroovyDsl(useInfix, useLabels, useDoubleQuotes))`
+ *
+ * @since 0.1.0
+ */
 public fun DslElement.writeGroovy(
   useInfix: Boolean = true,
   useLabels: Boolean = false,
@@ -41,18 +53,30 @@ public fun DslElement.writeGroovy(
   )
 )
 
-/** Shortcut for `ValueStringFactory { value.write(language) }`. */
+/**
+ * Shortcut for `ValueStringFactory { value.write(language) }`.
+ *
+ * @since 0.1.0
+ */
 public fun DslStringFactory(value: DslElement): DslStringFactory {
   return DslStringFactory(value::write)
 }
 
-/** shorthand for `write(KotlinDsl(useInfix, useLabels))` */
+/**
+ * shorthand for `write(KotlinDsl(useInfix, useLabels))`
+ *
+ * @since 0.1.0
+ */
 public fun DslElement.writeKotlin(
   useInfix: Boolean = true,
   useLabels: Boolean = false
 ): String = write(KotlinDsl(useInfix = useInfix, useLabels = useLabels))
 
-/** Represents a blank line in the generated DSL */
+/**
+ * Represents a blank line in the generated DSL
+ *
+ * @since 0.1.0
+ */
 public object BlankLine : DslElement {
   override fun write(language: DslLanguage): String = ""
 }
@@ -61,6 +85,7 @@ public object BlankLine : DslElement {
  * Represents exact text to be written to the DSL, without modification.
  *
  * @property value The exact text to be written to the DSL.
+ * @since 0.1.0
  */
 @JvmInline
 public value class RawLiteral(public val value: String) : DslElement {
@@ -75,6 +100,7 @@ public value class RawLiteral(public val value: String) : DslElement {
  * @property useDoubleQuotes whether to use double quotes for strings,
  *   even when the language is Groovy and single quotes are valid.
  *   e.g. `project(":myProject")` instead of `project(':myProject')`
+ * @since 0.1.0
  */
 @Poko
 public class StringLiteral(

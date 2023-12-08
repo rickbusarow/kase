@@ -23,7 +23,11 @@ import modulecheck.gradle.ModuleCheckExtension
 import modulecheck.gradle.ModuleCheckPlugin
 import org.gradle.api.Project
 
-/** Applied to the real project root and the root project of any included build except this one. */
+/**
+ * Applied to the real project root and the root project of any included build except this one.
+ *
+ * @since 0.1.0
+ */
 abstract class RootPlugin : BaseModulePlugin() {
   override fun apply(target: Project) {
 

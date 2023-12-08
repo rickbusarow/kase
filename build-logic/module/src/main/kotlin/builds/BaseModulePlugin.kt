@@ -18,7 +18,11 @@ package builds
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-/** Applies common conventions to any project. */
+/**
+ * Applies common conventions to any project.
+ *
+ * @since 0.1.0
+ */
 abstract class BaseModulePlugin : Plugin<Project> {
   override fun apply(target: Project) {
 
@@ -32,7 +36,11 @@ abstract class BaseModulePlugin : Plugin<Project> {
   }
 }
 
-/** Applies conventions to any kotlin-jvm project. */
+/**
+ * Applies conventions to any kotlin-jvm project.
+ *
+ * @since 0.1.0
+ */
 abstract class KotlinJvmModulePlugin : BaseModulePlugin() {
   override fun apply(target: Project) {
 
@@ -44,7 +52,11 @@ abstract class KotlinJvmModulePlugin : BaseModulePlugin() {
   }
 }
 
-/** Applies conventions to any kotlin-multiplatform project. */
+/**
+ * Applies conventions to any kotlin-multiplatform project.
+ *
+ * @since 0.1.0
+ */
 abstract class KotlinMultiplatformModulePlugin : BaseModulePlugin() {
   override fun apply(target: Project) {
 

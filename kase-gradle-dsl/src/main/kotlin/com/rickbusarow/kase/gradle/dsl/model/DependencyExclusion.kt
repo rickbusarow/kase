@@ -38,6 +38,7 @@ import dev.drewhamilton.poko.Poko
  *
  * @property group the group to exclude, such as `com.acme`
  * @property module the module to exclude, such as `rocket`
+ * @since 0.1.0
  */
 @Poko
 public class DependencyExclusion(

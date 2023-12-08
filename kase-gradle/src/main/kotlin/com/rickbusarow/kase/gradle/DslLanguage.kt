@@ -22,9 +22,17 @@ import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport
 import com.rickbusarow.kase.gradle.DslLanguageSettings.KotlinCompatible
 import dev.drewhamilton.poko.Poko
 
-/** Trait interface for a [DslLanguage]. */
+/**
+ * Trait interface for a [DslLanguage].
+ *
+ * @since 0.1.0
+ */
 public interface HasDslLanguage {
-  /** The [DslLanguage] instance. */
+  /**
+   * The [DslLanguage] instance.
+   *
+   * @since 0.1.0
+   */
   public val dslLanguage: DslLanguage
 }
 
@@ -33,6 +41,7 @@ public interface HasDslLanguage {
  *
  * @property quote the quoted character used for strings in this language, e.g. `'` or `"`
  * @property labelDelimiter the delimiter between a label and its value, e.g. ` = ` or `: `
+ * @since 0.1.0
  */
 public sealed class DslLanguage(
   public val quote: Char,
@@ -45,6 +54,8 @@ public sealed class DslLanguage(
    * valid. e.g. `project(":myProject")` instead of `project(':myProject')`
    *
    * This is always `true` in [KotlinDsl]
+   *
+   * @since 0.1.0
    */
   public abstract val useDoubleQuotes: Boolean
 
@@ -69,6 +80,8 @@ public sealed class DslLanguage(
    *  // useInfix = false
    *  id('com.acme.anvil').version('1.0.0').apply(false)
    * ```
+   *
+   * @since 0.1.0
    */
   public abstract val useInfix: Boolean
 
@@ -94,13 +107,23 @@ public sealed class DslLanguage(
    *   api project(':myProject')
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public abstract val useLabels: Boolean
 
-  /** Returns `settings.gradle` for Groovy and `settings.gradle.kts` for Kotlin. */
+  /**
+   * Returns `settings.gradle` for Groovy and `settings.gradle.kts` for Kotlin.
+   *
+   * @since 0.1.0
+   */
   public val settingsFileName: String = scriptFileName("settings")
 
-  /** Returns `build.gradle` for Groovy and `build.gradle.kts` for Kotlin. */
+  /**
+   * Returns `build.gradle` for Groovy and `build.gradle.kts` for Kotlin.
+   *
+   * @since 0.1.0
+   */
   public val buildFileName: String = scriptFileName("build")
 
   /**
@@ -110,6 +133,7 @@ public sealed class DslLanguage(
    * @param content the content to parenthesize, e.g. `'com.acme:dynamite:1.0.0'`
    * @param infixSupport overrides the default behavior of the language's [useInfix] setting
    * @return the parenthesized content, e.g. `('com.acme:dynamite:1.0.0')`
+   * @since 0.1.0
    */
   public fun parens(content: String, infixSupport: InfixSupport? = null): String =
     when {
@@ -128,6 +152,7 @@ public sealed class DslLanguage(
    *   even when the language is Groovy and single quotes are valid.
    *   e.g. `project(":myProject")` instead of `project(':myProject')`
    * @return the quoted content, e.g. `'com.acme:dynamite:1.0.0'`
+   * @since 0.1.0
    */
   public fun quote(
     content: String,
@@ -139,10 +164,18 @@ public sealed class DslLanguage(
     }
   }
 
-  /** invokes [action] within this language's scope and returns the result */
+  /**
+   * invokes [action] within this language's scope and returns the result
+   *
+   * @since 0.1.0
+   */
   public inline fun <reified T> write(action: DslLanguage.() -> T): T = action()
 
-  /** Returns `$simpleName.gradle` for Groovy and `$simpleName.gradle.kts` for Kotlin. */
+  /**
+   * Returns `$simpleName.gradle` for Groovy and `$simpleName.gradle.kts` for Kotlin.
+   *
+   * @since 0.1.0
+   */
   public fun scriptFileName(simpleName: String): String = when (this) {
     is GroovyDsl -> "$simpleName.gradle"
     is KotlinDsl -> "$simpleName.gradle.kts"
@@ -151,10 +184,16 @@ public sealed class DslLanguage(
   /**
    * Treats the receiver string as a method name and invokes it with the given
    * [param]. The parameter may be wrapped in parentheses or treated as infix.
+   *
+   * @since 0.1.0
    */
   public operator fun String.invoke(param: String): String = "$this${parens(param)}"
 
-  /** Whether this language supports some language-specific feature. */
+  /**
+   * Whether this language supports some language-specific feature.
+   *
+   * @since 0.1.0
+   */
   public fun supports(settings: DslLanguageSettings): Boolean {
     return when (this) {
       is GroovyDsl -> settings is GroovyCompatible
@@ -168,6 +207,7 @@ public sealed class DslLanguage(
    * @property useInfix whether to always parenthesize method
    *   call parameters, even when not syntactically necessary.
    * @property useLabels whether to use labels for the parameters of function calls,
+   * @since 0.1.0
    */
   @Poko
   public class KotlinDsl(
@@ -186,6 +226,7 @@ public sealed class DslLanguage(
    * @property useLabels whether to use labels for the parameters of function calls,
    * @property useDoubleQuotes whether to use double quotes
    *   for strings, even when single quotes are valid.
+   * @since 0.1.0
    */
   @Poko
   public class GroovyDsl(

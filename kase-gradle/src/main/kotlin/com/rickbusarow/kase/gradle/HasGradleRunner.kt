@@ -28,7 +28,11 @@ import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome.FAILED
 import org.gradle.util.GradleVersion
 
-/** Models the contents of a Gradle project. */
+/**
+ * Models the contents of a Gradle project.
+ *
+ * @since 0.1.0
+ */
 // public interface GradleProjectSpec {
 //   public val projectDir: File
 //   public val buildFile: File
@@ -43,10 +47,18 @@ import org.gradle.util.GradleVersion
 //   public fun writeGradleFiles()
 // }
 
-/** Trait interface for a test environment with a [GradleRunner]. */
+/**
+ * Trait interface for a test environment with a [GradleRunner].
+ *
+ * @since 0.1.0
+ */
 public interface HasGradleRunner {
 
-  /** The [GradleRunner] used to execute Gradle builds. */
+  /**
+   * The [GradleRunner] used to execute Gradle builds.
+   *
+   * @since 0.1.0
+   */
   public val gradleRunner: GradleRunner
 
   /**
@@ -57,6 +69,7 @@ public interface HasGradleRunner {
    * @param withHermeticTestKit whether to have a testKit directory unique to this test environment.
    * @param stacktrace whether to include the stacktrace
    * @param shouldFail whether the build should fail
+   * @since 0.1.0
    */
   public fun build(
     tasks: List<String>,
@@ -74,6 +87,7 @@ public interface HasGradleRunner {
    * @param withHermeticTestKit whether to have a testKit directory unique to this test environment.
    * @param stacktrace whether to include the stacktrace
    * @param assertions additional assertions to run on the [BuildResult]
+   * @since 0.1.0
    */
   public fun shouldSucceed(
     vararg tasks: String,
@@ -102,6 +116,7 @@ public interface HasGradleRunner {
    * @param withHermeticTestKit whether to have a testKit directory unique to this test environment.
    * @param stacktrace whether to include the stacktrace
    * @param assertions additional assertions to run on the [BuildResult]
+   * @since 0.1.0
    */
   public fun shouldFail(
     vararg tasks: String,
@@ -126,6 +141,7 @@ public interface HasGradleRunner {
    * Asserts that the [BuildResult.output][BuildResult.getOutput]
    * has the given [message] in its output.
    *
+   * @since 0.1.0
    * @throws AssertionError if the [BuildResult] does not have the given [message]
    */
   public infix fun BuildResult.shouldHaveTrimmedMessage(message: String) {
@@ -138,6 +154,7 @@ public interface HasGradleRunner {
    *
    * @param shortenPaths whether to shorten absolute paths to relative ones
    * @param message the message to search for
+   * @since 0.1.0
    * @throws AssertionError if the [BuildResult] does not have the given [message]
    */
   public fun BuildResult.shouldHaveTrimmedMessage(shortenPaths: Boolean, message: String) {
@@ -148,11 +165,16 @@ public interface HasGradleRunner {
    * Removes the constant Gradle output from this [BuildResult]'s [output][BuildResult.getOutput].
    *
    * @param shortenPaths whether to shorten absolute paths to relative ones
+   * @since 0.1.0
    */
   public fun BuildResult.trimGradleNoise(shortenPaths: Boolean = true): String
 }
 
-/** Default implementation of [HasGradleRunner]. */
+/**
+ * Default implementation of [HasGradleRunner].
+ *
+ * @since 0.1.0
+ */
 public open class DefaultHasGradleRunner(
   hasWorkingDir: HasWorkingDir,
   private val rootProjectBuilder: GradleRootProjectBuilder,
@@ -160,7 +182,11 @@ public open class DefaultHasGradleRunner(
 ) : HasGradleRunner,
   HasWorkingDir by hasWorkingDir {
 
-  /** The [GradleRunner] used to execute Gradle builds. */
+  /**
+   * The [GradleRunner] used to execute Gradle builds.
+   *
+   * @since 0.1.0
+   */
   override val gradleRunner: GradleRunner by lazy {
     GradleRunner.create()
       .forwardOutput()

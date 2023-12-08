@@ -26,9 +26,14 @@ import dev.drewhamilton.poko.Poko
  *
  * @see GradleProviderReference for variables like `val acmeVersion: Property<String>`
  * @see RegularVariableReference for variables like `val acmeVersion: String`
+ * @since 0.1.0
  */
 public sealed interface DslValueReference : DslElement {
-  /** The name of the property or variable, such as `acmeVersion` in: `val acmeVersion: String` */
+  /**
+   * The name of the property or variable, such as `acmeVersion` in: `val acmeVersion: String`
+   *
+   * @since 0.1.0
+   */
   public val name: String
 
   /**
@@ -39,6 +44,8 @@ public sealed interface DslValueReference : DslElement {
    *   // ...
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public val parentContainer: DslElementContainer<*>
 }
@@ -51,6 +58,8 @@ public sealed interface DslValueReference : DslElement {
  *
  * val coords = acmeVersion.map { "com.acme:rocket:$it" }
  * ```
+ *
+ * @since 0.1.0
  */
 public sealed class GradleProviderReference : DslValueReference {
 
@@ -58,6 +67,8 @@ public sealed class GradleProviderReference : DslValueReference {
 
   /**
    * Adds a `.map { }` operator to this provider reference, like '.map { "com.acme:rocket:$it" }'
+   *
+   * @since 0.1.0
    */
   public fun map(transform: DslElementContainer<*>.() -> Unit): GradleProviderReference = apply {
 
@@ -75,7 +86,11 @@ public sealed class GradleProviderReference : DslValueReference {
     )
   }
 
-  /** Gets the value for this mutable variable, like '.get()' in: `acmeVersion.get()` */
+  /**
+   * Gets the value for this mutable variable, like '.get()' in: `acmeVersion.get()`
+   *
+   * @since 0.1.0
+   */
   public fun get(): GradleProviderReference = apply {
     withReference = "$name.get()"
   }
@@ -88,6 +103,8 @@ public sealed class GradleProviderReference : DslValueReference {
    *
    * val coords = acmeVersion.map { "com.acme:rocket:$it" }
    * ```
+   *
+   * @since 0.1.0
    */
   @Poko
   public open class GradleReadOnlyProviderReference(
@@ -103,6 +120,8 @@ public sealed class GradleProviderReference : DslValueReference {
    *
    * val coords = acmeVersion.map { "com.acme:rocket:$it" }
    * ```
+   *
+   * @since 0.1.0
    */
   @Poko
   public class GradlePropertyReference(
@@ -112,6 +131,8 @@ public sealed class GradleProviderReference : DslValueReference {
 
     /**
      * Sets the value for this mutable variable, like '.set("1.0.0")' in: `acmeVersion.set("1.0.0")`
+     *
+     * @since 0.1.0
      */
     public fun set(value: Any): GradlePropertyReference = apply {
       withReference = ValueAssignment.GradlePropertyAssignment(
@@ -146,6 +167,8 @@ public sealed class GradleProviderReference : DslValueReference {
  *
  * val coords = acmeVersion.map { "com.acme:rocket:$it" }
  * ```
+ *
+ * @since 0.1.0
  */
 public sealed class RegularVariableReference : DslValueReference {
 
@@ -153,6 +176,8 @@ public sealed class RegularVariableReference : DslValueReference {
 
   /**
    * Represents an immutable variable reference, like 'acmeVersion' in: `val acmeVersion = "1.0.0"`
+   *
+   * @since 0.1.0
    */
   @Poko
   public class ImmutableVariableReference(
@@ -160,7 +185,11 @@ public sealed class RegularVariableReference : DslValueReference {
     override val parentContainer: DslElementContainer<*>
   ) : RegularVariableReference()
 
-  /** Represents a mutable variable reference, like 'acmeVersion' in: `var acmeVersion = "1.0.0"` */
+  /**
+   * Represents a mutable variable reference, like 'acmeVersion' in: `var acmeVersion = "1.0.0"`
+   *
+   * @since 0.1.0
+   */
   @Poko
   public class MutableVariableReference<T>(
     override val name: String,
@@ -168,17 +197,29 @@ public sealed class RegularVariableReference : DslValueReference {
     private val dslElement: (T) -> DslElement
   ) : RegularVariableReference() {
 
-    /** Sets the value for this mutable variable, like ' = "1.0.0"' in: `acmeVersion = "1.0.0"` */
+    /**
+     * Sets the value for this mutable variable, like ' = "1.0.0"' in: `acmeVersion = "1.0.0"`
+     *
+     * @since 0.1.0
+     */
     public fun setEquals(value: T): RegularVariableReference = apply {
       withReference = SetterAssignment(name, dslElement(value)).also(parentContainer::addElement)
     }
 
-    /** Sets the value for this mutable variable, like ' = "1.0.0"' in: `acmeVersion = "1.0.0"` */
+    /**
+     * Sets the value for this mutable variable, like ' = "1.0.0"' in: `acmeVersion = "1.0.0"`
+     *
+     * @since 0.1.0
+     */
     public fun setEquals(value: CharSequence): RegularVariableReference = apply {
       withReference = SetterAssignment(name, value.toString()).also(parentContainer::addElement)
     }
 
-    /** Sets the value for this mutable variable, like ' = "1.0.0"' in: `acmeVersion = "1.0.0"` */
+    /**
+     * Sets the value for this mutable variable, like ' = "1.0.0"' in: `acmeVersion = "1.0.0"`
+     *
+     * @since 0.1.0
+     */
     public fun setEquals(value: DslElement): RegularVariableReference = apply {
       withReference = SetterAssignment(name, value).also(parentContainer::addElement)
     }

@@ -18,7 +18,11 @@ package com.rickbusarow.kase.stdlib
 import java.io.File
 import java.util.Locale
 
-/** Converts all line separators in the receiver string to use `\n`. */
+/**
+ * Converts all line separators in the receiver string to use `\n`.
+ *
+ * @since 0.1.0
+ */
 public fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(), "\n")
 
 /**
@@ -26,6 +30,7 @@ public fun String.normaliseLineSeparators(): String = replace("\r\n|\r".toRegex(
  *
  * @param strings Strings to be removed from the receiver string.
  * @return A new string with all occurrences of specified strings removed.
+ * @since 0.1.0
  */
 public fun String.remove(vararg strings: String): String = strings.fold(this) { acc, string ->
   acc.replace(string, "")
@@ -36,18 +41,31 @@ public fun String.remove(vararg strings: String): String = strings.fold(this) { 
  *
  * @param patterns Regular expressions to be removed from the receiver string.
  * @return A new string with all matches of specified regular expressions removed.
+ * @since 0.1.0
  */
 public fun String.remove(vararg patterns: Regex): String = patterns.fold(this) { acc, regex ->
   acc.replace(regex, "")
 }
 
-/** Removes ANSI controls like `\u001B[]33m` */
+/**
+ * Removes ANSI controls like `\u001B[]33m`
+ *
+ * @since 0.1.0
+ */
 public fun String.noAnsi(): String = remove("""\u001B\[[;\d]*m""".toRegex())
 
-/** replace ` ` (a normal whitespace) with `·` */
+/**
+ * replace ` ` (a normal whitespace) with `·`
+ *
+ * @since 0.1.0
+ */
 public val String.interpuncts: String get() = replace(" ", "·")
 
-/** replace `·` with ` ` (a normal whitespace) */
+/**
+ * replace `·` with ` ` (a normal whitespace)
+ *
+ * @since 0.1.0
+ */
 public val String.noInterpuncts: String get() = replace("·", " ")
 
 /**
@@ -56,6 +74,7 @@ public val String.noInterpuncts: String get() = replace("·", " ")
  * @param locale The [Locale] to be used for decapitalization. Defaults to [Locale.US].
  * @receiver The original String.
  * @return The string with the first character decapitalized.
+ * @since 0.1.0
  */
 public fun String.decapitalize(locale: Locale = Locale.US): String =
   replaceFirstChar { it.lowercase(locale) }
@@ -66,6 +85,7 @@ public fun String.decapitalize(locale: Locale = Locale.US): String =
  * @param locale The [Locale] to be used for capitalization. Defaults to [Locale.US].
  * @receiver The original String.
  * @return The string with the first character capitalized.
+ * @since 0.1.0
  */
 public fun String.capitalize(locale: Locale = Locale.US): String =
   replaceFirstChar { it.uppercase(locale) }
@@ -74,6 +94,8 @@ public fun String.capitalize(locale: Locale = Locale.US): String =
  * performs [transform] on each line
  *
  * Doesn't preserve the original line endings.
+ *
+ * @since 0.1.0
  */
 public fun CharSequence.mapLines(transform: (String) -> CharSequence): String = lineSequence()
   .joinToString("\n", transform = transform)
@@ -82,6 +104,8 @@ public fun CharSequence.mapLines(transform: (String) -> CharSequence): String = 
  * performs [transform] on each line
  *
  * Doesn't preserve the original line endings.
+ *
+ * @since 0.1.0
  */
 public fun CharSequence.mapLinesIndexed(transform: (Int, String) -> CharSequence): String =
   lineSequence()
@@ -96,6 +120,7 @@ public fun CharSequence.mapLinesIndexed(transform: (Int, String) -> CharSequence
  * @param workingDir The working directory that will be used when making paths relative.
  * @receiver The raw string that needs to be cleaned.
  * @return The cleaned string after all the modifications have been applied.
+ * @since 0.1.0
  */
 internal fun String.cleanOutput(workingDir: File): String {
   return normaliseLineSeparators()
@@ -108,7 +133,11 @@ internal fun String.cleanOutput(workingDir: File): String {
     .trimStart('\n')
 }
 
-/** replace absolute paths with relative ones */
+/**
+ * replace absolute paths with relative ones
+ *
+ * @since 0.1.0
+ */
 internal fun String.useRelativePaths(workingDir: File): String {
   return alwaysUnixFileSeparators()
     .remove(
@@ -118,7 +147,11 @@ internal fun String.useRelativePaths(workingDir: File): String {
     )
 }
 
-/** Replace Windows file separators with Unix ones, just for string comparison in tests */
+/**
+ * Replace Windows file separators with Unix ones, just for string comparison in tests
+ *
+ * @since 0.1.0
+ */
 public fun String.alwaysUnixFileSeparators(): String = replace(File.separator, "/")
 
 internal fun String.osFileSeparators(): String {
@@ -136,6 +169,8 @@ internal fun String.osFileSeparators(): String {
  * If the collection could be huge, you can specify a non-negative value
  * of [limit], in which case only the first [limit] elements will be
  * appended, followed by the [truncated] string (which defaults to "...").
+ *
+ * @since 0.1.0
  */
 public fun <T> List<T>.joinToStringIndexed(
   separator: CharSequence = ", ",
@@ -165,6 +200,7 @@ public fun <T> List<T>.joinToStringIndexed(
  * shorthand for `replaceIndent(" ".repeat(numSpaces))`
  *
  * @see kotlin.text.replaceIndent
+ * @since 0.1.0
  */
 public fun String.replaceIndent(numSpaces: Int): String {
   return replaceIndent(" ".repeat(numSpaces))
@@ -183,6 +219,8 @@ public fun String.replaceIndent(numSpaces: Int): String {
  *   appendLine(")")
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 public inline fun StringBuilder.indent(
   leadingIndent: String = "  ",
@@ -205,6 +243,8 @@ public inline fun StringBuilder.indent(
  * Prepends [continuationIndent] to every line of the original string.
  *
  * Doesn't preserve the original line endings.
+ *
+ * @since 0.1.0
  */
 public fun CharSequence.prependContinuationIndent(
   continuationIndent: String,
@@ -221,6 +261,7 @@ public fun CharSequence.prependContinuationIndent(
  * Adds line breaks and indents to the output of data class `toString()`s.
  *
  * @see toStringPretty
+ * @since 0.1.0
  */
 public fun String.prettyToString(): String {
   return replace(",", ",\n")
@@ -240,13 +281,18 @@ public fun String.prettyToString(): String {
  * shorthand for `toString().prettyToString()`, which adds line breaks and indents to a string
  *
  * @see prettyToString
+ * @since 0.1.0
  */
 public fun Any?.toStringPretty(): String = when (this) {
   is Map<*, *> -> toList().joinToString("\n")
   else -> toString().prettyToString()
 }
 
-/** A naive auto-indent which just counts brackets. */
+/**
+ * A naive auto-indent which just counts brackets.
+ *
+ * @since 0.1.0
+ */
 public fun String.indentByBrackets(tab: String = "  "): String {
 
   var tabCount = 0

@@ -17,13 +17,21 @@ package com.rickbusarow.kase.gradle.dsl.model
 
 import dev.drewhamilton.poko.Poko
 
-/** Represents a dependency declaration in a Gradle build file. */
+/**
+ * Represents a dependency declaration in a Gradle build file.
+ *
+ * @since 0.1.0
+ */
 @Poko
 public class DependencyDeclarationContainer(
   private val dependencies: MutableList<DependencyDeclaration.ExternalDependency> = mutableListOf()
 ) : List<DependencyDeclaration.ExternalDependency> by dependencies {
 
-  /** Adds a dependency declaration to the container. */
+  /**
+   * Adds a dependency declaration to the container.
+   *
+   * @since 0.1.0
+   */
   public fun add(configuration: String, group: String, module: String, version: String) {
     dependencies.add(
       DependencyDeclaration.ExternalDependency(

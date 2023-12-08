@@ -19,6 +19,8 @@ package com.rickbusarow.kase
  * Catch anything and rethrow, but prepend the [clue]'s toString(). This
  * is basically the same as just using Kotest's `clue.asClue { ... }`,
  * except that `asClue` only catches assertion errors from inside Kotest.
+ *
+ * @since 0.1.0
  */
 public inline fun <R> withClueCatching(clue: () -> Any?, thunk: () -> R): R {
   try {
@@ -36,6 +38,8 @@ public inline fun <R> withClueCatching(clue: () -> Any?, thunk: () -> R): R {
  *
  * This is basically the same as just using Kotest's `__.asClue { ... }`,
  * except that `asClue` only catches assertion errors from inside Kotest.
+ *
+ * @since 0.1.0
  */
 public inline fun <T : Any?, R> T.asClueCatching(block: T.() -> R): R =
   withClueCatching({ this.toString() }) { block() }

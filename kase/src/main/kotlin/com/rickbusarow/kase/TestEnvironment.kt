@@ -21,10 +21,16 @@ import com.rickbusarow.kase.files.TestFunctionCoordinates
 /**
  * Represents a hermetic testing environment that may
  * be cleaned up automatically after test execution.
+ *
+ * @since 0.1.0
  */
 public interface TestEnvironment : HasWorkingDir {
 
-  /** Performs any necessary cleanup after the test has run. */
+  /**
+   * Performs any necessary cleanup after the test has run.
+   *
+   * @since 0.1.0
+   */
   public fun tearDown() {}
 
   public companion object {
@@ -37,6 +43,7 @@ public interface TestEnvironment : HasWorkingDir {
      * @return A new [TestEnvironment] instance.
      * @see TestEnvironmentFactory
      * @see DefaultTestEnvironment
+     * @since 0.1.0
      */
     public operator fun invoke(
       testParameterDisplayNames: List<String>,
@@ -55,6 +62,7 @@ public interface TestEnvironment : HasWorkingDir {
      * @return A new [TestEnvironment] instance.
      * @see TestEnvironmentFactory
      * @see DefaultTestEnvironment
+     * @since 0.1.0
      */
     public operator fun invoke(
       vararg testParameterDisplayNames: String,
@@ -71,6 +79,7 @@ public interface TestEnvironment : HasWorkingDir {
  * associated working directory and certain assertions.
  *
  * @param hasWorkingDir The associated working directory.
+ * @since 0.1.0
  */
 public open class DefaultTestEnvironment public constructor(
   private val hasWorkingDir: HasWorkingDir
@@ -83,6 +92,7 @@ public open class DefaultTestEnvironment public constructor(
    *
    * @param testParameterDisplayNames The display names of the test parameters, if any.
    * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
+   * @since 0.1.0
    */
   public constructor(
     testParameterDisplayNames: List<String>,

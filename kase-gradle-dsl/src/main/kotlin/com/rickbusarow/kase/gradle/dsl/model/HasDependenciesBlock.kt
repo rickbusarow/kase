@@ -17,7 +17,11 @@ package com.rickbusarow.kase.gradle.dsl.model
 
 import com.rickbusarow.kase.gradle.dsl.DependenciesSpec
 
-/** Builds a `dependencies { }` block in a build or settings Gradle file. */
+/**
+ * Builds a `dependencies { }` block in a build or settings Gradle file.
+ *
+ * @since 0.1.0
+ */
 public interface HasDependenciesBlock<SELF : HasDependenciesBlock<SELF>> : DslElementContainer<SELF> {
 
   /**
@@ -27,6 +31,8 @@ public interface HasDependenciesBlock<SELF : HasDependenciesBlock<SELF>> : DslEl
    *   // ...
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun dependencies(
     block: DependenciesSpec.() -> Unit

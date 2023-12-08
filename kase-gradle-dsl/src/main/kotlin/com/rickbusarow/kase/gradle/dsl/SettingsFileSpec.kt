@@ -31,7 +31,11 @@ import com.rickbusarow.kase.gradle.dsl.model.LambdaParameter
 import com.rickbusarow.kase.gradle.dsl.model.RegularVariableReference.MutableVariableReference
 import com.rickbusarow.kase.gradle.dsl.model.mutableVariableReference
 
-/** Models a `settings.gradle` or `settings.gradle.kts` file. */
+/**
+ * Models a `settings.gradle` or `settings.gradle.kts` file.
+ *
+ * @since 0.1.0
+ */
 public class SettingsFileSpec(
   build: SettingsFileSpec.() -> Unit
 ) : AbstractDslElementContainer<SettingsFileSpec>(),
@@ -44,6 +48,8 @@ public class SettingsFileSpec(
    * ```
    * rootProject.name = 'my-project'
    * ```
+   *
+   * @since 0.1.0
    */
   public val rootProjectName: MutableVariableReference<String>
     by mutableVariableReference("rootProject.name") { stringLiteral(it) }
@@ -59,6 +65,8 @@ public class SettingsFileSpec(
    *   // ...
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun pluginManagement(
     block: PluginManagementSpecSpec.() -> Unit
@@ -76,6 +84,8 @@ public class SettingsFileSpec(
    *   // ...
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun dependencyResolutionManagement(
     block: DependencyResolutionManagementSpecSpec.() -> Unit
@@ -87,7 +97,11 @@ public class SettingsFileSpec(
   )
 }
 
-/** Creates a `settings.gradle[.kts]` file in the directory builder's current directory. */
+/**
+ * Creates a `settings.gradle[.kts]` file in the directory builder's current directory.
+ *
+ * @since 0.1.0
+ */
 public fun DirectoryBuilder.settingsFile(
   dslLanguage: DslLanguage,
   builder: SettingsFileSpec.() -> Unit
@@ -96,7 +110,11 @@ public fun DirectoryBuilder.settingsFile(
   content = SettingsFileSpec(builder).write(dslLanguage)
 )
 
-/** Creates a `settings.gradle[.kts]` file in the directory builder's current directory. */
+/**
+ * Creates a `settings.gradle[.kts]` file in the directory builder's current directory.
+ *
+ * @since 0.1.0
+ */
 context(HasDslLanguage)
 public fun DirectoryBuilder.settingsFile(
   dslLanguage: DslLanguage = this@HasDslLanguage.dslLanguage,
@@ -106,7 +124,11 @@ public fun DirectoryBuilder.settingsFile(
   content = SettingsFileSpec(builder).write(dslLanguage)
 )
 
-/** Creates a `settings.gradle[.kts]` file in the directory builder's current directory. */
+/**
+ * Creates a `settings.gradle[.kts]` file in the directory builder's current directory.
+ *
+ * @since 0.1.0
+ */
 public fun GradleProjectBuilder.settingsFile(
   dslLanguage: DslLanguage = this@GradleProjectBuilder.dslLanguage,
   builder: SettingsFileSpec.() -> Unit

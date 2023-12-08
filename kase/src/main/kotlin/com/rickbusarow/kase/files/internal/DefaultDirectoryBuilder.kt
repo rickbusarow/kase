@@ -23,12 +23,24 @@ import java.nio.file.Path
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.io.path.Path
 
-/** The implementation-details api of a [DirectoryBuilder]. */
+/**
+ * The implementation-details api of a [DirectoryBuilder].
+ *
+ * @since 0.1.0
+ */
 public interface DirectoryBuilderInternal : DirectoryBuilder {
-  /** All directories that have been added to this specific directory. */
+  /**
+   * All directories that have been added to this specific directory.
+   *
+   * @since 0.1.0
+   */
   public val childDirs: ConcurrentHashMap<File, DirectoryBuilderInternal>
 
-  /** All files that have been added to this specific directory. */
+  /**
+   * All files that have been added to this specific directory.
+   *
+   * @since 0.1.0
+   */
   public val files: ConcurrentHashMap<File, FileWithContent>
 }
 
@@ -68,7 +80,11 @@ internal class DefaultDirectoryBuilder private constructor(
   override val childDirs: ConcurrentHashMap<File, DirectoryBuilderInternal> = ConcurrentHashMap()
   override val files: ConcurrentHashMap<File, FileWithContent> = ConcurrentHashMap()
 
-  /** Creates a child directory with the given [relativePath] and applies the [builder] to it. */
+  /**
+   * Creates a child directory with the given [relativePath] and applies the [builder] to it.
+   *
+   * @since 0.1.0
+   */
   override fun dir(relativePath: String, builder: DirectoryBuilder.() -> Unit) {
     val childPath = path / relativePath
     val child = DefaultDirectoryBuilder(path = childPath, parent = this)
@@ -76,7 +92,11 @@ internal class DefaultDirectoryBuilder private constructor(
     child.builder()
   }
 
-  /** Creates a file with the given [relativePath] and [content]. */
+  /**
+   * Creates a file with the given [relativePath] and [content].
+   *
+   * @since 0.1.0
+   */
   override fun file(relativePath: String, content: String): FileWithContent {
     return file(relativePath.segments(), content)
   }
@@ -96,7 +116,11 @@ internal class DefaultDirectoryBuilder private constructor(
     return file
   }
 
-  /** Writes the directory tree to the configured [path]. */
+  /**
+   * Writes the directory tree to the configured [path].
+   *
+   * @since 0.1.0
+   */
   override fun write(): File {
     path.mkdirs()
 

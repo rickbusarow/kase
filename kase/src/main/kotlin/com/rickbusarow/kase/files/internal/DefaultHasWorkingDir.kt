@@ -21,10 +21,15 @@ import java.io.File
 
 /**
  * @param workingDir the directory containing all source and generated files to be used in this test
+ * @since 0.1.0
  */
 public open class DefaultHasWorkingDir(workingDir: File) : HasWorkingDir {
 
-  /** the directory containing all source and generated files to be used in this test */
+  /**
+   * the directory containing all source and generated files to be used in this test
+   *
+   * @since 0.1.0
+   */
   override val workingDir: File by lazy {
     checkInWorkingDir(workingDir)
     workingDir.deleteRecursively()

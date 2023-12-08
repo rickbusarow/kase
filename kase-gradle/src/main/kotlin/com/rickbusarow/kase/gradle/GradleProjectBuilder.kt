@@ -43,6 +43,8 @@ import java.io.File
  *   }
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 public interface GradleProjectBuilder :
   DirectoryBuilder,
@@ -51,30 +53,50 @@ public interface GradleProjectBuilder :
   /**
    * All child projects created by this builder. This
    * does not include the children of those projects.
+   *
+   * @since 0.1.0
    */
   public val subprojects: List<GradleProjectBuilder>
 
-  /** Creates a `build.gradle(.kts)` file with the given [content]. */
+  /**
+   * Creates a `build.gradle(.kts)` file with the given [content].
+   *
+   * @since 0.1.0
+   */
   public fun buildFile(content: String): FileWithContent {
     return file(dslLanguage.buildFileName, content)
   }
 
-  /** Creates a `build.gradle(.kts)` file from the given [dslStringFactory]. */
+  /**
+   * Creates a `build.gradle(.kts)` file from the given [dslStringFactory].
+   *
+   * @since 0.1.0
+   */
   public fun buildFile(dslStringFactory: DslStringFactory): FileWithContent {
     return buildFile(dslStringFactory.write(dslLanguage))
   }
 
-  /** Creates a `gradle.properties` file with the given [content]. */
+  /**
+   * Creates a `gradle.properties` file with the given [content].
+   *
+   * @since 0.1.0
+   */
   public fun gradlePropertiesFile(@Language("properties") content: String): FileWithContent {
     return file("gradle.properties", content)
   }
 
-  /** Creates a child directory with the given [relativePath] and applies the [builder] to it. */
+  /**
+   * Creates a child directory with the given [relativePath] and applies the [builder] to it.
+   *
+   * @since 0.1.0
+   */
   public fun project(relativePath: String, builder: GradleProjectBuilder.() -> Unit)
 
   /**
    * Creates a child directory with the given relative
    * [pathSegments] and applies the [builder] to it.
+   *
+   * @since 0.1.0
    */
   public fun project(pathSegments: Iterable<String>, builder: GradleProjectBuilder.() -> Unit) {
     project(pathSegments.joinToPathString(), builder)
@@ -86,15 +108,25 @@ public interface GradleProjectBuilder :
  *
  * The entrypoint for this DSL is the [rootProject] function. Once
  * inside, additional projects are created using the [project] function.
+ *
+ * @since 0.1.0
  */
 public interface GradleRootProjectBuilder : GradleProjectBuilder {
 
-  /** Creates a `settings.gradle(.kts)` file with the given [content]. */
+  /**
+   * Creates a `settings.gradle(.kts)` file with the given [content].
+   *
+   * @since 0.1.0
+   */
   public fun settingsFile(content: String): FileWithContent {
     return file(dslLanguage.settingsFileName, content)
   }
 
-  /** Creates a `settings.gradle(.kts)` file from the given [dslStringFactory]. */
+  /**
+   * Creates a `settings.gradle(.kts)` file from the given [dslStringFactory].
+   *
+   * @since 0.1.0
+   */
   public fun settingsFile(dslStringFactory: DslStringFactory): FileWithContent {
     return settingsFile(dslStringFactory.write(dslLanguage))
   }
@@ -106,6 +138,7 @@ public interface GradleRootProjectBuilder : GradleProjectBuilder {
  * @param builder a lambda function that configures the GradleProjectBuilder object.
  * @receiver a type that extends HasWorkingDir and HasDslLanguage interfaces.
  * @return a GradleProjectBuilder object for the root project.
+ * @since 0.1.0
  */
 public fun <T> T.rootProject(
   builder: GradleRootProjectBuilder.() -> Unit
@@ -123,6 +156,7 @@ public fun <T> T.rootProject(
  * @param dslLanguage the DSL language to use for the root project.
  * @param builder a lambda function that configures the GradleProjectBuilder object.
  * @return a GradleProjectBuilder object for the root project.
+ * @since 0.1.0
  */
 public fun HasWorkingDir.rootProject(
   dslLanguage: DslLanguage,
@@ -139,6 +173,7 @@ public fun HasWorkingDir.rootProject(
  * @param path the path to the root project.
  * @param builder a lambda function that configures the GradleProjectBuilder object.
  * @return a GradleProjectBuilder object for the root project.
+ * @since 0.1.0
  */
 public fun HasDslLanguage.rootProject(
   path: File,
@@ -156,6 +191,7 @@ public fun HasDslLanguage.rootProject(
  * @param dslLanguage the DSL language to use for the root project.
  * @param builder a lambda function that configures the GradleProjectBuilder object.
  * @return a GradleProjectBuilder object for the root project.
+ * @since 0.1.0
  */
 public fun rootProject(
   path: File,

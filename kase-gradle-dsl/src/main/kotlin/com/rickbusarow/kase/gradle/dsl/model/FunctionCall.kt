@@ -48,6 +48,7 @@ import dev.drewhamilton.poko.Poko
  * @property labelSupport whether to use labels in the function call, such as `group = "com.acme"`
  * @property infixSupport whether to use infix in the function call, such as `foo t`
  * @property parameter the new value to be set
+ * @since 0.1.0
  */
 @Poko
 public class SetterFunctionCall public constructor(
@@ -91,6 +92,7 @@ public class SetterFunctionCall public constructor(
  * @property labelSupport whether to use labels in the function call, such as `group = "com.acme"`
  * @property infixSupport whether to use infix in the function call, such as `foo t`
  * @property parameterList the list of parameters to pass to the function
+ * @since 0.1.0
  */
 @Poko
 public class FunctionCall(
@@ -167,6 +169,7 @@ public class FunctionCall(
  * @param infixSupport overrides the default behavior of
  *   the language's [useInfix][DslLanguage.useInfix] setting
  * @return the parenthesized content, e.g. `(exclude group: "com.acme", module: "rocket")`
+ * @since 0.1.0
  */
 public fun DslLanguage.parens(content: DslElement, infixSupport: InfixSupport? = null): String {
   return parens(content.write(this), infixSupport)

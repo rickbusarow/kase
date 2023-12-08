@@ -38,6 +38,7 @@ import kotlin.streams.asStream
  *
  * @param init a lambda with receiver that initializes the [TestNodeBuilder].
  * @return a stream of dynamic nodes constructed by the test factory builder.
+ * @since 0.1.0
  */
 public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
   return TestNodeBuilder(
@@ -70,6 +71,7 @@ public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode
  * @property testFunctionCoordinates Captured before executing any
  *   tests, meaning that it's the frame that called `asTests { ... }`
  * @property parent the parent node, or `null` if this is the root container
+ * @since 0.1.0
  */
 @Poko
 public class TestNodeBuilder @PublishedApi internal constructor(
@@ -93,6 +95,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    *
    * @param name the name of the test. action a function containing the test logic.
    * @param testAction a function containing the test logic.
+   * @since 0.1.0
    */
   public fun test(name: String, testAction: () -> Unit) {
     nodes.add {
@@ -106,6 +109,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    *
    * @param name the name of the container.
    * @param init a lambda with receiver that initializes the [TestNodeBuilder].
+   * @since 0.1.0
    */
   public fun container(name: String, init: TestNodeBuilder.() -> Unit) {
     nodes.add {
@@ -128,6 +132,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function to define each test.
    * @receiver the [TestNodeBuilder] to which tests will be added.
    * @return the invoking [TestNodeBuilder], after adding the new tests.
+   * @since 0.1.0
    */
   public fun <E> Iterable<E>.asTests(
     testName: (E) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
@@ -148,6 +153,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function to define each test.
    * @receiver the [TestNodeBuilder] to which tests will be added.
    * @return the invoking [TestNodeBuilder], after adding the new tests.
+   * @since 0.1.0
    */
   public fun <T : TestEnvironment, K : Kase> Iterable<K>.asTests(
     testName: (K) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
@@ -171,6 +177,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function to define each test.
    * @receiver the [TestNodeBuilder] to which tests will be added.
    * @return the invoking [TestNodeBuilder], after adding the new tests.
+   * @since 0.1.0
    */
   public fun <E> Sequence<E>.asTests(
     testName: (E) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
@@ -190,6 +197,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function to initialize each container.
    * @receiver the [TestNodeBuilder] to which containers will be added.
    * @return the invoking [TestNodeBuilder], after adding the new containers.
+   * @since 0.1.0
    */
   public fun <E> Iterable<E>.asContainers(
     testName: (E) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
@@ -210,6 +218,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
    * @param testAction a function to initialize each container.
    * @receiver the [TestNodeBuilder] to which containers will be added.
    * @return the invoking [TestNodeBuilder], after adding the new containers.
+   * @since 0.1.0
    */
   public fun <E> Sequence<E>.asContainers(
     testName: (E) -> String = { (it as? HasDisplayName)?.displayName ?: it.toString() },
@@ -229,6 +238,7 @@ public class TestNodeBuilder @PublishedApi internal constructor(
  * @param testName a function to compute the name of each test.
  * @param testAction a function to initialize each test container.
  * @return a stream of dynamic nodes representing the containers.
+ * @since 0.1.0
  */
 public fun <K : Kase> Iterable<K>.asContainers(
   testName: (K) -> String = { it.displayName },

@@ -34,6 +34,8 @@ import com.rickbusarow.kase.gradle.dsl.model.mutableVariableReference
  *   }
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 public open class AndroidCompileOptionsSpec : AbstractDslElementContainer<AndroidCompileOptionsSpec>() {
 
@@ -41,6 +43,8 @@ public open class AndroidCompileOptionsSpec : AbstractDslElementContainer<Androi
    * ```
    * sourceCompatibility = "1.8"
    * ```
+   *
+   * @since 0.1.0
    */
   public val sourceCompatibility: RegularVariableReference.MutableVariableReference<String>
     by mutableVariableReference<String> {
@@ -51,6 +55,8 @@ public open class AndroidCompileOptionsSpec : AbstractDslElementContainer<Androi
    * ```
    * sourceCompatibility("1.8")
    * ```
+   *
+   * @since 0.1.0
    */
   public fun sourceCompatibility(sourceCompatibility: String): AndroidCompileOptionsSpec =
     functionCall(
@@ -67,6 +73,8 @@ public open class AndroidCompileOptionsSpec : AbstractDslElementContainer<Androi
    * ```
    * targetCompatibility = "1.8"
    * ```
+   *
+   * @since 0.1.0
    */
   public val targetCompatibility: RegularVariableReference.MutableVariableReference<String>
     by mutableVariableReference<String> {
@@ -77,6 +85,8 @@ public open class AndroidCompileOptionsSpec : AbstractDslElementContainer<Androi
    * ```
    * targetCompatibility("1.8")
    * ```
+   *
+   * @since 0.1.0
    */
   public fun targetCompatibility(targetCompatibility: String): AndroidCompileOptionsSpec =
     functionCall(
@@ -95,13 +105,19 @@ public open class AndroidCompileOptionsSpec : AbstractDslElementContainer<Androi
    * ```
    * encoding = "UTF-8"
    * ```
+   *
+   * @since 0.1.0
    */
   public val encoding: RegularVariableReference.MutableVariableReference<String>
     by mutableVariableReference<String> {
       ValueParameter(StringLiteral(it))
     }
 
-  /** Whether core library desugaring is enabled. */
+  /**
+   * Whether core library desugaring is enabled.
+   *
+   * @since 0.1.0
+   */
   public val isCoreLibraryDesugaringEnabled:
     RegularVariableReference.MutableVariableReference<Boolean>
     by mutableVariableReference<Boolean>()
@@ -114,6 +130,8 @@ public open class AndroidCompileOptionsSpec : AbstractDslElementContainer<Androi
  *   // ...
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 public open class AndroidExtensionSpec : AbstractDslElementContainer<AndroidExtensionSpec>() {
 
@@ -124,6 +142,8 @@ public open class AndroidExtensionSpec : AbstractDslElementContainer<AndroidExte
    *   compileSdk = 33
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public val compileSdk: RegularVariableReference.MutableVariableReference<Int>
     by mutableVariableReference<Int> { int ->
@@ -137,6 +157,8 @@ public open class AndroidExtensionSpec : AbstractDslElementContainer<AndroidExte
    *   namespace = "com.acme.dynamite"
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public val namespace: RegularVariableReference.MutableVariableReference<String>
     by mutableVariableReference<String> {
@@ -150,6 +172,8 @@ public open class AndroidExtensionSpec : AbstractDslElementContainer<AndroidExte
    *   resourcePrefix = "acme"
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public val resourcePrefix: RegularVariableReference.MutableVariableReference<String>
     by mutableVariableReference<String> {
@@ -165,6 +189,8 @@ public open class AndroidExtensionSpec : AbstractDslElementContainer<AndroidExte
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun compileOptions(
     callback: AndroidCompileOptionsSpec.() -> Unit
@@ -181,6 +207,8 @@ public open class AndroidExtensionSpec : AbstractDslElementContainer<AndroidExte
  *   // ...
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 public open class AndroidComponentsExtensionSpec :
   AbstractDslElementContainer<AndroidComponentsExtensionSpec>() {
@@ -194,6 +222,8 @@ public open class AndroidComponentsExtensionSpec :
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun finalizeDsl(
     callback: AndroidComponentsExtensionSpec.() -> Unit

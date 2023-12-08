@@ -26,12 +26,22 @@ import dev.drewhamilton.poko.Poko
 /**
  * A dependency declaration like `implementation("com.acme:dynamite:1.0.0")`
  * or `implementation project(':example')`
+ *
+ * @since 0.1.0
  */
 public sealed interface DependencyDeclaration : DslElement {
-  /** The configuration, e.g. `implementation` */
+  /**
+   * The configuration, e.g. `implementation`
+   *
+   * @since 0.1.0
+   */
   public val configuration: String
 
-  /** A list of [DependencyExclusion]s, e.g. `exclude group: 'com.acme', module: 'rocket'` */
+  /**
+   * A list of [DependencyExclusion]s, e.g. `exclude group: 'com.acme', module: 'rocket'`
+   *
+   * @since 0.1.0
+   */
   public val exclusions: List<DependencyExclusion>
 
   /**
@@ -42,6 +52,7 @@ public sealed interface DependencyDeclaration : DslElement {
    * @property outgoingConfiguration the outgoing configuration, e.g. `api`
    * @property exclusions a list of [DependencyExclusion]s,
    *   e.g. `exclude group: 'com.acme', module: 'rocket'`
+   * @since 0.1.0
    */
   @Poko
   public class ProjectDependency private constructor(
@@ -120,6 +131,7 @@ public sealed interface DependencyDeclaration : DslElement {
    * @property version the version, e.g. `1.0.0`
    * @property exclusions a list of [DependencyExclusion]s,
    *   e.g. `exclude group: 'com.acme', module: 'rocket'`
+   * @since 0.1.0
    */
   @Poko
   public class ExternalDependency(

@@ -58,6 +58,7 @@ package com.rickbusarow.kase.stdlib
  * ```
  *
  * @return List of lists containing the Cartesian product.
+ * @since 0.1.0
  */
 public fun <T> Iterable<Iterable<T>>.cartesianProduct(): List<List<T>> {
   return fold(listOf(emptyList())) { acc, list ->

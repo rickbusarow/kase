@@ -19,7 +19,11 @@ import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport
 import com.rickbusarow.kase.gradle.DslLanguageSettings.LabelSupport
 import com.rickbusarow.kase.gradle.dsl.RepositoryHandlerSpec
 
-/** Builds a `repositories` block in a `build.gradle` or `build.gradle.kts` file. */
+/**
+ * Builds a `repositories` block in a `build.gradle` or `build.gradle.kts` file.
+ *
+ * @since 0.1.0
+ */
 public interface HasRepositoriesBlock<SELF : HasRepositoriesBlock<SELF>> :
   DslElementContainer<SELF> {
 
@@ -32,6 +36,8 @@ public interface HasRepositoriesBlock<SELF : HasRepositoriesBlock<SELF>> :
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun repositories(
     block: RepositoryHandlerSpec.() -> Unit

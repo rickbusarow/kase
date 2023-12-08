@@ -17,5 +17,9 @@ package com.rickbusarow.kase.internal
 
 import com.rickbusarow.kase.Kase
 
-/** Common implementation details for a [Kase]. */
+/**
+ * Common implementation details for a [Kase].
+ *
+ * @since 0.1.0
+ */
 public interface KaseInternal : Kase

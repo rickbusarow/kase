@@ -15,18 +15,33 @@
 
 package com.rickbusarow.kase.gradle
 
-/** Invoked during [DslLanguage.write] to create a value string. */
+/**
+ * Invoked during [DslLanguage.write] to create a value string.
+ *
+ * @since 0.1.0
+ */
 public interface DslStringFactory {
-  /** @param language the [DslLanguage] being written */
+  /**
+   * @param language the [DslLanguage] being written
+   * @since 0.1.0
+   */
   public fun write(language: DslLanguage): String
 
   public companion object {
-    /** Creates a pass-through [DslStringFactory] which returns the given [value] string. */
+    /**
+     * Creates a pass-through [DslStringFactory] which returns the given [value] string.
+     *
+     * @since 0.1.0
+     */
     public operator fun invoke(value: String): DslStringFactory {
       return DslStringFactory { value }
     }
 
-    /** Creates a [DslStringFactory] that just invokes [action]. */
+    /**
+     * Creates a [DslStringFactory] that just invokes [action].
+     *
+     * @since 0.1.0
+     */
     public inline operator fun invoke(
       crossinline action: (DslLanguage) -> String
     ): DslStringFactory = object : DslStringFactory {

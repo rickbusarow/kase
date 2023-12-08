@@ -56,6 +56,8 @@ internal fun String.fixBlankLines(): String {
  * If the collection could be huge, you can specify a non-negative value
  * of [limit], in which case only the first [limit] elements will be
  * appended, followed by the [truncated] string (which defaults to "...").
+ *
+ * @since 0.1.0
  */
 internal fun <T> List<T>.joinToStringIndexed(
   separator: CharSequence = ", ",
@@ -83,6 +85,8 @@ internal fun <T> List<T>.joinToStringIndexed(
  * performs [transform] on each line
  *
  * Doesn't preserve the original line endings.
+ *
+ * @since 0.1.0
  */
 internal fun CharSequence.mapLines(transform: (String) -> CharSequence): String = lineSequence()
   .joinToString("\n", transform = transform)
@@ -91,6 +95,8 @@ internal fun CharSequence.mapLines(transform: (String) -> CharSequence): String 
  * performs [transform] on each line
  *
  * Doesn't preserve the original line endings.
+ *
+ * @since 0.1.0
  */
 internal fun CharSequence.mapLinesIndexed(
   transform: (Int, String) -> CharSequence
@@ -102,12 +108,20 @@ internal fun String.replaceRegex(@Language("regexp") pattern: String, replacemen
   return replace(Regex(pattern), replacement)
 }
 
-/** shorthand for `replace(___, "")` against multiple tokens */
+/**
+ * shorthand for `replace(___, "")` against multiple tokens
+ *
+ * @since 0.1.0
+ */
 internal fun String.remove(vararg strings: String): String = strings.fold(this) { acc, string ->
   acc.replace(string, "")
 }
 
-/** shorthand for `replace(___, "")` against multiple tokens */
+/**
+ * shorthand for `replace(___, "")` against multiple tokens
+ *
+ * @since 0.1.0
+ */
 internal fun String.remove(vararg regex: Regex): String = regex.fold(this) { acc, reg ->
   acc.replace(reg, "")
 }
@@ -132,6 +146,8 @@ internal fun String.trimIndentAfterFirstLine(): String {
  *   appendLine(")")
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 inline fun StringBuilder.indent(
   builder: StringBuilder.() -> Unit
@@ -152,6 +168,8 @@ inline fun StringBuilder.indent(
  *   appendLine(")")
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 inline fun StringBuilder.indent(
   leadingIndent: String,
@@ -173,6 +191,8 @@ inline fun StringBuilder.indent(
  * Prepends [continuationIndent] to every line of the original string.
  *
  * Doesn't preserve the original line endings.
+ *
+ * @since 0.1.0
  */
 fun CharSequence.prependContinuationIndent(
   continuationIndent: String,
@@ -191,6 +211,7 @@ fun CharSequence.prependContinuationIndent(
  * @param locale The [Locale] to be used for decapitalization. Defaults to [Locale.US].
  * @receiver The original String.
  * @return The string with the first character decapitalized.
+ * @since 0.1.0
  */
 fun String.decapitalize(locale: Locale = Locale.US): String =
   replaceFirstChar { it.lowercase(locale) }

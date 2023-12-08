@@ -30,7 +30,11 @@ import com.rickbusarow.kase.gradle.dsl.model.ValueParameter
 import com.rickbusarow.kase.gradle.dsl.model.mutableVariableReference
 import java.net.URI
 
-/** Adds the `url` property access to repository configurations */
+/**
+ * Adds the `url` property access to repository configurations
+ *
+ * @since 0.1.0
+ */
 public interface UrlArtifactRepositorySpec<SELF : DslElementContainer<SELF>> :
   DslElementContainer<SELF> {
 
@@ -46,6 +50,7 @@ public interface UrlArtifactRepositorySpec<SELF : DslElementContainer<SELF>> :
    * }
    * ```
    * @see setUrl
+   * @since 0.1.0
    */
   public val url: MutableVariableReference<URI>
 
@@ -69,6 +74,7 @@ public interface UrlArtifactRepositorySpec<SELF : DslElementContainer<SELF>> :
    * ```
    *
    * @see setUrl
+   * @since 0.1.0
    */
   public fun setUrl(url: String): SELF = setterFunctionCall(
     propertyName = "url",
@@ -98,6 +104,7 @@ public interface UrlArtifactRepositorySpec<SELF : DslElementContainer<SELF>> :
    * ```
    *
    * @see setUrl
+   * @since 0.1.0
    */
   public fun setUrl(url: DslElement): SELF = setterFunctionCall(
     propertyName = "url",
@@ -118,11 +125,17 @@ public interface UrlArtifactRepositorySpec<SELF : DslElementContainer<SELF>> :
  *   }
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 public sealed class ArtifactRepositorySpec<SELF : ArtifactRepositorySpec<SELF>> :
   AbstractDslElementContainer<SELF>() {
 
-  /** Adds a new `content { }` block to the repository configuration. */
+  /**
+   * Adds a new `content { }` block to the repository configuration.
+   *
+   * @since 0.1.0
+   */
   public abstract fun content(
     block: RepositoryContentDescriptorSpec<*>.() -> Unit
   ): SELF
@@ -138,6 +151,8 @@ public sealed class ArtifactRepositorySpec<SELF : ArtifactRepositorySpec<SELF>> 
  *   }
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 public class MavenArtifactRepositorySpec :
   ArtifactRepositorySpec<MavenArtifactRepositorySpec>(),
@@ -147,7 +162,11 @@ public class MavenArtifactRepositorySpec :
     FunctionCall("path", NoLabels, NoInfix, ValueParameter(uri.toString()))
   }
 
-  /** Adds a new `content { }` block to the repository configuration. */
+  /**
+   * Adds a new `content { }` block to the repository configuration.
+   *
+   * @since 0.1.0
+   */
   public override fun content(
     block: RepositoryContentDescriptorSpec<*>.() -> Unit
   ): MavenArtifactRepositorySpec = functionCall(
@@ -157,7 +176,11 @@ public class MavenArtifactRepositorySpec :
     LambdaParameter("block", MavenRepositoryContentDescriptorSpec(), block)
   )
 
-  /** Adds a new `mavenContent { }` block to the repository configuration. */
+  /**
+   * Adds a new `mavenContent { }` block to the repository configuration.
+   *
+   * @since 0.1.0
+   */
   public fun mavenContent(
     block: MavenRepositoryContentDescriptorSpec.() -> Unit
   ): MavenArtifactRepositorySpec = functionCall(

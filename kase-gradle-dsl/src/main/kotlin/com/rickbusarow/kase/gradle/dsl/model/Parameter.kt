@@ -24,9 +24,17 @@ import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 import kotlin.reflect.full.primaryConstructor
 
-/** A parameter to a function call, such as `group: "com.acme"` or `"com.acme"`. */
+/**
+ * A parameter to a function call, such as `group: "com.acme"` or `"com.acme"`.
+ *
+ * @since 0.1.0
+ */
 public interface Parameter : DslElement {
-  /** The label, such as `group` in `group: "com.acme"`. */
+  /**
+   * The label, such as `group` in `group: "com.acme"`.
+   *
+   * @since 0.1.0
+   */
   public val label: String?
 
   /**
@@ -35,19 +43,26 @@ public interface Parameter : DslElement {
    * @param language the [DslLanguage] to use when writing this [Parameter]
    * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
    * @return the string representation of this [Parameter] in the given [language]
+   * @since 0.1.0
    */
   public fun write(language: DslLanguage, labelSupport: LabelSupport): String
 
   override fun write(language: DslLanguage): String = write(language, LabelSupport.NoLabels)
 
   public companion object {
-    /** Joins a list of [Parameter]s into a [ParameterList]. */
+    /**
+     * Joins a list of [Parameter]s into a [ParameterList].
+     *
+     * @since 0.1.0
+     */
     public fun Iterable<Parameter>.join(
       separator: String = ParameterList.SEPARATOR_DEFAULT
     ): ParameterList = ParameterList(parameters = toList(), separator = separator)
 
     /**
      * Creates a [Parameter] with an optional label, such as `group: "com.acme"` or `"com.acme"`.
+     *
+     * @since 0.1.0
      */
     public operator fun invoke(value: String): ValueParameter {
       return ValueParameter(label = null, valueString = value)
@@ -60,6 +75,7 @@ public interface Parameter : DslElement {
  *
  * @property label the label, such as `group` in `group: "com.acme"`
  * @property dslStringFactory the value, such as `"com.acme"`
+ * @since 0.1.0
  */
 @Poko
 public class ValueParameter(
@@ -98,6 +114,7 @@ public class ValueParameter(
  *
  * @property label the label, such as `exclude` in `exclude { group = "com.acme" }`
  * @param elements the list of [DslElement]s which make up the lambda
+ * @since 0.1.0
  */
 @Poko
 public class LambdaParameter(
@@ -130,7 +147,11 @@ public class LambdaParameter(
 
   public companion object {
 
-    /** Creates a new [LambdaParameter] using [builder] */
+    /**
+     * Creates a new [LambdaParameter] using [builder]
+     *
+     * @since 0.1.0
+     */
     public operator fun <T : DslElementContainer<*>> invoke(
       label: String?,
       receiver: T,
@@ -140,7 +161,11 @@ public class LambdaParameter(
       elements = receiver.apply(builder).elements.toMutableList()
     )
 
-    /** Creates a new [LambdaParameter] using [builder] */
+    /**
+     * Creates a new [LambdaParameter] using [builder]
+     *
+     * @since 0.1.0
+     */
     public operator fun <T : DslElementContainer<*>> invoke(
       receiver: T,
       builder: T.() -> Unit
@@ -149,7 +174,11 @@ public class LambdaParameter(
       elements = receiver.apply(builder).elements.toMutableList()
     )
 
-    /** Creates a new [LambdaParameter] using [builder] */
+    /**
+     * Creates a new [LambdaParameter] using [builder]
+     *
+     * @since 0.1.0
+     */
     public inline operator fun <reified T : DslElementContainer<*>> invoke(
       label: String?,
       noinline builder: T.() -> Unit
@@ -159,7 +188,11 @@ public class LambdaParameter(
       builder = builder
     )
 
-    /** Creates a new [LambdaParameter] using [builder] */
+    /**
+     * Creates a new [LambdaParameter] using [builder]
+     *
+     * @since 0.1.0
+     */
     public inline operator fun <reified T : DslElementContainer<*>> invoke(
       noinline builder: T.() -> Unit
     ): LambdaParameter = invoke(

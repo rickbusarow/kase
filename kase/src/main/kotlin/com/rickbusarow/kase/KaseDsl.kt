@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase
 
-/** */
+/** @since 0.1.0 */
 @DslMarker
 @Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
 public annotation class KaseDsl

@@ -19,7 +19,11 @@ import com.rickbusarow.kase.gradle.dsl.AndroidComponentsExtensionSpec
 import com.rickbusarow.kase.gradle.dsl.AndroidExtensionSpec
 import com.rickbusarow.kase.gradle.dsl.BuildFileSpec
 
-/** Builds an `android { }` block in a build file. */
+/**
+ * Builds an `android { }` block in a build file.
+ *
+ * @since 0.1.0
+ */
 public interface HasAndroidBlock : DslElementContainer<BuildFileSpec> {
 
   /**
@@ -29,6 +33,8 @@ public interface HasAndroidBlock : DslElementContainer<BuildFileSpec> {
    *   // ...
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun android(
     block: AndroidExtensionSpec.() -> Unit
@@ -38,7 +44,11 @@ public interface HasAndroidBlock : DslElementContainer<BuildFileSpec> {
   )
 }
 
-/** Builds an `androidComponents { }` block in a build file. */
+/**
+ * Builds an `androidComponents { }` block in a build file.
+ *
+ * @since 0.1.0
+ */
 public interface HasAndroidComponentsBlock : DslElementContainer<BuildFileSpec> {
 
   /**
@@ -48,6 +58,8 @@ public interface HasAndroidComponentsBlock : DslElementContainer<BuildFileSpec> 
    *   // ...
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun androidComponents(
     block: AndroidComponentsExtensionSpec.() -> Unit

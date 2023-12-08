@@ -23,7 +23,11 @@ import com.rickbusarow.kase.gradle.dsl.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.dsl.model.FunctionCall
 import com.rickbusarow.kase.gradle.dsl.model.ValueParameter
 
-/** Adds the common configurations to a repository's content, like: */
+/**
+ * Adds the common configurations to a repository's content, like:
+ *
+ * @since 0.1.0
+ */
 public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDescriptorSpec<SELF>> :
   AbstractDslElementContainer<SELF>() {
 
@@ -37,6 +41,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeGroup(group: String): SELF = functionCall(
     name = "includeGroup",
@@ -55,6 +61,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeGroupByRegex(groupRegex: String): SELF = functionCall(
     name = "includeGroupByRegex",
@@ -73,6 +81,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeGroupAndSubgroups(groupPrefix: String): SELF = functionCall(
     name = "includeGroupAndSubgroups",
@@ -91,6 +101,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeModule(group: String, moduleName: String): SELF = functionCall(
     name = "includeModule",
@@ -110,6 +122,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeModuleByRegex(groupRegex: String, moduleNameRegex: String): SELF = functionCall(
     name = "includeModuleByRegex",
@@ -129,6 +143,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeVersion(
     group: String,
@@ -154,6 +170,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun includeVersionByRegex(
     groupRegex: String,
@@ -178,6 +196,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun excludeGroup(group: String): SELF = functionCall(
     name = "excludeGroup",
@@ -196,6 +216,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun excludeGroupByRegex(groupRegex: String): SELF = functionCall(
     name = "excludeGroupByRegex",
@@ -214,6 +236,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun excludeGroupAndSubgroups(groupPrefix: String): SELF = functionCall(
     name = "excludeGroupAndSubgroups",
@@ -232,6 +256,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun excludeModule(group: String, moduleName: String): SELF = functionCall(
     name = "excludeModule",
@@ -251,6 +277,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun excludeModuleByRegex(groupRegex: String, moduleNameRegex: String): SELF = functionCall(
     name = "excludeModuleByRegex",
@@ -270,6 +298,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun excludeVersion(
     group: String,
@@ -294,6 +324,8 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun excludeVersionByRegex(
     groupRegex: String,
@@ -309,7 +341,11 @@ public sealed class RepositoryContentDescriptorSpec<SELF : RepositoryContentDesc
   )
 }
 
-/** The configuration options for a maven repository's content. */
+/**
+ * The configuration options for a maven repository's content.
+ *
+ * @since 0.1.0
+ */
 public class MavenRepositoryContentDescriptorSpec :
   RepositoryContentDescriptorSpec<MavenRepositoryContentDescriptorSpec>() {
 
@@ -323,6 +359,8 @@ public class MavenRepositoryContentDescriptorSpec :
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun releasesOnly(): MavenRepositoryContentDescriptorSpec = apply {
     addElement(FunctionCall(name = "releasesOnly", labelSupport = NoLabels, infixSupport = NoInfix))
@@ -340,6 +378,8 @@ public class MavenRepositoryContentDescriptorSpec :
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun snapshotsOnly(): MavenRepositoryContentDescriptorSpec = apply {
     addElement(

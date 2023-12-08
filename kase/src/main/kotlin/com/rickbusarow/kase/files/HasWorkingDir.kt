@@ -21,17 +21,33 @@ import com.rickbusarow.kase.stdlib.div
 import com.rickbusarow.kase.stdlib.useRelativePaths
 import java.io.File
 
-/** relative to [workingDir][HasWorkingDir.workingDir] */
+/**
+ * relative to [workingDir][HasWorkingDir.workingDir]
+ *
+ * @since 0.1.0
+ */
 context(HasWorkingDir)
 public fun File.relativePath(): String = relativeTo(workingDir).path
 
-/** replace absolute paths with relative ones */
+/**
+ * replace absolute paths with relative ones
+ *
+ * @since 0.1.0
+ */
 context(HasWorkingDir)
 public fun String.useRelativePaths(): String = useRelativePaths(workingDir)
 
-/** Represents a test that has a working directory. */
+/**
+ * Represents a test that has a working directory.
+ *
+ * @since 0.1.0
+ */
 public interface HasWorkingDir {
-  /** the directory containing all source and generated files to be used in this test */
+  /**
+   * the directory containing all source and generated files to be used in this test
+   *
+   * @since 0.1.0
+   */
   public val workingDir: File
 
   /**
@@ -43,12 +59,17 @@ public interface HasWorkingDir {
    * @receiver The raw string that needs to be cleaned.
    * @return The cleaned string.
    * @see com.rickbusarow.kase.stdlib.cleanOutput
+   * @since 0.1.0
    */
   public fun String.cleanOutput(): String = cleanOutput(workingDir)
 
   public companion object {
 
-    /** Creates a [HasWorkingDir] instance with a working directory. */
+    /**
+     * Creates a [HasWorkingDir] instance with a working directory.
+     *
+     * @since 0.1.0
+     */
     public operator fun invoke(workingDir: File): DefaultHasWorkingDir {
       return DefaultHasWorkingDir(workingDir)
     }
@@ -56,6 +77,8 @@ public interface HasWorkingDir {
     /**
      * Creates a [HasWorkingDir] instance with a working
      * directory based on the current test function.
+     *
+     * @since 0.1.0
      */
     public operator fun invoke(
       testVariantNames: List<String>,
@@ -83,6 +106,7 @@ public interface HasWorkingDir {
      *   default functions, inline functions, sequences, and iterators all redirect
      *   things and have a chance of hiding the original calling function completely.
      * @return a File directory corresponding to the root of the working directory for this test
+     * @since 0.1.0
      */
     public fun createWorkingDirFile(
       testVariantNames: List<String>,

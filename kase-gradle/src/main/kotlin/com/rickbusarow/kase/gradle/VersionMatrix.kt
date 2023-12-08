@@ -21,22 +21,40 @@ import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 import com.rickbusarow.kase.gradle.internal.DefaultVersionMatrix
 import dev.drewhamilton.poko.Poko
 
-/** Trait interface for a [VersionMatrix]. */
+/**
+ * Trait interface for a [VersionMatrix].
+ *
+ * @since 0.1.0
+ */
 public interface HasVersionMatrix {
-  /** The [VersionMatrix] for this test class. */
+  /**
+   * The [VersionMatrix] for this test class.
+   *
+   * @since 0.1.0
+   */
   public val versionMatrix: VersionMatrix
 }
 
-/** */
+/** @since 0.1.0 */
 public interface VersionMatrix {
 
-  /** @return a set of all [VersionMatrixKey]s in this version matrix. */
+  /**
+   * @return a set of all [VersionMatrixKey]s in this version matrix.
+   * @since 0.1.0
+   */
   public fun keys(): Set<VersionMatrixKey<VersionMatrixElement<*>>>
 
-  /** The number of entries in this version matrix. */
+  /**
+   * The number of entries in this version matrix.
+   *
+   * @since 0.1.0
+   */
   public val size: Int
 
-  /** @return a list of [VersionMatrixElement]s for the given [key]. */
+  /**
+   * @return a list of [VersionMatrixElement]s for the given [key].
+   * @since 0.1.0
+   */
   public operator fun <E : VersionMatrixElement<*>, K : VersionMatrixKey<E>> get(
     key: K
   ): VersionList<E, K>
@@ -44,6 +62,7 @@ public interface VersionMatrix {
   /**
    * @return a list of [VersionMatrixElement]s for the given [key], or
    *   `null` if no [VersionMatrixElement]s exist for the given [key].
+   * @since 0.1.0
    */
   public fun <E : VersionMatrixElement<*>, K : VersionMatrixKey<E>> getOrNull(
     key: K
@@ -52,6 +71,8 @@ public interface VersionMatrix {
   /**
    * Returns a new [VersionMatrix] instance with the
    * given [elements] added to the existing elements.
+   *
+   * @since 0.1.0
    */
   public fun <E : VersionMatrixElement<*>> plus(vararg elements: E): VersionMatrix {
     return plus(elements.toList())
@@ -60,11 +81,15 @@ public interface VersionMatrix {
   /**
    * Returns a new [VersionMatrix] instance with the
    * given [elements] added to the existing elements.
+   *
+   * @since 0.1.0
    */
   public operator fun <E : VersionMatrixElement<*>> plus(elements: Iterable<E>): VersionMatrix
 
   /**
    * Returns a new [VersionMatrix] instance with the given [key] removed from the existing elements.
+   *
+   * @since 0.1.0
    */
   public operator fun <E : VersionMatrixElement<*>> minus(
     key: VersionMatrixKey<E>
@@ -73,6 +98,8 @@ public interface VersionMatrix {
   /**
    * Returns a new [VersionMatrix] instance with the
    * given [elements] removed from the existing elements.
+   *
+   * @since 0.1.0
    */
   public fun <E : VersionMatrixElement<*>> minus(vararg elements: E): VersionMatrix {
     return minus(elements.toList())
@@ -81,6 +108,8 @@ public interface VersionMatrix {
   /**
    * Returns a new [VersionMatrix] instance with the
    * given [elements] removed from the existing elements.
+   *
+   * @since 0.1.0
    */
   public operator fun <E : VersionMatrixElement<*>> minus(elements: Iterable<E>): VersionMatrix
 
@@ -88,16 +117,28 @@ public interface VersionMatrix {
     return factory.extract(this)
   }
 
-  /** An element in a [VersionMatrix]. */
+  /**
+   * An element in a [VersionMatrix].
+   *
+   * @since 0.1.0
+   */
   public sealed interface VersionMatrixElement<out T> : HasLabel {
 
-    /** The value of this element. */
+    /**
+     * The value of this element.
+     *
+     * @since 0.1.0
+     */
     public val value: T
 
     override val label: String
       get() = this::class.java.simpleName
 
-    /** The [VersionMatrixKey] which can be used to retrieve this element from a [VersionMatrix]. */
+    /**
+     * The [VersionMatrixKey] which can be used to retrieve this element from a [VersionMatrix].
+     *
+     * @since 0.1.0
+     */
     public val key: VersionMatrixKey<VersionMatrixElement<T>>
   }
 
@@ -106,6 +147,7 @@ public interface VersionMatrix {
    *
    * @see VersionMatrix
    * @see VersionMatrixElement
+   * @since 0.1.0
    */
   public interface VersionMatrixKey<out E : VersionMatrixElement<*>>
 
@@ -117,6 +159,7 @@ public interface VersionMatrix {
      *
      * @param elements the [VersionMatrixElement]s to group into a [VersionMatrix]
      * @return a new [VersionMatrix] instance
+     * @since 0.1.0
      */
     public operator fun invoke(vararg elements: VersionMatrixElement<*>): VersionMatrix {
       return DefaultVersionMatrix(
@@ -133,6 +176,7 @@ public interface VersionMatrix {
      *
      * @param elements the [VersionMatrixElement]s to group into a [VersionMatrix]
      * @return a new [VersionMatrix] instance
+     * @since 0.1.0
      */
     public operator fun invoke(elements: List<VersionMatrixElement<*>>): VersionMatrix {
       return DefaultVersionMatrix(
@@ -149,6 +193,7 @@ public interface VersionMatrix {
      *
      * @param elements the [VersionMatrixElement]s to group into a [VersionMatrix]
      * @return a new [VersionMatrix] instance
+     * @since 0.1.0
      */
     @JvmName("invokeNested")
     public operator fun invoke(elements: List<List<VersionMatrixElement<*>>>): VersionMatrix {
@@ -165,6 +210,7 @@ public interface VersionMatrix {
  * @property key the [VersionMatrixKey] which can be
  *   used to retrieve this list from a [VersionMatrix].
  * @see VersionMatrix
+ * @since 0.1.0
  */
 @Poko
 public class VersionList<E : VersionMatrixElement<*>, out K : VersionMatrixKey<E>>(
@@ -178,6 +224,8 @@ public class VersionList<E : VersionMatrixElement<*>, out K : VersionMatrixKey<E
 
   /**
    * Returns a new [VersionList] instance with the given [elements] added to the existing elements.
+   *
+   * @since 0.1.0
    */
   public operator fun plus(others: Iterable<E>): VersionList<E, K> {
     return VersionList(elements + others, default, key)
@@ -186,6 +234,8 @@ public class VersionList<E : VersionMatrixElement<*>, out K : VersionMatrixKey<E
   /**
    * Returns a new [VersionList] instance with the given
    * [elements] removed from the existing elements.
+   *
+   * @since 0.1.0
    */
   public operator fun minus(others: Iterable<VersionMatrixElement<*>>): VersionList<E, K> {
     val otherSet = others.toSet()

@@ -28,10 +28,18 @@ import com.rickbusarow.kase.gradle.dsl.model.ValueParameter
 import java.io.File
 import java.net.URI
 
-/** A `repositories { }` container */
+/**
+ * A `repositories { }` container
+ *
+ * @since 0.1.0
+ */
 public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandlerSpec>() {
 
-  /** Adds an invocation of `maven { ... }` to the repository handler */
+  /**
+   * Adds an invocation of `maven { ... }` to the repository handler
+   *
+   * @since 0.1.0
+   */
   public fun maven(
     action: MavenArtifactRepositorySpec.() -> Unit
   ): RepositoryHandlerSpec = functionCall(
@@ -66,6 +74,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    * @param action the action to perform on the repository
+   * @since 0.1.0
    */
   public fun maven(
     url: String,
@@ -97,6 +106,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    * @param action the action to perform on the repository
+   * @since 0.1.0
    */
   public fun maven(
     url: DslElement,
@@ -128,6 +138,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    * @param action the action to perform on the repository
+   * @since 0.1.0
    */
   public fun maven(
     url: File,
@@ -159,6 +170,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    * @param action the action to perform on the repository
+   * @since 0.1.0
    */
   public fun maven(
     url: URI,
@@ -217,14 +229,22 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
     )
   }
 
-  /** Adds an invocation of `google()` to the repository handler */
+  /**
+   * Adds an invocation of `google()` to the repository handler
+   *
+   * @since 0.1.0
+   */
   public fun google(): RepositoryHandlerSpec = functionCall(
     name = "google",
     labelSupport = GroovyLabels,
     infixSupport = NoInfix
   )
 
-  /** Adds an invocation of `google()` to the repository handler */
+  /**
+   * Adds an invocation of `google()` to the repository handler
+   *
+   * @since 0.1.0
+   */
   public fun google(
     action: MavenArtifactRepositorySpec.() -> Unit
   ): RepositoryHandlerSpec = functionCall(
@@ -234,14 +254,22 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
     LambdaParameter(action)
   )
 
-  /** Adds an invocation of `gradlePluginPortal()` to the repository handler */
+  /**
+   * Adds an invocation of `gradlePluginPortal()` to the repository handler
+   *
+   * @since 0.1.0
+   */
   public fun gradlePluginPortal(): RepositoryHandlerSpec = functionCall(
     name = "gradlePluginPortal",
     labelSupport = GroovyLabels,
     infixSupport = NoInfix
   )
 
-  /** Adds an invocation of `gradlePluginPortal()` to the repository handler */
+  /**
+   * Adds an invocation of `gradlePluginPortal()` to the repository handler
+   *
+   * @since 0.1.0
+   */
   public fun gradlePluginPortal(
     action: MavenArtifactRepositorySpec.() -> Unit
   ): RepositoryHandlerSpec = functionCall(
@@ -251,14 +279,22 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
     LambdaParameter(action)
   )
 
-  /** Adds an invocation of `mavenCentral()` to the repository handler */
+  /**
+   * Adds an invocation of `mavenCentral()` to the repository handler
+   *
+   * @since 0.1.0
+   */
   public fun mavenCentral(): RepositoryHandlerSpec = functionCall(
     name = "mavenCentral",
     labelSupport = GroovyLabels,
     infixSupport = NoInfix
   )
 
-  /** Adds an invocation of `mavenCentral()` to the repository handler */
+  /**
+   * Adds an invocation of `mavenCentral()` to the repository handler
+   *
+   * @since 0.1.0
+   */
   public fun mavenCentral(
     action: MavenArtifactRepositorySpec.() -> Unit
   ): RepositoryHandlerSpec = functionCall(
@@ -268,14 +304,22 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
     LambdaParameter(action)
   )
 
-  /** Adds an invocation of `mavenLocal()` to the repository handler */
+  /**
+   * Adds an invocation of `mavenLocal()` to the repository handler
+   *
+   * @since 0.1.0
+   */
   public fun mavenLocal(): RepositoryHandlerSpec = functionCall(
     name = "mavenLocal",
     labelSupport = GroovyLabels,
     infixSupport = NoInfix
   )
 
-  /** Adds an invocation of `mavenLocal()` to the repository handler */
+  /**
+   * Adds an invocation of `mavenLocal()` to the repository handler
+   *
+   * @since 0.1.0
+   */
   public fun mavenLocal(
     action: MavenArtifactRepositorySpec.() -> Unit
   ): RepositoryHandlerSpec = functionCall(

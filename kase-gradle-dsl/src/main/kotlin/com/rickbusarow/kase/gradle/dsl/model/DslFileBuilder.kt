@@ -15,5 +15,9 @@
 
 package com.rickbusarow.kase.gradle.dsl.model
 
-/** Interface for any DSL builder components. */
+/**
+ * Interface for any DSL builder components.
+ *
+ * @since 0.1.0
+ */
 public interface DslFileBuilder<SELF : DslFileBuilder<SELF>> : DslElement, HasPluginsBlock<SELF>

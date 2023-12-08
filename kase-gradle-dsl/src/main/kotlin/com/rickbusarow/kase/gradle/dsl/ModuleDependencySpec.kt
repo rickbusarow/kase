@@ -21,7 +21,11 @@ import com.rickbusarow.kase.gradle.dsl.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.dsl.model.ParameterList
 import com.rickbusarow.kase.gradle.dsl.model.ValueParameter
 
-/** Configures an individual project or external dependency */
+/**
+ * Configures an individual project or external dependency
+ *
+ * @since 0.1.0
+ */
 public class ModuleDependencySpec : AbstractDslElementContainer<ModuleDependencySpec>() {
 
   /**
@@ -30,6 +34,8 @@ public class ModuleDependencySpec : AbstractDslElementContainer<ModuleDependency
    *   exclude group: 'com.acme', module: 'toothbrush'
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun exclude(
     group: String? = null,

@@ -43,6 +43,7 @@ import kotlin.io.path.Path
  *
  * @param file the root directory
  * @param builder adds files and child directories to this root directory
+ * @since 0.1.0
  */
 public inline fun buildDirectory(
   file: File,
@@ -56,6 +57,7 @@ public inline fun buildDirectory(
  *
  * @param builder The builder function to customize the directory.
  * @return A DirectoryBuilder object for the receiver file path.
+ * @since 0.1.0
  */
 public inline fun File.directoryBuilder(
   builder: DirectoryBuilder.() -> Unit = {}
@@ -82,6 +84,7 @@ public inline fun File.directoryBuilder(
  *
  * @param path the root directory
  * @param builder adds files and child directories to this root directory
+ * @since 0.1.0
  */
 public inline fun buildDirectory(
   path: Path,
@@ -93,6 +96,7 @@ public inline fun buildDirectory(
  *
  * @param builder The builder function to customize the directory.
  * @return A DirectoryBuilder object for the receiver file path.
+ * @since 0.1.0
  */
 public inline fun Path.directoryBuilder(
   builder: DirectoryBuilder.() -> Unit = {}
@@ -116,38 +120,66 @@ public inline fun Path.directoryBuilder(
  *   }
  * }
  * ```
+ *
+ * @since 0.1.0
  */
 @KaseDsl
 public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithContent> {
 
-  /** The [Path] of the directory being built. */
+  /**
+   * The [Path] of the directory being built.
+   *
+   * @since 0.1.0
+   */
   public val path: File
 
-  /** The parent directory builder, or null if this is the root. */
+  /**
+   * The parent directory builder, or null if this is the root.
+   *
+   * @since 0.1.0
+   */
   public val parent: DirectoryBuilder?
 
-  /** Creates a child directory with the given [relativePath] and applies the [builder] to it. */
+  /**
+   * Creates a child directory with the given [relativePath] and applies the [builder] to it.
+   *
+   * @since 0.1.0
+   */
   public fun dir(relativePath: String, builder: DirectoryBuilder.() -> Unit)
 
   /**
    * Creates a child directory with the given relative
    * [pathSegments] and applies the [builder] to it.
+   *
+   * @since 0.1.0
    */
   public fun dir(pathSegments: Collection<String>, builder: DirectoryBuilder.() -> Unit) {
     check(pathSegments.isNotEmpty()) { "pathSegments must not be empty" }
     dir(pathSegments.joinToPathString(), builder)
   }
 
-  /** Creates a file with the given [relativePath] and [content]. */
+  /**
+   * Creates a file with the given [relativePath] and [content].
+   *
+   * @since 0.1.0
+   */
   public fun file(relativePath: String, content: String): FileWithContent
 
-  /** Creates a file with the given [pathSegments] and [content]. */
+  /**
+   * Creates a file with the given [pathSegments] and [content].
+   *
+   * @since 0.1.0
+   */
   public fun file(pathSegments: Collection<String>, content: String): FileWithContent {
     check(pathSegments.isNotEmpty()) { "pathSegments must not be empty" }
     return file(pathSegments.joinToPathString(), content)
   }
 
-  /** Writes the directory tree to this [path]. */
+  /**
+   * Writes the directory tree to this [path].
+   *
+   * @since 0.1.0
+   */
   public fun write(): File
 
   /**
@@ -157,6 +189,8 @@ public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithC
    * ```
    * val joined = "path" / "to" / "file.txt"
    * ```
+   *
+   * @since 0.1.0
    */
   public operator fun String.div(other: String): String = "$this${File.separatorChar}$other"
 
@@ -165,6 +199,7 @@ public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithC
    * system-dependent [File.separatorChar] as a separator.
    *
    * @receiver A list of path segments, like `["path", "to", "file.txt"]`
+   * @since 0.1.0
    */
   public fun Iterable<String>.joinToPathString(): String = joinToString(File.separator)
 
@@ -173,22 +208,35 @@ public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithC
    *
    * @property path the path of the file
    * @property content the content of the file
+   * @since 0.1.0
    */
   @Poko
   public class FileWithContent(public val path: File, public var content: String)
 
   public companion object {
-    /** Creates a new [DirectoryBuilder] instance. */
+    /**
+     * Creates a new [DirectoryBuilder] instance.
+     *
+     * @since 0.1.0
+     */
     public operator fun invoke(file: File): DirectoryBuilder {
       return DefaultDirectoryBuilder(path = file, parent = null)
     }
 
-    /** Creates a new [DirectoryBuilder] instance. */
+    /**
+     * Creates a new [DirectoryBuilder] instance.
+     *
+     * @since 0.1.0
+     */
     public operator fun invoke(path: Path): DirectoryBuilder {
       return DefaultDirectoryBuilder(path = path.toFile(), parent = null)
     }
 
-    /** Applies the [builder] to this directory. */
+    /**
+     * Applies the [builder] to this directory.
+     *
+     * @since 0.1.0
+     */
     public inline operator fun <reified T : DirectoryBuilder> T.invoke(builder: T.() -> Unit): T {
       return apply(builder)
     }

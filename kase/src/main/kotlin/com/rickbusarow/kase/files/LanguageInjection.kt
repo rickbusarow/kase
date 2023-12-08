@@ -17,7 +17,11 @@ package com.rickbusarow.kase.files
 
 import org.intellij.lang.annotations.Language
 
-/** Provides functions for writing files with language injection. */
+/**
+ * Provides functions for writing files with language injection.
+ *
+ * @since 0.1.0
+ */
 public interface LanguageInjection<T> {
 
   /**
@@ -26,6 +30,7 @@ public interface LanguageInjection<T> {
    * @param path the path to the t to create
    * @param content the content to write to the t
    * @return the created t
+   * @since 0.1.0
    */
   public fun javaFile(path: String, @Language("java") content: String): T
 
@@ -35,6 +40,7 @@ public interface LanguageInjection<T> {
    * @param content the content to write to the t
    * @receiver the t to write to
    * @return the receiver [T]
+   * @since 0.1.0
    */
   public fun T.java(@Language("java") content: String): T
 
@@ -44,6 +50,7 @@ public interface LanguageInjection<T> {
    * @param path the path to the t to create
    * @param content the content to write to the t
    * @return the created t
+   * @since 0.1.0
    */
   public fun groovyFile(path: String, @Language("groovy") content: String): T
 
@@ -53,6 +60,7 @@ public interface LanguageInjection<T> {
    * @param content the content to write to the t
    * @receiver the t to write to
    * @return the receiver [T]
+   * @since 0.1.0
    */
   public fun T.groovy(@Language("groovy") content: String): T
 
@@ -62,6 +70,7 @@ public interface LanguageInjection<T> {
    * @param path the path to the t to create
    * @param content the content to write to the t
    * @return the created t
+   * @since 0.1.0
    */
   public fun kotlinFile(path: String, @Language("kotlin") content: String): T
 
@@ -71,9 +80,14 @@ public interface LanguageInjection<T> {
    * @param content the content to write to the t
    * @receiver the t to write to
    * @return the receiver [T]
+   * @since 0.1.0
    */
   public fun T.kotlin(@Language("kotlin") content: String): T
 
-  /** Writes the result of [contentBuilder] to the receiver t. */
+  /**
+   * Writes the result of [contentBuilder] to the receiver t.
+   *
+   * @since 0.1.0
+   */
   public operator fun T.invoke(contentBuilder: () -> String): T
 }

@@ -26,15 +26,27 @@ import com.rickbusarow.kase.kase
 import dev.drewhamilton.poko.Poko
 import org.gradle.util.GradleVersion
 
-/** Interface for test versions. */
+/**
+ * Interface for test versions.
+ *
+ * @since 0.1.0
+ */
 public interface TestVersions : Kase {
 
-  /** The current Gradle version. */
+  /**
+   * The current Gradle version.
+   *
+   * @since 0.1.0
+   */
   public val gradleVersion: String
 
   public companion object {
 
-    /** An empty [TestVersions] object containing only the current Gradle TestKit Gradle version. */
+    /**
+     * An empty [TestVersions] object containing only the current Gradle TestKit Gradle version.
+     *
+     * @since 0.1.0
+     */
     public val EMPTY: TestVersions = object :
       TestVersions,
       Kase by Kase.EMPTY {
@@ -45,9 +57,17 @@ public interface TestVersions : Kase {
   }
 }
 
-/** Trait interface for [TestVersions] */
+/**
+ * Trait interface for [TestVersions]
+ *
+ * @since 0.1.0
+ */
 public interface HasTestVersions<T : TestVersions> {
-  /** immutable */
+  /**
+   * immutable
+   *
+   * @since 0.1.0
+   */
   public val testVersions: T
 }
 
@@ -55,14 +75,22 @@ public fun interface TestVersionsFactory<T : TestVersions> {
   public fun extract(matrix: VersionMatrix): List<T>
 }
 
-/** Holds a [Gradle] version only */
+/**
+ * Holds a [Gradle] version only
+ *
+ * @since 0.1.0
+ */
 @Poko
 public class GradleTestVersions(
   override val a1: Gradle
 ) : TestVersions,
   Kase1<Gradle> by kase(a1) {
 
-  /** not semver. ex: `8.0` or `8.1.1` */
+  /**
+   * not semver. ex: `8.0` or `8.1.1`
+   *
+   * @since 0.1.0
+   */
   public override val gradleVersion: String get() = a1.value
 
   override fun toString(): String = displayName
@@ -76,7 +104,11 @@ public class GradleTestVersions(
   }
 }
 
-/** Holds [Gradle] and [Kotlin] versions */
+/**
+ * Holds [Gradle] and [Kotlin] versions
+ *
+ * @since 0.1.0
+ */
 @Poko
 public class GradleKotlinTestVersions(
   override val a1: Gradle,
@@ -84,10 +116,18 @@ public class GradleKotlinTestVersions(
 ) : TestVersions,
   Kase2<Gradle, Kotlin> by kase(a1, a2) {
 
-  /** not semver. ex: `8.0` or `8.1.1` */
+  /**
+   * not semver. ex: `8.0` or `8.1.1`
+   *
+   * @since 0.1.0
+   */
   public override val gradleVersion: String get() = a1.value
 
-  /** normal semver. ex `1.8.10` */
+  /**
+   * normal semver. ex `1.8.10`
+   *
+   * @since 0.1.0
+   */
   public val kotlinVersion: String get() = a2.value
 
   override fun toString(): String = displayName
@@ -101,7 +141,11 @@ public class GradleKotlinTestVersions(
   }
 }
 
-/** Holds [Gradle], [Kotlin], and [Agp] versions */
+/**
+ * Holds [Gradle], [Kotlin], and [Agp] versions
+ *
+ * @since 0.1.0
+ */
 @Poko
 public class GradleKotlinAgpTestVersions(
   override val a1: Gradle,
@@ -110,13 +154,25 @@ public class GradleKotlinAgpTestVersions(
 ) : TestVersions,
   Kase3<Gradle, Kotlin, Agp> by kase(a1, a2, a3) {
 
-  /** not semver. ex: `8.0` or `8.1.1` */
+  /**
+   * not semver. ex: `8.0` or `8.1.1`
+   *
+   * @since 0.1.0
+   */
   public override val gradleVersion: String get() = a1.value
 
-  /** normal semver. ex `1.8.10` */
+  /**
+   * normal semver. ex `1.8.10`
+   *
+   * @since 0.1.0
+   */
   public val kotlinVersion: String get() = a2.value
 
-  /** normal semver. ex `8.1.1` */
+  /**
+   * normal semver. ex `8.1.1`
+   *
+   * @since 0.1.0
+   */
   public val agpVersion: String get() = a3.value
 
   override fun toString(): String = displayName

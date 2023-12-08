@@ -17,7 +17,11 @@ package com.rickbusarow.kase.gradle.dsl.model
 
 import com.rickbusarow.kase.gradle.DslLanguage
 
-/** Allows for a different [DslElement] to be used depending on the [DslLanguage]. */
+/**
+ * Allows for a different [DslElement] to be used depending on the [DslLanguage].
+ *
+ * @since 0.1.0
+ */
 public class DecidingDslElement<T : DslElement>(
   private val kotlinElement: () -> T,
   private val groovyElement: () -> T

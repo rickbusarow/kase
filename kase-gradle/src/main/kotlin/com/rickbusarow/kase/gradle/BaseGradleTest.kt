@@ -25,31 +25,53 @@ import org.junit.jupiter.api.parallel.Execution
 import org.junit.jupiter.api.parallel.ExecutionMode
 import java.io.File
 
-/** A base class for Gradle plugin tests. */
+/**
+ * A base class for Gradle plugin tests.
+ *
+ * @since 0.1.0
+ */
 @Execution(ExecutionMode.SAME_THREAD)
 public interface BaseGradleTest<K : TestVersions> :
   GradleTestEnvironmentFactory<K>,
   HasVersionMatrix,
   KaseTestFactory<GradleTestEnvironment<K>, K>
 
-/** A factory for creating [GradleTestEnvironment]s. */
+/**
+ * A factory for creating [GradleTestEnvironment]s.
+ *
+ * @since 0.1.0
+ */
 public interface GradleTestEnvironmentFactory<K : TestVersions> :
   TestEnvironmentFactory<GradleTestEnvironment<K>, K> {
 
-  /** The [DslLanguage] to use for generating build and settings files. */
+  /**
+   * The [DslLanguage] to use for generating build and settings files.
+   *
+   * @since 0.1.0
+   */
   public val dslLanguage: DslLanguage
     get() = KotlinDsl(useInfix = true, useLabels = false)
 
   /**
    * A local Maven repository to use for resolving
    * dependencies, such as `<projectRoot>/build/m2` or `~/.m2`.
+   *
+   * @since 0.1.0
    */
   public val localM2Path: File? get() = null
 
-  /** Defines the default contents of the root project's `build.gradle(.kts)` file. */
+  /**
+   * Defines the default contents of the root project's `build.gradle(.kts)` file.
+   *
+   * @since 0.1.0
+   */
   public fun buildFileDefault(versions: K): DslStringFactory = DslStringFactory { "" }
 
-  /** Defines the default contents of the root project's `settings.gradle(.kts)` file. */
+  /**
+   * Defines the default contents of the root project's `settings.gradle(.kts)` file.
+   *
+   * @since 0.1.0
+   */
   public fun settingsFileDefault(versions: K): DslStringFactory = DslStringFactory { language ->
 
     val maybeLocal = if (localM2Path == null) {

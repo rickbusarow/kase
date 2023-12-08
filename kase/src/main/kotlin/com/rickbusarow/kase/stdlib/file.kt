@@ -33,6 +33,7 @@ import java.io.File
  * @returns the first path to contain an [existent][File.exists]
  *   File for [relativePath], or `null` if it could not be resolved
  * @see resolveInParent for a version which throws if nothing is resolved
+ * @since 0.1.0
  */
 public fun File.resolveInParentOrNull(relativePath: String): File? {
   return resolve(relativePath).existsOrNull()
@@ -43,6 +44,7 @@ public fun File.resolveInParentOrNull(relativePath: String): File? {
  * Non-nullable version of [resolveInParentOrNull]
  *
  * @see resolveInParentOrNull for a nullable, non-throwing variant
+ * @since 0.1.0
  * @throws IllegalArgumentException if a file cannot be resolved
  */
 public fun File.resolveInParent(relativePath: String): File {
@@ -53,13 +55,16 @@ public fun File.resolveInParent(relativePath: String): File {
   }.normalize()
 }
 
-/** @return the receiver [File] if it exists in the file system, otherwise null */
+/**
+ * @return the receiver [File] if it exists in the file system, otherwise null
+ * @since 0.1.0
+ */
 public fun File.existsOrNull(): File? = takeIf { it.exists() }
 
-/** */
+/** @since 0.1.0 */
 public operator fun File.div(relative: String): File = resolve(relative)
 
-/** */
+/** @since 0.1.0 */
 public operator fun File.div(relative: File): File = resolve(relative)
 
 /**
@@ -70,6 +75,7 @@ public operator fun File.div(relative: File): File = resolve(relative)
  * @param content The content to be written to the file. Defaults to null.
  * @param overwrite If true, any existing content will be overwritten. Otherwise, nothing is done.
  * @return The created file.
+ * @since 0.1.0
  */
 public fun File.createSafely(content: String? = null, overwrite: Boolean = true): File = apply {
   when {
@@ -85,6 +91,7 @@ public fun File.createSafely(content: String? = null, overwrite: Boolean = true)
  *
  * @receiver [File] The directories to create.
  * @return The directory file.
+ * @since 0.1.0
  */
 @PublishedApi
 internal fun File.mkdirsInline(): File = apply(File::mkdirs)
@@ -94,6 +101,7 @@ internal fun File.mkdirsInline(): File = apply(File::mkdirs)
  *
  * @receiver [File] The file whose parent directory is to be created.
  * @return The file with its parent directory created.
+ * @since 0.1.0
  */
 
 @PublishedApi

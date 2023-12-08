@@ -18,7 +18,11 @@ package com.rickbusarow.kase.gradle.dsl
 import com.rickbusarow.kase.gradle.dsl.model.AbstractDslElementContainer
 import com.rickbusarow.kase.gradle.dsl.model.PluginApplication
 
-/** Builds a `plugins { }` block in a settings or build file. */
+/**
+ * Builds a `plugins { }` block in a settings or build file.
+ *
+ * @since 0.1.0
+ */
 public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
 
   /**
@@ -32,6 +36,8 @@ public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun id(
     id: String,
@@ -52,6 +58,8 @@ public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun alias(
     aliasName: String,
@@ -73,6 +81,8 @@ public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
    *   }
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun precompiled(
     identifier: String,
@@ -91,6 +101,8 @@ public class PluginsSpec : AbstractDslElementContainer<PluginsSpec>() {
   /**
    * Applies a Kotlin plugin via the `kotlin(...)` syntax if the [DslLanguage] is Kotlin,
    * or via the `id 'org.jetbrains.kotlin.___'` syntax if the [DslLanguage] is Groovy.
+   *
+   * @since 0.1.0
    */
   public fun kotlin(
     identifier: String,

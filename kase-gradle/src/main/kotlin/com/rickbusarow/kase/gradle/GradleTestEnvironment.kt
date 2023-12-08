@@ -29,6 +29,7 @@ import java.io.File
  * @property dslLanguage the [DslLanguage] for this test environment
  * @property rootProject the [GradleRootProjectBuilder] for this test environment
  * @param hasWorkingDir the [HasWorkingDir] for this test environment
+ * @since 0.1.0
  */
 @Suppress("VariableNaming", "MemberVisibilityCanBePrivate", "MagicNumber")
 public class GradleTestEnvironment<T : TestVersions> private constructor(
@@ -52,6 +53,7 @@ public class GradleTestEnvironment<T : TestVersions> private constructor(
    * @param defaultBuildFile the default [DslStringFactory] for the root `build.gradle[.kts]` file
    * @param defaultSettingsFile the default [DslStringFactory]
    *   for the root `settings.gradle[.kts]` file
+   * @since 0.1.0
    */
   public constructor(
     testVersions: T,
@@ -95,6 +97,8 @@ public class GradleTestEnvironment<T : TestVersions> private constructor(
    *   )
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public inline fun rootProject(action: GradleRootProjectBuilder.() -> Unit): File {
     return rootProject.apply(action).path

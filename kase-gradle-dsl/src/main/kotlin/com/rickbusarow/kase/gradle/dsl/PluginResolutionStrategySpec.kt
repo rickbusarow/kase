@@ -20,5 +20,7 @@ import com.rickbusarow.kase.gradle.dsl.model.AbstractDslElementContainer
 /**
  * Builds the `pluginManagement.resolutionStrategy { }` block
  * in a `settings.gradle` or `settings.gradle.kts` file.
+ *
+ * @since 0.1.0
  */
 public class PluginResolutionStrategySpec : AbstractDslElementContainer<PluginResolutionStrategySpec>()

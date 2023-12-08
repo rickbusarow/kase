@@ -24,6 +24,8 @@ import java.util.stream.Stream
 /**
  * Common interface for creating dynamic tests with predefined
  * [kases][HasKases.kases] and a unique [TestEnvironment]
+ *
+ * @since 0.1.0
  */
 public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   HasKases<K>,
@@ -35,6 +37,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @param kase The variant names related to the test.
    * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
    * @param testAction The test action to run within the [TestEnvironment].
+   * @since 0.1.0
    */
   public fun <E : K> test(
     kase: E,
@@ -57,6 +60,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    *
    * @param testAction the test action to run for each kase.
    * @return a [Stream] of [DynamicNode]s from these kases.
+   * @since 0.1.0
    */
   public fun <E : K> Iterable<E>.asTests(
     testAction: suspend T.(E) -> Unit
@@ -67,6 +71,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    *
    * @param testAction the test action to run for each kase.
    * @return a [Stream] of [DynamicNode]s from these kases.
+   * @since 0.1.0
    */
   public fun <E : K> Sequence<E>.asTests(
     testAction: suspend T.(E) -> Unit
@@ -78,7 +83,11 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
     }
   }
 
-  /** Creates a stream of tests from [kases] */
+  /**
+   * Creates a stream of tests from [kases]
+   *
+   * @since 0.1.0
+   */
   public fun testFactory(
     testAction: suspend T.(K) -> Unit
   ): Stream<out DynamicNode> = kases.asTests(testAction)
@@ -94,6 +103,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @return a [Stream] of [DynamicNode]s from the given parameters.
    * @see Kase1
    * @see TestEnvironmentFactory
+   * @since 0.1.0
    */
   public fun <E : K> testFactory(
     vararg kases: E,
@@ -111,6 +121,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @return a [Stream] of [DynamicNode]s from the given parameters.
    * @see Kase1
    * @see TestEnvironmentFactory
+   * @since 0.1.0
    */
   public fun <E : K> testFactory(
     kases: Iterable<E>,
@@ -125,6 +136,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @param testName a function to compute the name of each test.
    * @param testAction a function to initialize each test container.
    * @return a stream of dynamic nodes representing the containers.
+   * @since 0.1.0
    */
   public fun <K : Kase> Iterable<K>.asContainers(
     testName: (K) -> String = { it.displayName },
@@ -139,6 +151,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @param testName a function to compute the name of each test.
    * @param testAction a function to initialize each test container.
    * @return a stream of dynamic nodes representing the containers.
+   * @since 0.1.0
    */
   public fun <K : Kase> Sequence<K>.asContainers(
     testName: (K) -> String = { it.displayName },

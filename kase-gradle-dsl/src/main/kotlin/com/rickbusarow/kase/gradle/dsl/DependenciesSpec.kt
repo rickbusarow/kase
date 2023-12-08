@@ -23,11 +23,19 @@ import com.rickbusarow.kase.gradle.dsl.model.FunctionCall
 import com.rickbusarow.kase.gradle.dsl.model.LambdaParameter
 import com.rickbusarow.kase.gradle.dsl.model.ValueParameter
 
-/** Builds the `dependencies { }` block */
+/**
+ * Builds the `dependencies { }` block
+ *
+ * @since 0.1.0
+ */
 @Suppress("LargeClass")
 public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() {
 
-  /** `project(":hairbrush-api")` */
+  /**
+   * `project(":hairbrush-api")`
+   *
+   * @since 0.1.0
+   */
   public fun project(pathString: String): FunctionCall = FunctionCall(
     name = "project",
     labelSupport = LabelSupport.GroovyAndKotlinLabels,
@@ -35,7 +43,11 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     ValueParameter("path", valueElement = stringLiteral(pathString))
   )
 
-  /** `testFixtures(":hairbrush-api-test-utils")` */
+  /**
+   * `testFixtures(":hairbrush-api-test-utils")`
+   *
+   * @since 0.1.0
+   */
   public fun testFixtures(pathString: String): FunctionCall = FunctionCall(
     name = "testFixtures",
     labelSupport = LabelSupport.GroovyAndKotlinLabels,
@@ -43,7 +55,11 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     ValueParameter("path", valueElement = stringLiteral(pathString))
   )
 
-  /** `add("androidTestApi", "com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `add("androidTestApi", "com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun add(configuration: String, dependencyNotation: String): DependenciesSpec =
     functionCall(
       name = "add",
@@ -59,6 +75,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun add(
     configuration: String,
@@ -73,13 +91,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     LambdaParameter(label = "configureClosure", builder = configureClosure)
   )
 
-  /** `androidTestApi("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `androidTestApi("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun androidTestApi(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "androidTestApi",
     dependencyNotation = dependencyNotation
   )
 
-  /** `androidTestApi(libs.acme.hairbrush.api)` */
+  /**
+   * `androidTestApi(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun androidTestApi(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "androidTestApi",
     dependencyNotation = dependencyNotation
@@ -91,6 +117,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun androidTestApi(
     dependencyNotation: String,
@@ -107,6 +135,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun androidTestApi(
     dependencyNotation: DslElement,
@@ -117,14 +147,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `androidTestCompileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `androidTestCompileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun androidTestCompileOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "androidTestCompileOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `androidTestCompileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `androidTestCompileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun androidTestCompileOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "androidTestCompileOnly",
@@ -137,6 +175,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun androidTestCompileOnly(
     dependencyNotation: String,
@@ -153,6 +193,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun androidTestCompileOnly(
     dependencyNotation: DslElement,
@@ -163,14 +205,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `androidTestImplementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `androidTestImplementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun androidTestImplementation(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "androidTestImplementation",
       dependencyNotation = dependencyNotation
     )
 
-  /** `androidTestImplementation(libs.acme.hairbrush.api)` */
+  /**
+   * `androidTestImplementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun androidTestImplementation(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "androidTestImplementation",
@@ -183,6 +233,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun androidTestImplementation(
     dependencyNotation: String,
@@ -199,6 +251,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun androidTestImplementation(
     dependencyNotation: DslElement,
@@ -209,14 +263,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `androidTestRuntimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `androidTestRuntimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun androidTestRuntimeOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "androidTestRuntimeOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `androidTestRuntimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `androidTestRuntimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun androidTestRuntimeOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "androidTestRuntimeOnly",
@@ -229,6 +291,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun androidTestRuntimeOnly(
     dependencyNotation: String,
@@ -245,6 +309,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun androidTestRuntimeOnly(
     dependencyNotation: DslElement,
@@ -255,13 +321,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `anvil("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `anvil("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun anvil(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "anvil",
     dependencyNotation = dependencyNotation
   )
 
-  /** `anvil(libs.acme.hairbrush.api)` */
+  /**
+   * `anvil(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun anvil(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "anvil",
     dependencyNotation = dependencyNotation
@@ -273,6 +347,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvil(
     dependencyNotation: String,
@@ -289,6 +365,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvil(
     dependencyNotation: DslElement,
@@ -299,13 +377,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `anvilAndroidTest("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `anvilAndroidTest("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun anvilAndroidTest(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "anvilAndroidTest",
     dependencyNotation = dependencyNotation
   )
 
-  /** `anvilAndroidTest(libs.acme.hairbrush.api)` */
+  /**
+   * `anvilAndroidTest(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun anvilAndroidTest(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "anvilAndroidTest",
@@ -318,6 +404,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvilAndroidTest(
     dependencyNotation: String,
@@ -334,6 +422,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvilAndroidTest(
     dependencyNotation: DslElement,
@@ -344,13 +434,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `anvilDebug("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `anvilDebug("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun anvilDebug(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "anvilDebug",
     dependencyNotation = dependencyNotation
   )
 
-  /** `anvilDebug(libs.acme.hairbrush.api)` */
+  /**
+   * `anvilDebug(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun anvilDebug(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "anvilDebug",
     dependencyNotation = dependencyNotation
@@ -362,6 +460,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvilDebug(
     dependencyNotation: String,
@@ -378,6 +478,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvilDebug(
     dependencyNotation: DslElement,
@@ -388,13 +490,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `anvilRelease("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `anvilRelease("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun anvilRelease(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "anvilRelease",
     dependencyNotation = dependencyNotation
   )
 
-  /** `anvilRelease(libs.acme.hairbrush.api)` */
+  /**
+   * `anvilRelease(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun anvilRelease(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "anvilRelease",
     dependencyNotation = dependencyNotation
@@ -406,6 +516,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvilRelease(
     dependencyNotation: String,
@@ -422,6 +534,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvilRelease(
     dependencyNotation: DslElement,
@@ -432,13 +546,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `anvilTest("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `anvilTest("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun anvilTest(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "anvilTest",
     dependencyNotation = dependencyNotation
   )
 
-  /** `anvilTest(libs.acme.hairbrush.api)` */
+  /**
+   * `anvilTest(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun anvilTest(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "anvilTest",
     dependencyNotation = dependencyNotation
@@ -450,6 +572,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvilTest(
     dependencyNotation: String,
@@ -466,6 +590,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun anvilTest(
     dependencyNotation: DslElement,
@@ -476,13 +602,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `api("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `api("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun api(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "api",
     dependencyNotation = dependencyNotation
   )
 
-  /** `api(libs.acme.hairbrush.api)` */
+  /**
+   * `api(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun api(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "api",
     dependencyNotation = dependencyNotation
@@ -494,6 +628,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun api(
     dependencyNotation: String,
@@ -510,6 +646,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun api(
     dependencyNotation: DslElement,
@@ -520,13 +658,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonJvmApi("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonJvmApi("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmApi(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "commonJvmApi",
     dependencyNotation = dependencyNotation
   )
 
-  /** `commonJvmApi(libs.acme.hairbrush.api)` */
+  /**
+   * `commonJvmApi(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmApi(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "commonJvmApi",
     dependencyNotation = dependencyNotation
@@ -538,6 +684,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmApi(
     dependencyNotation: String,
@@ -554,6 +702,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmApi(
     dependencyNotation: DslElement,
@@ -564,14 +714,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonJvmCompileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonJvmCompileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmCompileOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmCompileOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonJvmCompileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `commonJvmCompileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmCompileOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmCompileOnly",
@@ -584,6 +742,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmCompileOnly(
     dependencyNotation: String,
@@ -600,6 +760,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmCompileOnly(
     dependencyNotation: DslElement,
@@ -610,14 +772,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonJvmImplementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonJvmImplementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmImplementation(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmImplementation",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonJvmImplementation(libs.acme.hairbrush.api)` */
+  /**
+   * `commonJvmImplementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmImplementation(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmImplementation",
@@ -630,6 +800,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmImplementation(
     dependencyNotation: String,
@@ -646,6 +818,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmImplementation(
     dependencyNotation: DslElement,
@@ -656,14 +830,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonJvmRuntimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonJvmRuntimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmRuntimeOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmRuntimeOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonJvmRuntimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `commonJvmRuntimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmRuntimeOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmRuntimeOnly",
@@ -676,6 +858,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmRuntimeOnly(
     dependencyNotation: String,
@@ -692,6 +876,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmRuntimeOnly(
     dependencyNotation: DslElement,
@@ -702,13 +888,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonJvmTestApi("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonJvmTestApi("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmTestApi(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "commonJvmTestApi",
     dependencyNotation = dependencyNotation
   )
 
-  /** `commonJvmTestApi(libs.acme.hairbrush.api)` */
+  /**
+   * `commonJvmTestApi(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmTestApi(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmTestApi",
@@ -721,6 +915,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmTestApi(
     dependencyNotation: String,
@@ -737,6 +933,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmTestApi(
     dependencyNotation: DslElement,
@@ -747,14 +945,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonJvmTestCompileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonJvmTestCompileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmTestCompileOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmTestCompileOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonJvmTestCompileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `commonJvmTestCompileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmTestCompileOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmTestCompileOnly",
@@ -767,6 +973,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmTestCompileOnly(
     dependencyNotation: String,
@@ -783,6 +991,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmTestCompileOnly(
     dependencyNotation: DslElement,
@@ -793,14 +1003,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonJvmTestImplementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonJvmTestImplementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmTestImplementation(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmTestImplementation",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonJvmTestImplementation(libs.acme.hairbrush.api)` */
+  /**
+   * `commonJvmTestImplementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmTestImplementation(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmTestImplementation",
@@ -813,6 +1031,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmTestImplementation(
     dependencyNotation: String,
@@ -829,6 +1049,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmTestImplementation(
     dependencyNotation: DslElement,
@@ -839,14 +1061,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonJvmTestRuntimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonJvmTestRuntimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmTestRuntimeOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmTestRuntimeOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonJvmTestRuntimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `commonJvmTestRuntimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonJvmTestRuntimeOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonJvmTestRuntimeOnly",
@@ -859,6 +1089,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmTestRuntimeOnly(
     dependencyNotation: String,
@@ -875,6 +1107,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonJvmTestRuntimeOnly(
     dependencyNotation: DslElement,
@@ -885,13 +1119,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonMainApi("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonMainApi("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonMainApi(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "commonMainApi",
     dependencyNotation = dependencyNotation
   )
 
-  /** `commonMainApi(libs.acme.hairbrush.api)` */
+  /**
+   * `commonMainApi(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonMainApi(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "commonMainApi",
     dependencyNotation = dependencyNotation
@@ -903,6 +1145,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonMainApi(
     dependencyNotation: String,
@@ -919,6 +1163,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonMainApi(
     dependencyNotation: DslElement,
@@ -929,14 +1175,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonMainCompileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonMainCompileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonMainCompileOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonMainCompileOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonMainCompileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `commonMainCompileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonMainCompileOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonMainCompileOnly",
@@ -949,6 +1203,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonMainCompileOnly(
     dependencyNotation: String,
@@ -965,6 +1221,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonMainCompileOnly(
     dependencyNotation: DslElement,
@@ -975,14 +1233,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonMainImplementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonMainImplementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonMainImplementation(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonMainImplementation",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonMainImplementation(libs.acme.hairbrush.api)` */
+  /**
+   * `commonMainImplementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonMainImplementation(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonMainImplementation",
@@ -995,6 +1261,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonMainImplementation(
     dependencyNotation: String,
@@ -1011,6 +1279,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonMainImplementation(
     dependencyNotation: DslElement,
@@ -1021,14 +1291,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonMainRuntimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonMainRuntimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonMainRuntimeOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonMainRuntimeOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonMainRuntimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `commonMainRuntimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonMainRuntimeOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonMainRuntimeOnly",
@@ -1041,6 +1319,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonMainRuntimeOnly(
     dependencyNotation: String,
@@ -1057,6 +1337,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonMainRuntimeOnly(
     dependencyNotation: DslElement,
@@ -1067,13 +1349,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonTestApi("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonTestApi("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonTestApi(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "commonTestApi",
     dependencyNotation = dependencyNotation
   )
 
-  /** `commonTestApi(libs.acme.hairbrush.api)` */
+  /**
+   * `commonTestApi(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonTestApi(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "commonTestApi",
     dependencyNotation = dependencyNotation
@@ -1085,6 +1375,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonTestApi(
     dependencyNotation: String,
@@ -1101,6 +1393,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonTestApi(
     dependencyNotation: DslElement,
@@ -1111,14 +1405,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonTestCompileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonTestCompileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonTestCompileOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonTestCompileOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonTestCompileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `commonTestCompileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonTestCompileOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonTestCompileOnly",
@@ -1131,6 +1433,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonTestCompileOnly(
     dependencyNotation: String,
@@ -1147,6 +1451,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonTestCompileOnly(
     dependencyNotation: DslElement,
@@ -1157,14 +1463,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonTestImplementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonTestImplementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonTestImplementation(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonTestImplementation",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonTestImplementation(libs.acme.hairbrush.api)` */
+  /**
+   * `commonTestImplementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonTestImplementation(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonTestImplementation",
@@ -1177,6 +1491,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonTestImplementation(
     dependencyNotation: String,
@@ -1193,6 +1509,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonTestImplementation(
     dependencyNotation: DslElement,
@@ -1203,14 +1521,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `commonTestRuntimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `commonTestRuntimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun commonTestRuntimeOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonTestRuntimeOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `commonTestRuntimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `commonTestRuntimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun commonTestRuntimeOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "commonTestRuntimeOnly",
@@ -1223,6 +1549,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonTestRuntimeOnly(
     dependencyNotation: String,
@@ -1239,6 +1567,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun commonTestRuntimeOnly(
     dependencyNotation: DslElement,
@@ -1249,13 +1579,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `compileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `compileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun compileOnly(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "compileOnly",
     dependencyNotation = dependencyNotation
   )
 
-  /** `compileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `compileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun compileOnly(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "compileOnly",
     dependencyNotation = dependencyNotation
@@ -1267,6 +1605,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun compileOnly(
     dependencyNotation: String,
@@ -1283,6 +1623,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun compileOnly(
     dependencyNotation: DslElement,
@@ -1293,13 +1635,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `debugApi("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `debugApi("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun debugApi(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "debugApi",
     dependencyNotation = dependencyNotation
   )
 
-  /** `debugApi(libs.acme.hairbrush.api)` */
+  /**
+   * `debugApi(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun debugApi(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "debugApi",
     dependencyNotation = dependencyNotation
@@ -1311,6 +1661,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun debugApi(
     dependencyNotation: String,
@@ -1327,6 +1679,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun debugApi(
     dependencyNotation: DslElement,
@@ -1337,13 +1691,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `debugCompileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `debugCompileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun debugCompileOnly(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "debugCompileOnly",
     dependencyNotation = dependencyNotation
   )
 
-  /** `debugCompileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `debugCompileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun debugCompileOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "debugCompileOnly",
@@ -1356,6 +1718,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun debugCompileOnly(
     dependencyNotation: String,
@@ -1372,6 +1736,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun debugCompileOnly(
     dependencyNotation: DslElement,
@@ -1382,14 +1748,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `debugImplementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `debugImplementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun debugImplementation(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "debugImplementation",
       dependencyNotation = dependencyNotation
     )
 
-  /** `debugImplementation(libs.acme.hairbrush.api)` */
+  /**
+   * `debugImplementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun debugImplementation(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "debugImplementation",
@@ -1402,6 +1776,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun debugImplementation(
     dependencyNotation: String,
@@ -1418,6 +1794,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun debugImplementation(
     dependencyNotation: DslElement,
@@ -1428,13 +1806,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `debugRuntimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `debugRuntimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun debugRuntimeOnly(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "debugRuntimeOnly",
     dependencyNotation = dependencyNotation
   )
 
-  /** `debugRuntimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `debugRuntimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun debugRuntimeOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "debugRuntimeOnly",
@@ -1447,6 +1833,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun debugRuntimeOnly(
     dependencyNotation: String,
@@ -1463,6 +1851,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun debugRuntimeOnly(
     dependencyNotation: DslElement,
@@ -1473,13 +1863,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `implementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `implementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun implementation(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "implementation",
     dependencyNotation = dependencyNotation
   )
 
-  /** `implementation(libs.acme.hairbrush.api)` */
+  /**
+   * `implementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun implementation(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "implementation",
     dependencyNotation = dependencyNotation
@@ -1491,6 +1889,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun implementation(
     dependencyNotation: String,
@@ -1507,6 +1907,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun implementation(
     dependencyNotation: DslElement,
@@ -1517,13 +1919,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `kapt("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `kapt("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun kapt(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "kapt",
     dependencyNotation = dependencyNotation
   )
 
-  /** `kapt(libs.acme.hairbrush.api)` */
+  /**
+   * `kapt(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun kapt(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "kapt",
     dependencyNotation = dependencyNotation
@@ -1535,6 +1945,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kapt(
     dependencyNotation: String,
@@ -1551,6 +1963,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kapt(
     dependencyNotation: DslElement,
@@ -1561,13 +1975,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `kaptAndroidTest("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `kaptAndroidTest("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun kaptAndroidTest(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "kaptAndroidTest",
     dependencyNotation = dependencyNotation
   )
 
-  /** `kaptAndroidTest(libs.acme.hairbrush.api)` */
+  /**
+   * `kaptAndroidTest(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun kaptAndroidTest(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "kaptAndroidTest",
@@ -1580,6 +2002,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kaptAndroidTest(
     dependencyNotation: String,
@@ -1596,6 +2020,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kaptAndroidTest(
     dependencyNotation: DslElement,
@@ -1606,13 +2032,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `kaptDebug("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `kaptDebug("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun kaptDebug(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "kaptDebug",
     dependencyNotation = dependencyNotation
   )
 
-  /** `kaptDebug(libs.acme.hairbrush.api)` */
+  /**
+   * `kaptDebug(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun kaptDebug(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "kaptDebug",
     dependencyNotation = dependencyNotation
@@ -1624,6 +2058,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kaptDebug(
     dependencyNotation: String,
@@ -1640,6 +2076,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kaptDebug(
     dependencyNotation: DslElement,
@@ -1650,13 +2088,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `kaptRelease("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `kaptRelease("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun kaptRelease(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "kaptRelease",
     dependencyNotation = dependencyNotation
   )
 
-  /** `kaptRelease(libs.acme.hairbrush.api)` */
+  /**
+   * `kaptRelease(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun kaptRelease(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "kaptRelease",
     dependencyNotation = dependencyNotation
@@ -1668,6 +2114,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kaptRelease(
     dependencyNotation: String,
@@ -1684,6 +2132,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kaptRelease(
     dependencyNotation: DslElement,
@@ -1694,13 +2144,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `kaptTest("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `kaptTest("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun kaptTest(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "kaptTest",
     dependencyNotation = dependencyNotation
   )
 
-  /** `kaptTest(libs.acme.hairbrush.api)` */
+  /**
+   * `kaptTest(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun kaptTest(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "kaptTest",
     dependencyNotation = dependencyNotation
@@ -1712,6 +2170,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kaptTest(
     dependencyNotation: String,
@@ -1728,6 +2188,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kaptTest(
     dependencyNotation: DslElement,
@@ -1738,13 +2200,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `ksp("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `ksp("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun ksp(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "ksp",
     dependencyNotation = dependencyNotation
   )
 
-  /** `ksp(libs.acme.hairbrush.api)` */
+  /**
+   * `ksp(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun ksp(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "ksp",
     dependencyNotation = dependencyNotation
@@ -1756,6 +2226,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun ksp(
     dependencyNotation: String,
@@ -1772,6 +2244,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun ksp(
     dependencyNotation: DslElement,
@@ -1782,13 +2256,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `kspAndroidTest("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `kspAndroidTest("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun kspAndroidTest(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "kspAndroidTest",
     dependencyNotation = dependencyNotation
   )
 
-  /** `kspAndroidTest(libs.acme.hairbrush.api)` */
+  /**
+   * `kspAndroidTest(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun kspAndroidTest(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "kspAndroidTest",
     dependencyNotation = dependencyNotation
@@ -1800,6 +2282,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kspAndroidTest(
     dependencyNotation: String,
@@ -1816,6 +2300,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kspAndroidTest(
     dependencyNotation: DslElement,
@@ -1826,13 +2312,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `kspDebug("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `kspDebug("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun kspDebug(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "kspDebug",
     dependencyNotation = dependencyNotation
   )
 
-  /** `kspDebug(libs.acme.hairbrush.api)` */
+  /**
+   * `kspDebug(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun kspDebug(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "kspDebug",
     dependencyNotation = dependencyNotation
@@ -1844,6 +2338,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kspDebug(
     dependencyNotation: String,
@@ -1860,6 +2356,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kspDebug(
     dependencyNotation: DslElement,
@@ -1870,13 +2368,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `kspRelease("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `kspRelease("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun kspRelease(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "kspRelease",
     dependencyNotation = dependencyNotation
   )
 
-  /** `kspRelease(libs.acme.hairbrush.api)` */
+  /**
+   * `kspRelease(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun kspRelease(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "kspRelease",
     dependencyNotation = dependencyNotation
@@ -1888,6 +2394,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kspRelease(
     dependencyNotation: String,
@@ -1904,6 +2412,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kspRelease(
     dependencyNotation: DslElement,
@@ -1914,13 +2424,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `kspTest("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `kspTest("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun kspTest(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "kspTest",
     dependencyNotation = dependencyNotation
   )
 
-  /** `kspTest(libs.acme.hairbrush.api)` */
+  /**
+   * `kspTest(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun kspTest(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "kspTest",
     dependencyNotation = dependencyNotation
@@ -1932,6 +2450,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kspTest(
     dependencyNotation: String,
@@ -1948,6 +2468,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun kspTest(
     dependencyNotation: DslElement,
@@ -1958,13 +2480,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `releaseApi("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `releaseApi("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun releaseApi(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "releaseApi",
     dependencyNotation = dependencyNotation
   )
 
-  /** `releaseApi(libs.acme.hairbrush.api)` */
+  /**
+   * `releaseApi(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun releaseApi(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "releaseApi",
     dependencyNotation = dependencyNotation
@@ -1976,6 +2506,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun releaseApi(
     dependencyNotation: String,
@@ -1992,6 +2524,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun releaseApi(
     dependencyNotation: DslElement,
@@ -2002,13 +2536,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `releaseCompileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `releaseCompileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun releaseCompileOnly(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "releaseCompileOnly",
     dependencyNotation = dependencyNotation
   )
 
-  /** `releaseCompileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `releaseCompileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun releaseCompileOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "releaseCompileOnly",
@@ -2021,6 +2563,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun releaseCompileOnly(
     dependencyNotation: String,
@@ -2037,6 +2581,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun releaseCompileOnly(
     dependencyNotation: DslElement,
@@ -2047,14 +2593,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `releaseImplementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `releaseImplementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun releaseImplementation(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "releaseImplementation",
       dependencyNotation = dependencyNotation
     )
 
-  /** `releaseImplementation(libs.acme.hairbrush.api)` */
+  /**
+   * `releaseImplementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun releaseImplementation(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "releaseImplementation",
@@ -2067,6 +2621,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun releaseImplementation(
     dependencyNotation: String,
@@ -2083,6 +2639,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun releaseImplementation(
     dependencyNotation: DslElement,
@@ -2093,13 +2651,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `releaseRuntimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `releaseRuntimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun releaseRuntimeOnly(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "releaseRuntimeOnly",
     dependencyNotation = dependencyNotation
   )
 
-  /** `releaseRuntimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `releaseRuntimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun releaseRuntimeOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "releaseRuntimeOnly",
@@ -2112,6 +2678,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun releaseRuntimeOnly(
     dependencyNotation: String,
@@ -2128,6 +2696,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun releaseRuntimeOnly(
     dependencyNotation: DslElement,
@@ -2138,13 +2708,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `runtimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `runtimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun runtimeOnly(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "runtimeOnly",
     dependencyNotation = dependencyNotation
   )
 
-  /** `runtimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `runtimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun runtimeOnly(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "runtimeOnly",
     dependencyNotation = dependencyNotation
@@ -2156,6 +2734,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun runtimeOnly(
     dependencyNotation: String,
@@ -2172,6 +2752,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun runtimeOnly(
     dependencyNotation: DslElement,
@@ -2182,13 +2764,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `testApi("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `testApi("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun testApi(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "testApi",
     dependencyNotation = dependencyNotation
   )
 
-  /** `testApi(libs.acme.hairbrush.api)` */
+  /**
+   * `testApi(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun testApi(dependencyNotation: DslElement): DependenciesSpec = invokeConfiguration(
     configuration = "testApi",
     dependencyNotation = dependencyNotation
@@ -2200,6 +2790,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testApi(
     dependencyNotation: String,
@@ -2216,6 +2808,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testApi(
     dependencyNotation: DslElement,
@@ -2226,13 +2820,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `testCompileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `testCompileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun testCompileOnly(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "testCompileOnly",
     dependencyNotation = dependencyNotation
   )
 
-  /** `testCompileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `testCompileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun testCompileOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "testCompileOnly",
@@ -2245,6 +2847,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testCompileOnly(
     dependencyNotation: String,
@@ -2261,6 +2865,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testCompileOnly(
     dependencyNotation: DslElement,
@@ -2271,13 +2877,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `testFixturesApi("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `testFixturesApi("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun testFixturesApi(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "testFixturesApi",
     dependencyNotation = dependencyNotation
   )
 
-  /** `testFixturesApi(libs.acme.hairbrush.api)` */
+  /**
+   * `testFixturesApi(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun testFixturesApi(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "testFixturesApi",
@@ -2290,6 +2904,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testFixturesApi(
     dependencyNotation: String,
@@ -2306,6 +2922,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testFixturesApi(
     dependencyNotation: DslElement,
@@ -2316,14 +2934,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `testFixturesCompileOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `testFixturesCompileOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun testFixturesCompileOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "testFixturesCompileOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `testFixturesCompileOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `testFixturesCompileOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun testFixturesCompileOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "testFixturesCompileOnly",
@@ -2336,6 +2962,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testFixturesCompileOnly(
     dependencyNotation: String,
@@ -2352,6 +2980,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testFixturesCompileOnly(
     dependencyNotation: DslElement,
@@ -2362,14 +2992,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `testFixturesImplementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `testFixturesImplementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun testFixturesImplementation(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "testFixturesImplementation",
       dependencyNotation = dependencyNotation
     )
 
-  /** `testFixturesImplementation(libs.acme.hairbrush.api)` */
+  /**
+   * `testFixturesImplementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun testFixturesImplementation(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "testFixturesImplementation",
@@ -2382,6 +3020,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testFixturesImplementation(
     dependencyNotation: String,
@@ -2398,6 +3038,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testFixturesImplementation(
     dependencyNotation: DslElement,
@@ -2408,14 +3050,22 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `testFixturesRuntimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `testFixturesRuntimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun testFixturesRuntimeOnly(dependencyNotation: String): DependenciesSpec =
     invokeConfiguration(
       configuration = "testFixturesRuntimeOnly",
       dependencyNotation = dependencyNotation
     )
 
-  /** `testFixturesRuntimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `testFixturesRuntimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun testFixturesRuntimeOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "testFixturesRuntimeOnly",
@@ -2428,6 +3078,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testFixturesRuntimeOnly(
     dependencyNotation: String,
@@ -2444,6 +3096,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testFixturesRuntimeOnly(
     dependencyNotation: DslElement,
@@ -2454,13 +3108,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `testImplementation("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `testImplementation("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun testImplementation(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "testImplementation",
     dependencyNotation = dependencyNotation
   )
 
-  /** `testImplementation(libs.acme.hairbrush.api)` */
+  /**
+   * `testImplementation(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun testImplementation(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "testImplementation",
@@ -2473,6 +3135,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testImplementation(
     dependencyNotation: String,
@@ -2489,6 +3153,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testImplementation(
     dependencyNotation: DslElement,
@@ -2499,13 +3165,21 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `testRuntimeOnly("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `testRuntimeOnly("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   public fun testRuntimeOnly(dependencyNotation: String): DependenciesSpec = invokeConfiguration(
     configuration = "testRuntimeOnly",
     dependencyNotation = dependencyNotation
   )
 
-  /** `testRuntimeOnly(libs.acme.hairbrush.api)` */
+  /**
+   * `testRuntimeOnly(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   public fun testRuntimeOnly(dependencyNotation: DslElement): DependenciesSpec =
     invokeConfiguration(
       configuration = "testRuntimeOnly",
@@ -2518,6 +3192,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testRuntimeOnly(
     dependencyNotation: String,
@@ -2534,6 +3210,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun testRuntimeOnly(
     dependencyNotation: DslElement,
@@ -2544,7 +3222,11 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     configureClosure = configureClosure
   )
 
-  /** `someConfig("com.acme:hairbrush-api:1.0.0")` */
+  /**
+   * `someConfig("com.acme:hairbrush-api:1.0.0")`
+   *
+   * @since 0.1.0
+   */
   private fun invokeConfiguration(
     configuration: String,
     dependencyNotation: String
@@ -2553,7 +3235,11 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
     dependencyNotation = stringLiteral(dependencyNotation)
   )
 
-  /** `someConfig(libs.acme.hairbrush.api)` */
+  /**
+   * `someConfig(libs.acme.hairbrush.api)`
+   *
+   * @since 0.1.0
+   */
   private fun invokeConfiguration(
     configuration: String,
     dependencyNotation: DslElement
@@ -2570,6 +3256,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   private fun invokeConfiguration(
     configuration: String,
@@ -2587,6 +3275,8 @@ public class DependenciesSpec : AbstractDslElementContainer<DependenciesSpec>() 
    *   exclude(group = "com.acme", module = "comb")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   private fun invokeConfiguration(
     configuration: String,

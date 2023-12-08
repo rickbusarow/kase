@@ -23,7 +23,11 @@ import com.rickbusarow.kase.stdlib.indent
 import dev.drewhamilton.poko.Poko
 import kotlin.LazyThreadSafetyMode.NONE
 
-/** A list of [Parameter]s. */
+/**
+ * A list of [Parameter]s.
+ *
+ * @since 0.1.0
+ */
 @Poko
 public class ParameterList(
   private val parameters: List<Parameter>,
@@ -38,18 +42,32 @@ public class ParameterList(
     separator
   )
 
-  /** The number of parameters in this list. */
+  /**
+   * The number of parameters in this list.
+   *
+   * @since 0.1.0
+   */
   public val size: Int get() = parameters.size
 
-  /** True if the last parameter is a [LambdaParameter], otherwise false. */
+  /**
+   * True if the last parameter is a [LambdaParameter], otherwise false.
+   *
+   * @since 0.1.0
+   */
   public val hasTrailingLambda: Boolean by lazy(NONE) {
     parameters.lastOrNull() is LambdaParameter
   }
 
-  /** @return `true` if [size] is zero, otherwise `false`. */
+  /**
+   * @return `true` if [size] is zero, otherwise `false`.
+   * @since 0.1.0
+   */
   public fun isEmpty(): Boolean = parameters.isEmpty()
 
-  /** @return `true` if [size] is greater than zero, otherwise `false`. */
+  /**
+   * @return `true` if [size] is greater than zero, otherwise `false`.
+   * @since 0.1.0
+   */
   public fun isNotEmpty(): Boolean = parameters.isNotEmpty()
 
   /**
@@ -59,6 +77,7 @@ public class ParameterList(
    * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
    * @param infixSupport whether the associated function call supports infix notation
    * @return the string representation of this [ParameterList] in the given [language]
+   * @since 0.1.0
    */
   public fun write(
     language: DslLanguage,
@@ -114,7 +133,11 @@ public class ParameterList(
   )
 
   public companion object {
-    /** The default separator used when joining [Parameter]s into a [ParameterList]. */
+    /**
+     * The default separator used when joining [Parameter]s into a [ParameterList].
+     *
+     * @since 0.1.0
+     */
     public const val SEPARATOR_DEFAULT: String = ", "
   }
 }

@@ -21,5 +21,6 @@ package com.rickbusarow.kase.generator
  * @param n The number of elements to drop from the beginning of the list.
  * @return A list excluding the first [n] elements or an
  *   empty list if [n] is greater than the size of the list.
+ * @since 0.1.0
  */
 fun <E> List<E>.dropView(n: Int): List<E> = subList(n.coerceAtLeast(0), size)

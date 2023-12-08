@@ -27,7 +27,11 @@ import com.rickbusarow.kase.gradle.dsl.model.HasAndroidComponentsBlock
 import com.rickbusarow.kase.gradle.dsl.model.HasDependenciesBlock
 import com.rickbusarow.kase.gradle.dsl.model.HasPluginsBlock
 
-/** Models a `settings.gradle` or `settings.gradle.kts` file. */
+/**
+ * Models a `settings.gradle` or `settings.gradle.kts` file.
+ *
+ * @since 0.1.0
+ */
 public class BuildFileSpec(
   build: BuildFileSpec.() -> Unit
 ) : AbstractDslElementContainer<BuildFileSpec>(),
@@ -43,7 +47,11 @@ public class BuildFileSpec(
   }
 }
 
-/** Creates a `build.gradle[.kts]` file in the directory builder's current directory. */
+/**
+ * Creates a `build.gradle[.kts]` file in the directory builder's current directory.
+ *
+ * @since 0.1.0
+ */
 public fun DirectoryBuilder.buildFile(
   dslLanguage: DslLanguage,
   builder: BuildFileSpec.() -> Unit
@@ -52,7 +60,11 @@ public fun DirectoryBuilder.buildFile(
   content = BuildFileSpec(builder).write(dslLanguage)
 )
 
-/** Creates a `build.gradle[.kts]` file in the directory builder's current directory. */
+/**
+ * Creates a `build.gradle[.kts]` file in the directory builder's current directory.
+ *
+ * @since 0.1.0
+ */
 context(HasDslLanguage)
 public fun DirectoryBuilder.buildFile(
   dslLanguage: DslLanguage = this@HasDslLanguage.dslLanguage,
@@ -62,7 +74,11 @@ public fun DirectoryBuilder.buildFile(
   content = BuildFileSpec(builder).write(dslLanguage)
 )
 
-/** Creates a `build.gradle[.kts]` file in the directory builder's current directory. */
+/**
+ * Creates a `build.gradle[.kts]` file in the directory builder's current directory.
+ *
+ * @since 0.1.0
+ */
 public fun GradleProjectBuilder.buildFile(
   dslLanguage: DslLanguage = this@GradleProjectBuilder.dslLanguage,
   builder: BuildFileSpec.() -> Unit

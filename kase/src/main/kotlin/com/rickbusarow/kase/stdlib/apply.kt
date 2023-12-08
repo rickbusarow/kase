@@ -21,6 +21,7 @@ package com.rickbusarow.kase.stdlib
  * @param elements The iterable collection of elements to apply the block to.
  * @param block The block of code to apply to each kaseParam.
  * @return The receiver object after applying the block to each kaseParam.
+ * @since 0.1.0
  */
 public inline fun <T, E> T.applyEach(elements: Iterable<E>, block: T.(e: E) -> Unit): T = apply {
   for (element in elements) {
@@ -34,6 +35,7 @@ public inline fun <T, E> T.applyEach(elements: Iterable<E>, block: T.(e: E) -> U
  * @param elements The iterable collection of elements to apply the block to.
  * @param block The block of code to apply to each kaseParam.
  * @return The receiver object after applying the block to each kaseParam.
+ * @since 0.1.0
  */
 public inline fun <T, E> T.applyEachIndexed(
   elements: Iterable<E>,
@@ -50,6 +52,7 @@ public inline fun <T, E> T.applyEachIndexed(
  * @param elements The iterable collection of elements to apply the block to.
  * @param block The block of code to apply to each kaseParam.
  * @return The receiver object after applying the block to each kaseParam.
+ * @since 0.1.0
  */
 public inline fun <T, E> T.applyEachIndexed(
   elements: Array<E>,
@@ -68,6 +71,7 @@ public inline fun <T, E> T.applyEachIndexed(
  *
  * @param blocks The blocks of code to apply to each kaseParam.
  * @return The receiver object after applying the block to each kaseParam.
+ * @since 0.1.0
  */
 @Suppress("NOTHING_TO_INLINE")
 public inline fun <T> T.applyEach(blocks: Iterable<T.() -> Unit>): T = apply {
@@ -81,6 +85,7 @@ public inline fun <T> T.applyEach(blocks: Iterable<T.() -> Unit>): T = apply {
  *
  * @param blocks The blocks of code to apply to each kaseParam.
  * @return The receiver object after applying the block to each kaseParam.
+ * @since 0.1.0
  */
 @Suppress("NOTHING_TO_INLINE")
 public inline fun <T> T.applyEach(vararg blocks: T.() -> Unit): T = apply {
@@ -95,6 +100,7 @@ public inline fun <T> T.applyEach(vararg blocks: T.() -> Unit): T = apply {
  * @param body The block of code to apply to the receiver object.
  * @return The modified receiver object if the predicate
  *   is true, or the original receiver object otherwise.
+ * @since 0.1.0
  */
 public inline fun <T> T.applyIf(predicate: Boolean, body: T.() -> T): T = apply {
   if (predicate) {
@@ -111,6 +117,7 @@ public inline fun <T> T.applyIf(predicate: Boolean, body: T.() -> T): T = apply 
  * @param transform The transform function to apply to the receiver object.
  * @return The result of the transform function if the
  *   predicate is true, or the receiver object itself otherwise.
+ * @since 0.1.0
  */
 public inline fun <T> T.letIf(predicate: Boolean, transform: (T) -> T): T {
   return if (predicate) transform(this) else this
@@ -125,6 +132,7 @@ public inline fun <T> T.letIf(predicate: Boolean, transform: (T) -> T): T {
  * @param body The transformation function to apply to the receiver object.
  * @return The result of the transformation function if the
  *   predicate is true, or the receiver object itself otherwise.
+ * @since 0.1.0
  */
 public inline fun <T> T.alsoIf(predicate: Boolean, body: (T) -> Unit): T {
   if (predicate) {

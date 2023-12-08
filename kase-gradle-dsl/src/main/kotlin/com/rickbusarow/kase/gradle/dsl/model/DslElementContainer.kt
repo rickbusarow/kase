@@ -25,27 +25,46 @@ import com.rickbusarow.kase.gradle.dsl.model.ValueAssignment.SetterAssignment
 /**
  * Collects [DslElement]s, to be written to a [DslLanguage]
  * file. Elements are written in the order they are added.
+ *
+ * @since 0.1.0
  */
 @KaseDsl
 public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElement {
 
-  /** The list of [DslElement]s in this container. */
+  /**
+   * The list of [DslElement]s in this container.
+   *
+   * @since 0.1.0
+   */
   public val elements: List<DslElement>
 
   /**
    * Adds a new [DslElement] to the DSL.
    *
    * @param element the element to add
+   * @since 0.1.0
    */
   public fun addElement(element: DslElement): SELF
 
-  /** Adds new [DslElement]s to the DSL. */
+  /**
+   * Adds new [DslElement]s to the DSL.
+   *
+   * @since 0.1.0
+   */
   public fun addAllElements(vararg elements: DslElement): SELF
 
-  /** Adds new [DslElement]s to the DSL. */
+  /**
+   * Adds new [DslElement]s to the DSL.
+   *
+   * @since 0.1.0
+   */
   public fun addAllElements(elements: Collection<DslElement>): SELF
 
-  /** Adds a blank line to the DSL. */
+  /**
+   * Adds a blank line to the DSL.
+   *
+   * @since 0.1.0
+   */
   public fun addBlankLine(): SELF
 
   /**
@@ -54,6 +73,7 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    * @param stringValue the String value to be quoted.
    * @param useDoubleQuotes whether to use double quotes for strings. Defaults to
    *   `null` so that the setting is inherited from the language configuration.
+   * @since 0.1.0
    */
   public fun stringLiteral(
     stringValue: String,
@@ -68,6 +88,7 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *   `null` so that the setting is inherited from the language configuration.
    * @receiver the String value to be quoted.
    * @return a [StringLiteral] representing the quoted string
+   * @since 0.1.0
    */
   public fun String.asStringLiteral(
     useDoubleQuotes: Boolean? = null
@@ -76,7 +97,11 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
     useDoubleQuotes = useDoubleQuotes
   )
 
-  /** Adds some exact text to be written to the DSL, without modification. */
+  /**
+   * Adds some exact text to be written to the DSL, without modification.
+   *
+   * @since 0.1.0
+   */
   public fun raw(value: String): SELF = addElement(RawLiteral(value = value))
 
   /**
@@ -84,6 +109,7 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *
    * @param name the name of the function, such as `exclude`
    * @param parameters the list of parameters to pass to the function
+   * @since 0.1.0
    */
   public fun functionCall(
     name: String,
@@ -104,6 +130,7 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
    * @param infixSupport whether to use infix in the function call, such as `foo t`
    * @param parameters the list of parameters to pass to the function
+   * @since 0.1.0
    */
   public fun functionCall(
     name: String,
@@ -124,6 +151,7 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *
    * @param kotlinElement invoked for the Kotlin DSL
    * @param groovyElement invoked for the Groovy DSL
+   * @since 0.1.0
    */
   public fun <T : DslElement> deciding(
     kotlinElement: () -> T,
@@ -142,6 +170,7 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
    * @param infixSupport whether to use infix in the function call, such as `foo t`
    * @param parameterList the parameters to pass to the function
+   * @since 0.1.0
    */
   public fun functionCall(
     name: String,
@@ -167,6 +196,7 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *   access in the function call, such as `foo = t`
    * @param labelSupport whether to use labels in the function call, such as `group = "com.acme"`
    * @param infixSupport whether to use infix in the function call, such as `foo t`
+   * @since 0.1.0
    */
   public fun setterFunctionCall(
     propertyName: String,
@@ -195,6 +225,7 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *
    * @param propertyName the name of the property, such as `group`
    * @param value the value of the property, such as `com.acme`
+   * @since 0.1.0
    */
   public fun assignGradleProperty(
     propertyName: String,
@@ -219,6 +250,8 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *   group.set("com.acme")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun String.set(value: String): SELF {
     return addElement(GradlePropertyAssignment(name = this, value = value))
@@ -240,6 +273,8 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *   group.set("com.acme")
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public fun String.set(value: DslElement): SELF {
     return addElement(GradlePropertyAssignment(name = this, dslStringFactory = value))
@@ -261,6 +296,8 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *   group = GROUP
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public infix fun String.setEquals(value: String): SELF {
     return addElement(SetterAssignment(name = this, value = value))
@@ -282,6 +319,8 @@ public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElem
    *   group = "com.acme"
    * }
    * ```
+   *
+   * @since 0.1.0
    */
   public infix fun String.setEquals(value: DslElement): SELF {
     return addElement(SetterAssignment(name = this, dslStringFactory = value))
