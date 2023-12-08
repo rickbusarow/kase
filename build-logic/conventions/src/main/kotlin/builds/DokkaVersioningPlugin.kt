@@ -33,7 +33,7 @@ abstract class DokkaVersionArchivePlugin : Plugin<Project> {
 
     val versionWithoutSnapshot = target.VERSION_NAME.removeSuffix("-SNAPSHOT")
 
-    val dokkaHtmlMultiModuleBuildDir = target.rootDir.resolve("build/dokka/htmlMultiModule")
+    val dokkaHtmlMultiModuleBuildDir = target.rootDir.resolve("build/dokka/html")
     val currentVersionBuildDirZip =
       dokkaHtmlMultiModuleBuildDir.resolveSibling("$versionWithoutSnapshot.zip")
 
