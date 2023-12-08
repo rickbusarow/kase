@@ -295,8 +295,8 @@ public final class com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions : com
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions$Companion {
-	public final fun from (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
+public final class com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions$Companion : com/rickbusarow/kase/gradle/TestVersionsFactory {
+	public fun extract (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions : com/rickbusarow/kase/Kase2, com/rickbusarow/kase/gradle/TestVersions {
@@ -318,8 +318,8 @@ public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions : com/ri
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions$Companion {
-	public final fun from (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
+public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions$Companion : com/rickbusarow/kase/gradle/TestVersionsFactory {
+	public fun extract (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/GradleProjectBuilder : com/rickbusarow/kase/files/DirectoryBuilder, com/rickbusarow/kase/gradle/HasDslLanguage {
@@ -412,8 +412,8 @@ public final class com/rickbusarow/kase/gradle/GradleTestVersions : com/rickbusa
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleTestVersions$Companion {
-	public final fun from (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
+public final class com/rickbusarow/kase/gradle/GradleTestVersions$Companion : com/rickbusarow/kase/gradle/TestVersionsFactory {
+	public fun extract (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/HasDslLanguage {
@@ -458,6 +458,10 @@ public final class com/rickbusarow/kase/gradle/TestVersions$Companion {
 	public final fun getEMPTY ()Lcom/rickbusarow/kase/gradle/TestVersions;
 }
 
+public abstract interface class com/rickbusarow/kase/gradle/TestVersionsFactory {
+	public abstract fun extract (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
+}
+
 public final class com/rickbusarow/kase/gradle/VersionList : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
 	public fun <init> (Ljava/util/List;Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey;)V
 	public fun equals (Ljava/lang/Object;)Z
@@ -482,6 +486,7 @@ public abstract interface class com/rickbusarow/kase/gradle/VersionMatrix {
 	public abstract fun minus ([Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
 	public abstract fun plus (Ljava/lang/Iterable;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
 	public abstract fun plus ([Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
+	public abstract fun versions (Lcom/rickbusarow/kase/gradle/TestVersionsFactory;)Ljava/util/List;
 }
 
 public final class com/rickbusarow/kase/gradle/VersionMatrix$Companion {
@@ -493,6 +498,7 @@ public final class com/rickbusarow/kase/gradle/VersionMatrix$Companion {
 public final class com/rickbusarow/kase/gradle/VersionMatrix$DefaultImpls {
 	public static fun minus (Lcom/rickbusarow/kase/gradle/VersionMatrix;[Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
 	public static fun plus (Lcom/rickbusarow/kase/gradle/VersionMatrix;[Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
+	public static fun versions (Lcom/rickbusarow/kase/gradle/VersionMatrix;Lcom/rickbusarow/kase/gradle/TestVersionsFactory;)Ljava/util/List;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement : com/rickbusarow/kase/HasLabel {

@@ -16,7 +16,7 @@
 ```kotlin
 // build.gradle.kts
 dependencies {
-  implementation("com.rickbusarow.kase:kase:0.1.0-SNAPSHOT")
+  implementation("com.rickbusarow.kase:kase:0.1.0")
 }
 ```
 
@@ -32,7 +32,7 @@ dependencies {
 ```groovy
 // build.gradle
 dependencies {
-  implementation 'com.rickbusarow.kase:kase:0.1.0-SNAPSHOT'
+  implementation 'com.rickbusarow.kase:kase:0.1.0'
 }
 ```
 

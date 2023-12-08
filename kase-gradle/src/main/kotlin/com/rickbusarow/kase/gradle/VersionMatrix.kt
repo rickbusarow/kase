@@ -113,6 +113,11 @@ public interface VersionMatrix {
    */
   public operator fun <E : VersionMatrixElement<*>> minus(elements: Iterable<E>): VersionMatrix
 
+  /**
+   * Extracts a list of [TestVersions] from this matrix
+   *
+   * @since 0.1.0
+   */
   public fun <T : TestVersions, TF : TestVersionsFactory<T>> versions(factory: TF): List<T> {
     return factory.extract(this)
   }

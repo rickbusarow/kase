@@ -19,10 +19,10 @@ plugins {
 
 dependencies {
 
+  api(files(libs::class.java.protectionDomain.codeSource.location))
+
   api(libs.ec4j.core)
   api(libs.rickBusarow.kgx)
 
   compileOnly(gradleApi())
-
-  api(files(libs::class.java.protectionDomain.codeSource.location))
 }

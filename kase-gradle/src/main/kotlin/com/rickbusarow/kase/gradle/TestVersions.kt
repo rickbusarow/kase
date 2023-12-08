@@ -71,7 +71,17 @@ public interface HasTestVersions<T : TestVersions> {
   public val testVersions: T
 }
 
+/**
+ * Extracts a list of [TestVersions] from a [VersionMatrix]
+ *
+ * @since 0.1.0
+ */
 public fun interface TestVersionsFactory<T : TestVersions> {
+  /**
+   * Extracts a list of [TestVersions] from a [VersionMatrix]
+   *
+   * @since 0.1.0
+   */
   public fun extract(matrix: VersionMatrix): List<T>
 }
 
