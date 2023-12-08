@@ -87,8 +87,9 @@ internal class DefaultDirectoryBuilder private constructor(
    */
   override fun dir(relativePath: String, builder: DirectoryBuilder.() -> Unit) {
     val childPath = path / relativePath
-    val child = DefaultDirectoryBuilder(path = childPath, parent = this)
-    childDirs[childPath] = child
+    val child = childDirs.computeIfAbsent(childPath) {
+      DefaultDirectoryBuilder(path = childPath, parent = this)
+    }
     child.builder()
   }
 

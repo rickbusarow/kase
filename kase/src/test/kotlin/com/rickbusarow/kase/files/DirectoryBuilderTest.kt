@@ -15,16 +15,23 @@
 
 package com.rickbusarow.kase.files
 
+import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.kase
+import com.rickbusarow.kase.test
 import io.kotest.matchers.types.shouldBeInstanceOf
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 
-class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase1<(File) -> DirectoryBuilder>> {
-  override val kases: List<Kase1<(File) -> DirectoryBuilder>>
+class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase> {
+
+  override val kases: List<Kase>
+    get() = listOf(Kase.EMPTY)
+
+  val entryPoints: List<Kase1<(File) -> DirectoryBuilder>>
     get() = listOf(
       kase(displayName = "extension - java.io.File ") { it.directoryBuilder() },
       kase(displayName = "extension - java.nio.files.Path ") { it.toPath().directoryBuilder() },
@@ -33,9 +40,54 @@ class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase1<(File) -> Di
     )
 
   @TestFactory
-  fun `canary`() = testFactory { (builderFactory) ->
+  fun `canary`() = entryPoints.asTests { (builderFactory) ->
     val builder = builderFactory(workingDir)
 
     builder.shouldBeInstanceOf<DirectoryBuilder>()
+  }
+
+  @Test
+  fun `multiple files can be written in the same builder`() = test {
+
+    workingDir.directoryBuilder {
+      file("file1.txt", "file1")
+      file("file2.txt", "file2")
+    }
+      .write()
+
+    workingDir.resolve("file1.txt") shouldHaveText "file1"
+    workingDir.resolve("file2.txt") shouldHaveText "file2"
+  }
+
+  @Test
+  fun `multiple files can be written in the same nested dir block`() = test {
+
+    workingDir.directoryBuilder {
+      dir("nested") {
+        file("file1.txt", "file1")
+        file("file2.txt", "file2")
+      }
+    }
+      .write()
+
+    workingDir.resolve("nested/file1.txt") shouldHaveText "file1"
+    workingDir.resolve("nested/file2.txt") shouldHaveText "file2"
+  }
+
+  @Test
+  fun `multiple files can be written in independent nested dir blocks`() = test {
+
+    workingDir.directoryBuilder {
+      dir("nested") {
+        file("file1.txt", "file1")
+      }
+      dir("nested") {
+        file("file2.txt", "file2")
+      }
+    }
+      .write()
+
+    workingDir.resolve("nested/file1.txt") shouldHaveText "file1"
+    workingDir.resolve("nested/file2.txt") shouldHaveText "file2"
   }
 }

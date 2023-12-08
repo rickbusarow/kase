@@ -55,10 +55,11 @@ import com.rickbusarow.kase.kases
  *
  * @param a1Key the key for the 1st parameter.
  * @return a list of [Kase1]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>
 ): List<Kase1<A1>> {
   return kases(
@@ -72,11 +73,12 @@ public inline fun <
  * @param a1Key the key for the 1st parameter.
  * @param a2Key the key for the 2nd parameter.
  * @return a list of [Kase2]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
   reified A2 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>
 ): List<Kase2<A1, A2>> {
@@ -93,12 +95,13 @@ public inline fun <
  * @param a2Key the key for the 2nd parameter.
  * @param a3Key the key for the 3rd parameter.
  * @return a list of [Kase3]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
   reified A2 : VersionMatrixElement<*>,
   reified A3 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>
@@ -118,13 +121,14 @@ public inline fun <
  * @param a3Key the key for the 3rd parameter.
  * @param a4Key the key for the 4th parameter.
  * @return a list of [Kase4]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
   reified A2 : VersionMatrixElement<*>,
   reified A3 : VersionMatrixElement<*>,
   reified A4 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -147,6 +151,7 @@ public inline fun <
  * @param a4Key the key for the 4th parameter.
  * @param a5Key the key for the 5th parameter.
  * @return a list of [Kase5]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -154,7 +159,7 @@ public inline fun <
   reified A3 : VersionMatrixElement<*>,
   reified A4 : VersionMatrixElement<*>,
   reified A5 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -180,6 +185,7 @@ public inline fun <
  * @param a5Key the key for the 5th parameter.
  * @param a6Key the key for the 6th parameter.
  * @return a list of [Kase6]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -188,7 +194,7 @@ public inline fun <
   reified A4 : VersionMatrixElement<*>,
   reified A5 : VersionMatrixElement<*>,
   reified A6 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -217,6 +223,7 @@ public inline fun <
  * @param a6Key the key for the 6th parameter.
  * @param a7Key the key for the 7th parameter.
  * @return a list of [Kase7]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -226,7 +233,7 @@ public inline fun <
   reified A5 : VersionMatrixElement<*>,
   reified A6 : VersionMatrixElement<*>,
   reified A7 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -258,6 +265,7 @@ public inline fun <
  * @param a7Key the key for the 7th parameter.
  * @param a8Key the key for the 8th parameter.
  * @return a list of [Kase8]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -268,7 +276,7 @@ public inline fun <
   reified A6 : VersionMatrixElement<*>,
   reified A7 : VersionMatrixElement<*>,
   reified A8 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -303,6 +311,7 @@ public inline fun <
  * @param a8Key the key for the 8th parameter.
  * @param a9Key the key for the 9th parameter.
  * @return a list of [Kase9]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -314,7 +323,7 @@ public inline fun <
   reified A7 : VersionMatrixElement<*>,
   reified A8 : VersionMatrixElement<*>,
   reified A9 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -352,6 +361,7 @@ public inline fun <
  * @param a9Key the key for the 9th parameter.
  * @param a10Key the key for the 10th parameter.
  * @return a list of [Kase10]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -364,7 +374,7 @@ public inline fun <
   reified A8 : VersionMatrixElement<*>,
   reified A9 : VersionMatrixElement<*>,
   reified A10 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -405,6 +415,7 @@ public inline fun <
  * @param a10Key the key for the 10th parameter.
  * @param a11Key the key for the 11th parameter.
  * @return a list of [Kase11]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -418,7 +429,7 @@ public inline fun <
   reified A9 : VersionMatrixElement<*>,
   reified A10 : VersionMatrixElement<*>,
   reified A11 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -462,6 +473,7 @@ public inline fun <
  * @param a11Key the key for the 11th parameter.
  * @param a12Key the key for the 12th parameter.
  * @return a list of [Kase12]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -476,7 +488,7 @@ public inline fun <
   reified A10 : VersionMatrixElement<*>,
   reified A11 : VersionMatrixElement<*>,
   reified A12 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -523,6 +535,7 @@ public inline fun <
  * @param a12Key the key for the 12th parameter.
  * @param a13Key the key for the 13th parameter.
  * @return a list of [Kase13]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -538,7 +551,7 @@ public inline fun <
   reified A11 : VersionMatrixElement<*>,
   reified A12 : VersionMatrixElement<*>,
   reified A13 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -588,6 +601,7 @@ public inline fun <
  * @param a13Key the key for the 13th parameter.
  * @param a14Key the key for the 14th parameter.
  * @return a list of [Kase14]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -604,7 +618,7 @@ public inline fun <
   reified A12 : VersionMatrixElement<*>,
   reified A13 : VersionMatrixElement<*>,
   reified A14 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -657,6 +671,7 @@ public inline fun <
  * @param a14Key the key for the 14th parameter.
  * @param a15Key the key for the 15th parameter.
  * @return a list of [Kase15]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -674,7 +689,7 @@ public inline fun <
   reified A13 : VersionMatrixElement<*>,
   reified A14 : VersionMatrixElement<*>,
   reified A15 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -730,6 +745,7 @@ public inline fun <
  * @param a15Key the key for the 15th parameter.
  * @param a16Key the key for the 16th parameter.
  * @return a list of [Kase16]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -748,7 +764,7 @@ public inline fun <
   reified A14 : VersionMatrixElement<*>,
   reified A15 : VersionMatrixElement<*>,
   reified A16 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -807,6 +823,7 @@ public inline fun <
  * @param a16Key the key for the 16th parameter.
  * @param a17Key the key for the 17th parameter.
  * @return a list of [Kase17]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -826,7 +843,7 @@ public inline fun <
   reified A15 : VersionMatrixElement<*>,
   reified A16 : VersionMatrixElement<*>,
   reified A17 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -888,6 +905,7 @@ public inline fun <
  * @param a17Key the key for the 17th parameter.
  * @param a18Key the key for the 18th parameter.
  * @return a list of [Kase18]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -908,7 +926,7 @@ public inline fun <
   reified A16 : VersionMatrixElement<*>,
   reified A17 : VersionMatrixElement<*>,
   reified A18 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -973,6 +991,7 @@ public inline fun <
  * @param a18Key the key for the 18th parameter.
  * @param a19Key the key for the 19th parameter.
  * @return a list of [Kase19]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -994,7 +1013,7 @@ public inline fun <
   reified A17 : VersionMatrixElement<*>,
   reified A18 : VersionMatrixElement<*>,
   reified A19 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -1062,6 +1081,7 @@ public inline fun <
  * @param a19Key the key for the 19th parameter.
  * @param a20Key the key for the 20th parameter.
  * @return a list of [Kase20]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -1084,7 +1104,7 @@ public inline fun <
   reified A18 : VersionMatrixElement<*>,
   reified A19 : VersionMatrixElement<*>,
   reified A20 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -1155,6 +1175,7 @@ public inline fun <
  * @param a20Key the key for the 20th parameter.
  * @param a21Key the key for the 21st parameter.
  * @return a list of [Kase21]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -1178,7 +1199,7 @@ public inline fun <
   reified A19 : VersionMatrixElement<*>,
   reified A20 : VersionMatrixElement<*>,
   reified A21 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,
@@ -1252,6 +1273,7 @@ public inline fun <
  * @param a21Key the key for the 21st parameter.
  * @param a22Key the key for the 22nd parameter.
  * @return a list of [Kase22]s from this [VersionMatrix] for the given keys.
+ * @since 0.1.0
  */
 public inline fun <
   reified A1 : VersionMatrixElement<*>,
@@ -1276,7 +1298,7 @@ public inline fun <
   reified A20 : VersionMatrixElement<*>,
   reified A21 : VersionMatrixElement<*>,
   reified A22 : VersionMatrixElement<*>
-  > VersionMatrix.kases(
+> VersionMatrix.kases(
   a1Key: VersionMatrixKey<A1>,
   a2Key: VersionMatrixKey<A2>,
   a3Key: VersionMatrixKey<A3>,

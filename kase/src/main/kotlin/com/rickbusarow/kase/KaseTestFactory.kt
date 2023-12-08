@@ -50,7 +50,6 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
     runBlocking {
       testEnvironment.asClueCatching {
         testAction()
-        println(testEnvironment)
       }
     }
   }
