@@ -103,6 +103,9 @@ public class GradleTestVersions(
    */
   public override val gradleVersion: String get() = a1.value
 
+  override val displayName: String
+    get() = "gradle: $a1"
+
   override fun toString(): String = displayName
 
   public companion object : TestVersionsFactory<GradleTestVersions> {
@@ -139,6 +142,9 @@ public class GradleKotlinTestVersions(
    * @since 0.1.0
    */
   public val kotlinVersion: String get() = a2.value
+
+  override val displayName: String
+    get() = "gradle: $a1 | kotlin: $a2"
 
   override fun toString(): String = displayName
 
@@ -184,6 +190,9 @@ public class GradleKotlinAgpTestVersions(
    * @since 0.1.0
    */
   public val agpVersion: String get() = a3.value
+
+  override val displayName: String
+    get() = "gradle: $a1 | kotlin: $a2 | agp: $a3"
 
   override fun toString(): String = displayName
 
