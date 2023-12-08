@@ -35,7 +35,11 @@ internal fun StringBuilder.kaseInterface(
 
   appendLine(
     """
-    |/** A strongly typed version of [Kase] for ${args.size} ${args.parametersPlural}. */
+    |/**
+    | * A strongly typed version of [Kase] for ${args.size} ${args.parametersPlural}.
+    | *
+    | * @since 0.1.0
+    | */
     |public interface ${types.kaseInterface} : ${types.kaseSuperInterface} {
     |
     |  /** The ${types.number.withOrdinalSuffix()} parameter. */
@@ -96,20 +100,16 @@ internal fun StringBuilder.kase_displayNameFactory(
   types: KaseTypes
 ) {
 
-  val kdoc = buildString {
-    appendLine("/**")
-    appendLine(" * Creates a new [Kase] with the given ${args.parametersPlural}.")
-    appendLine(" *")
+  val kdoc = buildList {
+    add("Creates a new [Kase] with the given ${args.parametersPlural}.")
+    add("")
     for (arg in args) {
-      appendLine(
-        " * @param ${arg.valueName} the [${types.kaseInterfaceNoTypes}.${arg.valueName}] parameter."
-      )
+      add("@param ${arg.valueName} the [${types.kaseInterfaceNoTypes}.${arg.valueName}] parameter.")
     }
-    appendLine(
-      " * @param displayNameFactory defines the name used in test environments and dynamic tests"
-    )
-    append(" */")
+    add("@param displayNameFactory defines the name used in test environments and dynamic tests")
+    add("@since 0.1.0")
   }
+    .makeKdoc()
 
   appendLine(
     """
@@ -130,18 +130,16 @@ internal fun StringBuilder.kase_displayName(
   types: KaseTypes
 ) {
 
-  val kdoc = buildString {
-    appendLine("/**")
-    appendLine(" * Creates a new [Kase] with the given ${args.parametersPlural}.")
-    appendLine(" *")
-    appendLine(" * @param displayName the name used in test environments and dynamic tests")
+  val kdoc = buildList {
+    add("Creates a new [Kase] with the given ${args.parametersPlural}.")
+    add("")
+    add("@param displayName the name used in test environments and dynamic tests")
     for (arg in args) {
-      appendLine(
-        " * @param ${arg.valueName} the [${types.kaseInterfaceNoTypes}.${arg.valueName}] parameter."
-      )
+      add("@param ${arg.valueName} the [${types.kaseInterfaceNoTypes}.${arg.valueName}] parameter.")
     }
-    append(" */")
+    add("@since 0.1.0")
   }
+    .makeKdoc()
 
   appendLine(
     """
@@ -170,6 +168,7 @@ internal fun StringBuilder.kases_iterable(
     }
     add("@param displayNameFactory defines the name used in test environments and dynamic tests")
     add("@return a list of [${types.kaseInterfaceNoTypes}]s from the given parameters.")
+    add("@since 0.1.0")
   }
     .makeKdoc()
 
@@ -203,6 +202,7 @@ internal fun StringBuilder.kases_sequence(
     }
     add("@param displayNameFactory defines the name used in test environments and dynamic tests")
     add("@return a sequence of [${types.kaseInterfaceNoTypes}]s from the given parameters.")
+    add("@since 0.1.0")
   }
     .makeKdoc()
 
@@ -243,6 +243,7 @@ internal fun StringBuilder.testFun(
     )
     add("@param testAction the test action to execute.")
     add("@see KaseTestFactory")
+    add("@since 0.1.0")
   }
     .makeKdoc()
   appendLine(
@@ -277,6 +278,7 @@ internal fun StringBuilder.asTests_Destructured(
      * @param testAction the test action to run for each kase.
      * @return a [Stream] of [DynamicNode]s from these kases.
      * @see ${kaseTypes.kaseInterfaceNoTypes}
+     * @since 0.1.0
      */
     public fun <${args.valueTypesString}> Iterable<${kaseTypes.kaseInterface}>.asTests(
       testAction: (${args.paramsString}) -> Unit
@@ -402,6 +404,7 @@ internal fun StringBuilder.timesFunctions(
         |/**
         | * @param others the [${bTypes.kaseInterfaceNoTypes}] to combine with this [${aTypes.kaseInterfaceNoTypes}]
         | * @return a list of [${cTypes.kaseInterfaceNoTypes}]s from the cartesian product of this [${aTypes.kaseInterfaceNoTypes}] and the given [${bTypes.kaseInterfaceNoTypes}].
+        | * @since 0.1.0
         | */
         |@JvmName("${aTypes.kaseInterfaceNoTypes.decapitalize()}times${bTypes.kaseInterfaceNoTypes}")
         |public operator fun <$cArgTypesString> Iterable<${aTypes.kaseInterface}>.times(

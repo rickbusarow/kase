@@ -55,6 +55,7 @@ internal fun writeGradleFile() {
         add(
           "@return a list of [${types.kaseInterfaceNoTypes}]s from this [VersionMatrix] for the given keys."
         )
+        add("@since 0.1.0")
       }
         .makeKdoc()
 

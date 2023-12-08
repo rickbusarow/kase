@@ -31,7 +31,11 @@ import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
 
-/** A strongly typed version of [Kase] for 7 parameters. */
+/**
+ * A strongly typed version of [Kase] for 7 parameters.
+ *
+ * @since 0.1.0
+ */
 public interface Kase7<A1, A2, A3, A4, A5, A6, A7> : Kase6<A1, A2, A3, A4, A5, A6> {
 
   /** The 7th parameter. */
@@ -84,6 +88,7 @@ private fun <A1, A2, A3, A4, A5, A6, A7> defaultKase7DisplayNameFactory(): KaseD
  * @param a6 the [Kase7.a6] parameter.
  * @param a7 the [Kase7.a7] parameter.
  * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @since 0.1.0
  */
 public fun <A1, A2, A3, A4, A5, A6, A7> kase(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7,
@@ -103,6 +108,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7> kase(
  * @param a5 the [Kase7.a5] parameter.
  * @param a6 the [Kase7.a6] parameter.
  * @param a7 the [Kase7.a7] parameter.
+ * @since 0.1.0
  */
 public fun <A1, A2, A3, A4, A5, A6, A7> kase(
   displayName: String,
@@ -123,6 +129,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7> kase(
  * @param args7 values mapped to the [Kase7.a7] parameter.
  * @param displayNameFactory defines the name used in test environments and dynamic tests
  * @return a list of [Kase7]s from the given parameters.
+ * @since 0.1.0
  */
 public fun <A1, A2, A3, A4, A5, A6, A7> kases(
   args1: Iterable<A1>,
@@ -165,6 +172,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7> kases(
  * @param args7 values mapped to the [Kase7.a7] parameter.
  * @param displayNameFactory defines the name used in test environments and dynamic tests
  * @return a sequence of [Kase7]s from the given parameters.
+ * @since 0.1.0
  */
 public fun <A1, A2, A3, A4, A5, A6, A7> kases(
   args1: Sequence<A1>,
@@ -210,6 +218,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7> kases(
  * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
  * @param testAction the test action to execute.
  * @see KaseTestFactory
+ * @since 0.1.0
  */
 public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7> KaseTestFactory<T, Kase7<A1, A2, A3, A4, A5, A6, A7>>.test(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7,
@@ -230,6 +239,7 @@ public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7> KaseTestFactory<T, K
  * @param testAction the test action to run for each kase.
  * @return a [Stream] of [DynamicNode]s from these kases.
  * @see Kase7
+ * @since 0.1.0
  */
 public fun <A1, A2, A3, A4, A5, A6, A7> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.asTests(
   testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
@@ -250,6 +260,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A
  * @return a [Stream] of [DynamicNode]s from the given parameters.
  * @see Kase7
  * @see TestEnvironmentFactory
+ * @since 0.1.0
  */
 public fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   vararg kases: Kase7<A1, A2, A3, A4, A5, A6, A7>,
@@ -269,6 +280,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
  * @return a [Stream] of [DynamicNode]s from the given parameters.
  * @see Kase7
  * @see TestEnvironmentFactory
+ * @since 0.1.0
  */
 public fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
   kases: Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>,
@@ -280,6 +292,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
 /**
  * @param others the [Kase1] to combine with this [Kase7]
  * @return a list of [Kase8]s from the cartesian product of this [Kase7] and the given [Kase1].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase1")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -293,6 +306,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1> Iterable<Kase7<A1, A2, A3, 
 /**
  * @param others the [Kase2] to combine with this [Kase7]
  * @return a list of [Kase9]s from the cartesian product of this [Kase7] and the given [Kase2].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase2")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -306,6 +320,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2> Iterable<Kase7<A1, A2, 
 /**
  * @param others the [Kase3] to combine with this [Kase7]
  * @return a list of [Kase10]s from the cartesian product of this [Kase7] and the given [Kase3].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase3")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -319,6 +334,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3> Iterable<Kase7<A1, 
 /**
  * @param others the [Kase4] to combine with this [Kase7]
  * @return a list of [Kase11]s from the cartesian product of this [Kase7] and the given [Kase4].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase4")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -332,6 +348,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4> Iterable<Kase7<
 /**
  * @param others the [Kase5] to combine with this [Kase7]
  * @return a list of [Kase12]s from the cartesian product of this [Kase7] and the given [Kase5].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase5")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -345,6 +362,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5> Iterable<Ka
 /**
  * @param others the [Kase6] to combine with this [Kase7]
  * @return a list of [Kase13]s from the cartesian product of this [Kase7] and the given [Kase6].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase6")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -358,6 +376,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6> Iterabl
 /**
  * @param others the [Kase7] to combine with this [Kase7]
  * @return a list of [Kase14]s from the cartesian product of this [Kase7] and the given [Kase7].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase7")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -371,6 +390,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7> Ite
 /**
  * @param others the [Kase8] to combine with this [Kase7]
  * @return a list of [Kase15]s from the cartesian product of this [Kase7] and the given [Kase8].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase8")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -384,6 +404,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8>
 /**
  * @param others the [Kase9] to combine with this [Kase7]
  * @return a list of [Kase16]s from the cartesian product of this [Kase7] and the given [Kase9].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase9")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8, B9> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -397,6 +418,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8,
 /**
  * @param others the [Kase10] to combine with this [Kase7]
  * @return a list of [Kase17]s from the cartesian product of this [Kase7] and the given [Kase10].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase10")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -410,6 +432,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8,
 /**
  * @param others the [Kase11] to combine with this [Kase7]
  * @return a list of [Kase18]s from the cartesian product of this [Kase7] and the given [Kase11].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase11")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -423,6 +446,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8,
 /**
  * @param others the [Kase12] to combine with this [Kase7]
  * @return a list of [Kase19]s from the cartesian product of this [Kase7] and the given [Kase12].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase12")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -436,6 +460,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8,
 /**
  * @param others the [Kase13] to combine with this [Kase7]
  * @return a list of [Kase20]s from the cartesian product of this [Kase7] and the given [Kase13].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase13")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -449,6 +474,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8,
 /**
  * @param others the [Kase14] to combine with this [Kase7]
  * @return a list of [Kase21]s from the cartesian product of this [Kase7] and the given [Kase14].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase14")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(
@@ -462,6 +488,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8,
 /**
  * @param others the [Kase15] to combine with this [Kase7]
  * @return a list of [Kase22]s from the cartesian product of this [Kase7] and the given [Kase15].
+ * @since 0.1.0
  */
 @JvmName("kase7timesKase15")
 public operator fun <A1, A2, A3, A4, A5, A6, A7, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.times(

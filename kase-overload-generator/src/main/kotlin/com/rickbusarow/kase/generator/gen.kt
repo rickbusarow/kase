@@ -85,6 +85,7 @@ private fun main() {
       add("@return a [Stream] of [DynamicNode]s from the given parameters.")
       add("@see $kaseSimpleName")
       add("@see TestEnvironmentFactory")
+      add("@since 0.1.0")
     }
       .makeKdoc()
 
