@@ -29,25 +29,6 @@ import org.gradle.testkit.runner.TaskOutcome.FAILED
 import org.gradle.util.GradleVersion
 
 /**
- * Models the contents of a Gradle project.
- *
- * @since 0.1.0
- */
-// public interface GradleProjectSpec {
-//   public val projectDir: File
-//   public val buildFile: File
-//   public val gradleDotProperties: File?
-// }
-//
-// public interface RootGradleProjectSpec : GradleProjectSpec {
-//   public val settingsFile: File
-// }
-//
-// public fun interface WritesGradleScripts {
-//   public fun writeGradleFiles()
-// }
-
-/**
  * Trait interface for a test environment with a [GradleRunner].
  *
  * @since 0.1.0
