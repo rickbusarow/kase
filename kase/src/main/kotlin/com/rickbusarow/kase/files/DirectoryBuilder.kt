@@ -17,7 +17,6 @@ package com.rickbusarow.kase.files
 
 import com.rickbusarow.kase.KaseDsl
 import com.rickbusarow.kase.files.internal.DefaultDirectoryBuilder
-import dev.drewhamilton.poko.Poko
 import java.io.File
 import java.nio.file.Path
 import kotlin.io.path.Path
@@ -48,9 +47,9 @@ import kotlin.io.path.Path
 public inline fun buildDirectory(
   file: File,
   builder: DirectoryBuilder.() -> Unit
-): File = DirectoryBuilder(file = file)
-  .apply(builder)
-  .write()
+): File = file.also {
+  DirectoryBuilder(file = file).builder()
+}
 
 /**
  * Builds a directory using the specified builder function and returns a DirectoryBuilder object.
@@ -124,7 +123,7 @@ public inline fun Path.directoryBuilder(
  * @since 0.1.0
  */
 @KaseDsl
-public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithContent> {
+public interface DirectoryBuilder : LanguageInjection<File> {
 
   /**
    * The [Path] of the directory being built.
@@ -163,24 +162,17 @@ public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithC
    *
    * @since 0.1.0
    */
-  public fun file(relativePath: String, content: String): FileWithContent
+  public fun file(relativePath: String, content: String): File
 
   /**
    * Creates a file with the given [pathSegments] and [content].
    *
    * @since 0.1.0
    */
-  public fun file(pathSegments: Collection<String>, content: String): FileWithContent {
+  public fun file(pathSegments: Collection<String>, content: String): File {
     check(pathSegments.isNotEmpty()) { "pathSegments must not be empty" }
     return file(pathSegments.joinToPathString(), content)
   }
-
-  /**
-   * Writes the directory tree to this [path].
-   *
-   * @since 0.1.0
-   */
-  public fun write(): File
 
   /**
    * Joins two "path" segments together using the
@@ -202,16 +194,6 @@ public interface DirectoryBuilder : LanguageInjection<DirectoryBuilder.FileWithC
    * @since 0.1.0
    */
   public fun Iterable<String>.joinToPathString(): String = joinToString(File.separator)
-
-  /**
-   * Models a "file" with a path and content, but it only exists in memory
-   *
-   * @property path the path of the file
-   * @property content the content of the file
-   * @since 0.1.0
-   */
-  @Poko
-  public class FileWithContent(public val path: File, public var content: String)
 
   public companion object {
     /**

@@ -269,21 +269,21 @@ public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions$Companio
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/GradleProjectBuilder : com/rickbusarow/kase/files/DirectoryBuilder, com/rickbusarow/kase/gradle/HasDslLanguage {
-	public abstract fun buildFile (Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public abstract fun buildFile (Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public abstract fun buildFile (Lcom/rickbusarow/kase/gradle/DslStringFactory;)Ljava/io/File;
+	public abstract fun buildFile (Ljava/lang/String;)Ljava/io/File;
 	public abstract fun getSubprojects ()Ljava/util/List;
-	public abstract fun gradlePropertiesFile (Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public abstract fun gradlePropertiesFile (Ljava/lang/String;)Ljava/io/File;
 	public abstract fun project (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)V
 	public abstract fun project (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 }
 
 public final class com/rickbusarow/kase/gradle/GradleProjectBuilder$DefaultImpls {
-	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslStringFactory;)Ljava/io/File;
+	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/String;)Ljava/io/File;
 	public static fun dir (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/util/Collection;Lkotlin/jvm/functions/Function1;)V
 	public static fun div (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public static fun file (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/util/Collection;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static fun gradlePropertiesFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun file (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/util/Collection;Ljava/lang/String;)Ljava/io/File;
+	public static fun gradlePropertiesFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/String;)Ljava/io/File;
 	public static fun joinToPathString (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/Iterable;)Ljava/lang/String;
 	public static fun project (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)V
 }
@@ -296,21 +296,21 @@ public final class com/rickbusarow/kase/gradle/GradleProjectBuilderKt {
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/GradleRootProjectBuilder : com/rickbusarow/kase/gradle/GradleProjectBuilder {
-	public abstract fun settingsFile (Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public abstract fun settingsFile (Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public abstract fun settingsFile (Lcom/rickbusarow/kase/gradle/DslStringFactory;)Ljava/io/File;
+	public abstract fun settingsFile (Ljava/lang/String;)Ljava/io/File;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleRootProjectBuilder$DefaultImpls {
-	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lcom/rickbusarow/kase/gradle/DslStringFactory;)Ljava/io/File;
+	public static fun buildFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Ljava/io/File;
 	public static fun dir (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/util/Collection;Lkotlin/jvm/functions/Function1;)V
 	public static fun div (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public static fun file (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/util/Collection;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static fun gradlePropertiesFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun file (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/util/Collection;Ljava/lang/String;)Ljava/io/File;
+	public static fun gradlePropertiesFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Ljava/io/File;
 	public static fun joinToPathString (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/Iterable;)Ljava/lang/String;
 	public static fun project (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)V
-	public static fun settingsFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lcom/rickbusarow/kase/gradle/DslStringFactory;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static fun settingsFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun settingsFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lcom/rickbusarow/kase/gradle/DslStringFactory;)Ljava/io/File;
+	public static fun settingsFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Ljava/io/File;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/DefaultTestEnvironment, com/rickbusarow/kase/gradle/HasDslLanguage, com/rickbusarow/kase/gradle/HasGradleRunner, com/rickbusarow/kase/gradle/HasTestVersions {

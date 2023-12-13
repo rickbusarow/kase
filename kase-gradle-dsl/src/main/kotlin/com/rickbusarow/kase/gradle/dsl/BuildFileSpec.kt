@@ -16,7 +16,6 @@
 package com.rickbusarow.kase.gradle.dsl
 
 import com.rickbusarow.kase.files.DirectoryBuilder
-import com.rickbusarow.kase.files.DirectoryBuilder.FileWithContent
 import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.GradleProjectBuilder
 import com.rickbusarow.kase.gradle.HasDslLanguage
@@ -26,6 +25,7 @@ import com.rickbusarow.kase.gradle.dsl.model.HasAndroidBlock
 import com.rickbusarow.kase.gradle.dsl.model.HasAndroidComponentsBlock
 import com.rickbusarow.kase.gradle.dsl.model.HasDependenciesBlock
 import com.rickbusarow.kase.gradle.dsl.model.HasPluginsBlock
+import java.io.File
 
 /**
  * Models a `settings.gradle` or `settings.gradle.kts` file.
@@ -55,7 +55,7 @@ public class BuildFileSpec(
 public fun DirectoryBuilder.buildFile(
   dslLanguage: DslLanguage,
   builder: BuildFileSpec.() -> Unit
-): FileWithContent = file(
+): File = file(
   relativePath = dslLanguage.buildFileName,
   content = BuildFileSpec(builder).write(dslLanguage)
 )
@@ -69,7 +69,7 @@ context(HasDslLanguage)
 public fun DirectoryBuilder.buildFile(
   dslLanguage: DslLanguage = this@HasDslLanguage.dslLanguage,
   builder: BuildFileSpec.() -> Unit
-): FileWithContent = file(
+): File = file(
   relativePath = dslLanguage.buildFileName,
   content = BuildFileSpec(builder).write(dslLanguage)
 )
@@ -82,7 +82,7 @@ public fun DirectoryBuilder.buildFile(
 public fun GradleProjectBuilder.buildFile(
   dslLanguage: DslLanguage = this@GradleProjectBuilder.dslLanguage,
   builder: BuildFileSpec.() -> Unit
-): FileWithContent = file(
+): File = file(
   relativePath = dslLanguage.buildFileName,
   content = BuildFileSpec(builder).write(dslLanguage)
 )

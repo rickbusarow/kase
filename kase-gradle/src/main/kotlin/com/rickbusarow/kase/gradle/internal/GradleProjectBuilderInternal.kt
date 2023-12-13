@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase.gradle.internal
 
-import com.rickbusarow.kase.files.internal.DirectoryBuilderInternal
+import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.GradleProjectBuilder
 import com.rickbusarow.kase.gradle.GradleRootProjectBuilder
@@ -24,7 +24,7 @@ import java.io.File
 
 internal interface GradleProjectBuilderInternal :
   GradleProjectBuilder,
-  DirectoryBuilderInternal {
+  DirectoryBuilder {
 
   override val subprojects: MutableList<GradleProjectBuilderInternal>
 
@@ -33,7 +33,7 @@ internal interface GradleProjectBuilderInternal :
 
     dir(relativePath) db@{
 
-      val db = this@db as DirectoryBuilderInternal
+      val db = this@db
 
       val child = DefaultGradleProjectBuilder(
         path = path / relativePath,
@@ -50,10 +50,10 @@ internal interface GradleProjectBuilderInternal :
 internal class DefaultGradleProjectBuilder(
   override val path: File,
   override val dslLanguage: DslLanguage,
-  directoryBuilder: DirectoryBuilderInternal,
+  directoryBuilder: DirectoryBuilder,
   override val parent: GradleProjectBuilderInternal?
 ) : GradleProjectBuilderInternal,
-  DirectoryBuilderInternal by directoryBuilder {
+  DirectoryBuilder by directoryBuilder {
 
   override val subprojects: MutableList<GradleProjectBuilderInternal> = mutableListOf()
 }
@@ -61,7 +61,7 @@ internal class DefaultGradleProjectBuilder(
 internal class DefaultGradleRootProjectBuilder(
   override val path: File,
   override val dslLanguage: DslLanguage,
-  directoryBuilder: DirectoryBuilderInternal,
+  directoryBuilder: DirectoryBuilder,
   override val parent: GradleProjectBuilderInternal?
 ) : GradleRootProjectBuilder,
   GradleProjectBuilderInternal by DefaultGradleProjectBuilder(

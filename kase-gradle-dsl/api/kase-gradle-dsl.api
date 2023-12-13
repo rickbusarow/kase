@@ -37,11 +37,11 @@ public final class com/rickbusarow/kase/gradle/dsl/BuildFileSpec : com/rickbusar
 }
 
 public final class com/rickbusarow/kase/gradle/dsl/BuildFileSpecKt {
-	public static final fun buildFile (Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static final fun buildFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static final fun buildFile (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static synthetic fun buildFile$default (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static synthetic fun buildFile$default (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static final fun buildFile (Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Ljava/io/File;
+	public static final fun buildFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Ljava/io/File;
+	public static final fun buildFile (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Ljava/io/File;
+	public static synthetic fun buildFile$default (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/io/File;
+	public static synthetic fun buildFile$default (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/io/File;
 }
 
 public final class com/rickbusarow/kase/gradle/dsl/ComponentMetadataContainer : com/rickbusarow/kase/gradle/dsl/model/AbstractDslElementContainer {
@@ -433,11 +433,11 @@ public final class com/rickbusarow/kase/gradle/dsl/SettingsFileSpec : com/rickbu
 }
 
 public final class com/rickbusarow/kase/gradle/dsl/SettingsFileSpecKt {
-	public static final fun settingsFile (Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static final fun settingsFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static final fun settingsFile (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static synthetic fun settingsFile$default (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static synthetic fun settingsFile$default (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static final fun settingsFile (Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Ljava/io/File;
+	public static final fun settingsFile (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Ljava/io/File;
+	public static final fun settingsFile (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Ljava/io/File;
+	public static synthetic fun settingsFile$default (Lcom/rickbusarow/kase/gradle/GradleProjectBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/io/File;
+	public static synthetic fun settingsFile$default (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Lcom/rickbusarow/kase/files/DirectoryBuilder;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/io/File;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/dsl/UrlArtifactRepositorySpec : com/rickbusarow/kase/gradle/dsl/model/DslElementContainer {

@@ -16,10 +16,8 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.files.DirectoryBuilder
-import com.rickbusarow.kase.files.DirectoryBuilder.FileWithContent
 import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.directoryBuilder
-import com.rickbusarow.kase.files.internal.DirectoryBuilderInternal
 import com.rickbusarow.kase.gradle.internal.DefaultGradleRootProjectBuilder
 import org.intellij.lang.annotations.Language
 import java.io.File
@@ -46,9 +44,7 @@ import java.io.File
  *
  * @since 0.1.0
  */
-public interface GradleProjectBuilder :
-  DirectoryBuilder,
-  HasDslLanguage {
+public interface GradleProjectBuilder : DirectoryBuilder, HasDslLanguage {
 
   /**
    * All child projects created by this builder. This
@@ -63,7 +59,7 @@ public interface GradleProjectBuilder :
    *
    * @since 0.1.0
    */
-  public fun buildFile(content: String): FileWithContent {
+  public fun buildFile(content: String): File {
     return file(dslLanguage.buildFileName, content)
   }
 
@@ -72,7 +68,7 @@ public interface GradleProjectBuilder :
    *
    * @since 0.1.0
    */
-  public fun buildFile(dslStringFactory: DslStringFactory): FileWithContent {
+  public fun buildFile(dslStringFactory: DslStringFactory): File {
     return buildFile(dslStringFactory.write(dslLanguage))
   }
 
@@ -81,7 +77,7 @@ public interface GradleProjectBuilder :
    *
    * @since 0.1.0
    */
-  public fun gradlePropertiesFile(@Language("properties") content: String): FileWithContent {
+  public fun gradlePropertiesFile(@Language("properties") content: String): File {
     return file("gradle.properties", content)
   }
 
@@ -118,7 +114,7 @@ public interface GradleRootProjectBuilder : GradleProjectBuilder {
    *
    * @since 0.1.0
    */
-  public fun settingsFile(content: String): FileWithContent {
+  public fun settingsFile(content: String): File {
     return file(dslLanguage.settingsFileName, content)
   }
 
@@ -127,7 +123,7 @@ public interface GradleRootProjectBuilder : GradleProjectBuilder {
    *
    * @since 0.1.0
    */
-  public fun settingsFile(dslStringFactory: DslStringFactory): FileWithContent {
+  public fun settingsFile(dslStringFactory: DslStringFactory): File {
     return settingsFile(dslStringFactory.write(dslLanguage))
   }
 }
@@ -200,7 +196,7 @@ public fun rootProject(
 ): GradleRootProjectBuilder = DefaultGradleRootProjectBuilder(
   path = path,
   dslLanguage = dslLanguage,
-  directoryBuilder = path.directoryBuilder() as DirectoryBuilderInternal,
+  directoryBuilder = path.directoryBuilder(),
   parent = null
 )
   .apply(builder)

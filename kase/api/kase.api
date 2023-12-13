@@ -1754,12 +1754,11 @@ public abstract interface class com/rickbusarow/kase/files/DirectoryBuilder : co
 	public abstract fun dir (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public abstract fun dir (Ljava/util/Collection;Lkotlin/jvm/functions/Function1;)V
 	public abstract fun div (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public abstract fun file (Ljava/lang/String;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public abstract fun file (Ljava/util/Collection;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public abstract fun file (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public abstract fun file (Ljava/util/Collection;Ljava/lang/String;)Ljava/io/File;
 	public abstract fun getParent ()Lcom/rickbusarow/kase/files/DirectoryBuilder;
 	public abstract fun getPath ()Ljava/io/File;
 	public abstract fun joinToPathString (Ljava/lang/Iterable;)Ljava/lang/String;
-	public abstract fun write ()Ljava/io/File;
 }
 
 public final class com/rickbusarow/kase/files/DirectoryBuilder$Companion {
@@ -1770,18 +1769,8 @@ public final class com/rickbusarow/kase/files/DirectoryBuilder$Companion {
 public final class com/rickbusarow/kase/files/DirectoryBuilder$DefaultImpls {
 	public static fun dir (Lcom/rickbusarow/kase/files/DirectoryBuilder;Ljava/util/Collection;Lkotlin/jvm/functions/Function1;)V
 	public static fun div (Lcom/rickbusarow/kase/files/DirectoryBuilder;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public static fun file (Lcom/rickbusarow/kase/files/DirectoryBuilder;Ljava/util/Collection;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
+	public static fun file (Lcom/rickbusarow/kase/files/DirectoryBuilder;Ljava/util/Collection;Ljava/lang/String;)Ljava/io/File;
 	public static fun joinToPathString (Lcom/rickbusarow/kase/files/DirectoryBuilder;Ljava/lang/Iterable;)Ljava/lang/String;
-}
-
-public final class com/rickbusarow/kase/files/DirectoryBuilder$FileWithContent {
-	public fun <init> (Ljava/io/File;Ljava/lang/String;)V
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getContent ()Ljava/lang/String;
-	public final fun getPath ()Ljava/io/File;
-	public fun hashCode ()I
-	public final fun setContent (Ljava/lang/String;)V
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/files/DirectoryBuilderKt {
@@ -1864,18 +1853,6 @@ public class com/rickbusarow/kase/files/internal/DefaultHasWorkingDir : com/rick
 
 public final class com/rickbusarow/kase/files/internal/DefaultHasWorkingDir$Companion {
 	public final fun checkInWorkingDir (Ljava/io/File;)V
-}
-
-public abstract interface class com/rickbusarow/kase/files/internal/DirectoryBuilderInternal : com/rickbusarow/kase/files/DirectoryBuilder {
-	public abstract fun getChildDirs ()Ljava/util/concurrent/ConcurrentHashMap;
-	public abstract fun getFiles ()Ljava/util/concurrent/ConcurrentHashMap;
-}
-
-public final class com/rickbusarow/kase/files/internal/DirectoryBuilderInternal$DefaultImpls {
-	public static fun dir (Lcom/rickbusarow/kase/files/internal/DirectoryBuilderInternal;Ljava/util/Collection;Lkotlin/jvm/functions/Function1;)V
-	public static fun div (Lcom/rickbusarow/kase/files/internal/DirectoryBuilderInternal;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
-	public static fun file (Lcom/rickbusarow/kase/files/internal/DirectoryBuilderInternal;Ljava/util/Collection;Ljava/lang/String;)Lcom/rickbusarow/kase/files/DirectoryBuilder$FileWithContent;
-	public static fun joinToPathString (Lcom/rickbusarow/kase/files/internal/DirectoryBuilderInternal;Ljava/lang/Iterable;)Ljava/lang/String;
 }
 
 public abstract interface class com/rickbusarow/kase/internal/KaseInternal : com/rickbusarow/kase/Kase {
