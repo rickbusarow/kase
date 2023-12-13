@@ -19,9 +19,6 @@ import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.Kase3
-import com.rickbusarow.kase.gradle.DependencyVersion.Agp
-import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
-import com.rickbusarow.kase.gradle.DependencyVersion.Kotlin
 import com.rickbusarow.kase.kase
 import dev.drewhamilton.poko.Poko
 import org.gradle.util.GradleVersion
@@ -31,14 +28,14 @@ import org.gradle.util.GradleVersion
  *
  * @since 0.1.0
  */
-public interface TestVersions : Kase {
+public interface TestVersions : Kase, HasGradleDependencyVersion {
 
   /**
    * The current Gradle version.
    *
    * @since 0.1.0
    */
-  public val gradleVersion: String
+  public override val gradleVersion: String
 
   public companion object {
 
@@ -47,13 +44,9 @@ public interface TestVersions : Kase {
      *
      * @since 0.1.0
      */
-    public val EMPTY: TestVersions = object :
-      TestVersions,
-      Kase by Kase.EMPTY {
-      override val gradleVersion: String by lazy {
-        GradleVersion.current().version
-      }
-    }
+    public val EMPTY: TestVersions = object : TestVersions by GradleTestVersions(
+      GradleDependencyVersion(GradleVersion.current().version)
+    ) {}
   }
 }
 
@@ -86,22 +79,16 @@ public fun interface TestVersionsFactory<T : TestVersions> {
 }
 
 /**
- * Holds a [Gradle] version only
+ * Holds a [GradleDependencyVersion] version only
  *
  * @since 0.1.0
  */
 @Poko
 public class GradleTestVersions(
-  override val a1: Gradle
+  override val a1: GradleDependencyVersion
 ) : TestVersions,
-  Kase1<Gradle> by kase(a1) {
-
-  /**
-   * not semver. ex: `8.0` or `8.1.1`
-   *
-   * @since 0.1.0
-   */
-  public override val gradleVersion: String get() = a1.value
+  HasGradleDependencyVersion by HasGradleDependencyVersion(a1),
+  Kase1<GradleDependencyVersion> by kase(a1) {
 
   override val displayName: String
     get() = "gradle: $a1"
@@ -111,37 +98,25 @@ public class GradleTestVersions(
   public companion object : TestVersionsFactory<GradleTestVersions> {
 
     override fun extract(matrix: VersionMatrix): List<GradleTestVersions> {
-      return matrix.kases(a1Key = Gradle)
+      return matrix.kases(a1Key = GradleDependencyVersion)
         .map { GradleTestVersions(a1 = it.a1) }
     }
   }
 }
 
 /**
- * Holds [Gradle] and [Kotlin] versions
+ * Holds [GradleDependencyVersion] and [KotlinDependencyVersion] versions
  *
  * @since 0.1.0
  */
 @Poko
 public class GradleKotlinTestVersions(
-  override val a1: Gradle,
-  override val a2: Kotlin
+  override val a1: GradleDependencyVersion,
+  override val a2: KotlinDependencyVersion
 ) : TestVersions,
-  Kase2<Gradle, Kotlin> by kase(a1, a2) {
-
-  /**
-   * not semver. ex: `8.0` or `8.1.1`
-   *
-   * @since 0.1.0
-   */
-  public override val gradleVersion: String get() = a1.value
-
-  /**
-   * normal semver. ex `1.8.10`
-   *
-   * @since 0.1.0
-   */
-  public val kotlinVersion: String get() = a2.value
+  HasGradleDependencyVersion by HasGradleDependencyVersion(a1),
+  HasKotlinDependencyVersion by HasKotlinDependencyVersion(a2),
+  Kase2<GradleDependencyVersion, KotlinDependencyVersion> by kase(a1, a2) {
 
   override val displayName: String
     get() = "gradle: $a1 | kotlin: $a2"
@@ -151,45 +126,28 @@ public class GradleKotlinTestVersions(
   public companion object : TestVersionsFactory<GradleKotlinTestVersions> {
 
     override fun extract(matrix: VersionMatrix): List<GradleKotlinTestVersions> {
-      return matrix.kases(a1Key = Gradle, a2Key = Kotlin)
+      return matrix.kases(a1Key = GradleDependencyVersion, a2Key = KotlinDependencyVersion)
         .map { GradleKotlinTestVersions(a1 = it.a1, a2 = it.a2) }
     }
   }
 }
 
 /**
- * Holds [Gradle], [Kotlin], and [Agp] versions
+ * Holds [GradleDependencyVersion], [KotlinDependencyVersion], and [AgpDependencyVersion] versions
  *
  * @since 0.1.0
  */
 @Poko
 public class GradleKotlinAgpTestVersions(
-  override val a1: Gradle,
-  override val a2: Kotlin,
-  override val a3: Agp
+  override val a1: GradleDependencyVersion,
+  override val a2: KotlinDependencyVersion,
+  override val a3: AgpDependencyVersion
 ) : TestVersions,
-  Kase3<Gradle, Kotlin, Agp> by kase(a1, a2, a3) {
-
-  /**
-   * not semver. ex: `8.0` or `8.1.1`
-   *
-   * @since 0.1.0
-   */
-  public override val gradleVersion: String get() = a1.value
-
-  /**
-   * normal semver. ex `1.8.10`
-   *
-   * @since 0.1.0
-   */
-  public val kotlinVersion: String get() = a2.value
-
-  /**
-   * normal semver. ex `8.1.1`
-   *
-   * @since 0.1.0
-   */
-  public val agpVersion: String get() = a3.value
+  HasGradleDependencyVersion by HasGradleDependencyVersion(a1),
+  HasKotlinDependencyVersion by HasKotlinDependencyVersion(a2),
+  HasAgpDependencyVersion by HasAgpDependencyVersion(a3),
+  Kase3<GradleDependencyVersion, KotlinDependencyVersion, AgpDependencyVersion>
+  by kase(a1, a2, a3) {
 
   override val displayName: String
     get() = "gradle: $a1 | kotlin: $a2 | agp: $a3"
@@ -198,7 +156,11 @@ public class GradleKotlinAgpTestVersions(
 
   public companion object : TestVersionsFactory<GradleKotlinAgpTestVersions> {
     override fun extract(matrix: VersionMatrix): List<GradleKotlinAgpTestVersions> {
-      return matrix.kases(a1Key = Gradle, a2Key = Kotlin, a3Key = Agp)
+      return matrix.kases(
+        a1Key = GradleDependencyVersion,
+        a2Key = KotlinDependencyVersion,
+        a3Key = AgpDependencyVersion
+      )
         .map { GradleKotlinAgpTestVersions(a1 = it.a1, a2 = it.a2, a3 = it.a3) }
     }
   }
