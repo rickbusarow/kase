@@ -158,7 +158,6 @@ public interface HasGradleRunner {
  */
 public open class DefaultHasGradleRunner(
   hasWorkingDir: HasWorkingDir,
-  private val rootProjectBuilder: GradleRootProjectBuilder,
   gradleVersion: () -> String = { GradleVersion.current().version }
 ) : HasGradleRunner,
   HasWorkingDir by hasWorkingDir {
@@ -187,8 +186,6 @@ public open class DefaultHasGradleRunner(
       .letIf(withPluginClasspath) { it.withPluginClasspath() }
       .letIf(withHermeticTestKit) { it.withTestKitDir(workingDir / "testKit") }
       .withArguments(tasks.letIf(stacktrace) { it.plus("--stacktrace") })
-
-    rootProjectBuilder.write()
 
     return if (shouldFail) {
       withOptions.buildAndFail()

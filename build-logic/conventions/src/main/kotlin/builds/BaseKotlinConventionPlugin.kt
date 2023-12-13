@@ -47,9 +47,6 @@ abstract class BaseKotlinConventionPlugin : Plugin<Project> {
 
     configureKotlinOptions(target, extension)
 
-    jetbrainsExtension.sourceSets.configureEach { sourceSet ->
-      sourceSet.kotlin.srcDirs("src/${sourceSet.name}/kotlin")
-    }
     target.tasks.register("buildTests") { buildTests ->
       buildTests.dependsOn(jetbrainsExtension.targets.map { it.artifactsTaskName })
     }

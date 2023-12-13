@@ -16,69 +16,44 @@
 package com.rickbusarow.kase.files.internal
 
 import com.rickbusarow.kase.files.DirectoryBuilder
-import com.rickbusarow.kase.files.DirectoryBuilder.FileWithContent
+import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.div
 import java.io.File
 import java.nio.file.Path
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.io.path.Path
 
-/**
- * The implementation-details api of a [DirectoryBuilder].
- *
- * @since 0.1.0
- */
-public interface DirectoryBuilderInternal : DirectoryBuilder {
-  /**
-   * All directories that have been added to this specific directory.
-   *
-   * @since 0.1.0
-   */
-  public val childDirs: ConcurrentHashMap<File, DirectoryBuilderInternal>
+private class JavaFileFileInjection : FileInjection<File> {
 
-  /**
-   * All files that have been added to this specific directory.
-   *
-   * @since 0.1.0
-   */
-  public val files: ConcurrentHashMap<File, FileWithContent>
-}
+  lateinit var factory: (String, String) -> File
 
-private class FileWithContentInjection : FileInjection<FileWithContent> {
-
-  lateinit var factory: (String, String) -> FileWithContent
-
-  fun init(factory: (String, String) -> FileWithContent) {
+  fun init(factory: (String, String) -> File) {
     this.factory = factory
   }
 
   override fun createInstance(
     name: String,
     content: String
-  ): FileWithContent = factory(name, content)
+  ): File = factory(name, content)
 
-  override fun update(t: FileWithContent, content: String): FileWithContent {
-    return t.apply { this.content = content }
+  override fun update(t: File, content: String): File {
+    return t.apply { createSafely(content) }
   }
 }
 
 internal class DefaultDirectoryBuilder private constructor(
   override val path: File,
   override val parent: DirectoryBuilder?,
-  private val fileInjection: FileWithContentInjection
-) : DirectoryBuilderInternal,
-  LanguageInjectionInternal<FileWithContent> by DefaultLanguageInjection(fileInjection) {
+  private val fileInjection: JavaFileFileInjection
+) : DirectoryBuilder,
+  LanguageInjectionInternal<File> by DefaultLanguageInjection(fileInjection) {
 
   constructor(path: File, parent: DirectoryBuilder?) : this(
     path = path,
     parent = parent,
-    fileInjection = FileWithContentInjection()
+    fileInjection = JavaFileFileInjection()
   ) {
     fileInjection.init { name, content -> file(name, content) }
   }
-
-  override val childDirs: ConcurrentHashMap<File, DirectoryBuilderInternal> = ConcurrentHashMap()
-  override val files: ConcurrentHashMap<File, FileWithContent> = ConcurrentHashMap()
 
   /**
    * Creates a child directory with the given [relativePath] and applies the [builder] to it.
@@ -87,9 +62,7 @@ internal class DefaultDirectoryBuilder private constructor(
    */
   override fun dir(relativePath: String, builder: DirectoryBuilder.() -> Unit) {
     val childPath = path / relativePath
-    val child = childDirs.computeIfAbsent(childPath) {
-      DefaultDirectoryBuilder(path = childPath, parent = this)
-    }
+    val child = DefaultDirectoryBuilder(path = childPath, parent = this)
     child.builder()
   }
 
@@ -98,42 +71,14 @@ internal class DefaultDirectoryBuilder private constructor(
    *
    * @since 0.1.0
    */
-  override fun file(relativePath: String, content: String): FileWithContent {
-    return file(relativePath.segments(), content)
-  }
-
-  override fun file(pathSegments: Collection<String>, content: String): FileWithContent {
-
-    val filePath = path / pathSegments.joinToPathString()
-
-    val file = FileWithContent(path = filePath, content = content)
-
-    if (pathSegments.size > 1) {
-      dir(pathSegments.toList().dropLast(1)) { file(pathSegments.last(), content) }
-    } else {
-      files[filePath] = file
-    }
-
+  override fun file(relativePath: String, content: String): File {
+    val file = path / relativePath
+    file.createSafely(content)
     return file
   }
 
-  /**
-   * Writes the directory tree to the configured [path].
-   *
-   * @since 0.1.0
-   */
-  override fun write(): File {
-    path.mkdirs()
-
-    for (file in files.values) {
-      file.path.writeText(file.content)
-    }
-
-    for ((_, builder) in childDirs) {
-      builder.write()
-    }
-
-    return path
+  override fun file(pathSegments: Collection<String>, content: String): File {
+    return file(pathSegments.joinToPathString(), content)
   }
 
   private fun String.toPath(): Path = Path(this)

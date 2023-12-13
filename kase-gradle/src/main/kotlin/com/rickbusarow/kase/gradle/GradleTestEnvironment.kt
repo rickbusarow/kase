@@ -40,7 +40,6 @@ public class GradleTestEnvironment<T : TestVersions> private constructor(
 ) : DefaultTestEnvironment(hasWorkingDir),
   HasGradleRunner by DefaultHasGradleRunner(
     hasWorkingDir = hasWorkingDir,
-    rootProjectBuilder = rootProject,
     gradleVersion = { testVersions.gradleVersion }
   ),
   HasTestVersions<T>,
@@ -101,6 +100,6 @@ public class GradleTestEnvironment<T : TestVersions> private constructor(
    * @since 0.1.0
    */
   public inline fun rootProject(action: GradleRootProjectBuilder.() -> Unit): File {
-    return rootProject.apply(action).write()
+    return rootProject.apply(action).path
   }
 }

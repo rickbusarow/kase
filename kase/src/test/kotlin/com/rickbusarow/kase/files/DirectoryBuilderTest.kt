@@ -53,7 +53,6 @@ class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase> {
       file("file1.txt", "file1")
       file("file2.txt", "file2")
     }
-      .write()
 
     workingDir.resolve("file1.txt") shouldHaveText "file1"
     workingDir.resolve("file2.txt") shouldHaveText "file2"
@@ -68,7 +67,6 @@ class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase> {
         file("file2.txt", "file2")
       }
     }
-      .write()
 
     workingDir.resolve("nested/file1.txt") shouldHaveText "file1"
     workingDir.resolve("nested/file2.txt") shouldHaveText "file2"
@@ -85,7 +83,6 @@ class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase> {
         file("file2.txt", "file2")
       }
     }
-      .write()
 
     workingDir.resolve("nested/file1.txt") shouldHaveText "file1"
     workingDir.resolve("nested/file2.txt") shouldHaveText "file2"

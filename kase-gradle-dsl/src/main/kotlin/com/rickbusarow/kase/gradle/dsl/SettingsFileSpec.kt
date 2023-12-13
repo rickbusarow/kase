@@ -16,7 +16,6 @@
 package com.rickbusarow.kase.gradle.dsl
 
 import com.rickbusarow.kase.files.DirectoryBuilder
-import com.rickbusarow.kase.files.DirectoryBuilder.FileWithContent
 import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport
 import com.rickbusarow.kase.gradle.DslLanguageSettings.LabelSupport
@@ -30,6 +29,7 @@ import com.rickbusarow.kase.gradle.dsl.model.HasPluginsBlock
 import com.rickbusarow.kase.gradle.dsl.model.LambdaParameter
 import com.rickbusarow.kase.gradle.dsl.model.RegularVariableReference.MutableVariableReference
 import com.rickbusarow.kase.gradle.dsl.model.mutableVariableReference
+import java.io.File
 
 /**
  * Models a `settings.gradle` or `settings.gradle.kts` file.
@@ -105,7 +105,7 @@ public class SettingsFileSpec(
 public fun DirectoryBuilder.settingsFile(
   dslLanguage: DslLanguage,
   builder: SettingsFileSpec.() -> Unit
-): FileWithContent = file(
+): File = file(
   relativePath = dslLanguage.settingsFileName,
   content = SettingsFileSpec(builder).write(dslLanguage)
 )
@@ -119,7 +119,7 @@ context(HasDslLanguage)
 public fun DirectoryBuilder.settingsFile(
   dslLanguage: DslLanguage = this@HasDslLanguage.dslLanguage,
   builder: SettingsFileSpec.() -> Unit
-): FileWithContent = file(
+): File = file(
   relativePath = dslLanguage.settingsFileName,
   content = SettingsFileSpec(builder).write(dslLanguage)
 )
@@ -132,7 +132,7 @@ public fun DirectoryBuilder.settingsFile(
 public fun GradleProjectBuilder.settingsFile(
   dslLanguage: DslLanguage = this@GradleProjectBuilder.dslLanguage,
   builder: SettingsFileSpec.() -> Unit
-): FileWithContent = file(
+): File = file(
   relativePath = dslLanguage.settingsFileName,
   content = SettingsFileSpec(builder).write(dslLanguage)
 )
