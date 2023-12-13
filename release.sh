@@ -74,7 +74,7 @@ function parseVersionAndSyncDocs() {
   VERSION_NAME=$(awk -F ' *= *' '$1=="VERSION_NAME"{print $2; exit}' $GRADLE_PROPERTIES | sed 's/\"//g')
 
   # Add `@since ____` tags to any new KDoc
-  progress "Add \`@since ____\` tags to any new KDoc"
+  progress "Add \@since ____\ tags to any new KDoc"
   ./gradlew ktlintFormat
   maybeCommit "add @since tags to new KDoc for $VERSION_NAME"
 
