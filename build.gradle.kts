@@ -14,10 +14,10 @@
  */
 
 import builds.GROUP
-import builds.VERSION_NAME
 import com.rickbusarow.doks.DoksTask
 import com.rickbusarow.kgx.mustRunAfter
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import kotlin.text.Regex.Companion.escapeReplacement
 
 buildscript {
 
@@ -37,10 +37,10 @@ doks {
 
     rule("maven-with-version") {
       regex = maven(GROUP)
-      replacement = "$1:$2:${VERSION_NAME.escapeReplacement()}"
+      replacement = "$1:$2:${libs.versions.rickBusarow.kase.get() .escapeReplacement()}"
     }
     rule("kgx-group") {
-      regex = "com\\.(?:rickbusarow|square|squareup)\\.kase"
+      regex = "com\\.rickbusarow\\.kase"
       replacement = GROUP
     }
   }

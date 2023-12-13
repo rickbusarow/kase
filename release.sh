@@ -74,7 +74,7 @@ function parseVersionAndSyncDocs() {
   VERSION_NAME=$(awk -F ' *= *' '$1=="VERSION_NAME"{print $2; exit}' $GRADLE_PROPERTIES | sed 's/\"//g')
 
   # Add `@since ____` tags to any new KDoc
-  progress "Add \`@since ____\` tags to any new KDoc"
+  progress "Add \@since ____\ tags to any new KDoc"
   ./gradlew ktlintFormat
   maybeCommit "add @since tags to new KDoc for $VERSION_NAME"
 
@@ -117,8 +117,8 @@ progress "create the release on GitHub"
 ./gradlew githubRelease
 
 progress "update the dev version to ${NEXT_VERSION}"
-OLD="(^ *VERSION_NAME *= *)\"${VERSION_NAME}\""
-NEW="\$1\"${NEXT_VERSION}\""
+OLD="VERSION_NAME=${VERSION_NAME}"
+NEW="VERSION_NAME=${NEXT_VERSION}"
 # Write the new -SNAPSHOT version to the properties file
 perl -pi -e "s/$OLD/$NEW/" $GRADLE_PROPERTIES
 git commit -am "update dev version to ${NEXT_VERSION}"

@@ -31,7 +31,7 @@ import java.io.File
  * @since 0.1.0
  */
 @Execution(ExecutionMode.SAME_THREAD)
-public interface BaseGradleTest<K : TestVersions> :
+public interface KaseGradleTest<K : TestVersions> :
   GradleTestEnvironmentFactory<K>,
   HasVersionMatrix,
   KaseTestFactory<GradleTestEnvironment<K>, K>

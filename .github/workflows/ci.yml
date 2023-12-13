@@ -10,11 +10,16 @@ env:
   ubuntuGradleArgs: "-Dorg.gradle.jvmargs=-Xmx5g -Dfile.encoding=UTF-8 -XX:+UseParallelGC"
   windowsGradleArgs: "-Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8 -XX:+UseParallelGC"
 
-concurrency:
-  group: ci-${{ github.ref }}-${{ github.head_ref }}
-  cancel-in-progress: true
-
 jobs:
+
+  cancel-previous-runs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.12.0
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
   static-analysis:
     runs-on: ubuntu-latest
     steps:
@@ -48,15 +53,15 @@ jobs:
         if: github.actor != 'renovate[bot]'
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: dependencyGuard
-          cache-read-only: false --refresh-dependencies
+          arguments: dependencyGuard --refresh-dependencies
+          cache-read-only: false
 
       - name: dependency-guard baseline (used by Renovate)
         if: github.actor == 'renovate[bot]'
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: dependencyGuardBaseline
-          cache-read-only: false --refresh-dependencies
+          arguments: dependencyGuardBaseline --refresh-dependencies
+          cache-read-only: false
 
       # If dependency-guard generated changes, commit and push those changes.
       - name: commit dependency-guard baseline changes (used by main repo)
@@ -152,7 +157,7 @@ jobs:
           cache-read-only: false
 
       - name: Upload SARIF to Github using the upload-sarif action
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         if: failure()
         with:
           sarif_file: build/reports/detekt/merged.sarif
