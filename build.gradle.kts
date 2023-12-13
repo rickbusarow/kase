@@ -34,13 +34,54 @@ doks {
   dokSet {
     docs("README.md", "CHANGELOG.md")
 
+    sampleCodeSource("kase/src/test/kotlin/com/rickbusarow/kase/samples") {
+      include("**/*.kt")
+    }
+
     rule("maven-with-version") {
       regex = maven(GROUP)
       replacement = "$1:$2:${libs.versions.rickBusarow.kase.get().escapeReplacement()}"
     }
-    rule("kgx-group") {
-      regex = "com\\.rickbusarow\\.kase"
-      replacement = GROUP
+
+    rule("kase-type-safe-tuple-pair") {
+
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.kase.samples.KaseTupleSample.kaseTypeSafeTuplePair",
+        bodyOnly = true,
+        codeBlockLanguage = "kotlin"
+      )
+    }
+    rule("kase-type-safe-tuple-big") {
+
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.kase.samples.KaseTupleSample.kaseTypeSafeTupleBig",
+        bodyOnly = true,
+        codeBlockLanguage = "kotlin"
+      )
+    }
+    rule("asTests-simple") {
+
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.kase.samples.PersonTests.`person plurals`",
+        bodyOnly = false,
+        codeBlockLanguage = "kotlin"
+      )
+    }
+    rule("list-multiplication-simple") {
+
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.kase.samples.TransformSamples.`list multiplication simple`",
+        bodyOnly = true,
+        codeBlockLanguage = "kotlin"
+      )
+    }
+    rule("list-multiplication-custom-type") {
+
+      replacement = sourceCode(
+        fqName = "com.rickbusarow.kase.samples.TransformSamples.`list multiplication custom type`",
+        bodyOnly = true,
+        codeBlockLanguage = "kotlin"
+      )
     }
   }
 }

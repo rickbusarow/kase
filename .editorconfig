@@ -21,7 +21,7 @@ ij_wrap_on_typing = false
 ############    KtLint specific settings
 ############
 # noinspection EditorConfigKeyCorrectness,EditorConfigHeaderUniqueness,EditorConfigPartialOverride
-[{*.kt,*.kts}]
+[{*.kt,*.kts,*.md}]
 kotlin_imports_layout = *,java.**,javax.**,kotlin.**,^
 # Back-ticked method names are allowed to exceed the line length. That's especially helpful for
 # test methods with descriptive names.
@@ -56,8 +56,7 @@ ktlint_standard = disabled
 ktlint = disabled
 
 # noinspection EditorConfigKeyCorrectness,EditorConfigHeaderUniqueness,EditorConfigPartialOverride
-[{*.kt,*.kts}]
-ij_continuation_indent_size = 2
+[{*.kt,*.kts,*.md}]
 ij_kotlin_align_in_columns_case_branch = false
 ij_kotlin_align_multiline_binary_operation = false
 ij_kotlin_align_multiline_extends_list = false
@@ -142,7 +141,6 @@ ij_kotlin_wrap_expression_body_functions = 1
 ij_kotlin_wrap_first_method_in_call_chain = false
 
 [{*.yaml,*.yml}]
-indent_size = 2
 ij_yaml_align_values_properties = do_not_align
 ij_yaml_autoinsert_sequence_marker = true
 ij_yaml_block_mapping_on_new_line = false
@@ -155,9 +153,6 @@ ij_yaml_spaces_within_braces = true
 ij_yaml_spaces_within_brackets = true
 
 [{*.markdown,*.md,*.mdx}]
-indent_size = 4
-tab_width = 4
-ij_continuation_indent_size = 4
 ij_markdown_force_one_space_after_blockquote_symbol = true
 ij_markdown_force_one_space_after_header_symbol = true
 ij_markdown_force_one_space_after_list_bullet = true
@@ -186,9 +181,6 @@ ij_editorconfig_space_before_comma = false
 ij_editorconfig_spaces_around_assignment_operators = true
 
 [{*.pb,*.textproto}]
-indent_size = 2
-tab_width = 2
-ij_continuation_indent_size = 4
 ij_prototext_keep_blank_lines_in_code = 1
 ij_prototext_keep_indents_on_empty_lines = false
 ij_prototext_keep_line_breaks = true
@@ -229,7 +221,6 @@ ij_css_use_double_quotes = true
 ij_css_value_alignment = do_not_align
 
 [*.feature]
-indent_size = 2
 ij_gherkin_keep_indents_on_empty_lines = false
 
 [*.gv]
@@ -248,7 +239,6 @@ ij_dot_spaces_within_brackets = false
 ij_dot_use_relative_indents = false
 
 [*.haml]
-indent_size = 2
 ij_haml_keep_indents_on_empty_lines = false
 
 [*.java]
@@ -510,7 +500,6 @@ ij_java_wrap_first_method_in_call_chain = false
 ij_java_wrap_long_lines = false
 
 [*.less]
-indent_size = 2
 ij_less_align_closing_brace_with_properties = false
 ij_less_blank_lines_around_nested_selector = 1
 ij_less_blank_lines_between_blocks = 1
@@ -533,9 +522,6 @@ ij_less_use_double_quotes = true
 ij_less_value_alignment = 0
 
 [*.proto]
-indent_size = 2
-tab_width = 2
-ij_continuation_indent_size = 4
 ij_protobuf_keep_blank_lines_in_code = 1
 ij_protobuf_keep_indents_on_empty_lines = false
 ij_protobuf_keep_line_breaks = true
@@ -546,7 +532,6 @@ ij_protobuf_spaces_within_braces = false
 ij_protobuf_spaces_within_brackets = false
 
 [*.sass]
-indent_size = 2
 ij_sass_align_closing_brace_with_properties = false
 ij_sass_blank_lines_around_nested_selector = 1
 ij_sass_blank_lines_between_blocks = 1
@@ -568,7 +553,6 @@ ij_sass_use_double_quotes = true
 ij_sass_value_alignment = 0
 
 [*.scss]
-indent_size = 2
 ij_scss_align_closing_brace_with_properties = false
 ij_scss_blank_lines_around_nested_selector = 1
 ij_scss_blank_lines_between_blocks = 1
@@ -590,29 +574,7 @@ ij_scss_space_before_opening_brace = true
 ij_scss_use_double_quotes = true
 ij_scss_value_alignment = 0
 
-[*.styl]
-indent_size = 2
-ij_stylus_align_closing_brace_with_properties = false
-ij_stylus_blank_lines_around_nested_selector = 1
-ij_stylus_blank_lines_between_blocks = 1
-ij_stylus_brace_placement = 0
-ij_stylus_enforce_quotes_on_format = false
-ij_stylus_hex_color_long_format = false
-ij_stylus_hex_color_lower_case = false
-ij_stylus_hex_color_short_format = false
-ij_stylus_hex_color_upper_case = false
-ij_stylus_keep_blank_lines_in_code = 1
-ij_stylus_keep_indents_on_empty_lines = false
-ij_stylus_keep_single_line_blocks = false
-ij_stylus_properties_order = font,font-family,font-size,font-weight,font-style,font-variant,font-size-adjust,font-stretch,line-height,position,z-index,top,right,bottom,left,display,visibility,float,clear,overflow,overflow-x,overflow-y,clip,zoom,align-content,align-items,align-self,flex,flex-flow,flex-basis,flex-direction,flex-grow,flex-shrink,flex-wrap,justify-content,order,box-sizing,width,min-width,max-width,height,min-height,max-height,margin,margin-top,margin-right,margin-bottom,margin-left,padding,padding-top,padding-right,padding-bottom,padding-left,table-layout,empty-cells,caption-side,border-spacing,border-collapse,list-style,list-style-position,list-style-type,list-style-image,content,quotes,counter-reset,counter-increment,resize,cursor,user-select,nav-index,nav-up,nav-right,nav-down,nav-left,transition,transition-delay,transition-timing-function,transition-duration,transition-property,transform,transform-origin,animation,animation-name,animation-duration,animation-play-state,animation-timing-function,animation-delay,animation-iteration-count,animation-direction,text-align,text-align-last,vertical-align,white-space,text-decoration,text-emphasis,text-emphasis-color,text-emphasis-style,text-emphasis-position,text-indent,text-justify,letter-spacing,word-spacing,text-outline,text-transform,text-wrap,text-overflow,text-overflow-ellipsis,text-overflow-mode,word-wrap,word-break,tab-size,hyphens,pointer-events,opacity,color,border,border-width,border-style,border-color,border-top,border-top-width,border-top-style,border-top-color,border-right,border-right-width,border-right-style,border-right-color,border-bottom,border-bottom-width,border-bottom-style,border-bottom-color,border-left,border-left-width,border-left-style,border-left-color,border-radius,border-top-left-radius,border-top-right-radius,border-bottom-right-radius,border-bottom-left-radius,border-image,border-image-source,border-image-slice,border-image-width,border-image-outset,border-image-repeat,outline,outline-width,outline-style,outline-color,outline-offset,background,background-color,background-image,background-repeat,background-attachment,background-position,background-position-x,background-position-y,background-clip,background-origin,background-size,box-decoration-break,box-shadow,text-shadow
-ij_stylus_space_after_colon = true
-ij_stylus_space_before_opening_brace = true
-ij_stylus_use_double_quotes = true
-ij_stylus_value_alignment = 0
-
-
 [{*.ant,*.fxml,*.jhm,*.jnlp,*.jrxml,*.pom,*.rng,*.tld,*.wadl,*.wsdl,*.xml,*.xsd,*.xsl,*.xslt,*.xul}]
-ij_continuation_indent_size = 2
 ij_xml_align_attributes = false
 ij_xml_align_text = false
 ij_xml_attribute_wrap = normal
@@ -633,7 +595,6 @@ ij_xml_text_wrap = normal
 ij_xml_use_custom_settings = true
 
 [{*.ats,*.cts,*.mts,*.ts}]
-ij_continuation_indent_size = 4
 ij_typescript_align_imports = false
 ij_typescript_align_multiline_array_initializer_expression = false
 ij_typescript_align_multiline_binary_operation = false
@@ -804,8 +765,6 @@ ij_typescript_while_on_new_line = false
 ij_typescript_wrap_comments = false
 
 [{*.bash,*.sh,*.zsh}]
-indent_size = 2
-tab_width = 2
 ij_shell_binary_ops_start_line = false
 ij_shell_keep_column_alignment_padding = false
 ij_shell_minify_program = false
@@ -814,7 +773,6 @@ ij_shell_switch_cases_indented = false
 ij_shell_use_unix_line_separator = true
 
 [{*.cjs,*.js}]
-ij_continuation_indent_size = 4
 ij_javascript_align_imports = false
 ij_javascript_align_multiline_array_initializer_expression = false
 ij_javascript_align_multiline_binary_operation = false
@@ -1175,7 +1133,6 @@ ij_groovy_wrap_chain_calls_after_dot = false
 ij_groovy_wrap_long_lines = false
 
 [{*.har,*.jsb2,*.jsb3,*.json,.babelrc,.eslintrc,.stylelintrc,bowerrc,jest.config}]
-indent_size = 2
 ij_json_array_wrapping = split_into_lines
 ij_json_keep_blank_lines_in_code = 0
 ij_json_keep_indents_on_empty_lines = false
