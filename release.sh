@@ -117,8 +117,8 @@ progress "create the release on GitHub"
 ./gradlew githubRelease
 
 progress "update the dev version to ${NEXT_VERSION}"
-OLD="(^ *VERSION_NAME *= *)\"${VERSION_NAME}\""
-NEW="\$1\"${NEXT_VERSION}\""
+OLD="VERSION_NAME=${VERSION_NAME}"
+NEW="VERSION_NAME=${NEXT_VERSION}"
 # Write the new -SNAPSHOT version to the properties file
 perl -pi -e "s/$OLD/$NEW/" $GRADLE_PROPERTIES
 git commit -am "update dev version to ${NEXT_VERSION}"
