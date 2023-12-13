@@ -15,14 +15,13 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.gradle.DependencyVersion.Gradle
 import io.kotest.matchers.file.shouldExist
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.TestFactory
 
-class GradleTestEnvironmentTest : BaseGradleTest<TestVersions> {
+class GradleTestEnvironmentTest : KaseGradleTest<TestVersions> {
   override val versionMatrix: VersionMatrix
-    get() = VersionMatrix(Gradle("1.0.0"))
+    get() = VersionMatrix(GradleDependencyVersion("1.0.0"))
   override val kases: List<TestVersions>
     get() = versionMatrix.versions(GradleTestVersions)
 
