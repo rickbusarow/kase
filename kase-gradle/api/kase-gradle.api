@@ -48,8 +48,8 @@ public final class com/rickbusarow/kase/gradle/DaggerDependencyVersion$DaggerKey
 }
 
 public class com/rickbusarow/kase/gradle/DefaultHasGradleRunner : com/rickbusarow/kase/files/HasWorkingDir, com/rickbusarow/kase/gradle/HasGradleRunner {
-	public fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lkotlin/jvm/functions/Function0;)V
-	public synthetic fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lkotlin/jvm/functions/Function0;)V
+	public synthetic fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun build (Ljava/util/List;ZZZZ)Lorg/gradle/testkit/runner/BuildResult;
 	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
