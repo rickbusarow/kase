@@ -63,16 +63,20 @@ public class GradleDependencyVersion(
   public companion object GradleKey : VersionMatrixKey<GradleDependencyVersion>
 }
 
-/** Trait interface for [GradleDependencyVersion] */
+/**
+ * Trait interface for [GradleDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasGradleDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val gradle: GradleDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val gradleVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: GradleDependencyVersion
     ): HasGradleDependencyVersion = object : HasGradleDependencyVersion {
@@ -95,16 +99,20 @@ public class AgpDependencyVersion(
   public companion object AgpKey : VersionMatrixKey<AgpDependencyVersion>
 }
 
-/** Trait interface for [AgpDependencyVersion] */
+/**
+ * Trait interface for [AgpDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasAgpDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val agp: AgpDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val agpVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: AgpDependencyVersion
     ): HasAgpDependencyVersion = object : HasAgpDependencyVersion {
@@ -126,16 +134,20 @@ public class KotlinDependencyVersion(
   public companion object KotlinKey : VersionMatrixKey<KotlinDependencyVersion>
 }
 
-/** Trait interface for [KotlinDependencyVersion] */
+/**
+ * Trait interface for [KotlinDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasKotlinDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val kotlin: KotlinDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val kotlinVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: KotlinDependencyVersion
     ): HasKotlinDependencyVersion = object : HasKotlinDependencyVersion {
@@ -157,16 +169,20 @@ public class KspDependencyVersion(
   public companion object KspKey : VersionMatrixKey<KspDependencyVersion>
 }
 
-/** Trait interface for [KspDependencyVersion] */
+/**
+ * Trait interface for [KspDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasKspDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val ksp: KspDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val kspVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: KspDependencyVersion
     ): HasKspDependencyVersion = object : HasKspDependencyVersion {
@@ -188,16 +204,20 @@ public class AnvilDependencyVersion(
   public companion object AnvilKey : VersionMatrixKey<AnvilDependencyVersion>
 }
 
-/** Trait interface for [AnvilDependencyVersion] */
+/**
+ * Trait interface for [AnvilDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasAnvilDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val anvil: AnvilDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val anvilVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: AnvilDependencyVersion
     ): HasAnvilDependencyVersion = object : HasAnvilDependencyVersion {
@@ -222,16 +242,20 @@ public class ComposeCompilerDependencyVersion(
     VersionMatrixKey<ComposeCompilerDependencyVersion>
 }
 
-/** Trait interface for [ComposeCompilerDependencyVersion] */
+/**
+ * Trait interface for [ComposeCompilerDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasComposeCompilerDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val composeCompiler: ComposeCompilerDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val composeCompilerVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: ComposeCompilerDependencyVersion
     ): HasComposeCompilerDependencyVersion = object : HasComposeCompilerDependencyVersion {
@@ -256,16 +280,20 @@ public class KotlinxSerializationDependencyVersion(
     VersionMatrixKey<KotlinxSerializationDependencyVersion>
 }
 
-/** Trait interface for [KotlinxSerializationDependencyVersion] */
+/**
+ * Trait interface for [KotlinxSerializationDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasKotlinxSerializationDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val kotlinxSerialization: KotlinxSerializationDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val kotlinxSerializationVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: KotlinxSerializationDependencyVersion
     ): HasKotlinxSerializationDependencyVersion =
@@ -288,16 +316,20 @@ public class DaggerDependencyVersion(
   public companion object DaggerKey : VersionMatrixKey<DaggerDependencyVersion>
 }
 
-/** Trait interface for [DaggerDependencyVersion] */
+/**
+ * Trait interface for [DaggerDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasDaggerDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val dagger: DaggerDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val daggerVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: DaggerDependencyVersion
     ): HasDaggerDependencyVersion = object : HasDaggerDependencyVersion {
@@ -319,16 +351,20 @@ public class KtLintDependencyVersion(
   public companion object KtLintKey : VersionMatrixKey<KtLintDependencyVersion>
 }
 
-/** Trait interface for [KtLintDependencyVersion] */
+/**
+ * Trait interface for [KtLintDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasKtLintDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val ktlint: KtLintDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val ktlintVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: KtLintDependencyVersion
     ): HasKtLintDependencyVersion = object : HasKtLintDependencyVersion {
@@ -350,16 +386,20 @@ public class DetektDependencyVersion(
   public companion object DetektKey : VersionMatrixKey<DetektDependencyVersion>
 }
 
-/** Trait interface for [DetektDependencyVersion] */
+/**
+ * Trait interface for [DetektDependencyVersion]
+ *
+ * @since 0.3.0
+ */
 public interface HasDetektDependencyVersion {
-  /** */
+  /** @since 0.3.0 */
   public val detekt: DetektDependencyVersion
 
-  /** */
+  /** @since 0.3.0 */
   public val detektVersion: String
 
   public companion object {
-    /** */
+    /** @since 0.3.0 */
     public operator fun invoke(
       version: DetektDependencyVersion
     ): HasDetektDependencyVersion = object : HasDetektDependencyVersion {
