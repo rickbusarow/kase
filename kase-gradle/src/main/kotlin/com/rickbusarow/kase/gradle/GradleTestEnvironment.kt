@@ -25,25 +25,52 @@ import java.io.File
  * A [TestEnvironment] which provides a [GradleRunner]
  * and a [File] representing the root project directory.
  *
- * @property testVersions the [TestVersions] for this test environment
+ * @param gradleVersion the Gradle version used in this environment's runner
  * @property dslLanguage the [DslLanguage] for this test environment
  * @property rootProject the [GradleRootProjectBuilder] for this test environment
  * @param hasWorkingDir the [HasWorkingDir] for this test environment
  * @since 0.1.0
  */
 @Suppress("VariableNaming", "MemberVisibilityCanBePrivate", "MagicNumber")
-public class GradleTestEnvironment<T : TestVersions> private constructor(
-  override val testVersions: T,
+public class GradleTestEnvironment private constructor(
+  gradleVersion: GradleDependencyVersion,
   override val dslLanguage: DslLanguage,
   public val rootProject: GradleRootProjectBuilder,
   hasWorkingDir: HasWorkingDir
 ) : DefaultTestEnvironment(hasWorkingDir),
   HasGradleRunner by DefaultHasGradleRunner(
     hasWorkingDir = hasWorkingDir,
-    gradleVersion = { testVersions.gradleVersion }
+    gradleVersion = { gradleVersion }
   ),
-  HasTestVersions<T>,
   HasDslLanguage {
+
+  /**
+   * @param gradleVersion the Gradle version used in this environment's runner
+   * @param dslLanguage the [DslLanguage] for this test environment
+   * @param hasWorkingDir the [HasWorkingDir] for this test environment
+   * @param defaultBuildFile the default [DslStringFactory] for the root `build.gradle[.kts]` file
+   * @param defaultSettingsFile the default [DslStringFactory]
+   *   for the root `settings.gradle[.kts]` file
+   * @since 0.1.0
+   */
+  public constructor(
+    gradleVersion: GradleDependencyVersion,
+    dslLanguage: DslLanguage,
+    hasWorkingDir: HasWorkingDir,
+    defaultBuildFile: DslStringFactory,
+    defaultSettingsFile: DslStringFactory
+  ) : this(
+    gradleVersion = gradleVersion,
+    dslLanguage = dslLanguage,
+    hasWorkingDir = hasWorkingDir,
+    rootProject = rootProject(
+      path = hasWorkingDir.workingDir,
+      dslLanguage = dslLanguage
+    ) {
+      buildFile(defaultBuildFile)
+      settingsFile(defaultSettingsFile)
+    }
+  )
 
   /**
    * @param testVersions the [TestVersions] for this test environment
@@ -55,13 +82,13 @@ public class GradleTestEnvironment<T : TestVersions> private constructor(
    * @since 0.1.0
    */
   public constructor(
-    testVersions: T,
+    testVersions: TestVersions,
     dslLanguage: DslLanguage,
     hasWorkingDir: HasWorkingDir,
     defaultBuildFile: DslStringFactory,
     defaultSettingsFile: DslStringFactory
   ) : this(
-    testVersions = testVersions,
+    gradleVersion = testVersions.gradle,
     dslLanguage = dslLanguage,
     hasWorkingDir = hasWorkingDir,
     rootProject = rootProject(

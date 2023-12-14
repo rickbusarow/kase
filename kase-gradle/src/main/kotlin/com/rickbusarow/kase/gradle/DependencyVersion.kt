@@ -34,33 +34,38 @@ import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
  * @since 0.1.0
  */
 @Suppress("UnnecessaryAbstractClass")
-public abstract class AbstractDependencyVersion<out T, V, out K>(
-  override val key: K
-) : DependencyVersion<T, K>,
-  Comparable<V>
-  where K : VersionMatrixKey<V>,
-        V : DependencyVersion<T, K> {
+public abstract class AbstractDependencyVersion<SELF, out KEY>(
+  override val key: KEY
+) : DependencyVersion<KEY>,
+  Comparable<SELF>
+  where KEY : VersionMatrixKey<SELF>,
+        SELF : DependencyVersion<KEY> {
 
-  override fun toString(): String = value.toString()
-  override fun compareTo(other: V): Int = value.toString().compareTo(other.value.toString())
+  override fun toString(): String = value
+  override fun compareTo(other: SELF): Int = value.compareTo(other.value)
 }
 
 /** @since 0.1.0 */
-public interface DependencyVersion<out T, out K : VersionMatrixKey<DependencyVersion<T, K>>> :
-  VersionMatrix.VersionMatrixElement<T>,
+public interface DependencyVersion<out K : VersionMatrixKey<DependencyVersion<K>>> :
+  VersionMatrix.VersionMatrixElement<String>,
   HasLabel
 
 /** @since 0.1.0 */
 public class GradleDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, GradleDependencyVersion, GradleKey>(GradleKey) {
+) : AbstractDependencyVersion<GradleDependencyVersion, GradleKey>(GradleKey) {
 
   /**
    * Key for [GradleDependencyVersion] dependency versions.
    *
    * @since 0.1.0
    */
-  public companion object GradleKey : VersionMatrixKey<GradleDependencyVersion>
+  public companion object GradleKey : VersionMatrixKey<GradleDependencyVersion> {
+    /** pulls the value from `GradleVersion.current().version` */
+    public fun current(): GradleDependencyVersion = GradleDependencyVersion(
+      value = org.gradle.util.GradleVersion.current().version
+    )
+  }
 }
 
 /**
@@ -89,7 +94,7 @@ public interface HasGradleDependencyVersion {
 /** @since 0.1.0 */
 public class AgpDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, AgpDependencyVersion, AgpKey>(AgpKey) {
+) : AbstractDependencyVersion<AgpDependencyVersion, AgpKey>(AgpKey) {
 
   /**
    * Key for [AgpDependencyVersion] dependency versions.
@@ -125,13 +130,18 @@ public interface HasAgpDependencyVersion {
 /** @since 0.1.0 */
 public class KotlinDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, KotlinDependencyVersion, KotlinKey>(KotlinKey) {
+) : AbstractDependencyVersion<KotlinDependencyVersion, KotlinKey>(KotlinKey) {
   /**
    * Key for [KotlinDependencyVersion] dependency versions.
    *
    * @since 0.1.0
    */
-  public companion object KotlinKey : VersionMatrixKey<KotlinDependencyVersion>
+  public companion object KotlinKey : VersionMatrixKey<KotlinDependencyVersion> {
+    /** pulls the value from `KotlinVersion.CURRENT.toString()` */
+    public fun current(): KotlinDependencyVersion = KotlinDependencyVersion(
+      value = KotlinVersion.CURRENT.toString()
+    )
+  }
 }
 
 /**
@@ -160,7 +170,7 @@ public interface HasKotlinDependencyVersion {
 /** @since 0.1.0 */
 public class KspDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, KspDependencyVersion, KspKey>(KspKey) {
+) : AbstractDependencyVersion<KspDependencyVersion, KspKey>(KspKey) {
   /**
    * Key for [KspDependencyVersion] dependency versions.
    *
@@ -195,7 +205,7 @@ public interface HasKspDependencyVersion {
 /** @since 0.1.0 */
 public class AnvilDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, AnvilDependencyVersion, AnvilKey>(AnvilKey) {
+) : AbstractDependencyVersion<AnvilDependencyVersion, AnvilKey>(AnvilKey) {
   /**
    * Key for [AnvilDependencyVersion] dependency versions.
    *
@@ -230,7 +240,7 @@ public interface HasAnvilDependencyVersion {
 /** @since 0.1.0 */
 public class ComposeCompilerDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, ComposeCompilerDependencyVersion, ComposeCompilerKey>(
+) : AbstractDependencyVersion<ComposeCompilerDependencyVersion, ComposeCompilerKey>(
   ComposeCompilerKey
 ) {
   /**
@@ -268,7 +278,7 @@ public interface HasComposeCompilerDependencyVersion {
 /** @since 0.1.0 */
 public class KotlinxSerializationDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, KotlinxSerializationDependencyVersion, KotlinxSerializationKey>(
+) : AbstractDependencyVersion<KotlinxSerializationDependencyVersion, KotlinxSerializationKey>(
   KotlinxSerializationKey
 ) {
   /**
@@ -307,7 +317,7 @@ public interface HasKotlinxSerializationDependencyVersion {
 /** @since 0.1.0 */
 public class DaggerDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, DaggerDependencyVersion, DaggerKey>(DaggerKey) {
+) : AbstractDependencyVersion<DaggerDependencyVersion, DaggerKey>(DaggerKey) {
   /**
    * Key for [DaggerDependencyVersion] dependency versions.
    *
@@ -342,7 +352,7 @@ public interface HasDaggerDependencyVersion {
 /** @since 0.1.0 */
 public class KtLintDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, KtLintDependencyVersion, KtLintKey>(KtLintKey) {
+) : AbstractDependencyVersion<KtLintDependencyVersion, KtLintKey>(KtLintKey) {
   /**
    * Key for [KtLintDependencyVersion] dependency versions.
    *
@@ -377,7 +387,7 @@ public interface HasKtLintDependencyVersion {
 /** @since 0.1.0 */
 public class DetektDependencyVersion(
   override val value: String
-) : AbstractDependencyVersion<String, DetektDependencyVersion, DetektKey>(DetektKey) {
+) : AbstractDependencyVersion<DetektDependencyVersion, DetektKey>(DetektKey) {
   /**
    * Key for [DetektDependencyVersion] dependency versions.
    *

@@ -34,7 +34,7 @@ import java.io.File
 public interface KaseGradleTest<K : TestVersions> :
   GradleTestEnvironmentFactory<K>,
   HasVersionMatrix,
-  KaseTestFactory<GradleTestEnvironment<K>, K>
+  KaseTestFactory<GradleTestEnvironment, K>
 
 /**
  * A factory for creating [GradleTestEnvironment]s.
@@ -42,7 +42,7 @@ public interface KaseGradleTest<K : TestVersions> :
  * @since 0.1.0
  */
 public interface GradleTestEnvironmentFactory<K : TestVersions> :
-  TestEnvironmentFactory<GradleTestEnvironment<K>, K> {
+  TestEnvironmentFactory<GradleTestEnvironment, K> {
 
   /**
    * The [DslLanguage] to use for generating build and settings files.
@@ -107,7 +107,7 @@ public interface GradleTestEnvironmentFactory<K : TestVersions> :
   override fun newTestEnvironment(
     kase: K,
     testFunctionCoordinates: TestFunctionCoordinates
-  ): GradleTestEnvironment<K> = GradleTestEnvironment(
+  ): GradleTestEnvironment = GradleTestEnvironment(
     testVersions = kase,
     dslLanguage = this.dslLanguage,
     hasWorkingDir = HasWorkingDir(listOf(kase.displayName), testFunctionCoordinates),
