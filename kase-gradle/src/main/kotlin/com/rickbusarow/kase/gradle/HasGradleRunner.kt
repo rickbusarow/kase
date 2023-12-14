@@ -26,7 +26,6 @@ import io.kotest.matchers.string.shouldContain
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome.FAILED
-import org.gradle.util.GradleVersion
 
 /**
  * Trait interface for a test environment with a [GradleRunner].
@@ -158,7 +157,7 @@ public interface HasGradleRunner {
  */
 public open class DefaultHasGradleRunner(
   hasWorkingDir: HasWorkingDir,
-  gradleVersion: () -> String = { GradleVersion.current().version }
+  gradleVersion: () -> GradleDependencyVersion = { GradleDependencyVersion.current() }
 ) : HasGradleRunner,
   HasWorkingDir by hasWorkingDir {
 
@@ -170,7 +169,7 @@ public open class DefaultHasGradleRunner(
   override val gradleRunner: GradleRunner by lazy {
     GradleRunner.create()
       .forwardOutput()
-      .withGradleVersion(gradleVersion())
+      .withGradleVersion(gradleVersion().value)
       .withDebug(true)
       .withProjectDir(workingDir)
   }
