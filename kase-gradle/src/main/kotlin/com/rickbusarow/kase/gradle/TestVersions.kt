@@ -56,11 +56,7 @@ public interface TestVersions : Kase, HasGradleDependencyVersion {
  * @since 0.1.0
  */
 public interface HasTestVersions<T : TestVersions> {
-  /**
-   * immutable
-   *
-   * @since 0.1.0
-   */
+  /** @since 0.1.0 */
   public val testVersions: T
 }
 
