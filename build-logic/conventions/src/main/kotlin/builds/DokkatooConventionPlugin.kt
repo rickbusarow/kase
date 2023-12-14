@@ -88,6 +88,10 @@ abstract class DokkatooConventionPlugin : Plugin<Project> {
         task.workerMinHeapSize.set("512m")
         task.workerMaxHeapSize.set("1g")
 
+        if (target.isRootProject()) {
+          task.dependsOn("unzipDokkaArchives")
+        }
+
         // Dokka uses their outputs but doesn't explicitly depend upon them.
         task.mustRunAfter(target.tasks.withType(KotlinCompile::class.java))
         task.mustRunAfter(target.tasks.withType(KtLintTask::class.java))
