@@ -61,7 +61,11 @@ public class GradleDependencyVersion(
    * @since 0.1.0
    */
   public companion object GradleKey : VersionMatrixKey<GradleDependencyVersion> {
-    /** pulls the value from `GradleVersion.current().version` */
+    /**
+     * pulls the value from `GradleVersion.current().version`
+     *
+     * @since 0.4.0
+     */
     public fun current(): GradleDependencyVersion = GradleDependencyVersion(
       value = org.gradle.util.GradleVersion.current().version
     )
@@ -137,7 +141,11 @@ public class KotlinDependencyVersion(
    * @since 0.1.0
    */
   public companion object KotlinKey : VersionMatrixKey<KotlinDependencyVersion> {
-    /** pulls the value from `KotlinVersion.CURRENT.toString()` */
+    /**
+     * pulls the value from `KotlinVersion.CURRENT.toString()`
+     *
+     * @since 0.4.0
+     */
     public fun current(): KotlinDependencyVersion = KotlinDependencyVersion(
       value = KotlinVersion.CURRENT.toString()
     )
