@@ -88,7 +88,7 @@ class VersionMatrixElementKasesOverloadTest : KaseTestFactory<TestEnvironment, K
           Class.forName("com.rickbusarow.kase.gradle.TestVersion$typeNumber")
             .declaredConstructors
             .single()
-            .newInstance(value) as AbstractDependencyVersion<*, *, *>
+            .newInstance(value) as AbstractDependencyVersion<*, *>
         }
       }
     return Companion(elements)
