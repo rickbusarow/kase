@@ -621,3 +621,4 @@ public final class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElemen
 
 public abstract interface class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
 }
+
