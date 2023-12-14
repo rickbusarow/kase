@@ -20,7 +20,7 @@ package com.rickbusarow.kase
  *
  * @since 0.1.0
  */
-public interface HasKases<K : Kase> {
+public interface HasKases<out K : Kase> {
   /**
    * The default kases for tests in this class.
    *
