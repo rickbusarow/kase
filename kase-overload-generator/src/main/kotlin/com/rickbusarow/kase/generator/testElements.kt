@@ -44,7 +44,7 @@ internal fun writeTestElements() {
       |@Poko
       |class $tv(
       |  override val value: String
-      |) : AbstractDependencyVersion<String, $tv, ${tv}Key>(${tv}Key) {
+      |) : AbstractDependencyVersion<$tv, ${tv}Key>(${tv}Key) {
       |
       |  companion object ${tv}Key : VersionMatrixKey<$tv>
       |}
