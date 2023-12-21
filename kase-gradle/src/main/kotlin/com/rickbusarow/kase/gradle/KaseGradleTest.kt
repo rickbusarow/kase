@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,9 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.HasKaseMatrix
+import com.rickbusarow.kase.Kase
+import com.rickbusarow.kase.KaseBag
 import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironmentFactory
 import com.rickbusarow.kase.files.HasWorkingDir
@@ -31,18 +34,20 @@ import java.io.File
  * @since 0.1.0
  */
 @Execution(ExecutionMode.SAME_THREAD)
-public interface KaseGradleTest<K : TestVersions> :
+public interface KaseGradleTest<K> :
   GradleTestEnvironmentFactory<K>,
-  HasVersionMatrix,
+  HasKaseMatrix,
   KaseTestFactory<GradleTestEnvironment, K>
+  where K : Kase
 
 /**
  * A factory for creating [GradleTestEnvironment]s.
  *
  * @since 0.1.0
  */
-public interface GradleTestEnvironmentFactory<K : TestVersions> :
-  TestEnvironmentFactory<GradleTestEnvironment, K> {
+public interface GradleTestEnvironmentFactory<K> :
+  TestEnvironmentFactory<GradleTestEnvironment, K>
+  where K : Kase {
 
   /**
    * The [DslLanguage] to use for generating build and settings files.
@@ -107,11 +112,20 @@ public interface GradleTestEnvironmentFactory<K : TestVersions> :
   override fun newTestEnvironment(
     kase: K,
     testFunctionCoordinates: TestFunctionCoordinates
-  ): GradleTestEnvironment = GradleTestEnvironment(
-    testVersions = kase,
-    dslLanguage = this.dslLanguage,
-    hasWorkingDir = HasWorkingDir(listOf(kase.displayName), testFunctionCoordinates),
-    defaultBuildFile = buildFileDefault(kase),
-    defaultSettingsFile = settingsFileDefault(kase)
-  )
+  ): GradleTestEnvironment {
+
+    val gradleVersion = (kase as? KaseBag)?.getOrNull(GradleDependencyVersion)
+      ?: (kase as? HasGradleDependencyVersion)?.gradle
+      ?: GradleDependencyVersion.current()
+
+    val hasWorkingDir = HasWorkingDir(listOf(kase.displayName), testFunctionCoordinates)
+
+    return DefaultGradleTestEnvironment(
+      gradleVersion = gradleVersion,
+      dslLanguage = this.dslLanguage,
+      hasWorkingDir = hasWorkingDir,
+      defaultBuildFile = buildFileDefault(kase),
+      defaultSettingsFile = settingsFileDefault(kase)
+    )
+  }
 }

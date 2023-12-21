@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,23 +20,24 @@
   "PackageDirectoryMismatch"
 )
 @file:JvmMultifileClass
-@file:JvmName("KasesKt")
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.KaseMatrix.KaseMatrixElement
+import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
 import com.rickbusarow.kase.files.TestFunctionCoordinates
 import com.rickbusarow.kase.internal.KaseInternal
 import dev.drewhamilton.poko.Poko
+import java.util.stream.Stream
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
-import java.util.stream.Stream
 
 /**
  * A strongly typed version of [Kase] for 4 parameters.
  *
  * @since 0.1.0
  */
-public interface Kase4<A1, A2, A3, A4> : Kase3<A1, A2, A3> {
+public interface Kase4<out A1, out A2, out A3, out A4> : Kase3<A1, A2, A3> {
 
   /** The 4th parameter. */
   public val a4: A4
@@ -47,7 +48,7 @@ public interface Kase4<A1, A2, A3, A4> : Kase3<A1, A2, A3> {
 
 @Poko
 @PublishedApi
-internal class DefaultKase4<A1, A2, A3, A4>(
+internal class DefaultKase4<out A1, out A2, out A3, out A4>(
   override val a1: A1,
   override val a2: A2,
   override val a3: A3,
@@ -63,6 +64,81 @@ internal class DefaultKase4<A1, A2, A3, A4>(
   override operator fun component2(): A2 = a2
   override operator fun component3(): A3 = a3
   override operator fun component4(): A4 = a4
+}
+
+/**
+ * Returns a list of [Kase4]s from this [KaseMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param displayNameFactory defines the name used in test environments and dynamic tests
+ * @return a list of [Kase4]s from this [KaseMatrix] for the given keys.
+ * @since 0.5.0
+ */
+public inline fun <
+  reified A1 : KaseMatrixElement<*>,
+  reified A2 : KaseMatrixElement<*>,
+  reified A3 : KaseMatrixElement<*>,
+  reified A4 : KaseMatrixElement<*>
+> KaseMatrix.kases(
+  a1Key: KaseMatrixKey<A1>,
+  a2Key: KaseMatrixKey<A2>,
+  a3Key: KaseMatrixKey<A3>,
+  a4Key: KaseMatrixKey<A4>,
+  displayNameFactory: KaseDisplayNameFactory<Kase4<A1, A2, A3, A4>> = KaseDisplayNameFactory {
+    "${a1.label}: ${a1.value} | ${a2.label}: ${a2.value} | ${a3.label}: ${a3.value} | ${a4.label}: ${a4.value}"
+  }
+): List<Kase4<A1, A2, A3, A4>> {
+  return buildList {
+    for (a1 in get(a1Key)) {
+      for (a2 in get(a2Key)) {
+        for (a3 in get(a3Key)) {
+          for (a4 in get(a4Key)) {
+            add(kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, displayNameFactory = displayNameFactory))
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Returns a list of [Kase4]s from this [KaseMatrix] for the given keys.
+ *
+ * @param a1Key the key for the 1st parameter.
+ * @param a2Key the key for the 2nd parameter.
+ * @param a3Key the key for the 3rd parameter.
+ * @param a4Key the key for the 4th parameter.
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase4]s from this [KaseMatrix] for the given keys.
+ * @since 0.5.0
+ */
+public inline fun <
+  reified A1 : KaseMatrixElement<*>,
+  reified A2 : KaseMatrixElement<*>,
+  reified A3 : KaseMatrixElement<*>,
+  reified A4 : KaseMatrixElement<*>,
+  T : Kase4<A1, A2, A3, A4>
+> KaseMatrix.get(
+  a1Key: KaseMatrixKey<A1>,
+  a2Key: KaseMatrixKey<A2>,
+  a3Key: KaseMatrixKey<A3>,
+  a4Key: KaseMatrixKey<A4>,
+  instanceFactory: (A1, A2, A3, A4) -> T
+): List<T> {
+  return buildList {
+    for (a1 in get(a1Key)) {
+      for (a2 in get(a2Key)) {
+        for (a3 in get(a3Key)) {
+          for (a4 in get(a4Key)) {
+            add(instanceFactory(a1, a2, a3, a4))
+          }
+        }
+      }
+    }
+  }
 }
 
 private fun <A1, A2, A3, A4> defaultKase4DisplayNameFactory(): KaseDisplayNameFactory<Kase4<A1, A2, A3, A4>> {
@@ -265,6 +341,22 @@ public operator fun <A1, A2, A3, A4, B1> Iterable<Kase4<A1, A2, A3, A4>>.times(
 }
 
 /**
+ * @param others the [Kase1] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase5]s from the cartesian product of this [Kase4] and the given [Kase1].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase1InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase1<B1>>,
+  instanceFactory: (A1, A2, A3, A4, B1) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1) ->
+    instanceFactory(a1, a2, a3, a4, b1)
+  }
+}
+
+/**
  * @param others the [Kase2] to combine with this [Kase4]
  * @return a list of [Kase6]s from the cartesian product of this [Kase4] and the given [Kase2].
  * @since 0.1.0
@@ -275,6 +367,22 @@ public operator fun <A1, A2, A3, A4, B1, B2> Iterable<Kase4<A1, A2, A3, A4>>.tim
 ): List<Kase6<A1, A2, A3, A4, B1, B2>> = flatMap { (a1, a2, a3, a4) ->
   others.map { (b1, b2) ->
     kase(a1, a2, a3, a4, b1, b2)
+  }
+}
+
+/**
+ * @param others the [Kase2] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase6]s from the cartesian product of this [Kase4] and the given [Kase2].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase2InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase2<B1, B2>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2)
   }
 }
 
@@ -293,6 +401,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3> Iterable<Kase4<A1, A2, A3, A4>>
 }
 
 /**
+ * @param others the [Kase3] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase7]s from the cartesian product of this [Kase4] and the given [Kase3].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase3InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase3<B1, B2, B3>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3)
+  }
+}
+
+/**
  * @param others the [Kase4] to combine with this [Kase4]
  * @return a list of [Kase8]s from the cartesian product of this [Kase4] and the given [Kase4].
  * @since 0.1.0
@@ -303,6 +427,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4> Iterable<Kase4<A1, A2, A3, 
 ): List<Kase8<A1, A2, A3, A4, B1, B2, B3, B4>> = flatMap { (a1, a2, a3, a4) ->
   others.map { (b1, b2, b3, b4) ->
     kase(a1, a2, a3, a4, b1, b2, b3, b4)
+  }
+}
+
+/**
+ * @param others the [Kase4] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase8]s from the cartesian product of this [Kase4] and the given [Kase4].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase4InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase4<B1, B2, B3, B4>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4)
   }
 }
 
@@ -321,6 +461,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5> Iterable<Kase4<A1, A2, 
 }
 
 /**
+ * @param others the [Kase5] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase9]s from the cartesian product of this [Kase4] and the given [Kase5].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase5InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase5<B1, B2, B3, B4, B5>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5)
+  }
+}
+
+/**
  * @param others the [Kase6] to combine with this [Kase4]
  * @return a list of [Kase10]s from the cartesian product of this [Kase4] and the given [Kase6].
  * @since 0.1.0
@@ -331,6 +487,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6> Iterable<Kase4<A1, 
 ): List<Kase10<A1, A2, A3, A4, B1, B2, B3, B4, B5, B6>> = flatMap { (a1, a2, a3, a4) ->
   others.map { (b1, b2, b3, b4, b5, b6) ->
     kase(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6)
+  }
+}
+
+/**
+ * @param others the [Kase6] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase10]s from the cartesian product of this [Kase4] and the given [Kase6].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase6InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase6<B1, B2, B3, B4, B5, B6>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6)
   }
 }
 
@@ -349,6 +521,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7> Iterable<Kase4<
 }
 
 /**
+ * @param others the [Kase7] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase11]s from the cartesian product of this [Kase4] and the given [Kase7].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase7InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase7<B1, B2, B3, B4, B5, B6, B7>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7)
+  }
+}
+
+/**
  * @param others the [Kase8] to combine with this [Kase4]
  * @return a list of [Kase12]s from the cartesian product of this [Kase4] and the given [Kase8].
  * @since 0.1.0
@@ -359,6 +547,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8> Iterable<Ka
 ): List<Kase12<A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8>> = flatMap { (a1, a2, a3, a4) ->
   others.map { (b1, b2, b3, b4, b5, b6, b7, b8) ->
     kase(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8)
+  }
+}
+
+/**
+ * @param others the [Kase8] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase12]s from the cartesian product of this [Kase4] and the given [Kase8].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase8InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase8<B1, B2, B3, B4, B5, B6, B7, B8>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8)
   }
 }
 
@@ -377,6 +581,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9> Iterabl
 }
 
 /**
+ * @param others the [Kase9] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase13]s from the cartesian product of this [Kase4] and the given [Kase9].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase9InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase9<B1, B2, B3, B4, B5, B6, B7, B8, B9>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9)
+  }
+}
+
+/**
  * @param others the [Kase10] to combine with this [Kase4]
  * @return a list of [Kase14]s from the cartesian product of this [Kase4] and the given [Kase10].
  * @since 0.1.0
@@ -387,6 +607,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10> It
 ): List<Kase14<A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10>> = flatMap { (a1, a2, a3, a4) ->
   others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10) ->
     kase(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10)
+  }
+}
+
+/**
+ * @param others the [Kase10] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase14]s from the cartesian product of this [Kase4] and the given [Kase10].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase10InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase10<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10)
   }
 }
 
@@ -405,6 +641,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B1
 }
 
 /**
+ * @param others the [Kase11] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase15]s from the cartesian product of this [Kase4] and the given [Kase11].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase11InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase11<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11)
+  }
+}
+
+/**
  * @param others the [Kase12] to combine with this [Kase4]
  * @return a list of [Kase16]s from the cartesian product of this [Kase4] and the given [Kase12].
  * @since 0.1.0
@@ -415,6 +667,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B1
 ): List<Kase16<A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12>> = flatMap { (a1, a2, a3, a4) ->
   others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12) ->
     kase(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12)
+  }
+}
+
+/**
+ * @param others the [Kase12] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase16]s from the cartesian product of this [Kase4] and the given [Kase12].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase12InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase12<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12)
   }
 }
 
@@ -433,6 +701,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B1
 }
 
 /**
+ * @param others the [Kase13] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase17]s from the cartesian product of this [Kase4] and the given [Kase13].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase13InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase13<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13)
+  }
+}
+
+/**
  * @param others the [Kase14] to combine with this [Kase4]
  * @return a list of [Kase18]s from the cartesian product of this [Kase4] and the given [Kase14].
  * @since 0.1.0
@@ -443,6 +727,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B1
 ): List<Kase18<A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14>> = flatMap { (a1, a2, a3, a4) ->
   others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14) ->
     kase(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14)
+  }
+}
+
+/**
+ * @param others the [Kase14] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase18]s from the cartesian product of this [Kase4] and the given [Kase14].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase14InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase14<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14)
   }
 }
 
@@ -461,6 +761,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B1
 }
 
 /**
+ * @param others the [Kase15] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase19]s from the cartesian product of this [Kase4] and the given [Kase15].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase15InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase15<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15)
+  }
+}
+
+/**
  * @param others the [Kase16] to combine with this [Kase4]
  * @return a list of [Kase20]s from the cartesian product of this [Kase4] and the given [Kase16].
  * @since 0.1.0
@@ -471,6 +787,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B1
 ): List<Kase20<A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16>> = flatMap { (a1, a2, a3, a4) ->
   others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16) ->
     kase(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16)
+  }
+}
+
+/**
+ * @param others the [Kase16] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase20]s from the cartesian product of this [Kase4] and the given [Kase16].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase16InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase16<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16)
   }
 }
 
@@ -489,6 +821,22 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B1
 }
 
 /**
+ * @param others the [Kase17] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase21]s from the cartesian product of this [Kase4] and the given [Kase17].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase17InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase17<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17)
+  }
+}
+
+/**
  * @param others the [Kase18] to combine with this [Kase4]
  * @return a list of [Kase22]s from the cartesian product of this [Kase4] and the given [Kase18].
  * @since 0.1.0
@@ -499,5 +847,21 @@ public operator fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B1
 ): List<Kase22<A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18>> = flatMap { (a1, a2, a3, a4) ->
   others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18) ->
     kase(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18)
+  }
+}
+
+/**
+ * @param others the [Kase18] to combine with this [Kase4]
+ * @param instanceFactory creates a custom Kase instance for each permutation
+ * @return a list of [Kase22]s from the cartesian product of this [Kase4] and the given [Kase18].
+ * @since 0.1.0
+ */
+@JvmName("kase4timesKase18InstanceFactory")
+public inline fun <A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18, T> Iterable<Kase4<A1, A2, A3, A4>>.times(
+  others: Iterable<Kase18<B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18>>,
+  instanceFactory: (A1, A2, A3, A4, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13, B14, B15, B16, B17, B18) -> T
+): List<T> = flatMap { (a1, a2, a3, a4) ->
+  others.map { (b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18) ->
+    instanceFactory(a1, a2, a3, a4, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15, b16, b17, b18)
   }
 }

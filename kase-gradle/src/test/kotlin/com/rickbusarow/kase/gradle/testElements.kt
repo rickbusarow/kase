@@ -13,214 +13,205 @@
  * limitations under the License.
  */
 
-@file:Suppress(
-  "DestructuringDeclarationWithTooManyEntries",
-  "DuplicatedCode",
-  "MaxLineLength",
-  "PackageDirectoryMismatch"
-)
-@file:JvmMultifileClass
-@file:JvmName("KasesKt")
-
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.gradle.TestVersion1.TestVersion1Key
-import com.rickbusarow.kase.gradle.TestVersion10.TestVersion10Key
-import com.rickbusarow.kase.gradle.TestVersion11.TestVersion11Key
-import com.rickbusarow.kase.gradle.TestVersion12.TestVersion12Key
-import com.rickbusarow.kase.gradle.TestVersion13.TestVersion13Key
-import com.rickbusarow.kase.gradle.TestVersion14.TestVersion14Key
-import com.rickbusarow.kase.gradle.TestVersion15.TestVersion15Key
-import com.rickbusarow.kase.gradle.TestVersion16.TestVersion16Key
-import com.rickbusarow.kase.gradle.TestVersion17.TestVersion17Key
-import com.rickbusarow.kase.gradle.TestVersion18.TestVersion18Key
-import com.rickbusarow.kase.gradle.TestVersion19.TestVersion19Key
-import com.rickbusarow.kase.gradle.TestVersion2.TestVersion2Key
-import com.rickbusarow.kase.gradle.TestVersion20.TestVersion20Key
-import com.rickbusarow.kase.gradle.TestVersion21.TestVersion21Key
-import com.rickbusarow.kase.gradle.TestVersion22.TestVersion22Key
-import com.rickbusarow.kase.gradle.TestVersion3.TestVersion3Key
-import com.rickbusarow.kase.gradle.TestVersion4.TestVersion4Key
-import com.rickbusarow.kase.gradle.TestVersion5.TestVersion5Key
-import com.rickbusarow.kase.gradle.TestVersion6.TestVersion6Key
-import com.rickbusarow.kase.gradle.TestVersion7.TestVersion7Key
-import com.rickbusarow.kase.gradle.TestVersion8.TestVersion8Key
-import com.rickbusarow.kase.gradle.TestVersion9.TestVersion9Key
-import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
+import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
+import com.rickbusarow.kase.gradle.TestElement1.TestElement1Key
+import com.rickbusarow.kase.gradle.TestElement10.TestElement10Key
+import com.rickbusarow.kase.gradle.TestElement11.TestElement11Key
+import com.rickbusarow.kase.gradle.TestElement12.TestElement12Key
+import com.rickbusarow.kase.gradle.TestElement13.TestElement13Key
+import com.rickbusarow.kase.gradle.TestElement14.TestElement14Key
+import com.rickbusarow.kase.gradle.TestElement15.TestElement15Key
+import com.rickbusarow.kase.gradle.TestElement16.TestElement16Key
+import com.rickbusarow.kase.gradle.TestElement17.TestElement17Key
+import com.rickbusarow.kase.gradle.TestElement18.TestElement18Key
+import com.rickbusarow.kase.gradle.TestElement19.TestElement19Key
+import com.rickbusarow.kase.gradle.TestElement2.TestElement2Key
+import com.rickbusarow.kase.gradle.TestElement20.TestElement20Key
+import com.rickbusarow.kase.gradle.TestElement21.TestElement21Key
+import com.rickbusarow.kase.gradle.TestElement22.TestElement22Key
+import com.rickbusarow.kase.gradle.TestElement3.TestElement3Key
+import com.rickbusarow.kase.gradle.TestElement4.TestElement4Key
+import com.rickbusarow.kase.gradle.TestElement5.TestElement5Key
+import com.rickbusarow.kase.gradle.TestElement6.TestElement6Key
+import com.rickbusarow.kase.gradle.TestElement7.TestElement7Key
+import com.rickbusarow.kase.gradle.TestElement8.TestElement8Key
+import com.rickbusarow.kase.gradle.TestElement9.TestElement9Key
 import dev.drewhamilton.poko.Poko
 
 @Poko
-class TestVersion1(
+class TestElement1(
   override val value: String
-) : AbstractDependencyVersion<TestVersion1, TestVersion1Key>(TestVersion1Key) {
+) : AbstractDependencyVersion<TestElement1, TestElement1Key>(TestElement1Key) {
 
-  companion object TestVersion1Key : VersionMatrixKey<TestVersion1>
+  companion object TestElement1Key : KaseMatrixKey<TestElement1>
 }
 
 @Poko
-class TestVersion2(
+class TestElement2(
   override val value: String
-) : AbstractDependencyVersion<TestVersion2, TestVersion2Key>(TestVersion2Key) {
+) : AbstractDependencyVersion<TestElement2, TestElement2Key>(TestElement2Key) {
 
-  companion object TestVersion2Key : VersionMatrixKey<TestVersion2>
+  companion object TestElement2Key : KaseMatrixKey<TestElement2>
 }
 
 @Poko
-class TestVersion3(
+class TestElement3(
   override val value: String
-) : AbstractDependencyVersion<TestVersion3, TestVersion3Key>(TestVersion3Key) {
+) : AbstractDependencyVersion<TestElement3, TestElement3Key>(TestElement3Key) {
 
-  companion object TestVersion3Key : VersionMatrixKey<TestVersion3>
+  companion object TestElement3Key : KaseMatrixKey<TestElement3>
 }
 
 @Poko
-class TestVersion4(
+class TestElement4(
   override val value: String
-) : AbstractDependencyVersion<TestVersion4, TestVersion4Key>(TestVersion4Key) {
+) : AbstractDependencyVersion<TestElement4, TestElement4Key>(TestElement4Key) {
 
-  companion object TestVersion4Key : VersionMatrixKey<TestVersion4>
+  companion object TestElement4Key : KaseMatrixKey<TestElement4>
 }
 
 @Poko
-class TestVersion5(
+class TestElement5(
   override val value: String
-) : AbstractDependencyVersion<TestVersion5, TestVersion5Key>(TestVersion5Key) {
+) : AbstractDependencyVersion<TestElement5, TestElement5Key>(TestElement5Key) {
 
-  companion object TestVersion5Key : VersionMatrixKey<TestVersion5>
+  companion object TestElement5Key : KaseMatrixKey<TestElement5>
 }
 
 @Poko
-class TestVersion6(
+class TestElement6(
   override val value: String
-) : AbstractDependencyVersion<TestVersion6, TestVersion6Key>(TestVersion6Key) {
+) : AbstractDependencyVersion<TestElement6, TestElement6Key>(TestElement6Key) {
 
-  companion object TestVersion6Key : VersionMatrixKey<TestVersion6>
+  companion object TestElement6Key : KaseMatrixKey<TestElement6>
 }
 
 @Poko
-class TestVersion7(
+class TestElement7(
   override val value: String
-) : AbstractDependencyVersion<TestVersion7, TestVersion7Key>(TestVersion7Key) {
+) : AbstractDependencyVersion<TestElement7, TestElement7Key>(TestElement7Key) {
 
-  companion object TestVersion7Key : VersionMatrixKey<TestVersion7>
+  companion object TestElement7Key : KaseMatrixKey<TestElement7>
 }
 
 @Poko
-class TestVersion8(
+class TestElement8(
   override val value: String
-) : AbstractDependencyVersion<TestVersion8, TestVersion8Key>(TestVersion8Key) {
+) : AbstractDependencyVersion<TestElement8, TestElement8Key>(TestElement8Key) {
 
-  companion object TestVersion8Key : VersionMatrixKey<TestVersion8>
+  companion object TestElement8Key : KaseMatrixKey<TestElement8>
 }
 
 @Poko
-class TestVersion9(
+class TestElement9(
   override val value: String
-) : AbstractDependencyVersion<TestVersion9, TestVersion9Key>(TestVersion9Key) {
+) : AbstractDependencyVersion<TestElement9, TestElement9Key>(TestElement9Key) {
 
-  companion object TestVersion9Key : VersionMatrixKey<TestVersion9>
+  companion object TestElement9Key : KaseMatrixKey<TestElement9>
 }
 
 @Poko
-class TestVersion10(
+class TestElement10(
   override val value: String
-) : AbstractDependencyVersion<TestVersion10, TestVersion10Key>(TestVersion10Key) {
+) : AbstractDependencyVersion<TestElement10, TestElement10Key>(TestElement10Key) {
 
-  companion object TestVersion10Key : VersionMatrixKey<TestVersion10>
+  companion object TestElement10Key : KaseMatrixKey<TestElement10>
 }
 
 @Poko
-class TestVersion11(
+class TestElement11(
   override val value: String
-) : AbstractDependencyVersion<TestVersion11, TestVersion11Key>(TestVersion11Key) {
+) : AbstractDependencyVersion<TestElement11, TestElement11Key>(TestElement11Key) {
 
-  companion object TestVersion11Key : VersionMatrixKey<TestVersion11>
+  companion object TestElement11Key : KaseMatrixKey<TestElement11>
 }
 
 @Poko
-class TestVersion12(
+class TestElement12(
   override val value: String
-) : AbstractDependencyVersion<TestVersion12, TestVersion12Key>(TestVersion12Key) {
+) : AbstractDependencyVersion<TestElement12, TestElement12Key>(TestElement12Key) {
 
-  companion object TestVersion12Key : VersionMatrixKey<TestVersion12>
+  companion object TestElement12Key : KaseMatrixKey<TestElement12>
 }
 
 @Poko
-class TestVersion13(
+class TestElement13(
   override val value: String
-) : AbstractDependencyVersion<TestVersion13, TestVersion13Key>(TestVersion13Key) {
+) : AbstractDependencyVersion<TestElement13, TestElement13Key>(TestElement13Key) {
 
-  companion object TestVersion13Key : VersionMatrixKey<TestVersion13>
+  companion object TestElement13Key : KaseMatrixKey<TestElement13>
 }
 
 @Poko
-class TestVersion14(
+class TestElement14(
   override val value: String
-) : AbstractDependencyVersion<TestVersion14, TestVersion14Key>(TestVersion14Key) {
+) : AbstractDependencyVersion<TestElement14, TestElement14Key>(TestElement14Key) {
 
-  companion object TestVersion14Key : VersionMatrixKey<TestVersion14>
+  companion object TestElement14Key : KaseMatrixKey<TestElement14>
 }
 
 @Poko
-class TestVersion15(
+class TestElement15(
   override val value: String
-) : AbstractDependencyVersion<TestVersion15, TestVersion15Key>(TestVersion15Key) {
+) : AbstractDependencyVersion<TestElement15, TestElement15Key>(TestElement15Key) {
 
-  companion object TestVersion15Key : VersionMatrixKey<TestVersion15>
+  companion object TestElement15Key : KaseMatrixKey<TestElement15>
 }
 
 @Poko
-class TestVersion16(
+class TestElement16(
   override val value: String
-) : AbstractDependencyVersion<TestVersion16, TestVersion16Key>(TestVersion16Key) {
+) : AbstractDependencyVersion<TestElement16, TestElement16Key>(TestElement16Key) {
 
-  companion object TestVersion16Key : VersionMatrixKey<TestVersion16>
+  companion object TestElement16Key : KaseMatrixKey<TestElement16>
 }
 
 @Poko
-class TestVersion17(
+class TestElement17(
   override val value: String
-) : AbstractDependencyVersion<TestVersion17, TestVersion17Key>(TestVersion17Key) {
+) : AbstractDependencyVersion<TestElement17, TestElement17Key>(TestElement17Key) {
 
-  companion object TestVersion17Key : VersionMatrixKey<TestVersion17>
+  companion object TestElement17Key : KaseMatrixKey<TestElement17>
 }
 
 @Poko
-class TestVersion18(
+class TestElement18(
   override val value: String
-) : AbstractDependencyVersion<TestVersion18, TestVersion18Key>(TestVersion18Key) {
+) : AbstractDependencyVersion<TestElement18, TestElement18Key>(TestElement18Key) {
 
-  companion object TestVersion18Key : VersionMatrixKey<TestVersion18>
+  companion object TestElement18Key : KaseMatrixKey<TestElement18>
 }
 
 @Poko
-class TestVersion19(
+class TestElement19(
   override val value: String
-) : AbstractDependencyVersion<TestVersion19, TestVersion19Key>(TestVersion19Key) {
+) : AbstractDependencyVersion<TestElement19, TestElement19Key>(TestElement19Key) {
 
-  companion object TestVersion19Key : VersionMatrixKey<TestVersion19>
+  companion object TestElement19Key : KaseMatrixKey<TestElement19>
 }
 
 @Poko
-class TestVersion20(
+class TestElement20(
   override val value: String
-) : AbstractDependencyVersion<TestVersion20, TestVersion20Key>(TestVersion20Key) {
+) : AbstractDependencyVersion<TestElement20, TestElement20Key>(TestElement20Key) {
 
-  companion object TestVersion20Key : VersionMatrixKey<TestVersion20>
+  companion object TestElement20Key : KaseMatrixKey<TestElement20>
 }
 
 @Poko
-class TestVersion21(
+class TestElement21(
   override val value: String
-) : AbstractDependencyVersion<TestVersion21, TestVersion21Key>(TestVersion21Key) {
+) : AbstractDependencyVersion<TestElement21, TestElement21Key>(TestElement21Key) {
 
-  companion object TestVersion21Key : VersionMatrixKey<TestVersion21>
+  companion object TestElement21Key : KaseMatrixKey<TestElement21>
 }
 
 @Poko
-class TestVersion22(
+class TestElement22(
   override val value: String
-) : AbstractDependencyVersion<TestVersion22, TestVersion22Key>(TestVersion22Key) {
+) : AbstractDependencyVersion<TestElement22, TestElement22Key>(TestElement22Key) {
 
-  companion object TestVersion22Key : VersionMatrixKey<TestVersion22>
+  companion object TestElement22Key : KaseMatrixKey<TestElement22>
 }

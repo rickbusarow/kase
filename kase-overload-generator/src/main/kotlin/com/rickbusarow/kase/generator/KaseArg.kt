@@ -16,65 +16,32 @@
 package com.rickbusarow.kase.generator
 
 internal data class KaseArg(
-  /**
-   * 1-21
-   *
-   * @since 0.1.0
-   */
+  /** 1-21 */
   val number: Int,
-  /**
-   * `a_` as in `a1`
-   *
-   * @since 0.1.0
-   */
+  /** `a_` as in `a1` */
   val valuePrefix: String = "a",
-  /**
-   * `A_` as in `A1`
-   *
-   * @since 0.1.0
-   */
+  /** `A_` as in `A1` */
   val valueTypeNamePrefix: String = "A"
 ) {
-  /**
-   * `a1`
-   *
-   * @since 0.1.0
-   */
+  /** `a1` */
   val valueName = "$valuePrefix$number"
 
-  /**
-   * `A1`
-   *
-   * @since 0.1.0
-   */
+  /** `A1` */
   val valueTypeName = "$valueTypeNamePrefix$number"
 
-  /**
-   * `a1Label`
-   *
-   * @since 0.1.0
-   */
+  /** `out A1` */
+  val outValueTypeName = "out $valueTypeNamePrefix$number"
+
+  /** `a1Label` */
   val labelName = "${valueName}Label"
 
-  /**
-   * `args1`
-   *
-   * @since 0.1.0
-   */
+  /** `args1` */
   val iterableName = "args$number"
 
-  /**
-   * `a1WithLabel`
-   *
-   * @since 0.1.0
-   */
+  /** `a1WithLabel` */
   val valueWithLabelName = "${valueName}WithLabel"
 
-  /**
-   * `KaseParameterWithLabel<A1>`
-   *
-   * @since 0.1.0
-   */
+  /** `KaseParameterWithLabel<A1>` */
   val valueWithLabelTypeName = "KaseParameterWithLabel<$valueTypeName>"
 
   /**
@@ -82,21 +49,13 @@ internal data class KaseArg(
    * /** @see Kase1.ai */
    * public operator fun component1(): Ai = ai
    * ```
-   *
-   * @since 0.1.0
    */
   val componentFun = """
     /** @see Kase$number.$valueName */
     public operator fun component$number(): $valueTypeName = $valueName
   """.trimIndent()
 
-  /**
-   * ```
-   * override operator fun component1(): Ai = ai
-   * ```
-   *
-   * @since 0.1.0
-   */
+  /** `override operator fun component1(): Ai = ai` */
   val componentFunOverride =
     "override operator fun component$number(): $valueTypeName = $valueName"
 
@@ -104,75 +63,51 @@ internal data class KaseArg(
 
   companion object {
 
-    /**
-     * `parameter` or `parameters`
-     *
-     * @since 0.1.0
-     */
+    /** `parameter` or `parameters` */
     val List<KaseArg>.parametersPlural: String
       get() = if (size == 1) "parameter" else "parameters"
 
-    /**
-     * [`a1`, `a2`, `a3`, ...]
-     *
-     * @since 0.1.0
-     */
+    /** [`a1`, `a2`, `a3`, ...] */
     val List<KaseArg>.valueNames: List<String>
       get() = map { it.valueName }
 
-    /**
-     * [`A1`, `A2`, `A3`, ...]
-     *
-     * @since 0.1.0
-     */
+    /** [`A1`, `A2`, `A3`, ...] */
     val List<KaseArg>.valueTypes: List<String>
       get() = map { it.valueTypeName }
 
-    /**
-     * `"A1, A2, A3"`
-     *
-     * @since 0.1.0
-     */
+    /** [`out A1`, `out A2`, `out A3`, ...] */
+    val List<KaseArg>.outValueTypes: List<String>
+      get() = map { it.outValueTypeName }
+
+    /** `"A1, A2, A3"` */
     val List<KaseArg>.valueTypesString: String
       get() = valueTypes.joinToString(", ")
 
-    /**
-     * `["a1" to "A1", "a2" to "A2", "a3" to "A3", ...]`
-     *
-     * @since 0.1.0
-     */
+    /** `"out A1, out A2, out A3"` */
+    val List<KaseArg>.outValueTypesString: String
+      get() = outValueTypes.joinToString(", ")
+
+    /** `["a1" to "A1", "a2" to "A2", "a3" to "A3", ...]` */
     val List<KaseArg>.valueTypePairs: List<Pair<String, String>>
       get() = valueNames.zip(valueTypes)
 
-    /**
-     * `["a1: A1", "a2: A2", "a3: A3", ...]`
-     *
-     * @since 0.1.0
-     */
+    /** `["a1" to "out A1", "a2" to "out A2", "a3" to "out A3", ...]` */
+    val List<KaseArg>.outValueTypePairs: List<Pair<String, String>>
+      get() = valueNames.zip(outValueTypes)
+
+    /** `["a1: A1", "a2: A2", "a3: A3", ...]` */
     val List<KaseArg>.params: List<String>
       get() = valueTypePairs.map { "${it.first}: ${it.second}" }
 
-    /**
-     * `"a1: A1, a2: A2, a3: A3"`
-     *
-     * @since 0.1.0
-     */
+    /** `"a1: A1, a2: A2, a3: A3"` */
     val List<KaseArg>.paramsString: String
       get() = params.joinToString(", ")
 
-    /**
-     * `"it.a1, it.a2, it.a3"`
-     *
-     * @since 0.1.0
-     */
+    /** `"it.a1, it.a2, it.a3"` */
     val List<KaseArg>.valuesFromItString: String
       get() = valueNames.joinToString(", ") { arg -> "it.$arg" }
 
-    /**
-     * `"a1 = a1, a2 = a2, a3 = a3"`
-     *
-     * @since 0.1.0
-     */
+    /** `"a1 = a1, a2 = a2, a3 = a3"` */
     val List<KaseArg>.argsWithParamNames: String
       get() = valueNames.joinToString(", ") { arg -> "$arg = $arg" }
 
@@ -181,8 +116,6 @@ internal data class KaseArg(
      *   args1: Iterable<A1>,
      *   args2: Iterable<A2>
      * ```
-     *
-     * @since 0.1.0
      */
     val List<KaseArg>.argsIterableValueParams: String
       get() = joinToString(",\n  ") { arg ->
@@ -194,8 +127,6 @@ internal data class KaseArg(
      *   args1: Sequence<A1>,
      *   args2: Sequence<A2>
      * ```
-     *
-     * @since 0.1.0
      */
     val List<KaseArg>.argsSequenceValueParams: String
       get() = joinToString(",\n  ") { arg ->
@@ -207,8 +138,6 @@ internal data class KaseArg(
      *   override val a1: A1,
      *   override val a2: A2
      * ```
-     *
-     * @since 0.1.0
      */
     val List<KaseArg>.argsValueParams: String
       get() = joinToString(",\n  ") { arg ->

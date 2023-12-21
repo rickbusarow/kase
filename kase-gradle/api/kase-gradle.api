@@ -1,14 +1,10 @@
-public abstract class com/rickbusarow/kase/gradle/AbstractDependencyVersion : com/rickbusarow/kase/gradle/DependencyVersion, java/lang/Comparable {
-	public fun <init> (Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey;)V
-	public fun compareTo (Lcom/rickbusarow/kase/gradle/DependencyVersion;)I
+public abstract class com/rickbusarow/kase/gradle/AbstractDependencyVersion : com/rickbusarow/kase/gradle/DependencyVersion {
+	public fun <init> (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)V
+	public fun asString ()Ljava/lang/String;
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
-	public fun getKey ()Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey;
+	public fun getKey ()Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;
 	public fun getLabel ()Ljava/lang/String;
-	public fun toString ()Ljava/lang/String;
-}
-
-public abstract class com/rickbusarow/kase/gradle/AbstractVersionMatrixKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
-	public fun <init> ()V
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -19,7 +15,9 @@ public final class com/rickbusarow/kase/gradle/AgpDependencyVersion : com/rickbu
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/AgpDependencyVersion$AgpKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/AgpDependencyVersion$AgpKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 }
 
 public final class com/rickbusarow/kase/gradle/AnvilDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
@@ -29,7 +27,9 @@ public final class com/rickbusarow/kase/gradle/AnvilDependencyVersion : com/rick
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/AnvilDependencyVersion$AnvilKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/AnvilDependencyVersion$AnvilKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 }
 
 public final class com/rickbusarow/kase/gradle/ComposeCompilerDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
@@ -39,7 +39,9 @@ public final class com/rickbusarow/kase/gradle/ComposeCompilerDependencyVersion 
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/ComposeCompilerDependencyVersion$ComposeCompilerKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/ComposeCompilerDependencyVersion$ComposeCompilerKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 }
 
 public final class com/rickbusarow/kase/gradle/DaggerDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
@@ -49,7 +51,107 @@ public final class com/rickbusarow/kase/gradle/DaggerDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/DaggerDependencyVersion$DaggerKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/DaggerDependencyVersion$DaggerKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+}
+
+public final class com/rickbusarow/kase/gradle/DefaultGradleAgpTestVersions : com/rickbusarow/kase/Kase2, com/rickbusarow/kase/gradle/GradleAgpTestVersions, com/rickbusarow/kase/gradle/HasAgpDependencyVersion, com/rickbusarow/kase/gradle/HasGradleDependencyVersion {
+	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;)V
+	public fun component1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public synthetic fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
+	public synthetic fun component2 ()Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public synthetic fun getA1 ()Ljava/lang/Object;
+	public fun getA2 ()Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
+	public synthetic fun getA2 ()Ljava/lang/Object;
+	public fun getAgp ()Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
+	public fun getAgpVersion ()Ljava/lang/String;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getGradle ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public fun getGradleVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DefaultGradleKotlinAgpTestVersions : com/rickbusarow/kase/Kase3, com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions, com/rickbusarow/kase/gradle/HasAgpDependencyVersion, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/HasKotlinDependencyVersion {
+	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;)V
+	public fun component1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public synthetic fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
+	public synthetic fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
+	public synthetic fun component3 ()Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public synthetic fun getA1 ()Ljava/lang/Object;
+	public fun getA2 ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
+	public synthetic fun getA2 ()Ljava/lang/Object;
+	public fun getA3 ()Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
+	public synthetic fun getA3 ()Ljava/lang/Object;
+	public fun getAgp ()Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
+	public fun getAgpVersion ()Ljava/lang/String;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getGradle ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public fun getGradleVersion ()Ljava/lang/String;
+	public fun getKotlin ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
+	public fun getKotlinVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DefaultGradleKotlinTestVersions : com/rickbusarow/kase/Kase2, com/rickbusarow/kase/gradle/GradleKotlinTestVersions, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/HasKotlinDependencyVersion {
+	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;)V
+	public fun component1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public synthetic fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
+	public synthetic fun component2 ()Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public synthetic fun getA1 ()Ljava/lang/Object;
+	public fun getA2 ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
+	public synthetic fun getA2 ()Ljava/lang/Object;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getGradle ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public fun getGradleVersion ()Ljava/lang/String;
+	public fun getKotlin ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
+	public fun getKotlinVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public class com/rickbusarow/kase/gradle/DefaultGradleTestEnvironment : com/rickbusarow/kase/DefaultTestEnvironment, com/rickbusarow/kase/gradle/GradleTestEnvironment, com/rickbusarow/kase/gradle/HasDslLanguage, com/rickbusarow/kase/gradle/HasGradleRunner {
+	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/DslLanguage;Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/DslStringFactory;Lcom/rickbusarow/kase/gradle/DslStringFactory;)V
+	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/DslLanguage;Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;)V
+	public fun <init> (Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;Lcom/rickbusarow/kase/gradle/DslLanguage;Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/DslStringFactory;Lcom/rickbusarow/kase/gradle/DslStringFactory;)V
+	public fun build (Ljava/util/List;ZZZZLjava/io/File;Z)Lorg/gradle/testkit/runner/BuildResult;
+	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
+	public fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
+	public fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
+	public fun getRootProject ()Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
+	public fun getWorkingDir ()Ljava/io/File;
+	public final fun rootProject (Lkotlin/jvm/functions/Function1;)Ljava/io/File;
+	public fun shouldFail ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
+	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
+	public fun shouldSucceed ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/gradle/DefaultGradleTestVersions : com/rickbusarow/kase/Kase1, com/rickbusarow/kase/gradle/GradleTestVersions, com/rickbusarow/kase/gradle/HasGradleDependencyVersion {
+	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;)V
+	public fun component1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public synthetic fun component1 ()Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun getA1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public synthetic fun getA1 ()Ljava/lang/Object;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getGradle ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public fun getGradleVersion ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public class com/rickbusarow/kase/gradle/DefaultHasGradleRunner : com/rickbusarow/kase/files/HasWorkingDir, com/rickbusarow/kase/gradle/HasGradleRunner {
@@ -66,10 +168,12 @@ public class com/rickbusarow/kase/gradle/DefaultHasGradleRunner : com/rickbusaro
 	public fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/DependencyVersion : com/rickbusarow/kase/HasLabel, com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement {
+public abstract interface class com/rickbusarow/kase/gradle/DependencyVersion : com/rickbusarow/kase/HasLabel, com/rickbusarow/kase/KaseMatrix$KaseMatrixElement {
 }
 
 public final class com/rickbusarow/kase/gradle/DependencyVersion$DefaultImpls {
+	public static fun asString (Lcom/rickbusarow/kase/gradle/DependencyVersion;)Ljava/lang/String;
+	public static fun compareTo (Lcom/rickbusarow/kase/gradle/DependencyVersion;Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixElement;)I
 	public static fun getLabel (Lcom/rickbusarow/kase/gradle/DependencyVersion;)Ljava/lang/String;
 }
 
@@ -80,7 +184,9 @@ public final class com/rickbusarow/kase/gradle/DetektDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/DetektDependencyVersion$DetektKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/DetektDependencyVersion$DetektKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 }
 
 public abstract class com/rickbusarow/kase/gradle/DslLanguage {
@@ -207,6 +313,20 @@ public final class com/rickbusarow/kase/gradle/DslStringFactory$Companion {
 	public final fun invoke (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 }
 
+public abstract interface class com/rickbusarow/kase/gradle/GradleAgpTestVersions : com/rickbusarow/kase/Kase2, com/rickbusarow/kase/gradle/GradleTestVersions, com/rickbusarow/kase/gradle/HasAgpDependencyVersion, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/TestVersions {
+	public static final field Companion Lcom/rickbusarow/kase/gradle/GradleAgpTestVersions$Companion;
+}
+
+public final class com/rickbusarow/kase/gradle/GradleAgpTestVersions$Companion : com/rickbusarow/kase/gradle/TestVersionsFactory {
+	public fun extract (Lcom/rickbusarow/kase/KaseMatrix;)Ljava/util/List;
+	public final fun invoke (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;)Lcom/rickbusarow/kase/gradle/GradleAgpTestVersions;
+}
+
+public final class com/rickbusarow/kase/gradle/GradleAgpTestVersions$DefaultImpls {
+	public static fun component1 (Lcom/rickbusarow/kase/gradle/GradleAgpTestVersions;)Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public static fun component2 (Lcom/rickbusarow/kase/gradle/GradleAgpTestVersions;)Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
+}
+
 public final class com/rickbusarow/kase/gradle/GradleDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
 	public static final field GradleKey Lcom/rickbusarow/kase/gradle/GradleDependencyVersion$GradleKey;
 	public fun <init> (Ljava/lang/String;)V
@@ -214,64 +334,38 @@ public final class com/rickbusarow/kase/gradle/GradleDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleDependencyVersion$GradleKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/GradleDependencyVersion$GradleKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public final fun current ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions : com/rickbusarow/kase/Kase3, com/rickbusarow/kase/gradle/HasAgpDependencyVersion, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/HasKotlinDependencyVersion, com/rickbusarow/kase/gradle/TestVersions {
+public abstract interface class com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions : com/rickbusarow/kase/Kase3, com/rickbusarow/kase/gradle/GradleKotlinTestVersions, com/rickbusarow/kase/gradle/GradleTestVersions, com/rickbusarow/kase/gradle/HasAgpDependencyVersion, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/HasKotlinDependencyVersion, com/rickbusarow/kase/gradle/TestVersions {
 	public static final field Companion Lcom/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions$Companion;
-	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;)V
-	public fun component1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
-	public synthetic fun component1 ()Ljava/lang/Object;
-	public fun component2 ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
-	public synthetic fun component2 ()Ljava/lang/Object;
-	public fun component3 ()Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
-	public synthetic fun component3 ()Ljava/lang/Object;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getA1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
-	public synthetic fun getA1 ()Ljava/lang/Object;
-	public fun getA2 ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
-	public synthetic fun getA2 ()Ljava/lang/Object;
-	public fun getA3 ()Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
-	public synthetic fun getA3 ()Ljava/lang/Object;
-	public fun getAgp ()Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
-	public fun getAgpVersion ()Ljava/lang/String;
-	public fun getDisplayName ()Ljava/lang/String;
-	public fun getGradle ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
-	public fun getGradleVersion ()Ljava/lang/String;
-	public fun getKotlin ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
-	public fun getKotlinVersion ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions$Companion : com/rickbusarow/kase/gradle/TestVersionsFactory {
-	public fun extract (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
+	public fun extract (Lcom/rickbusarow/kase/KaseMatrix;)Ljava/util/List;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions : com/rickbusarow/kase/Kase2, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/HasKotlinDependencyVersion, com/rickbusarow/kase/gradle/TestVersions {
+public final class com/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions$DefaultImpls {
+	public static fun component1 (Lcom/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions;)Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public static fun component2 (Lcom/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions;)Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
+	public static fun component3 (Lcom/rickbusarow/kase/gradle/GradleKotlinAgpTestVersions;)Lcom/rickbusarow/kase/gradle/AgpDependencyVersion;
+}
+
+public abstract interface class com/rickbusarow/kase/gradle/GradleKotlinTestVersions : com/rickbusarow/kase/Kase2, com/rickbusarow/kase/gradle/GradleTestVersions, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/HasKotlinDependencyVersion, com/rickbusarow/kase/gradle/TestVersions {
 	public static final field Companion Lcom/rickbusarow/kase/gradle/GradleKotlinTestVersions$Companion;
-	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;)V
-	public fun component1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
-	public synthetic fun component1 ()Ljava/lang/Object;
-	public fun component2 ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
-	public synthetic fun component2 ()Ljava/lang/Object;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getA1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
-	public synthetic fun getA1 ()Ljava/lang/Object;
-	public fun getA2 ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
-	public synthetic fun getA2 ()Ljava/lang/Object;
-	public fun getDisplayName ()Ljava/lang/String;
-	public fun getGradle ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
-	public fun getGradleVersion ()Ljava/lang/String;
-	public fun getKotlin ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
-	public fun getKotlinVersion ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions$Companion : com/rickbusarow/kase/gradle/TestVersionsFactory {
-	public fun extract (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
+	public fun extract (Lcom/rickbusarow/kase/KaseMatrix;)Ljava/util/List;
+	public final fun invoke (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;)Lcom/rickbusarow/kase/gradle/GradleKotlinTestVersions;
+}
+
+public final class com/rickbusarow/kase/gradle/GradleKotlinTestVersions$DefaultImpls {
+	public static fun component1 (Lcom/rickbusarow/kase/gradle/GradleKotlinTestVersions;)Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
+	public static fun component2 (Lcom/rickbusarow/kase/gradle/GradleKotlinTestVersions;)Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/GradleProjectBuilder : com/rickbusarow/kase/files/DirectoryBuilder, com/rickbusarow/kase/gradle/HasDslLanguage {
@@ -299,6 +393,7 @@ public final class com/rickbusarow/kase/gradle/GradleProjectBuilderKt {
 	public static final fun rootProject (Lcom/rickbusarow/kase/files/HasWorkingDir;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
 	public static final fun rootProject (Lcom/rickbusarow/kase/gradle/HasDslLanguage;Ljava/io/File;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
 	public static final fun rootProject (Ljava/io/File;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
+	public static synthetic fun rootProject$default (Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/DslLanguage;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/GradleRootProjectBuilder : com/rickbusarow/kase/gradle/GradleProjectBuilder {
@@ -319,56 +414,46 @@ public final class com/rickbusarow/kase/gradle/GradleRootProjectBuilder$DefaultI
 	public static fun settingsFile (Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;Ljava/lang/String;)Ljava/io/File;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/DefaultTestEnvironment, com/rickbusarow/kase/gradle/HasDslLanguage, com/rickbusarow/kase/gradle/HasGradleRunner {
-	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/DslLanguage;Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/DslStringFactory;Lcom/rickbusarow/kase/gradle/DslStringFactory;)V
-	public fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/gradle/DslLanguage;Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/DslStringFactory;Lcom/rickbusarow/kase/gradle/DslStringFactory;)V
-	public fun build (Ljava/util/List;ZZZZLjava/io/File;Z)Lorg/gradle/testkit/runner/BuildResult;
-	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
-	public fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
-	public fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
-	public final fun getRootProject ()Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
-	public fun getWorkingDir ()Ljava/io/File;
-	public final fun rootProject (Lkotlin/jvm/functions/Function1;)Ljava/io/File;
-	public fun shouldFail ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
-	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
-	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
-	public fun shouldSucceed ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
-	public fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
+public abstract interface class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/TestEnvironment, com/rickbusarow/kase/gradle/HasGradleRunner {
+	public abstract fun getRootProject ()Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
+}
+
+public final class com/rickbusarow/kase/gradle/GradleTestEnvironment$DefaultImpls {
+	public static fun cleanOutput (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;Ljava/lang/String;)Ljava/lang/String;
+	public static fun shouldFail (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
+	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
+	public static fun shouldSucceed (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public static fun tearDown (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;)V
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory : com/rickbusarow/kase/TestEnvironmentFactory {
-	public abstract fun buildFileDefault (Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public abstract fun buildFileDefault (Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public abstract fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public abstract fun getLocalM2Path ()Ljava/io/File;
-	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public abstract fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public abstract fun settingsFileDefault (Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory$DefaultImpls {
-	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public static fun getDslLanguage (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;)Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public static fun getLocalM2Path (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;)Ljava/io/File;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleTestVersions : com/rickbusarow/kase/Kase1, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/TestVersions {
+public abstract interface class com/rickbusarow/kase/gradle/GradleTestVersions : com/rickbusarow/kase/Kase1, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/TestVersions {
 	public static final field Companion Lcom/rickbusarow/kase/gradle/GradleTestVersions$Companion;
-	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;)V
-	public fun component1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
-	public synthetic fun component1 ()Ljava/lang/Object;
-	public fun equals (Ljava/lang/Object;)Z
-	public fun getA1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
-	public synthetic fun getA1 ()Ljava/lang/Object;
-	public fun getDisplayName ()Ljava/lang/String;
-	public fun getGradle ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
-	public fun getGradleVersion ()Ljava/lang/String;
-	public fun hashCode ()I
-	public fun toString ()Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleTestVersions$Companion : com/rickbusarow/kase/gradle/TestVersionsFactory {
-	public fun extract (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
+	public fun extract (Lcom/rickbusarow/kase/KaseMatrix;)Ljava/util/List;
+	public final fun invoke (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/GradleTestVersions;
+}
+
+public final class com/rickbusarow/kase/gradle/GradleTestVersions$DefaultImpls {
+	public static fun component1 (Lcom/rickbusarow/kase/gradle/GradleTestVersions;)Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/HasAgpDependencyVersion {
@@ -501,11 +586,7 @@ public abstract interface class com/rickbusarow/kase/gradle/HasTestVersions {
 	public abstract fun getTestVersions ()Lcom/rickbusarow/kase/gradle/TestVersions;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/HasVersionMatrix {
-	public abstract fun getVersionMatrix ()Lcom/rickbusarow/kase/gradle/VersionMatrix;
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/KaseGradleTest : com/rickbusarow/kase/KaseTestFactory, com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory, com/rickbusarow/kase/gradle/HasVersionMatrix {
+public abstract interface class com/rickbusarow/kase/gradle/KaseGradleTest : com/rickbusarow/kase/HasKaseMatrix, com/rickbusarow/kase/KaseTestFactory, com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory {
 }
 
 public final class com/rickbusarow/kase/gradle/KaseGradleTest$DefaultImpls {
@@ -513,15 +594,16 @@ public final class com/rickbusarow/kase/gradle/KaseGradleTest$DefaultImpls {
 	public static fun asContainers (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public static fun asTests (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static fun asTests (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public static fun getDslLanguage (Lcom/rickbusarow/kase/gradle/KaseGradleTest;)Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public static fun getLocalM2Path (Lcom/rickbusarow/kase/gradle/KaseGradleTest;)Ljava/io/File;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/gradle/TestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
-	public static fun test (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
+	public static fun getVersionMatrix (Lcom/rickbusarow/kase/gradle/KaseGradleTest;)Lcom/rickbusarow/kase/KaseMatrix;
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public static fun test (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;[Lcom/rickbusarow/kase/gradle/TestVersions;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;[Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 }
 
 public final class com/rickbusarow/kase/gradle/KotlinDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
@@ -531,7 +613,9 @@ public final class com/rickbusarow/kase/gradle/KotlinDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/KotlinDependencyVersion$KotlinKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/KotlinDependencyVersion$KotlinKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 	public final fun current ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
 }
 
@@ -542,7 +626,9 @@ public final class com/rickbusarow/kase/gradle/KotlinxSerializationDependencyVer
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/KotlinxSerializationDependencyVersion$KotlinxSerializationKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/KotlinxSerializationDependencyVersion$KotlinxSerializationKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 }
 
 public final class com/rickbusarow/kase/gradle/KspDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
@@ -552,7 +638,9 @@ public final class com/rickbusarow/kase/gradle/KspDependencyVersion : com/rickbu
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/KspDependencyVersion$KspKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/KspDependencyVersion$KspKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 }
 
 public final class com/rickbusarow/kase/gradle/KtLintDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
@@ -562,7 +650,9 @@ public final class com/rickbusarow/kase/gradle/KtLintDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/KtLintDependencyVersion$KtLintKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/KtLintDependencyVersion$KtLintKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/TestVersions : com/rickbusarow/kase/Kase, com/rickbusarow/kase/gradle/HasGradleDependencyVersion {
@@ -575,58 +665,10 @@ public final class com/rickbusarow/kase/gradle/TestVersions$Companion {
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/TestVersionsFactory {
-	public abstract fun extract (Lcom/rickbusarow/kase/gradle/VersionMatrix;)Ljava/util/List;
+	public abstract fun extract (Lcom/rickbusarow/kase/KaseMatrix;)Ljava/util/List;
 }
 
-public final class com/rickbusarow/kase/gradle/VersionList : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
-	public fun <init> (Ljava/util/List;Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey;)V
-	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDefault ()Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;
-	public final fun getElements ()Ljava/util/List;
-	public final fun getKey ()Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey;
-	public fun hashCode ()I
-	public fun iterator ()Ljava/util/Iterator;
-	public final fun minus (Ljava/lang/Iterable;)Lcom/rickbusarow/kase/gradle/VersionList;
-	public final fun plus (Ljava/lang/Iterable;)Lcom/rickbusarow/kase/gradle/VersionList;
-	public fun toString ()Ljava/lang/String;
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/VersionMatrix {
-	public static final field Companion Lcom/rickbusarow/kase/gradle/VersionMatrix$Companion;
-	public abstract fun get (Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey;)Lcom/rickbusarow/kase/gradle/VersionList;
-	public abstract fun getOrNull (Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey;)Lcom/rickbusarow/kase/gradle/VersionList;
-	public abstract fun getSize ()I
-	public abstract fun keys ()Ljava/util/Set;
-	public abstract fun minus (Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-	public abstract fun minus (Ljava/lang/Iterable;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-	public abstract fun minus ([Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-	public abstract fun plus (Ljava/lang/Iterable;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-	public abstract fun plus ([Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-	public abstract fun versions (Lcom/rickbusarow/kase/gradle/TestVersionsFactory;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/gradle/VersionMatrix$Companion {
-	public final fun invoke (Ljava/util/List;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-	public final fun invoke ([Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-	public final fun invokeNested (Ljava/util/List;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-}
-
-public final class com/rickbusarow/kase/gradle/VersionMatrix$DefaultImpls {
-	public static fun minus (Lcom/rickbusarow/kase/gradle/VersionMatrix;[Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-	public static fun plus (Lcom/rickbusarow/kase/gradle/VersionMatrix;[Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Lcom/rickbusarow/kase/gradle/VersionMatrix;
-	public static fun versions (Lcom/rickbusarow/kase/gradle/VersionMatrix;Lcom/rickbusarow/kase/gradle/TestVersionsFactory;)Ljava/util/List;
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement : com/rickbusarow/kase/HasLabel {
-	public abstract fun getKey ()Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey;
-	public abstract fun getLabel ()Ljava/lang/String;
-	public abstract fun getValue ()Ljava/lang/Object;
-}
-
-public final class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement$DefaultImpls {
-	public static fun getLabel (Lcom/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixElement;)Ljava/lang/String;
-}
-
-public abstract interface class com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/TestVersionsKt {
+	public static final fun versions (Lcom/rickbusarow/kase/KaseMatrix;Lcom/rickbusarow/kase/gradle/TestVersionsFactory;)Ljava/util/List;
 }
 

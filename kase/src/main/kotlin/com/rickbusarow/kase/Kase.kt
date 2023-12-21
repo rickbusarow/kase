@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -74,7 +74,12 @@ public fun interface KaseDisplayNameFactory<K : Kase> {
  * @since 0.1.0
  */
 public interface HasLabel {
-  /** @since 0.1.0 */
+
+  /**
+   * Identifies some parameter, such as `version` in `version: 1.0.0`.
+   *
+   * @since 0.1.0
+   */
   public val label: String
 }
 
