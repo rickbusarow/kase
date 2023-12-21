@@ -17,54 +17,54 @@
 
 package com.rickbusarow.kase.generator
 
+import com.rickbusarow.kase.generator.Names.kaseInternal
+import com.rickbusarow.kase.generator.Names.kaseMatrixElement
+import com.rickbusarow.kase.generator.Names.kaseMatrixKey
+import com.rickbusarow.kase.generator.Names.testFunctionCoordinates
 import java.io.File
-import java.nio.file.Paths
 
 internal val LICENSE = File("build.gradle.kts").readText()
   .substringBefore("*/")
   .plus("*/")
 
-internal val FILE_ANNOTATIONS = """
-  @file:Suppress(
-    "DestructuringDeclarationWithTooManyEntries",
-    "DuplicatedCode",
-    "MaxLineLength",
-    "PackageDirectoryMismatch"
-  )
-  @file:JvmMultifileClass
-  @file:JvmName("KasesKt")
-""".trimIndent()
+internal object Names {
 
-internal val IMPORTS = """
-  import com.rickbusarow.kase.files.TestFunctionCoordinates
-  import com.rickbusarow.kase.internal.KaseInternal
-  import dev.drewhamilton.poko.Poko
-  import org.junit.jupiter.api.DynamicNode
-  import org.junit.jupiter.api.DynamicTest
-  import java.util.stream.Stream
+  data class Fqn(
+    val asString: String,
+    val simple: String = asString.substringAfterLast(".")
+  ) : Comparable<Fqn> {
+    fun child(simple: String) = Fqn(asString = "$asString.$simple", simple = simple)
+    override fun toString(): String = asString
+    override fun compareTo(other: Fqn): Int = asString.compareTo(other.asString)
 
-""".trimIndent()
+    companion object {
+      fun Iterable<Fqn>.asImports(): String = sorted().joinToString("\n") { "import $it" }
+    }
+  }
+
+  val basePackage = Fqn("com.rickbusarow.kase")
+
+  val kaseInternalPackage = basePackage.child("internal")
+  val kaseInternal = kaseInternalPackage.child("KaseInternal")
+
+  val kaseMatrix = basePackage.child("KaseMatrix")
+  val kaseMatrixElement = kaseMatrix.child("KaseMatrixElement")
+  val kaseMatrixKey = kaseMatrix.child("KaseMatrixKey")
+
+  val filesPackage = basePackage.child("files")
+  val testFunctionCoordinates = filesPackage.child("TestFunctionCoordinates")
+
+  val poko = Fqn("dev.drewhamilton.poko.Poko")
+}
 
 internal const val MAX_PARAMS = 22
 
-private val workingDir = Paths.get("").toAbsolutePath().toFile()
-private val projectRoot = generateSequence(workingDir) { it.parentFile }
-  .first { it.resolve("settings.gradle.kts").exists() }
-
-internal val kasesKt = projectRoot
-  .resolve("kase-gradle/src/main/kotlin/com/rickbusarow/kase/gradle/kases.kt")
-internal val testElements = projectRoot
-  .resolve("kase-gradle/src/test/kotlin/com/rickbusarow/kase/gradle/testElements.kt")
-internal val overloads = projectRoot
-  .resolve("kase/src/main/kotlin/com/rickbusarow/kase/overloads")
-
 private fun main() {
 
-  writeGradleFile()
   writeTestElements()
 
-  overloads.deleteRecursively()
-  overloads.mkdirs()
+  Files.overloadDir.deleteRecursively()
+  Files.overloadDir.mkdirs()
 
   for (ct in (1..MAX_PARAMS)) {
 
@@ -95,17 +95,34 @@ private fun main() {
         """
         |$LICENSE
         |
-        |$FILE_ANNOTATIONS
+        |@file:Suppress(
+        |  "DestructuringDeclarationWithTooManyEntries",
+        |  "DuplicatedCode",
+        |  "MaxLineLength",
+        |  "PackageDirectoryMismatch"
+        |)
+        |@file:JvmMultifileClass
         |
         |package com.rickbusarow.kase
         |
-        |$IMPORTS
+        |import $kaseMatrixElement
+        |import $kaseMatrixKey
+        |import $testFunctionCoordinates
+        |import $kaseInternal
+        |import dev.drewhamilton.poko.Poko
+        |import java.util.stream.Stream
+        |import org.junit.jupiter.api.DynamicNode
+        |import org.junit.jupiter.api.DynamicTest
+        |
         """.trimMargin()
       )
 
       kaseInterface(args = args, types = types)
 
       defaultKase(args = args, types = types)
+
+      matrixAccessor(args = args, types = types)
+      matrixAccessorFactory(args = args, types = types)
 
       defaultKaseDisplayNameFactory(args = args, types = types)
 
@@ -117,28 +134,17 @@ private fun main() {
 
       testFun(args = args, types = types)
 
-      asTests_Destructured(
-        args = args,
-        kaseTypes = types
-      )
+      asTests_Destructured(args = args, kaseTypes = types)
 
-      testFactory_vararg(
-        kdoc = testFactoryKdoc,
-        args = args,
-        kaseTypes = types
-      )
+      testFactory_vararg(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
 
-      testFactory_Iterable(
-        kdoc = testFactoryKdoc,
-        args = args,
-        kaseTypes = types
-      )
+      testFactory_Iterable(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
 
       timesFunctions(aArgs = args, aTypes = types)
     }
       .fixBlankLines()
 
-    val file = overloads.resolve("Kase$ct.kt")
+    val file = Files.overloadKase(ct)
     file.writeText(txt)
   }
 }

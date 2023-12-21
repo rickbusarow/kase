@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -40,7 +40,7 @@ internal fun StringBuilder.kaseInterface(
     | *
     | * @since 0.1.0
     | */
-    |public interface ${types.kaseInterface} : ${types.kaseSuperInterface} {
+    |public interface ${types.kaseInterfaceVariance} : ${types.kaseSuperInterface} {
     |
     |  /** The ${types.number.withOrdinalSuffix()} parameter. */
     |  public val ${lastArg.valueName}: ${lastArg.valueTypeName}
@@ -64,7 +64,7 @@ internal fun StringBuilder.defaultKase(
     """
     |@Poko
     |@PublishedApi
-    |internal class ${types.defaultKase}(
+    |internal class ${types.defaultKaseVariance}(
     |  ${args.argsValueParams},
     |  private val displayNameFactory: ${types.displayNameFactory}
     |) : ${types.kaseInterface}, KaseInternal {
@@ -75,6 +75,119 @@ internal fun StringBuilder.defaultKase(
     |
     |  $componentFuns
     |}
+    """.trimMargin()
+  )
+}
+
+internal fun StringBuilder.matrixAccessor(
+  args: List<KaseArg>,
+  types: KaseTypes
+) {
+
+  val kdoc = buildList {
+    add(
+      "Returns a list of [${types.kaseInterfaceNoTypes}]s from this [KaseMatrix] for the given keys."
+    )
+    add("")
+    for (arg in args) {
+      add("@param ${arg.valueName}Key the key for the ${arg.ordinalSuffix} parameter.")
+    }
+    add("@param displayNameFactory defines the name used in test environments and dynamic tests")
+    add(
+      "@return a list of [${types.kaseInterfaceNoTypes}]s from this [KaseMatrix] for the given keys."
+    )
+    add("@since 0.5.0")
+  }
+    .makeKdoc()
+
+  val typeParams = args.joinToString(separator = ",\n  ") {
+    "reified ${it.valueTypeName} : KaseMatrixElement<*>"
+  }
+
+  val params = args.joinToString(separator = ",\n  ") {
+    "${it.valueName}Key: KaseMatrixKey<${it.valueTypeName}>"
+  }
+
+  val factoryDefault = args.joinToString(" | ", "\"", "\"") {
+    "${'$'}{${it.valueName}.label}: ${'$'}{${it.valueName}.value}"
+  }
+
+  val forLoops = forLoops(
+    args = args,
+    builderName = "buildList",
+    accessor = { "get(${valueName}Key)" }
+  ) {
+    "add(kase(${args.argsWithParamNames}, displayNameFactory = displayNameFactory))"
+  }
+
+  appendLine(
+    """
+    |$kdoc
+    |public inline fun <
+    |  $typeParams
+    |> KaseMatrix.kases(
+    |  $params,
+    |  displayNameFactory: ${types.displayNameFactory} = KaseDisplayNameFactory {
+    |    $factoryDefault
+    |  }
+    |): List<${types.kaseInterface}> {
+    |  return $forLoops
+    |}
+    |
+    """.trimMargin()
+  )
+}
+
+internal fun StringBuilder.matrixAccessorFactory(
+  args: List<KaseArg>,
+  types: KaseTypes
+) {
+
+  val kdoc = buildList {
+    add(
+      "Returns a list of [${types.kaseInterfaceNoTypes}]s from this [KaseMatrix] for the given keys."
+    )
+    add("")
+    for (arg in args) {
+      add("@param ${arg.valueName}Key the key for the ${arg.ordinalSuffix} parameter.")
+    }
+    add("@param instanceFactory creates a custom Kase instance for each permutation")
+    add(
+      "@return a list of [${types.kaseInterfaceNoTypes}]s from this [KaseMatrix] for the given keys."
+    )
+    add("@since 0.5.0")
+  }
+    .makeKdoc()
+
+  val typeParams = args.joinToString(separator = ",\n  ") {
+    "reified ${it.valueTypeName} : KaseMatrixElement<*>"
+  }
+
+  val params = args.joinToString(separator = ",\n  ") {
+    "${it.valueName}Key: KaseMatrixKey<${it.valueTypeName}>"
+  }
+
+  val forLoops = forLoops(
+    args = args,
+    builderName = "buildList",
+    accessor = { "get(${valueName}Key)" }
+  ) {
+    "add(instanceFactory(${args.joinToString(", ") { it.valueName }}))"
+  }
+
+  appendLine(
+    """
+    |$kdoc
+    |public inline fun <
+    |  $typeParams,
+    |  T : ${types.kaseInterface}
+    |> KaseMatrix.get(
+    |  $params,
+    |  instanceFactory: (${args.valueTypesString}) -> T
+    |): List<T> {
+    |  return $forLoops
+    |}
+    |
     """.trimMargin()
   )
 }
@@ -172,7 +285,7 @@ internal fun StringBuilder.kases_iterable(
   }
     .makeKdoc()
 
-  val forLoops = forLoops(args = args, builderName = "buildList") {
+  val forLoops = forLoops(args = args, builderName = "buildList", { iterableName }) {
     "add(kase(${args.argsWithParamNames}, displayNameFactory = displayNameFactory))"
   }
 
@@ -206,7 +319,11 @@ internal fun StringBuilder.kases_sequence(
   }
     .makeKdoc()
 
-  val forLoops = forLoops(args = args, builderName = "sequence") {
+  val forLoops = forLoops(
+    args = args,
+    builderName = "sequence",
+    accessor = { iterableName }
+  ) {
     "yield(kase(${args.argsWithParamNames}, displayNameFactory = displayNameFactory))"
   }
 
@@ -343,12 +460,14 @@ internal fun StringBuilder.testFactory_Iterable(
  * ```
  * @param args the [KaseArg]s to iterate over
  * @param builderName the name of the builder function to invoke (e.g. `buildList` or `sequence`)
+ * @param accessor the function to access the iterable from the [KaseArg] (e.g. `iterableName`)
  * @param center the code to execute at the center of the nested for loops
  * @since 0.1.0
  */
 internal fun forLoops(
   args: List<KaseArg>,
   builderName: String,
+  accessor: KaseArg.() -> String,
   center: () -> String
 ): String {
 
@@ -357,7 +476,7 @@ internal fun forLoops(
       appendLine(center())
     } else {
       val arg = args.first()
-      appendLine("for (${arg.valueName} in ${arg.iterableName}) {")
+      appendLine("for (${arg.valueName} in ${accessor(arg)}) {")
       indent {
         loop(args.dropView(1), center)
       }
@@ -412,6 +531,22 @@ internal fun StringBuilder.timesFunctions(
         |): List<${cTypes.kaseInterface}> = flatMap { ($aValueString) ->
         |  others.map { ($bValueString) ->
         |    kase(${cArgs.joinToString(", ") { it.valueName }})
+        |  }
+        |}
+        |
+        |/**
+        | * @param others the [${bTypes.kaseInterfaceNoTypes}] to combine with this [${aTypes.kaseInterfaceNoTypes}]
+        | * @param instanceFactory creates a custom Kase instance for each permutation
+        | * @return a list of [${cTypes.kaseInterfaceNoTypes}]s from the cartesian product of this [${aTypes.kaseInterfaceNoTypes}] and the given [${bTypes.kaseInterfaceNoTypes}].
+        | * @since 0.5.0
+        | */
+        |@JvmName("${aTypes.kaseInterfaceNoTypes.decapitalize()}times${bTypes.kaseInterfaceNoTypes}InstanceFactory")
+        |public inline fun <$cArgTypesString, T> Iterable<${aTypes.kaseInterface}>.times(
+        |  others: Iterable<${bTypes.kaseInterface}>,
+        |  instanceFactory: (${cArgs.valueTypesString}) -> T
+        |): List<T> = flatMap { ($aValueString) ->
+        |  others.map { ($bValueString) ->
+        |    instanceFactory(${cArgs.joinToString(", ") { it.valueName }})
         |  }
         |}
         |

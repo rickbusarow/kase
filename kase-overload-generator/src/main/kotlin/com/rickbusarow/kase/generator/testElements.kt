@@ -15,45 +15,57 @@
 
 package com.rickbusarow.kase.generator
 
+import com.rickbusarow.kase.generator.Files.testElements
+import com.rickbusarow.kase.generator.Names.Fqn.Companion.asImports
+import com.rickbusarow.kase.generator.Names.kaseMatrixKey
+import com.rickbusarow.kase.generator.Names.poko
+
 internal fun writeTestElements() {
 
-  val classNames = List(MAX_PARAMS) { "TestVersion${it + 1}" }
+  val gradlePackage = Names.basePackage.child("gradle")
+
+  val classNames = List(MAX_PARAMS) {
+
+    gradlePackage.child("TestElement${it + 1}").let { element ->
+
+      // `$package.TestElement1` to `$package.TestElement1.TestElement1Key`
+      element to element.child("${element.simple}Key")
+    }
+  }
 
   val content = buildString {
+
+    val imports = buildList {
+      add(kaseMatrixKey)
+      addAll(classNames.map { it.second })
+      add(poko)
+    }
+      .asImports()
 
     appendLine(
       """
       |$LICENSE
       |
-      |$FILE_ANNOTATIONS
-      |
       |package com.rickbusarow.kase.gradle
       |
-      |${
-        classNames.sorted()
-          .joinToString("\n") { "import com.rickbusarow.kase.gradle.$it.${it}Key" }
-      }
-      |import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
-      |import dev.drewhamilton.poko.Poko
+      |$imports
       |
       """.trimMargin()
     )
 
-    val classes = classNames.map { tv ->
-      """
-      |@Poko
-      |class $tv(
-      |  override val value: String
-      |) : AbstractDependencyVersion<$tv, ${tv}Key>(${tv}Key) {
-      |
-      |  companion object ${tv}Key : VersionMatrixKey<$tv>
-      |}
-      |
-      """.trimMargin()
-    }
-
-    for (clazz in classes) {
-      appendLine(clazz)
+    for ((element, key) in classNames) {
+      appendLine(
+        """
+        |@Poko
+        |class ${element.simple}(
+        |  override val value: String
+        |) : AbstractDependencyVersion<${element.simple}, ${key.simple}>(${key.simple}) {
+        |
+        |  companion object ${key.simple} : ${kaseMatrixKey.simple}<${element.simple}>
+        |}
+        |
+        """.trimMargin()
+      )
     }
   }
     .fixBlankLines()
