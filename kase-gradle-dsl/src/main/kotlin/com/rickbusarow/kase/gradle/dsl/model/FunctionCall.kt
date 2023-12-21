@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -51,7 +51,7 @@ import dev.drewhamilton.poko.Poko
  * @since 0.1.0
  */
 @Poko
-public class SetterFunctionCall public constructor(
+public class SetterFunctionCall(
   public val propertyName: String,
   public val propertyAccessSupport: PropertyAccessSupport,
   public val labelSupport: LabelSupport,

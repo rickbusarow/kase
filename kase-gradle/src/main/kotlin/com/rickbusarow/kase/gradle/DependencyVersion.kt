@@ -16,6 +16,8 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasLabel
+import com.rickbusarow.kase.KaseMatrix
+import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
 import com.rickbusarow.kase.gradle.AgpDependencyVersion.AgpKey
 import com.rickbusarow.kase.gradle.AnvilDependencyVersion.AnvilKey
 import com.rickbusarow.kase.gradle.ComposeCompilerDependencyVersion.ComposeCompilerKey
@@ -26,7 +28,6 @@ import com.rickbusarow.kase.gradle.KotlinDependencyVersion.KotlinKey
 import com.rickbusarow.kase.gradle.KotlinxSerializationDependencyVersion.KotlinxSerializationKey
 import com.rickbusarow.kase.gradle.KspDependencyVersion.KspKey
 import com.rickbusarow.kase.gradle.KtLintDependencyVersion.KtLintKey
-import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 
 /**
  * A type-safe wrapper for a dependency version string, such as "1.0.0" or "1.0.0-alpha01".
@@ -36,18 +37,16 @@ import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
 @Suppress("UnnecessaryAbstractClass")
 public abstract class AbstractDependencyVersion<SELF, out KEY>(
   override val key: KEY
-) : DependencyVersion<KEY>,
-  Comparable<SELF>
-  where KEY : VersionMatrixKey<SELF>,
+) : DependencyVersion<KEY>
+  where KEY : KaseMatrixKey<SELF>,
         SELF : DependencyVersion<KEY> {
 
   override fun toString(): String = value
-  override fun compareTo(other: SELF): Int = value.compareTo(other.value)
 }
 
 /** @since 0.1.0 */
-public interface DependencyVersion<out K : VersionMatrixKey<DependencyVersion<K>>> :
-  VersionMatrix.VersionMatrixElement<String>,
+public interface DependencyVersion<out K : KaseMatrixKey<DependencyVersion<K>>> :
+  KaseMatrix.KaseMatrixElement<String>,
   HasLabel
 
 /** @since 0.1.0 */
@@ -60,7 +59,7 @@ public class GradleDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object GradleKey : VersionMatrixKey<GradleDependencyVersion> {
+  public companion object GradleKey : KaseMatrixKey<GradleDependencyVersion> {
     /**
      * pulls the value from `GradleVersion.current().version`
      *
@@ -105,7 +104,7 @@ public class AgpDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object AgpKey : VersionMatrixKey<AgpDependencyVersion>
+  public companion object AgpKey : KaseMatrixKey<AgpDependencyVersion>
 }
 
 /**
@@ -140,7 +139,7 @@ public class KotlinDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object KotlinKey : VersionMatrixKey<KotlinDependencyVersion> {
+  public companion object KotlinKey : KaseMatrixKey<KotlinDependencyVersion> {
     /**
      * pulls the value from `KotlinVersion.CURRENT.toString()`
      *
@@ -184,7 +183,7 @@ public class KspDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object KspKey : VersionMatrixKey<KspDependencyVersion>
+  public companion object KspKey : KaseMatrixKey<KspDependencyVersion>
 }
 
 /**
@@ -219,7 +218,7 @@ public class AnvilDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object AnvilKey : VersionMatrixKey<AnvilDependencyVersion>
+  public companion object AnvilKey : KaseMatrixKey<AnvilDependencyVersion>
 }
 
 /**
@@ -257,7 +256,7 @@ public class ComposeCompilerDependencyVersion(
    * @since 0.1.0
    */
   public companion object ComposeCompilerKey :
-    VersionMatrixKey<ComposeCompilerDependencyVersion>
+    KaseMatrixKey<ComposeCompilerDependencyVersion>
 }
 
 /**
@@ -295,7 +294,7 @@ public class KotlinxSerializationDependencyVersion(
    * @since 0.1.0
    */
   public companion object KotlinxSerializationKey :
-    VersionMatrixKey<KotlinxSerializationDependencyVersion>
+    KaseMatrixKey<KotlinxSerializationDependencyVersion>
 }
 
 /**
@@ -331,7 +330,7 @@ public class DaggerDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object DaggerKey : VersionMatrixKey<DaggerDependencyVersion>
+  public companion object DaggerKey : KaseMatrixKey<DaggerDependencyVersion>
 }
 
 /**
@@ -366,7 +365,7 @@ public class KtLintDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object KtLintKey : VersionMatrixKey<KtLintDependencyVersion>
+  public companion object KtLintKey : KaseMatrixKey<KtLintDependencyVersion>
 }
 
 /**
@@ -401,7 +400,7 @@ public class DetektDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object DetektKey : VersionMatrixKey<DetektDependencyVersion>
+  public companion object DetektKey : KaseMatrixKey<DetektDependencyVersion>
 }
 
 /**

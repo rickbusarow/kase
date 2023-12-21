@@ -19,21 +19,22 @@ import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.Kase3
 import com.rickbusarow.kase.Kase6
+import com.rickbusarow.kase.KaseMatrix
+import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
 import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironment
-import com.rickbusarow.kase.gradle.VersionMatrix.Companion
-import com.rickbusarow.kase.gradle.VersionMatrix.VersionMatrixKey
+import com.rickbusarow.kase.kases
 import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.jupiter.api.TestFactory
 
-class VersionMatrixElementKasesOverloadTest : KaseTestFactory<TestEnvironment, Kase> {
+class KaseMatrixElementKasesOverloadTest : KaseTestFactory<TestEnvironment, Kase> {
 
   override val kases: List<Kase>
     get() = error("not used")
 
   @TestFactory
   fun `kases creates Kase2 kases`() =
-    versionMatrix(numVersionTypes = 6, versionsPerType = 2).kases(
+    KaseMatrix(numVersionTypes = 6, versionsPerType = 2).kases(
       keyForTypeNumber(1),
       keyForTypeNumber(2)
     ).asTests { k ->
@@ -43,7 +44,7 @@ class VersionMatrixElementKasesOverloadTest : KaseTestFactory<TestEnvironment, K
 
   @TestFactory
   fun `kases creates Kase3 kases`() =
-    versionMatrix(numVersionTypes = 6, versionsPerType = 2).kases(
+    KaseMatrix(numVersionTypes = 6, versionsPerType = 2).kases(
       keyForTypeNumber(1),
       keyForTypeNumber(2),
       keyForTypeNumber(3)
@@ -53,7 +54,7 @@ class VersionMatrixElementKasesOverloadTest : KaseTestFactory<TestEnvironment, K
 
   @TestFactory
   fun `kases creates Kase6 kases`() =
-    versionMatrix(numVersionTypes = 6, versionsPerType = 2).kases(
+    KaseMatrix(numVersionTypes = 6, versionsPerType = 2).kases(
       keyForTypeNumber(1),
       keyForTypeNumber(2),
       keyForTypeNumber(3),
@@ -64,18 +65,18 @@ class VersionMatrixElementKasesOverloadTest : KaseTestFactory<TestEnvironment, K
       k.shouldBeInstanceOf<Kase6<*, *, *, *, *, *>>()
     }
 
-  fun keyForTypeNumber(typeNumber: Int): VersionMatrixKey<*> {
+  fun keyForTypeNumber(typeNumber: Int): KaseMatrixKey<*> {
 
-    return Class.forName("com.rickbusarow.kase.gradle.TestVersion$typeNumber")
-      .getField("TestVersion${typeNumber}Key")
-      .get(null) as VersionMatrixKey<*>
+    return Class.forName("com.rickbusarow.kase.gradle.TestElement$typeNumber")
+      .getField("TestElement${typeNumber}Key")
+      .get(null) as KaseMatrixKey<*>
   }
 
-  fun versionMatrix(
+  fun KaseMatrix(
     numVersionTypes: Int,
     versionsPerType: Int = 3,
     valueFactory: (Int, Char) -> String = { type, versionChar -> "$type.$versionChar" }
-  ): VersionMatrix {
+  ): KaseMatrix {
 
     val elements =
       (1..numVersionTypes).flatMap { typeNumber ->
@@ -85,12 +86,12 @@ class VersionMatrixElementKasesOverloadTest : KaseTestFactory<TestEnvironment, K
 
           val value = valueFactory(typeNumber, versionChar)
 
-          Class.forName("com.rickbusarow.kase.gradle.TestVersion$typeNumber")
+          Class.forName("com.rickbusarow.kase.gradle.TestElement$typeNumber")
             .declaredConstructors
             .single()
             .newInstance(value) as AbstractDependencyVersion<*, *>
         }
       }
-    return Companion(elements)
+    return KaseMatrix.invoke(elements)
   }
 }

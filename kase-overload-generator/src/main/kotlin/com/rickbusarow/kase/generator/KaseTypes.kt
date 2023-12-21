@@ -15,90 +15,54 @@
 
 package com.rickbusarow.kase.generator
 
+import com.rickbusarow.kase.generator.KaseArg.Companion.outValueTypesString
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueTypesString
 
 internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
 
   private val argsValueTypesString: String by lazy { args.valueTypesString }
+  private val argsOutValueTypesString: String by lazy { args.outValueTypesString }
 
-  /**
-   * `Kase3`
-   *
-   * @since 0.1.0
-   */
+  /** `Kase3` */
   val kaseInterfaceNoTypes = "Kase$number"
 
-  /**
-   * `Kase3<A1, A2, A3>`
-   *
-   * @since 0.1.0
-   */
+  /** `Kase3<A1, A2, A3>` */
   val kaseInterface: String = "$kaseInterfaceNoTypes<$argsValueTypesString>"
 
-  /**
-   * `Kase2<A1, A2>` in `Kase3<A1, A2, A3> : Kase2<A1, A2>`
-   *
-   * @since 0.1.0
-   */
+  /** `Kase3<out A1, out A2, out A3>` */
+  val kaseInterfaceVariance: String = "$kaseInterfaceNoTypes<$argsOutValueTypesString>"
+
+  /** `Kase2<A1, A2>` in `Kase3<A1, A2, A3> : Kase2<A1, A2>` */
   val kaseSuperInterface: String = if (number == 1) {
     "Kase"
   } else {
     KaseTypes(number - 1, args.dropLast(1)).kaseInterface
   }
 
-  /**
-   * `defaultKase2DisplayNameFactory`
-   *
-   * @since 0.1.0
-   */
+  /** `defaultKase2DisplayNameFactory` */
   val defaultDisplayNameFactory: String = "default${kaseInterfaceNoTypes}DisplayNameFactory"
 
-  /**
-   * `KaseDisplayNameFactory<Kase2<A1, A2>>`
-   *
-   * @since 0.1.0
-   */
+  /** `KaseDisplayNameFactory<Kase2<A1, A2>>` */
   val displayNameFactory: String = "KaseDisplayNameFactory<$kaseInterface>"
 
-  /**
-   * `DefaultKase3`
-   *
-   * @since 0.1.0
-   */
+  /** `DefaultKase3` */
   val defaultKaseNoTypes = "DefaultKase$number"
 
-  /**
-   * `DefaultKase3<A1, A2, A3>`
-   *
-   * @since 0.1.0
-   */
-  val defaultKase = "DefaultKase$number<$argsValueTypesString>"
+  /** `DefaultKase3<A1, A2, A3>` */
+  val defaultKase = "$defaultKaseNoTypes<$argsValueTypesString>"
 
-  /**
-   * `KaseLabels3`
-   *
-   * @since 0.1.0
-   */
+  /** `DefaultKase3<out A1, out A2, out A3>` */
+  val defaultKaseVariance = "$defaultKaseNoTypes<$argsOutValueTypesString>"
+
+  /** `KaseLabels3` */
   val kaseLabels = "KaseLabels$number"
 
-  /**
-   * `TestEnvironment`
-   *
-   * @since 0.1.0
-   */
+  /** `TestEnvironment` */
   val testEnvironment = "TestEnvironment"
 
-  /**
-   * `TestEnvironmentFactory<TestEnvironment, Kase3<A1, A2, A3>>`
-   *
-   * @since 0.1.0
-   */
+  /** `TestEnvironmentFactory<TestEnvironment, Kase3<A1, A2, A3>>` */
   fun testEnvironmentFactory(environmentType: String) = "TestEnvironmentFactory<$environmentType>"
 
-  /**
-   * `KaseParameterWithLabel<A1, A2, A3>`
-   *
-   * @since 0.1.0
-   */
+  /** `KaseParameterWithLabel<A1, A2, A3>` */
   fun kaseParameterWithLabel(argValueType: String) = "KaseParameterWithLabel<$argValueType>"
 }

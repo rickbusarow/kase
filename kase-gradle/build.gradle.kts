@@ -42,4 +42,6 @@ dependencies {
   api(project(":kase"))
 
   compileOnly(gradleTestKit())
+
+  testImplementation(gradleTestKit())
 }

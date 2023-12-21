@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,39 +23,40 @@ import java.io.File
 
 /**
  * A [TestEnvironment] which provides a [GradleRunner]
+ * and a [rootProject] [GradleRootProjectBuilder].
+ */
+public interface GradleTestEnvironment : TestEnvironment, HasGradleRunner {
+
+  /** the [GradleRootProjectBuilder] for this test environment */
+  public val rootProject: GradleRootProjectBuilder
+}
+
+/**
+ * A [TestEnvironment] which provides a [GradleRunner]
  * and a [File] representing the root project directory.
  *
  * @param gradleVersion the Gradle version used in this environment's runner
  * @property dslLanguage the [DslLanguage] for this test environment
- * @property rootProject the [GradleRootProjectBuilder] for this test environment
  * @param hasWorkingDir the [HasWorkingDir] for this test environment
+ * @property rootProject the [GradleRootProjectBuilder] for this test environment
  * @since 0.1.0
  */
-@Suppress("VariableNaming", "MemberVisibilityCanBePrivate", "MagicNumber")
-public class GradleTestEnvironment private constructor(
+public open class DefaultGradleTestEnvironment(
   gradleVersion: GradleDependencyVersion,
   override val dslLanguage: DslLanguage,
-  public val rootProject: GradleRootProjectBuilder,
-  private val hasWorkingDir: HasWorkingDir
+  private val hasWorkingDir: HasWorkingDir,
+  override val rootProject: GradleRootProjectBuilder
 ) : DefaultTestEnvironment(hasWorkingDir),
   HasGradleRunner by DefaultHasGradleRunner(
     hasWorkingDir = hasWorkingDir,
     gradleVersion = { gradleVersion }
   ),
-  HasDslLanguage {
+  HasDslLanguage,
+  GradleTestEnvironment {
 
   override val workingDir: File
     get() = hasWorkingDir.workingDir
 
-  /**
-   * @param gradleVersion the Gradle version used in this environment's runner
-   * @param dslLanguage the [DslLanguage] for this test environment
-   * @param hasWorkingDir the [HasWorkingDir] for this test environment
-   * @param defaultBuildFile the default [DslStringFactory] for the root `build.gradle[.kts]` file
-   * @param defaultSettingsFile the default [DslStringFactory]
-   *   for the root `settings.gradle[.kts]` file
-   * @since 0.1.0
-   */
   public constructor(
     gradleVersion: GradleDependencyVersion,
     dslLanguage: DslLanguage,
@@ -75,32 +76,18 @@ public class GradleTestEnvironment private constructor(
     }
   )
 
-  /**
-   * @param testVersions the [TestVersions] for this test environment
-   * @param dslLanguage the [DslLanguage] for this test environment
-   * @param hasWorkingDir the [HasWorkingDir] for this test environment
-   * @param defaultBuildFile the default [DslStringFactory] for the root `build.gradle[.kts]` file
-   * @param defaultSettingsFile the default [DslStringFactory]
-   *   for the root `settings.gradle[.kts]` file
-   * @since 0.1.0
-   */
   public constructor(
-    testVersions: TestVersions,
+    gradleVersion: HasGradleDependencyVersion,
     dslLanguage: DslLanguage,
     hasWorkingDir: HasWorkingDir,
     defaultBuildFile: DslStringFactory,
     defaultSettingsFile: DslStringFactory
   ) : this(
-    gradleVersion = testVersions.gradle,
+    gradleVersion = gradleVersion.gradle,
     dslLanguage = dslLanguage,
     hasWorkingDir = hasWorkingDir,
-    rootProject = rootProject(
-      path = hasWorkingDir.workingDir,
-      dslLanguage = dslLanguage
-    ) {
-      buildFile(defaultBuildFile)
-      settingsFile(defaultSettingsFile)
-    }
+    defaultBuildFile = defaultBuildFile,
+    defaultSettingsFile = defaultSettingsFile
   )
 
   /**
@@ -129,6 +116,7 @@ public class GradleTestEnvironment private constructor(
    *
    * @since 0.1.0
    */
+  @Suppress("MemberVisibilityCanBePrivate")
   public inline fun rootProject(action: GradleRootProjectBuilder.() -> Unit): File {
     return rootProject.apply(action).path
   }

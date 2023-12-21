@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -18,6 +18,7 @@ package com.rickbusarow.kase.gradle
 import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.directoryBuilder
+import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
 import com.rickbusarow.kase.gradle.internal.DefaultGradleRootProjectBuilder
 import org.intellij.lang.annotations.Language
 import java.io.File
@@ -155,7 +156,7 @@ public fun <T> T.rootProject(
  * @since 0.1.0
  */
 public fun HasWorkingDir.rootProject(
-  dslLanguage: DslLanguage,
+  dslLanguage: DslLanguage = KotlinDsl(),
   builder: GradleRootProjectBuilder.() -> Unit
 ): GradleRootProjectBuilder = rootProject(
   path = workingDir,

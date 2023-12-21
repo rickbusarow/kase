@@ -15,15 +15,18 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.Kase1
+import com.rickbusarow.kase.KaseMatrix
+import com.rickbusarow.kase.kases
 import io.kotest.matchers.file.shouldExist
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.TestFactory
 
-class GradleTestEnvironmentTest : KaseGradleTest<TestVersions> {
-  override val versionMatrix: VersionMatrix
-    get() = VersionMatrix(GradleDependencyVersion("1.0.0"))
-  override val kases: List<TestVersions>
-    get() = versionMatrix.versions(GradleTestVersions)
+class GradleTestEnvironmentTest : KaseGradleTest<Kase1<GradleDependencyVersion>> {
+  override val kaseMatrix: KaseMatrix
+    get() = KaseMatrix(GradleDependencyVersion("1.0.0"))
+  override val kases
+    get() = kaseMatrix.kases(GradleDependencyVersion)
 
   @TestFactory
   fun `invoking rootProject as a lambda writes the files afterwards`() = testFactory {
