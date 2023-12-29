@@ -7,6 +7,11 @@ public abstract class com/rickbusarow/kase/gradle/AbstractDependencyVersion : co
 	public fun toString ()Ljava/lang/String;
 }
 
+public abstract class com/rickbusarow/kase/gradle/AbstractVersionMatrixKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+	public fun <init> ()V
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class com/rickbusarow/kase/gradle/AgpDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
 	public static final field AgpKey Lcom/rickbusarow/kase/gradle/AgpDependencyVersion$AgpKey;
 	public fun <init> (Ljava/lang/String;)V
@@ -14,7 +19,7 @@ public final class com/rickbusarow/kase/gradle/AgpDependencyVersion : com/rickbu
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/AgpDependencyVersion$AgpKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/AgpDependencyVersion$AgpKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
 }
 
 public final class com/rickbusarow/kase/gradle/AnvilDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
@@ -24,7 +29,7 @@ public final class com/rickbusarow/kase/gradle/AnvilDependencyVersion : com/rick
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/AnvilDependencyVersion$AnvilKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/AnvilDependencyVersion$AnvilKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
 }
 
 public final class com/rickbusarow/kase/gradle/ComposeCompilerDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
@@ -44,20 +49,20 @@ public final class com/rickbusarow/kase/gradle/DaggerDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/DaggerDependencyVersion$DaggerKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/DaggerDependencyVersion$DaggerKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
 }
 
 public class com/rickbusarow/kase/gradle/DefaultHasGradleRunner : com/rickbusarow/kase/files/HasWorkingDir, com/rickbusarow/kase/gradle/HasGradleRunner {
 	public fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lkotlin/jvm/functions/Function0;)V
 	public synthetic fun <init> (Lcom/rickbusarow/kase/files/HasWorkingDir;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun build (Ljava/util/List;ZZZZ)Lorg/gradle/testkit/runner/BuildResult;
+	public fun build (Ljava/util/List;ZZZZLjava/io/File;Z)Lorg/gradle/testkit/runner/BuildResult;
 	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
 	public fun getWorkingDir ()Ljava/io/File;
-	public fun shouldFail ([Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public fun shouldFail ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
 	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
-	public fun shouldSucceed ([Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public fun shouldSucceed ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
 }
 
@@ -75,7 +80,7 @@ public final class com/rickbusarow/kase/gradle/DetektDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/DetektDependencyVersion$DetektKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/DetektDependencyVersion$DetektKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
 }
 
 public abstract class com/rickbusarow/kase/gradle/DslLanguage {
@@ -209,7 +214,7 @@ public final class com/rickbusarow/kase/gradle/GradleDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/GradleDependencyVersion$GradleKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/GradleDependencyVersion$GradleKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
 	public final fun current ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
 }
 
@@ -317,15 +322,17 @@ public final class com/rickbusarow/kase/gradle/GradleRootProjectBuilder$DefaultI
 public final class com/rickbusarow/kase/gradle/GradleTestEnvironment : com/rickbusarow/kase/DefaultTestEnvironment, com/rickbusarow/kase/gradle/HasDslLanguage, com/rickbusarow/kase/gradle/HasGradleRunner {
 	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;Lcom/rickbusarow/kase/gradle/DslLanguage;Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/DslStringFactory;Lcom/rickbusarow/kase/gradle/DslStringFactory;)V
 	public fun <init> (Lcom/rickbusarow/kase/gradle/TestVersions;Lcom/rickbusarow/kase/gradle/DslLanguage;Lcom/rickbusarow/kase/files/HasWorkingDir;Lcom/rickbusarow/kase/gradle/DslStringFactory;Lcom/rickbusarow/kase/gradle/DslStringFactory;)V
-	public fun build (Ljava/util/List;ZZZZ)Lorg/gradle/testkit/runner/BuildResult;
+	public fun build (Ljava/util/List;ZZZZLjava/io/File;Z)Lorg/gradle/testkit/runner/BuildResult;
+	public fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
 	public fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
 	public final fun getRootProject ()Lcom/rickbusarow/kase/gradle/GradleRootProjectBuilder;
+	public fun getWorkingDir ()Ljava/io/File;
 	public final fun rootProject (Lkotlin/jvm/functions/Function1;)Ljava/io/File;
-	public fun shouldFail ([Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public fun shouldFail ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
 	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
-	public fun shouldSucceed ([Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public fun shouldSucceed ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
 }
 
@@ -428,24 +435,25 @@ public final class com/rickbusarow/kase/gradle/HasGradleDependencyVersion$Compan
 	public final fun invoke (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/HasGradleRunner {
-	public abstract fun build (Ljava/util/List;ZZZZ)Lorg/gradle/testkit/runner/BuildResult;
+public abstract interface class com/rickbusarow/kase/gradle/HasGradleRunner : com/rickbusarow/kase/files/HasWorkingDir {
+	public abstract fun build (Ljava/util/List;ZZZZLjava/io/File;Z)Lorg/gradle/testkit/runner/BuildResult;
 	public abstract fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
-	public abstract fun shouldFail ([Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public abstract fun shouldFail ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public abstract fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
 	public abstract fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
-	public abstract fun shouldSucceed ([Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public abstract fun shouldSucceed ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public abstract fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/HasGradleRunner$DefaultImpls {
-	public static synthetic fun build$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Ljava/util/List;ZZZZILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
-	public static fun shouldFail (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
-	public static synthetic fun shouldFail$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
+	public static synthetic fun build$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Ljava/util/List;ZZZZLjava/io/File;ZILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
+	public static fun cleanOutput (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Ljava/lang/String;)Ljava/lang/String;
+	public static fun shouldFail (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public static synthetic fun shouldFail$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
 	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
 	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
-	public static fun shouldSucceed (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
-	public static synthetic fun shouldSucceed$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
+	public static fun shouldSucceed (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
+	public static synthetic fun shouldSucceed$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
 	public static synthetic fun trimGradleNoise$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Lorg/gradle/testkit/runner/BuildResult;ZILjava/lang/Object;)Ljava/lang/String;
 }
 
@@ -523,7 +531,7 @@ public final class com/rickbusarow/kase/gradle/KotlinDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/KotlinDependencyVersion$KotlinKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/KotlinDependencyVersion$KotlinKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
 	public final fun current ()Lcom/rickbusarow/kase/gradle/KotlinDependencyVersion;
 }
 
@@ -544,7 +552,7 @@ public final class com/rickbusarow/kase/gradle/KspDependencyVersion : com/rickbu
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/KspDependencyVersion$KspKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/KspDependencyVersion$KspKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
 }
 
 public final class com/rickbusarow/kase/gradle/KtLintDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {
@@ -554,7 +562,7 @@ public final class com/rickbusarow/kase/gradle/KtLintDependencyVersion : com/ric
 	public fun getValue ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/gradle/KtLintDependencyVersion$KtLintKey : com/rickbusarow/kase/gradle/VersionMatrix$VersionMatrixKey {
+public final class com/rickbusarow/kase/gradle/KtLintDependencyVersion$KtLintKey : com/rickbusarow/kase/gradle/AbstractVersionMatrixKey {
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/TestVersions : com/rickbusarow/kase/Kase, com/rickbusarow/kase/gradle/HasGradleDependencyVersion {
