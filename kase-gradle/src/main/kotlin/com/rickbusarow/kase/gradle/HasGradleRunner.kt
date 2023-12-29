@@ -25,14 +25,15 @@ import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldContain
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
-import org.gradle.testkit.runner.TaskOutcome.FAILED
+import org.gradle.testkit.runner.TaskOutcome
+import java.io.File
 
 /**
  * Trait interface for a test environment with a [GradleRunner].
  *
  * @since 0.1.0
  */
-public interface HasGradleRunner {
+public interface HasGradleRunner : HasWorkingDir {
 
   /**
    * The [GradleRunner] used to execute Gradle builds.
@@ -48,6 +49,8 @@ public interface HasGradleRunner {
    * @param withPluginClasspath whether to include the plugin classpath
    * @param withHermeticTestKit whether to have a testKit directory unique to this test environment.
    * @param stacktrace whether to include the stacktrace
+   * @param debug whether to include the debug flag
+   * @param projectDir the project directory to use
    * @param shouldFail whether the build should fail
    * @since 0.1.0
    */
@@ -56,6 +59,8 @@ public interface HasGradleRunner {
     withPluginClasspath: Boolean = false,
     withHermeticTestKit: Boolean = false,
     stacktrace: Boolean = true,
+    debug: Boolean = false,
+    projectDir: File = workingDir,
     shouldFail: Boolean = false
   ): BuildResult
 
@@ -66,6 +71,8 @@ public interface HasGradleRunner {
    * @param withPluginClasspath whether to include the plugin classpath
    * @param withHermeticTestKit whether to have a testKit directory unique to this test environment.
    * @param stacktrace whether to include the stacktrace
+   * @param debug whether to include the debug flag
+   * @param projectDir the project directory to use
    * @param assertions additional assertions to run on the [BuildResult]
    * @since 0.1.0
    */
@@ -74,6 +81,8 @@ public interface HasGradleRunner {
     withPluginClasspath: Boolean = false,
     withHermeticTestKit: Boolean = false,
     stacktrace: Boolean = true,
+    debug: Boolean = false,
+    projectDir: File = workingDir,
     assertions: BuildResult.() -> Unit = {}
   ): BuildResult {
 
@@ -95,6 +104,8 @@ public interface HasGradleRunner {
    * @param withPluginClasspath whether to include the plugin classpath
    * @param withHermeticTestKit whether to have a testKit directory unique to this test environment.
    * @param stacktrace whether to include the stacktrace
+   * @param debug whether to include the debug flag
+   * @param projectDir the project directory to use
    * @param assertions additional assertions to run on the [BuildResult]
    * @since 0.1.0
    */
@@ -103,6 +114,8 @@ public interface HasGradleRunner {
     withPluginClasspath: Boolean = false,
     withHermeticTestKit: Boolean = false,
     stacktrace: Boolean = true,
+    debug: Boolean = false,
+    projectDir: File = workingDir,
     assertions: BuildResult.() -> Unit = {}
   ): BuildResult {
 
@@ -170,7 +183,6 @@ public open class DefaultHasGradleRunner(
     GradleRunner.create()
       .forwardOutput()
       .withGradleVersion(gradleVersion().value)
-      .withDebug(true)
       .withProjectDir(workingDir)
   }
 
@@ -179,11 +191,15 @@ public open class DefaultHasGradleRunner(
     withPluginClasspath: Boolean,
     withHermeticTestKit: Boolean,
     stacktrace: Boolean,
+    debug: Boolean,
+    projectDir: File,
     shouldFail: Boolean
   ): BuildResult {
     val withOptions = gradleRunner
+      .letIf(projectDir != workingDir) { it.withProjectDir(projectDir) }
       .letIf(withPluginClasspath) { it.withPluginClasspath() }
       .letIf(withHermeticTestKit) { it.withTestKitDir(workingDir / "testKit") }
+      .letIf(debug) { it.withDebug(true) }
       .withArguments(tasks.letIf(stacktrace) { it.plus("--stacktrace") })
 
     return if (shouldFail) {
@@ -193,7 +209,7 @@ public open class DefaultHasGradleRunner(
         .also { result ->
           result.tasks
             .forAll { buildTask ->
-              buildTask.outcome shouldNotBe FAILED
+              buildTask.outcome shouldNotBe TaskOutcome.FAILED
             }
         }
     }

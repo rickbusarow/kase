@@ -2,6 +2,10 @@
 
 ## 0.5.0-SNAPSHOT (unreleased)
 
+### Added
+
+- Add `projectDir` and `debug` parameters to gradle runner functions
+
 ## [0.4.0] — 2023-12-14
 
 ### Fixed
