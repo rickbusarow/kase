@@ -36,13 +36,16 @@ public class GradleTestEnvironment private constructor(
   gradleVersion: GradleDependencyVersion,
   override val dslLanguage: DslLanguage,
   public val rootProject: GradleRootProjectBuilder,
-  hasWorkingDir: HasWorkingDir
+  private val hasWorkingDir: HasWorkingDir
 ) : DefaultTestEnvironment(hasWorkingDir),
   HasGradleRunner by DefaultHasGradleRunner(
     hasWorkingDir = hasWorkingDir,
     gradleVersion = { gradleVersion }
   ),
   HasDslLanguage {
+
+  override val workingDir: File
+    get() = hasWorkingDir.workingDir
 
   /**
    * @param gradleVersion the Gradle version used in this environment's runner
@@ -129,4 +132,6 @@ public class GradleTestEnvironment private constructor(
   public inline fun rootProject(action: GradleRootProjectBuilder.() -> Unit): File {
     return rootProject.apply(action).path
   }
+
+  override fun String.cleanOutput(): String = with(hasWorkingDir) { cleanOutput() }
 }
