@@ -1,9 +1,13 @@
 # Changelog
 
-## 0.5.0-SNAPSHOT (unreleased)
+## 0.5.1-SNAPSHOT (unreleased)
+
+## [0.5.0] — 2023-01-04
 
 ### Added
 
+- `KaseMatrix` replaces the `VersionMatrix` type in https://github.com/rickbusarow/kase/pull/83
+- A new `KaseBag` type is a type-safe, indexed set of kase elements in https://github.com/rickbusarow/kase/pull/83
 - Add `projectDir` and `debug` parameters to gradle runner functions
 
 ## [0.4.0] — 2023-12-14
@@ -66,3 +70,4 @@ Hello World
 [0.2.0]: https://github.com/rickbusarow/kase/releases/tag/0.2.0
 [0.3.0]: https://github.com/rickbusarow/kase/releases/tag/0.3.0
 [0.4.0]: https://github.com/rickbusarow/kase/releases/tag/0.4.0
+[0.5.0]: https://github.com/rickbusarow/kase/releases/tag/0.5.0
