@@ -147,7 +147,11 @@ public interface KaseMatrix {
      */
     public val key: KaseMatrixKey<KaseMatrixElement<T>>
 
-    /** Returns the element as a string in the format `$label: $value`. */
+    /**
+     * Returns the element as a string in the format `$label: $value`.
+     *
+     * @since 0.5.0
+     */
     public fun asString(): String = "$label: $value"
 
     override fun compareTo(other: KaseMatrixElement<*>): Int {
@@ -220,7 +224,11 @@ public interface KaseMatrix {
   }
 }
 
-/** An implementation of [KaseMatrixKey] with a nicer `toString()`. */
+/**
+ * An implementation of [KaseMatrixKey] with a nicer `toString()`.
+ *
+ * @since 0.5.0
+ */
 @Suppress("UnnecessaryAbstractClass")
 public abstract class AbstractKaseMatrixKey<E : KaseMatrixElement<*>> : KaseMatrixKey<E> {
   override fun toString(): String = this::class.java.name
