@@ -24,10 +24,16 @@ import java.io.File
 /**
  * A [TestEnvironment] which provides a [GradleRunner]
  * and a [rootProject] [GradleRootProjectBuilder].
+ *
+ * @since 0.5.0
  */
 public interface GradleTestEnvironment : TestEnvironment, HasGradleRunner {
 
-  /** the [GradleRootProjectBuilder] for this test environment */
+  /**
+   * the [GradleRootProjectBuilder] for this test environment
+   *
+   * @since 0.5.0
+   */
   public val rootProject: GradleRootProjectBuilder
 }
 

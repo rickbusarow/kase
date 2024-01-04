@@ -97,7 +97,11 @@ public interface GradleTestVersions :
   Kase1<GradleDependencyVersion> {
   public companion object : TestVersionsFactory<GradleTestVersions> {
 
-    /** Creates a new [DefaultGradleTestVersions] instance. */
+    /**
+     * Creates a new [DefaultGradleTestVersions] instance.
+     *
+     * @since 0.5.0
+     */
     public operator fun invoke(gradleVersion: GradleDependencyVersion): GradleTestVersions {
       return DefaultGradleTestVersions(gradleVersion)
     }
@@ -141,7 +145,11 @@ public interface GradleKotlinTestVersions :
   GradleTestVersions {
   public companion object : TestVersionsFactory<GradleKotlinTestVersions> {
 
-    /** Creates a new [GradleKotlinTestVersions] instance. */
+    /**
+     * Creates a new [GradleKotlinTestVersions] instance.
+     *
+     * @since 0.5.0
+     */
     public operator fun invoke(
       gradleVersion: GradleDependencyVersion,
       kotlinVersion: KotlinDependencyVersion
@@ -190,7 +198,11 @@ public interface GradleAgpTestVersions :
   GradleTestVersions {
   public companion object : TestVersionsFactory<GradleAgpTestVersions> {
 
-    /** Creates a new [DefaultGradleAgpTestVersions] instance. */
+    /**
+     * Creates a new [DefaultGradleAgpTestVersions] instance.
+     *
+     * @since 0.5.0
+     */
     public operator fun invoke(
       gradleVersion: GradleDependencyVersion,
       agpVersion: AgpDependencyVersion
