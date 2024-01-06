@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -37,6 +37,23 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(
       kase.displayName,
+      testFunctionCoordinates = testFunctionCoordinates
+    ) as? T
+      ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
+  }
+
+  /**
+   * Creates a new [TestEnvironment].
+   *
+   * @return A new [TestEnvironment] of type [T].
+   */
+  public fun newTestEnvironment(
+    testParameterDisplayNames: List<String>,
+    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+  ): T {
+    @Suppress("UNCHECKED_CAST")
+    return TestEnvironment(
+      testParameterDisplayNames,
       testFunctionCoordinates = testFunctionCoordinates
     ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")

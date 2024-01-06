@@ -440,6 +440,7 @@ public final class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory$Defa
 	public static fun getDslLanguage (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;)Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public static fun getLocalM2Path (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;)Ljava/io/File;
 	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
 	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 }
 
@@ -599,6 +600,7 @@ public final class com/rickbusarow/kase/gradle/KaseGradleTest$DefaultImpls {
 	public static fun getLocalM2Path (Lcom/rickbusarow/kase/gradle/KaseGradleTest;)Ljava/io/File;
 	public static fun getVersionMatrix (Lcom/rickbusarow/kase/gradle/KaseGradleTest;)Lcom/rickbusarow/kase/KaseMatrix;
 	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
 	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public static fun test (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
