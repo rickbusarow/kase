@@ -1,6 +1,13 @@
 # Changelog
 
-## 0.5.1-SNAPSHOT (unreleased)
+## 0.6.1-SNAPSHOT (unreleased)
+
+## [0.6.0] — 2023-01-05
+
+### Added
+* adding `KaseTestFactoryNodeBuilder` by @RBusarow in https://github.com/rickbusarow/kase/pull/87
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.5.0...0.6.0
 
 ## [0.5.0] — 2023-01-04
 
@@ -71,3 +78,4 @@ Hello World
 [0.3.0]: https://github.com/rickbusarow/kase/releases/tag/0.3.0
 [0.4.0]: https://github.com/rickbusarow/kase/releases/tag/0.4.0
 [0.5.0]: https://github.com/rickbusarow/kase/releases/tag/0.5.0
+[0.6.0]: https://github.com/rickbusarow/kase/releases/tag/0.6.0
