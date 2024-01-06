@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,8 +20,6 @@ import com.rickbusarow.kase.ParamTypes.B
 import com.rickbusarow.kase.ParamTypes.C
 import com.rickbusarow.kase.files.HasWorkingDir.Companion.baseWorkingDir
 import com.rickbusarow.kase.files.HasWorkingDir.Companion.cleanStringForFileSystem
-import com.rickbusarow.kase.files.HasWorkingDir.Companion.div
-import com.rickbusarow.kase.stdlib.div
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.TestFactory
@@ -59,6 +57,46 @@ class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
           )
         }
       ) { k2 ->
+
+        val path = functionDir
+          .resolve(cleanStringForFileSystem(k1.displayName))
+          .resolve(cleanStringForFileSystem(k2.displayName))
+
+        workingDir.relativeTo(base) shouldBe path
+      }
+    }
+  }
+
+  @TestFactory
+  fun `scoping nested asTests`(): Stream<out DynamicNode> {
+    val base = baseWorkingDir()
+
+    val functionDir = File("KaseTestFactoryTest")
+      .resolve(cleanStringForFileSystem("scoping nested asTests"))
+
+    return cs.asContainers { k1 ->
+
+      kases.asTests { k2 ->
+
+        val path = functionDir
+          .resolve(cleanStringForFileSystem(k1.displayName))
+          .resolve(cleanStringForFileSystem(k2.displayName))
+
+        workingDir.relativeTo(base) shouldBe path
+      }
+    }
+  }
+
+  @TestFactory
+  fun `scoping nested testFactory`(): Stream<out DynamicNode> {
+    val base = baseWorkingDir()
+
+    val functionDir = File("KaseTestFactoryTest")
+      .resolve(cleanStringForFileSystem("scoping nested asTests"))
+
+    return cs.asContainers { k1 ->
+
+      testFactory { k2 ->
 
         val path = functionDir
           .resolve(cleanStringForFileSystem(k1.displayName))

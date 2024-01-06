@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,10 +16,12 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.internal.DefaultTestNodeBuilder
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
+import kotlin.streams.asStream
 
 /**
  * Common interface for creating dynamic tests with predefined
@@ -137,9 +139,9 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @return a stream of dynamic nodes representing the containers.
    * @since 0.1.0
    */
-  public fun <K : Kase> Iterable<K>.asContainers(
-    testName: (K) -> String = { it.displayName },
-    testAction: TestNodeBuilder.(K) -> Unit
+  public fun <K2 : Kase> Iterable<K2>.asContainers(
+    testName: (K2) -> String = { it.displayName },
+    testAction: KaseTestFactoryNodeBuilder<T, K>.(K2) -> Unit
   ): Stream<out DynamicNode> = asSequence().asContainers(testName, testAction)
 
   /**
@@ -152,10 +154,22 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @return a stream of dynamic nodes representing the containers.
    * @since 0.1.0
    */
-  public fun <K : Kase> Sequence<K>.asContainers(
-    testName: (K) -> String = { it.displayName },
-    testAction: TestNodeBuilder.(K) -> Unit
-  ): Stream<out DynamicNode> = com.rickbusarow.kase.testFactory {
-    asContainers(testName, testAction)
-  }
+  public fun <K2 : Kase> Sequence<K2>.asContainers(
+    testName: (K2) -> String = { it.displayName },
+    testAction: KaseTestFactoryNodeBuilder<T, K>.(K2) -> Unit
+  ): Stream<out DynamicNode> = KaseTestFactoryNodeBuilder<T, K>(
+    delegateFactory = this@KaseTestFactory,
+    delegateNodeBuilder = DefaultTestNodeBuilder(
+      displayName = "root",
+      testFunctionCoordinates = TestFunctionCoordinates.get(),
+      parent = null
+    )
+  )
+    .also {
+      for (k in this@asContainers) {
+        it.wrapContainer(testName(k)) { testAction(k) }
+      }
+    }
+    .nodeSequence()
+    .asStream()
 }
