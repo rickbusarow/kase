@@ -5,7 +5,8 @@
 ## [0.6.0] — 2023-01-05
 
 ### Added
-* adding `KaseTestFactoryNodeBuilder` by @RBusarow in https://github.com/rickbusarow/kase/pull/87
+
+- adding `KaseTestFactoryNodeBuilder` by @RBusarow in https://github.com/rickbusarow/kase/pull/87
 
 **Full Changelog**: https://github.com/rickbusarow/kase/compare/0.5.0...0.6.0
 
