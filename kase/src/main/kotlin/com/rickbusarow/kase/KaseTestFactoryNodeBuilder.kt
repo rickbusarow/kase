@@ -18,6 +18,8 @@ package com.rickbusarow.kase
 /**
  * Enables the creation of multiple layers of nodes without
  * losing the scope of the original TestEnvironment factory.
+ *
+ * @since 0.6.0
  */
 public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
   delegateFactory: KaseTestFactory<T, K>,
@@ -28,6 +30,8 @@ public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
   /**
    * Enables the creation of multiple layers of nodes without
    * losing the scope of the original TestEnvironment factory.
+   *
+   * @since 0.6.0
    */
   public fun Iterable<K>.asTests(testAction: T.(K) -> Unit): TestNodeBuilder {
     return this@KaseTestFactoryNodeBuilder.also { builder ->
