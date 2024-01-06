@@ -46,6 +46,7 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
    * Creates a new [TestEnvironment].
    *
    * @return A new [TestEnvironment] of type [T].
+   * @since 0.6.0
    */
   public fun newTestEnvironment(
     testParameterDisplayNames: List<String>,

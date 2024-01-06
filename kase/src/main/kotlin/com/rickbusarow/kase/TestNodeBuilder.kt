@@ -71,16 +71,26 @@ public interface TestNodeBuilder : HasDisplayName {
 
   /**
    * Captured before executing any tests, meaning that it's the frame that called `asTests { ... }`
+   *
+   * @since 0.6.0
    */
   public val testFunctionCoordinates: TestFunctionCoordinates
 
-  /** the parent node, or `null` if this is the root container */
+  /**
+   * the parent node, or `null` if this is the root container
+   *
+   * @since 0.6.0
+   */
   public val parent: TestNodeBuilder?
 
-  /** Converts this builder to a [DynamicNode] */
+  /**
+   * Converts this builder to a [DynamicNode]
+   *
+   * @since 0.6.0
+   */
   public fun build(): DynamicNode
 
-  /** */
+  /** @since 0.6.0 */
   public fun nodeSequence(): Sequence<DynamicNode>
 
   /**
