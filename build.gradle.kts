@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,7 +17,6 @@ import builds.GROUP
 import com.rickbusarow.doks.DoksTask
 import com.rickbusarow.kgx.mustRunAfter
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import kotlin.text.Regex.Companion.escapeReplacement
 
 buildscript {
 
@@ -37,7 +36,7 @@ doks {
 
     rule("maven-with-version") {
       regex = maven(GROUP)
-      replacement = "$1:$2:${libs.versions.rickBusarow.kase.get() .escapeReplacement()}"
+      replacement = "$1:$2:${libs.versions.rickBusarow.kase.get().escapeReplacement()}"
     }
     rule("kgx-group") {
       regex = "com\\.rickbusarow\\.kase"

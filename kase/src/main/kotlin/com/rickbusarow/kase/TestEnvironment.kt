@@ -56,7 +56,8 @@ public interface TestEnvironment : HasWorkingDir {
     /**
      * Creates a new [TestEnvironment] instance.
      *
-     * @param testParameterDisplayNames The display names of the test parameters, if any.
+     * @param testParameterDisplayName The display name of the first test parameter
+     * @param additionalNames optional additional names
      * @param testFunctionCoordinates The [TestFunctionCoordinates]
      *   from which the test is being run.
      * @return A new [TestEnvironment] instance.
@@ -65,10 +66,11 @@ public interface TestEnvironment : HasWorkingDir {
      * @since 0.1.0
      */
     public operator fun invoke(
-      vararg testParameterDisplayNames: String,
+      testParameterDisplayName: String,
+      vararg additionalNames: String,
       testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
     ): TestEnvironment = DefaultTestEnvironment(
-      testParameterDisplayNames = testParameterDisplayNames.toList(),
+      testParameterDisplayNames = listOf(testParameterDisplayName) + additionalNames,
       testFunctionCoordinates = testFunctionCoordinates
     )
   }
