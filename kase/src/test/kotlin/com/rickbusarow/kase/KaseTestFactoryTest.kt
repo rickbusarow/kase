@@ -32,7 +32,7 @@ fun <A1, A2, B1> Kase2<A1, A2>.plus(other: Kase1<B1>): Kase3<A1, A2, B1> = kase(
 fun <A1, A2, A3, B1> Kase3<A1, A2, A3>.plus(other: Kase1<B1>): Kase4<A1, A2, A3, B1> =
   kase(a1, a2, a3, other.a1)
 
-class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
+internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
   override val kases: List<Kase2<A, B>>
     get() = kases(
       listOf(A("a1"), A("a2")),
@@ -119,6 +119,16 @@ class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
 
     val cs = kases(listOf(C("c1"), C("c2")))
 
+    override fun newTestEnvironment(
+      kase: Kase2<A, B>,
+      parentNames: List<String>,
+      testFunctionCoordinates: TestFunctionCoordinates
+    ): CustomTestEnvironment = CustomTestEnvironment(
+      params = kase,
+      testParameterDisplayNames = parentNames + kase.displayName,
+      testFunctionCoordinates = testFunctionCoordinates
+    )
+
     @TestFactory
     fun `scoping nested asTests`(): Stream<out DynamicNode> {
       val base = baseWorkingDir()
@@ -140,10 +150,10 @@ class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
       }
     }
   }
-}
 
-private class CustomTestEnvironment(
-  val params: Kase,
-  testParameterDisplayNames: List<String>,
-  testFunctionCoordinates: TestFunctionCoordinates
-) : DefaultTestEnvironment(testParameterDisplayNames, testFunctionCoordinates)
+  class CustomTestEnvironment(
+    val params: Kase,
+    testParameterDisplayNames: List<String>,
+    testFunctionCoordinates: TestFunctionCoordinates
+  ) : DefaultTestEnvironment(testParameterDisplayNames, testFunctionCoordinates)
+}

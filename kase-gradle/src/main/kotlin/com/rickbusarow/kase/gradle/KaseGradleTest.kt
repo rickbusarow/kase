@@ -34,20 +34,17 @@ import java.io.File
  * @since 0.1.0
  */
 @Execution(ExecutionMode.SAME_THREAD)
-public interface KaseGradleTest<K> :
+public interface KaseGradleTest<K : Kase> :
   GradleTestEnvironmentFactory<K>,
   HasKaseMatrix,
   KaseTestFactory<GradleTestEnvironment, K>
-  where K : Kase
 
 /**
  * A factory for creating [GradleTestEnvironment]s.
  *
  * @since 0.1.0
  */
-public interface GradleTestEnvironmentFactory<K> :
-  TestEnvironmentFactory<GradleTestEnvironment, K>
-  where K : Kase {
+public interface GradleTestEnvironmentFactory<K : Kase> : TestEnvironmentFactory<GradleTestEnvironment, K> {
 
   /**
    * The [DslLanguage] to use for generating build and settings files.

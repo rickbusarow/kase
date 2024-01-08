@@ -15,6 +15,8 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.files.TestFunctionCoordinates
+
 /**
  * Enables the creation of multiple node layers without
  * losing the scope of the original TestEnvironment factory.
@@ -23,7 +25,7 @@ package com.rickbusarow.kase
  */
 @KaseTestBuilderDsl
 public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
-  delegateFactory: KaseTestFactory<T, K>,
+  private val delegateFactory: KaseTestFactory<T, K>,
   delegateNodeBuilder: TestNodeBuilder
 ) : TestNodeBuilder by delegateNodeBuilder,
   KaseTestFactory<T, K> by delegateFactory {
@@ -43,13 +45,18 @@ public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
             .dropLast(1)
             .asReversed()
             .map { it.displayName }
-            .plus(kase.displayName)
-          val environment = newTestEnvironment(names, testFunctionCoordinates)
+          val environment = delegateFactory.newTestEnvironment(kase, names, testFunctionCoordinates)
           environment.testAction(kase)
         }
       }
     }
   }
+
+  override fun newTestEnvironment(
+    kase: K,
+    parentNames: List<String>,
+    testFunctionCoordinates: TestFunctionCoordinates
+  ): T = delegateFactory.newTestEnvironment(kase, parentNames, testFunctionCoordinates)
 
   internal fun wrapContainer(
     name: String,
@@ -59,7 +66,7 @@ public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
       val delegate: TestNodeBuilder = this@del
 
       val child = KaseTestFactoryNodeBuilder<T, K>(
-        delegateFactory = this@KaseTestFactoryNodeBuilder,
+        delegateFactory = this@KaseTestFactoryNodeBuilder.delegateFactory,
         delegateNodeBuilder = delegate
       )
       child.init()
