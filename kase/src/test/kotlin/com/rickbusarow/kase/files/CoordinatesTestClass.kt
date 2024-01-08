@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,32 +17,32 @@ package com.rickbusarow.kase.files
 
 @Suppress("UNUSED_PARAMETER", "NOTHING_TO_INLINE")
 internal class CoordinatesTestClass(
-  val primaryConstructorCoords: TestFunctionCoordinates = TestFunctionCoordinates.get()
+  val primaryConstructorCoords: TestLocation = TestLocation.get()
 ) {
 
-  val lazyPropertyCoords by lazy { TestFunctionCoordinates.get() }
+  val lazyPropertyCoords by lazy { TestLocation.get() }
   val getterDelegatePropertyCoords
-    get() = TestFunctionCoordinates.get()
+    get() = TestLocation.get()
 
-  var secondaryConstructorCoords: TestFunctionCoordinates? = null
-  var initBlockCoords: TestFunctionCoordinates? = null
-  var functionSetterBlockCoords: TestFunctionCoordinates? = null
+  var secondaryConstructorCoords: TestLocation? = null
+  var initBlockCoords: TestLocation? = null
+  var functionSetterBlockCoords: TestLocation? = null
 
   init {
-    initBlockCoords = TestFunctionCoordinates.get()
+    initBlockCoords = TestLocation.get()
   }
 
   constructor(uniqueParameter: Unit) : this() {
-    secondaryConstructorCoords = TestFunctionCoordinates.get()
+    secondaryConstructorCoords = TestLocation.get()
   }
 
-  val eagerPropertyCoords = TestFunctionCoordinates.get()
+  val eagerPropertyCoords = TestLocation.get()
 
   fun setterFunction() {
-    functionSetterBlockCoords = TestFunctionCoordinates.get()
+    functionSetterBlockCoords = TestLocation.get()
   }
 
-  fun coordsFromFunction() = TestFunctionCoordinates.get()
+  fun coordsFromFunction() = TestLocation.get()
 
-  inline fun coordsFromInlineFunction() = TestFunctionCoordinates.get()
+  inline fun coordsFromInlineFunction() = TestLocation.get()
 }

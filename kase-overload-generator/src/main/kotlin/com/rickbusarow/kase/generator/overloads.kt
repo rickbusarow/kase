@@ -26,6 +26,7 @@ import com.rickbusarow.kase.generator.KaseArg.Companion.paramsString
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueNames
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueTypesString
 import com.rickbusarow.kase.generator.KaseArg.Companion.valuesFromItString
+import com.rickbusarow.kase.generator.Names.kaseTestBuilderDsl
 
 internal fun StringBuilder.kaseInterface(
   args: List<KaseArg>,
@@ -67,7 +68,7 @@ internal fun StringBuilder.defaultKase(
     |internal class ${types.defaultKaseVariance}(
     |  ${args.argsValueParams},
     |  private val displayNameFactory: ${types.displayNameFactory}
-    |) : ${types.kaseInterface}, KaseInternal {
+    |) : ${types.kaseInterface} {
     |
     |  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
     |    with(displayNameFactory) { createDisplayName() }
@@ -356,7 +357,7 @@ internal fun StringBuilder.testFun(
       "@param displayNameFactory defines the name used for this test environment's working directory"
     )
     add(
-      "@param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run."
+      "@param testLocation the [testLocation] from which the test is being run."
     )
     add("@param testAction the test action to execute.")
     add("@see KaseTestFactory")
@@ -366,15 +367,16 @@ internal fun StringBuilder.testFun(
   appendLine(
     """
     |$kdoc
-    |public fun <T: TestEnvironment, ${args.valueTypesString}> KaseTestFactory<T, ${types.kaseInterface}>.test(
+    |@${kaseTestBuilderDsl.simple}
+    |public fun <T: TestEnvironment, ${args.valueTypesString}> KaseTestFactory<T, *, ${types.kaseInterface}>.test(
     |  ${args.paramsString},
     |  displayNameFactory: ${types.displayNameFactory} = ${types.defaultDisplayNameFactory}(),
-    |  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
+    |  testLocation: testLocation = testLocation.get(),
     |  testAction: suspend T.() -> Unit
     |) {
     |  this@KaseTestFactory.test(
     |    kase = kase(${args.argsWithParamNames}, displayNameFactory = displayNameFactory),
-    |    testFunctionCoordinates = testFunctionCoordinates,
+    |    testLocation = testLocation,
     |    testAction = testAction
     |  )
     |}
@@ -397,6 +399,7 @@ internal fun StringBuilder.asTests_Destructured(
      * @see ${kaseTypes.kaseInterfaceNoTypes}
      * @since 0.1.0
      */
+    @${kaseTestBuilderDsl.simple}
     public fun <${args.valueTypesString}> Iterable<${kaseTypes.kaseInterface}>.asTests(
       testAction: (${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
@@ -417,11 +420,12 @@ internal fun StringBuilder.testFactory_vararg(
   appendLine(kdoc)
   appendLine(
     """
+    @${kaseTestBuilderDsl.simple}
     public fun <${args.valueTypesString}> testFactory(
       vararg kases: ${kaseTypes.kaseInterface},
       testAction: (${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
-      return testFactory { kases.asSequence().asTests { testAction(${args.valuesFromItString}) } }
+      return kases.asSequence().asTests { testAction(${args.valuesFromItString}) }
     }
     """.trimIndent()
   )
@@ -436,11 +440,12 @@ internal fun StringBuilder.testFactory_Iterable(
   appendLine(kdoc)
   appendLine(
     """
+    @${kaseTestBuilderDsl.simple}
     public fun <${args.valueTypesString}> testFactory(
       kases: Iterable<${kaseTypes.kaseInterface}>,
       testAction: (${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
-      return testFactory { kases.asTests { testAction(${args.valuesFromItString}) } }
+      return kases.asTests { testAction(${args.valuesFromItString}) }
     }
     """.trimIndent()
   )

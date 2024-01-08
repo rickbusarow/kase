@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,27 +15,26 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.TestLocation
+import com.rickbusarow.kase.utils.allNodes
+import com.rickbusarow.kase.utils.allTests
+import com.rickbusarow.kase.utils.asList
+import com.rickbusarow.kase.utils.names
 import io.kotest.inspectors.shouldForAll
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.jupiter.api.DynamicContainer
-import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import org.junit.jupiter.api.Test
-import java.util.LinkedList
 import java.util.stream.Stream
-import kotlin.streams.asSequence
 
 class TestNodeBuilderTest {
 
   @Test
-  fun `testFactory creates single test node`() {
-    val dynamicNodesStream = testFactory {
-      test("Test1") {}
-    }
+  fun `asTests creates single test node`() {
+    val dynamicNodesStream = listOf("Test1").asTests { }
 
     val dynamicNodes = dynamicNodesStream.asList()
     dynamicNodes.size shouldBe 1
@@ -47,10 +46,7 @@ class TestNodeBuilderTest {
 
   @Test
   fun `testFactory creates multiple test nodes`() {
-    val dynamicNodesStream = testFactory {
-      test("Test1") {}
-      test("Test2") {}
-    }
+    val dynamicNodesStream = listOf("Test1", "Test2").asTests {}
 
     val dynamicNodes = dynamicNodesStream.asList()
     dynamicNodes shouldHaveSize 2
@@ -62,12 +58,11 @@ class TestNodeBuilderTest {
   }
 
   @Test
-  fun `testFactory creates a dynamic container`() {
-    val dynamicNodesStream = testFactory {
-      container("Container1") {
-        test("Test3") {}
+  fun `asContainers creates a dynamic container`() {
+    val dynamicNodesStream = listOf("Container1")
+      .asContainers {
+        listOf("Test3").asTests {}
       }
-    }
 
     val dynamicNodes = dynamicNodesStream.asList()
     dynamicNodes shouldHaveSize 1
@@ -88,9 +83,7 @@ class TestNodeBuilderTest {
   fun `TestNodeBuilder asTests creates dynamic tests`() {
     val elements = listOf("Element1", "Element2")
 
-    val dynamicNodesStream = testFactory {
-      elements.asTests({ "Test $it" }) {}
-    }
+    val dynamicNodesStream = elements.asTests({ "Test $it" }) {}
 
     val dynamicNodes = dynamicNodesStream.asList()
     dynamicNodes shouldHaveSize 2
@@ -103,8 +96,8 @@ class TestNodeBuilderTest {
   fun `TestNodeBuilder asContainers creates dynamic containers`() {
     val elements = listOf("Element1", "Element2")
 
-    val dynamicNodesStream = testFactory {
-      elements.asContainers({ "Container $it" }) {}
+    val dynamicNodesStream = elements.asContainers({ "Container $it" }) {
+      listOf("Test $it").asTests { }
     }
 
     val dynamicNodes = dynamicNodesStream.asList()
@@ -130,7 +123,7 @@ class TestNodeBuilderTest {
   @Test
   fun `iterable asContainers adds items as containers`() {
     val items = kases(listOf("Item1", "Item2"))
-    val dynamicNodes = items.asContainers(testAction = { }).asList()
+    val dynamicNodes = items.asContainers(testAction = { Stream.empty() }).asList()
 
     dynamicNodes.names() shouldBe listOf("a1: Item1", "a1: Item2")
   }
@@ -144,77 +137,23 @@ class TestNodeBuilderTest {
   }
 
   @Test
-  fun `root node builder creates containers using testFactory DSL`() {
-    val dynamicNodes = testFactory {
-      container("Container1") { }
-      container("Container2") { }
-    }
-
-    dynamicNodes.names() shouldBe listOf("Container1", "Container2")
-  }
-
-  @Test
-  fun `container builder adds nested containers to a container using testFactory DSL`() {
-    val dynamicContainer = testFactory {
-      container("Container1") {
-        container("Container2") { }
-        container("Container3") { }
-      }
-    }
-      .findFirst().get() as DynamicContainer
-
-    dynamicContainer.children
-      .names() shouldBe listOf("Container2", "Container3")
-  }
-
-  @Test
-  fun `container builder adds tests and containers to a container using testFactory DSL`() {
-    val dynamicContainer = testFactory {
-      container("Container1") {
-        test("Test1") { }
-        container("Container2") { }
-        test("Test2") { }
-        container("Container3") { }
-      }
-    }
-      .findFirst().get() as DynamicContainer
-
-    dynamicContainer.children
-      .names() shouldBe listOf("Test1", "Container2", "Test2", "Container3")
-  }
-
-  @Test
-  fun `root node builder adds tests and containers using testFactory DSL`() {
-    val dynamicNodes = testFactory {
-      test("Test1") { }
-      container("Container1") { }
-      test("Test2") { }
-      container("Container2") { }
-    }
-
-    dynamicNodes.names() shouldBe listOf("Test1", "Container1", "Test2", "Container2")
-  }
-
-  @Test
   fun `leaf node has stackFrame from root node`() {
 
     var invoked = false
 
-    val stackFrameFromHere = TestFunctionCoordinates.testStackTraceElement()
-    val dynamicNodes = testFactory {
-      container("Container") {
-        test("Test") {
+    val thisStackTrace = TestLocation.testStackTraceElement()
+    val dynamicNodes = listOf("Container").asContainers {
+      listOf("Test").asTests {
 
-          // The expected stackFrame is from one line before the call to `testFactory { }`,
-          // so the line number in the string will be different.
-          // Parse out the line number from the end of the line, add one,
-          // and update the line with the new value.
-          // That should match the stackFrame created in the DSL.
-          val expected = stackFrameFromHere.lineNumber + 1
+        // The expected stackTraceElement is from one line before the call to `testFactory { }`,
+        // so the line number in the string will be different.
+        // Parse out the line number from the end of the line, add one,
+        // and update the line with the new value.
+        // That should match the stackFrame created in the DSL.
+        val expected = thisStackTrace.lineNumber + 1
 
-          testFunctionCoordinates.lineNumber shouldBe expected
-          invoked = true
-        }
+        testLocation.lineNumber shouldBe expected
+        invoked = true
       }
     }
       .allNodes()
@@ -225,26 +164,4 @@ class TestNodeBuilderTest {
 
     dynamicNodes.names() shouldBe listOf("Container", "Test")
   }
-
-  private fun Stream<out DynamicNode>.allNodes(): List<DynamicNode> {
-    return asList().allNodes()
-  }
-
-  private fun List<DynamicNode>.allNodes(): List<DynamicNode> {
-    val result = mutableListOf<DynamicNode>()
-    val nodesToVisit = LinkedList(this)
-    while (nodesToVisit.isNotEmpty()) {
-      val node = nodesToVisit.removeFirst()
-      result.add(node)
-      if (node is DynamicContainer) {
-        nodesToVisit.addAll(0, node.children.asList())
-      }
-    }
-    return result
-  }
-
-  private fun <T> Stream<T>.asList(): List<T> = this.asSequence().toList()
-  private fun List<DynamicNode>.allTests(): List<DynamicTest> = filterIsInstance<DynamicTest>()
-  private fun Stream<out DynamicNode>.names() = asList().map { it.displayName }
-  private fun List<DynamicNode>.names() = map { it.displayName }
 }

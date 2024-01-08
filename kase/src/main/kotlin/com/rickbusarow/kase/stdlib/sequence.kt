@@ -13,19 +13,18 @@
  * limitations under the License.
  */
 
-package com.rickbusarow.kase
+package com.rickbusarow.kase.stdlib
 
 /**
- * Common interface for creating dynamic tests with predefined
- * [kases][HasParams.kases] and a unique [TestEnvironment]
+ * Returns a sequence containing all elements of original sequence
+ * and then all elements of the given [elements] collection.
  *
- * @since 0.1.0
+ * Note that the source sequence and the collection being added are iterated
+ * only when an `iterator` is requested from the resulting sequence. Changing
+ * any of them between successive calls to `iterator` may affect the result.
+ *
+ * The operation is _intermediate_ and _stateless_.
  */
-public interface KaseTestFactory<PARAM, ENV, FACT> :
-  HasTestEnvironmentFactory<FACT>,
-  EnvironmentTests<PARAM, ENV, FACT>,
-  DynamicContainerTransforms<EnvironmentTestNodeBuilder<PARAM, ENV, FACT>>,
-  DynamicTestTransforms<ENV, PARAM>,
-  HasParams<PARAM>
-  where ENV : TestEnvironment,
-        FACT : TestEnvironmentFactory<PARAM, ENV>
+internal fun <E> Sequence<E>.plus(vararg elements: E): Sequence<E> {
+  return sequenceOf(this, elements.asSequence()).flatten()
+}

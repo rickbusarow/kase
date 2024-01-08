@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -18,34 +18,33 @@ package com.rickbusarow.kase.gradle.dsl
 import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.KaseTestFactory
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.TestEnvironmentFactory
+import com.rickbusarow.kase.files.TestLocation
 import com.rickbusarow.kase.gradle.DslLanguage
 
-interface DslKaseTestFactory<T : DslTestEnvironment, K : Kase1<DslLanguage>> : KaseTestFactory<T, K> {
+interface DslKaseTestFactory : KaseTestFactory<Kase1<DslLanguage>, DslTestEnvironment, DslTestEnvironment.Factory> {
 
-  @Suppress("UNCHECKED_CAST")
-  override val kases: List<K>
-    get() = dslLanguages.kases() as List<K>
+  override val testEnvironmentFactory: DslTestEnvironment.Factory
+    get() = DslTestEnvironment.Factory()
 
-  override fun newTestEnvironment(
-    kase: K,
-    testFunctionCoordinates: TestFunctionCoordinates
-  ): T {
-    val environment = DslTestEnvironment(
-      language = kase.a1,
-      testFunctionCoordinates = testFunctionCoordinates
-    )
-
-    @Suppress("UNCHECKED_CAST")
-    return environment as T
-  }
+  override val params: List<Kase1<DslLanguage>>
+    get() = dslLanguages.kases()
 }
 
 open class DslTestEnvironment(
   val language: DslLanguage,
-  testFunctionCoordinates: TestFunctionCoordinates
-) : DefaultTestEnvironment(listOf(element = language.displayName), testFunctionCoordinates) {
+  names: List<String>,
+  testLocation: TestLocation
+) : DefaultTestEnvironment(names, testLocation) {
   val generator = ExpectedCodeGenerator(language)
+
+  class Factory : TestEnvironmentFactory<Kase1<DslLanguage>, DslTestEnvironment> {
+    override fun createEnvironment(
+      params: Kase1<DslLanguage>,
+      names: List<String>,
+      location: TestLocation
+    ): DslTestEnvironment = DslTestEnvironment(params.a1, names, location)
+  }
 }
 
 val DslLanguage.displayName: String

@@ -15,45 +15,49 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.ParamTypes.A
-import com.rickbusarow.kase.ParamTypes.B
-import com.rickbusarow.kase.ParamTypes.C
 import com.rickbusarow.kase.files.HasWorkingDir.Companion.baseWorkingDir
 import com.rickbusarow.kase.files.HasWorkingDir.Companion.cleanStringForFileSystem
+import com.rickbusarow.kase.files.TestLocation
+import com.rickbusarow.kase.utils.ParamTypes.A
+import com.rickbusarow.kase.utils.ParamTypes.B
+import com.rickbusarow.kase.utils.ParamTypes.C
+import com.rickbusarow.kase.utils.ParamTypes.D
+import com.rickbusarow.kase.utils.currentMethodName
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.DynamicNode
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 import java.util.stream.Stream
 
-fun <A1, A2, B1> Kase2<A1, A2>.plus(other: Kase1<B1>): Kase3<A1, A2, B1> = kase(a1, a2, other.a1)
-fun <A1, A2, A3, B1> Kase3<A1, A2, A3>.plus(other: Kase1<B1>): Kase4<A1, A2, A3, B1> =
-  kase(a1, a2, a3, other.a1)
-
-class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
-  override val kases: List<Kase2<A, B>>
+internal class KaseTestFactoryTest : KaseTestFactory<Kase2<A, B>, TestEnvironment, DefaultTestEnvironment.Factory> {
+  override val params: List<Kase2<A, B>>
     get() = kases(
       listOf(A("a1"), A("a2")),
       listOf(B("b1"), B("b2"))
     )
 
-  val cs = kases(listOf(C("c1"), C("c2")))
+  override val testEnvironmentFactory = DefaultTestEnvironment.Factory()
+
+  val className = this::class.simpleName!!
+
+  val cs: List<Kase1<C>> = kases(listOf(C("c1"), C("c2")))
+  val ds: List<Kase1<D>> = kases(listOf(D("d1"), D("d2")))
 
   @TestFactory
   fun `scoping for multiplied streams`(): Stream<out DynamicNode> {
     val base = baseWorkingDir()
 
-    val functionDir = File("KaseTestFactoryTest")
-      .resolve(cleanStringForFileSystem("scoping for multiplied streams"))
+    val functionDir = File(className)
+      .resolve(cleanStringForFileSystem(currentMethodName()))
 
-    return kases.asContainers { k1 ->
+    return params.asContainers { k1 ->
 
       cs.asTests(
-        testEnvironmentFactory = { k2 ->
+        testEnvironmentFactory = { _, names, location ->
           TestEnvironment(
-            k1.displayName,
-            k2.displayName,
-            testFunctionCoordinates = testFunctionCoordinates
+            testParameterDisplayNames = names,
+            testLocation = location
           )
         }
       ) { k2 ->
@@ -71,12 +75,12 @@ class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
   fun `scoping nested asTests`(): Stream<out DynamicNode> {
     val base = baseWorkingDir()
 
-    val functionDir = File("KaseTestFactoryTest")
-      .resolve(cleanStringForFileSystem("scoping nested asTests"))
+    val functionDir = File(className)
+      .resolve(cleanStringForFileSystem(currentMethodName()))
 
     return cs.asContainers { k1 ->
 
-      kases.asTests { k2 ->
+      params.asTests { k2 ->
 
         val path = functionDir
           .resolve(cleanStringForFileSystem(k1.displayName))
@@ -91,8 +95,8 @@ class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
   fun `scoping nested testFactory`(): Stream<out DynamicNode> {
     val base = baseWorkingDir()
 
-    val functionDir = File("KaseTestFactoryTest")
-      .resolve(cleanStringForFileSystem("scoping nested asTests"))
+    val functionDir = File(className)
+      .resolve(cleanStringForFileSystem(currentMethodName()))
 
     return cs.asContainers { k1 ->
 
@@ -106,49 +110,81 @@ class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
       }
     }
   }
-}
 
-sealed class ParamTypes {
-  abstract val name: String
+  @TestFactory
+  fun `multiple layers of containers results in multiple parent directories`(): Stream<out DynamicNode> {
+    val base = baseWorkingDir()
 
-  override fun toString() = name
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (other !is ParamTypes) return false
+    val functionDir = File(className)
+      .resolve(cleanStringForFileSystem(currentMethodName()))
 
-    if (name != other.name) return false
+    return ds.asContainers { k1 ->
 
-    return true
+      cs.asContainers { k2 ->
+
+        params.asTests { k3 ->
+
+          val path = functionDir
+            .resolve(cleanStringForFileSystem(k1.displayName))
+            .resolve(cleanStringForFileSystem(k2.displayName))
+            .resolve(cleanStringForFileSystem(k3.displayName))
+
+          workingDir.relativeTo(base) shouldBe path
+        }
+      }
+    }
   }
 
-  override fun hashCode(): Int {
-    return name.hashCode()
+  @Nested
+  inner class `custom environment` : KaseTestFactory<Kase2<A, B>, CustomTestEnvironment, CustomTestEnvironment.Factory> {
+
+    override val params: List<Kase2<A, B>> = kases(
+      listOf(A("a1"), A("a2")),
+      listOf(B("b1"), B("b2"))
+    )
+
+    val cs = kases(listOf(C("c1"), C("c2")))
+
+    override val testEnvironmentFactory = CustomTestEnvironment.Factory()
+
+    @TestFactory
+    fun `scoping nested asTests with custom environment`(): Stream<out DynamicNode> {
+
+      val base = baseWorkingDir()
+
+      val functionDir = File(this@KaseTestFactoryTest.className)
+        .resolve(cleanStringForFileSystem("custom environment"))
+        .resolve(cleanStringForFileSystem(currentMethodName()))
+
+      return cs.asContainers { k1 ->
+
+        params.asTests { k2 ->
+
+          val path = functionDir
+            .resolve(cleanStringForFileSystem(k1.displayName))
+            .resolve(cleanStringForFileSystem(k2.displayName))
+
+          workingDir.relativeTo(base) shouldBe path
+        }
+      }
+    }
   }
 
-  class A(override val name: String) : ParamTypes()
-  class B(override val name: String) : ParamTypes()
-  class C(override val name: String) : ParamTypes()
-  class D(override val name: String) : ParamTypes()
-  class E(override val name: String) : ParamTypes()
-  class F(override val name: String) : ParamTypes()
-  class G(override val name: String) : ParamTypes()
-  class H(override val name: String) : ParamTypes()
-  class I(override val name: String) : ParamTypes()
-  class J(override val name: String) : ParamTypes()
-  class K(override val name: String) : ParamTypes()
-  class L(override val name: String) : ParamTypes()
-  class M(override val name: String) : ParamTypes()
-  class N(override val name: String) : ParamTypes()
-  class O(override val name: String) : ParamTypes()
-  class P(override val name: String) : ParamTypes()
-  class Q(override val name: String) : ParamTypes()
-  class R(override val name: String) : ParamTypes()
-  class S(override val name: String) : ParamTypes()
-  class T(override val name: String) : ParamTypes()
-  class U(override val name: String) : ParamTypes()
-  class V(override val name: String) : ParamTypes()
-  class W(override val name: String) : ParamTypes()
-  class X(override val name: String) : ParamTypes()
-  class Y(override val name: String) : ParamTypes()
-  class Z(override val name: String) : ParamTypes()
+  class CustomTestEnvironment(
+    val params: Any?,
+    testParameterDisplayNames: List<String>,
+    testLocation: TestLocation
+  ) : DefaultTestEnvironment(testParameterDisplayNames, testLocation) {
+    class Factory : TestEnvironmentFactory<Kase2<A, B>, CustomTestEnvironment> {
+      override fun createEnvironment(
+        params: Kase2<A, B>,
+        names: List<String>,
+        location: TestLocation
+      ): CustomTestEnvironment = CustomTestEnvironment(
+        params = params,
+        testParameterDisplayNames = names,
+        testLocation = location
+      )
+    }
+  }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -68,9 +68,9 @@ class HasWorkingDirTest {
   @Test
   fun `createWorkingDir should create appropriate working directory`() {
     val testVariantNames = listOf("variant1", "variant2")
-    val testFunctionCoordinates = TestFunctionCoordinates.get()
+    val testLocation = TestLocation.get()
 
-    val workingDir = HasWorkingDir.createWorkingDirFile(testVariantNames, testFunctionCoordinates)
+    val workingDir = HasWorkingDir.createWorkingDirFile(testVariantNames, testLocation)
 
     val thisFun = "HasWorkingDirTest/createWorkingDir_should_create_appropriate_working_directory"
     val expectedPath = "build/kase/$thisFun/variant1/variant2"

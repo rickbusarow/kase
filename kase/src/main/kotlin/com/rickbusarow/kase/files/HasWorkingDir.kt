@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -82,11 +82,11 @@ public interface HasWorkingDir {
      */
     public operator fun invoke(
       testVariantNames: List<String>,
-      testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+      testLocation: TestLocation = TestLocation.get()
     ): DefaultHasWorkingDir = DefaultHasWorkingDir(
       createWorkingDirFile(
         testVariantNames = testVariantNames,
-        testFunctionCoordinates = testFunctionCoordinates
+        testLocation = testLocation
       )
     )
 
@@ -101,22 +101,22 @@ public interface HasWorkingDir {
      *
      * @param testVariantNames additional subdirectories underneath the test
      *   function's name, such as the names of the languages being generated
-     * @param testFunctionCoordinates details about the actual test function, so that
-     *   we can get the test name. This must be grabbed as soon as possible, since
-     *   default functions, inline functions, sequences, and iterators all redirect
-     *   things and have a chance of hiding the original calling function completely.
+     * @param testLocation details about the actual test function, so that we can
+     *   get the test name. This must be grabbed as soon as possible, since default
+     *   functions, inline functions, sequences, and iterators all redirect things
+     *   and have a chance of hiding the original calling function completely.
      * @return a File directory corresponding to the root of the working directory for this test
      * @since 0.1.0
      */
     public fun createWorkingDirFile(
       testVariantNames: List<String>,
-      testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+      testLocation: TestLocation = TestLocation.get()
     ): File {
 
       val testFunctionDirectoryName =
-        cleanStringForFileSystem(testFunctionCoordinates.callingFunctionSimpleName)
+        cleanStringForFileSystem(testLocation.callingFunctionSimpleName)
 
-      val testClassDirectoryName = testFunctionCoordinates.declaringClassSimpleNames
+      val testClassDirectoryName = testLocation.declaringClassSimpleNames
         // "MyTest/nested class"
         .joinToString(File.separator)
         // "MyTest/nested_class"

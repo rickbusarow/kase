@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,10 +17,8 @@
 
 package com.rickbusarow.kase.generator
 
-import com.rickbusarow.kase.generator.Names.kaseInternal
 import com.rickbusarow.kase.generator.Names.kaseMatrixElement
 import com.rickbusarow.kase.generator.Names.kaseMatrixKey
-import com.rickbusarow.kase.generator.Names.testFunctionCoordinates
 import java.io.File
 
 internal val LICENSE = File("build.gradle.kts").readText()
@@ -44,15 +42,18 @@ internal object Names {
 
   val basePackage = Fqn("com.rickbusarow.kase")
 
+  val asTests = basePackage.child("asTests")
   val kaseInternalPackage = basePackage.child("internal")
   val kaseInternal = kaseInternalPackage.child("KaseInternal")
+
+  val kaseTestBuilderDsl = basePackage.child("KaseTestBuilderDsl")
 
   val kaseMatrix = basePackage.child("KaseMatrix")
   val kaseMatrixElement = kaseMatrix.child("KaseMatrixElement")
   val kaseMatrixKey = kaseMatrix.child("KaseMatrixKey")
 
   val filesPackage = basePackage.child("files")
-  val testFunctionCoordinates = filesPackage.child("TestFunctionCoordinates")
+  val testLocation = filesPackage.child("testLocation")
 
   val poko = Fqn("dev.drewhamilton.poko.Poko")
 }
@@ -107,8 +108,6 @@ private fun main() {
         |
         |import $kaseMatrixElement
         |import $kaseMatrixKey
-        |import $testFunctionCoordinates
-        |import $kaseInternal
         |import dev.drewhamilton.poko.Poko
         |import java.util.stream.Stream
         |import org.junit.jupiter.api.DynamicNode
@@ -132,13 +131,10 @@ private fun main() {
       kases_iterable(args = args, types = types)
       kases_sequence(args = args, types = types)
 
-      testFun(args = args, types = types)
-
-      asTests_Destructured(args = args, kaseTypes = types)
-
-      testFactory_vararg(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
-
-      testFactory_Iterable(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
+      // testFun(args = args, types = types)
+      // asTests_Destructured(args = args, kaseTypes = types)
+      // testFactory_vararg(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
+      // testFactory_Iterable(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
 
       timesFunctions(aArgs = args, aTypes = types)
     }
