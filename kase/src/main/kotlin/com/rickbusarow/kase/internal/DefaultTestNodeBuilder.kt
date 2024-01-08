@@ -38,6 +38,9 @@ internal class DefaultTestNodeBuilder @PublishedApi internal constructor(
   override fun nodeSequence(): Sequence<DynamicNode> = nodes.asSequence().map { it() }
 
   override fun build(): DynamicNode {
+
+    require(nodes.isNotEmpty()) { "TestNodeBuilder must contain at least one node." }
+
     return DynamicContainer.dynamicContainer(displayName, nodeSequence().asStream())
   }
 
