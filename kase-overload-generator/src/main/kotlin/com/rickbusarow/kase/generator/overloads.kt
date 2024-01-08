@@ -26,6 +26,7 @@ import com.rickbusarow.kase.generator.KaseArg.Companion.paramsString
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueNames
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueTypesString
 import com.rickbusarow.kase.generator.KaseArg.Companion.valuesFromItString
+import com.rickbusarow.kase.generator.Names.kaseTestBuilderDsl
 
 internal fun StringBuilder.kaseInterface(
   args: List<KaseArg>,
@@ -366,6 +367,7 @@ internal fun StringBuilder.testFun(
   appendLine(
     """
     |$kdoc
+    |@${kaseTestBuilderDsl.simple}
     |public fun <T: TestEnvironment, ${args.valueTypesString}> KaseTestFactory<T, ${types.kaseInterface}>.test(
     |  ${args.paramsString},
     |  displayNameFactory: ${types.displayNameFactory} = ${types.defaultDisplayNameFactory}(),
@@ -397,6 +399,7 @@ internal fun StringBuilder.asTests_Destructured(
      * @see ${kaseTypes.kaseInterfaceNoTypes}
      * @since 0.1.0
      */
+    @${kaseTestBuilderDsl.simple}
     public fun <${args.valueTypesString}> Iterable<${kaseTypes.kaseInterface}>.asTests(
       testAction: (${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
@@ -417,6 +420,7 @@ internal fun StringBuilder.testFactory_vararg(
   appendLine(kdoc)
   appendLine(
     """
+    @${kaseTestBuilderDsl.simple}
     public fun <${args.valueTypesString}> testFactory(
       vararg kases: ${kaseTypes.kaseInterface},
       testAction: (${args.paramsString}) -> Unit
@@ -436,6 +440,7 @@ internal fun StringBuilder.testFactory_Iterable(
   appendLine(kdoc)
   appendLine(
     """
+    @${kaseTestBuilderDsl.simple}
     public fun <${args.valueTypesString}> testFactory(
       kases: Iterable<${kaseTypes.kaseInterface}>,
       testAction: (${args.paramsString}) -> Unit

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase.files
 
-import com.rickbusarow.kase.KaseDsl
+import com.rickbusarow.kase.KaseTestEnvironmentDsl
 import com.rickbusarow.kase.files.internal.DefaultDirectoryBuilder
 import java.io.File
 import java.nio.file.Path
@@ -122,7 +122,7 @@ public inline fun Path.directoryBuilder(
  *
  * @since 0.1.0
  */
-@KaseDsl
+@KaseTestEnvironmentDsl
 public interface DirectoryBuilder : LanguageInjection<File> {
 
   /**
