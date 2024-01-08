@@ -23,7 +23,7 @@ import kotlinx.coroutines.runBlocking
  *
  * @since 0.1.0
  */
-public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
+public interface TestEnvironmentFactory<T : TestEnvironment> {
   /**
    * Creates a new [TestEnvironment].
    *
@@ -31,13 +31,13 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
    * @since 0.1.0
    */
   public fun newTestEnvironment(
-    kase: K,
+    param: Any,
     parentNames: List<String>,
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
   ): T {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(
-      kase.displayName,
+      param.maybeDisplayNameOrToString(),
       testFunctionCoordinates = testFunctionCoordinates
     ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
@@ -49,9 +49,9 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
  *
  * @since 0.1.0
  */
-public fun <T : TestEnvironment> TestEnvironmentFactory<T, Kase>.test(
+public fun TestEnvironmentFactory<TestEnvironment>.test(
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
-  testAction: suspend T.() -> Unit
+  testAction: suspend TestEnvironment.() -> Unit
 ) {
   val testEnvironment = newTestEnvironment(Kase.EMPTY, emptyList(), testFunctionCoordinates)
 

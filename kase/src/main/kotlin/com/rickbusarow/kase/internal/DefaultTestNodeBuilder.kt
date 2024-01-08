@@ -47,12 +47,20 @@ internal class DefaultTestNodeBuilder @PublishedApi internal constructor(
     }
   }
 
+  override fun childNode(
+    name: String,
+    testFunctionCoordinates: TestFunctionCoordinates
+  ): TestNodeBuilder = DefaultTestNodeBuilder(
+    displayName = name,
+    testFunctionCoordinates = testFunctionCoordinates,
+    parent = this
+  )
+
   override fun container(name: String, init: TestNodeBuilder.() -> Unit) {
     nodes.add {
-      DefaultTestNodeBuilder(
-        displayName = name,
-        testFunctionCoordinates = testFunctionCoordinates,
-        parent = this
+      childNode(
+        name = name,
+        testFunctionCoordinates = testFunctionCoordinates
       )
         .apply(init)
         .build()

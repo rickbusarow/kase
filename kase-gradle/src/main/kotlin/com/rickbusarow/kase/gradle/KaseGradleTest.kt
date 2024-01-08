@@ -44,7 +44,7 @@ public interface KaseGradleTest<K : Kase> :
  *
  * @since 0.1.0
  */
-public interface GradleTestEnvironmentFactory<K : Kase> : TestEnvironmentFactory<GradleTestEnvironment, K> {
+public interface GradleTestEnvironmentFactory<K : Kase> : TestEnvironmentFactory<GradleTestEnvironment> {
 
   /**
    * The [DslLanguage] to use for generating build and settings files.
@@ -107,12 +107,13 @@ public interface GradleTestEnvironmentFactory<K : Kase> : TestEnvironmentFactory
   }
 
   override fun newTestEnvironment(
-    kase: K,
+    param: Any,
+    parentNames: List<String>,
     testFunctionCoordinates: TestFunctionCoordinates
   ): GradleTestEnvironment {
 
-    val gradleVersion = (kase as? KaseBag)?.getOrNull(GradleDependencyVersion)
-      ?: (kase as? HasGradleDependencyVersion)?.gradle
+    val gradleVersion = (param as? KaseBag)?.getOrNull(GradleDependencyVersion)
+      ?: (param as? HasGradleDependencyVersion)?.gradle
       ?: GradleDependencyVersion.current()
 
     val hasWorkingDir = HasWorkingDir(listOf(kase.displayName), testFunctionCoordinates)

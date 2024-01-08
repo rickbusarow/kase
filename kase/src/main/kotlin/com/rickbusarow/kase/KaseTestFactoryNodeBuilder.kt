@@ -16,6 +16,9 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
+import org.junit.jupiter.api.DynamicNode
+import java.util.stream.Stream
+import kotlin.streams.asStream
 
 /**
  * Enables the creation of multiple node layers without
@@ -36,7 +39,15 @@ public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
    *
    * @since 0.6.0
    */
-  public fun Iterable<K>.asTests(testAction: T.(K) -> Unit): TestNodeBuilder {
+  override fun <E : K> Iterable<E>.asTests(testAction: suspend T.(E) -> Unit): Stream<DynamicNode> {
+    return asSequence().asTests(testAction)
+  }
+
+  /**
+   * Enables the creation of multiple node layers without
+   * losing the scope of the original TestEnvironment factory.
+   */
+  override fun <E : K> Sequence<E>.asTests(testAction: suspend T.(E) -> Unit): Stream<DynamicNode> {
     return this@KaseTestFactoryNodeBuilder.also { builder ->
       for (kase in this@asTests) {
         test(kase.displayName) {
@@ -45,18 +56,24 @@ public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
             .dropLast(1)
             .asReversed()
             .map { it.displayName }
-          val environment = delegateFactory.newTestEnvironment(kase, names, testFunctionCoordinates)
-          environment.testAction(kase)
+
+          test(
+            kase = kase,
+            parentNames = names,
+            testFunctionCoordinates = testFunctionCoordinates
+          ) { testAction(kase) }
         }
       }
     }
+      .nodeSequence()
+      .asStream()
   }
 
   override fun newTestEnvironment(
-    kase: K,
+    param: Any,
     parentNames: List<String>,
     testFunctionCoordinates: TestFunctionCoordinates
-  ): T = delegateFactory.newTestEnvironment(kase, parentNames, testFunctionCoordinates)
+  ): T = delegateFactory.newTestEnvironment(param, parentNames, testFunctionCoordinates)
 
   internal fun wrapContainer(
     name: String,

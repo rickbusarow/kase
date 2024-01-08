@@ -31,7 +31,7 @@ import kotlin.streams.asStream
  */
 public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   HasKases<K>,
-  TestEnvironmentFactory<T, K> {
+  TestEnvironmentFactory<T> {
 
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
@@ -41,8 +41,9 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @param testAction The test action to run within the [TestEnvironment].
    * @since 0.1.0
    */
-  public fun <E : K> test(
+  public fun <E : Any> test(
     kase: E,
+    parentNames: List<String> = emptyList(),
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
     testAction: suspend T.() -> Unit
   ) {
@@ -63,7 +64,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @return a [Stream] of [DynamicNode]s from these kases.
    * @since 0.1.0
    */
-  public fun <E : K> Iterable<E>.asTests(
+  public fun <E : Any> Iterable<E>.asTests(
     testAction: suspend T.(E) -> Unit
   ): Stream<out DynamicNode> = asSequence().asTests(testAction)
 
@@ -74,12 +75,15 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @return a [Stream] of [DynamicNode]s from these kases.
    * @since 0.1.0
    */
-  public fun <E : K> Sequence<E>.asTests(
+  public fun <E : Any> Sequence<E>.asTests(
     testAction: suspend T.(E) -> Unit
   ): Stream<out DynamicNode> {
     return com.rickbusarow.kase.testFactory {
       this@asTests.asTests { kaseElement ->
-        test(kaseElement, testFunctionCoordinates) { testAction(kaseElement) }
+        test(
+          kase = kaseElement,
+          testFunctionCoordinates = testFunctionCoordinates
+        ) { testAction(kaseElement) }
       }
     }
   }

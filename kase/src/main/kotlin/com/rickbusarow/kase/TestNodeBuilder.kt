@@ -95,6 +95,11 @@ public interface TestNodeBuilder : HasDisplayName {
   /** @since 0.6.0 */
   public fun nodeSequence(): Sequence<DynamicNode>
 
+  public fun childNode(
+    name: String,
+    testFunctionCoordinates: TestFunctionCoordinates
+  ): TestNodeBuilder
+
   /**
    * Creates a dynamic test with the provided name and test logic, adds it to the list of nodes.
    *
@@ -126,7 +131,7 @@ public interface TestNodeBuilder : HasDisplayName {
    * @since 0.1.0
    */
   public fun <E> Iterable<E>.asTests(
-    testName: (E) -> String = maybeDisplayNameOrToString(),
+    testName: (E) -> String = maybeDisplayName(),
     testAction: (E) -> Unit
   ): TestNodeBuilder
 
@@ -175,7 +180,7 @@ public interface TestNodeBuilder : HasDisplayName {
    * @since 0.1.0
    */
   public fun <E> Sequence<E>.asTests(
-    testName: (E) -> String = maybeDisplayNameOrToString(),
+    testName: (E) -> String = maybeDisplayName(),
     testAction: (E) -> Unit
   ): TestNodeBuilder
 
@@ -191,7 +196,7 @@ public interface TestNodeBuilder : HasDisplayName {
    * @since 0.1.0
    */
   public fun <E> Iterable<E>.asContainers(
-    testName: (E) -> String = maybeDisplayNameOrToString(),
+    testName: (E) -> String = maybeDisplayName(),
     testAction: TestNodeBuilder.(E) -> Unit
   ): TestNodeBuilder
 
@@ -208,7 +213,7 @@ public interface TestNodeBuilder : HasDisplayName {
    * @since 0.1.0
    */
   public fun <E> Sequence<E>.asContainers(
-    testName: (E) -> String = maybeDisplayNameOrToString(),
+    testName: (E) -> String = maybeDisplayName(),
     testAction: TestNodeBuilder.(E) -> Unit
   ): TestNodeBuilder
 }
@@ -228,5 +233,8 @@ public fun <K : Kase> Iterable<K>.asContainers(
   testAction: TestNodeBuilder.(K) -> Unit
 ): Stream<out DynamicNode> = testFactory { asContainers(testName, testAction) }
 
-internal fun <E> maybeDisplayNameOrToString(): (E) -> String =
-  { (it as? HasDisplayName)?.displayName ?: it.toString() }
+internal fun <E> maybeDisplayName(): (E) -> String = { it.maybeDisplayNameOrToString() }
+
+internal fun <E> E.maybeDisplayNameOrToString(): String {
+  return (this as? HasDisplayName)?.displayName ?: toString()
+}
