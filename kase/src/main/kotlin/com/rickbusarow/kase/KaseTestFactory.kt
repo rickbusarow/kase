@@ -47,7 +47,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
     testAction: suspend T.() -> Unit
   ) {
 
-    val testEnvironment = newTestEnvironment(kase, testFunctionCoordinates)
+    val testEnvironment = newTestEnvironment(kase, emptyList(), testFunctionCoordinates)
 
     runBlocking {
       testEnvironment.asClueCatching {

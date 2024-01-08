@@ -32,29 +32,12 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
    */
   public fun newTestEnvironment(
     kase: K,
+    parentNames: List<String>,
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
   ): T {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(
       kase.displayName,
-      testFunctionCoordinates = testFunctionCoordinates
-    ) as? T
-      ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
-  }
-
-  /**
-   * Creates a new [TestEnvironment].
-   *
-   * @return A new [TestEnvironment] of type [T].
-   * @since 0.6.0
-   */
-  public fun newTestEnvironment(
-    testParameterDisplayNames: List<String>,
-    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
-  ): T {
-    @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(
-      testParameterDisplayNames,
       testFunctionCoordinates = testFunctionCoordinates
     ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
@@ -70,7 +53,7 @@ public fun <T : TestEnvironment> TestEnvironmentFactory<T, Kase>.test(
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend T.() -> Unit
 ) {
-  val testEnvironment = newTestEnvironment(Kase.EMPTY, testFunctionCoordinates)
+  val testEnvironment = newTestEnvironment(Kase.EMPTY, emptyList(), testFunctionCoordinates)
 
   runBlocking {
     testEnvironment.asClueCatching {
