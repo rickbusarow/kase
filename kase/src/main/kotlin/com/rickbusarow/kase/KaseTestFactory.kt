@@ -31,7 +31,8 @@ import kotlin.streams.asStream
  */
 public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   HasKases<K>,
-  TestEnvironmentFactory<T> {
+  TestEnvironmentFactory<T>,
+  ScopedDynamicTestTransform<T> {
 
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].

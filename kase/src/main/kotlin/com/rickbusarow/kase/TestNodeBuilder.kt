@@ -50,6 +50,109 @@ public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode
     .asStream()
 }
 
+public interface UnscopedDynamicTestTransform {
+  /**
+   * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
+   * iterable. The names of the tests are determined by the [testName] function,
+   * and the tests themselves are defined by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each test.
+   * @param testAction a function to define each test.
+   * @receiver the [TestNodeBuilder] to which tests will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new tests.
+   * @since 0.1.0
+   */
+  public fun <E> Iterable<E>.asTests(
+    testName: (E) -> String = maybeDisplayName(),
+    testAction: suspend (E) -> Unit
+  )
+
+  /**
+   * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
+   * iterable. The names of the tests are determined by the [testName] function,
+   * and the tests themselves are defined by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each test.
+   * @param testAction a function to define each test.
+   * @receiver the [TestNodeBuilder] to which tests will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new tests.
+   * @since 0.1.0
+   */
+  public fun <E> Sequence<E>.asTests(
+    testName: (E) -> String = maybeDisplayName(),
+    testAction: suspend (E) -> Unit
+  )
+}
+
+public interface ScopedDynamicTestTransform<T> {
+  /**
+   * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
+   * iterable. The names of the tests are determined by the [testName] function,
+   * and the tests themselves are defined by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each test.
+   * @param testAction a function to define each test.
+   * @receiver the [TestNodeBuilder] to which tests will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new tests.
+   * @since 0.1.0
+   */
+  public fun <E> Iterable<E>.asTests(
+    testName: (E) -> String = maybeDisplayName(),
+    testAction: suspend T.(E) -> Unit
+  )
+
+  /**
+   * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
+   * iterable. The names of the tests are determined by the [testName] function,
+   * and the tests themselves are defined by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each test.
+   * @param testAction a function to define each test.
+   * @receiver the [TestNodeBuilder] to which tests will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new tests.
+   * @since 0.1.0
+   */
+  public fun <E> Sequence<E>.asTests(
+    testName: (E) -> String = maybeDisplayName(),
+    testAction: suspend T.(E) -> Unit
+  ): Stream<out DynamicNode>
+}
+
+public interface DynamicContainerTransform {
+  /**
+   * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
+   * iterable. The names of the containers are determined by the [testName] function,
+   * and the containers themselves are initialized by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each container.
+   * @param testAction a function to initialize each container.
+   * @receiver the [TestNodeBuilder] to which containers will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new containers.
+   * @since 0.1.0
+   */
+  public fun <E> Iterable<E>.asContainers(
+    testName: (E) -> String = maybeDisplayName(),
+    testAction: TestNodeBuilder.(E) -> Unit
+  )
+
+  /**
+   * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
+   * iterable. The names of the containers are determined by the [testName] function,
+   * and the containers themselves are initialized by the [testAction] function.
+   *
+   * @param testName a function to compute the name of each
+   *   container. action a function to initialize each container.
+   * @param testAction a function to initialize each container.
+   * @receiver the [TestNodeBuilder] to which containers will be added.
+   * @return the invoking [TestNodeBuilder], after adding the new containers.
+   * @since 0.1.0
+   */
+  public fun <E> Sequence<E>.asContainers(
+    testName: (E) -> String = maybeDisplayName(),
+    testAction: TestNodeBuilder.(E) -> Unit
+  )
+}
+
 /**
  * Builds a dynamic test container with a specific name and a list of dynamic
  * nodes (tests or containers). Provides functions for defining and adding
@@ -69,7 +172,7 @@ public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode
  * @since 0.1.0
  */
 @KaseTestBuilderDsl
-public interface TestNodeBuilder : HasDisplayName {
+public interface TestNodeBuilder : HasDisplayName, DynamicContainerTransform {
 
   /**
    * Captured before executing any tests, meaning that it's the frame that called `asTests { ... }`
@@ -107,7 +210,7 @@ public interface TestNodeBuilder : HasDisplayName {
    * @param testAction a function containing the test logic.
    * @since 0.1.0
    */
-  public fun test(name: String, testAction: () -> Unit)
+  public fun test(name: String, testAction: suspend () -> Unit)
 
   /**
    * Creates a dynamic container with the provided name
@@ -119,103 +222,38 @@ public interface TestNodeBuilder : HasDisplayName {
    */
   public fun container(name: String, init: TestNodeBuilder.() -> Unit)
 
-  /**
-   * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
-   * iterable. The names of the tests are determined by the [testName] function,
-   * and the tests themselves are defined by the [testAction] function.
-   *
-   * @param testName a function to compute the name of each test.
-   * @param testAction a function to define each test.
-   * @receiver the [TestNodeBuilder] to which tests will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new tests.
-   * @since 0.1.0
-   */
-  public fun <E> Iterable<E>.asTests(
-    testName: (E) -> String = maybeDisplayName(),
-    testAction: (E) -> Unit
-  ): TestNodeBuilder
+  // /**
+  //  * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
+  //  * iterable. The names of the tests are determined by the [testName] function,
+  //  * and the tests themselves are defined by the [testAction] function.
+  //  *
+  //  * @param testName a function to compute the name of each test.
+  //  * @param testEnvironmentFactory creates a new [TestEnvironment] for each test.
+  //  * @param testAction a function to define each test.
+  //  * @receiver the [TestNodeBuilder] to which tests will be added.
+  //  * @return the invoking [TestNodeBuilder], after adding the new tests.
+  //  * @since 0.1.0
+  //  */
+  // public fun <T : TestEnvironment, K : Kase> Iterable<K>.asTests(
+  //   testName: (K) -> String,
+  //   testEnvironmentFactory: (kase: K) -> T,
+  //   testAction: T.(K) -> Unit
+  // )
 
-  /**
-   * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
-   * iterable. The names of the tests are determined by the [testName] function,
-   * and the tests themselves are defined by the [testAction] function.
-   *
-   * @param testName a function to compute the name of each test.
-   * @param testEnvironmentFactory creates a new [TestEnvironment] for each test.
-   * @param testAction a function to define each test.
-   * @receiver the [TestNodeBuilder] to which tests will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new tests.
-   * @since 0.1.0
-   */
-  public fun <T : TestEnvironment, K : Kase> Iterable<K>.asTests(
-    testName: (K) -> String,
-    testEnvironmentFactory: (kase: K) -> T,
-    testAction: T.(K) -> Unit
-  ): TestNodeBuilder
-
-  /**
-   * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
-   * iterable. The tests themselves are defined by the [testAction] function.
-   *
-   * @param testEnvironmentFactory creates a new [TestEnvironment] for each test.
-   * @param testAction a function to define each test.
-   * @receiver the [TestNodeBuilder] to which tests will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new tests.
-   * @since 0.1.0
-   */
-  public fun <T : TestEnvironment, K : Kase> Iterable<K>.asTests(
-    testEnvironmentFactory: (kase: K) -> T,
-    testAction: T.(K) -> Unit
-  ): TestNodeBuilder
-
-  /**
-   * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
-   * iterable. The names of the tests are determined by the [testName] function,
-   * and the tests themselves are defined by the [testAction] function.
-   *
-   * @param testName a function to compute the name of each test.
-   * @param testAction a function to define each test.
-   * @receiver the [TestNodeBuilder] to which tests will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new tests.
-   * @since 0.1.0
-   */
-  public fun <E> Sequence<E>.asTests(
-    testName: (E) -> String = maybeDisplayName(),
-    testAction: (E) -> Unit
-  ): TestNodeBuilder
-
-  /**
-   * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
-   * iterable. The names of the containers are determined by the [testName] function,
-   * and the containers themselves are initialized by the [testAction] function.
-   *
-   * @param testName a function to compute the name of each container.
-   * @param testAction a function to initialize each container.
-   * @receiver the [TestNodeBuilder] to which containers will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new containers.
-   * @since 0.1.0
-   */
-  public fun <E> Iterable<E>.asContainers(
-    testName: (E) -> String = maybeDisplayName(),
-    testAction: TestNodeBuilder.(E) -> Unit
-  ): TestNodeBuilder
-
-  /**
-   * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
-   * iterable. The names of the containers are determined by the [testName] function,
-   * and the containers themselves are initialized by the [testAction] function.
-   *
-   * @param testName a function to compute the name of each
-   *   container. action a function to initialize each container.
-   * @param testAction a function to initialize each container.
-   * @receiver the [TestNodeBuilder] to which containers will be added.
-   * @return the invoking [TestNodeBuilder], after adding the new containers.
-   * @since 0.1.0
-   */
-  public fun <E> Sequence<E>.asContainers(
-    testName: (E) -> String = maybeDisplayName(),
-    testAction: TestNodeBuilder.(E) -> Unit
-  ): TestNodeBuilder
+  // /**
+  //  * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
+  //  * iterable. The tests themselves are defined by the [testAction] function.
+  //  *
+  //  * @param testEnvironmentFactory creates a new [TestEnvironment] for each test.
+  //  * @param testAction a function to define each test.
+  //  * @receiver the [TestNodeBuilder] to which tests will be added.
+  //  * @return the invoking [TestNodeBuilder], after adding the new tests.
+  //  * @since 0.1.0
+  //  */
+  // public fun <T : TestEnvironment, K : Kase> Iterable<K>.asTests(
+  //   testEnvironmentFactory: (kase: K) -> T,
+  //   testAction: T.(K) -> Unit
+  // )
 }
 
 /**

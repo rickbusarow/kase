@@ -69,6 +69,20 @@ public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
       .asStream()
   }
 
+  override fun <E> Iterable<E>.asTests(
+    testName: (E) -> String,
+    testAction: suspend T.(E) -> Unit
+  ): TestNodeBuilder {
+    TODO("Not yet implemented")
+  }
+
+  override fun <E> Sequence<E>.asTests(
+    testName: (E) -> String,
+    testAction: suspend T.(E) -> Unit
+  ): TestNodeBuilder {
+    TODO("Not yet implemented")
+  }
+
   override fun newTestEnvironment(
     param: Any,
     parentNames: List<String>,
