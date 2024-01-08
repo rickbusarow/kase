@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -18,4 +18,14 @@ package com.rickbusarow.kase
 /** @since 0.1.0 */
 @DslMarker
 @Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
-public annotation class KaseDsl
+public annotation class KaseTestEnvironmentDsl
+
+/**
+ * Indicates that a lambda is part of the DSL for building a tree of
+ * tests, which is eventually turned into a `Stream<DynamicNode>`.
+ *
+ * @see [DslMarker]
+ */
+@DslMarker
+@Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
+public annotation class KaseTestBuilderDsl

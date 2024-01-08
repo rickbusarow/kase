@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -23,10 +23,11 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.internal.KaseInternal
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixElement
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
+import com.rickbusarow.kase.KaseTestBuilderDsl
 import com.rickbusarow.kase.files.TestFunctionCoordinates
-import com.rickbusarow.kase.internal.KaseInternal
 import dev.drewhamilton.poko.Poko
 import java.util.stream.Stream
 import org.junit.jupiter.api.DynamicNode
@@ -671,6 +672,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A1
  * @see KaseTestFactory
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22> KaseTestFactory<T, Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22>>.test(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21, a22: A22,
   displayNameFactory: KaseDisplayNameFactory<Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22>> = defaultKase22DisplayNameFactory(),
@@ -692,6 +694,7 @@ public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A1
  * @see Kase22
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22> Iterable<Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22>>.asTests(
   testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21, a22: A22) -> Unit
 ): Stream<out DynamicNode> {
@@ -713,6 +716,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A1
  * @see TestEnvironmentFactory
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22> testFactory(
   vararg kases: Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22>,
   testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21, a22: A22) -> Unit
@@ -733,6 +737,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A1
  * @see TestEnvironmentFactory
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22> testFactory(
   kases: Iterable<Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22>>,
   testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15, a16: A16, a17: A17, a18: A18, a19: A19, a20: A20, a21: A21, a22: A22) -> Unit

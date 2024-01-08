@@ -38,6 +38,7 @@ import kotlin.streams.asStream
  * @return a stream of dynamic nodes constructed by the test factory builder.
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
   return DefaultTestNodeBuilder(
     displayName = "root",
@@ -67,6 +68,7 @@ public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode
  *
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public interface TestNodeBuilder : HasDisplayName {
 
   /**

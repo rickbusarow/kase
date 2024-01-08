@@ -1982,9 +1982,6 @@ public abstract interface class com/rickbusarow/kase/KaseDisplayNameFactory {
 	public abstract fun createDisplayName (Lcom/rickbusarow/kase/Kase;)Ljava/lang/String;
 }
 
-public abstract interface annotation class com/rickbusarow/kase/KaseDsl : java/lang/annotation/Annotation {
-}
-
 public final class com/rickbusarow/kase/KaseElementList : java/util/List, kotlin/jvm/internal/markers/KMappedMarker {
 	public fun <init> (Ljava/util/List;Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixElement;Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)V
 	public fun add (ILcom/rickbusarow/kase/KaseMatrix$KaseMatrixElement;)V
@@ -2075,6 +2072,12 @@ public abstract interface class com/rickbusarow/kase/KaseMatrix$KaseMatrixKey : 
 
 public final class com/rickbusarow/kase/KaseMatrix$KaseMatrixKey$DefaultImpls {
 	public static fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+}
+
+public abstract interface annotation class com/rickbusarow/kase/KaseTestBuilderDsl : java/lang/annotation/Annotation {
+}
+
+public abstract interface annotation class com/rickbusarow/kase/KaseTestEnvironmentDsl : java/lang/annotation/Annotation {
 }
 
 public abstract interface class com/rickbusarow/kase/KaseTestFactory : com/rickbusarow/kase/HasKases, com/rickbusarow/kase/TestEnvironmentFactory {

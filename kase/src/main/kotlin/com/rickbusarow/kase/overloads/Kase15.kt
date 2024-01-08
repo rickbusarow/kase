@@ -23,10 +23,11 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.internal.KaseInternal
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixElement
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
+import com.rickbusarow.kase.KaseTestBuilderDsl
 import com.rickbusarow.kase.files.TestFunctionCoordinates
-import com.rickbusarow.kase.internal.KaseInternal
 import dev.drewhamilton.poko.Poko
 import java.util.stream.Stream
 import org.junit.jupiter.api.DynamicNode
@@ -510,6 +511,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> ka
  * @see KaseTestFactory
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> KaseTestFactory<T, Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>.test(
   a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15,
   displayNameFactory: KaseDisplayNameFactory<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>> = defaultKase15DisplayNameFactory(),
@@ -531,6 +533,7 @@ public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A1
  * @see Kase15
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> Iterable<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>.asTests(
   testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15) -> Unit
 ): Stream<out DynamicNode> {
@@ -552,6 +555,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> It
  * @see TestEnvironmentFactory
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> testFactory(
   vararg kases: Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>,
   testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15) -> Unit
@@ -572,6 +576,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> te
  * @see TestEnvironmentFactory
  * @since 0.1.0
  */
+@KaseTestBuilderDsl
 public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> testFactory(
   kases: Iterable<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>,
   testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15) -> Unit
@@ -597,7 +602,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14
  * @param others the [Kase1] to combine with this [Kase15]
  * @param instanceFactory creates a custom Kase instance for each permutation
  * @return a list of [Kase16]s from the cartesian product of this [Kase15] and the given [Kase1].
- * @since 0.1.0
+ * @since 0.5.0
  */
 @JvmName("kase15timesKase1InstanceFactory")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, B1, T> Iterable<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>.times(
@@ -627,7 +632,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14
  * @param others the [Kase2] to combine with this [Kase15]
  * @param instanceFactory creates a custom Kase instance for each permutation
  * @return a list of [Kase17]s from the cartesian product of this [Kase15] and the given [Kase2].
- * @since 0.1.0
+ * @since 0.5.0
  */
 @JvmName("kase15timesKase2InstanceFactory")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, B1, B2, T> Iterable<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>.times(
@@ -657,7 +662,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14
  * @param others the [Kase3] to combine with this [Kase15]
  * @param instanceFactory creates a custom Kase instance for each permutation
  * @return a list of [Kase18]s from the cartesian product of this [Kase15] and the given [Kase3].
- * @since 0.1.0
+ * @since 0.5.0
  */
 @JvmName("kase15timesKase3InstanceFactory")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, B1, B2, B3, T> Iterable<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>.times(
@@ -687,7 +692,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14
  * @param others the [Kase4] to combine with this [Kase15]
  * @param instanceFactory creates a custom Kase instance for each permutation
  * @return a list of [Kase19]s from the cartesian product of this [Kase15] and the given [Kase4].
- * @since 0.1.0
+ * @since 0.5.0
  */
 @JvmName("kase15timesKase4InstanceFactory")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, B1, B2, B3, B4, T> Iterable<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>.times(
@@ -717,7 +722,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14
  * @param others the [Kase5] to combine with this [Kase15]
  * @param instanceFactory creates a custom Kase instance for each permutation
  * @return a list of [Kase20]s from the cartesian product of this [Kase15] and the given [Kase5].
- * @since 0.1.0
+ * @since 0.5.0
  */
 @JvmName("kase15timesKase5InstanceFactory")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, B1, B2, B3, B4, B5, T> Iterable<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>.times(
@@ -747,7 +752,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14
  * @param others the [Kase6] to combine with this [Kase15]
  * @param instanceFactory creates a custom Kase instance for each permutation
  * @return a list of [Kase21]s from the cartesian product of this [Kase15] and the given [Kase6].
- * @since 0.1.0
+ * @since 0.5.0
  */
 @JvmName("kase15timesKase6InstanceFactory")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, B1, B2, B3, B4, B5, B6, T> Iterable<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>.times(
@@ -777,7 +782,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14
  * @param others the [Kase7] to combine with this [Kase15]
  * @param instanceFactory creates a custom Kase instance for each permutation
  * @return a list of [Kase22]s from the cartesian product of this [Kase15] and the given [Kase7].
- * @since 0.1.0
+ * @since 0.5.0
  */
 @JvmName("kase15timesKase7InstanceFactory")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, B1, B2, B3, B4, B5, B6, B7, T> Iterable<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>.times(

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,6 +20,7 @@ package com.rickbusarow.kase.generator
 import com.rickbusarow.kase.generator.Names.kaseInternal
 import com.rickbusarow.kase.generator.Names.kaseMatrixElement
 import com.rickbusarow.kase.generator.Names.kaseMatrixKey
+import com.rickbusarow.kase.generator.Names.kaseTestBuilderDsl
 import com.rickbusarow.kase.generator.Names.testFunctionCoordinates
 import java.io.File
 
@@ -46,6 +47,8 @@ internal object Names {
 
   val kaseInternalPackage = basePackage.child("internal")
   val kaseInternal = kaseInternalPackage.child("KaseInternal")
+
+  val kaseTestBuilderDsl = basePackage.child("KaseTestBuilderDsl")
 
   val kaseMatrix = basePackage.child("KaseMatrix")
   val kaseMatrixElement = kaseMatrix.child("KaseMatrixElement")
@@ -105,10 +108,11 @@ private fun main() {
         |
         |package com.rickbusarow.kase
         |
+        |import $kaseInternal
         |import $kaseMatrixElement
         |import $kaseMatrixKey
+        |import $kaseTestBuilderDsl
         |import $testFunctionCoordinates
-        |import $kaseInternal
         |import dev.drewhamilton.poko.Poko
         |import java.util.stream.Stream
         |import org.junit.jupiter.api.DynamicNode

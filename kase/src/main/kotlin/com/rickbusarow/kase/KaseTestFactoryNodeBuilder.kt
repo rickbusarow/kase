@@ -16,11 +16,12 @@
 package com.rickbusarow.kase
 
 /**
- * Enables the creation of multiple layers of nodes without
+ * Enables the creation of multiple node layers without
  * losing the scope of the original TestEnvironment factory.
  *
  * @since 0.6.0
  */
+@KaseTestBuilderDsl
 public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
   delegateFactory: KaseTestFactory<T, K>,
   delegateNodeBuilder: TestNodeBuilder
@@ -28,7 +29,7 @@ public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
   KaseTestFactory<T, K> by delegateFactory {
 
   /**
-   * Enables the creation of multiple layers of nodes without
+   * Enables the creation of multiple node layers without
    * losing the scope of the original TestEnvironment factory.
    *
    * @since 0.6.0
