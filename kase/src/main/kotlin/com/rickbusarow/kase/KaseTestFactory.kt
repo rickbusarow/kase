@@ -16,11 +16,12 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
-import com.rickbusarow.kase.internal.DefaultTestNodeBuilder
 import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
+import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.streams.asStream
 
 /**
@@ -32,7 +33,7 @@ import kotlin.streams.asStream
 public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   HasKases<K>,
   TestEnvironmentFactory<T>,
-  ScopedDynamicTestTransform<T> {
+  ContainerTransforms<KaseTestFactoryNB<T, K>> {
 
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
@@ -54,37 +55,6 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
     runBlocking {
       testEnvironment.asClueCatching {
         testAction()
-      }
-    }
-  }
-
-  /**
-   * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase]s.
-   *
-   * @param testAction the test action to run for each kase.
-   * @return a [Stream] of [DynamicNode]s from these kases.
-   * @since 0.1.0
-   */
-  public fun <E : Any> Iterable<E>.asTests(
-    testAction: suspend T.(E) -> Unit
-  ): Stream<out DynamicNode> = asSequence().asTests(testAction)
-
-  /**
-   * Creates a [Stream] of [DynamicNode]s from this [Sequence] of [Kase]s.
-   *
-   * @param testAction the test action to run for each kase.
-   * @return a [Stream] of [DynamicNode]s from these kases.
-   * @since 0.1.0
-   */
-  public fun <E : Any> Sequence<E>.asTests(
-    testAction: suspend T.(E) -> Unit
-  ): Stream<out DynamicNode> {
-    return com.rickbusarow.kase.testFactory {
-      this@asTests.asTests { kaseElement ->
-        test(
-          kase = kaseElement,
-          testFunctionCoordinates = testFunctionCoordinates
-        ) { testAction(kaseElement) }
       }
     }
   }
@@ -135,46 +105,66 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   ): Stream<out DynamicNode> = kases.asSequence().asTests(testAction)
 
   /**
-   * Transforms an iterable into a stream of dynamic test containers. The
-   * names of the containers are determined by the [testName] function, and
-   * the containers themselves are initialized by the [testAction] function.
+   * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase]s.
    *
-   * @param testName a function to compute the name of each test.
-   * @param testAction a function to initialize each test container.
-   * @return a stream of dynamic nodes representing the containers.
+   * @param testAction the test action to run for each kase.
+   * @return a [Stream] of [DynamicNode]s from these kases.
    * @since 0.1.0
    */
-  public fun <K2 : Kase> Iterable<K2>.asContainers(
-    testName: (K2) -> String = { it.displayName },
-    testAction: KaseTestFactoryNodeBuilder<T, K>.(K2) -> Unit
-  ): Stream<out DynamicNode> = asSequence().asContainers(testName, testAction)
+  public fun <E : Any> Iterable<E>.asTests(
+    testAction: suspend T.(E) -> Unit
+  ): Stream<out DynamicNode> = asSequence().asTests(testAction)
 
   /**
-   * Transforms a sequence into a stream of dynamic test containers. The
-   * names of the containers are determined by the [testName] function, and
-   * the containers themselves are initialized by the [testAction] function.
+   * Creates a [Stream] of [DynamicNode]s from this [Sequence] of [Kase]s.
    *
-   * @param testName a function to compute the name of each test.
-   * @param testAction a function to initialize each test container.
-   * @return a stream of dynamic nodes representing the containers.
+   * @param testAction the test action to run for each kase.
+   * @return a [Stream] of [DynamicNode]s from these kases.
    * @since 0.1.0
    */
-  public fun <K2 : Kase> Sequence<K2>.asContainers(
-    testName: (K2) -> String = { it.displayName },
-    testAction: KaseTestFactoryNodeBuilder<T, K>.(K2) -> Unit
-  ): Stream<out DynamicNode> = KaseTestFactoryNodeBuilder<T, K>(
-    delegateFactory = this@KaseTestFactory,
-    delegateNodeBuilder = DefaultTestNodeBuilder(
-      displayName = "root",
-      testFunctionCoordinates = TestFunctionCoordinates.get(),
-      parent = null
-    )
-  )
-    .also {
-      for (k in this@asContainers) {
-        it.wrapContainer(testName(k)) { testAction(k) }
+  public fun <E : Any> Sequence<E>.asTests(
+    testAction: suspend T.(E) -> Unit
+  ): Stream<out DynamicNode> {
+    return com.rickbusarow.kase.testFactory {
+      this@asTests.asTests { kaseElement ->
+        test(
+          kase = kaseElement,
+          testFunctionCoordinates = testFunctionCoordinates
+        ) { testAction(kaseElement) }
       }
     }
-    .nodeSequence()
+  }
+
+  override fun <E> Sequence<E>.asContainers(
+    displayName: (E) -> String,
+    testAction: KaseTestFactoryNB<T, K>.(E) -> Stream<out DynamicNode>
+  ): Stream<out DynamicNode> = map { e ->
+    with(
+      KaseTestFactoryNB<T, K>(
+        displayName = displayName(e),
+        testFunctionCoordinates = TestFunctionCoordinates.get(),
+        parent = null,
+        kases = kases
+      )
+    ) {
+      DynamicContainer.dynamicContainer(displayName(e), testAction(e))
+    }
+  }
     .asStream()
+}
+
+@KaseTestBuilderDsl
+public class KaseTestFactoryNB<T : TestEnvironment, K : Kase>(
+  override val displayName: String,
+  override val testFunctionCoordinates: TestFunctionCoordinates,
+  override val parent: ITnb?,
+  override val kases: List<K>
+) : KaseTestFactory<T, K>, ITnb {
+
+  override val namesFromRoot: List<String> by lazy(NONE) {
+    generateSequence<ITnb>(this) { it.parent }
+      .map { it.displayName }
+      .toList()
+      .asReversed()
+  }
 }

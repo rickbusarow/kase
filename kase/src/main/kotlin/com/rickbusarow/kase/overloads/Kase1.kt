@@ -204,23 +204,6 @@ public fun <T: TestEnvironment, A1> KaseTestFactory<T, Kase1<A1>>.test(
 }
 
 /**
- * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase1]s.
- *
- * @param testAction the test action to run for each kase.
- * @return a [Stream] of [DynamicNode]s from these kases.
- * @see Kase1
- * @since 0.1.0
- */
-@KaseTestBuilderDsl
-public fun <A1> Iterable<Kase1<A1>>.asTests(
-  testAction: (a1: A1) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory {
-    this@asTests.asTests { testAction(it.a1) }
-  }
-}
-
-/**
  * A test factory which returns a stream of [DynamicNode]s from the given parameters.
  * - Each [DynamicTest] in the stream uses its [Kase1] element to create
  *   a new [TestEnvironment] instance, then executes [testAction].

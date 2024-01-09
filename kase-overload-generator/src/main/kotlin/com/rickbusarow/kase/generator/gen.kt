@@ -138,7 +138,7 @@ private fun main() {
 
       testFun(args = args, types = types)
 
-      asTests_Destructured(args = args, kaseTypes = types)
+      // asTests_Destructured(args = args, kaseTypes = types)
 
       testFactory_vararg(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
 

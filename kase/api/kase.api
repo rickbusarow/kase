@@ -10,6 +10,17 @@ public final class com/rickbusarow/kase/CluesKt {
 	public static final fun withClueCatching (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 }
 
+public abstract interface class com/rickbusarow/kase/ContainerTransforms {
+	public abstract fun asContainers (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public abstract fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+}
+
+public final class com/rickbusarow/kase/ContainerTransforms$DefaultImpls {
+	public static fun asContainers (Lcom/rickbusarow/kase/ContainerTransforms;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static synthetic fun asContainers$default (Lcom/rickbusarow/kase/ContainerTransforms;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static synthetic fun asContainers$default (Lcom/rickbusarow/kase/ContainerTransforms;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
+}
+
 public final class com/rickbusarow/kase/DefaultKase1 : com/rickbusarow/kase/Kase1, com/rickbusarow/kase/internal/KaseInternal {
 	public fun <init> (Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
 	public fun component1 ()Ljava/lang/Object;
@@ -734,6 +745,12 @@ public abstract interface class com/rickbusarow/kase/HasLabel {
 
 public abstract interface class com/rickbusarow/kase/HasLabels {
 	public abstract fun getOrderedLabels ()Ljava/util/List;
+}
+
+public abstract interface class com/rickbusarow/kase/ITnb : com/rickbusarow/kase/HasDisplayName {
+	public abstract fun getNamesFromRoot ()Ljava/util/List;
+	public abstract fun getParent ()Lcom/rickbusarow/kase/ITnb;
+	public abstract fun getTestFunctionCoordinates ()Lcom/rickbusarow/kase/files/TestFunctionCoordinates;
 }
 
 public abstract interface class com/rickbusarow/kase/Kase : com/rickbusarow/kase/HasDisplayName {
@@ -2080,12 +2097,11 @@ public abstract interface annotation class com/rickbusarow/kase/KaseTestBuilderD
 public abstract interface annotation class com/rickbusarow/kase/KaseTestEnvironmentDsl : java/lang/annotation/Annotation {
 }
 
-public abstract interface class com/rickbusarow/kase/KaseTestFactory : com/rickbusarow/kase/HasKases, com/rickbusarow/kase/TestEnvironmentFactory {
-	public abstract fun asContainers (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+public abstract interface class com/rickbusarow/kase/KaseTestFactory : com/rickbusarow/kase/ContainerTransforms, com/rickbusarow/kase/HasKases, com/rickbusarow/kase/TestEnvironmentFactory {
 	public abstract fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public abstract fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public abstract fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public abstract fun test (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
+	public abstract fun test (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public abstract fun testFactory (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public abstract fun testFactory (Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public abstract fun testFactory ([Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
@@ -2094,43 +2110,29 @@ public abstract interface class com/rickbusarow/kase/KaseTestFactory : com/rickb
 public final class com/rickbusarow/kase/KaseTestFactory$DefaultImpls {
 	public static fun asContainers (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public static fun asContainers (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static synthetic fun asContainers$default (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
-	public static synthetic fun asContainers$default (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static fun asTests (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static fun asTests (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/KaseTestFactory;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
-	public static fun test (Lcom/rickbusarow/kase/KaseTestFactory;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
-	public static synthetic fun test$default (Lcom/rickbusarow/kase/KaseTestFactory;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
+	public static fun test (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
+	public static synthetic fun test$default (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
 	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;[Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 }
 
-public final class com/rickbusarow/kase/KaseTestFactoryNodeBuilder : com/rickbusarow/kase/KaseTestFactory, com/rickbusarow/kase/TestNodeBuilder {
-	public fun <init> (Lcom/rickbusarow/kase/KaseTestFactory;Lcom/rickbusarow/kase/TestNodeBuilder;)V
-	public fun asContainers (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
+public final class com/rickbusarow/kase/KaseTestFactoryNB : com/rickbusarow/kase/ITnb, com/rickbusarow/kase/KaseTestFactory {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/ITnb;Ljava/util/List;)V
 	public fun asContainers (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/TestNodeBuilder;
 	public fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public fun build ()Lorg/junit/jupiter/api/DynamicNode;
-	public fun container (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public fun getDisplayName ()Ljava/lang/String;
 	public fun getKases ()Ljava/util/List;
-	public fun getParent ()Lcom/rickbusarow/kase/TestNodeBuilder;
+	public fun getNamesFromRoot ()Ljava/util/List;
+	public fun getParent ()Lcom/rickbusarow/kase/ITnb;
 	public fun getTestFunctionCoordinates ()Lcom/rickbusarow/kase/files/TestFunctionCoordinates;
-	public fun newTestEnvironment (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
-	public fun newTestEnvironment (Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
-	public fun nodeSequence ()Lkotlin/sequences/Sequence;
-	public fun test (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
-	public fun test (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
+	public fun newTestEnvironment (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
+	public fun test (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public fun testFactory (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public fun testFactory (Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public fun testFactory ([Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
@@ -2154,15 +2156,12 @@ public final class com/rickbusarow/kase/TestEnvironment$DefaultImpls {
 }
 
 public abstract interface class com/rickbusarow/kase/TestEnvironmentFactory {
-	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
-	public abstract fun newTestEnvironment (Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
+	public abstract fun newTestEnvironment (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
 }
 
 public final class com/rickbusarow/kase/TestEnvironmentFactory$DefaultImpls {
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
-	public static synthetic fun newTestEnvironment$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestEnvironment;
-	public static synthetic fun newTestEnvironment$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestEnvironment;
+	public static fun newTestEnvironment (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
+	public static synthetic fun newTestEnvironment$default (Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestEnvironment;
 }
 
 public final class com/rickbusarow/kase/TestEnvironmentFactoryKt {
@@ -2171,31 +2170,34 @@ public final class com/rickbusarow/kase/TestEnvironmentFactoryKt {
 }
 
 public abstract interface class com/rickbusarow/kase/TestNodeBuilder : com/rickbusarow/kase/HasDisplayName {
-	public abstract fun asContainers (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public abstract fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public abstract fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public abstract fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public abstract fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public abstract fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public abstract fun build ()Lorg/junit/jupiter/api/DynamicNode;
-	public abstract fun container (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public abstract fun getParent ()Lcom/rickbusarow/kase/TestNodeBuilder;
 	public abstract fun getTestFunctionCoordinates ()Lcom/rickbusarow/kase/files/TestFunctionCoordinates;
-	public abstract fun nodeSequence ()Lkotlin/sequences/Sequence;
-	public abstract fun test (Ljava/lang/String;Lkotlin/jvm/functions/Function0;)V
-}
-
-public final class com/rickbusarow/kase/TestNodeBuilder$DefaultImpls {
-	public static synthetic fun asContainers$default (Lcom/rickbusarow/kase/TestNodeBuilder;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public static synthetic fun asContainers$default (Lcom/rickbusarow/kase/TestNodeBuilder;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestNodeBuilder;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
-	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/TestNodeBuilder;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/TestNodeBuilder;
 }
 
 public final class com/rickbusarow/kase/TestNodeBuilderKt {
 	public static final fun asContainers (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static final fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public static synthetic fun asContainers$default (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static synthetic fun asContainers$default (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static final fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static synthetic fun asTests$default (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static synthetic fun asTests$default (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static final fun testFactory (Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
+}
+
+public class com/rickbusarow/kase/Tnb : com/rickbusarow/kase/ContainerTransforms, com/rickbusarow/kase/ITnb {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/ITnb;)V
+	public fun asContainers (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public final fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
+	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/Tnb;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/Tnb;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public fun getDisplayName ()Ljava/lang/String;
+	public fun getNamesFromRoot ()Ljava/util/List;
+	public fun getParent ()Lcom/rickbusarow/kase/ITnb;
+	public fun getTestFunctionCoordinates ()Lcom/rickbusarow/kase/files/TestFunctionCoordinates;
 }
 
 public abstract interface class com/rickbusarow/kase/files/DirectoryBuilder : com/rickbusarow/kase/files/LanguageInjection {
