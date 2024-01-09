@@ -38,19 +38,23 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
    *
-   * @param kase The variant names related to the test.
+   * @param param The variant names related to the test.
    * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
    * @param testAction The test action to run within the [TestEnvironment].
    * @since 0.1.0
    */
-  public fun <E : Any> test(
-    kase: E,
+  public fun <E> test(
+    param: E,
     parentNames: List<String> = emptyList(),
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
     testAction: suspend T.() -> Unit
   ) {
 
-    val testEnvironment = newTestEnvironment(kase, emptyList(), testFunctionCoordinates)
+    val testEnvironment = newTestEnvironment(
+      param = param,
+      parentNames = parentNames,
+      testFunctionCoordinates = testFunctionCoordinates
+    )
 
     runBlocking {
       testEnvironment.asClueCatching {
@@ -65,8 +69,9 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @since 0.1.0
    */
   public fun testFactory(
+    testName: (K) -> String = maybeDisplayName(),
     testAction: suspend T.(K) -> Unit
-  ): Stream<out DynamicNode> = kases.asTests(testAction)
+  ): Stream<out DynamicNode> = kases.asTests(testName, testAction)
 
   /**
    * A test factory which returns a stream of [DynamicNode]s from the given parameters.
@@ -83,8 +88,9 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    */
   public fun <E : K> testFactory(
     vararg kases: E,
+    testName: (E) -> String = maybeDisplayName(),
     testAction: suspend T.(kase: E) -> Unit
-  ): Stream<out DynamicNode> = kases.asSequence().asTests(testAction)
+  ): Stream<out DynamicNode> = kases.asSequence().asTests(testName, testAction)
 
   /**
    * A test factory which returns a stream of [DynamicNode]s from the given parameters.
@@ -101,8 +107,9 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    */
   public fun <E : K> testFactory(
     kases: Iterable<E>,
+    testName: (E) -> String = maybeDisplayName(),
     testAction: suspend T.(kase: E) -> Unit
-  ): Stream<out DynamicNode> = kases.asSequence().asTests(testAction)
+  ): Stream<out DynamicNode> = kases.asSequence().asTests(testName, testAction)
 
   /**
    * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase]s.
@@ -111,9 +118,10 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @return a [Stream] of [DynamicNode]s from these kases.
    * @since 0.1.0
    */
-  public fun <E : Any> Iterable<E>.asTests(
+  public fun <E> Iterable<E>.asTests(
+    testName: (E) -> String = maybeDisplayName(),
     testAction: suspend T.(E) -> Unit
-  ): Stream<out DynamicNode> = asSequence().asTests(testAction)
+  ): Stream<out DynamicNode> = asSequence().asTests(testName, testAction)
 
   /**
    * Creates a [Stream] of [DynamicNode]s from this [Sequence] of [Kase]s.
@@ -122,35 +130,44 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * @return a [Stream] of [DynamicNode]s from these kases.
    * @since 0.1.0
    */
-  public fun <E : Any> Sequence<E>.asTests(
+  public fun <E> Sequence<E>.asTests(
+    testName: (E) -> String = maybeDisplayName(),
     testAction: suspend T.(E) -> Unit
   ): Stream<out DynamicNode> {
-    return com.rickbusarow.kase.testFactory {
-      this@asTests.asTests { kaseElement ->
+    val coords = TestFunctionCoordinates.get()
+    return map { kaseElement ->
+
+      DynamicTest.dynamicTest(
+        testName(kaseElement),
+        coords.testUriOrNull
+      ) {
         test(
-          kase = kaseElement,
-          testFunctionCoordinates = testFunctionCoordinates
+          param = kaseElement,
+          testFunctionCoordinates = coords
         ) { testAction(kaseElement) }
       }
-    }
+    }.asStream()
   }
 
   override fun <E> Sequence<E>.asContainers(
     displayName: (E) -> String,
     testAction: KaseTestFactoryNB<T, K>.(E) -> Stream<out DynamicNode>
-  ): Stream<out DynamicNode> = map { e ->
-    with(
+  ): Stream<out DynamicNode> {
+    val coords = TestFunctionCoordinates.get()
+    return map { e ->
+      val name = displayName(e)
       KaseTestFactoryNB<T, K>(
-        displayName = displayName(e),
-        testFunctionCoordinates = TestFunctionCoordinates.get(),
+        displayName = name,
+        testFunctionCoordinates = coords,
         parent = null,
-        kases = kases
-      )
-    ) {
-      DynamicContainer.dynamicContainer(displayName(e), testAction(e))
+        kases = kases,
+        delegateFactory = this@KaseTestFactory
+      ).run {
+        DynamicContainer.dynamicContainer(name, coords.testUriOrNull, testAction(e))
+      }
     }
+      .asStream()
   }
-    .asStream()
 }
 
 @KaseTestBuilderDsl
@@ -158,8 +175,34 @@ public class KaseTestFactoryNB<T : TestEnvironment, K : Kase>(
   override val displayName: String,
   override val testFunctionCoordinates: TestFunctionCoordinates,
   override val parent: ITnb?,
-  override val kases: List<K>
+  override val kases: List<K>,
+  private val delegateFactory: KaseTestFactory<T, K>
 ) : KaseTestFactory<T, K>, ITnb {
+
+  override fun newTestEnvironment(
+    param: Any?,
+    parentNames: List<String>,
+    testFunctionCoordinates: TestFunctionCoordinates
+  ): T = delegateFactory.newTestEnvironment(param, parentNames, testFunctionCoordinates)
+
+  override fun <E> Iterable<E>.asTests(
+    testName: (E) -> String,
+    testAction: suspend T.(E) -> Unit
+  ): Stream<out DynamicNode> = asSequence().asTests(testName, testAction)
+
+  override fun <E> Sequence<E>.asTests(
+    testName: (E) -> String,
+    testAction: suspend T.(E) -> Unit
+  ): Stream<out DynamicNode> = map { param ->
+    val name = testName(param)
+    DynamicTest.dynamicTest(name, testFunctionCoordinates.testUriOrNull) {
+      test(
+        param = param,
+        parentNames = namesFromRoot,
+        testFunctionCoordinates = testFunctionCoordinates
+      ) { testAction(param) }
+    }
+  }.asStream()
 
   override val namesFromRoot: List<String> by lazy(NONE) {
     generateSequence<ITnb>(this) { it.parent }

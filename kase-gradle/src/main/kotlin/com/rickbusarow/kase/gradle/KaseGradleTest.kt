@@ -107,7 +107,7 @@ public interface GradleTestEnvironmentFactory<K : Kase> : TestEnvironmentFactory
   }
 
   override fun newTestEnvironment(
-    param: Any,
+    param: Any?,
     parentNames: List<String>,
     testFunctionCoordinates: TestFunctionCoordinates
   ): GradleTestEnvironment {

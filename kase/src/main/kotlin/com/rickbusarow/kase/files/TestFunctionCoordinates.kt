@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -68,7 +68,8 @@ public class TestFunctionCoordinates
         )
       }
 
-    val visited = mutableSetOf(userDir / "build")
+    val ignored = setOf(userDir / "build")
+    val visited = mutableSetOf<File>()
 
     val sourceFile = setOf(
       *bestGuessSourceDirs.toTypedArray(),
@@ -83,6 +84,8 @@ public class TestFunctionCoordinates
         base.walkTopDown()
           .onEnter {
             when {
+              it in ignored -> false
+              // skip anything ignored or already visited
               !visited.add(it) -> false
               it.path.endsWith(packageDir) -> it.resolve(fileName).exists()
               else -> true
@@ -97,20 +100,25 @@ public class TestFunctionCoordinates
 
   private fun bestGuessSourceSetSimpleNames(userDir: File): Sequence<String> {
 
+    val location = declaringClass.protectionDomain.codeSource.location.path
+      .removeSuffix(File.separator)
+      .substringAfterLast(File.separatorChar)
+
     val buildClassesKotlin = listOf("build", "classes", "kotlin")
     val classesDirSegmentCount = buildClassesKotlin.size + 1
     val classpath = System.getProperty("java.class.path") ?: return emptySequence()
 
-    return classpath.splitToSequence(File.pathSeparator)
+    return sequenceOf(location) + classpath.splitToSequence(File.pathSeparator)
       .filter { !it.endsWith(".jar") }
+      .filter { it.startsWith(userDir.absolutePath) }
       .mapNotNull {
-        val split = it.split(File.separatorChar)
+        val split = it.removePrefix(File.separator).split(File.separatorChar)
 
-        fun subList() = split.subList(split.lastIndex - classesDirSegmentCount, split.lastIndex)
+        fun subList() = split.subList(split.size - classesDirSegmentCount, split.lastIndex)
 
         when {
           split.size < classesDirSegmentCount -> null
-          !it.startsWith(userDir.absolutePath) -> null
+          split.last() == location -> null
           subList() == buildClassesKotlin -> split.last()
           else -> null
         }
@@ -135,8 +143,16 @@ public class TestFunctionCoordinates
      *
      * @since 0.1.0
      */
-    internal fun testStackTraceElement(): StackTraceElement {
+    private fun testStackTraceElement(): StackTraceElement {
       val stackTrace = Thread.currentThread().stackTrace
+
+      println(
+        """
+        |###################################### full stacktrace
+        |${stackTrace.take(15) .joinToString("\n")}
+        |######################################
+        """.trimMargin()
+      )
 
       return stackTrace.firstNotNullOfOrNull { it.testStackTraceElementOrNull() }
         ?: error("No test StackTraceElement found.")

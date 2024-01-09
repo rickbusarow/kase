@@ -31,13 +31,13 @@ public interface TestEnvironmentFactory<T : TestEnvironment> {
    * @since 0.1.0
    */
   public fun newTestEnvironment(
-    param: Any,
+    param: Any?,
     parentNames: List<String>,
     testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
   ): T {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(
-      param.maybeDisplayNameOrToString(),
+      testParameterDisplayNames = parentNames + param.maybeDisplayNameOrToString(),
       testFunctionCoordinates = testFunctionCoordinates
     ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")

@@ -243,7 +243,7 @@ public fun <T: TestEnvironment, A1, A2, A3> KaseTestFactory<T, Kase3<A1, A2, A3>
   testAction: suspend T.() -> Unit
 ) {
   this@KaseTestFactory.test(
-    kase = kase(a1 = a1, a2 = a2, a3 = a3, displayNameFactory = displayNameFactory),
+    param = kase(a1 = a1, a2 = a2, a3 = a3, displayNameFactory = displayNameFactory),
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )

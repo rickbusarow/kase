@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -164,7 +164,7 @@ class TestFunctionCoordinatesTest {
 
   @TestFactory
   fun `testFactory annotation in an expression syntax`(): Stream<out DynamicNode> =
-    factoryKases.asTests { coordsFactory ->
+    factoryKases.asTests { (coordsFactory) ->
 
       coordsFactory() shouldBe expectedCoords(
         "testFactory annotation in an expression syntax"
@@ -174,7 +174,7 @@ class TestFunctionCoordinatesTest {
   @TestFactory
   fun `testFactory annotation inside a block body`(): Stream<out DynamicNode> {
     val expected = TestFunctionCoordinates.get()
-    return factoryKases.asTests { coordsFactory ->
+    return factoryKases.asTests { (coordsFactory) ->
       coordsFactory() shouldBe expected
     }
   }
@@ -198,7 +198,7 @@ class TestFunctionCoordinatesTest {
 
     @TestFactory
     fun `testFactory annotation in an expression syntax`(): Stream<out DynamicNode> =
-      factoryKases.asTests { coordsFactory ->
+      factoryKases.asTests { (coordsFactory) ->
 
         coordsFactory() shouldBe expectedCoordsNested(
           "testFactory annotation in an expression syntax"
@@ -208,7 +208,7 @@ class TestFunctionCoordinatesTest {
     @TestFactory
     fun `testFactory annotation inside a block body`(): Stream<out DynamicNode> {
       val expected = TestFunctionCoordinates.get()
-      return factoryKases.asTests { coordsFactory ->
+      return factoryKases.asTests { (coordsFactory) ->
         coordsFactory() shouldBe expected
       }
     }

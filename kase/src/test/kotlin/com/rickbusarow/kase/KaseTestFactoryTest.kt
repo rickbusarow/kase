@@ -28,10 +28,6 @@ import org.junit.jupiter.api.TestFactory
 import java.io.File
 import java.util.stream.Stream
 
-fun <A1, A2, B1> Kase2<A1, A2>.plus(other: Kase1<B1>): Kase3<A1, A2, B1> = kase(a1, a2, other.a1)
-fun <A1, A2, A3, B1> Kase3<A1, A2, A3>.plus(other: Kase1<B1>): Kase4<A1, A2, A3, B1> =
-  kase(a1, a2, a3, other.a1)
-
 internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
   override val kases: List<Kase2<A, B>>
     get() = kases(
@@ -41,33 +37,33 @@ internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B
 
   val cs = kases(listOf(C("c1"), C("c2")))
 
-  // @TestFactory
-  // fun `scoping for multiplied streams`(): Stream<out DynamicNode> {
-  //   val base = baseWorkingDir()
-  //
-  //   val functionDir = File("KaseTestFactoryTest")
-  //     .resolve(cleanStringForFileSystem("scoping for multiplied streams"))
-  //
-  //   return kases.asContainers { k1 ->
-  //
-  //     cs.asTests(
-  //       testEnvironmentFactory = { k2 ->
-  //         TestEnvironment(
-  //           k1.displayName,
-  //           k2.displayName,
-  //           testFunctionCoordinates = testFunctionCoordinates
-  //         )
-  //       }
-  //     ) { k2 ->
-  //
-  //       val path = functionDir
-  //         .resolve(cleanStringForFileSystem(k1.displayName))
-  //         .resolve(cleanStringForFileSystem(k2.displayName))
-  //
-  //       workingDir.relativeTo(base) shouldBe path
-  //     }
-  //   }
-  // }
+  @TestFactory
+  fun `scoping for multiplied streams`(): Stream<out DynamicNode> {
+    val base = baseWorkingDir()
+
+    val functionDir = File("KaseTestFactoryTest")
+      .resolve(cleanStringForFileSystem("scoping for multiplied streams"))
+
+    return kases.asContainers { k1 ->
+
+      cs.asTests(
+        testEnvironmentFactory = { k2 ->
+          TestEnvironment(
+            k1.displayName,
+            k2.displayName,
+            testFunctionCoordinates = testFunctionCoordinates
+          )
+        }
+      ) { k2 ->
+
+        val path = functionDir
+          .resolve(cleanStringForFileSystem(k1.displayName))
+          .resolve(cleanStringForFileSystem(k2.displayName))
+
+        workingDir.relativeTo(base) shouldBe path
+      }
+    }
+  }
 
   @TestFactory
   fun `scoping nested asTests`(): Stream<out DynamicNode> {
@@ -110,7 +106,7 @@ internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B
   }
 
   @Nested
-  inner class `testFactory with custom environment` : KaseTestFactory<CustomTestEnvironment, Kase2<A, B>> {
+  inner class `custom environment` : KaseTestFactory<CustomTestEnvironment, Kase2<A, B>> {
     override val kases: List<Kase2<A, B>>
       get() = kases(
         listOf(A("a1"), A("a2")),
@@ -120,7 +116,7 @@ internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B
     val cs = kases(listOf(C("c1"), C("c2")))
 
     override fun newTestEnvironment(
-      param: Any,
+      param: Any?,
       parentNames: List<String>,
       testFunctionCoordinates: TestFunctionCoordinates
     ): CustomTestEnvironment = CustomTestEnvironment(
@@ -130,16 +126,17 @@ internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B
     )
 
     @TestFactory
-    fun `scoping nested asTests`(): Stream<out DynamicNode> {
-      val base = baseWorkingDir()
-
-      val functionDir = File("KaseTestFactoryTest")
-        .resolve(cleanStringForFileSystem("testFactory with custom environment"))
-        .resolve(cleanStringForFileSystem("scoping nested asTests"))
+    fun `scoping nested asTests with custom environment`(): Stream<out DynamicNode> {
 
       return cs.asContainers { k1 ->
 
         kases.asTests { k2 ->
+
+          val base = baseWorkingDir()
+
+          val functionDir = File("KaseTestFactoryTest")
+            .resolve(cleanStringForFileSystem("custom environment"))
+            .resolve(cleanStringForFileSystem("scoping nested asTests with custom environment"))
 
           val path = functionDir
             .resolve(cleanStringForFileSystem(k1.displayName))
@@ -152,7 +149,7 @@ internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B
   }
 
   class CustomTestEnvironment(
-    val params: Any,
+    val params: Any?,
     testParameterDisplayNames: List<String>,
     testFunctionCoordinates: TestFunctionCoordinates
   ) : DefaultTestEnvironment(testParameterDisplayNames, testFunctionCoordinates)

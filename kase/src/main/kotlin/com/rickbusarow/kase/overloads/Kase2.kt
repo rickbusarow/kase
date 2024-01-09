@@ -220,7 +220,7 @@ public fun <T: TestEnvironment, A1, A2> KaseTestFactory<T, Kase2<A1, A2>>.test(
   testAction: suspend T.() -> Unit
 ) {
   this@KaseTestFactory.test(
-    kase = kase(a1 = a1, a2 = a2, displayNameFactory = displayNameFactory),
+    param = kase(a1 = a1, a2 = a2, displayNameFactory = displayNameFactory),
     testFunctionCoordinates = testFunctionCoordinates,
     testAction = testAction
   )

@@ -116,12 +116,15 @@ public fun <E> Iterable<E>.asTests(
 public fun <E> Sequence<E>.asTests(
   testName: (E) -> String = maybeDisplayName(),
   testAction: suspend (E) -> Unit
-): Stream<out DynamicNode> = map { element ->
-  DynamicTest.dynamicTest(testName(element)) {
-    runBlocking { testAction(element) }
+): Stream<out DynamicNode> {
+  val coords = TestFunctionCoordinates.get()
+  return map { element ->
+    DynamicTest.dynamicTest(testName(element), coords.testUriOrNull) {
+      runBlocking { testAction(element) }
+    }
   }
+    .asStream()
 }
-  .asStream()
 
 /**
  * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
@@ -154,13 +157,16 @@ public fun <E> Iterable<E>.asContainers(
 public fun <E> Sequence<E>.asContainers(
   displayName: (E) -> String = maybeDisplayName(),
   testAction: Tnb.(E) -> Stream<out DynamicNode>
-): Stream<out DynamicNode> = map { e ->
-  val dn = displayName(e)
-  with(Tnb(dn, TestFunctionCoordinates.get(), null)) {
-    DynamicContainer.dynamicContainer(dn, testAction(e))
+): Stream<out DynamicNode> {
+  val coords = TestFunctionCoordinates.get()
+  return map { e ->
+    val name = displayName(e)
+    Tnb(name, coords, null).run {
+      DynamicContainer.dynamicContainer(name, coords.testUriOrNull, testAction(e))
+    }
   }
+    .asStream()
 }
-  .asStream()
 
 /**
  * Builds a dynamic test container with a specific name and a list of dynamic
@@ -210,7 +216,7 @@ public interface ITnb : HasDisplayName {
  * @property parent the parent node, or `null` if this is the root container
  */
 @KaseTestBuilderDsl
-public open class Tnb(
+public class Tnb(
   override val displayName: String,
   override val testFunctionCoordinates: TestFunctionCoordinates,
   override val parent: ITnb?
@@ -262,12 +268,16 @@ public open class Tnb(
   override fun <E> Sequence<E>.asContainers(
     displayName: (E) -> String,
     testAction: Tnb.(E) -> Stream<out DynamicNode>
-  ): Stream<out DynamicNode> = map { e ->
-    with(Tnb(displayName(e), TestFunctionCoordinates.get(), this@Tnb)) {
-      DynamicContainer.dynamicContainer(displayName(e), testAction(e))
+  ): Stream<out DynamicNode> {
+    val coords = TestFunctionCoordinates.get()
+    return map { e ->
+      val name = displayName(e)
+      Tnb(name, coords, this@Tnb).run {
+        DynamicContainer.dynamicContainer(name, coords.testUriOrNull, testAction(e))
+      }
     }
+      .asStream()
   }
-    .asStream()
 }
 
 public interface ContainerTransforms<S> {
