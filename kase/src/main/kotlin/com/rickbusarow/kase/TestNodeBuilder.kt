@@ -17,7 +17,10 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
 import com.rickbusarow.kase.internal.DefaultTestNodeBuilder
+import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
+import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
 import kotlin.streams.asStream
 
@@ -65,7 +68,7 @@ public interface UnscopedDynamicTestTransform {
   public fun <E> Iterable<E>.asTests(
     testName: (E) -> String = maybeDisplayName(),
     testAction: suspend (E) -> Unit
-  )
+  ): Stream<out DynamicNode> = asSequence().asTests(testName, testAction)
 
   /**
    * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
@@ -81,7 +84,12 @@ public interface UnscopedDynamicTestTransform {
   public fun <E> Sequence<E>.asTests(
     testName: (E) -> String = maybeDisplayName(),
     testAction: suspend (E) -> Unit
-  )
+  ): Stream<out DynamicNode> = map { element ->
+    DynamicTest.dynamicTest(testName(element)) {
+      runBlocking { testAction(element) }
+    }
+  }
+    .asStream()
 }
 
 public interface ScopedDynamicTestTransform<T> {
@@ -99,7 +107,7 @@ public interface ScopedDynamicTestTransform<T> {
   public fun <E> Iterable<E>.asTests(
     testName: (E) -> String = maybeDisplayName(),
     testAction: suspend T.(E) -> Unit
-  )
+  ): Stream<out DynamicNode> = asSequence().asTests(testName, testAction)
 
   /**
    * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
@@ -132,8 +140,8 @@ public interface DynamicContainerTransform {
    */
   public fun <E> Iterable<E>.asContainers(
     testName: (E) -> String = maybeDisplayName(),
-    testAction: TestNodeBuilder.(E) -> Unit
-  )
+    testAction: (E) -> Sequence<DynamicNode>
+  ): Stream<out DynamicNode> = asSequence().asContainers(testName, testAction)
 
   /**
    * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
@@ -149,8 +157,11 @@ public interface DynamicContainerTransform {
    */
   public fun <E> Sequence<E>.asContainers(
     testName: (E) -> String = maybeDisplayName(),
-    testAction: TestNodeBuilder.(E) -> Unit
-  )
+    testAction: (E) -> Sequence<DynamicNode>
+  ): Stream<out DynamicNode> = map { e ->
+    DynamicContainer.dynamicContainer(testName(e), testAction(e).asStream())
+  }
+    .asStream()
 }
 
 /**
@@ -187,40 +198,6 @@ public interface TestNodeBuilder : HasDisplayName, DynamicContainerTransform {
    * @since 0.6.0
    */
   public val parent: TestNodeBuilder?
-
-  /**
-   * Converts this builder to a [DynamicNode]
-   *
-   * @since 0.6.0
-   */
-  public fun build(): DynamicNode
-
-  /** @since 0.6.0 */
-  public fun nodeSequence(): Sequence<DynamicNode>
-
-  public fun childNode(
-    name: String,
-    testFunctionCoordinates: TestFunctionCoordinates
-  ): TestNodeBuilder
-
-  /**
-   * Creates a dynamic test with the provided name and test logic, adds it to the list of nodes.
-   *
-   * @param name the name of the test. action a function containing the test logic.
-   * @param testAction a function containing the test logic.
-   * @since 0.1.0
-   */
-  public fun test(name: String, testAction: suspend () -> Unit)
-
-  /**
-   * Creates a dynamic container with the provided name
-   * and initialization logic, adds it to the nodes list.
-   *
-   * @param name the name of the container.
-   * @param init a lambda with receiver that initializes the [TestNodeBuilder].
-   * @since 0.1.0
-   */
-  public fun container(name: String, init: TestNodeBuilder.() -> Unit)
 
   // /**
   //  * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the

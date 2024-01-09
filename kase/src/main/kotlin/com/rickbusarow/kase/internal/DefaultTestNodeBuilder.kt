@@ -23,6 +23,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
+import java.util.stream.Stream
 import kotlin.streams.asStream
 
 @Poko
@@ -69,17 +70,15 @@ internal class DefaultTestNodeBuilder @PublishedApi internal constructor(
     }
   }
 
-  override fun <E> Iterable<E>.asTests(testName: (E) -> String, testAction: suspend (E) -> Unit) {
-    for (element in this@asTests) {
-      test(testName(element)) { testAction(element) }
+  override fun <E> Sequence<E>.asTests(
+    testName: (E) -> String,
+    testAction: suspend (E) -> Unit
+  ): Stream<DynamicNode> = map { element ->
+    DynamicTest.dynamicTest(testName(element)) {
+      runBlocking { testAction(element) }
     }
   }
-
-  override fun <E> Sequence<E>.asTests(testName: (E) -> String, testAction: suspend (E) -> Unit) {
-    for (element in this@asTests) {
-      test(testName(element)) { testAction(element) }
-    }
-  }
+    .asStream()
 
   // override fun <T : TestEnvironment, K : Kase> Iterable<K>.asTests(
   //   testName: (K) -> String,

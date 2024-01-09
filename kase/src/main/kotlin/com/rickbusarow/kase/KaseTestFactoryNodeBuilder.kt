@@ -31,16 +31,14 @@ public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
   private val delegateFactory: KaseTestFactory<T, K>,
   delegateNodeBuilder: TestNodeBuilder
 ) : TestNodeBuilder by delegateNodeBuilder,
-  KaseTestFactory<T, K> by delegateFactory {
+  KaseTestFactory<T, K> by delegateFactory,
+  ScopedDynamicTestTransform<T> {
 
-  /**
-   * Enables the creation of multiple node layers without
-   * losing the scope of the original TestEnvironment factory.
-   *
-   * @since 0.6.0
-   */
-  override fun <E : K> Iterable<E>.asTests(testAction: suspend T.(E) -> Unit): Stream<DynamicNode> {
-    return asSequence().asTests(testAction)
+  override fun <E : Any> Sequence<E>.asTests(
+    testAction: suspend T.(E) -> Unit
+  ): Stream<out DynamicNode> {
+    return map { kase ->
+    }
   }
 
   /**
