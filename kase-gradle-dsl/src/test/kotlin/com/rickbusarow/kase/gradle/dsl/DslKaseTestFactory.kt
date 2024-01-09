@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,9 +28,11 @@ interface DslKaseTestFactory<T : DslTestEnvironment, K : Kase1<DslLanguage>> : K
     get() = dslLanguages.kases() as List<K>
 
   override fun newTestEnvironment(
-    kase: K,
+    param: Any?,
+    parentNames: List<String>,
     testFunctionCoordinates: TestFunctionCoordinates
   ): T {
+    val kase = param as K
     val environment = DslTestEnvironment(
       language = kase.a1,
       testFunctionCoordinates = testFunctionCoordinates

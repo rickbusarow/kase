@@ -747,12 +747,6 @@ public abstract interface class com/rickbusarow/kase/HasLabels {
 	public abstract fun getOrderedLabels ()Ljava/util/List;
 }
 
-public abstract interface class com/rickbusarow/kase/ITnb : com/rickbusarow/kase/HasDisplayName {
-	public abstract fun getNamesFromRoot ()Ljava/util/List;
-	public abstract fun getParent ()Lcom/rickbusarow/kase/ITnb;
-	public abstract fun getTestFunctionCoordinates ()Lcom/rickbusarow/kase/files/TestFunctionCoordinates;
-}
-
 public abstract interface class com/rickbusarow/kase/Kase : com/rickbusarow/kase/HasDisplayName {
 	public static final field Companion Lcom/rickbusarow/kase/Kase$Companion;
 }
@@ -789,7 +783,6 @@ public final class com/rickbusarow/kase/Kase10$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase10Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase10;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase10;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase10;
@@ -847,7 +840,6 @@ public final class com/rickbusarow/kase/Kase11$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase11Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase11;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase11;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase11;
@@ -904,7 +896,6 @@ public final class com/rickbusarow/kase/Kase12$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase12Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase12;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase12;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase12;
@@ -960,7 +951,6 @@ public final class com/rickbusarow/kase/Kase13$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase13Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase13;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase13;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase13;
@@ -1015,7 +1005,6 @@ public final class com/rickbusarow/kase/Kase14$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase14Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase14;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase14;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase14;
@@ -1069,7 +1058,6 @@ public final class com/rickbusarow/kase/Kase15$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase15Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase15;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase15;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase15;
@@ -1122,7 +1110,6 @@ public final class com/rickbusarow/kase/Kase16$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase16Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase16;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase16;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase16;
@@ -1174,7 +1161,6 @@ public final class com/rickbusarow/kase/Kase17$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase17Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase17;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase17;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase17;
@@ -1225,7 +1211,6 @@ public final class com/rickbusarow/kase/Kase18$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase18Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase18;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase18;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase18;
@@ -1275,7 +1260,6 @@ public final class com/rickbusarow/kase/Kase19$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase19Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase19;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase19;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase19;
@@ -1296,7 +1280,6 @@ public final class com/rickbusarow/kase/Kase19Kt {
 }
 
 public final class com/rickbusarow/kase/Kase1Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase1;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase1;
 	public static synthetic fun kase$default (Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase1;
@@ -1391,7 +1374,6 @@ public final class com/rickbusarow/kase/Kase20$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase20Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase20;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase20;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase20;
@@ -1439,7 +1421,6 @@ public final class com/rickbusarow/kase/Kase21$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase21Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase21;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase21;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase21;
@@ -1486,7 +1467,6 @@ public final class com/rickbusarow/kase/Kase22$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase22Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase22;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase22;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase22;
@@ -1501,7 +1481,6 @@ public final class com/rickbusarow/kase/Kase22Kt {
 }
 
 public final class com/rickbusarow/kase/Kase2Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase2;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase2;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase2;
@@ -1567,7 +1546,6 @@ public final class com/rickbusarow/kase/Kase3$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase3Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase3;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase3;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase3;
@@ -1632,7 +1610,6 @@ public final class com/rickbusarow/kase/Kase4$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase4Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function4;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase4;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase4;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase4;
@@ -1696,7 +1673,6 @@ public final class com/rickbusarow/kase/Kase5$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase5Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase5;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase5;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase5;
@@ -1759,7 +1735,6 @@ public final class com/rickbusarow/kase/Kase6$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase6Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase6;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase6;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase6;
@@ -1821,7 +1796,6 @@ public final class com/rickbusarow/kase/Kase7$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase7Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase7;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase7;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase7;
@@ -1882,7 +1856,6 @@ public final class com/rickbusarow/kase/Kase8$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase8Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase8;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase8;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase8;
@@ -1942,7 +1915,6 @@ public final class com/rickbusarow/kase/Kase9$DefaultImpls {
 }
 
 public final class com/rickbusarow/kase/Kase9Kt {
-	public static final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/stream/Stream;
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase9;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase9;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase9;
@@ -2099,43 +2071,47 @@ public abstract interface annotation class com/rickbusarow/kase/KaseTestEnvironm
 
 public abstract interface class com/rickbusarow/kase/KaseTestFactory : com/rickbusarow/kase/ContainerTransforms, com/rickbusarow/kase/HasKases, com/rickbusarow/kase/TestEnvironmentFactory {
 	public abstract fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public abstract fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public abstract fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public abstract fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public abstract fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public abstract fun test (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
-	public abstract fun testFactory (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public abstract fun testFactory (Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public abstract fun testFactory ([Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public abstract fun testFactory (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public abstract fun testFactory (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public abstract fun testFactory ([Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 }
 
 public final class com/rickbusarow/kase/KaseTestFactory$DefaultImpls {
 	public static fun asContainers (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public static fun asContainers (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static fun asTests (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun asTests (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun asTests (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun asTests (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public static fun newTestEnvironment (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
 	public static fun test (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
 	public static synthetic fun test$default (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)V
-	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;[Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;[Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static synthetic fun testFactory$default (Lcom/rickbusarow/kase/KaseTestFactory;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static synthetic fun testFactory$default (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static synthetic fun testFactory$default (Lcom/rickbusarow/kase/KaseTestFactory;[Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;ILjava/lang/Object;)Ljava/util/stream/Stream;
 }
 
-public final class com/rickbusarow/kase/KaseTestFactoryNB : com/rickbusarow/kase/ITnb, com/rickbusarow/kase/KaseTestFactory {
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/ITnb;Ljava/util/List;)V
+public final class com/rickbusarow/kase/KaseTestFactoryTestNodeBuilder : com/rickbusarow/kase/KaseTestFactory, com/rickbusarow/kase/TestNodeBuilder {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/TestNodeBuilder;Ljava/util/List;Lcom/rickbusarow/kase/KaseTestFactory;)V
 	public fun asContainers (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 	public fun getDisplayName ()Ljava/lang/String;
 	public fun getKases ()Ljava/util/List;
-	public fun getNamesFromRoot ()Ljava/util/List;
-	public fun getParent ()Lcom/rickbusarow/kase/ITnb;
+	public fun getParent ()Lcom/rickbusarow/kase/TestNodeBuilder;
 	public fun getTestFunctionCoordinates ()Lcom/rickbusarow/kase/files/TestFunctionCoordinates;
 	public fun newTestEnvironment (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/TestEnvironment;
 	public fun test (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
-	public fun testFactory (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public fun testFactory (Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public fun testFactory ([Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public fun testFactory (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public fun testFactory (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public fun testFactory ([Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 }
 
 public abstract interface class com/rickbusarow/kase/TestEnvironment : com/rickbusarow/kase/files/HasWorkingDir {
@@ -2186,17 +2162,16 @@ public final class com/rickbusarow/kase/TestNodeBuilderKt {
 	public static final fun testFactory (Lkotlin/jvm/functions/Function1;)Ljava/util/stream/Stream;
 }
 
-public class com/rickbusarow/kase/Tnb : com/rickbusarow/kase/ContainerTransforms, com/rickbusarow/kase/ITnb {
-	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/ITnb;)V
+public final class com/rickbusarow/kase/UnscopedTestNodeBuilder : com/rickbusarow/kase/ContainerTransforms, com/rickbusarow/kase/TestNodeBuilder {
+	public fun <init> (Ljava/lang/String;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lcom/rickbusarow/kase/TestNodeBuilder;)V
 	public fun asContainers (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public fun asContainers (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public final fun asTests (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public final fun asTests (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/Tnb;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
-	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/Tnb;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/UnscopedTestNodeBuilder;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
+	public static synthetic fun asTests$default (Lcom/rickbusarow/kase/UnscopedTestNodeBuilder;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;ILjava/lang/Object;)Ljava/util/stream/Stream;
 	public fun getDisplayName ()Ljava/lang/String;
-	public fun getNamesFromRoot ()Ljava/util/List;
-	public fun getParent ()Lcom/rickbusarow/kase/ITnb;
+	public fun getParent ()Lcom/rickbusarow/kase/TestNodeBuilder;
 	public fun getTestFunctionCoordinates ()Lcom/rickbusarow/kase/files/TestFunctionCoordinates;
 }
 

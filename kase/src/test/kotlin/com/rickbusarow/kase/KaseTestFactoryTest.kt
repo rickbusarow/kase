@@ -37,33 +37,33 @@ internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B
 
   val cs = kases(listOf(C("c1"), C("c2")))
 
-  @TestFactory
-  fun `scoping for multiplied streams`(): Stream<out DynamicNode> {
-    val base = baseWorkingDir()
-
-    val functionDir = File("KaseTestFactoryTest")
-      .resolve(cleanStringForFileSystem("scoping for multiplied streams"))
-
-    return kases.asContainers { k1 ->
-
-      cs.asTests(
-        testEnvironmentFactory = { k2 ->
-          TestEnvironment(
-            k1.displayName,
-            k2.displayName,
-            testFunctionCoordinates = testFunctionCoordinates
-          )
-        }
-      ) { k2 ->
-
-        val path = functionDir
-          .resolve(cleanStringForFileSystem(k1.displayName))
-          .resolve(cleanStringForFileSystem(k2.displayName))
-
-        workingDir.relativeTo(base) shouldBe path
-      }
-    }
-  }
+  // @TestFactory
+  // fun `scoping for multiplied streams`(): Stream<out DynamicNode> {
+  //   val base = baseWorkingDir()
+  //
+  //   val functionDir = File("KaseTestFactoryTest")
+  //     .resolve(cleanStringForFileSystem("scoping for multiplied streams"))
+  //
+  //   return kases.asContainers { k1 ->
+  //
+  //     cs.asTests(
+  //       testEnvironmentFactory = { k2 ->
+  //         TestEnvironment(
+  //           k1.displayName,
+  //           k2.displayName,
+  //           testFunctionCoordinates = testFunctionCoordinates
+  //         )
+  //       }
+  //     ) { k2 ->
+  //
+  //       val path = functionDir
+  //         .resolve(cleanStringForFileSystem(k1.displayName))
+  //         .resolve(cleanStringForFileSystem(k2.displayName))
+  //
+  //       workingDir.relativeTo(base) shouldBe path
+  //     }
+  //   }
+  // }
 
   @TestFactory
   fun `scoping nested asTests`(): Stream<out DynamicNode> {

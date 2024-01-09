@@ -21,7 +21,6 @@ import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
-import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.streams.asStream
 
 /**
@@ -42,49 +41,10 @@ import kotlin.streams.asStream
  * @since 0.1.0
  */
 @KaseTestBuilderDsl
-public fun testFactory(init: Tnb.() -> Unit): Stream<out DynamicNode> {
+@Deprecated("no")
+public fun testFactory(init: UnscopedTestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
   return emptySequence<DynamicNode>().asStream()
-  // return Tnb(
-  //   displayName = "root",
-  //   testFunctionCoordinates = TestFunctionCoordinates.get(),
-  //   parent = null
-  // )
-  //   .apply { init() }
-  //   .nodeSequence()
-  //   .asStream()
 }
-
-// /**
-//  * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
-//  * iterable. The names of the tests are determined by the [testName] function,
-//  * and the tests themselves are defined by the [testAction] function.
-//  *
-//  * @param testName a function to compute the name of each test.
-//  * @param testAction a function to define each test.
-//  * @receiver the [TestNodeBuilder] to which tests will be added.
-//  * @return the invoking [TestNodeBuilder], after adding the new tests.
-//  * @since 0.1.0
-//  */
-// public fun <E> Iterable<E>.asTests(
-//   testName: (E) -> String = maybeDisplayName(),
-//   testAction: suspend T.(E) -> Unit
-// ): Stream<out DynamicNode> = asSequence().asTests(testName, testAction)
-//
-// /**
-//  * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
-//  * iterable. The names of the tests are determined by the [testName] function,
-//  * and the tests themselves are defined by the [testAction] function.
-//  *
-//  * @param testName a function to compute the name of each test.
-//  * @param testAction a function to define each test.
-//  * @receiver the [TestNodeBuilder] to which tests will be added.
-//  * @return the invoking [TestNodeBuilder], after adding the new tests.
-//  * @since 0.1.0
-//  */
-// public fun <E> Sequence<E>.asTests(
-//   testName: (E) -> String = maybeDisplayName(),
-//   testAction: suspend T.(E) -> Unit
-// ): Stream<out DynamicNode>
 
 /**
  * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
@@ -139,7 +99,7 @@ public fun <E> Sequence<E>.asTests(
  */
 public fun <E> Iterable<E>.asContainers(
   displayName: (E) -> String = maybeDisplayName(),
-  testAction: Tnb.(E) -> Stream<out DynamicNode>
+  testAction: UnscopedTestNodeBuilder.(E) -> Stream<out DynamicNode>
 ): Stream<out DynamicNode> = asSequence().asContainers(displayName, testAction)
 
 /**
@@ -156,12 +116,12 @@ public fun <E> Iterable<E>.asContainers(
  */
 public fun <E> Sequence<E>.asContainers(
   displayName: (E) -> String = maybeDisplayName(),
-  testAction: Tnb.(E) -> Stream<out DynamicNode>
+  testAction: UnscopedTestNodeBuilder.(E) -> Stream<out DynamicNode>
 ): Stream<out DynamicNode> {
   val coords = TestFunctionCoordinates.get()
   return map { e ->
     val name = displayName(e)
-    Tnb(name, coords, null).run {
+    UnscopedTestNodeBuilder(name, coords, null).run {
       DynamicContainer.dynamicContainer(name, coords.testUriOrNull, testAction(e))
     }
   }
@@ -187,7 +147,7 @@ public fun <E> Sequence<E>.asContainers(
  * @since 0.1.0
  */
 @KaseTestBuilderDsl
-public interface TestNodeBuilder : HasDisplayName {
+public sealed interface TestNodeBuilder : HasDisplayName {
 
   /**
    * Captured before executing any tests, meaning that it's the frame that called `asTests { ... }`
@@ -204,11 +164,11 @@ public interface TestNodeBuilder : HasDisplayName {
   public val parent: TestNodeBuilder?
 }
 
-public interface ITnb : HasDisplayName {
-  public val testFunctionCoordinates: TestFunctionCoordinates
-  public val parent: ITnb?
-  public val namesFromRoot: List<String>
-}
+internal val TestNodeBuilder.namesFromRoot: List<String>
+  get() = generateSequence<TestNodeBuilder>(this) { it.parent }
+    .map { it.displayName }
+    .toList()
+    .asReversed()
 
 /**
  * @property testFunctionCoordinates Captured before executing any
@@ -216,17 +176,11 @@ public interface ITnb : HasDisplayName {
  * @property parent the parent node, or `null` if this is the root container
  */
 @KaseTestBuilderDsl
-public class Tnb(
+public class UnscopedTestNodeBuilder(
   override val displayName: String,
   override val testFunctionCoordinates: TestFunctionCoordinates,
-  override val parent: ITnb?
-) : ContainerTransforms<Tnb>, ITnb {
-  override val namesFromRoot: List<String> by lazy(NONE) {
-    generateSequence<ITnb>(this) { it.parent }
-      .map { it.displayName }
-      .toList()
-      .asReversed()
-  }
+  override val parent: TestNodeBuilder?
+) : ContainerTransforms<UnscopedTestNodeBuilder>, TestNodeBuilder {
 
   /**
    * Adds tests to the invoking [TestNodeBuilder] for each kaseParam of the
@@ -267,12 +221,12 @@ public class Tnb(
 
   override fun <E> Sequence<E>.asContainers(
     displayName: (E) -> String,
-    testAction: Tnb.(E) -> Stream<out DynamicNode>
+    testAction: UnscopedTestNodeBuilder.(E) -> Stream<out DynamicNode>
   ): Stream<out DynamicNode> {
     val coords = TestFunctionCoordinates.get()
     return map { e ->
       val name = displayName(e)
-      Tnb(name, coords, this@Tnb).run {
+      UnscopedTestNodeBuilder(name, coords, this@UnscopedTestNodeBuilder).run {
         DynamicContainer.dynamicContainer(name, coords.testUriOrNull, testAction(e))
       }
     }

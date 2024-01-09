@@ -12,3 +12,74 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package com.rickbusarow.kase
+
+import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.Test
+import kotlin.streams.asSequence
+
+class Kase1Test {
+
+  @Test
+  fun `kase function should correctly create a Kase1 instance`() {
+    val kase = kase(a1 = 1) { "a1 == $a1" }
+
+    kase.a1 shouldBe 1
+    kase.displayName shouldBe "a1 == 1"
+  }
+
+  @Test
+  fun `kase function should correctly create a Kase1 instance with default display name factory`() {
+    val kase = kase(a1 = "Test")
+
+    kase.a1 shouldBe "Test"
+    kase.displayName shouldBe "a1: Test"
+  }
+
+  @Test
+  fun `kases function should correctly create a list of Kase1 instances`() {
+    val kases = kases(listOf("Test1", "Test2"))
+
+    kases.size shouldBe 2
+    kases[0].a1 shouldBe "Test1"
+    kases[0].displayName shouldBe "a1: Test1"
+    kases[1].a1 shouldBe "Test2"
+    kases[1].displayName shouldBe "a1: Test2"
+  }
+
+  @Test
+  fun `times operator should correctly create a list of Kase2 instances`() {
+    val kase1 = kase(a1 = "Test1")
+    val kase2 = kase(a1 = "Test2")
+    val kase3 = kase(a1 = "Test3")
+
+    val kases = listOf(kase1) * listOf(kase2, kase3)
+
+    kases.size shouldBe 2
+    kases[0].a1 shouldBe "Test1"
+    kases[0].a2 shouldBe "Test2"
+    kases[1].a1 shouldBe "Test1"
+    kases[1].a2 shouldBe "Test3"
+  }
+
+  @Test
+  fun `DefaultKase1 should have correct elements`() {
+    val kase = DefaultKase1("foo") { "a1 == $a1" }
+
+    kase.a1 shouldBe "foo"
+    kase.displayName shouldBe "a1 == foo"
+  }
+
+  @Test
+  fun `asTests function should create dynamic tests for each Kase1`() {
+    val kase1 = kase(a1 = 1) { "[Test: $a1]" }
+    val kase2 = kase(a1 = 2) { "[Test: $a1]" }
+    val kases = listOf(kase1, kase2)
+
+    val dynamicNodes = kases.asTests { }.asSequence().toList()
+      .map { it.displayName }
+
+    dynamicNodes shouldBe listOf("[Test: 1]", "[Test: 2]")
+  }
+}

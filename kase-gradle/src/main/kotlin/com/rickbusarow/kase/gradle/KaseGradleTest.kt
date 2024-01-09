@@ -116,14 +116,16 @@ public interface GradleTestEnvironmentFactory<K : Kase> : TestEnvironmentFactory
       ?: (param as? HasGradleDependencyVersion)?.gradle
       ?: GradleDependencyVersion.current()
 
-    val hasWorkingDir = HasWorkingDir(listOf(kase.displayName), testFunctionCoordinates)
+    param as K
+
+    val hasWorkingDir = HasWorkingDir(listOf(param.displayName), testFunctionCoordinates)
 
     return DefaultGradleTestEnvironment(
       gradleVersion = gradleVersion,
       dslLanguage = this.dslLanguage,
       hasWorkingDir = hasWorkingDir,
-      defaultBuildFile = buildFileDefault(kase),
-      defaultSettingsFile = settingsFileDefault(kase)
+      defaultBuildFile = buildFileDefault(param),
+      defaultSettingsFile = settingsFileDefault(param)
     )
   }
 }

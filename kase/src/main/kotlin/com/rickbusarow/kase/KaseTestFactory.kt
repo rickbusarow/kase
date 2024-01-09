@@ -21,7 +21,6 @@ import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
-import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.streams.asStream
 
 /**
@@ -33,7 +32,7 @@ import kotlin.streams.asStream
 public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   HasKases<K>,
   TestEnvironmentFactory<T>,
-  ContainerTransforms<KaseTestFactoryNB<T, K>> {
+  ContainerTransforms<KaseTestFactoryTestNodeBuilder<T, K>> {
 
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
@@ -151,12 +150,12 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
 
   override fun <E> Sequence<E>.asContainers(
     displayName: (E) -> String,
-    testAction: KaseTestFactoryNB<T, K>.(E) -> Stream<out DynamicNode>
+    testAction: KaseTestFactoryTestNodeBuilder<T, K>.(E) -> Stream<out DynamicNode>
   ): Stream<out DynamicNode> {
     val coords = TestFunctionCoordinates.get()
     return map { e ->
       val name = displayName(e)
-      KaseTestFactoryNB<T, K>(
+      KaseTestFactoryTestNodeBuilder<T, K>(
         displayName = name,
         testFunctionCoordinates = coords,
         parent = null,
@@ -171,13 +170,13 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
 }
 
 @KaseTestBuilderDsl
-public class KaseTestFactoryNB<T : TestEnvironment, K : Kase>(
+public class KaseTestFactoryTestNodeBuilder<T : TestEnvironment, K : Kase>(
   override val displayName: String,
   override val testFunctionCoordinates: TestFunctionCoordinates,
-  override val parent: ITnb?,
+  override val parent: TestNodeBuilder?,
   override val kases: List<K>,
   private val delegateFactory: KaseTestFactory<T, K>
-) : KaseTestFactory<T, K>, ITnb {
+) : KaseTestFactory<T, K>, TestNodeBuilder {
 
   override fun newTestEnvironment(
     param: Any?,
@@ -203,11 +202,4 @@ public class KaseTestFactoryNB<T : TestEnvironment, K : Kase>(
       ) { testAction(param) }
     }
   }.asStream()
-
-  override val namesFromRoot: List<String> by lazy(NONE) {
-    generateSequence<ITnb>(this) { it.parent }
-      .map { it.displayName }
-      .toList()
-      .asReversed()
-  }
 }
