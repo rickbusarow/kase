@@ -16,31 +16,72 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestFunctionCoordinates
+import dev.drewhamilton.poko.Poko
 import kotlinx.coroutines.runBlocking
+
+public interface TestEnvironmentParams {
+  public val names: List<String>
+  public val testFunctionCoordinates: TestFunctionCoordinates
+
+  public companion object {
+    public fun empty(
+      coordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+    ): TestEnvironmentParams = DefaultTestEnvironmentParams(
+      names = emptyList(),
+      testFunctionCoordinates = coordinates
+    )
+  }
+}
+
+@Poko
+public open class DefaultTestEnvironmentParams(
+  override val names: List<String>,
+  override val testFunctionCoordinates: TestFunctionCoordinates
+) : TestEnvironmentParams
+
+public interface HasTestEnvironmentFactory<out T : TestEnvironment, Params : TestEnvironmentParams> {
+  public val testEnvironmentFactory: TestEnvironmentFactory<T, Params>
+    get() = TestEnvironmentFactory { params ->
+      @Suppress("UNCHECKED_CAST")
+      TestEnvironment(
+        testParameterDisplayNames = params.names,
+        testFunctionCoordinates = params.testFunctionCoordinates
+      ) as? T
+        ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
+    }
+}
 
 /**
  * Creates [TestEnvironment]s.
  *
  * @since 0.1.0
  */
-public interface TestEnvironmentFactory<T : TestEnvironment> {
+public fun interface TestEnvironmentFactory<out T : TestEnvironment, Params : TestEnvironmentParams> {
   /**
    * Creates a new [TestEnvironment].
    *
    * @return A new [TestEnvironment] of type [T].
    * @since 0.1.0
    */
-  public fun newTestEnvironment(
-    param: Any?,
-    parentNames: List<String>,
-    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
-  ): T {
-    @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(
-      testParameterDisplayNames = parentNames + param.maybeDisplayNameOrToString(),
-      testFunctionCoordinates = testFunctionCoordinates
-    ) as? T
-      ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
+  public fun newTestEnvironment(params: Params): T
+}
+
+/**
+ * Convenience for invoking a test action with a `TestEnvironment` when no [Kase] is needed.
+ *
+ * @since 0.1.0
+ */
+public fun TestEnvironmentFactory<TestEnvironment, TestEnvironmentParams>.test(
+  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
+  testAction: suspend TestEnvironment.() -> Unit
+) {
+  val testEnvironment = newTestEnvironment(TestEnvironmentParams.empty(testFunctionCoordinates))
+
+  runBlocking {
+    testEnvironment.asClueCatching {
+      testEnvironment.testAction()
+      println(testEnvironment)
+    }
   }
 }
 
@@ -49,11 +90,12 @@ public interface TestEnvironmentFactory<T : TestEnvironment> {
  *
  * @since 0.1.0
  */
-public fun TestEnvironmentFactory<TestEnvironment>.test(
+public fun HasTestEnvironmentFactory<TestEnvironment, TestEnvironmentParams>.test(
   testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
   testAction: suspend TestEnvironment.() -> Unit
 ) {
-  val testEnvironment = newTestEnvironment(Kase.EMPTY, emptyList(), testFunctionCoordinates)
+  val testEnvironment = testEnvironmentFactory
+    .newTestEnvironment(TestEnvironmentParams.empty(testFunctionCoordinates))
 
   runBlocking {
     testEnvironment.asClueCatching {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,6 +19,7 @@ import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironment
+import com.rickbusarow.kase.TestEnvironmentParams
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.test
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -26,7 +27,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 
-class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase> {
+class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, TestEnvironmentParams, Kase> {
 
   override val kases: List<Kase>
     get() = listOf(Kase.EMPTY)

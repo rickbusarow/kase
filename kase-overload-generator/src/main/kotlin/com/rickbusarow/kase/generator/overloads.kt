@@ -368,7 +368,7 @@ internal fun StringBuilder.testFun(
     """
     |$kdoc
     |@${kaseTestBuilderDsl.simple}
-    |public fun <T: TestEnvironment, ${args.valueTypesString}> KaseTestFactory<T, ${types.kaseInterface}>.test(
+    |public fun <T: TestEnvironment, ${args.valueTypesString}> KaseTestFactory<T, *, ${types.kaseInterface}>.test(
     |  ${args.paramsString},
     |  displayNameFactory: ${types.displayNameFactory} = ${types.defaultDisplayNameFactory}(),
     |  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
@@ -425,7 +425,7 @@ internal fun StringBuilder.testFactory_vararg(
       vararg kases: ${kaseTypes.kaseInterface},
       testAction: (${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
-      return testFactory { kases.asSequence().asTests { testAction(${args.valuesFromItString}) } }
+      return kases.asSequence().asTests { testAction(${args.valuesFromItString}) }
     }
     """.trimIndent()
   )
@@ -445,7 +445,7 @@ internal fun StringBuilder.testFactory_Iterable(
       kases: Iterable<${kaseTypes.kaseInterface}>,
       testAction: (${args.paramsString}) -> Unit
     ): Stream<out DynamicNode> {
-      return testFactory { kases.asTests { testAction(${args.valuesFromItString}) } }
+      return kases.asTests { testAction(${args.valuesFromItString}) }
     }
     """.trimIndent()
   )

@@ -29,10 +29,10 @@ import kotlin.streams.asStream
  *
  * @since 0.1.0
  */
-public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
+public interface KaseTestFactory<T : TestEnvironment, Params : TestEnvironmentParams, K : Kase> :
   HasKases<K>,
-  TestEnvironmentFactory<T>,
-  ContainerTransforms<KaseTestFactoryTestNodeBuilder<T, K>> {
+  HasTestEnvironmentFactory<T, Params>,
+  ContainerTransforms<KaseTestFactoryTestNodeBuilder<T, Params, K>> {
 
   /**
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
@@ -49,11 +49,12 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
     testAction: suspend T.() -> Unit
   ) {
 
-    val testEnvironment = newTestEnvironment(
-      param = param,
-      parentNames = parentNames,
+    @Suppress("UNCHECKED_CAST")
+    val params = DefaultTestEnvironmentParams(
+      names = parentNames + param.maybeDisplayNameOrToString(),
       testFunctionCoordinates = testFunctionCoordinates
-    )
+    ) as Params
+    val testEnvironment = testEnvironmentFactory.newTestEnvironment(params)
 
     runBlocking {
       testEnvironment.asClueCatching {
@@ -142,6 +143,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
       ) {
         test(
           param = kaseElement,
+          parentNames = emptyList(),
           testFunctionCoordinates = coords
         ) { testAction(kaseElement) }
       }
@@ -150,12 +152,12 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
 
   override fun <E> Sequence<E>.asContainers(
     displayName: (E) -> String,
-    testAction: KaseTestFactoryTestNodeBuilder<T, K>.(E) -> Stream<out DynamicNode>
+    testAction: KaseTestFactoryTestNodeBuilder<T, Params, K>.(E) -> Stream<out DynamicNode>
   ): Stream<out DynamicNode> {
     val coords = TestFunctionCoordinates.get()
     return map { e ->
       val name = displayName(e)
-      KaseTestFactoryTestNodeBuilder<T, K>(
+      KaseTestFactoryTestNodeBuilder(
         displayName = name,
         testFunctionCoordinates = coords,
         parent = null,
@@ -167,39 +169,4 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
     }
       .asStream()
   }
-}
-
-@KaseTestBuilderDsl
-public class KaseTestFactoryTestNodeBuilder<T : TestEnvironment, K : Kase>(
-  override val displayName: String,
-  override val testFunctionCoordinates: TestFunctionCoordinates,
-  override val parent: TestNodeBuilder?,
-  override val kases: List<K>,
-  private val delegateFactory: KaseTestFactory<T, K>
-) : KaseTestFactory<T, K>, TestNodeBuilder {
-
-  override fun newTestEnvironment(
-    param: Any?,
-    parentNames: List<String>,
-    testFunctionCoordinates: TestFunctionCoordinates
-  ): T = delegateFactory.newTestEnvironment(param, parentNames, testFunctionCoordinates)
-
-  override fun <E> Iterable<E>.asTests(
-    testName: (E) -> String,
-    testAction: suspend T.(E) -> Unit
-  ): Stream<out DynamicNode> = asSequence().asTests(testName, testAction)
-
-  override fun <E> Sequence<E>.asTests(
-    testName: (E) -> String,
-    testAction: suspend T.(E) -> Unit
-  ): Stream<out DynamicNode> = map { param ->
-    val name = testName(param)
-    DynamicTest.dynamicTest(name, testFunctionCoordinates.testUriOrNull) {
-      test(
-        param = param,
-        parentNames = namesFromRoot,
-        testFunctionCoordinates = testFunctionCoordinates
-      ) { testAction(param) }
-    }
-  }.asStream()
 }

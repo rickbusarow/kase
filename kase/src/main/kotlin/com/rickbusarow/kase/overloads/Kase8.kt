@@ -26,8 +26,6 @@ package com.rickbusarow.kase
 import com.rickbusarow.kase.internal.KaseInternal
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixElement
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
-import com.rickbusarow.kase.KaseTestBuilderDsl
-import com.rickbusarow.kase.files.TestFunctionCoordinates
 import dev.drewhamilton.poko.Poko
 import java.util.stream.Stream
 import org.junit.jupiter.api.DynamicNode
@@ -333,38 +331,6 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8> kases(
 }
 
 /**
- * Creates a new [Kase8] instance and [TestEnvironment]
- * from these parameters, then executes [testAction].
- *
- * @param a1 the [Kase8.a1] parameter.
- * @param a2 the [Kase8.a2] parameter.
- * @param a3 the [Kase8.a3] parameter.
- * @param a4 the [Kase8.a4] parameter.
- * @param a5 the [Kase8.a5] parameter.
- * @param a6 the [Kase8.a6] parameter.
- * @param a7 the [Kase8.a7] parameter.
- * @param a8 the [Kase8.a8] parameter.
- * @param displayNameFactory defines the name used for this test environment's working directory
- * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
- * @param testAction the test action to execute.
- * @see KaseTestFactory
- * @since 0.1.0
- */
-@KaseTestBuilderDsl
-public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7, A8> KaseTestFactory<T, Kase8<A1, A2, A3, A4, A5, A6, A7, A8>>.test(
-  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8,
-  displayNameFactory: KaseDisplayNameFactory<Kase8<A1, A2, A3, A4, A5, A6, A7, A8>> = defaultKase8DisplayNameFactory(),
-  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
-  testAction: suspend T.() -> Unit
-) {
-  this@KaseTestFactory.test(
-    param = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, displayNameFactory = displayNameFactory),
-    testFunctionCoordinates = testFunctionCoordinates,
-    testAction = testAction
-  )
-}
-
-/**
  * A test factory which returns a stream of [DynamicNode]s from the given parameters.
  * - Each [DynamicTest] in the stream uses its [Kase8] element to create
  *   a new [TestEnvironment] instance, then executes [testAction].
@@ -382,7 +348,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
   vararg kases: Kase8<A1, A2, A3, A4, A5, A6, A7, A8>,
   testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) -> Unit
 ): Stream<out DynamicNode> {
-  return testFactory { kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8) } }
+  return kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8) }
 }
 
 /**
@@ -403,7 +369,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8> testFactory(
   kases: Iterable<Kase8<A1, A2, A3, A4, A5, A6, A7, A8>>,
   testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8) -> Unit
 ): Stream<out DynamicNode> {
-  return testFactory { kases.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8) } }
+  return kases.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7, it.a8) }
 }
 
 /**

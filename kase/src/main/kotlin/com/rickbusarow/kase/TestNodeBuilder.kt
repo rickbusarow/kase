@@ -87,48 +87,6 @@ public fun <E> Sequence<E>.asTests(
 }
 
 /**
- * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
- * iterable. The names of the containers are determined by the [displayName] function,
- * and the containers themselves are initialized by the [testAction] function.
- *
- * @param displayName a function to compute the name of each container.
- * @param testAction a function to initialize each container.
- * @receiver the [TestNodeBuilder] to which containers will be added.
- * @return the invoking [TestNodeBuilder], after adding the new containers.
- * @since 0.1.0
- */
-public fun <E> Iterable<E>.asContainers(
-  displayName: (E) -> String = maybeDisplayName(),
-  testAction: UnscopedTestNodeBuilder.(E) -> Stream<out DynamicNode>
-): Stream<out DynamicNode> = asSequence().asContainers(displayName, testAction)
-
-/**
- * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
- * iterable. The names of the containers are determined by the [displayName] function,
- * and the containers themselves are initialized by the [testAction] function.
- *
- * @param displayName a function to compute the name of each
- *   container. action a function to initialize each container.
- * @param testAction a function to initialize each container.
- * @receiver the [TestNodeBuilder] to which containers will be added.
- * @return the invoking [TestNodeBuilder], after adding the new containers.
- * @since 0.1.0
- */
-public fun <E> Sequence<E>.asContainers(
-  displayName: (E) -> String = maybeDisplayName(),
-  testAction: UnscopedTestNodeBuilder.(E) -> Stream<out DynamicNode>
-): Stream<out DynamicNode> {
-  val coords = TestFunctionCoordinates.get()
-  return map { e ->
-    val name = displayName(e)
-    UnscopedTestNodeBuilder(name, coords, null).run {
-      DynamicContainer.dynamicContainer(name, coords.testUriOrNull, testAction(e))
-    }
-  }
-    .asStream()
-}
-
-/**
  * Builds a dynamic test container with a specific name and a list of dynamic
  * nodes (tests or containers). Provides functions for defining and adding
  * dynamic tests and containers to the nodes list. Each node within the
@@ -267,6 +225,48 @@ public interface ContainerTransforms<S> {
     displayName: (E) -> String = maybeDisplayName(),
     testAction: S.(E) -> Stream<out DynamicNode>
   ): Stream<out DynamicNode>
+}
+
+/**
+ * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
+ * iterable. The names of the containers are determined by the [displayName] function,
+ * and the containers themselves are initialized by the [testAction] function.
+ *
+ * @param displayName a function to compute the name of each container.
+ * @param testAction a function to initialize each container.
+ * @receiver the [TestNodeBuilder] to which containers will be added.
+ * @return the invoking [TestNodeBuilder], after adding the new containers.
+ * @since 0.1.0
+ */
+public fun <E> Iterable<E>.asContainers(
+  displayName: (E) -> String = maybeDisplayName(),
+  testAction: UnscopedTestNodeBuilder.(E) -> Stream<out DynamicNode>
+): Stream<out DynamicNode> = asSequence().asContainers(displayName, testAction)
+
+/**
+ * Adds containers to the invoking [TestNodeBuilder] for each kaseParam of the
+ * iterable. The names of the containers are determined by the [displayName] function,
+ * and the containers themselves are initialized by the [testAction] function.
+ *
+ * @param displayName a function to compute the name of each
+ *   container. action a function to initialize each container.
+ * @param testAction a function to initialize each container.
+ * @receiver the [TestNodeBuilder] to which containers will be added.
+ * @return the invoking [TestNodeBuilder], after adding the new containers.
+ * @since 0.1.0
+ */
+public fun <E> Sequence<E>.asContainers(
+  displayName: (E) -> String = maybeDisplayName(),
+  testAction: UnscopedTestNodeBuilder.(E) -> Stream<out DynamicNode>
+): Stream<out DynamicNode> {
+  val coords = TestFunctionCoordinates.get()
+  return map { e ->
+    val name = displayName(e)
+    UnscopedTestNodeBuilder(name, coords, null).run {
+      DynamicContainer.dynamicContainer(name, coords.testUriOrNull, testAction(e))
+    }
+  }
+    .asStream()
 }
 
 internal fun <E> maybeDisplayName(): (E) -> String = { it.maybeDisplayNameOrToString() }

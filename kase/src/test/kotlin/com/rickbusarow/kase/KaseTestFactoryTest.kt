@@ -28,7 +28,7 @@ import org.junit.jupiter.api.TestFactory
 import java.io.File
 import java.util.stream.Stream
 
-internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
+internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, TestEnvironmentParams, Kase2<A, B>> {
   override val kases: List<Kase2<A, B>>
     get() = kases(
       listOf(A("a1"), A("a2")),
@@ -106,7 +106,7 @@ internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B
   }
 
   @Nested
-  inner class `custom environment` : KaseTestFactory<CustomTestEnvironment, Kase2<A, B>> {
+  inner class `custom environment` : KaseTestFactory<CustomTestEnvironment, TestEnvironmentParams, Kase2<A, B>> {
     override val kases: List<Kase2<A, B>>
       get() = kases(
         listOf(A("a1"), A("a2")),
@@ -115,15 +115,15 @@ internal class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B
 
     val cs = kases(listOf(C("c1"), C("c2")))
 
-    override fun newTestEnvironment(
-      param: Any?,
-      parentNames: List<String>,
-      testFunctionCoordinates: TestFunctionCoordinates
-    ): CustomTestEnvironment = CustomTestEnvironment(
-      params = param,
-      testParameterDisplayNames = parentNames + param.maybeDisplayNameOrToString(),
-      testFunctionCoordinates = testFunctionCoordinates
-    )
+    override val testEnvironmentFactory:
+      TestEnvironmentFactory<CustomTestEnvironment, TestEnvironmentParams>
+      get() = TestEnvironmentFactory { params ->
+        CustomTestEnvironment(
+          params = params,
+          testParameterDisplayNames = params.names,
+          testFunctionCoordinates = params.testFunctionCoordinates
+        )
+      }
 
     @TestFactory
     fun `scoping nested asTests with custom environment`(): Stream<out DynamicNode> {
