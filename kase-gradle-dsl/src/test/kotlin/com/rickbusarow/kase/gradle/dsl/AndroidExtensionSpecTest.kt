@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,13 +15,11 @@
 
 package com.rickbusarow.kase.gradle.dsl
 
-import com.rickbusarow.kase.Kase1
-import com.rickbusarow.kase.gradle.DslLanguage
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.TestFactory
 
-class AndroidExtensionSpecTest : DslKaseTestFactory<DslTestEnvironment, Kase1<DslLanguage>> {
+class AndroidExtensionSpecTest : DslKaseTestFactory {
 
   @TestFactory
   fun `an empty android lambda block is written`() = testFactory {

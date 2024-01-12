@@ -140,6 +140,18 @@ public class com/rickbusarow/kase/gradle/DefaultGradleTestEnvironment : com/rick
 	public fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
 }
 
+public final class com/rickbusarow/kase/gradle/DefaultGradleTestEnvironment$Factory : com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory {
+	public fun <init> ()V
+	public fun buildFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public synthetic fun buildFileDefault (Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public fun createEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestVersions;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/gradle/DefaultGradleTestEnvironment;
+	public synthetic fun createEnvironment (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/TestEnvironment;
+	public fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
+	public fun getLocalM2Path ()Ljava/io/File;
+	public fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public synthetic fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+}
+
 public final class com/rickbusarow/kase/gradle/DefaultGradleTestVersions : com/rickbusarow/kase/Kase1, com/rickbusarow/kase/gradle/GradleTestVersions, com/rickbusarow/kase/gradle/HasGradleDependencyVersion {
 	public fun <init> (Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;)V
 	public fun component1 ()Lcom/rickbusarow/kase/gradle/GradleDependencyVersion;
@@ -428,20 +440,17 @@ public final class com/rickbusarow/kase/gradle/GradleTestEnvironment$DefaultImpl
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory : com/rickbusarow/kase/TestEnvironmentFactory {
-	public abstract fun buildFileDefault (Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public abstract fun buildFileDefault (Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public abstract fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public abstract fun getLocalM2Path ()Ljava/io/File;
-	public abstract fun newTestEnvironment (Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public abstract fun settingsFileDefault (Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public abstract fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 }
 
 public final class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory$DefaultImpls {
-	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public static fun getDslLanguage (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;)Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public static fun getLocalM2Path (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;)Ljava/io/File;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
+	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/GradleTestVersions : com/rickbusarow/kase/Kase1, com/rickbusarow/kase/gradle/HasGradleDependencyVersion, com/rickbusarow/kase/gradle/TestVersions {
@@ -587,25 +596,25 @@ public abstract interface class com/rickbusarow/kase/gradle/HasTestVersions {
 	public abstract fun getTestVersions ()Lcom/rickbusarow/kase/gradle/TestVersions;
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/KaseGradleTest : com/rickbusarow/kase/HasKaseMatrix, com/rickbusarow/kase/KaseTestFactory, com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory {
+public abstract interface class com/rickbusarow/kase/gradle/KaseGradleTest : com/rickbusarow/kase/HasKaseMatrix, com/rickbusarow/kase/HasTestEnvironmentFactory, com/rickbusarow/kase/KaseTestFactory {
 }
 
 public final class com/rickbusarow/kase/gradle/KaseGradleTest$DefaultImpls {
 	public static fun asContainers (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
 	public static fun asContainers (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Ljava/util/stream/Stream;
-	public static fun asTests (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun asTests (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun buildFileDefault (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
-	public static fun getDslLanguage (Lcom/rickbusarow/kase/gradle/KaseGradleTest;)Lcom/rickbusarow/kase/gradle/DslLanguage;
-	public static fun getLocalM2Path (Lcom/rickbusarow/kase/gradle/KaseGradleTest;)Ljava/io/File;
+	public static fun asTests (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Iterable;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun asTests (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun asTests (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/TestEnvironmentFactory;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun asTests (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun asTests (Lcom/rickbusarow/kase/gradle/KaseGradleTest;[Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun getKases (Lcom/rickbusarow/kase/gradle/KaseGradleTest;)Ljava/util/List;
 	public static fun getVersionMatrix (Lcom/rickbusarow/kase/gradle/KaseGradleTest;)Lcom/rickbusarow/kase/KaseMatrix;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun newTestEnvironment (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/util/List;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;)Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;
-	public static fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
-	public static fun test (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/Kase;Lcom/rickbusarow/kase/files/TestFunctionCoordinates;Lkotlin/jvm/functions/Function2;)V
-	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
-	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;[Lcom/rickbusarow/kase/Kase;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun test (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/HasTestEnvironmentFactory;Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;Lkotlin/jvm/functions/Function2;)V
+	public static fun test (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Object;Lcom/rickbusarow/kase/TestEnvironmentFactory;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;Lkotlin/jvm/functions/Function2;)V
+	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/HasParams;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;[Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
+	public static fun testFactory (Lcom/rickbusarow/kase/gradle/KaseGradleTest;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 }
 
 public final class com/rickbusarow/kase/gradle/KotlinDependencyVersion : com/rickbusarow/kase/gradle/AbstractDependencyVersion {

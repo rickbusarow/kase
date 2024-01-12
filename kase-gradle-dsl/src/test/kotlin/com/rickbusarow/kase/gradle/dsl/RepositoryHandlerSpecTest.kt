@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -38,7 +38,7 @@ class RepositoryHandlerSpecTest {
       kase({ mavenLocal() }, """mavenLocal()""")
     )
       .times(kases(dslLanguages))
-      .asTests { builderFun, expected, language ->
+      .asTests { (builderFun, expected, language) ->
 
         val builder = SettingsFileSpec {
           pluginManagement {
@@ -61,7 +61,7 @@ class RepositoryHandlerSpecTest {
 
   @TestFactory
   fun `custom maven repository without configuration`() = kases(dslLanguages)
-    .asTests { language ->
+    .asTests { (language) ->
 
       val builder = SettingsFileSpec {
         pluginManagement {
@@ -133,7 +133,7 @@ class RepositoryHandlerSpecTest {
 
   @TestFactory
   fun `custom maven repository with configuration`() = kases(dslLanguages)
-    .asTests { language ->
+    .asTests { (language) ->
 
       val builder = SettingsFileSpec {
         pluginManagement {

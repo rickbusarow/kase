@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -32,15 +32,14 @@ tasks.named("detektMain", io.gitlab.arturbosch.detekt.Detekt::class) {
 
 dependencies {
 
-  api(libs.junit.engine)
   api(libs.junit.jupiter)
   api(libs.junit.jupiter.api)
-  api(libs.junit.params)
   api(libs.kotest.assertions.api)
-  api(libs.kotest.assertions.core.jvm)
   api(libs.kotest.assertions.shared)
   api(libs.kotest.common)
-  api(libs.kotest.extensions)
-  api(libs.kotest.property.jvm)
   api(libs.kotlinx.coroutines.core)
+
+  testImplementation(libs.kotest.assertions.core.jvm)
+
+  testRuntimeOnly(libs.junit.engine)
 }

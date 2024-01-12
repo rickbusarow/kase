@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase.gradle.dsl.model
 
-import com.rickbusarow.kase.KaseDsl
+import com.rickbusarow.kase.KaseTestEnvironmentDsl
 import com.rickbusarow.kase.gradle.DslLanguageSettings.InfixSupport
 import com.rickbusarow.kase.gradle.DslLanguageSettings.LabelSupport
 import com.rickbusarow.kase.gradle.DslLanguageSettings.PropertyAccessSupport
@@ -23,12 +23,12 @@ import com.rickbusarow.kase.gradle.dsl.model.ValueAssignment.GradlePropertyAssig
 import com.rickbusarow.kase.gradle.dsl.model.ValueAssignment.SetterAssignment
 
 /**
- * Collects [DslElement]s, to be written to a [DslLanguage]
+ * Collects [DslElement]s, to be written to a [DslLanguage][com.rickbusarow.kase.gradle.DslLanguage]
  * file. Elements are written in the order they are added.
  *
  * @since 0.1.0
  */
-@KaseDsl
+@KaseTestEnvironmentDsl
 public interface DslElementContainer<SELF : DslElementContainer<SELF>> : DslElement {
 
   /**

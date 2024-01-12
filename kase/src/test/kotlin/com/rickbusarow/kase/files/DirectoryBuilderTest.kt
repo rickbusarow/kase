@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.files
 
+import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.KaseTestFactory
@@ -26,9 +27,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 
-class DirectoryBuilderTest : KaseTestFactory<TestEnvironment, Kase> {
+class DirectoryBuilderTest : KaseTestFactory<Kase, TestEnvironment, DefaultTestEnvironment.Factory> {
 
-  override val kases: List<Kase>
+  override val testEnvironmentFactory = DefaultTestEnvironment.Factory()
+
+  override val params: List<Kase>
     get() = listOf(Kase.EMPTY)
 
   val entryPoints: List<Kase1<(File) -> DirectoryBuilder>>

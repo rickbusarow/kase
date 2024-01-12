@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,18 +15,16 @@
 
 package com.rickbusarow.kase.gradle
 
-import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.KaseMatrix
-import com.rickbusarow.kase.kases
 import io.kotest.matchers.file.shouldExist
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.TestFactory
 
-class GradleTestEnvironmentTest : KaseGradleTest<Kase1<GradleDependencyVersion>> {
+class GradleTestEnvironmentTest : KaseGradleTest<GradleTestVersions, DefaultGradleTestEnvironment, DefaultGradleTestEnvironment.Factory> {
   override val kaseMatrix: KaseMatrix
     get() = KaseMatrix(GradleDependencyVersion("1.0.0"))
-  override val kases
-    get() = kaseMatrix.kases(GradleDependencyVersion)
+  override val params = GradleTestVersions.extract(kaseMatrix)
+  override val testEnvironmentFactory = DefaultGradleTestEnvironment.Factory()
 
   @TestFactory
   fun `invoking rootProject as a lambda writes the files afterwards`() = testFactory {
