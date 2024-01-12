@@ -18,34 +18,33 @@ package com.rickbusarow.kase.gradle.dsl
 import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.KaseTestFactory
+import com.rickbusarow.kase.TestEnvironmentFactory
 import com.rickbusarow.kase.files.TestLocation
 import com.rickbusarow.kase.gradle.DslLanguage
 
-interface DslKaseTestFactory<T : DslTestEnvironment, K : Kase1<DslLanguage>> : KaseTestFactory<T, K> {
+interface DslKaseTestFactory : KaseTestFactory<Kase1<DslLanguage>, DslTestEnvironment, DslTestEnvironment.Factory> {
 
-  @Suppress("UNCHECKED_CAST")
-  override val kases: List<K>
-    get() = dslLanguages.kases() as List<K>
+  override val testEnvironmentFactory: DslTestEnvironment.Factory
+    get() = DslTestEnvironment.Factory()
 
-  override fun newTestEnvironment(
-    kase: K,
-    testLocation: TestLocation
-  ): T {
-    val environment = DslTestEnvironment(
-      language = kase.a1,
-      testLocation = testLocation
-    )
-
-    @Suppress("UNCHECKED_CAST")
-    return environment as T
-  }
+  override val params: List<Kase1<DslLanguage>>
+    get() = dslLanguages.kases()
 }
 
 open class DslTestEnvironment(
   val language: DslLanguage,
+  names: List<String>,
   testLocation: TestLocation
-) : DefaultTestEnvironment(listOf(element = language.displayName), testLocation) {
+) : DefaultTestEnvironment(names, testLocation) {
   val generator = ExpectedCodeGenerator(language)
+
+  class Factory : TestEnvironmentFactory<Kase1<DslLanguage>, DslTestEnvironment> {
+    override fun createEnvironment(
+      params: Kase1<DslLanguage>,
+      names: List<String>,
+      location: TestLocation
+    ): DslTestEnvironment = DslTestEnvironment(params.a1, names, location)
+  }
 }
 
 val DslLanguage.displayName: String

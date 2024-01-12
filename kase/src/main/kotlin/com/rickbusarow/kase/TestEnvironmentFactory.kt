@@ -18,47 +18,26 @@ package com.rickbusarow.kase
 import com.rickbusarow.kase.files.TestLocation
 import kotlinx.coroutines.runBlocking
 
+/** Trait interface for providing a [TestEnvironmentFactory]. */
+public interface HasTestEnvironmentFactory<out FACT : TestEnvironmentFactory<*, *>> {
+
+  /** */
+  public val testEnvironmentFactory: FACT
+}
+
 /**
  * Creates [TestEnvironment]s.
  *
  * @since 0.1.0
  */
-public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
+public fun interface TestEnvironmentFactory<in PARAM, out ENV : TestEnvironment> {
   /**
    * Creates a new [TestEnvironment].
    *
-   * @return A new [TestEnvironment] of type [T].
+   * @return A new [TestEnvironment] of type [ENV].
    * @since 0.1.0
    */
-  public fun newTestEnvironment(
-    kase: K,
-    testLocation: TestLocation = TestLocation.get()
-  ): T {
-    @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(
-      kase.displayName,
-      testLocation = testLocation
-    ) as? T
-      ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
-  }
-
-  /**
-   * Creates a new [TestEnvironment].
-   *
-   * @return A new [TestEnvironment] of type [T].
-   * @since 0.6.0
-   */
-  public fun newTestEnvironment(
-    testParameterDisplayNames: List<String>,
-    testLocation: TestLocation = TestLocation.get()
-  ): T {
-    @Suppress("UNCHECKED_CAST")
-    return TestEnvironment(
-      testParameterDisplayNames,
-      testLocation = testLocation
-    ) as? T
-      ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
-  }
+  public fun createEnvironment(params: PARAM, names: List<String>, location: TestLocation): ENV
 }
 
 /**
@@ -66,11 +45,14 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
  *
  * @since 0.1.0
  */
-public fun <T : TestEnvironment> TestEnvironmentFactory<T, Kase>.test(
+public fun HasTestEnvironmentFactory<DefaultTestEnvironment.Factory>.test(
   testLocation: TestLocation = TestLocation.get(),
-  testAction: suspend T.() -> Unit
+  testAction: suspend TestEnvironment.() -> Unit
 ) {
-  val testEnvironment = newTestEnvironment(Kase.EMPTY, testLocation)
+  val testEnvironment = testEnvironmentFactory.createEnvironment(
+    names = emptyList(),
+    location = testLocation
+  )
 
   runBlocking {
     testEnvironment.asClueCatching {

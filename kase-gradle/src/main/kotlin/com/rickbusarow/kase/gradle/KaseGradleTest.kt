@@ -16,12 +16,10 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasKaseMatrix
+import com.rickbusarow.kase.HasTestEnvironmentFactory
 import com.rickbusarow.kase.Kase
-import com.rickbusarow.kase.KaseBag
 import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironmentFactory
-import com.rickbusarow.kase.files.HasWorkingDir
-import com.rickbusarow.kase.files.TestLocation
 import com.rickbusarow.kase.gradle.DslLanguage.GroovyDsl
 import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
 import org.junit.jupiter.api.parallel.Execution
@@ -34,20 +32,24 @@ import java.io.File
  * @since 0.1.0
  */
 @Execution(ExecutionMode.SAME_THREAD)
-public interface KaseGradleTest<K> :
-  GradleTestEnvironmentFactory<K>,
-  HasKaseMatrix,
-  KaseTestFactory<GradleTestEnvironment, K>
-  where K : Kase
+public interface KaseGradleTest<PARAM, ENV, FACT> :
+  HasTestEnvironmentFactory<FACT>,
+  KaseTestFactory<PARAM, ENV, FACT>,
+  HasKaseMatrix
+  where PARAM : HasGradleDependencyVersion,
+        PARAM : Kase,
+        ENV : GradleTestEnvironment,
+        FACT : GradleTestEnvironmentFactory<PARAM, ENV>
 
 /**
  * A factory for creating [GradleTestEnvironment]s.
  *
  * @since 0.1.0
  */
-public interface GradleTestEnvironmentFactory<K> :
-  TestEnvironmentFactory<GradleTestEnvironment, K>
-  where K : Kase {
+public interface GradleTestEnvironmentFactory<PARAM, ENV> : TestEnvironmentFactory<PARAM, ENV>
+  where PARAM : HasGradleDependencyVersion,
+        PARAM : Kase,
+        ENV : GradleTestEnvironment {
 
   /**
    * The [DslLanguage] to use for generating build and settings files.
@@ -70,14 +72,14 @@ public interface GradleTestEnvironmentFactory<K> :
    *
    * @since 0.1.0
    */
-  public fun buildFileDefault(versions: K): DslStringFactory = DslStringFactory { "" }
+  public fun buildFileDefault(versions: PARAM): DslStringFactory = DslStringFactory { "" }
 
   /**
    * Defines the default contents of the root project's `settings.gradle(.kts)` file.
    *
    * @since 0.1.0
    */
-  public fun settingsFileDefault(versions: K): DslStringFactory = DslStringFactory { language ->
+  public fun settingsFileDefault(versions: PARAM): DslStringFactory = DslStringFactory { language ->
 
     val maybeLocal = if (localM2Path == null) {
       ""
@@ -107,25 +109,5 @@ public interface GradleTestEnvironmentFactory<K> :
 
     rootProject.name = "root"
     """.trimIndent()
-  }
-
-  override fun newTestEnvironment(
-    kase: K,
-    testLocation: TestLocation
-  ): GradleTestEnvironment {
-
-    val gradleVersion = (kase as? KaseBag)?.getOrNull(GradleDependencyVersion)
-      ?: (kase as? HasGradleDependencyVersion)?.gradle
-      ?: GradleDependencyVersion.current()
-
-    val hasWorkingDir = HasWorkingDir(listOf(kase.displayName), testLocation)
-
-    return DefaultGradleTestEnvironment(
-      gradleVersion = gradleVersion,
-      dslLanguage = this.dslLanguage,
-      hasWorkingDir = hasWorkingDir,
-      defaultBuildFile = buildFileDefault(kase),
-      defaultSettingsFile = settingsFileDefault(kase)
-    )
   }
 }

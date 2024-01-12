@@ -42,16 +42,11 @@ internal object Names {
 
   val basePackage = Fqn("com.rickbusarow.kase")
 
-  val asTests = basePackage.child("asTests")
-  val kaseInternalPackage = basePackage.child("internal")
-  val kaseInternal = kaseInternalPackage.child("KaseInternal")
+  val kaseTestBuilderDsl = basePackage.child("KaseTestBuilderDsl")
 
   val kaseMatrix = basePackage.child("KaseMatrix")
   val kaseMatrixElement = kaseMatrix.child("KaseMatrixElement")
   val kaseMatrixKey = kaseMatrix.child("KaseMatrixKey")
-
-  val filesPackage = basePackage.child("files")
-  val testLocation = filesPackage.child("TestFunctionCoordinates")
 
   val poko = Fqn("dev.drewhamilton.poko.Poko")
 }
