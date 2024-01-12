@@ -25,7 +25,6 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixElement
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
-import com.rickbusarow.kase.files.TestFunctionCoordinates
 import dev.drewhamilton.poko.Poko
 import java.util.stream.Stream
 import org.junit.jupiter.api.DynamicNode
@@ -174,86 +173,6 @@ public fun <A1> kases(
       yield(kase(a1 = a1, displayNameFactory = displayNameFactory))
     }
   }
-}
-
-/**
- * Creates a new [Kase1] instance and [TestEnvironment]
- * from these parameters, then executes [testAction].
- *
- * @param a1 the [Kase1.a1] parameter.
- * @param displayNameFactory defines the name used for this test environment's working directory
- * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
- * @param testAction the test action to execute.
- * @see KaseTestFactory
- * @since 0.1.0
- */
-public fun <T: TestEnvironment, A1> KaseTestFactory<T, Kase1<A1>>.test(
-  a1: A1,
-  displayNameFactory: KaseDisplayNameFactory<Kase1<A1>> = defaultKase1DisplayNameFactory(),
-  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
-  testAction: suspend T.() -> Unit
-) {
-  this@KaseTestFactory.test(
-    kase = kase(a1 = a1, displayNameFactory = displayNameFactory),
-    testFunctionCoordinates = testFunctionCoordinates,
-    testAction = testAction
-  )
-}
-
-/**
- * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase1]s.
- *
- * @param testAction the test action to run for each kase.
- * @return a [Stream] of [DynamicNode]s from these kases.
- * @see Kase1
- * @since 0.1.0
- */
-public fun <A1> Iterable<Kase1<A1>>.asTests(
-  testAction: (a1: A1) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory {
-    this@asTests.asTests { testAction(it.a1) }
-  }
-}
-
-/**
- * A test factory which returns a stream of [DynamicNode]s from the given parameters.
- * - Each [DynamicTest] in the stream uses its [Kase1] element to create
- *   a new [TestEnvironment] instance, then executes [testAction].
- * - Each [DynamicNode] has a display name which includes the values of the parameters.
- *
- * @param kases the [Kase1]s to use for this test factory
- * @param testAction the test action to execute.
- * @return a [Stream] of [DynamicNode]s from the given parameters.
- * @see Kase1
- * @see TestEnvironmentFactory
- * @since 0.1.0
- */
-public fun <A1> testFactory(
-  vararg kases: Kase1<A1>,
-  testAction: (a1: A1) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory { kases.asSequence().asTests { testAction(it.a1) } }
-}
-
-/**
- * A test factory which returns a stream of [DynamicNode]s from the given parameters.
- * - Each [DynamicTest] in the stream uses its [Kase1] element to create
- *   a new [TestEnvironment] instance, then executes [testAction].
- * - Each [DynamicNode] has a display name which includes the values of the parameters.
- *
- * @param kases the [Kase1]s to use for this test factory
- * @param testAction the test action to execute.
- * @return a [Stream] of [DynamicNode]s from the given parameters.
- * @see Kase1
- * @see TestEnvironmentFactory
- * @since 0.1.0
- */
-public fun <A1> testFactory(
-  kases: Iterable<Kase1<A1>>,
-  testAction: (a1: A1) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory { kases.asTests { testAction(it.a1) } }
 }
 
 /**

@@ -19,7 +19,6 @@ package com.rickbusarow.kase.generator
 
 import com.rickbusarow.kase.generator.Names.kaseMatrixElement
 import com.rickbusarow.kase.generator.Names.kaseMatrixKey
-import com.rickbusarow.kase.generator.Names.testFunctionCoordinates
 import java.io.File
 
 internal val LICENSE = File("build.gradle.kts").readText()
@@ -43,6 +42,7 @@ internal object Names {
 
   val basePackage = Fqn("com.rickbusarow.kase")
 
+  val asTests = basePackage.child("asTests")
   val kaseInternalPackage = basePackage.child("internal")
   val kaseInternal = kaseInternalPackage.child("KaseInternal")
 
@@ -106,7 +106,6 @@ private fun main() {
         |
         |import $kaseMatrixElement
         |import $kaseMatrixKey
-        |import $testFunctionCoordinates
         |import dev.drewhamilton.poko.Poko
         |import java.util.stream.Stream
         |import org.junit.jupiter.api.DynamicNode
@@ -130,13 +129,10 @@ private fun main() {
       kases_iterable(args = args, types = types)
       kases_sequence(args = args, types = types)
 
-      testFun(args = args, types = types)
-
-      asTests_Destructured(args = args, kaseTypes = types)
-
-      testFactory_vararg(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
-
-      testFactory_Iterable(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
+      // testFun(args = args, types = types)
+      // asTests_Destructured(args = args, kaseTypes = types)
+      // testFactory_vararg(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
+      // testFactory_Iterable(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
 
       timesFunctions(aArgs = args, aTypes = types)
     }

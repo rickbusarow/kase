@@ -25,7 +25,6 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixElement
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
-import com.rickbusarow.kase.files.TestFunctionCoordinates
 import dev.drewhamilton.poko.Poko
 import java.util.stream.Stream
 import org.junit.jupiter.api.DynamicNode
@@ -306,92 +305,6 @@ public fun <A1, A2, A3, A4, A5, A6, A7> kases(
       }
     }
   }
-}
-
-/**
- * Creates a new [Kase7] instance and [TestEnvironment]
- * from these parameters, then executes [testAction].
- *
- * @param a1 the [Kase7.a1] parameter.
- * @param a2 the [Kase7.a2] parameter.
- * @param a3 the [Kase7.a3] parameter.
- * @param a4 the [Kase7.a4] parameter.
- * @param a5 the [Kase7.a5] parameter.
- * @param a6 the [Kase7.a6] parameter.
- * @param a7 the [Kase7.a7] parameter.
- * @param displayNameFactory defines the name used for this test environment's working directory
- * @param testFunctionCoordinates the [TestFunctionCoordinates] from which the test is being run.
- * @param testAction the test action to execute.
- * @see KaseTestFactory
- * @since 0.1.0
- */
-public fun <T: TestEnvironment, A1, A2, A3, A4, A5, A6, A7> KaseTestFactory<T, Kase7<A1, A2, A3, A4, A5, A6, A7>>.test(
-  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7,
-  displayNameFactory: KaseDisplayNameFactory<Kase7<A1, A2, A3, A4, A5, A6, A7>> = defaultKase7DisplayNameFactory(),
-  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
-  testAction: suspend T.() -> Unit
-) {
-  this@KaseTestFactory.test(
-    kase = kase(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, displayNameFactory = displayNameFactory),
-    testFunctionCoordinates = testFunctionCoordinates,
-    testAction = testAction
-  )
-}
-
-/**
- * Creates a [Stream] of [DynamicNode]s from this [Iterable] of [Kase7]s.
- *
- * @param testAction the test action to run for each kase.
- * @return a [Stream] of [DynamicNode]s from these kases.
- * @see Kase7
- * @since 0.1.0
- */
-public fun <A1, A2, A3, A4, A5, A6, A7> Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>.asTests(
-  testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory {
-    this@asTests.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7) }
-  }
-}
-
-/**
- * A test factory which returns a stream of [DynamicNode]s from the given parameters.
- * - Each [DynamicTest] in the stream uses its [Kase7] element to create
- *   a new [TestEnvironment] instance, then executes [testAction].
- * - Each [DynamicNode] has a display name which includes the values of the parameters.
- *
- * @param kases the [Kase7]s to use for this test factory
- * @param testAction the test action to execute.
- * @return a [Stream] of [DynamicNode]s from the given parameters.
- * @see Kase7
- * @see TestEnvironmentFactory
- * @since 0.1.0
- */
-public fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
-  vararg kases: Kase7<A1, A2, A3, A4, A5, A6, A7>,
-  testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory { kases.asSequence().asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7) } }
-}
-
-/**
- * A test factory which returns a stream of [DynamicNode]s from the given parameters.
- * - Each [DynamicTest] in the stream uses its [Kase7] element to create
- *   a new [TestEnvironment] instance, then executes [testAction].
- * - Each [DynamicNode] has a display name which includes the values of the parameters.
- *
- * @param kases the [Kase7]s to use for this test factory
- * @param testAction the test action to execute.
- * @return a [Stream] of [DynamicNode]s from the given parameters.
- * @see Kase7
- * @see TestEnvironmentFactory
- * @since 0.1.0
- */
-public fun <A1, A2, A3, A4, A5, A6, A7> testFactory(
-  kases: Iterable<Kase7<A1, A2, A3, A4, A5, A6, A7>>,
-  testAction: (a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7) -> Unit
-): Stream<out DynamicNode> {
-  return testFactory { kases.asTests { testAction(it.a1, it.a2, it.a3, it.a4, it.a5, it.a6, it.a7) } }
 }
 
 /**
