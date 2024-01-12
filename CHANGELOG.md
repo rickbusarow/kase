@@ -5,9 +5,11 @@
 ## [0.7.0] — 2023-01-12
 
 ### 💥 Breaking Changes
-* fixing nested scoping for custom test environments by @RBusarow in https://github.com/rickbusarow/kase/pull/95
+
+- fixing nested scoping for custom test environments by @RBusarow in https://github.com/rickbusarow/kase/pull/95
 
 **Full Changelog**: https://github.com/rickbusarow/kase/compare/0.6.0...0.7.0
+
 ## [0.6.0] — 2023-01-05
 
 ### Added
