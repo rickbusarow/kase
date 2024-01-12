@@ -1,7 +1,13 @@
 # Changelog
 
-## 0.6.1-SNAPSHOT (unreleased)
+## 0.7.1-SNAPSHOT (unreleased)
 
+## [0.7.0] — 2023-01-12
+
+### 💥 Breaking Changes
+* fixing nested scoping for custom test environments by @RBusarow in https://github.com/rickbusarow/kase/pull/95
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.6.0...0.7.0
 ## [0.6.0] — 2023-01-05
 
 ### Added
@@ -80,3 +86,4 @@ Hello World
 [0.4.0]: https://github.com/rickbusarow/kase/releases/tag/0.4.0
 [0.5.0]: https://github.com/rickbusarow/kase/releases/tag/0.5.0
 [0.6.0]: https://github.com/rickbusarow/kase/releases/tag/0.6.0
+[0.7.0]: https://github.com/rickbusarow/kase/releases/tag/0.7.0
