@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle
 
+import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.Kase3
@@ -22,14 +23,15 @@ import com.rickbusarow.kase.Kase6
 import com.rickbusarow.kase.KaseMatrix
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
 import com.rickbusarow.kase.KaseTestFactory
-import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.kases
 import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.jupiter.api.TestFactory
 
-class KaseMatrixElementKasesOverloadTest : KaseTestFactory<TestEnvironment, Kase> {
+class KaseMatrixElementKasesOverloadTest : KaseTestFactory<Kase, DefaultTestEnvironment, DefaultTestEnvironment.Factory> {
 
-  override val kases: List<Kase>
+  override val testEnvironmentFactory = DefaultTestEnvironment.Factory()
+
+  override val params: List<Kase>
     get() = error("not used")
 
   @TestFactory

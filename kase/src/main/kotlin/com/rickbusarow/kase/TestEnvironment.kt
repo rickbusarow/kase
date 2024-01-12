@@ -38,8 +38,7 @@ public interface TestEnvironment : HasWorkingDir {
      * Creates a new [TestEnvironment] instance.
      *
      * @param testParameterDisplayNames The display names of the test parameters, if any.
-     * @param testLocation The [TestLocation]
-     *   from which the test is being run.
+     * @param testLocation The [TestLocation] from which the test is being run.
      * @return A new [TestEnvironment] instance.
      * @see TestEnvironmentFactory
      * @see DefaultTestEnvironment
@@ -49,7 +48,7 @@ public interface TestEnvironment : HasWorkingDir {
       testParameterDisplayNames: List<String>,
       testLocation: TestLocation = TestLocation.get()
     ): TestEnvironment = DefaultTestEnvironment(
-      testParameterDisplayNames = testParameterDisplayNames,
+      names = testParameterDisplayNames,
       testLocation = testLocation
     )
 
@@ -58,8 +57,7 @@ public interface TestEnvironment : HasWorkingDir {
      *
      * @param testParameterDisplayName The display name of the first test parameter
      * @param additionalNames optional additional names
-     * @param testLocation The [TestLocation]
-     *   from which the test is being run.
+     * @param testLocation The [TestLocation] from which the test is being run.
      * @return A new [TestEnvironment] instance.
      * @see TestEnvironmentFactory
      * @see DefaultTestEnvironment
@@ -70,7 +68,7 @@ public interface TestEnvironment : HasWorkingDir {
       vararg additionalNames: String,
       testLocation: TestLocation = TestLocation.get()
     ): TestEnvironment = DefaultTestEnvironment(
-      testParameterDisplayNames = listOf(testParameterDisplayName) + additionalNames,
+      names = listOf(testParameterDisplayName) + additionalNames,
       testLocation = testLocation
     )
   }
@@ -92,19 +90,40 @@ public open class DefaultTestEnvironment(
    * Represents a hermetic testing environment with an
    * associated working directory and certain assertions.
    *
-   * @param testParameterDisplayNames The display names of the test parameters, if any.
+   * @param names The display names of the test parameters, if any.
    * @param testLocation The [TestLocation] from which the test is being run.
    * @since 0.1.0
    */
   public constructor(
-    testParameterDisplayNames: List<String>,
+    names: List<String>,
     testLocation: TestLocation = TestLocation.get()
   ) : this(
     HasWorkingDir(
-      testVariantNames = testParameterDisplayNames,
+      testVariantNames = names,
       testLocation = testLocation
     )
   )
 
   override fun toString(): String = hasWorkingDir.toString()
+
+  /** Creates a [DefaultTestEnvironment] */
+  public class Factory : TestEnvironmentFactory<Any?, DefaultTestEnvironment> {
+    override fun createEnvironment(
+      params: Any?,
+      names: List<String>,
+      location: TestLocation
+    ): DefaultTestEnvironment = DefaultTestEnvironment(
+      names = names,
+      testLocation = location
+    )
+
+    /** */
+    public fun createEnvironment(
+      names: List<String>,
+      location: TestLocation
+    ): DefaultTestEnvironment = DefaultTestEnvironment(
+      names = names,
+      testLocation = location
+    )
+  }
 }

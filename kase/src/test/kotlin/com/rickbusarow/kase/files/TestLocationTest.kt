@@ -37,7 +37,7 @@ import java.util.stream.Stream
 private fun coords() = CoordinatesTestClass()
 private fun coords2() = CoordinatesTestClass(Unit)
 
-class TestFunctionCoordinatesTest {
+class TestLocationTest {
 
   private inline val factoryKases: List<Kase1<() -> TestLocation?>>
     get() = listOf(
@@ -164,7 +164,7 @@ class TestFunctionCoordinatesTest {
 
   @TestFactory
   fun `testFactory annotation in an expression syntax`(): Stream<out DynamicNode> =
-    factoryKases.asTests { coordsFactory ->
+    factoryKases.asTests { (coordsFactory) ->
 
       coordsFactory() shouldBe expectedCoords(
         "testFactory annotation in an expression syntax"
@@ -174,13 +174,13 @@ class TestFunctionCoordinatesTest {
   @TestFactory
   fun `testFactory annotation inside a block body`(): Stream<out DynamicNode> {
     val expected = TestLocation.get()
-    return factoryKases.asTests { coordsFactory ->
+    return factoryKases.asTests { (coordsFactory) ->
       coordsFactory() shouldBe expected
     }
   }
 
   fun expectedCoords(functionName: String): TestLocation {
-    val clazz = TestFunctionCoordinatesTest::class.java
+    val clazz = TestLocationTest::class.java
     return TestLocation(
       fileName = "${clazz.simpleName}.kt",
       // line numbers don't matter since they're excluded from comparison
@@ -198,7 +198,7 @@ class TestFunctionCoordinatesTest {
 
     @TestFactory
     fun `testFactory annotation in an expression syntax`(): Stream<out DynamicNode> =
-      factoryKases.asTests { coordsFactory ->
+      factoryKases.asTests { (coordsFactory) ->
 
         coordsFactory() shouldBe expectedCoordsNested(
           "testFactory annotation in an expression syntax"
@@ -208,7 +208,7 @@ class TestFunctionCoordinatesTest {
     @TestFactory
     fun `testFactory annotation inside a block body`(): Stream<out DynamicNode> {
       val expected = TestLocation.get()
-      return factoryKases.asTests { coordsFactory ->
+      return factoryKases.asTests { (coordsFactory) ->
         coordsFactory() shouldBe expected
       }
     }
@@ -243,7 +243,7 @@ class TestFunctionCoordinatesTest {
       thisElement.clazz().simpleBinaryName() shouldBe "sanity checks"
 
       thisElement.className shouldBe
-        "com.rickbusarow.kase.files.TestFunctionCoordinatesTest\$sanity checks"
+        "com.rickbusarow.kase.files.TestLocationTest\$sanity checks"
       thisElement.testStackTraceElementOrNull() shouldBe thisElement
     }
 
@@ -251,27 +251,27 @@ class TestFunctionCoordinatesTest {
     fun `simple names`() {
 
       val className =
-        Class.forName("com.rickbusarow.kase.files.TestFunctionCoordinatesTest\$factoryKases\$1")
+        Class.forName("com.rickbusarow.kase.files.TestLocationTest\$factoryKases\$1")
 
       className.simpleBinaryName() shouldBe "factoryKases"
       className.simpleName shouldBe "factoryKases\$1"
 
-      className.enclosingClass!!.simpleBinaryName() shouldBe "TestFunctionCoordinatesTest"
-      className.enclosingClass!!.simpleName shouldBe "TestFunctionCoordinatesTest"
+      className.enclosingClass!!.simpleBinaryName() shouldBe "TestLocationTest"
+      className.enclosingClass!!.simpleName shouldBe "TestLocationTest"
     }
 
     @Test
     fun `segments`() {
 
       val className =
-        Class.forName("com.rickbusarow.kase.files.TestFunctionCoordinatesTest\$factoryKases\$1")
+        Class.forName("com.rickbusarow.kase.files.TestLocationTest\$factoryKases\$1")
 
       className.segments() shouldBe listOf(
         "com",
         "rickbusarow",
         "kase",
         "files",
-        "TestFunctionCoordinatesTest",
+        "TestLocationTest",
         "factoryKases",
         "1"
       )
@@ -281,7 +281,7 @@ class TestFunctionCoordinatesTest {
         "rickbusarow",
         "kase",
         "files",
-        "TestFunctionCoordinatesTest"
+        "TestLocationTest"
       )
     }
 
@@ -306,7 +306,7 @@ class TestFunctionCoordinatesTest {
       """.trimMargin().asClue {
 
         uriWithoutLineNumber shouldEndWith
-          "$userDir/src/test/kotlin/com/rickbusarow/kase/files/TestFunctionCoordinatesTest.kt"
+          "$userDir/src/test/kotlin/com/rickbusarow/kase/files/TestLocationTest.kt"
 
         val lineNumber = requireNotNull(rawUri.substringAfterLast("line=").toInt())
 

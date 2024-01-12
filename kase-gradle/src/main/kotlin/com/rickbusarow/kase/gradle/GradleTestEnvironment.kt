@@ -18,6 +18,8 @@ package com.rickbusarow.kase.gradle
 import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.files.HasWorkingDir
+import com.rickbusarow.kase.files.TestLocation
+import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
 import org.gradle.testkit.runner.GradleRunner
 import java.io.File
 
@@ -128,4 +130,25 @@ public open class DefaultGradleTestEnvironment(
   }
 
   override fun String.cleanOutput(): String = with(hasWorkingDir) { cleanOutput() }
+
+  /** */
+  public class Factory : GradleTestEnvironmentFactory<GradleTestVersions, DefaultGradleTestEnvironment> {
+    override fun createEnvironment(
+      params: GradleTestVersions,
+      names: List<String>,
+      location: TestLocation
+    ): DefaultGradleTestEnvironment {
+
+      return DefaultGradleTestEnvironment(
+        gradleVersion = params.gradle,
+        dslLanguage = KotlinDsl(useInfix = true, useLabels = false),
+        hasWorkingDir = HasWorkingDir(
+          testVariantNames = names,
+          testLocation = location
+        ),
+        defaultBuildFile = buildFileDefault(params),
+        defaultSettingsFile = settingsFileDefault(params)
+      )
+    }
+  }
 }

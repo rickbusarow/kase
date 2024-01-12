@@ -101,10 +101,10 @@ public interface HasWorkingDir {
      *
      * @param testVariantNames additional subdirectories underneath the test
      *   function's name, such as the names of the languages being generated
-     * @param testLocation details about the actual test function, so that
-     *   we can get the test name. This must be grabbed as soon as possible, since
-     *   default functions, inline functions, sequences, and iterators all redirect
-     *   things and have a chance of hiding the original calling function completely.
+     * @param testLocation details about the actual test function, so that we can
+     *   get the test name. This must be grabbed as soon as possible, since default
+     *   functions, inline functions, sequences, and iterators all redirect things
+     *   and have a chance of hiding the original calling function completely.
      * @return a File directory corresponding to the root of the working directory for this test
      * @since 0.1.0
      */
@@ -116,11 +116,9 @@ public interface HasWorkingDir {
       val testFunctionDirectoryName =
         cleanStringForFileSystem(testLocation.callingFunctionSimpleName)
 
-      val testClassDirectoryName = testLocation.declaringClassSimpleNames
-        // "MyTest/nested class"
-        .joinToString(File.separator)
-        // "MyTest/nested_class"
-        .replace("[^a-zA-Z\\d/]".toRegex(), "_")
+      val testClassDirectoryName =
+        testLocation.declaringClassSimpleNames
+          .joinToString(File.separator) { it.replace("[^a-zA-Z\\d/]".toRegex(), "_") }
 
       val working =
         baseWorkingDir() / testClassDirectoryName / testFunctionDirectoryName / testVariantNames
