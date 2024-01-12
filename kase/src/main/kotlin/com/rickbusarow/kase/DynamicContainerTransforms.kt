@@ -21,6 +21,8 @@ import java.util.stream.Stream
 /**
  * Defines overloads for the top-level [asContainers] functions. These overloading
  * functions add an [BUILDER] receiver to the `testAction` lambda for some nicer ergonomics.
+ *
+ * @since 0.7.0
  */
 public interface DynamicContainerTransforms<BUILDER : TestNodeBuilder> {
 

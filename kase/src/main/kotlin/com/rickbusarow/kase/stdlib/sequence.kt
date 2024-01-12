@@ -24,6 +24,8 @@ package com.rickbusarow.kase.stdlib
  * any of them between successive calls to `iterator` may affect the result.
  *
  * The operation is _intermediate_ and _stateless_.
+ *
+ * @since 0.7.0
  */
 internal fun <E> Sequence<E>.plus(vararg elements: E): Sequence<E> {
   return sequenceOf(this, elements.asSequence()).flatten()

@@ -31,6 +31,7 @@ import kotlin.streams.asStream
  * @property testLocation Captured before executing any tests,
  *   meaning that it's the frame that called `asTests { ... }`
  * @property parent the parent node, or `null` if this is the root container
+ * @since 0.7.0
  */
 public class UnscopedTestNodeBuilder(
   override val displayName: String,

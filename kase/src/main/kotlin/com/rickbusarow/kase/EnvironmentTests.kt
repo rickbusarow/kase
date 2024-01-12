@@ -22,7 +22,11 @@ import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
 import kotlin.streams.asStream
 
-/** Common interface for creating dynamic tests with a unique [TestEnvironment] */
+/**
+ * Common interface for creating dynamic tests with a unique [TestEnvironment]
+ *
+ * @since 0.7.0
+ */
 public interface EnvironmentTests<PARAM, ENV, FACT> :
   HasTestEnvironmentFactory<FACT>,
   DynamicContainerTransforms<EnvironmentTestNodeBuilder<PARAM, ENV, FACT>>,

@@ -23,6 +23,8 @@ import kotlin.streams.asSequence
 /**
  * Attempts to skip the call to `getStackTrace`, the call to this function, and
  * any synthetic/default functions. Use a non-zero [skip] to add an extra offset.
+ *
+ * @since 0.7.0
  */
 fun currentMethodName(skip: Int = 0): String {
   val syntheticsReg = """\d*?\.?(?:invoke(?:Suspend)?|default|\d+)""".toRegex()
@@ -45,7 +47,11 @@ fun currentMethodName(skip: Int = 0): String {
     }
 }
 
-/** A `Stream<E>.toList()` that's compatible with Java 8. */
+/**
+ * A `Stream<E>.toList()` that's compatible with Java 8.
+ *
+ * @since 0.7.0
+ */
 fun <E> Stream<E>.asList() = asSequence().toList()
 
 fun userDir() = File(System.getProperty("user.dir"))

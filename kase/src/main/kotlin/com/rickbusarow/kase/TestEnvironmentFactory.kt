@@ -18,10 +18,14 @@ package com.rickbusarow.kase
 import com.rickbusarow.kase.files.TestLocation
 import kotlinx.coroutines.runBlocking
 
-/** Trait interface for providing a [TestEnvironmentFactory]. */
+/**
+ * Trait interface for providing a [TestEnvironmentFactory].
+ *
+ * @since 0.7.0
+ */
 public interface HasTestEnvironmentFactory<out FACT : TestEnvironmentFactory<*, *>> {
 
-  /** */
+  /** @since 0.7.0 */
   public val testEnvironmentFactory: FACT
 }
 
