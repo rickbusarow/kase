@@ -67,7 +67,7 @@ internal fun StringBuilder.defaultKase(
     |internal class ${types.defaultKaseVariance}(
     |  ${args.argsValueParams},
     |  private val displayNameFactory: ${types.displayNameFactory}
-    |) : ${types.kaseInterface}, KaseInternal {
+    |) : ${types.kaseInterface} {
     |
     |  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
     |    with(displayNameFactory) { createDisplayName() }
