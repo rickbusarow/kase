@@ -25,6 +25,8 @@ import kotlin.streams.asStream
 /**
  * Defines overloads for all top-level [asTests] and [testFactory] functions where the element
  * type is [PARAM]. These overloading functions add an [ENV] receiver to the `testAction` lambda.
+ *
+ * @since 0.7.0
  */
 public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
 
@@ -35,6 +37,7 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
    * @param parentNames The names of the parent test containers.
    * @param testLocation The [TestLocation] from which the test is being run.
    * @param testAction The test action to run within the [TestEnvironment].
+   * @since 0.7.0
    */
   public fun HasTestEnvironmentFactory<TestEnvironmentFactory<PARAM, ENV>>.test(
     param: PARAM,
@@ -59,6 +62,7 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
    * @param parentNames The names of the parent test containers.
    * @param testLocation The [TestLocation] from which the test is being run.
    * @param testAction The test action to run within the [TestEnvironment].
+   * @since 0.7.0
    */
   public fun <E, T : TestEnvironment> test(
     param: E,
@@ -80,7 +84,11 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
     }
   }
 
-  /** Creates a stream of tests from [HasParams.params] */
+  /**
+   * Creates a stream of tests from [HasParams.params]
+   *
+   * @since 0.7.0
+   */
   public fun HasParams<PARAM>.testFactory(
     testName: (PARAM) -> String = maybeDisplayName(),
     testAction: suspend ENV.(PARAM) -> Unit
@@ -102,6 +110,7 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
    * @return a [Stream] of [DynamicNode]s from the given parameters.
    * @see Kase1
    * @see TestEnvironmentFactory
+   * @since 0.7.0
    */
   public fun testFactory(
     param1: PARAM,
@@ -124,6 +133,7 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
    * @return a [Stream] of [DynamicNode]s from the given parameters.
    * @see Kase1
    * @see TestEnvironmentFactory
+   * @since 0.7.0
    */
   public fun testFactory(
     params: Iterable<PARAM>,
@@ -143,6 +153,7 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
    * @return a [Stream] of [DynamicNode]s from the given parameters.
    * @see Kase1
    * @see TestEnvironmentFactory
+   * @since 0.7.0
    */
   public fun testFactory(
     params: Sequence<PARAM>,
@@ -156,6 +167,7 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
    * @param testName a function to compute the name of each test.
    * @param testAction the test action to run for each kase.
    * @return a [Stream] of [DynamicNode]s from these kases.
+   * @since 0.7.0
    */
   public fun <E : PARAM> Array<E>.asTests(
     testName: (E) -> String = maybeDisplayName(),
@@ -168,6 +180,7 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
    * @param testName a function to compute the name of each test.
    * @param testAction the test action to run for each kase.
    * @return a [Stream] of [DynamicNode]s from these kases.
+   * @since 0.7.0
    */
   public fun <E : PARAM> Iterable<E>.asTests(
     testName: (E) -> String = maybeDisplayName(),
@@ -180,6 +193,7 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
    * @param testName a function to compute the name of each test.
    * @param testAction the test action to run for each kase.
    * @return a [Stream] of [DynamicNode]s from these kases.
+   * @since 0.7.0
    */
   public fun <E : PARAM> Sequence<E>.asTests(
     testName: (E) -> String = maybeDisplayName(),

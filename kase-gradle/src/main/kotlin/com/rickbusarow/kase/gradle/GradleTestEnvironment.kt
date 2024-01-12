@@ -131,7 +131,7 @@ public open class DefaultGradleTestEnvironment(
 
   override fun String.cleanOutput(): String = with(hasWorkingDir) { cleanOutput() }
 
-  /** */
+  /** @since 0.7.0 */
   public class Factory : GradleTestEnvironmentFactory<GradleTestVersions, DefaultGradleTestEnvironment> {
     override fun createEnvironment(
       params: GradleTestVersions,

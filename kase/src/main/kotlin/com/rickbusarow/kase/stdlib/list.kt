@@ -24,6 +24,7 @@ package com.rickbusarow.kase.stdlib
  * @param count The number of elements to drop from the beginning of the list.
  * @return A view of the portion of this list starting from the specified [count] index.
  * @see List.subList for more information about list views.
+ * @since 0.7.0
  */
 internal fun <E> List<E>.dropView(count: Int): List<E> = subList(count, size)
 
@@ -36,6 +37,7 @@ internal fun <E> List<E>.dropView(count: Int): List<E> = subList(count, size)
  * @param count The number of elements to take from the beginning of the list.
  * @return A view of the portion of this list starting from the specified [count] index.
  * @see List.subList for more information about list views.
+ * @since 0.7.0
  */
 internal fun <E> List<E>.takeView(count: Int): List<E> = subList(0, count)
 
@@ -48,6 +50,7 @@ internal fun <E> List<E>.takeView(count: Int): List<E> = subList(0, count)
  * @param count The number of elements to drop from the end of the list.
  * @return A view of the portion of this list starting from the specified [count] index.
  * @see List.subList for more information about list views.
+ * @since 0.7.0
  */
 internal fun <E> List<E>.dropLastView(count: Int): List<E> = subList(0, size - count)
 
@@ -60,5 +63,6 @@ internal fun <E> List<E>.dropLastView(count: Int): List<E> = subList(0, size - c
  * @param count The number of elements to take from the end of the list.
  * @return A view of the portion of this list starting from the specified [count] index.
  * @see List.subList for more information about list views.
+ * @since 0.7.0
  */
 internal fun <E> List<E>.takeLastView(count: Int): List<E> = subList(size - count, size)

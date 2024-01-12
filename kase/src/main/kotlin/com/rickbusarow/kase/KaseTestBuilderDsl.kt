@@ -25,6 +25,7 @@ public annotation class KaseTestEnvironmentDsl
  * tests, which is eventually turned into a `Stream<DynamicNode>`.
  *
  * @see [DslMarker]
+ * @since 0.7.0
  */
 @DslMarker
 @Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
