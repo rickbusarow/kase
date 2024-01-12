@@ -67,7 +67,11 @@ internal val TestNodeBuilder.namesFromRoot: List<String>
     .toList()
     .asReversed()
 
-/** Creates a stream of tests from [HasParams.params] */
+/**
+ * Creates a stream of tests from [HasParams.params]
+ *
+ * @since 0.7.0
+ */
 public fun <E> HasParams<E>.testFactory(
   testName: (E) -> String = maybeDisplayName(),
   testAction: suspend (E) -> Unit
@@ -85,6 +89,7 @@ public fun <E> HasParams<E>.testFactory(
  * @return a [Stream] of [DynamicNode]s from the given parameters.
  * @see Kase1
  * @see TestEnvironmentFactory
+ * @since 0.7.0
  */
 public fun <E> testFactory(
   param1: E,
@@ -105,6 +110,7 @@ public fun <E> testFactory(
  * @return a [Stream] of [DynamicNode]s from the given parameters.
  * @see Kase1
  * @see TestEnvironmentFactory
+ * @since 0.7.0
  */
 public fun <E> testFactory(
   params: Iterable<E>,
@@ -122,6 +128,7 @@ public fun <E> testFactory(
  * @return a [Stream] of [DynamicNode]s from the given parameters.
  * @see Kase1
  * @see TestEnvironmentFactory
+ * @since 0.7.0
  */
 public fun <E> testFactory(
   params: Sequence<E>,
@@ -135,6 +142,7 @@ public fun <E> testFactory(
  * @param testName a function to compute the name of each test.
  * @param testAction the test action to run for each kase.
  * @return a [Stream] of [DynamicNode]s from these kases.
+ * @since 0.7.0
  */
 public fun <E> Array<E>.asTests(
   testName: (E) -> String = maybeDisplayName(),

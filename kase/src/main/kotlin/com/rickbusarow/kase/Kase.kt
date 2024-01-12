@@ -25,6 +25,7 @@ public typealias HasKases<K> = HasParams<K>
  * Should prevent name shadowing issues when referencing a `params` property in dynamic tests.
  *
  * @see DslMarker
+ * @since 0.7.0
  */
 @DslMarker
 @Target(AnnotationTarget.CLASS, AnnotationTarget.TYPE, AnnotationTarget.FUNCTION)
@@ -45,7 +46,11 @@ public interface HasParams<out PARAM> {
   @Deprecated("renamed to params", ReplaceWith("params"))
   public val kases: List<PARAM> get() = params
 
-  /** The default parameters for tests in this class. */
+  /**
+   * The default parameters for tests in this class.
+   *
+   * @since 0.7.0
+   */
   public val params: List<PARAM>
 }
 

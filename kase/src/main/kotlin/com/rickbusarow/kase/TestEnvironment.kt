@@ -106,7 +106,11 @@ public open class DefaultTestEnvironment(
 
   override fun toString(): String = hasWorkingDir.toString()
 
-  /** Creates a [DefaultTestEnvironment] */
+  /**
+   * Creates a [DefaultTestEnvironment]
+   *
+   * @since 0.7.0
+   */
   public class Factory : TestEnvironmentFactory<Any?, DefaultTestEnvironment> {
     override fun createEnvironment(
       params: Any?,
@@ -117,7 +121,7 @@ public open class DefaultTestEnvironment(
       testLocation = location
     )
 
-    /** */
+    /** @since 0.7.0 */
     public fun createEnvironment(
       names: List<String>,
       location: TestLocation

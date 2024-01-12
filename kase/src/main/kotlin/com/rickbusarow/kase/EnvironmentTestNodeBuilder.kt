@@ -25,6 +25,8 @@ import kotlin.streams.asStream
 /**
  * Juxtaposition of [EnvironmentTests] and a [TestNodeBuilder], so that nested
  * containers and dynamic tests are created within the scope of the parent container.
+ *
+ * @since 0.7.0
  */
 public class EnvironmentTestNodeBuilder<PARAM, ENV, FACT>(
   override val displayName: String,
@@ -39,7 +41,11 @@ public class EnvironmentTestNodeBuilder<PARAM, ENV, FACT>(
 
   override val testEnvironmentFactory: FACT get() = factory
 
-  /** Creates a stream of tests from [HasParams.params] */
+  /**
+   * Creates a stream of tests from [HasParams.params]
+   *
+   * @since 0.7.0
+   */
   override fun HasParams<PARAM>.testFactory(
     testName: (PARAM) -> String,
     testAction: suspend ENV.(PARAM) -> Unit
