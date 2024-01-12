@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.TestLocation
 import com.rickbusarow.kase.internal.DefaultTestNodeBuilder
 import org.junit.jupiter.api.DynamicNode
 import java.util.stream.Stream
@@ -41,7 +41,7 @@ import kotlin.streams.asStream
 public fun testFactory(init: TestNodeBuilder.() -> Unit): Stream<out DynamicNode> {
   return DefaultTestNodeBuilder(
     displayName = "root",
-    testFunctionCoordinates = TestFunctionCoordinates.get(),
+    testLocation = TestLocation.get(),
     parent = null
   )
     .apply { init() }
@@ -74,7 +74,7 @@ public interface TestNodeBuilder : HasDisplayName {
    *
    * @since 0.6.0
    */
-  public val testFunctionCoordinates: TestFunctionCoordinates
+  public val testLocation: TestLocation
 
   /**
    * the parent node, or `null` if this is the root container

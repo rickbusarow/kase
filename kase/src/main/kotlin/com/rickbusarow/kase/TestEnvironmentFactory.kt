@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.TestLocation
 import kotlinx.coroutines.runBlocking
 
 /**
@@ -32,12 +32,12 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
    */
   public fun newTestEnvironment(
     kase: K,
-    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+    testLocation: TestLocation = TestLocation.get()
   ): T {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(
       kase.displayName,
-      testFunctionCoordinates = testFunctionCoordinates
+      testLocation = testLocation
     ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
@@ -50,12 +50,12 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
    */
   public fun newTestEnvironment(
     testParameterDisplayNames: List<String>,
-    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+    testLocation: TestLocation = TestLocation.get()
   ): T {
     @Suppress("UNCHECKED_CAST")
     return TestEnvironment(
       testParameterDisplayNames,
-      testFunctionCoordinates = testFunctionCoordinates
+      testLocation = testLocation
     ) as? T
       ?: error("Override `newTestEnvironment` in order to create this TestEnvironment type.")
   }
@@ -67,10 +67,10 @@ public interface TestEnvironmentFactory<T : TestEnvironment, K : Kase> {
  * @since 0.1.0
  */
 public fun <T : TestEnvironment> TestEnvironmentFactory<T, Kase>.test(
-  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
+  testLocation: TestLocation = TestLocation.get(),
   testAction: suspend T.() -> Unit
 ) {
-  val testEnvironment = newTestEnvironment(Kase.EMPTY, testFunctionCoordinates)
+  val testEnvironment = newTestEnvironment(Kase.EMPTY, testLocation)
 
   runBlocking {
     testEnvironment.asClueCatching {

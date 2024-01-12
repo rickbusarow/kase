@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -18,7 +18,7 @@ package com.rickbusarow.kase.gradle.dsl
 import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.KaseTestFactory
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.TestLocation
 import com.rickbusarow.kase.gradle.DslLanguage
 
 interface DslKaseTestFactory<T : DslTestEnvironment, K : Kase1<DslLanguage>> : KaseTestFactory<T, K> {
@@ -29,11 +29,11 @@ interface DslKaseTestFactory<T : DslTestEnvironment, K : Kase1<DslLanguage>> : K
 
   override fun newTestEnvironment(
     kase: K,
-    testFunctionCoordinates: TestFunctionCoordinates
+    testLocation: TestLocation
   ): T {
     val environment = DslTestEnvironment(
       language = kase.a1,
-      testFunctionCoordinates = testFunctionCoordinates
+      testLocation = testLocation
     )
 
     @Suppress("UNCHECKED_CAST")
@@ -43,8 +43,8 @@ interface DslKaseTestFactory<T : DslTestEnvironment, K : Kase1<DslLanguage>> : K
 
 open class DslTestEnvironment(
   val language: DslLanguage,
-  testFunctionCoordinates: TestFunctionCoordinates
-) : DefaultTestEnvironment(listOf(element = language.displayName), testFunctionCoordinates) {
+  testLocation: TestLocation
+) : DefaultTestEnvironment(listOf(element = language.displayName), testLocation) {
   val generator = ExpectedCodeGenerator(language)
 }
 
