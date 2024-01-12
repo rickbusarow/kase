@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -26,7 +26,6 @@ package com.rickbusarow.kase
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixElement
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
 import com.rickbusarow.kase.files.TestFunctionCoordinates
-import com.rickbusarow.kase.internal.KaseInternal
 import dev.drewhamilton.poko.Poko
 import java.util.stream.Stream
 import org.junit.jupiter.api.DynamicNode
@@ -72,7 +71,7 @@ internal class DefaultKase22<out A1, out A2, out A3, out A4, out A5, out A6, out
   override val a21: A21,
   override val a22: A22,
   private val displayNameFactory: KaseDisplayNameFactory<Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22>>
-) : Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22>, KaseInternal {
+) : Kase22<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, A22> {
 
   override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
     with(displayNameFactory) { createDisplayName() }

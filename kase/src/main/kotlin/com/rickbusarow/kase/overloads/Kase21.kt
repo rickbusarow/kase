@@ -26,7 +26,6 @@ package com.rickbusarow.kase
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixElement
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
 import com.rickbusarow.kase.files.TestFunctionCoordinates
-import com.rickbusarow.kase.internal.KaseInternal
 import dev.drewhamilton.poko.Poko
 import java.util.stream.Stream
 import org.junit.jupiter.api.DynamicNode
@@ -71,7 +70,7 @@ internal class DefaultKase21<out A1, out A2, out A3, out A4, out A5, out A6, out
   override val a20: A20,
   override val a21: A21,
   private val displayNameFactory: KaseDisplayNameFactory<Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>>
-) : Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>, KaseInternal {
+) : Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21> {
 
   override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
     with(displayNameFactory) { createDisplayName() }
@@ -735,7 +734,7 @@ public operator fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14
  * @param others the [Kase1] to combine with this [Kase21]
  * @param instanceFactory creates a custom Kase instance for each permutation
  * @return a list of [Kase22]s from the cartesian product of this [Kase21] and the given [Kase1].
- * @since 0.1.0
+ * @since 0.5.0
  */
 @JvmName("kase21timesKase1InstanceFactory")
 public inline fun <A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21, B1, T> Iterable<Kase21<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15, A16, A17, A18, A19, A20, A21>>.times(
