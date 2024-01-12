@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.TestLocation
 import io.kotest.inspectors.shouldForAll
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldHaveSize
@@ -200,7 +200,7 @@ class TestNodeBuilderTest {
 
     var invoked = false
 
-    val stackFrameFromHere = TestFunctionCoordinates.testStackTraceElement()
+    val stackFrameFromHere = TestLocation.testStackTraceElement()
     val dynamicNodes = testFactory {
       container("Container") {
         test("Test") {
@@ -212,7 +212,7 @@ class TestNodeBuilderTest {
           // That should match the stackFrame created in the DSL.
           val expected = stackFrameFromHere.lineNumber + 1
 
-          testFunctionCoordinates.lineNumber shouldBe expected
+          testLocation.lineNumber shouldBe expected
           invoked = true
         }
       }

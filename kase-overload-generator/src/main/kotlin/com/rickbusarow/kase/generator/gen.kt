@@ -51,7 +51,7 @@ internal object Names {
   val kaseMatrixKey = kaseMatrix.child("KaseMatrixKey")
 
   val filesPackage = basePackage.child("files")
-  val testFunctionCoordinates = filesPackage.child("TestFunctionCoordinates")
+  val testLocation = filesPackage.child("TestFunctionCoordinates")
 
   val poko = Fqn("dev.drewhamilton.poko.Poko")
 }
@@ -70,23 +70,6 @@ private fun main() {
     val args = (1..ct).map { KaseArg(it) }
 
     val types = KaseTypes(ct, args)
-
-    val testFactoryKdoc = buildList {
-      val kaseSimpleName = types.kaseInterfaceNoTypes
-
-      add("A test factory which returns a stream of [DynamicNode]s from the given parameters.")
-      add("- Each [DynamicTest] in the stream uses its [$kaseSimpleName] element to create")
-      add("  a new [TestEnvironment] instance, then executes [testAction].")
-      add("- Each [DynamicNode] has a display name which includes the values of the parameters.")
-      add("")
-      add("@param kases the [$kaseSimpleName]s to use for this test factory")
-      add("@param testAction the test action to execute.")
-      add("@return a [Stream] of [DynamicNode]s from the given parameters.")
-      add("@see $kaseSimpleName")
-      add("@see TestEnvironmentFactory")
-      add("@since 0.1.0")
-    }
-      .makeKdoc()
 
     val txt = buildString {
 
@@ -128,11 +111,6 @@ private fun main() {
 
       kases_iterable(args = args, types = types)
       kases_sequence(args = args, types = types)
-
-      // testFun(args = args, types = types)
-      // asTests_Destructured(args = args, kaseTypes = types)
-      // testFactory_vararg(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
-      // testFactory_Iterable(kdoc = testFactoryKdoc, args = args, kaseTypes = types)
 
       timesFunctions(aArgs = args, aTypes = types)
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,6 +16,8 @@
 package com.rickbusarow.kase.files
 
 import com.rickbusarow.kase.stdlib.div
+import com.rickbusarow.kase.stdlib.plus
+import com.rickbusarow.kase.stdlib.takeLastView
 import dev.drewhamilton.poko.Poko
 import org.jetbrains.annotations.VisibleForTesting
 import org.junit.jupiter.api.Test
@@ -37,7 +39,7 @@ import java.nio.file.Paths
  * @since 0.1.0
  */
 @Poko
-public class TestFunctionCoordinates
+public class TestLocation
 @VisibleForTesting internal constructor(
   public val fileName: String,
   public val lineNumber: Int,
@@ -59,30 +61,20 @@ public class TestFunctionCoordinates
 
     val packageDir = packageName.replace('.', File.separatorChar)
 
-    val bestGuessSourceDirs = bestGuessSourceSetSimpleNames(userDir)
-      .flatMapTo(mutableListOf()) { sourceSetName ->
-        listOf(
-          userDir / "src" / sourceSetName / "kotlin",
-          userDir / "src" / sourceSetName / "java",
-          userDir / "src" / sourceSetName
-        )
-      }
+    val bestGuessSourceDirs = getBestGuessSourceDirs(userDir)
 
-    val visited = mutableSetOf(userDir / "build")
+    val ignored = setOf(userDir / "build")
+    val visited = mutableSetOf<File>()
 
-    val sourceFile = setOf(
-      *bestGuessSourceDirs.toTypedArray(),
-      userDir / "src/test/kotlin",
-      userDir / "src/test/java",
-      userDir / "src/integrationTest/kotlin",
-      userDir / "src/integrationTest/java",
-      userDir / "src",
-      userDir
-    )
+    val sourceFile = bestGuessSourceDirs
+      .plus(userDir / "src")
+      .distinct()
       .firstNotNullOfOrNull { base ->
         base.walkTopDown()
           .onEnter {
             when {
+              it in ignored -> false
+              // skip anything ignored or already visited
               !visited.add(it) -> false
               it.path.endsWith(packageDir) -> it.resolve(fileName).exists()
               else -> true
@@ -95,22 +87,37 @@ public class TestFunctionCoordinates
     return URI.create("${sourceFile.toURI()}?line=$lineNumber")
   }
 
+  private fun getBestGuessSourceDirs(userDir: File) = bestGuessSourceSetSimpleNames(userDir)
+    .flatMap { sourceSetName ->
+      val sourceSetDir = userDir / "src" / sourceSetName
+      listOf(
+        sourceSetDir / "kotlin",
+        sourceSetDir / "java",
+        sourceSetDir
+      )
+    }
+
   private fun bestGuessSourceSetSimpleNames(userDir: File): Sequence<String> {
+
+    val location = declaringClass.protectionDomain.codeSource.location.path
+      .removeSuffix(File.separator)
+      .substringAfterLast(File.separatorChar)
 
     val buildClassesKotlin = listOf("build", "classes", "kotlin")
     val classesDirSegmentCount = buildClassesKotlin.size + 1
     val classpath = System.getProperty("java.class.path") ?: return emptySequence()
 
-    return classpath.splitToSequence(File.pathSeparator)
+    return sequenceOf(location) + classpath.splitToSequence(File.pathSeparator)
       .filter { !it.endsWith(".jar") }
+      .filter { it.startsWith(userDir.absolutePath) }
       .mapNotNull {
-        val split = it.split(File.separatorChar)
+        val split = it.removePrefix(File.separator).split(File.separatorChar)
 
-        fun subList() = split.subList(split.lastIndex - classesDirSegmentCount, split.lastIndex)
+        fun subList() = split.takeLastView(classesDirSegmentCount)
 
         when {
           split.size < classesDirSegmentCount -> null
-          !it.startsWith(userDir.absolutePath) -> null
+          split.last() == location -> null
           subList() == buildClassesKotlin -> split.last()
           else -> null
         }
@@ -124,7 +131,7 @@ public class TestFunctionCoordinates
      *
      * @since 0.1.0
      */
-    public fun get(): TestFunctionCoordinates {
+    public fun get(): TestLocation {
       val ele = testStackTraceElement()
       return from(ele)
     }
@@ -142,7 +149,7 @@ public class TestFunctionCoordinates
         ?: error("No test StackTraceElement found.")
     }
 
-    private fun from(stackTraceElement: StackTraceElement): TestFunctionCoordinates {
+    private fun from(stackTraceElement: StackTraceElement): TestLocation {
       val declaringClass = Class.forName(stackTraceElement.className)
       val actualClass = declaringClass.removeSynthetics()
 
@@ -150,7 +157,7 @@ public class TestFunctionCoordinates
         "Could not find a non-synthetic class for ${stackTraceElement.className}"
       }
 
-      return TestFunctionCoordinates(
+      return TestLocation(
         fileName = stackTraceElement.fileName as String,
         lineNumber = stackTraceElement.lineNumber,
         packageName = actualClass.`package`.name,

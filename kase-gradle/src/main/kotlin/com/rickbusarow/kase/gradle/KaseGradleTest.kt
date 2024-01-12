@@ -21,7 +21,7 @@ import com.rickbusarow.kase.KaseBag
 import com.rickbusarow.kase.KaseTestFactory
 import com.rickbusarow.kase.TestEnvironmentFactory
 import com.rickbusarow.kase.files.HasWorkingDir
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.TestLocation
 import com.rickbusarow.kase.gradle.DslLanguage.GroovyDsl
 import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
 import org.junit.jupiter.api.parallel.Execution
@@ -111,14 +111,14 @@ public interface GradleTestEnvironmentFactory<K> :
 
   override fun newTestEnvironment(
     kase: K,
-    testFunctionCoordinates: TestFunctionCoordinates
+    testLocation: TestLocation
   ): GradleTestEnvironment {
 
     val gradleVersion = (kase as? KaseBag)?.getOrNull(GradleDependencyVersion)
       ?: (kase as? HasGradleDependencyVersion)?.gradle
       ?: GradleDependencyVersion.current()
 
-    val hasWorkingDir = HasWorkingDir(listOf(kase.displayName), testFunctionCoordinates)
+    val hasWorkingDir = HasWorkingDir(listOf(kase.displayName), testLocation)
 
     return DefaultGradleTestEnvironment(
       gradleVersion = gradleVersion,

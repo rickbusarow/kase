@@ -369,12 +369,12 @@ internal fun StringBuilder.testFun(
     |public fun <T: TestEnvironment, ${args.valueTypesString}> KaseTestFactory<T, ${types.kaseInterface}>.test(
     |  ${args.paramsString},
     |  displayNameFactory: ${types.displayNameFactory} = ${types.defaultDisplayNameFactory}(),
-    |  testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
+    |  testFunctionCoordinates: testLocation = TestFunctionCoordinates.get(),
     |  testAction: suspend T.() -> Unit
     |) {
     |  this@KaseTestFactory.test(
     |    kase = kase(${args.argsWithParamNames}, displayNameFactory = displayNameFactory),
-    |    testFunctionCoordinates = testFunctionCoordinates,
+    |    testLocation = testFunctionCoordinates,
     |    testAction = testAction
     |  )
     |}
