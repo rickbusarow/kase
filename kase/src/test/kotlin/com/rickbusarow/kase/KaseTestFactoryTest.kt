@@ -53,7 +53,7 @@ class KaseTestFactoryTest : KaseTestFactory<TestEnvironment, Kase2<A, B>> {
           TestEnvironment(
             k1.displayName,
             k2.displayName,
-            testFunctionCoordinates = testFunctionCoordinates
+            testLocation = testLocation
           )
         }
       ) { k2 ->

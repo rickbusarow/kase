@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Rick Busarow
+ * Copyright (C) 2024 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -39,7 +39,7 @@ private fun coords2() = CoordinatesTestClass(Unit)
 
 class TestFunctionCoordinatesTest {
 
-  private inline val factoryKases: List<Kase1<() -> TestFunctionCoordinates?>>
+  private inline val factoryKases: List<Kase1<() -> TestLocation?>>
     get() = listOf(
       kase(displayName = "primary constructor initialization") {
         coords().primaryConstructorCoords
@@ -73,7 +73,7 @@ class TestFunctionCoordinatesTest {
   @Test
   fun `test annotation in block body`() {
 
-    val expected = TestFunctionCoordinates.get()
+    val expected = TestLocation.get()
 
     val testClass = coords()
 
@@ -95,7 +95,7 @@ class TestFunctionCoordinatesTest {
   @Test
   fun `test annotation in a run expression body`(): Unit = run {
 
-    val expected = TestFunctionCoordinates.get()
+    val expected = TestLocation.get()
 
     val testClass = coords()
 
@@ -120,7 +120,7 @@ class TestFunctionCoordinatesTest {
     @Test
     fun `test annotation in a block body`() {
 
-      val expected = TestFunctionCoordinates.get()
+      val expected = TestLocation.get()
 
       val testClass = coords()
 
@@ -142,7 +142,7 @@ class TestFunctionCoordinatesTest {
     @Test
     fun `test annotation in a run expression body`() = run {
 
-      val expected = TestFunctionCoordinates.get()
+      val expected = TestLocation.get()
 
       val testClass = coords()
 
@@ -173,15 +173,15 @@ class TestFunctionCoordinatesTest {
 
   @TestFactory
   fun `testFactory annotation inside a block body`(): Stream<out DynamicNode> {
-    val expected = TestFunctionCoordinates.get()
+    val expected = TestLocation.get()
     return factoryKases.asTests { coordsFactory ->
       coordsFactory() shouldBe expected
     }
   }
 
-  fun expectedCoords(functionName: String): TestFunctionCoordinates {
+  fun expectedCoords(functionName: String): TestLocation {
     val clazz = TestFunctionCoordinatesTest::class.java
-    return TestFunctionCoordinates(
+    return TestLocation(
       fileName = "${clazz.simpleName}.kt",
       // line numbers don't matter since they're excluded from comparison
       lineNumber = 1,
@@ -207,16 +207,16 @@ class TestFunctionCoordinatesTest {
 
     @TestFactory
     fun `testFactory annotation inside a block body`(): Stream<out DynamicNode> {
-      val expected = TestFunctionCoordinates.get()
+      val expected = TestLocation.get()
       return factoryKases.asTests { coordsFactory ->
         coordsFactory() shouldBe expected
       }
     }
 
-    fun expectedCoordsNested(functionName: String): TestFunctionCoordinates {
+    fun expectedCoordsNested(functionName: String): TestLocation {
       val clazz =
         `testFactory annotations in a nested class`::class.java
-      return TestFunctionCoordinates(
+      return TestLocation(
         fileName = "${clazz.enclosingClass!!.simpleName}.kt",
         // line numbers don't matter since they're excluded from comparison
         lineNumber = 0,
@@ -291,7 +291,7 @@ class TestFunctionCoordinatesTest {
       val userDir = Paths.get("").toAbsolutePath().toFile()
         .invariantSeparatorsPath
 
-      val rawUri = TestFunctionCoordinates.get().testUriOrNull?.toString()
+      val rawUri = TestLocation.get().testUriOrNull?.toString()
 
       rawUri.shouldNotBeNull()
 
@@ -332,7 +332,7 @@ class TestFunctionCoordinatesTest {
     }
   }
 
-  infix fun TestFunctionCoordinates?.shouldBe(other: TestFunctionCoordinates) {
+  infix fun TestLocation?.shouldBe(other: TestLocation) {
     val reg = " {2}lineNumber=\\d+,\\n".toRegex()
 
     toStringPretty().remove(reg) shouldBe other.toStringPretty().remove(reg)

@@ -16,7 +16,7 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.HasWorkingDir
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.TestLocation
 
 /**
  * Represents a hermetic testing environment that may
@@ -38,7 +38,7 @@ public interface TestEnvironment : HasWorkingDir {
      * Creates a new [TestEnvironment] instance.
      *
      * @param testParameterDisplayNames The display names of the test parameters, if any.
-     * @param testFunctionCoordinates The [TestFunctionCoordinates]
+     * @param testLocation The [TestLocation]
      *   from which the test is being run.
      * @return A new [TestEnvironment] instance.
      * @see TestEnvironmentFactory
@@ -47,10 +47,10 @@ public interface TestEnvironment : HasWorkingDir {
      */
     public operator fun invoke(
       testParameterDisplayNames: List<String>,
-      testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+      testLocation: TestLocation = TestLocation.get()
     ): TestEnvironment = DefaultTestEnvironment(
       testParameterDisplayNames = testParameterDisplayNames,
-      testFunctionCoordinates = testFunctionCoordinates
+      testLocation = testLocation
     )
 
     /**
@@ -58,7 +58,7 @@ public interface TestEnvironment : HasWorkingDir {
      *
      * @param testParameterDisplayName The display name of the first test parameter
      * @param additionalNames optional additional names
-     * @param testFunctionCoordinates The [TestFunctionCoordinates]
+     * @param testLocation The [TestLocation]
      *   from which the test is being run.
      * @return A new [TestEnvironment] instance.
      * @see TestEnvironmentFactory
@@ -68,10 +68,10 @@ public interface TestEnvironment : HasWorkingDir {
     public operator fun invoke(
       testParameterDisplayName: String,
       vararg additionalNames: String,
-      testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+      testLocation: TestLocation = TestLocation.get()
     ): TestEnvironment = DefaultTestEnvironment(
       testParameterDisplayNames = listOf(testParameterDisplayName) + additionalNames,
-      testFunctionCoordinates = testFunctionCoordinates
+      testLocation = testLocation
     )
   }
 }
@@ -93,16 +93,16 @@ public open class DefaultTestEnvironment(
    * associated working directory and certain assertions.
    *
    * @param testParameterDisplayNames The display names of the test parameters, if any.
-   * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
+   * @param testLocation The [TestLocation] from which the test is being run.
    * @since 0.1.0
    */
   public constructor(
     testParameterDisplayNames: List<String>,
-    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get()
+    testLocation: TestLocation = TestLocation.get()
   ) : this(
     HasWorkingDir(
       testVariantNames = testParameterDisplayNames,
-      testFunctionCoordinates = testFunctionCoordinates
+      testLocation = testLocation
     )
   )
 

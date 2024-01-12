@@ -15,7 +15,7 @@
 
 package com.rickbusarow.kase
 
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.TestLocation
 import com.rickbusarow.kase.internal.DefaultTestNodeBuilder
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DynamicNode
@@ -37,17 +37,17 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
    * Runs the provided test [testAction] in the context of a new [TestEnvironment].
    *
    * @param kase The variant names related to the test.
-   * @param testFunctionCoordinates The [TestFunctionCoordinates] from which the test is being run.
+   * @param testLocation The [TestLocation] from which the test is being run.
    * @param testAction The test action to run within the [TestEnvironment].
    * @since 0.1.0
    */
   public fun <E : K> test(
     kase: E,
-    testFunctionCoordinates: TestFunctionCoordinates = TestFunctionCoordinates.get(),
+    testLocation: TestLocation = TestLocation.get(),
     testAction: suspend T.() -> Unit
   ) {
 
-    val testEnvironment = newTestEnvironment(kase, testFunctionCoordinates)
+    val testEnvironment = newTestEnvironment(kase, testLocation)
 
     runBlocking {
       testEnvironment.asClueCatching {
@@ -79,7 +79,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
   ): Stream<out DynamicNode> {
     return com.rickbusarow.kase.testFactory {
       this@asTests.asTests { kaseElement ->
-        test(kaseElement, testFunctionCoordinates) { testAction(kaseElement) }
+        test(kaseElement, testLocation) { testAction(kaseElement) }
       }
     }
   }
@@ -161,7 +161,7 @@ public interface KaseTestFactory<T : TestEnvironment, K : Kase> :
     delegateFactory = this@KaseTestFactory,
     delegateNodeBuilder = DefaultTestNodeBuilder(
       displayName = "root",
-      testFunctionCoordinates = TestFunctionCoordinates.get(),
+      testLocation = TestLocation.get(),
       parent = null
     )
   )

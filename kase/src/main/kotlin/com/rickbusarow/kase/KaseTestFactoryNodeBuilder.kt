@@ -43,7 +43,7 @@ public class KaseTestFactoryNodeBuilder<T : TestEnvironment, K : Kase>(
             .asReversed()
             .map { it.displayName }
             .plus(kase.displayName)
-          val environment = newTestEnvironment(names, testFunctionCoordinates)
+          val environment = newTestEnvironment(names, testLocation)
           environment.testAction(kase)
         }
       }

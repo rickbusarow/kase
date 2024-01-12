@@ -18,7 +18,7 @@ package com.rickbusarow.kase.internal
 import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.TestEnvironment
 import com.rickbusarow.kase.TestNodeBuilder
-import com.rickbusarow.kase.files.TestFunctionCoordinates
+import com.rickbusarow.kase.files.TestLocation
 import dev.drewhamilton.poko.Poko
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
@@ -28,7 +28,7 @@ import kotlin.streams.asStream
 @Poko
 internal class DefaultTestNodeBuilder @PublishedApi internal constructor(
   override val displayName: String,
-  override val testFunctionCoordinates: TestFunctionCoordinates,
+  override val testLocation: TestLocation,
   override val parent: TestNodeBuilder?
 ) : TestNodeBuilder {
 
@@ -43,7 +43,7 @@ internal class DefaultTestNodeBuilder @PublishedApi internal constructor(
 
   override fun test(name: String, testAction: () -> Unit) {
     nodes.add {
-      DynamicTest.dynamicTest(name, testFunctionCoordinates.testUriOrNull) { testAction() }
+      DynamicTest.dynamicTest(name, testLocation.testUriOrNull) { testAction() }
     }
   }
 
@@ -51,7 +51,7 @@ internal class DefaultTestNodeBuilder @PublishedApi internal constructor(
     nodes.add {
       DefaultTestNodeBuilder(
         displayName = name,
-        testFunctionCoordinates = testFunctionCoordinates,
+        testLocation = testLocation,
         parent = this
       )
         .apply(init)
