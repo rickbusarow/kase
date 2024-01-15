@@ -26,9 +26,6 @@ package com.rickbusarow.kase
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixElement
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
 import dev.drewhamilton.poko.Poko
-import java.util.stream.Stream
-import org.junit.jupiter.api.DynamicNode
-import org.junit.jupiter.api.DynamicTest
 
 /**
  * A strongly typed version of [Kase] for 14 parameters.
