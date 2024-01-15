@@ -224,6 +224,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> kase(
   a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9,
   displayNameFactory = displayNameFactory
 )
+
 /**
  * Creates a new [Kase] with the given parameters.
  *
@@ -246,6 +247,7 @@ public fun <A1, A2, A3, A4, A5, A6, A7, A8, A9> kase(
   a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9,
   displayNameFactory = { displayName }
 )
+
 /**
  * Returns a list of [Kase9]s from the given parameters.
  *

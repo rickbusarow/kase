@@ -43,7 +43,7 @@ internal fun <T> MutableList<String>.addAll(elements: Iterable<T>, transform: (T
 
 internal fun String.fixBlankLines(): String {
   return mapLines { it.trimEnd() }
-    .replace("""( *}\n)(?=[/\n@])""".toRegex(), "$1\n")
+    .replace("""(\n[)}]\n)(?=[/\n]|@(?!file))""".toRegex(), "$1\n")
     .replace(Regex("\\n{3,}"), "\n\n")
     .trimEnd()
     .plus("\n")

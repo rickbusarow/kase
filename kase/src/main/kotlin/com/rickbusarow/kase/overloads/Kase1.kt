@@ -120,6 +120,7 @@ public fun <A1> kase(
   a1 = a1,
   displayNameFactory = displayNameFactory
 )
+
 /**
  * Creates a new [Kase] with the given parameter.
  *
@@ -134,6 +135,7 @@ public fun <A1> kase(
   a1 = a1,
   displayNameFactory = { displayName }
 )
+
 /**
  * Returns a list of [Kase1]s from the given parameters.
  *
