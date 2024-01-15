@@ -85,9 +85,6 @@ private fun main() {
         |import $kaseMatrixElement
         |import $kaseMatrixKey
         |import dev.drewhamilton.poko.Poko
-        |import java.util.stream.Stream
-        |import org.junit.jupiter.api.DynamicNode
-        |import org.junit.jupiter.api.DynamicTest
         |
         """.trimMargin()
       )
