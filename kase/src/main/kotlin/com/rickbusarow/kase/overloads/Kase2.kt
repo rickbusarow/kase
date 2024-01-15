@@ -133,6 +133,7 @@ public fun <A1, A2> kase(
   a1 = a1, a2 = a2,
   displayNameFactory = displayNameFactory
 )
+
 /**
  * Creates a new [Kase] with the given parameters.
  *
@@ -148,6 +149,7 @@ public fun <A1, A2> kase(
   a1 = a1, a2 = a2,
   displayNameFactory = { displayName }
 )
+
 /**
  * Returns a list of [Kase2]s from the given parameters.
  *
