@@ -91,6 +91,8 @@ private fun main() {
 
       kaseInterface(args = args, types = types)
 
+      abstractKase(args = args, types = types)
+
       defaultKase(args = args, types = types)
 
       matrixAccessor(args = args, types = types)

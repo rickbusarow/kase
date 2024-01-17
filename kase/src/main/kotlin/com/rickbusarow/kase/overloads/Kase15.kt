@@ -41,9 +41,13 @@ public interface Kase15<out A1, out A2, out A3, out A4, out A5, out A6, out A7, 
   public operator fun component15(): A15 = a15
 }
 
+/**
+ * An abstract base type of [Kase] for use with data classes.
+ *
+ * @since 0.8.0
+ */
 @Poko
-@PublishedApi
-internal class DefaultKase15<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15>(
+public abstract class AbstractKase15<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15>(
   override val a1: A1,
   override val a2: A2,
   override val a3: A3,
@@ -59,12 +63,21 @@ internal class DefaultKase15<out A1, out A2, out A3, out A4, out A5, out A6, out
   override val a13: A13,
   override val a14: A14,
   override val a15: A15,
-  private val displayNameFactory: KaseDisplayNameFactory<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>
-) : Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> {
+  displayNameFactory: KaseDisplayNameFactory<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>> = KaseDisplayNameFactory {
+    toString().removeSurrounding("${this::class.simpleName!!}(", ")")
+  }
+): Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15> {
 
   override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
     with(displayNameFactory) { createDisplayName() }
   }
+}
+
+@PublishedApi
+internal class DefaultKase15<out A1, out A2, out A3, out A4, out A5, out A6, out A7, out A8, out A9, out A10, out A11, out A12, out A13, out A14, out A15>(
+  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6, a7: A7, a8: A8, a9: A9, a10: A10, a11: A11, a12: A12, a13: A13, a14: A14, a15: A15,
+  displayNameFactory: KaseDisplayNameFactory<Kase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>>
+) : AbstractKase15<A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13, A14, A15>(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, a7 = a7, a8 = a8, a9 = a9, a10 = a10, a11 = a11, a12 = a12, a13 = a13, a14 = a14, a15 = a15, displayNameFactory = displayNameFactory) {
 
   override operator fun component1(): A1 = a1
   override operator fun component2(): A2 = a2

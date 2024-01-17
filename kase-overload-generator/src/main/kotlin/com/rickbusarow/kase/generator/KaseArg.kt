@@ -139,7 +139,7 @@ internal data class KaseArg(
      *   override val a2: A2
      * ```
      */
-    val List<KaseArg>.argsValueParams: String
+    val List<KaseArg>.argsValueProperties: String
       get() = joinToString(",\n  ") { arg ->
         "override val ${arg.valueName}: ${arg.valueTypeName}"
       }

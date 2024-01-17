@@ -41,21 +41,34 @@ public interface Kase6<out A1, out A2, out A3, out A4, out A5, out A6> : Kase5<A
   public operator fun component6(): A6 = a6
 }
 
+/**
+ * An abstract base type of [Kase] for use with data classes.
+ *
+ * @since 0.8.0
+ */
 @Poko
-@PublishedApi
-internal class DefaultKase6<out A1, out A2, out A3, out A4, out A5, out A6>(
+public abstract class AbstractKase6<out A1, out A2, out A3, out A4, out A5, out A6>(
   override val a1: A1,
   override val a2: A2,
   override val a3: A3,
   override val a4: A4,
   override val a5: A5,
   override val a6: A6,
-  private val displayNameFactory: KaseDisplayNameFactory<Kase6<A1, A2, A3, A4, A5, A6>>
-) : Kase6<A1, A2, A3, A4, A5, A6> {
+  displayNameFactory: KaseDisplayNameFactory<Kase6<A1, A2, A3, A4, A5, A6>> = KaseDisplayNameFactory {
+    toString().removeSurrounding("${this::class.simpleName!!}(", ")")
+  }
+): Kase6<A1, A2, A3, A4, A5, A6> {
 
   override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
     with(displayNameFactory) { createDisplayName() }
   }
+}
+
+@PublishedApi
+internal class DefaultKase6<out A1, out A2, out A3, out A4, out A5, out A6>(
+  a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, a6: A6,
+  displayNameFactory: KaseDisplayNameFactory<Kase6<A1, A2, A3, A4, A5, A6>>
+) : AbstractKase6<A1, A2, A3, A4, A5, A6>(a1 = a1, a2 = a2, a3 = a3, a4 = a4, a5 = a5, a6 = a6, displayNameFactory = displayNameFactory) {
 
   override operator fun component1(): A1 = a1
   override operator fun component2(): A2 = a2

@@ -19,9 +19,10 @@ package com.rickbusarow.kase.generator
 
 import com.rickbusarow.kase.generator.KaseArg.Companion.argsIterableValueParams
 import com.rickbusarow.kase.generator.KaseArg.Companion.argsSequenceValueParams
-import com.rickbusarow.kase.generator.KaseArg.Companion.argsValueParams
+import com.rickbusarow.kase.generator.KaseArg.Companion.argsValueProperties
 import com.rickbusarow.kase.generator.KaseArg.Companion.argsWithParamNames
 import com.rickbusarow.kase.generator.KaseArg.Companion.parametersPlural
+import com.rickbusarow.kase.generator.KaseArg.Companion.params
 import com.rickbusarow.kase.generator.KaseArg.Companion.paramsString
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueNames
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueTypesString
@@ -52,6 +53,34 @@ internal fun StringBuilder.kaseInterface(
   )
 }
 
+internal fun StringBuilder.abstractKase(
+  args: List<KaseArg>,
+  types: KaseTypes
+) {
+
+  appendLine(
+    """
+    |/**
+    | * An abstract base type of [Kase] for use with data classes.
+    | *
+    | * @since 0.8.0
+    | */
+    |@Poko
+    |public abstract class ${types.abstractKaseVariance}(
+    |  ${args.argsValueProperties},
+    |  displayNameFactory: ${types.displayNameFactory} = ${types.displayNameFactoryNoTypes} {
+    |    toString().removeSurrounding("${'$'}{this::class.simpleName!!}(", ")")
+    |  }
+    |): ${types.kaseInterface} {
+    |
+    |  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
+    |    with(displayNameFactory) { createDisplayName() }
+    |  }
+    |}
+    """.trimMargin()
+  )
+}
+
 internal fun StringBuilder.defaultKase(
   args: List<KaseArg>,
   types: KaseTypes
@@ -63,16 +92,11 @@ internal fun StringBuilder.defaultKase(
 
   appendLine(
     """
-    |@Poko
     |@PublishedApi
     |internal class ${types.defaultKaseVariance}(
-    |  ${args.argsValueParams},
-    |  private val displayNameFactory: ${types.displayNameFactory}
-    |) : ${types.kaseInterface} {
-    |
-    |  override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
-    |    with(displayNameFactory) { createDisplayName() }
-    |  }
+    |  ${args.paramsString},
+    |  displayNameFactory: ${types.displayNameFactory}
+    |) : ${types.abstractKase}(${args.argsWithParamNames}, displayNameFactory = displayNameFactory) {
     |
     |  $componentFuns
     |}

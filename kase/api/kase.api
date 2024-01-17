@@ -1,17 +1,6 @@
-public abstract class com/rickbusarow/kase/AbstractKaseMatrixKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
-	public fun <init> ()V
-	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
-	public synthetic fun compareTo (Ljava/lang/Object;)I
-	public fun toString ()Ljava/lang/String;
-}
-
-public final class com/rickbusarow/kase/CluesKt {
-	public static final fun asClueCatching (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
-	public static final fun withClueCatching (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
-}
-
-public final class com/rickbusarow/kase/DefaultKase1 : com/rickbusarow/kase/Kase1 {
+public abstract class com/rickbusarow/kase/AbstractKase1 : com/rickbusarow/kase/Kase1 {
 	public fun <init> (Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun equals (Ljava/lang/Object;)Z
 	public fun getA1 ()Ljava/lang/Object;
@@ -20,8 +9,9 @@ public final class com/rickbusarow/kase/DefaultKase1 : com/rickbusarow/kase/Kase
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase10 : com/rickbusarow/kase/Kase10 {
+public abstract class com/rickbusarow/kase/AbstractKase10 : com/rickbusarow/kase/Kase10 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component2 ()Ljava/lang/Object;
@@ -48,8 +38,9 @@ public final class com/rickbusarow/kase/DefaultKase10 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase11 : com/rickbusarow/kase/Kase11 {
+public abstract class com/rickbusarow/kase/AbstractKase11 : com/rickbusarow/kase/Kase11 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -78,8 +69,9 @@ public final class com/rickbusarow/kase/DefaultKase11 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase12 : com/rickbusarow/kase/Kase12 {
+public abstract class com/rickbusarow/kase/AbstractKase12 : com/rickbusarow/kase/Kase12 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -110,8 +102,9 @@ public final class com/rickbusarow/kase/DefaultKase12 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase13 : com/rickbusarow/kase/Kase13 {
+public abstract class com/rickbusarow/kase/AbstractKase13 : com/rickbusarow/kase/Kase13 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -144,8 +137,9 @@ public final class com/rickbusarow/kase/DefaultKase13 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase14 : com/rickbusarow/kase/Kase14 {
+public abstract class com/rickbusarow/kase/AbstractKase14 : com/rickbusarow/kase/Kase14 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -180,8 +174,9 @@ public final class com/rickbusarow/kase/DefaultKase14 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase15 : com/rickbusarow/kase/Kase15 {
+public abstract class com/rickbusarow/kase/AbstractKase15 : com/rickbusarow/kase/Kase15 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -218,8 +213,9 @@ public final class com/rickbusarow/kase/DefaultKase15 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase16 : com/rickbusarow/kase/Kase16 {
+public abstract class com/rickbusarow/kase/AbstractKase16 : com/rickbusarow/kase/Kase16 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -258,8 +254,9 @@ public final class com/rickbusarow/kase/DefaultKase16 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase17 : com/rickbusarow/kase/Kase17 {
+public abstract class com/rickbusarow/kase/AbstractKase17 : com/rickbusarow/kase/Kase17 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -300,8 +297,9 @@ public final class com/rickbusarow/kase/DefaultKase17 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase18 : com/rickbusarow/kase/Kase18 {
+public abstract class com/rickbusarow/kase/AbstractKase18 : com/rickbusarow/kase/Kase18 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -344,8 +342,9 @@ public final class com/rickbusarow/kase/DefaultKase18 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase19 : com/rickbusarow/kase/Kase19 {
+public abstract class com/rickbusarow/kase/AbstractKase19 : com/rickbusarow/kase/Kase19 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -390,8 +389,9 @@ public final class com/rickbusarow/kase/DefaultKase19 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase2 : com/rickbusarow/kase/Kase2 {
+public abstract class com/rickbusarow/kase/AbstractKase2 : com/rickbusarow/kase/Kase2 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component2 ()Ljava/lang/Object;
 	public fun equals (Ljava/lang/Object;)Z
@@ -402,8 +402,9 @@ public final class com/rickbusarow/kase/DefaultKase2 : com/rickbusarow/kase/Kase
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase20 : com/rickbusarow/kase/Kase20 {
+public abstract class com/rickbusarow/kase/AbstractKase20 : com/rickbusarow/kase/Kase20 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -450,8 +451,9 @@ public final class com/rickbusarow/kase/DefaultKase20 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase21 : com/rickbusarow/kase/Kase21 {
+public abstract class com/rickbusarow/kase/AbstractKase21 : com/rickbusarow/kase/Kase21 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -500,8 +502,9 @@ public final class com/rickbusarow/kase/DefaultKase21 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase22 : com/rickbusarow/kase/Kase22 {
+public abstract class com/rickbusarow/kase/AbstractKase22 : com/rickbusarow/kase/Kase22 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component10 ()Ljava/lang/Object;
 	public fun component11 ()Ljava/lang/Object;
@@ -552,8 +555,9 @@ public final class com/rickbusarow/kase/DefaultKase22 : com/rickbusarow/kase/Kas
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase3 : com/rickbusarow/kase/Kase3 {
+public abstract class com/rickbusarow/kase/AbstractKase3 : com/rickbusarow/kase/Kase3 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component2 ()Ljava/lang/Object;
 	public fun component3 ()Ljava/lang/Object;
@@ -566,8 +570,9 @@ public final class com/rickbusarow/kase/DefaultKase3 : com/rickbusarow/kase/Kase
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase4 : com/rickbusarow/kase/Kase4 {
+public abstract class com/rickbusarow/kase/AbstractKase4 : com/rickbusarow/kase/Kase4 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component2 ()Ljava/lang/Object;
 	public fun component3 ()Ljava/lang/Object;
@@ -582,8 +587,9 @@ public final class com/rickbusarow/kase/DefaultKase4 : com/rickbusarow/kase/Kase
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase5 : com/rickbusarow/kase/Kase5 {
+public abstract class com/rickbusarow/kase/AbstractKase5 : com/rickbusarow/kase/Kase5 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component2 ()Ljava/lang/Object;
 	public fun component3 ()Ljava/lang/Object;
@@ -600,8 +606,9 @@ public final class com/rickbusarow/kase/DefaultKase5 : com/rickbusarow/kase/Kase
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase6 : com/rickbusarow/kase/Kase6 {
+public abstract class com/rickbusarow/kase/AbstractKase6 : com/rickbusarow/kase/Kase6 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component2 ()Ljava/lang/Object;
 	public fun component3 ()Ljava/lang/Object;
@@ -620,8 +627,9 @@ public final class com/rickbusarow/kase/DefaultKase6 : com/rickbusarow/kase/Kase
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase7 : com/rickbusarow/kase/Kase7 {
+public abstract class com/rickbusarow/kase/AbstractKase7 : com/rickbusarow/kase/Kase7 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component2 ()Ljava/lang/Object;
 	public fun component3 ()Ljava/lang/Object;
@@ -642,8 +650,9 @@ public final class com/rickbusarow/kase/DefaultKase7 : com/rickbusarow/kase/Kase
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase8 : com/rickbusarow/kase/Kase8 {
+public abstract class com/rickbusarow/kase/AbstractKase8 : com/rickbusarow/kase/Kase8 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component2 ()Ljava/lang/Object;
 	public fun component3 ()Ljava/lang/Object;
@@ -666,8 +675,9 @@ public final class com/rickbusarow/kase/DefaultKase8 : com/rickbusarow/kase/Kase
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultKase9 : com/rickbusarow/kase/Kase9 {
+public abstract class com/rickbusarow/kase/AbstractKase9 : com/rickbusarow/kase/Kase9 {
 	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public synthetic fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun component1 ()Ljava/lang/Object;
 	public fun component2 ()Ljava/lang/Object;
 	public fun component3 ()Ljava/lang/Object;
@@ -690,6 +700,359 @@ public final class com/rickbusarow/kase/DefaultKase9 : com/rickbusarow/kase/Kase
 	public fun getDisplayName ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class com/rickbusarow/kase/AbstractKaseMatrixKey : com/rickbusarow/kase/KaseMatrix$KaseMatrixKey {
+	public fun <init> ()V
+	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;)I
+	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class com/rickbusarow/kase/CluesKt {
+	public static final fun asClueCatching (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun withClueCatching (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase1 : com/rickbusarow/kase/AbstractKase1 {
+	public fun <init> (Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase10 : com/rickbusarow/kase/AbstractKase10 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase11 : com/rickbusarow/kase/AbstractKase11 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase12 : com/rickbusarow/kase/AbstractKase12 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase13 : com/rickbusarow/kase/AbstractKase13 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase14 : com/rickbusarow/kase/AbstractKase14 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component14 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase15 : com/rickbusarow/kase/AbstractKase15 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component14 ()Ljava/lang/Object;
+	public fun component15 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase16 : com/rickbusarow/kase/AbstractKase16 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component14 ()Ljava/lang/Object;
+	public fun component15 ()Ljava/lang/Object;
+	public fun component16 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase17 : com/rickbusarow/kase/AbstractKase17 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component14 ()Ljava/lang/Object;
+	public fun component15 ()Ljava/lang/Object;
+	public fun component16 ()Ljava/lang/Object;
+	public fun component17 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase18 : com/rickbusarow/kase/AbstractKase18 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component14 ()Ljava/lang/Object;
+	public fun component15 ()Ljava/lang/Object;
+	public fun component16 ()Ljava/lang/Object;
+	public fun component17 ()Ljava/lang/Object;
+	public fun component18 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase19 : com/rickbusarow/kase/AbstractKase19 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component14 ()Ljava/lang/Object;
+	public fun component15 ()Ljava/lang/Object;
+	public fun component16 ()Ljava/lang/Object;
+	public fun component17 ()Ljava/lang/Object;
+	public fun component18 ()Ljava/lang/Object;
+	public fun component19 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase2 : com/rickbusarow/kase/AbstractKase2 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase20 : com/rickbusarow/kase/AbstractKase20 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component14 ()Ljava/lang/Object;
+	public fun component15 ()Ljava/lang/Object;
+	public fun component16 ()Ljava/lang/Object;
+	public fun component17 ()Ljava/lang/Object;
+	public fun component18 ()Ljava/lang/Object;
+	public fun component19 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component20 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase21 : com/rickbusarow/kase/AbstractKase21 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component14 ()Ljava/lang/Object;
+	public fun component15 ()Ljava/lang/Object;
+	public fun component16 ()Ljava/lang/Object;
+	public fun component17 ()Ljava/lang/Object;
+	public fun component18 ()Ljava/lang/Object;
+	public fun component19 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component20 ()Ljava/lang/Object;
+	public fun component21 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase22 : com/rickbusarow/kase/AbstractKase22 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component10 ()Ljava/lang/Object;
+	public fun component11 ()Ljava/lang/Object;
+	public fun component12 ()Ljava/lang/Object;
+	public fun component13 ()Ljava/lang/Object;
+	public fun component14 ()Ljava/lang/Object;
+	public fun component15 ()Ljava/lang/Object;
+	public fun component16 ()Ljava/lang/Object;
+	public fun component17 ()Ljava/lang/Object;
+	public fun component18 ()Ljava/lang/Object;
+	public fun component19 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component20 ()Ljava/lang/Object;
+	public fun component21 ()Ljava/lang/Object;
+	public fun component22 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase3 : com/rickbusarow/kase/AbstractKase3 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase4 : com/rickbusarow/kase/AbstractKase4 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase5 : com/rickbusarow/kase/AbstractKase5 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase6 : com/rickbusarow/kase/AbstractKase6 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase7 : com/rickbusarow/kase/AbstractKase7 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase8 : com/rickbusarow/kase/AbstractKase8 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/DefaultKase9 : com/rickbusarow/kase/AbstractKase9 {
+	public fun <init> (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)V
+	public fun component1 ()Ljava/lang/Object;
+	public fun component2 ()Ljava/lang/Object;
+	public fun component3 ()Ljava/lang/Object;
+	public fun component4 ()Ljava/lang/Object;
+	public fun component5 ()Ljava/lang/Object;
+	public fun component6 ()Ljava/lang/Object;
+	public fun component7 ()Ljava/lang/Object;
+	public fun component8 ()Ljava/lang/Object;
+	public fun component9 ()Ljava/lang/Object;
 }
 
 public class com/rickbusarow/kase/DefaultTestEnvironment : com/rickbusarow/kase/TestEnvironment, com/rickbusarow/kase/files/HasWorkingDir {

@@ -41,17 +41,30 @@ public interface Kase2<out A1, out A2> : Kase1<A1> {
   public operator fun component2(): A2 = a2
 }
 
+/**
+ * An abstract base type of [Kase] for use with data classes.
+ *
+ * @since 0.8.0
+ */
 @Poko
-@PublishedApi
-internal class DefaultKase2<out A1, out A2>(
+public abstract class AbstractKase2<out A1, out A2>(
   override val a1: A1,
   override val a2: A2,
-  private val displayNameFactory: KaseDisplayNameFactory<Kase2<A1, A2>>
-) : Kase2<A1, A2> {
+  displayNameFactory: KaseDisplayNameFactory<Kase2<A1, A2>> = KaseDisplayNameFactory {
+    toString().removeSurrounding("${this::class.simpleName!!}(", ")")
+  }
+): Kase2<A1, A2> {
 
   override val displayName: String by lazy(LazyThreadSafetyMode.NONE) {
     with(displayNameFactory) { createDisplayName() }
   }
+}
+
+@PublishedApi
+internal class DefaultKase2<out A1, out A2>(
+  a1: A1, a2: A2,
+  displayNameFactory: KaseDisplayNameFactory<Kase2<A1, A2>>
+) : AbstractKase2<A1, A2>(a1 = a1, a2 = a2, displayNameFactory = displayNameFactory) {
 
   override operator fun component1(): A1 = a1
   override operator fun component2(): A2 = a2
