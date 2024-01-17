@@ -26,11 +26,20 @@ internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
   /** `Kase3` */
   val kaseInterfaceNoTypes = "Kase$number"
 
+  /** `AbstractKase3` */
+  val abstractKaseNoTypes = "AbstractKase$number"
+
   /** `Kase3<A1, A2, A3>` */
   val kaseInterface: String = "$kaseInterfaceNoTypes<$argsValueTypesString>"
 
+  /** `AbstractKase3<A1, A2, A3>` */
+  val abstractKase: String = "$abstractKaseNoTypes<$argsValueTypesString>"
+
   /** `Kase3<out A1, out A2, out A3>` */
   val kaseInterfaceVariance: String = "$kaseInterfaceNoTypes<$argsOutValueTypesString>"
+
+  /** `AbstractKase3<out A1, out A2, out A3>` */
+  val abstractKaseVariance: String = "$abstractKaseNoTypes<$argsOutValueTypesString>"
 
   /** `Kase2<A1, A2>` in `Kase3<A1, A2, A3> : Kase2<A1, A2>` */
   val kaseSuperInterface: String = if (number == 1) {
@@ -42,8 +51,11 @@ internal data class KaseTypes(val number: Int, val args: List<KaseArg>) {
   /** `defaultKase2DisplayNameFactory` */
   val defaultDisplayNameFactory: String = "default${kaseInterfaceNoTypes}DisplayNameFactory"
 
+  /** `KaseDisplayNameFactory` */
+  val displayNameFactoryNoTypes: String = "KaseDisplayNameFactory"
+
   /** `KaseDisplayNameFactory<Kase2<A1, A2>>` */
-  val displayNameFactory: String = "KaseDisplayNameFactory<$kaseInterface>"
+  val displayNameFactory: String = "$displayNameFactoryNoTypes<$kaseInterface>"
 
   /** `DefaultKase3` */
   val defaultKaseNoTypes = "DefaultKase$number"
