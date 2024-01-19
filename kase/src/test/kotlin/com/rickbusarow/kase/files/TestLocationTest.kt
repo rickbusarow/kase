@@ -114,6 +114,16 @@ class TestLocationTest {
     coords2().secondaryConstructorCoords shouldBe expected
   }
 
+  @Suppress("JUnitMalformedDeclaration", "JUnitMixedFramework")
+  @org.junit.Test
+  private fun `has a junit4 annotation`() = TestLocation.get()
+
+  @Test
+  fun `junit 4 test annotation`() {
+
+    `has a junit4 annotation`() shouldBe expectedLocation("has a junit4 annotation")
+  }
+
   @Nested
   inner class `test annotation in a nested class` {
 
@@ -166,7 +176,7 @@ class TestLocationTest {
   fun `testFactory annotation in an expression syntax`(): Stream<out DynamicNode> =
     factoryKases.asTests { (coordsFactory) ->
 
-      coordsFactory() shouldBe expectedCoords(
+      coordsFactory() shouldBe expectedLocation(
         "testFactory annotation in an expression syntax"
       )
     }
@@ -179,7 +189,7 @@ class TestLocationTest {
     }
   }
 
-  fun expectedCoords(functionName: String): TestLocation {
+  fun expectedLocation(functionName: String): TestLocation {
     val clazz = TestLocationTest::class.java
     return TestLocation(
       fileName = "${clazz.simpleName}.kt",

@@ -20,8 +20,6 @@ import com.rickbusarow.kase.stdlib.plus
 import com.rickbusarow.kase.stdlib.takeLastView
 import dev.drewhamilton.poko.Poko
 import org.jetbrains.annotations.VisibleForTesting
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestFactory
 import java.io.File
 import java.lang.reflect.AnnotatedElement
 import java.lang.reflect.Method
@@ -212,6 +210,12 @@ internal fun StackTraceElement.testStackTraceElementOrNull(): StackTraceElement?
 
 private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
 
+private val testAnnotations = setOf(
+  "org.junit.jupiter.api.Test",
+  "org.junit.jupiter.api.TestFactory",
+  "org.junit.Test"
+)
+
 /**
  * Checks if an [AnnotatedElement] is annotated with
  * [@TestFactory][org.junit.jupiter.api.TestFactory] or [@Test][org.junit.jupiter.api.Test].
@@ -222,8 +226,7 @@ private val sdkPackagePrefixes = setOf("java", "jdk", "kotlin")
  */
 @PublishedApi
 internal fun AnnotatedElement.hasTestAnnotation(): Boolean {
-  return isAnnotationPresent(TestFactory::class.java) ||
-    isAnnotationPresent(Test::class.java)
+  return annotations.any { it.annotationClass.java.name in testAnnotations }
 }
 
 /**
@@ -237,7 +240,7 @@ internal fun AnnotatedElement.hasTestAnnotation(): Boolean {
 internal fun hasTestAnnotation(actualClass: Class<*>, actualMethodName: String): Boolean {
 
   return actualClass
-    .methods
+    .declaredMethods
     .filter { it.name == actualMethodName }
     .requireAllOrNoneAreAnnotated { it.hasTestAnnotation() }
 }

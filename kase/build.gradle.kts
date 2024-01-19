@@ -39,7 +39,8 @@ dependencies {
   api(libs.kotest.common)
   api(libs.kotlinx.coroutines.core)
 
+  testImplementation(libs.junit4)
   testImplementation(libs.kotest.assertions.core.jvm)
 
-  testRuntimeOnly(libs.junit.engine)
+  testImplementation(libs.junit.jupiter.engine)
 }
