@@ -68,10 +68,13 @@ progress "check version isn't a -SNAPSHOT"
 # The line is delimited by whitespaces.
 NEXT_VERSION=$(awk '/.*\(unreleased)/ { print $2}' CHANGELOG.md | sed 's/\"//g')
 
-function parseVersionAndSyncDocs() {
+function parseVersion() {
 
   # Parse the 'VERSION_NAME' version from gradle.properties
   VERSION_NAME=$(awk -F ' *= *' '$1=="VERSION_NAME"{print $2; exit}' $GRADLE_PROPERTIES | sed 's/\"//g')
+}
+
+function syncDocs() {
 
   # Add `@since ____` tags to any new KDoc
   progress "Add \@since ____\ tags to any new KDoc"
@@ -90,7 +93,8 @@ function parseVersionAndSyncDocs() {
 }
 
 # update all versions/docs for the release version
-parseVersionAndSyncDocs
+parseVersion
+syncDocs
 
 # Generate all api docs and make sure they're in ./dokka-archive/
 # Then ensure that all the new versioned api docs are tracked by Git
@@ -124,7 +128,8 @@ perl -pi -e "s/$OLD/$NEW/" $GRADLE_PROPERTIES
 git commit -am "update dev version to ${NEXT_VERSION}"
 
 # update all versions/docs for the next version
-parseVersionAndSyncDocs
+parseVersion
+syncDocs
 
 echo
 echo ' ___ _   _  ___ ___ ___ ___ ___ '
