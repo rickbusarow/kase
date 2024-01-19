@@ -1,8 +1,20 @@
 # Changelog
 
-## 0.7.1-SNAPSHOT (unreleased)
+## 0.8.1-SNAPSHOT (unreleased)
 
-## [0.7.0] — 2023-01-12
+## [0.8.0] — 2024-01-19
+
+### Added
+* introduce overloaded `AbstractKaseN` types by @RBusarow in https://github.com/rickbusarow/kase/pull/100
+* support JUnit4 `@Test` annotations by @RBusarow in https://github.com/rickbusarow/kase/pull/105
+### 🧰 Maintenance
+* Update dependency com.squareup:kotlinpoet to v1.16.0 by @renovate in https://github.com/rickbusarow/kase/pull/102
+* Update dependencyAnalysis to v1.29.0 by @renovate in https://github.com/rickbusarow/kase/pull/101
+* Update dependency com.google.devtools.ksp:symbol-processing-gradle-plugin to v1.9.22-1.0.17 by @renovate in https://github.com/rickbusarow/kase/pull/104
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.7.0...0.8.0
+
+## [0.7.0] — 2024-01-12
 
 ### 💥 Breaking Changes
 
@@ -10,7 +22,7 @@
 
 **Full Changelog**: https://github.com/rickbusarow/kase/compare/0.6.0...0.7.0
 
-## [0.6.0] — 2023-01-05
+## [0.6.0] — 2024-01-05
 
 ### Added
 
@@ -18,7 +30,7 @@
 
 **Full Changelog**: https://github.com/rickbusarow/kase/compare/0.5.0...0.6.0
 
-## [0.5.0] — 2023-01-04
+## [0.5.0] — 2024-01-04
 
 ### Added
 
@@ -89,3 +101,4 @@ Hello World
 [0.5.0]: https://github.com/rickbusarow/kase/releases/tag/0.5.0
 [0.6.0]: https://github.com/rickbusarow/kase/releases/tag/0.6.0
 [0.7.0]: https://github.com/rickbusarow/kase/releases/tag/0.7.0
+[0.8.0]: https://github.com/rickbusarow/kase/releases/tag/0.8.0
