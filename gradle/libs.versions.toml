@@ -16,7 +16,9 @@ dropbox-dependencyGuard = "0.4.3"
 ec4j = "0.3.0"
 github-release = "2.5.1"
 integration-test = "1.4.5"
-jUnit = "5.10.1"
+jUnit4 = "4.13.2"
+jUnit5 = "5.10.1"
+jUnit-platform = "1.10.1"
 johnrengelman-shadow = "8.1.1"
 kotest = "5.8.0"
 kotlinx-binaryCompatibility = "0.13.2"
@@ -91,10 +93,15 @@ integration-test = { module = "com.coditory.gradle:integration-test-plugin", ver
 
 johnrengelman-shadowJar = { module = "com.github.johnrengelman:shadow", version.ref = "johnrengelman-shadow" }
 
-junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit" }
-junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jUnit" }
-junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit" }
-junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "jUnit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "jUnit5" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "jUnit5" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "jUnit5" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "jUnit5" }
+junit-platform-suite = { module = "org.junit.platform:junit-platform-suite", version.ref = "jUnit-platform" }
+junit-platform-suite-api = { module = "org.junit.platform:junit-platform-suite-api", version.ref = "jUnit-platform" }
+junit-platform-suite-engine = { module = "org.junit.platform:junit-platform-suite-engine", version.ref = "jUnit-platform" }
+junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "jUnit5" }
+junit4 = { module = "junit:junit", version.ref = "jUnit4" }
 
 kotest-assertions-api = { module = "io.kotest:kotest-assertions-api", version.ref = "kotest" }
 kotest-assertions-core-jvm = { module = "io.kotest:kotest-assertions-core-jvm", version.ref = "kotest" }
