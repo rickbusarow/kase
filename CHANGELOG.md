@@ -5,12 +5,15 @@
 ## [0.8.0] — 2024-01-19
 
 ### Added
-* introduce overloaded `AbstractKaseN` types by @RBusarow in https://github.com/rickbusarow/kase/pull/100
-* support JUnit4 `@Test` annotations by @RBusarow in https://github.com/rickbusarow/kase/pull/105
+
+- introduce overloaded `AbstractKaseN` types by @RBusarow in https://github.com/rickbusarow/kase/pull/100
+- support JUnit4 `@Test` annotations by @RBusarow in https://github.com/rickbusarow/kase/pull/105
+
 ### 🧰 Maintenance
-* Update dependency com.squareup:kotlinpoet to v1.16.0 by @renovate in https://github.com/rickbusarow/kase/pull/102
-* Update dependencyAnalysis to v1.29.0 by @renovate in https://github.com/rickbusarow/kase/pull/101
-* Update dependency com.google.devtools.ksp:symbol-processing-gradle-plugin to v1.9.22-1.0.17 by @renovate in https://github.com/rickbusarow/kase/pull/104
+
+- Update dependency com.squareup:kotlinpoet to v1.16.0 by @renovate in https://github.com/rickbusarow/kase/pull/102
+- Update dependencyAnalysis to v1.29.0 by @renovate in https://github.com/rickbusarow/kase/pull/101
+- Update dependency com.google.devtools.ksp:symbol-processing-gradle-plugin to v1.9.22-1.0.17 by @renovate in https://github.com/rickbusarow/kase/pull/104
 
 **Full Changelog**: https://github.com/rickbusarow/kase/compare/0.7.0...0.8.0
 
