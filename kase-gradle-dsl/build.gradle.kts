@@ -35,6 +35,5 @@ dependencies {
   compileOnly(gradleTestKit())
 
   testImplementation(libs.junit.jupiter.api)
-
   testImplementation(libs.junit.jupiter.engine)
 }
