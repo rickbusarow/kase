@@ -20,12 +20,9 @@ import com.rickbusarow.kase.files.useRelativePaths
 import com.rickbusarow.kase.stdlib.div
 import com.rickbusarow.kase.stdlib.letIf
 import com.rickbusarow.kase.stdlib.remove
-import io.kotest.inspectors.forAll
-import io.kotest.matchers.shouldNotBe
-import io.kotest.matchers.string.shouldContain
 import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
-import org.gradle.testkit.runner.TaskOutcome
+import org.gradle.testkit.runner.TaskOutcome.FAILED
 import java.io.File
 
 /**
@@ -138,20 +135,24 @@ public interface HasGradleRunner : HasWorkingDir {
    * @throws AssertionError if the [BuildResult] does not have the given [message]
    */
   public infix fun BuildResult.shouldHaveTrimmedMessage(message: String) {
-    trimGradleNoise() shouldContain message
+    assert(output.contains(message)) {
+      "Expected output to contain:\n\n$message\n\nActual output:\n\n$output"
+    }
   }
 
   /**
    * Asserts that the [BuildResult.output][BuildResult.getOutput]
    * has the given [message] in its output.
    *
-   * @param shortenPaths whether to shorten absolute paths to relative ones
    * @param message the message to search for
+   * @param shortenPaths whether to shorten absolute paths to relative ones
    * @since 0.1.0
    * @throws AssertionError if the [BuildResult] does not have the given [message]
    */
-  public fun BuildResult.shouldHaveTrimmedMessage(shortenPaths: Boolean, message: String) {
-    trimGradleNoise(shortenPaths = shortenPaths) shouldContain message
+  public fun BuildResult.shouldHaveTrimmedMessage(message: String, shortenPaths: Boolean) {
+    assert(trimGradleNoise(shortenPaths).contains(message)) {
+      "Expected output to contain:\n\n$message\n\nActual output:\n\n$output"
+    }
   }
 
   /**
@@ -207,10 +208,10 @@ public open class DefaultHasGradleRunner(
     } else {
       withOptions.build()
         .also { result ->
-          result.tasks
-            .forAll { buildTask ->
-              buildTask.outcome shouldNotBe TaskOutcome.FAILED
-            }
+          val failed = result.tasks.filter { it.outcome == FAILED }
+          assert(failed.isEmpty()) {
+            "The following tasks failed: ${failed.joinToString { it.path }}"
+          }
         }
     }
   }

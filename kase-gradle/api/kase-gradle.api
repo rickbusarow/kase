@@ -135,7 +135,7 @@ public class com/rickbusarow/kase/gradle/DefaultGradleTestEnvironment : com/rick
 	public final fun rootProject (Lkotlin/jvm/functions/Function1;)Ljava/io/File;
 	public fun shouldFail ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
-	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
+	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;Z)V
 	public fun shouldSucceed ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
 }
@@ -175,7 +175,7 @@ public class com/rickbusarow/kase/gradle/DefaultHasGradleRunner : com/rickbusaro
 	public fun getWorkingDir ()Ljava/io/File;
 	public fun shouldFail ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
-	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
+	public fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;Z)V
 	public fun shouldSucceed ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
 }
@@ -434,7 +434,7 @@ public final class com/rickbusarow/kase/gradle/GradleTestEnvironment$DefaultImpl
 	public static fun cleanOutput (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;Ljava/lang/String;)Ljava/lang/String;
 	public static fun shouldFail (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
-	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
+	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;Z)V
 	public static fun shouldSucceed (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public static fun tearDown (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;)V
 }
@@ -535,7 +535,7 @@ public abstract interface class com/rickbusarow/kase/gradle/HasGradleRunner : co
 	public abstract fun getGradleRunner ()Lorg/gradle/testkit/runner/GradleRunner;
 	public abstract fun shouldFail ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public abstract fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
-	public abstract fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
+	public abstract fun shouldHaveTrimmedMessage (Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;Z)V
 	public abstract fun shouldSucceed ([Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public abstract fun trimGradleNoise (Lorg/gradle/testkit/runner/BuildResult;Z)Ljava/lang/String;
 }
@@ -546,7 +546,7 @@ public final class com/rickbusarow/kase/gradle/HasGradleRunner$DefaultImpls {
 	public static fun shouldFail (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public static synthetic fun shouldFail$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
 	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;)V
-	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Lorg/gradle/testkit/runner/BuildResult;ZLjava/lang/String;)V
+	public static fun shouldHaveTrimmedMessage (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Lorg/gradle/testkit/runner/BuildResult;Ljava/lang/String;Z)V
 	public static fun shouldSucceed (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;)Lorg/gradle/testkit/runner/BuildResult;
 	public static synthetic fun shouldSucceed$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;[Ljava/lang/String;ZZZZLjava/io/File;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lorg/gradle/testkit/runner/BuildResult;
 	public static synthetic fun trimGradleNoise$default (Lcom/rickbusarow/kase/gradle/HasGradleRunner;Lorg/gradle/testkit/runner/BuildResult;ZILjava/lang/Object;)Ljava/lang/String;

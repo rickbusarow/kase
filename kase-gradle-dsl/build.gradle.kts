@@ -26,14 +26,13 @@ jvmModule {
 }
 
 dependencies {
-  api(libs.junit.jupiter)
-  api(libs.kotest.assertions.shared)
-
   api(project(":kase"))
   api(project(":kase-gradle"))
 
   compileOnly(gradleTestKit())
 
+  testImplementation(libs.junit.jupiter)
   testImplementation(libs.junit.jupiter.api)
   testImplementation(libs.junit.jupiter.engine)
+  testImplementation(libs.kotest.assertions.shared)
 }
