@@ -22,7 +22,6 @@ import org.gradle.api.Project
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.compile.JavaCompile
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.targets
 import org.jetbrains.kotlin.gradle.tasks.BaseKotlinCompile
 import java.io.Serializable
 import kotlin.jvm.java
@@ -42,16 +41,21 @@ abstract class BaseKotlinConventionPlugin : Plugin<Project> {
 
     val extension = target.extensions.getByType(KotlinExtension::class.java)
 
-    val jetbrainsExtension = target.kotlinExtension
-    jetbrainsExtension.jvmToolchain(target.JDK_INT)
+    val kotlinJB = target.kotlinExtension
+
+    kotlinJB.jvmToolchain(target.JDK_INT)
 
     configureKotlinOptions(target, extension)
 
-    target.tasks.register("buildTests") { buildTests ->
-      buildTests.dependsOn(jetbrainsExtension.targets.map { it.artifactsTaskName })
+    target.tasks.register("buildTests") { task ->
+      task.dependsOn(
+        target.javaExtension.sourceSets
+          .matching { it.name.endsWith("test", true) }
+          .map { it.jarTaskName }
+      )
     }
-    target.tasks.register("buildAll") { buildAll ->
-      buildAll.dependsOn(jetbrainsExtension.targets.map { it.artifactsTaskName })
+    target.tasks.register("buildAll") { task ->
+      task.dependsOn(target.javaExtension.sourceSets.map { it.jarTaskName })
     }
 
     target.plugins.withId("java") {

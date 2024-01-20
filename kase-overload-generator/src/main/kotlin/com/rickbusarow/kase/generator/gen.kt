@@ -61,8 +61,7 @@ private fun main() {
   Files.overloadDir.mkdirs()
 
   for (ct in (1..MAX_PARAMS)) {
-
-    val args = (1..ct).map { KaseArg(it) }
+    val args = (1..ct).map(::KaseArg)
 
     val types = KaseTypes(ct, args)
 
@@ -78,7 +77,6 @@ private fun main() {
         |  "MaxLineLength",
         |  "PackageDirectoryMismatch"
         |)
-        |@file:JvmMultifileClass
         |
         |package com.rickbusarow.kase
         |
@@ -106,11 +104,45 @@ private fun main() {
       kases_iterable(args = args, types = types)
       kases_sequence(args = args, types = types)
 
-      timesFunctions(aArgs = args, aTypes = types)
+      val (timesPlain, timesFactory) = timesFunctions(ct)
+
+      timesPlain.zip(timesFactory).forEach { (a, b)->
+        appendLine(a)
+        appendLine(b)
+      }
     }
       .fixBlankLines()
 
     val file = Files.overloadKase(ct)
     file.writeText(txt)
+
+    // val (timesPlain, timesFactory) = timesFunctions(ct)
+    //
+    // val plainName = "${types.kaseInterfaceNoTypes.decapitalize()}Times"
+    // val factoryName = "${types.kaseInterfaceNoTypes.decapitalize()}TimesInstanceFactory"
+    //
+    // writeTimesFunctionFile(fileName = plainName, functions = timesPlain)
+    // writeTimesFunctionFile(fileName = factoryName, functions = timesFactory)
   }
+}
+
+private fun writeTimesFunctionFile(fileName: String, functions: List<String>) {
+  Files.overloadDir.resolve("$fileName.kt")
+    .writeText(
+      """
+        |$LICENSE
+        |
+        |@file:Suppress(
+        |  "DestructuringDeclarationWithTooManyEntries",
+        |  "DuplicatedCode",
+        |  "MaxLineLength",
+        |  "PackageDirectoryMismatch"
+        |)
+        |@file:JvmName("$fileName")
+        |
+        |package com.rickbusarow.kase
+        |
+        |${functions.joinToString("\n").fixBlankLines()}
+      """.trimMargin()
+    )
 }
