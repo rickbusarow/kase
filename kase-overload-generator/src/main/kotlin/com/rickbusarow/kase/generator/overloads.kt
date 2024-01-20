@@ -22,7 +22,6 @@ import com.rickbusarow.kase.generator.KaseArg.Companion.argsSequenceValueParams
 import com.rickbusarow.kase.generator.KaseArg.Companion.argsValueProperties
 import com.rickbusarow.kase.generator.KaseArg.Companion.argsWithParamNames
 import com.rickbusarow.kase.generator.KaseArg.Companion.parametersPlural
-import com.rickbusarow.kase.generator.KaseArg.Companion.params
 import com.rickbusarow.kase.generator.KaseArg.Companion.paramsString
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueNames
 import com.rickbusarow.kase.generator.KaseArg.Companion.valueTypesString
@@ -522,32 +521,32 @@ internal fun forLoops(
   }.trim()
 }
 
-internal fun StringBuilder.timesFunctions(
-  aArgs: List<KaseArg>,
-  aTypes: KaseTypes
-) {
-  val ct = aTypes.number
-  val maxTimes = MAX_PARAMS - ct
-  if (maxTimes != 0) {
+internal fun timesFunctions(cCt: Int): Pair<List<String>, List<String>> {
+  val aMax = cCt - 1
 
-    for (b in 1..maxTimes) {
+  val plain = mutableListOf<String>()
+  val factory = mutableListOf<String>()
 
-      val bArgs = (1..b).map {
-        KaseArg(number = it, valuePrefix = "b", valueTypeNamePrefix = "B")
-      }
-      val bTypes = KaseTypes(b, bArgs)
+  if (aMax >= 1) {
 
-      val cArgs = aArgs + bArgs
+    for (aCt in 1..aMax) {
 
-      val cArgTypes = cArgs.map { it.valueTypeName }
-      val cArgTypesString = cArgTypes.joinToString(", ")
-
-      val cTypes = KaseTypes(number = ct + b, args = cArgs)
-
+      val aArgs = (1..aCt).map(::KaseArg)
+      val aTypes = KaseTypes(aCt, aArgs)
       val aValueString = aArgs.joinToString(", ") { it.valueName }
+
+      val bCt = cCt - aCt
+      val bArgs = (1..bCt)
+        .map { KaseArg(number = it, valuePrefix = "b", valueTypeNamePrefix = "B") }
+      val bTypes = KaseTypes(bCt, bArgs)
       val bValueString = bArgs.joinToString(", ") { it.valueName }
 
-      appendLine(
+      val cArgs = aArgs + bArgs
+      val cArgTypes = cArgs.map { it.valueTypeName }
+      val cArgTypesString = cArgTypes.joinToString(", ")
+      val cTypes = KaseTypes(number = cCt, args = cArgs)
+
+      plain.add(
         """
         |/**
         | * @param others the [${bTypes.kaseInterfaceNoTypes}] to combine with this [${aTypes.kaseInterfaceNoTypes}]
@@ -562,7 +561,11 @@ internal fun StringBuilder.timesFunctions(
         |    kase(${cArgs.joinToString(", ") { it.valueName }})
         |  }
         |}
-        |
+        """.trimMargin()
+      )
+
+      factory.add(
+        """
         |/**
         | * @param others the [${bTypes.kaseInterfaceNoTypes}] to combine with this [${aTypes.kaseInterfaceNoTypes}]
         | * @param instanceFactory creates a custom Kase instance for each permutation
@@ -583,4 +586,5 @@ internal fun StringBuilder.timesFunctions(
       )
     }
   }
+  return plain to factory
 }
