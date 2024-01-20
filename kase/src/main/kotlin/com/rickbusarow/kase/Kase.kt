@@ -15,6 +15,8 @@
 
 package com.rickbusarow.kase
 
+import java.io.Serializable
+
 @Deprecated(
   "renamed to HasParams",
   ReplaceWith("HasParams", "com.rickbusarow.kase.HasParams")
@@ -60,7 +62,7 @@ public interface HasParams<out PARAM> {
  *
  * @since 0.1.0
  */
-public interface Kase : HasDisplayName {
+public interface Kase : HasDisplayName, Serializable {
 
   public companion object {
     /**
@@ -88,7 +90,7 @@ public class EmptyCase : Kase {
  *
  * @since 0.1.0
  */
-public fun interface KaseDisplayNameFactory<K : Kase> {
+public fun interface KaseDisplayNameFactory<K : Kase> : Serializable {
   /** @since 0.1.0 */
   public fun K.createDisplayName(): String
 }
@@ -98,7 +100,7 @@ public fun interface KaseDisplayNameFactory<K : Kase> {
  *
  * @since 0.1.0
  */
-public interface HasLabel {
+public interface HasLabel : Serializable {
 
   /**
    * Identifies some parameter, such as `version` in `version: 1.0.0`.
@@ -129,7 +131,7 @@ public interface HasLabels {
  *
  * @since 0.1.0
  */
-public interface HasDisplayName {
+public interface HasDisplayName : Serializable {
 
   /**
    * The name of a test or test container, as it is displayed in the IDE and in reports.
@@ -143,7 +145,7 @@ public interface HasDisplayName {
  *
  * @since 0.1.0
  */
-public interface HasDisplayNames {
+public interface HasDisplayNames : Serializable {
 
   /**
    * A "fully qualified" name for a test or test container, as it is
