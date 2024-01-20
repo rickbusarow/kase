@@ -106,7 +106,7 @@ private fun main() {
 
       val (timesPlain, timesFactory) = timesFunctions(ct)
 
-      timesPlain.zip(timesFactory).forEach { (a, b)->
+      timesPlain.zip(timesFactory).forEach { (a, b) ->
         appendLine(a)
         appendLine(b)
       }
