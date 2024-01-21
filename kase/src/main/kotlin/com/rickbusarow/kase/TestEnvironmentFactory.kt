@@ -52,7 +52,11 @@ public fun <FACT : NoParamTestEnvironmentFactory<ENV>, ENV : TestEnvironment> Ha
   }
 }
 
-/** Creates [TestEnvironment]s with a parameter. */
+/**
+ * Creates [TestEnvironment]s with a parameter.
+ *
+ * @since 0.9.0
+ */
 public fun interface ParamTestEnvironmentFactory<in PARAM, out ENV : TestEnvironment> :
   TestEnvironmentFactory<PARAM, ENV> {
   /**
@@ -71,13 +75,18 @@ public fun interface ParamTestEnvironmentFactory<in PARAM, out ENV : TestEnviron
  */
 public sealed interface TestEnvironmentFactory<in PARAM, out ENV : TestEnvironment> : Serializable
 
-/** Creates [TestEnvironment]s without a parameter. */
+/**
+ * Creates [TestEnvironment]s without a parameter.
+ *
+ * @since 0.9.0
+ */
 public fun interface NoParamTestEnvironmentFactory<out ENV : TestEnvironment> :
   TestEnvironmentFactory<Any, ENV> {
   /**
    * Creates a new [TestEnvironment].
    *
    * @return A new [TestEnvironment] of type [ENV].
+   * @since 0.9.0
    */
   public fun create(names: List<String>, location: TestLocation): ENV
 }
