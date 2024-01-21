@@ -1,6 +1,24 @@
 # Changelog
 
-## 0.8.1-SNAPSHOT (unreleased)
+## 0.9.1-SNAPSHOT (unreleased)
+
+## [0.9.0] - 2024-01-20
+
+### 💥 Breaking Changes
+
+- split `TestEnvironmentFactory` up into `NoParamTestEnvironmentFactory` and `ParamTestEnvironmentFactory` by @RBusarow in https://github.com/rickbusarow/kase/pull/110
+- move the times extensions so that they're in a file matching the receiver type by @RBusarow in https://github.com/rickbusarow/kase/pull/109
+- more cleanup of unused dependencies by @RBusarow in https://github.com/rickbusarow/kase/pull/108
+
+### 🧰 Maintenance
+
+- Update rickBusarow.kase to v0.8.0 by @renovate in https://github.com/rickbusarow/kase/pull/106
+
+### Other Changes
+
+- make all Kase types implement `java.io.Serializable` by @RBusarow in https://github.com/rickbusarow/kase/pull/107
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.8.0...0.9.0
 
 ## [0.8.0] — 2024-01-19
 
@@ -105,3 +123,4 @@ Hello World
 [0.6.0]: https://github.com/rickbusarow/kase/releases/tag/0.6.0
 [0.7.0]: https://github.com/rickbusarow/kase/releases/tag/0.7.0
 [0.8.0]: https://github.com/rickbusarow/kase/releases/tag/0.8.0
+[0.9.0]: https://github.com/rickbusarow/kase/releases/tag/0.9.0
