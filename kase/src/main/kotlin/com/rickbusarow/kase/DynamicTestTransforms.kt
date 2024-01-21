@@ -39,7 +39,7 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
    * @param testAction The test action to run within the [TestEnvironment].
    * @since 0.7.0
    */
-  public fun HasTestEnvironmentFactory<TestEnvironmentFactory<PARAM, ENV>>.test(
+  public fun HasTestEnvironmentFactory<ParamTestEnvironmentFactory<PARAM, ENV>>.test(
     param: PARAM,
     parentNames: List<String> = emptyList(),
     testLocation: TestLocation = TestLocation.get(),
@@ -71,11 +71,18 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
     testLocation: TestLocation = TestLocation.get(),
     testAction: suspend T.() -> Unit
   ) {
-    val testEnvironment = factory.createEnvironment(
-      params = param,
-      names = parentNames + param.maybeDisplayNameOrToString(),
-      location = testLocation
-    )
+    val testEnvironment = when (factory) {
+      is NoParamTestEnvironmentFactory -> factory.create(
+        names = parentNames,
+        location = testLocation
+      )
+
+      is ParamTestEnvironmentFactory -> factory.create(
+        params = param,
+        names = parentNames,
+        location = testLocation
+      )
+    }
 
     runBlocking {
       testEnvironment.asClueCatching {
@@ -241,11 +248,13 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
   ): Stream<out DynamicNode> {
     val location = TestLocation.get()
     return map { element ->
-      DynamicTest.dynamicTest(testName(element), location.testUriOrNull) {
+
+      val name = testName(element)
+      DynamicTest.dynamicTest(name, location.testUriOrNull) {
         test(
           param = element,
           factory = testEnvironmentFactory,
-          parentNames = emptyList(),
+          parentNames = listOf(name),
           testLocation = location
         ) { testAction(element) }
       }

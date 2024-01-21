@@ -324,17 +324,23 @@ public fun Class<*>.simpleNames(): List<String> {
 }
 
 /**
+ * Returns the receiver class and all of its enclosing classes, starting with the outermost class.
+ *
+ * @since 0.1.0
+ */
+internal fun Class<*>.enclosingClasses(): List<Class<*>> =
+  generateSequence(this) { it.enclosingClass }
+    .toList()
+    .asReversed()
+
+/**
  * Returns the simple names of the receiver class and all of
  * its enclosing classes, starting with the outermost class.
  *
  * @since 0.1.0
  */
-internal fun Class<*>.enclosingClasses(): Sequence<Class<*>> {
-  return generateSequence(this) { it.enclosingClass }
+internal fun Class<*>.enclosingClassesSimpleNames(): List<String> {
+  return enclosingClasses().simpleNames()
 }
 
-internal fun Sequence<Class<*>>.simpleNames() = map { it.simpleName }
-
-internal fun Class<*>.enclosingClassesSimpleNames(): Sequence<String> {
-  return enclosingClasses().map { it.simpleName }
-}
+internal fun List<Class<*>>.simpleNames() = map { it.simpleName }

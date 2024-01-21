@@ -51,11 +51,11 @@ abstract class BaseKotlinConventionPlugin : Plugin<Project> {
       task.dependsOn(
         target.javaExtension.sourceSets
           .matching { it.name.endsWith("test", true) }
-          .map { it.jarTaskName }
+          .map { it.compileJavaTaskName }
       )
     }
     target.tasks.register("buildAll") { task ->
-      task.dependsOn(target.javaExtension.sourceSets.map { it.jarTaskName })
+      task.dependsOn(target.javaExtension.sourceSets.map { it.compileJavaTaskName })
     }
 
     target.plugins.withId("java") {

@@ -17,6 +17,7 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestLocation
 import kotlinx.coroutines.runBlocking
+import java.io.Serializable
 
 /**
  * Trait interface for providing a [TestEnvironmentFactory].
@@ -30,30 +31,15 @@ public interface HasTestEnvironmentFactory<out FACT : TestEnvironmentFactory<*, 
 }
 
 /**
- * Creates [TestEnvironment]s.
- *
- * @since 0.1.0
- */
-public fun interface TestEnvironmentFactory<in PARAM, out ENV : TestEnvironment> {
-  /**
-   * Creates a new [TestEnvironment].
-   *
-   * @return A new [TestEnvironment] of type [ENV].
-   * @since 0.1.0
-   */
-  public fun createEnvironment(params: PARAM, names: List<String>, location: TestLocation): ENV
-}
-
-/**
  * Convenience for invoking a test action with a `TestEnvironment` when no [Kase] is needed.
  *
  * @since 0.1.0
  */
-public fun HasTestEnvironmentFactory<DefaultTestEnvironment.Factory>.test(
+public fun <FACT : NoParamTestEnvironmentFactory<ENV>, ENV : TestEnvironment> HasTestEnvironmentFactory<FACT>.test(
   testLocation: TestLocation = TestLocation.get(),
   testAction: suspend TestEnvironment.() -> Unit
 ) {
-  val testEnvironment = testEnvironmentFactory.createEnvironment(
+  val testEnvironment = testEnvironmentFactory.create(
     names = emptyList(),
     location = testLocation
   )
@@ -64,4 +50,34 @@ public fun HasTestEnvironmentFactory<DefaultTestEnvironment.Factory>.test(
       println(testEnvironment)
     }
   }
+}
+
+/** Creates [TestEnvironment]s with a parameter. */
+public fun interface ParamTestEnvironmentFactory<in PARAM, out ENV : TestEnvironment> :
+  TestEnvironmentFactory<PARAM, ENV> {
+  /**
+   * Creates a new [TestEnvironment].
+   *
+   * @return A new [TestEnvironment] of type [ENV].
+   * @since 0.1.0
+   */
+  public fun create(params: PARAM, names: List<String>, location: TestLocation): ENV
+}
+
+/**
+ * Creates [TestEnvironment]s with or without a parameter.
+ *
+ * @since 0.1.0
+ */
+public sealed interface TestEnvironmentFactory<in PARAM, out ENV : TestEnvironment> : Serializable
+
+/** Creates [TestEnvironment]s without a parameter. */
+public fun interface NoParamTestEnvironmentFactory<out ENV : TestEnvironment> :
+  TestEnvironmentFactory<Any, ENV> {
+  /**
+   * Creates a new [TestEnvironment].
+   *
+   * @return A new [TestEnvironment] of type [ENV].
+   */
+  public fun create(names: List<String>, location: TestLocation): ENV
 }

@@ -15,9 +15,12 @@
 
 package com.rickbusarow.kase
 
+import com.rickbusarow.kase.KaseTestFactoryTest.CustomTestEnvironment
 import com.rickbusarow.kase.files.HasWorkingDir.Companion.baseWorkingDir
 import com.rickbusarow.kase.files.HasWorkingDir.Companion.cleanStringForFileSystem
 import com.rickbusarow.kase.files.TestLocation
+import com.rickbusarow.kase.files.enclosingClassesSimpleNames
+import com.rickbusarow.kase.stdlib.dropView
 import com.rickbusarow.kase.utils.ParamTypes.A
 import com.rickbusarow.kase.utils.ParamTypes.B
 import com.rickbusarow.kase.utils.ParamTypes.C
@@ -30,16 +33,18 @@ import org.junit.jupiter.api.TestFactory
 import java.io.File
 import java.util.stream.Stream
 
-internal class KaseTestFactoryTest : KaseTestFactory<Kase2<A, B>, TestEnvironment, DefaultTestEnvironment.Factory> {
+internal class KaseTestFactoryTest : KaseTestFactory<Kase2<A, B>, CustomTestEnvironment, CustomTestEnvironment.Factory> {
   override val params: List<Kase2<A, B>>
     get() = kases(
       listOf(A("a1"), A("a2")),
       listOf(B("b1"), B("b2"))
     )
 
-  override val testEnvironmentFactory = DefaultTestEnvironment.Factory()
+  override val testEnvironmentFactory = CustomTestEnvironment.Factory()
 
-  val className = this::class.simpleName!!
+  val Any.classNames
+    get() = this::class.java.enclosingClassesSimpleNames()
+      .toList()
 
   val cs: List<Kase1<C>> = kases(listOf(C("c1"), C("c2")))
   val ds: List<Kase1<D>> = kases(listOf(D("d1"), D("d2")))
@@ -48,19 +53,12 @@ internal class KaseTestFactoryTest : KaseTestFactory<Kase2<A, B>, TestEnvironmen
   fun `scoping for multiplied streams`(): Stream<out DynamicNode> {
     val base = baseWorkingDir()
 
-    val functionDir = File(className)
+    val functionDir = file(classNames)
       .resolve(cleanStringForFileSystem(currentMethodName()))
 
     return params.asContainers { k1 ->
 
-      cs.asTests(
-        testEnvironmentFactory = { _, names, location ->
-          TestEnvironment(
-            testParameterDisplayNames = names,
-            testLocation = location
-          )
-        }
-      ) { k2 ->
+      cs.asTests(testEnvironmentFactory) { k2 ->
 
         val path = functionDir
           .resolve(cleanStringForFileSystem(k1.displayName))
@@ -75,7 +73,7 @@ internal class KaseTestFactoryTest : KaseTestFactory<Kase2<A, B>, TestEnvironmen
   fun `scoping nested asTests`(): Stream<out DynamicNode> {
     val base = baseWorkingDir()
 
-    val functionDir = File(className)
+    val functionDir = file(classNames)
       .resolve(cleanStringForFileSystem(currentMethodName()))
 
     return cs.asContainers { k1 ->
@@ -95,7 +93,7 @@ internal class KaseTestFactoryTest : KaseTestFactory<Kase2<A, B>, TestEnvironmen
   fun `scoping nested testFactory`(): Stream<out DynamicNode> {
     val base = baseWorkingDir()
 
-    val functionDir = File(className)
+    val functionDir = file(classNames)
       .resolve(cleanStringForFileSystem(currentMethodName()))
 
     return cs.asContainers { k1 ->
@@ -115,7 +113,7 @@ internal class KaseTestFactoryTest : KaseTestFactory<Kase2<A, B>, TestEnvironmen
   fun `multiple layers of containers results in multiple parent directories`(): Stream<out DynamicNode> {
     val base = baseWorkingDir()
 
-    val functionDir = File(className)
+    val functionDir = file(classNames)
       .resolve(cleanStringForFileSystem(currentMethodName()))
 
     return ds.asContainers { k1 ->
@@ -136,24 +134,14 @@ internal class KaseTestFactoryTest : KaseTestFactory<Kase2<A, B>, TestEnvironmen
   }
 
   @Nested
-  inner class `custom environment` : KaseTestFactory<Kase2<A, B>, CustomTestEnvironment, CustomTestEnvironment.Factory> {
-
-    override val params: List<Kase2<A, B>> = kases(
-      listOf(A("a1"), A("a2")),
-      listOf(B("b1"), B("b2"))
-    )
-
-    val cs = kases(listOf(C("c1"), C("c2")))
-
-    override val testEnvironmentFactory = CustomTestEnvironment.Factory()
+  inner class `nested tests` {
 
     @TestFactory
     fun `scoping nested asTests with custom environment`(): Stream<out DynamicNode> {
 
       val base = baseWorkingDir()
 
-      val functionDir = File(this@KaseTestFactoryTest.className)
-        .resolve("custom_environment")
+      val functionDir = file(this@`nested tests`.classNames)
         .resolve(cleanStringForFileSystem(currentMethodName()))
 
       return cs.asContainers { k1 ->
@@ -171,20 +159,20 @@ internal class KaseTestFactoryTest : KaseTestFactory<Kase2<A, B>, TestEnvironmen
   }
 
   class CustomTestEnvironment(
-    val params: Any?,
     testParameterDisplayNames: List<String>,
     testLocation: TestLocation
   ) : DefaultTestEnvironment(testParameterDisplayNames, testLocation) {
-    class Factory : TestEnvironmentFactory<Kase2<A, B>, CustomTestEnvironment> {
-      override fun createEnvironment(
-        params: Kase2<A, B>,
-        names: List<String>,
-        location: TestLocation
-      ): CustomTestEnvironment = CustomTestEnvironment(
-        params = params,
-        testParameterDisplayNames = names,
-        testLocation = location
-      )
+    class Factory : NoParamTestEnvironmentFactory<CustomTestEnvironment> {
+      override fun create(names: List<String>, location: TestLocation): CustomTestEnvironment =
+        CustomTestEnvironment(
+          testParameterDisplayNames = names,
+          testLocation = location
+        )
     }
   }
+
+  fun file(parts: List<String>): File = parts
+    .map(::cleanStringForFileSystem)
+    .dropView(1)
+    .fold(File(parts.first())) { acc, s -> acc.resolve(s) }
 }

@@ -16,23 +16,20 @@
 package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.DefaultTestEnvironment
-import com.rickbusarow.kase.Kase
+import com.rickbusarow.kase.HasTestEnvironmentFactory
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.Kase3
 import com.rickbusarow.kase.Kase6
 import com.rickbusarow.kase.KaseMatrix
 import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
-import com.rickbusarow.kase.KaseTestFactory
+import com.rickbusarow.kase.asTests
 import com.rickbusarow.kase.kases
 import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.jupiter.api.TestFactory
 
-class KaseMatrixElementKasesOverloadTest : KaseTestFactory<Kase, DefaultTestEnvironment, DefaultTestEnvironment.Factory> {
+class KaseMatrixElementKasesOverloadTest : HasTestEnvironmentFactory<DefaultTestEnvironment.Factory> {
 
   override val testEnvironmentFactory = DefaultTestEnvironment.Factory()
-
-  override val params: List<Kase>
-    get() = error("not used")
 
   @TestFactory
   fun `kases creates Kase2 kases`() =

@@ -18,7 +18,7 @@ package com.rickbusarow.kase.gradle.dsl
 import com.rickbusarow.kase.DefaultTestEnvironment
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.KaseTestFactory
-import com.rickbusarow.kase.TestEnvironmentFactory
+import com.rickbusarow.kase.ParamTestEnvironmentFactory
 import com.rickbusarow.kase.files.TestLocation
 import com.rickbusarow.kase.gradle.DslLanguage
 
@@ -38,8 +38,8 @@ open class DslTestEnvironment(
 ) : DefaultTestEnvironment(names, testLocation) {
   val generator = ExpectedCodeGenerator(language)
 
-  class Factory : TestEnvironmentFactory<Kase1<DslLanguage>, DslTestEnvironment> {
-    override fun createEnvironment(
+  class Factory : ParamTestEnvironmentFactory<Kase1<DslLanguage>, DslTestEnvironment> {
+    override fun create(
       params: Kase1<DslLanguage>,
       names: List<String>,
       location: TestLocation

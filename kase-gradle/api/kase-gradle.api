@@ -144,8 +144,8 @@ public final class com/rickbusarow/kase/gradle/DefaultGradleTestEnvironment$Fact
 	public fun <init> ()V
 	public fun buildFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public synthetic fun buildFileDefault (Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
-	public fun createEnvironment (Lcom/rickbusarow/kase/gradle/GradleTestVersions;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/gradle/DefaultGradleTestEnvironment;
-	public synthetic fun createEnvironment (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/TestEnvironment;
+	public fun create (Lcom/rickbusarow/kase/gradle/GradleTestVersions;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/gradle/DefaultGradleTestEnvironment;
+	public synthetic fun create (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/TestEnvironment;
 	public fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public fun getLocalM2Path ()Ljava/io/File;
 	public fun settingsFileDefault (Lcom/rickbusarow/kase/gradle/GradleTestVersions;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
@@ -439,7 +439,7 @@ public final class com/rickbusarow/kase/gradle/GradleTestEnvironment$DefaultImpl
 	public static fun tearDown (Lcom/rickbusarow/kase/gradle/GradleTestEnvironment;)V
 }
 
-public abstract interface class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory : com/rickbusarow/kase/TestEnvironmentFactory {
+public abstract interface class com/rickbusarow/kase/gradle/GradleTestEnvironmentFactory : com/rickbusarow/kase/ParamTestEnvironmentFactory {
 	public abstract fun buildFileDefault (Lcom/rickbusarow/kase/gradle/HasGradleDependencyVersion;)Lcom/rickbusarow/kase/gradle/DslStringFactory;
 	public abstract fun getDslLanguage ()Lcom/rickbusarow/kase/gradle/DslLanguage;
 	public abstract fun getLocalM2Path ()Ljava/io/File;

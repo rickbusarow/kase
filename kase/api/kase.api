@@ -1065,11 +1065,10 @@ public class com/rickbusarow/kase/DefaultTestEnvironment : com/rickbusarow/kase/
 	public fun toString ()Ljava/lang/String;
 }
 
-public final class com/rickbusarow/kase/DefaultTestEnvironment$Factory : com/rickbusarow/kase/TestEnvironmentFactory {
+public final class com/rickbusarow/kase/DefaultTestEnvironment$Factory : com/rickbusarow/kase/NoParamTestEnvironmentFactory {
 	public fun <init> ()V
-	public fun createEnvironment (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/DefaultTestEnvironment;
-	public synthetic fun createEnvironment (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/TestEnvironment;
-	public final fun createEnvironment (Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/DefaultTestEnvironment;
+	public fun create (Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/DefaultTestEnvironment;
+	public synthetic fun create (Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/TestEnvironment;
 }
 
 public abstract interface class com/rickbusarow/kase/DynamicContainerTransforms {
@@ -1247,6 +1246,24 @@ public final class com/rickbusarow/kase/Kase10Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase10;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase10;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase10;
+	public static final fun kase1timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
+	public static final fun kase2timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
+	public static final fun kase3timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
+	public static final fun kase4timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
+	public static final fun kase5timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
+	public static final fun kase6timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
+	public static final fun kase7timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
+	public static final fun kase8timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
+	public static final fun kase9timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1276,6 +1293,26 @@ public final class com/rickbusarow/kase/Kase11Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase11;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase11;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase11;
+	public static final fun kase10timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
+	public static final fun kase1timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
+	public static final fun kase2timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
+	public static final fun kase3timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
+	public static final fun kase4timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
+	public static final fun kase5timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
+	public static final fun kase6timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
+	public static final fun kase7timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
+	public static final fun kase8timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
+	public static final fun kase9timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1306,6 +1343,28 @@ public final class com/rickbusarow/kase/Kase12Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase12;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase12;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase12;
+	public static final fun kase10timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase11timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase1timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase2timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase3timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase4timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase5timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase6timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase7timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase8timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
+	public static final fun kase9timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1337,6 +1396,30 @@ public final class com/rickbusarow/kase/Kase13Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase13;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase13;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase13;
+	public static final fun kase10timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase11timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase12timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase1timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase2timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase3timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase4timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase5timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase6timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase7timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase8timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
+	public static final fun kase9timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1369,6 +1452,32 @@ public final class com/rickbusarow/kase/Kase14Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase14;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase14;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase14;
+	public static final fun kase10timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase11timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase12timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase13timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase13timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase1timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase2timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase3timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase4timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase5timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase6timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase7timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase8timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
+	public static final fun kase9timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1402,6 +1511,34 @@ public final class com/rickbusarow/kase/Kase15Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase15;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase15;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase15;
+	public static final fun kase10timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase11timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase12timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase13timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase13timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase14timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase14timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase1timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase2timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase3timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase4timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase5timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase6timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase7timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase8timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
+	public static final fun kase9timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1436,6 +1573,36 @@ public final class com/rickbusarow/kase/Kase16Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase16;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase16;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase16;
+	public static final fun kase10timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase11timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase12timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase13timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase13timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase14timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase14timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase15timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase15timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase1timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase2timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase3timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase4timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase5timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase6timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase7timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase8timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
+	public static final fun kase9timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1471,6 +1638,38 @@ public final class com/rickbusarow/kase/Kase17Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase17;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase17;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase17;
+	public static final fun kase10timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase11timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase12timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase13timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase13timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase14timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase14timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase15timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase15timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase16timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase16timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase1timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase2timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase3timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase4timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase5timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase6timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase7timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase8timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
+	public static final fun kase9timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1507,6 +1706,40 @@ public final class com/rickbusarow/kase/Kase18Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase18;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase18;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase18;
+	public static final fun kase10timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase11timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase12timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase13timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase13timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase14timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase14timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase15timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase15timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase16timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase16timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase17timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase17timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase1timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase2timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase3timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase4timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase5timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase6timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase7timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase8timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
+	public static final fun kase9timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1544,6 +1777,42 @@ public final class com/rickbusarow/kase/Kase19Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase19;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase19;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase19;
+	public static final fun kase10timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase11timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase12timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase13timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase13timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase14timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase14timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase15timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase15timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase16timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase16timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase17timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase17timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase18timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase18timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase1timesKase18 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase18InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase2timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase3timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase4timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase5timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase6timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase7timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase8timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
+	public static final fun kase9timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1602,6 +1871,44 @@ public final class com/rickbusarow/kase/Kase20Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase20;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase20;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase20;
+	public static final fun kase10timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase11timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase12timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase13timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase13timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase14timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase14timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase15timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase15timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase16timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase16timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase17timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase17timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase18timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase18timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase19timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase19timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase1timesKase19 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase19InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase2timesKase18 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase18InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase3timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase4timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase5timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase6timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase7timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase8timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
+	public static final fun kase9timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1641,6 +1948,46 @@ public final class com/rickbusarow/kase/Kase21Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase21;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase21;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase21;
+	public static final fun kase10timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase11timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase12timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase13timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase13timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase14timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase14timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase15timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase15timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase16timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase16timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase17timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase17timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase18timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase18timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase19timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase19timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase1timesKase20 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase20InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase20timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase20timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase2timesKase19 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase19InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase3timesKase18 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase18InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase4timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase5timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase6timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase7timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase8timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
+	public static final fun kase9timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1681,6 +2028,48 @@ public final class com/rickbusarow/kase/Kase22Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase22;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase22;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase22;
+	public static final fun kase10timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase10timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase11timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase11timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase12timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase12timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase13timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase13timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase14timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase14timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase15timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase15timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase16timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase16timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase17timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase17timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase18timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase18timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase19timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase19timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase1timesKase21 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase21InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase20timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase20timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase21timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase21timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase2timesKase20 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase20InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase3timesKase19 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase19InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase4timesKase18 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase18InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase5timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase6timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase7timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase8timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
+	public static final fun kase9timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase9timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1691,6 +2080,8 @@ public final class com/rickbusarow/kase/Kase2Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase2;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase2;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase2;
+	public static final fun kase1timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1712,6 +2103,10 @@ public final class com/rickbusarow/kase/Kase3Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase3;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase3;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase3;
+	public static final fun kase1timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/List;
+	public static final fun kase2timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1734,6 +2129,12 @@ public final class com/rickbusarow/kase/Kase4Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase4;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase4;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase4;
+	public static final fun kase1timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function4;)Ljava/util/List;
+	public static final fun kase2timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function4;)Ljava/util/List;
+	public static final fun kase3timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function4;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1757,6 +2158,14 @@ public final class com/rickbusarow/kase/Kase5Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase5;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase5;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase5;
+	public static final fun kase1timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/List;
+	public static final fun kase2timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/List;
+	public static final fun kase3timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/List;
+	public static final fun kase4timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1781,6 +2190,16 @@ public final class com/rickbusarow/kase/Kase6Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase6;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase6;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase6;
+	public static final fun kase1timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
+	public static final fun kase2timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
+	public static final fun kase3timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
+	public static final fun kase4timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
+	public static final fun kase5timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1806,6 +2225,18 @@ public final class com/rickbusarow/kase/Kase7Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase7;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase7;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase7;
+	public static final fun kase1timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
+	public static final fun kase2timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
+	public static final fun kase3timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
+	public static final fun kase4timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
+	public static final fun kase5timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
+	public static final fun kase6timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1832,6 +2263,20 @@ public final class com/rickbusarow/kase/Kase8Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase8;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase8;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase8;
+	public static final fun kase1timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
+	public static final fun kase2timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
+	public static final fun kase3timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
+	public static final fun kase4timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
+	public static final fun kase5timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
+	public static final fun kase6timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
+	public static final fun kase7timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -1859,6 +2304,22 @@ public final class com/rickbusarow/kase/Kase9Kt {
 	public static final fun kase (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lcom/rickbusarow/kase/Kase9;
 	public static final fun kase (Ljava/lang/String;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lcom/rickbusarow/kase/Kase9;
 	public static synthetic fun kase$default (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Lcom/rickbusarow/kase/Kase9;
+	public static final fun kase1timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase1timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
+	public static final fun kase2timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase2timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
+	public static final fun kase3timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase3timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
+	public static final fun kase4timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase4timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
+	public static final fun kase5timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase5timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
+	public static final fun kase6timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase6timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
+	public static final fun kase7timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase7timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
+	public static final fun kase8timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
+	public static final fun kase8timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
 	public static final fun kases (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Ljava/util/List;
 	public static final fun kases (Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lkotlin/sequences/Sequence;Lcom/rickbusarow/kase/KaseDisplayNameFactory;)Lkotlin/sequences/Sequence;
 	public static synthetic fun kases$default (Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;Lcom/rickbusarow/kase/KaseDisplayNameFactory;ILjava/lang/Object;)Ljava/util/List;
@@ -2000,6 +2461,14 @@ public final class com/rickbusarow/kase/KaseTestFactory$DefaultImpls {
 	public static fun testFactory (Lcom/rickbusarow/kase/KaseTestFactory;Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function3;)Ljava/util/stream/Stream;
 }
 
+public abstract interface class com/rickbusarow/kase/NoParamTestEnvironmentFactory : com/rickbusarow/kase/TestEnvironmentFactory {
+	public abstract fun create (Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/TestEnvironment;
+}
+
+public abstract interface class com/rickbusarow/kase/ParamTestEnvironmentFactory : com/rickbusarow/kase/TestEnvironmentFactory {
+	public abstract fun create (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/TestEnvironment;
+}
+
 public abstract interface annotation class com/rickbusarow/kase/ParamsScope : java/lang/annotation/Annotation {
 }
 
@@ -2020,8 +2489,7 @@ public final class com/rickbusarow/kase/TestEnvironment$DefaultImpls {
 	public static fun tearDown (Lcom/rickbusarow/kase/TestEnvironment;)V
 }
 
-public abstract interface class com/rickbusarow/kase/TestEnvironmentFactory {
-	public abstract fun createEnvironment (Ljava/lang/Object;Ljava/util/List;Lcom/rickbusarow/kase/files/TestLocation;)Lcom/rickbusarow/kase/TestEnvironment;
+public abstract interface class com/rickbusarow/kase/TestEnvironmentFactory : java/io/Serializable {
 }
 
 public final class com/rickbusarow/kase/TestEnvironmentFactoryKt {
@@ -2182,594 +2650,6 @@ public class com/rickbusarow/kase/files/internal/DefaultHasWorkingDir : com/rick
 
 public final class com/rickbusarow/kase/files/internal/DefaultHasWorkingDir$Companion {
 	public final fun checkInWorkingDir (Ljava/io/File;)V
-}
-
-public final class com/rickbusarow/kase/kase10Times {
-	public static final fun kase10timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase10timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase10timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase10timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase10timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase10timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase10timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase10timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase10timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase10TimesInstanceFactory {
-	public static final fun kase10timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
-	public static final fun kase10timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
-	public static final fun kase10timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
-	public static final fun kase10timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
-	public static final fun kase10timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
-	public static final fun kase10timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
-	public static final fun kase10timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
-	public static final fun kase10timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
-	public static final fun kase10timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function10;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase11Times {
-	public static final fun kase11timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase11timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase11timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase11timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase11timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase11timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase11timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase11timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase11timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase11timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase11TimesInstanceFactory {
-	public static final fun kase11timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-	public static final fun kase11timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-	public static final fun kase11timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-	public static final fun kase11timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-	public static final fun kase11timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-	public static final fun kase11timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-	public static final fun kase11timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-	public static final fun kase11timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-	public static final fun kase11timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-	public static final fun kase11timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function11;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase12Times {
-	public static final fun kase12timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase12timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase12TimesInstanceFactory {
-	public static final fun kase12timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-	public static final fun kase12timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function12;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase13Times {
-	public static final fun kase13timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase13timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase13TimesInstanceFactory {
-	public static final fun kase13timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-	public static final fun kase13timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function13;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase14Times {
-	public static final fun kase14timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase14timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase14TimesInstanceFactory {
-	public static final fun kase14timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-	public static final fun kase14timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function14;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase15Times {
-	public static final fun kase15timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase15timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase15TimesInstanceFactory {
-	public static final fun kase15timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-	public static final fun kase15timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function15;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase16Times {
-	public static final fun kase16timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase16timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase16TimesInstanceFactory {
-	public static final fun kase16timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-	public static final fun kase16timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function16;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase17Times {
-	public static final fun kase17timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase17timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase17TimesInstanceFactory {
-	public static final fun kase17timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-	public static final fun kase17timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function17;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase18Times {
-	public static final fun kase18timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase18timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase18TimesInstanceFactory {
-	public static final fun kase18timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-	public static final fun kase18timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function18;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase19Times {
-	public static final fun kase19timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase18 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase19timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase19TimesInstanceFactory {
-	public static final fun kase19timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase18InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-	public static final fun kase19timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function19;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase20Times {
-	public static final fun kase20timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase18 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase19 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase20timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase20TimesInstanceFactory {
-	public static final fun kase20timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase18InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase19InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-	public static final fun kase20timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function20;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase21Times {
-	public static final fun kase21timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase18 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase19 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase20 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase21timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase21TimesInstanceFactory {
-	public static final fun kase21timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase18InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase19InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase20InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-	public static final fun kase21timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function21;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase22Times {
-	public static final fun kase22timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase10 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase11 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase12 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase13 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase14 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase15 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase16 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase17 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase18 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase19 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase20 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase21 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase22timesKase9 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase22TimesInstanceFactory {
-	public static final fun kase22timesKase10InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase11InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase12InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase13InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase14InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase15InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase16InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase17InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase18InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase19InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase20InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase21InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-	public static final fun kase22timesKase9InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function22;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase2Times {
-	public static final fun kase2timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase2TimesInstanceFactory {
-	public static final fun kase2timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function2;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase3Times {
-	public static final fun kase3timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase3timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase3TimesInstanceFactory {
-	public static final fun kase3timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/List;
-	public static final fun kase3timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function3;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase4Times {
-	public static final fun kase4timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase4timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase4timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase4TimesInstanceFactory {
-	public static final fun kase4timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function4;)Ljava/util/List;
-	public static final fun kase4timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function4;)Ljava/util/List;
-	public static final fun kase4timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function4;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase5Times {
-	public static final fun kase5timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase5timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase5timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase5timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase5TimesInstanceFactory {
-	public static final fun kase5timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/List;
-	public static final fun kase5timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/List;
-	public static final fun kase5timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/List;
-	public static final fun kase5timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function5;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase6Times {
-	public static final fun kase6timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase6timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase6timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase6timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase6timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase6TimesInstanceFactory {
-	public static final fun kase6timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
-	public static final fun kase6timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
-	public static final fun kase6timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
-	public static final fun kase6timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
-	public static final fun kase6timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function6;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase7Times {
-	public static final fun kase7timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase7timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase7timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase7timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase7timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase7timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase7TimesInstanceFactory {
-	public static final fun kase7timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
-	public static final fun kase7timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
-	public static final fun kase7timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
-	public static final fun kase7timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
-	public static final fun kase7timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
-	public static final fun kase7timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function7;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase8Times {
-	public static final fun kase8timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase8timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase8timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase8timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase8timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase8timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase8timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase8TimesInstanceFactory {
-	public static final fun kase8timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
-	public static final fun kase8timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
-	public static final fun kase8timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
-	public static final fun kase8timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
-	public static final fun kase8timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
-	public static final fun kase8timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
-	public static final fun kase8timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function8;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase9Times {
-	public static final fun kase9timesKase1 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase9timesKase2 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase9timesKase3 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase9timesKase4 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase9timesKase5 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase9timesKase6 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase9timesKase7 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-	public static final fun kase9timesKase8 (Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljava/util/List;
-}
-
-public final class com/rickbusarow/kase/kase9TimesInstanceFactory {
-	public static final fun kase9timesKase1InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
-	public static final fun kase9timesKase2InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
-	public static final fun kase9timesKase3InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
-	public static final fun kase9timesKase4InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
-	public static final fun kase9timesKase5InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
-	public static final fun kase9timesKase6InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
-	public static final fun kase9timesKase7InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
-	public static final fun kase9timesKase8InstanceFactory (Ljava/lang/Iterable;Ljava/lang/Iterable;Lkotlin/jvm/functions/Function9;)Ljava/util/List;
 }
 
 public final class com/rickbusarow/kase/stdlib/ApplyKt {

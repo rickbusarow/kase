@@ -41,11 +41,6 @@ public class EnvironmentTestNodeBuilder<PARAM, ENV, FACT>(
 
   override val testEnvironmentFactory: FACT get() = factory
 
-  /**
-   * Creates a stream of tests from [HasParams.params]
-   *
-   * @since 0.7.0
-   */
   override fun HasParams<PARAM>.testFactory(
     testName: (PARAM) -> String,
     testAction: suspend ENV.(PARAM) -> Unit
@@ -61,7 +56,8 @@ public class EnvironmentTestNodeBuilder<PARAM, ENV, FACT>(
     DynamicTest.dynamicTest(name, testLocation.testUriOrNull) {
       test(
         param = param,
-        parentNames = namesFromRoot,
+        factory = testEnvironmentFactory,
+        parentNames = namesFromRoot + name,
         testLocation = testLocation
       ) { testAction(param) }
     }
@@ -75,11 +71,13 @@ public class EnvironmentTestNodeBuilder<PARAM, ENV, FACT>(
     val location = TestLocation.get()
     return map { param ->
 
-      DynamicTest.dynamicTest(testName(param), location.testUriOrNull) {
+      val name = testName(param)
+
+      DynamicTest.dynamicTest(name, location.testUriOrNull) {
         test(
           param = param,
           factory = testEnvironmentFactory,
-          parentNames = namesFromRoot,
+          parentNames = namesFromRoot + name,
           testLocation = location
         ) { testAction(param) }
       }

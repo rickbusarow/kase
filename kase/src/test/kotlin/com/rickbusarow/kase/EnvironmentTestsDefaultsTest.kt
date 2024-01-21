@@ -118,7 +118,6 @@ internal class EnvironmentTestsDefaultsTest : EnvironmentTests<Dog, DogTestEnvir
 
     val functionDir = File(className)
       .resolve(cleanStringForFileSystem(currentMethodName()))
-      .resolve(cleanStringForFileSystem(dogs.first().displayName))
 
     environment?.workingDir?.relativeTo(base) shouldBe functionDir
   }
@@ -140,7 +139,6 @@ internal class EnvironmentTestsDefaultsTest : EnvironmentTests<Dog, DogTestEnvir
 
     val functionDir = File(className)
       .resolve(cleanStringForFileSystem(currentMethodName()))
-      .resolve(cleanStringForFileSystem(cats.first().displayName))
 
     environment?.workingDir?.relativeTo(base) shouldBe functionDir
   }
