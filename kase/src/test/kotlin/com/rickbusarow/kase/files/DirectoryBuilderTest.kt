@@ -16,10 +16,9 @@
 package com.rickbusarow.kase.files
 
 import com.rickbusarow.kase.DefaultTestEnvironment
-import com.rickbusarow.kase.Kase
+import com.rickbusarow.kase.HasTestEnvironmentFactory
 import com.rickbusarow.kase.Kase1
-import com.rickbusarow.kase.KaseTestFactory
-import com.rickbusarow.kase.TestEnvironment
+import com.rickbusarow.kase.asTests
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.test
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -27,12 +26,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 
-class DirectoryBuilderTest : KaseTestFactory<Kase, TestEnvironment, DefaultTestEnvironment.Factory> {
+class DirectoryBuilderTest : HasTestEnvironmentFactory<DefaultTestEnvironment.Factory> {
 
   override val testEnvironmentFactory = DefaultTestEnvironment.Factory()
-
-  override val params: List<Kase>
-    get() = listOf(Kase.EMPTY)
 
   val entryPoints: List<Kase1<(File) -> DirectoryBuilder>>
     get() = listOf(
@@ -43,7 +39,7 @@ class DirectoryBuilderTest : KaseTestFactory<Kase, TestEnvironment, DefaultTestE
     )
 
   @TestFactory
-  fun `canary`() = entryPoints.asTests { (builderFactory) ->
+  fun `canary`() = entryPoints.asTests(testEnvironmentFactory) { (builderFactory) ->
     val builder = builderFactory(workingDir)
 
     builder.shouldBeInstanceOf<DirectoryBuilder>()

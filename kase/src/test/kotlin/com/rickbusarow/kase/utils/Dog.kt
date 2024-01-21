@@ -16,8 +16,8 @@
 package com.rickbusarow.kase.utils
 
 import com.rickbusarow.kase.Kase2
+import com.rickbusarow.kase.ParamTestEnvironmentFactory
 import com.rickbusarow.kase.TestEnvironment
-import com.rickbusarow.kase.TestEnvironmentFactory
 import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.TestLocation
 
@@ -37,8 +37,8 @@ class DogTestEnvironment(
 ) : TestEnvironment,
   HasWorkingDir by HasWorkingDir.invoke(testParameterDisplayNames, testLocation) {
 
-  class Factory : TestEnvironmentFactory<Dog, DogTestEnvironment> {
-    override fun createEnvironment(
+  class Factory : ParamTestEnvironmentFactory<Dog, DogTestEnvironment> {
+    override fun create(
       params: Dog,
       names: List<String>,
       location: TestLocation

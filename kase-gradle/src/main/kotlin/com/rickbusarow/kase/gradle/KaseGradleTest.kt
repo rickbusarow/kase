@@ -19,7 +19,7 @@ import com.rickbusarow.kase.HasKaseMatrix
 import com.rickbusarow.kase.HasTestEnvironmentFactory
 import com.rickbusarow.kase.Kase
 import com.rickbusarow.kase.KaseTestFactory
-import com.rickbusarow.kase.TestEnvironmentFactory
+import com.rickbusarow.kase.ParamTestEnvironmentFactory
 import com.rickbusarow.kase.gradle.DslLanguage.GroovyDsl
 import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
 import org.junit.jupiter.api.parallel.Execution
@@ -46,7 +46,7 @@ public interface KaseGradleTest<PARAM, ENV, FACT> :
  *
  * @since 0.1.0
  */
-public interface GradleTestEnvironmentFactory<PARAM, ENV> : TestEnvironmentFactory<PARAM, ENV>
+public interface GradleTestEnvironmentFactory<PARAM, ENV> : ParamTestEnvironmentFactory<PARAM, ENV>
   where PARAM : HasGradleDependencyVersion,
         PARAM : Kase,
         ENV : GradleTestEnvironment {

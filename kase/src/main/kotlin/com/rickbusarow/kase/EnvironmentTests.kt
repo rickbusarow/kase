@@ -51,11 +51,12 @@ public interface EnvironmentTests<PARAM, ENV, FACT> :
     val location = TestLocation.get()
     return map { param ->
 
-      DynamicTest.dynamicTest(testName(param), location.testUriOrNull) {
+      val name = testName(param)
+      DynamicTest.dynamicTest(name, location.testUriOrNull) {
         test(
           param = param,
           factory = testEnvironmentFactory,
-          parentNames = emptyList(),
+          parentNames = listOf(name),
           testLocation = location
         ) { testAction(param) }
       }

@@ -231,11 +231,19 @@ public fun <PARAM, ENV : TestEnvironment> Sequence<PARAM>.asTests(
   val location = TestLocation.get()
   return map { element ->
     DynamicTest.dynamicTest(testName(element), location.testUriOrNull) {
-      val environment = testEnvironmentFactory.createEnvironment(
-        params = element,
-        names = emptyList(),
-        location = location
-      )
+      val environment = when (testEnvironmentFactory) {
+        is NoParamTestEnvironmentFactory -> testEnvironmentFactory.create(
+          names = listOf(testName(element)),
+          location = location
+        )
+
+        is ParamTestEnvironmentFactory -> testEnvironmentFactory.create(
+          params = element,
+          names = listOf(testName(element)),
+          location = location
+        )
+      }
+
       runBlocking { testAction(environment, element) }
     }
   }

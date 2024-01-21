@@ -133,7 +133,7 @@ public open class DefaultGradleTestEnvironment(
 
   /** @since 0.7.0 */
   public class Factory : GradleTestEnvironmentFactory<GradleTestVersions, DefaultGradleTestEnvironment> {
-    override fun createEnvironment(
+    override fun create(
       params: GradleTestVersions,
       names: List<String>,
       location: TestLocation

@@ -111,18 +111,10 @@ public open class DefaultTestEnvironment(
    *
    * @since 0.7.0
    */
-  public class Factory : TestEnvironmentFactory<Any?, DefaultTestEnvironment> {
-    override fun createEnvironment(
-      params: Any?,
-      names: List<String>,
-      location: TestLocation
-    ): DefaultTestEnvironment = DefaultTestEnvironment(
-      names = names,
-      testLocation = location
-    )
+  public class Factory : NoParamTestEnvironmentFactory<DefaultTestEnvironment> {
 
     /** @since 0.7.0 */
-    public fun createEnvironment(
+    override fun create(
       names: List<String>,
       location: TestLocation
     ): DefaultTestEnvironment = DefaultTestEnvironment(
