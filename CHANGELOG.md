@@ -6,19 +6,17 @@
 
 ### added
 
-* introduce `KaseTests` and move all top-level single-shot `test { }` functions there
+- introduce `KaseTests` and move all top-level single-shot `test { }` functions there
   in https://github.com/rickbusarow/kase/pull/114
 
 ### 🧰 Maintenance
 
-* Update rickBusarow.kase to v0.9.0 by @renovate in https://github.com/rickbusarow/kase/pull/111
-* autoApprove and autoMerge Renovate's updates to the published version of Kase
+- Update rickBusarow.kase to v0.9.0 by @renovate in https://github.com/rickbusarow/kase/pull/111
+- autoApprove and autoMerge Renovate's updates to the published version of Kase
   in https://github.com/rickbusarow/kase/pull/112
-* Update Kase published version to v0.9.0 by @renovate
+- Update Kase published version to v0.9.0 by @renovate
   in https://github.com/rickbusarow/kase/pull/113
-*
-
-**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.9.0...0.9.1
+- **Full Changelog**: https://github.com/rickbusarow/kase/compare/0.9.0...0.9.1
 
 ## [0.9.0] - 2024-01-20
 
@@ -145,21 +143,12 @@ Hello World
 [0.0.1]
 
 [0.1.0]: https://github.com/rickbusarow/kase/releases/tag/0.1.0
-
 [0.2.0]: https://github.com/rickbusarow/kase/releases/tag/0.2.0
-
 [0.3.0]: https://github.com/rickbusarow/kase/releases/tag/0.3.0
-
 [0.4.0]: https://github.com/rickbusarow/kase/releases/tag/0.4.0
-
 [0.5.0]: https://github.com/rickbusarow/kase/releases/tag/0.5.0
-
 [0.6.0]: https://github.com/rickbusarow/kase/releases/tag/0.6.0
-
 [0.7.0]: https://github.com/rickbusarow/kase/releases/tag/0.7.0
-
 [0.8.0]: https://github.com/rickbusarow/kase/releases/tag/0.8.0
-
 [0.9.0]: https://github.com/rickbusarow/kase/releases/tag/0.9.0
-
 [0.9.1]: https://github.com/rickbusarow/kase/releases/tag/0.9.1
