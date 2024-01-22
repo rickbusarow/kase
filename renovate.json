@@ -24,8 +24,10 @@
     {
       "groupName": "Kase published version",
       "matchPackagePrefixes": [ "com.rickbusarow.kase:" ],
+      "autoApprove": true,
       "automerge": true,
-      "autoApprove": true
+      "automergeStrategy": "rebase",
+      "automergeType": "pr"
     }
   ],
   "labels": [
