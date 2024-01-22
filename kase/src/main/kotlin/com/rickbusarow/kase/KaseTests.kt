@@ -21,6 +21,8 @@ import kotlinx.coroutines.runBlocking
 /**
  * Holds some single-shot `test { }` functions, with no-param versions for
  * no-param factories. Add this as a super-interface to any test class.
+ *
+ * @since 0.9.1
  */
 public interface KaseTests {
 
@@ -30,6 +32,7 @@ public interface KaseTests {
    * @param names The values of variables related to the test.
    * @param testLocation The class, test function name, and source code location for this test.
    * @param testAction The test action to run within the [TestEnvironment].
+   * @since 0.9.1
    */
   public fun <ENV : TestEnvironment> HasTestEnvironmentFactory<NoParamTestEnvironmentFactory<ENV>>.test(
     names: List<String> = emptyList(),
@@ -51,6 +54,7 @@ public interface KaseTests {
    * @param names The values of variables related to the test.
    * @param testLocation The class, test function name, and source code location for this test.
    * @param testAction The test action to run within the [TestEnvironment].
+   * @since 0.9.1
    */
   public fun <PARAM, ENV : TestEnvironment> HasTestEnvironmentFactory<ParamTestEnvironmentFactory<PARAM, ENV>>.test(
     param: PARAM,
@@ -74,6 +78,7 @@ public interface KaseTests {
    * @param names The values of variables related to the test.
    * @param testLocation The class, test function name, and source code location for this test.
    * @param testAction The test action to run within the [TestEnvironment].
+   * @since 0.9.1
    */
   public fun <ENV : TestEnvironment> test(
     testEnvironmentFactory: NoParamTestEnvironmentFactory<ENV>,
@@ -98,6 +103,7 @@ public interface KaseTests {
    * @param names The values of variables related to the test.
    * @param testLocation The class, test function name, and source code location for this test.
    * @param testAction The test action to run within the [TestEnvironment].
+   * @since 0.9.1
    */
   public fun <PARAM, ENV : TestEnvironment> test(
     param: PARAM,
