@@ -127,7 +127,7 @@ internal class EnvironmentTestsDefaultsTest : EnvironmentTests<Dog, DogTestEnvir
 
     var environment: CatTestEnvironment? = null
 
-    test(cats.first(), factory = CatTestEnvironment.Factory()) {
+    test(cats.first(), testEnvironmentFactory = CatTestEnvironment.Factory()) {
       environment = this
     }
 
@@ -219,7 +219,7 @@ internal class EnvironmentTestsDefaultsTest : EnvironmentTests<Dog, DogTestEnvir
     }
       .allNodes()
       .filterIsInstance<DynamicTest>()
-      // The tests haven't executed yet, so we have to do it manually.
+      // We have to execute the tests manually since they're not normal test functions.
       .onEach { it.executable.execute() }
       .toList()
 

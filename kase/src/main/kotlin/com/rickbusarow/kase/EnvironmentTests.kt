@@ -18,7 +18,6 @@ package com.rickbusarow.kase
 import com.rickbusarow.kase.files.TestLocation
 import org.junit.jupiter.api.DynamicContainer
 import org.junit.jupiter.api.DynamicNode
-import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
 import kotlin.streams.asStream
 
@@ -42,26 +41,6 @@ public interface EnvironmentTests<PARAM, ENV, FACT> :
     testName = testName,
     testAction = testAction
   )
-
-  override fun <E, T : TestEnvironment> Sequence<E>.asTests(
-    testEnvironmentFactory: TestEnvironmentFactory<E, T>,
-    testName: (E) -> String,
-    testAction: suspend T.(E) -> Unit
-  ): Stream<out DynamicNode> {
-    val location = TestLocation.get()
-    return map { param ->
-
-      val name = testName(param)
-      DynamicTest.dynamicTest(name, location.testUriOrNull) {
-        test(
-          param = param,
-          factory = testEnvironmentFactory,
-          parentNames = listOf(name),
-          testLocation = location
-        ) { testAction(param) }
-      }
-    }.asStream()
-  }
 
   override fun <E> Sequence<E>.asContainers(
     displayName: (E) -> String,

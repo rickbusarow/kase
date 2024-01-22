@@ -16,7 +16,6 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestLocation
-import kotlinx.coroutines.runBlocking
 import java.io.Serializable
 
 /**
@@ -24,32 +23,10 @@ import java.io.Serializable
  *
  * @since 0.7.0
  */
-public interface HasTestEnvironmentFactory<out FACT : TestEnvironmentFactory<*, *>> {
+public interface HasTestEnvironmentFactory<out FACT : TestEnvironmentFactory<*, *>> : KaseTests {
 
   /** @since 0.7.0 */
   public val testEnvironmentFactory: FACT
-}
-
-/**
- * Convenience for invoking a test action with a `TestEnvironment` when no [Kase] is needed.
- *
- * @since 0.1.0
- */
-public fun <FACT : NoParamTestEnvironmentFactory<ENV>, ENV : TestEnvironment> HasTestEnvironmentFactory<FACT>.test(
-  testLocation: TestLocation = TestLocation.get(),
-  testAction: suspend TestEnvironment.() -> Unit
-) {
-  val testEnvironment = testEnvironmentFactory.create(
-    names = emptyList(),
-    location = testLocation
-  )
-
-  runBlocking {
-    testEnvironment.asClueCatching {
-      testEnvironment.testAction()
-      println(testEnvironment)
-    }
-  }
 }
 
 /**

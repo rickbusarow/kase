@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [ "config:base" ],
+  "extends": ["config:base"],
   "rebaseWhen": "conflicted",
   "rebaseLabel": "rebase",
   "packageRules": [
@@ -22,12 +22,12 @@
       ]
     },
     {
-      "groupName": "Kase published version",
-      "matchPackagePrefixes": [ "com.rickbusarow.kase:" ],
-      "autoApprove": true,
-      "automerge": true,
       "automergeStrategy": "rebase",
-      "automergeType": "pr"
+      "groupName": "Kase published version",
+      "matchPackagePrefixes": ["com.rickbusarow.kase:"],
+      "automerge": true,
+      "automergeType": "pr",
+      "autoApprove": true
     }
   ],
   "labels": [

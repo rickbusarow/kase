@@ -20,7 +20,6 @@ import com.rickbusarow.kase.HasTestEnvironmentFactory
 import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.asTests
 import com.rickbusarow.kase.kase
-import com.rickbusarow.kase.test
 import io.kotest.matchers.types.shouldBeInstanceOf
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
