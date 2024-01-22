@@ -16,7 +16,6 @@
 package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.TestLocation
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DynamicNode
 import org.junit.jupiter.api.DynamicTest
 import java.util.stream.Stream
@@ -28,68 +27,7 @@ import kotlin.streams.asStream
  *
  * @since 0.7.0
  */
-public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
-
-  /**
-   * Runs the provided test [testAction] in the context of a new [TestEnvironment].
-   *
-   * @param param The variant names related to the test.
-   * @param parentNames The names of the parent test containers.
-   * @param testLocation The [TestLocation] from which the test is being run.
-   * @param testAction The test action to run within the [TestEnvironment].
-   * @since 0.7.0
-   */
-  public fun HasTestEnvironmentFactory<ParamTestEnvironmentFactory<PARAM, ENV>>.test(
-    param: PARAM,
-    parentNames: List<String> = emptyList(),
-    testLocation: TestLocation = TestLocation.get(),
-    testAction: suspend ENV.() -> Unit
-  ) {
-    test(
-      param = param,
-      factory = testEnvironmentFactory,
-      parentNames = parentNames,
-      testLocation = testLocation,
-      testAction = testAction
-    )
-  }
-
-  /**
-   * Runs the provided test [testAction] in the context of a new [TestEnvironment].
-   *
-   * @param param The variant names related to the test.
-   * @param factory A factory which creates a new [TestEnvironment] for this test.
-   * @param parentNames The names of the parent test containers.
-   * @param testLocation The [TestLocation] from which the test is being run.
-   * @param testAction The test action to run within the [TestEnvironment].
-   * @since 0.7.0
-   */
-  public fun <E, T : TestEnvironment> test(
-    param: E,
-    factory: TestEnvironmentFactory<E, T>,
-    parentNames: List<String> = emptyList(),
-    testLocation: TestLocation = TestLocation.get(),
-    testAction: suspend T.() -> Unit
-  ) {
-    val testEnvironment = when (factory) {
-      is NoParamTestEnvironmentFactory -> factory.create(
-        names = parentNames,
-        location = testLocation
-      )
-
-      is ParamTestEnvironmentFactory -> factory.create(
-        params = param,
-        names = parentNames,
-        location = testLocation
-      )
-    }
-
-    runBlocking {
-      testEnvironment.asClueCatching {
-        testAction()
-      }
-    }
-  }
+public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> : KaseTests {
 
   /**
    * Creates a stream of tests from [HasParams.params]
@@ -253,8 +191,8 @@ public sealed interface DynamicTestTransforms<PARAM, ENV : TestEnvironment> {
       DynamicTest.dynamicTest(name, location.testUriOrNull) {
         test(
           param = element,
-          factory = testEnvironmentFactory,
-          parentNames = listOf(name),
+          testEnvironmentFactory = testEnvironmentFactory,
+          names = listOf(name),
           testLocation = location
         ) { testAction(element) }
       }

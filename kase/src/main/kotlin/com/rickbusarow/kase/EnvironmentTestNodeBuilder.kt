@@ -56,8 +56,8 @@ public class EnvironmentTestNodeBuilder<PARAM, ENV, FACT>(
     DynamicTest.dynamicTest(name, testLocation.testUriOrNull) {
       test(
         param = param,
-        factory = testEnvironmentFactory,
-        parentNames = namesFromRoot + name,
+        testEnvironmentFactory = testEnvironmentFactory,
+        names = namesFromRoot + name,
         testLocation = testLocation
       ) { testAction(param) }
     }
@@ -68,17 +68,14 @@ public class EnvironmentTestNodeBuilder<PARAM, ENV, FACT>(
     testName: (E) -> String,
     testAction: suspend T.(E) -> Unit
   ): Stream<out DynamicNode> {
-    val location = TestLocation.get()
     return map { param ->
-
       val name = testName(param)
-
-      DynamicTest.dynamicTest(name, location.testUriOrNull) {
+      DynamicTest.dynamicTest(name, testLocation.testUriOrNull) {
         test(
           param = param,
-          factory = testEnvironmentFactory,
-          parentNames = namesFromRoot + name,
-          testLocation = location
+          testEnvironmentFactory = testEnvironmentFactory,
+          names = namesFromRoot + name,
+          testLocation = testLocation
         ) { testAction(param) }
       }
     }.asStream()
