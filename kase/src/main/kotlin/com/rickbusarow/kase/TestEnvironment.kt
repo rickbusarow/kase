@@ -17,6 +17,7 @@ package com.rickbusarow.kase
 
 import com.rickbusarow.kase.files.HasWorkingDir
 import com.rickbusarow.kase.files.TestLocation
+import java.io.Closeable
 
 /**
  * Represents a hermetic testing environment that may
@@ -24,14 +25,23 @@ import com.rickbusarow.kase.files.TestLocation
  *
  * @since 0.1.0
  */
-public interface TestEnvironment : HasWorkingDir {
+public interface TestEnvironment : HasWorkingDir, Closeable {
 
   /**
    * Performs any necessary cleanup after the test has run.
    *
    * @since 0.1.0
    */
-  public fun tearDown() {}
+  @Deprecated(
+    "renamed to `close` with the addition of the `Closable` implementation",
+    ReplaceWith("close()")
+  )
+  public fun tearDown(): Unit = close()
+
+  /**
+   * Performs any necessary cleanup after the test has run.
+   */
+  override fun close(): Unit = Unit
 
   public companion object {
     /**
