@@ -47,8 +47,8 @@ public fun interface ParamTestEnvironmentFactory<in PARAM, out ENV : TestEnviron
 
 /**
  * Transforms a [ParamTestEnvironmentFactory] into a [NoParamTestEnvironmentFactory],
- * in cases where the parameter is already provided. This is most useful
- * when the parameters for the environment are used to create dynamic containers.
+ * in cases where the parameter is already provided. This is most useful when
+ * the parameters for the environment are used to create dynamic containers.
  */
 public fun <PARAM, ENV : TestEnvironment> ParamTestEnvironmentFactory<PARAM, ENV>.wrap(
   params: PARAM
