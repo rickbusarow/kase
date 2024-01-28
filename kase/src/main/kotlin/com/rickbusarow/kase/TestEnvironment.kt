@@ -38,9 +38,7 @@ public interface TestEnvironment : HasWorkingDir, Closeable {
   )
   public fun tearDown(): Unit = close()
 
-  /**
-   * Performs any necessary cleanup after the test has run.
-   */
+  /** Performs any necessary cleanup after the test has run. */
   override fun close(): Unit = Unit
 
   public companion object {

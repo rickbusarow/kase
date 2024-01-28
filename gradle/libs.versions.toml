@@ -41,7 +41,7 @@ vanniktech-publish = "0.27.0"
 
 [plugins]
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
-buildParameters = {id = "org.gradlex.build-parameters", version.ref = "buildParameters" }
+buildParameters = { id = "org.gradlex.build-parameters", version.ref = "buildParameters" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 dokkatoo = { id = "dev.adamko.dokkatoo", version.ref = "dokkatoo" }
 dokkatoo-html = { id = "dev.adamko.dokkatoo-html", version.ref = "dokkatoo" }
