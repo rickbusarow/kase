@@ -15,7 +15,33 @@
 
 package com.rickbusarow.kase.files
 
+import com.rickbusarow.kase.files.internal.DefaultLanguageInjection
+import com.rickbusarow.kase.stdlib.createSafely
 import org.intellij.lang.annotations.Language
+import java.io.File
+
+/**
+ * Injected into a [LanguageInjection] instance to provide file creation and updating.
+ *
+ * [T] is the type of file (`java.io.File`, `java.nio.file.Path`, etc.) to create.
+ */
+public interface FileInjection<T> {
+
+  /** Creates a new instance of [T] with the given [name] and [content]. */
+  public fun createInstance(name: String, content: String): T
+
+  /** Writes [content] to the file [t]. */
+  public fun update(t: T, content: String): T
+}
+
+/** Writes to `java.io.File` instances for [LanguageInjection]. */
+public class JavaFileFileInjection : FileInjection<File> {
+  override fun createInstance(name: String, content: String): File {
+    return File(name).createSafely(content)
+  }
+
+  override fun update(t: File, content: String): File = t.apply { writeText(content) }
+}
 
 /**
  * Provides functions for writing files with language injection.
@@ -90,4 +116,11 @@ public interface LanguageInjection<T> {
    * @since 0.1.0
    */
   public operator fun T.invoke(contentBuilder: () -> String): T
+
+  public companion object {
+    /** Creates a new [LanguageInjection] with the given [fileInjection]. */
+    public operator fun invoke(fileInjection: FileInjection<File>): LanguageInjection<File> {
+      return DefaultLanguageInjection(fileInjection)
+    }
+  }
 }

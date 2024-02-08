@@ -16,13 +16,14 @@
 package com.rickbusarow.kase.files.internal
 
 import com.rickbusarow.kase.files.DirectoryBuilder
+import com.rickbusarow.kase.files.FileInjection
 import com.rickbusarow.kase.stdlib.createSafely
 import com.rickbusarow.kase.stdlib.div
 import java.io.File
 import java.nio.file.Path
 import kotlin.io.path.Path
 
-private class JavaFileFileInjection : FileInjection<File> {
+private class DelegatingJavaFileFileInjection : FileInjection<File> {
 
   lateinit var factory: (String, String) -> File
 
@@ -43,14 +44,14 @@ private class JavaFileFileInjection : FileInjection<File> {
 internal class DefaultDirectoryBuilder private constructor(
   override val path: File,
   override val parent: DirectoryBuilder?,
-  private val fileInjection: JavaFileFileInjection
+  private val fileInjection: DelegatingJavaFileFileInjection
 ) : DirectoryBuilder,
   LanguageInjectionInternal<File> by DefaultLanguageInjection(fileInjection) {
 
   constructor(path: File, parent: DirectoryBuilder?) : this(
     path = path,
     parent = parent,
-    fileInjection = JavaFileFileInjection()
+    fileInjection = DelegatingJavaFileFileInjection()
   ) {
     fileInjection.init { name, content -> file(name, content) }
   }
