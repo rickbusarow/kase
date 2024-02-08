@@ -15,6 +15,8 @@
 
 package com.rickbusarow.kase.stdlib
 
+import kotlin.experimental.ExperimentalTypeInference
+
 /**
  * Applies the given block to each kaseParam in the iterable and returns the receiver object.
  *
@@ -102,11 +104,11 @@ public inline fun <T> T.applyEach(vararg blocks: T.() -> Unit): T = apply {
  *   is true, or the original receiver object otherwise.
  * @since 0.1.0
  */
-public inline fun <T> T.applyIf(predicate: Boolean, body: T.() -> T): T = apply {
-  if (predicate) {
-    body()
-  }
-}
+@OptIn(ExperimentalTypeInference::class)
+public inline fun <T : R, R> T.applyIf(
+  predicate: Boolean,
+  @BuilderInference body: T.() -> R
+): R = apply { if (predicate) body() }
 
 /**
  * Conditionally applies the provided transform function to the receiver
@@ -119,7 +121,8 @@ public inline fun <T> T.applyIf(predicate: Boolean, body: T.() -> T): T = apply 
  *   predicate is true, or the receiver object itself otherwise.
  * @since 0.1.0
  */
-public inline fun <T> T.letIf(predicate: Boolean, transform: (T) -> T): T {
+@OptIn(ExperimentalTypeInference::class)
+public inline fun <T : R, R> T.letIf(predicate: Boolean, @BuilderInference transform: (T) -> R): R {
   return if (predicate) transform(this) else this
 }
 
