@@ -50,14 +50,14 @@ jobs:
 
       - name: dependency-guard check (used by everyone but Renovate)
         if: github.actor != 'renovate[bot]'
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: dependencyGuard --refresh-dependencies
           cache-read-only: false
 
       - name: dependency-guard baseline (used by Renovate)
         if: github.actor == 'renovate[bot]'
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: dependencyGuardBaseline --refresh-dependencies
           cache-read-only: false
@@ -71,14 +71,14 @@ jobs:
           commit_options: "--no-verify --signoff"
 
       - name: artifacts check
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: artifactsCheck
           cache-read-only: false
 
       - name: KtLint format (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: ktlintFormat
           cache-read-only: false
@@ -93,14 +93,14 @@ jobs:
 
       - name: KtLint check (used by forks)
         if: github.event.pull_request.head.repo.full_name != github.repository
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: ktlintCheck
           cache-read-only: false
 
       - name: Doks update (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: doks
           cache-read-only: false
@@ -115,14 +115,14 @@ jobs:
 
       - name: Doks check (used by forks)
         if: github.event.pull_request.head.repo.full_name != github.repository
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: doksCheck
           cache-read-only: false
 
       - name: ModuleCheck with auto-correct (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: moduleCheckAuto
           cache-read-only: false
@@ -137,19 +137,19 @@ jobs:
 
       - name: ModuleCheck check (used by forks)
         if: github.event.pull_request.head.repo.full_name != github.repository
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: moduleCheck
           cache-read-only: false
 
       - name: detekt
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: detektAll
           cache-read-only: false
 
       - name: merge detekt SARIF reports
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         if: failure()
         with:
           arguments: detektReportMerge
@@ -175,7 +175,7 @@ jobs:
           java-version: "11"
 
       - name: all tests
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: test "${{ env.ubuntuGradleArgs }}"
           cache-read-only: false
@@ -209,7 +209,7 @@ jobs:
           java-version: "11"
 
       - name: all integration tests
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: test "${{ env.ubuntuGradleArgs }}"
           cache-read-only: false
@@ -243,7 +243,7 @@ jobs:
           java-version: "11"
 
       - name: all tests
-        uses: gradle/gradle-build-action@3b1b3b9a2104c2b47fbae53f3938079c00c9bb87 # v3
+        uses: gradle/actions/setup-gradle@v3
         with:
           arguments: test "${{ env.windowsGradleArgs }}"
           cache-read-only: false
