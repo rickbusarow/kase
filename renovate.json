@@ -27,14 +27,14 @@
     {
       "automergeStrategy": "rebase",
       "groupName": "Kase published version",
-      "matchPackagePrefixes": [ "com.rickbusarow.kase:" ],
+      "matchPackagePrefixes": ["com.rickbusarow.kase:"],
       "automerge": true,
       "automergeType": "pr",
       "autoApprove": true,
-      "labels": [ "dependencies" ]
+      "labels": ["dependencies"]
     },
     {
-      "matchPackageNames": [ "com.rickbusarow.module-check" ],
+      "matchPackageNames": ["com.rickbusarow.module-check"],
       "automergeStrategy": "rebase",
       "matchRepositories": [
         "repo.maven.apache.org/maven2",
@@ -55,7 +55,7 @@
       "automerge": true,
       "automergeType": "pr",
       "autoApprove": true,
-      "labels": [ "dependencies" ]
+      "labels": ["dependencies"]
     }
   ],
   "labels": [
