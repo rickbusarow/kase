@@ -1,33 +1,61 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "rebaseWhen": "conflicted",
+  "extends": [
+    "config:best-practices",
+    "default:disableRateLimiting"
+  ],
+  "rebaseWhen": "auto",
   "rebaseLabel": "rebase",
   "packageRules": [
     {
       "groupName": "Kotlin and compiler plugins",
-      "matchPackagePatterns": [
-        "^org\\.jetbrains\\.kotlin:(?:[\\w-]+)$",
-        "^com\\.google\\.devtools\\.ksp:(?:[\\w-]+)$",
-        "^com\\.square\\.anvil:(?:[\\w-]+)$",
-        "^dev\\.drewhamilton\\.poko:(?:[\\w-]+)$"
+      "matchPackagePrefixes": [
+        "org.jetbrains.kotlin:",
+        "com.google.devtools.ksp:",
+        "com.square.anvil:",
+        "dev.zacsweers.kctfork:"
       ]
     },
     {
       "groupName": "KtLint libs",
-      "matchPackagePatterns": [
-        "^com\\.pinterest\\.ktlint:(?:[\\w-]+)$",
-        "^com\\.rickbusarow\\.ktlint:(?:[\\w-]+)$",
-        "^com\\.rickbusarow\\.ktrules:(?:[\\w-]+)$"
+      "matchPackagePrefixes": [
+        "com.pinterest.ktlint:",
+        "com.rickbusarow.ktlint:",
+        "com.rickbusarow.ktrules:"
       ]
     },
     {
       "automergeStrategy": "rebase",
       "groupName": "Kase published version",
-      "matchPackagePrefixes": ["com.rickbusarow.kase:"],
+      "matchPackagePrefixes": [ "com.rickbusarow.kase:" ],
       "automerge": true,
       "automergeType": "pr",
-      "autoApprove": true
+      "autoApprove": true,
+      "labels": [ "dependencies" ]
+    },
+    {
+      "matchPackageNames": [ "com.rickbusarow.module-check" ],
+      "automergeStrategy": "rebase",
+      "matchRepositories": [
+        "repo.maven.apache.org/maven2",
+        "plugins.gradle.org/m2"
+      ],
+      "matchPackagePrefixes": [
+        "com.rickbusarow.dispatch:",
+        "com.rickbusarow.doks:",
+        "com.rickbusarow.gradle-dependency-sync:",
+        "com.rickbusarow.hermit:",
+        "com.rickbusarow.kase:",
+        "com.rickbusarow.kgx:",
+        "com.rickbusarow.ktlint:",
+        "com.rickbusarow.ktrules:",
+        "com.rickbusarow.lattice:",
+        "com.rickbusarow.modulecheck:"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "autoApprove": true,
+      "labels": [ "dependencies" ]
     }
   ],
   "labels": [
