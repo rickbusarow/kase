@@ -2520,6 +2520,10 @@ public final class com/rickbusarow/kase/TestEnvironment$DefaultImpls {
 public abstract interface class com/rickbusarow/kase/TestEnvironmentFactory : java/io/Serializable {
 }
 
+public final class com/rickbusarow/kase/TestEnvironmentFactoryKt {
+	public static final fun wrap (Lcom/rickbusarow/kase/ParamTestEnvironmentFactory;Ljava/lang/Object;)Lcom/rickbusarow/kase/NoParamTestEnvironmentFactory;
+}
+
 public abstract interface class com/rickbusarow/kase/TestNodeBuilder : com/rickbusarow/kase/HasDisplayName, com/rickbusarow/kase/HasDisplayNames {
 	public abstract fun getDisplayNames ()Ljava/util/List;
 	public abstract fun getParent ()Lcom/rickbusarow/kase/TestNodeBuilder;
@@ -2602,6 +2606,11 @@ public final class com/rickbusarow/kase/files/DirectoryBuilderKt {
 	public static synthetic fun directoryBuilder$default (Ljava/nio/file/Path;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/files/DirectoryBuilder;
 }
 
+public abstract interface class com/rickbusarow/kase/files/FileInjection {
+	public abstract fun createInstance (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
+	public abstract fun update (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
+}
+
 public abstract interface class com/rickbusarow/kase/files/HasWorkingDir {
 	public static final field Companion Lcom/rickbusarow/kase/files/HasWorkingDir$Companion;
 	public abstract fun cleanOutput (Ljava/lang/String;)Ljava/lang/String;
@@ -2627,7 +2636,16 @@ public final class com/rickbusarow/kase/files/HasWorkingDirKt {
 	public static final fun useRelativePaths (Lcom/rickbusarow/kase/files/HasWorkingDir;Ljava/lang/String;)Ljava/lang/String;
 }
 
+public final class com/rickbusarow/kase/files/JavaFileFileInjection : com/rickbusarow/kase/files/FileInjection {
+	public fun <init> ()V
+	public fun createInstance (Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;
+	public synthetic fun createInstance (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
+	public fun update (Ljava/io/File;Ljava/lang/String;)Ljava/io/File;
+	public synthetic fun update (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
+}
+
 public abstract interface class com/rickbusarow/kase/files/LanguageInjection {
+	public static final field Companion Lcom/rickbusarow/kase/files/LanguageInjection$Companion;
 	public abstract fun groovy (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
 	public abstract fun groovyFile (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
 	public abstract fun invoke (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
@@ -2635,6 +2653,10 @@ public abstract interface class com/rickbusarow/kase/files/LanguageInjection {
 	public abstract fun javaFile (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
 	public abstract fun kotlin (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
 	public abstract fun kotlinFile (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Object;
+}
+
+public final class com/rickbusarow/kase/files/LanguageInjection$Companion {
+	public final fun invoke (Lcom/rickbusarow/kase/files/FileInjection;)Lcom/rickbusarow/kase/files/LanguageInjection;
 }
 
 public final class com/rickbusarow/kase/files/TestLocation {

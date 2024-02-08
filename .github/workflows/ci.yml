@@ -41,7 +41,7 @@ jobs:
           java-version: "11"
 
       # If the versions matrix was just updated, commit and push those changes.
-      - name: commit dependency-guard baseline changes (used by main repo)
+      - name: commit versions matrix changes (used by main repo)
         if: github.actor == 'renovate[bot]'
         uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5
         with:
@@ -96,6 +96,28 @@ jobs:
         uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3
         with:
           arguments: ktlintCheck
+          cache-read-only: false
+
+      - name: api dump (used by main repo)
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3
+        with:
+          arguments: apiDump
+          cache-read-only: false
+
+      # If apiDump generated changes, commit and push those changes.
+      - name: commit changes (used by main repo)
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: stefanzweifel/git-auto-commit-action@8756aa072ef5b4a080af5dc8fef36c5d586e521d # v5
+        with:
+          commit_message: update api baseline
+          commit_options: "--no-verify --signoff"
+
+      - name: api check (used by forks)
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3
+        with:
+          arguments: apiCheck
           cache-read-only: false
 
       - name: Doks update (used by main repo)
