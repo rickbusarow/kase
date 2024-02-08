@@ -24,17 +24,31 @@ import java.io.File
  * Injected into a [LanguageInjection] instance to provide file creation and updating.
  *
  * [T] is the type of file (`java.io.File`, `java.nio.file.Path`, etc.) to create.
+ *
+ * @since 0.10.0
  */
 public interface FileInjection<T> {
 
-  /** Creates a new instance of [T] with the given [name] and [content]. */
+  /**
+   * Creates a new instance of [T] with the given [name] and [content].
+   *
+   * @since 0.10.0
+   */
   public fun createInstance(name: String, content: String): T
 
-  /** Writes [content] to the file [t]. */
+  /**
+   * Writes [content] to the file [t].
+   *
+   * @since 0.10.0
+   */
   public fun update(t: T, content: String): T
 }
 
-/** Writes to `java.io.File` instances for [LanguageInjection]. */
+/**
+ * Writes to `java.io.File` instances for [LanguageInjection].
+ *
+ * @since 0.10.0
+ */
 public class JavaFileFileInjection : FileInjection<File> {
   override fun createInstance(name: String, content: String): File {
     return File(name).createSafely(content)
@@ -118,7 +132,11 @@ public interface LanguageInjection<T> {
   public operator fun T.invoke(contentBuilder: () -> String): T
 
   public companion object {
-    /** Creates a new [LanguageInjection] with the given [fileInjection]. */
+    /**
+     * Creates a new [LanguageInjection] with the given [fileInjection].
+     *
+     * @since 0.10.0
+     */
     public operator fun invoke(fileInjection: FileInjection<File>): LanguageInjection<File> {
       return DefaultLanguageInjection(fileInjection)
     }
