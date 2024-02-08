@@ -1,17 +1,48 @@
 # Changelog
 
-## 0.10.0-SNAPSHOT (unreleased)
+## 0.10.1-SNAPSHOT (unreleased)
+
+## [0.10.0] — 2024-02-07
+
+
+### Added
+* add `ParamTestEnvironmentFactory.wrap(...)` by @RBusarow in https://github.com/rickbusarow/kase/pull/120
+* allow `applyIf` and `letIf` lambdas to return supertypes of the receiver by @RBusarow in https://github.com/rickbusarow/kase/pull/128
+* add a public, simple way to make a `LanguageInjection` instance by @RBusarow in https://github.com/rickbusarow/kase/pull/129
+
+### 🧰 Maintenance
+* Update Kase published version to v0.9.1 in https://github.com/rickbusarow/kase/pull/115
+* Update dependency com.github.ben-manes:gradle-versions-plugin to v0.51.0 in https://github.com/rickbusarow/kase/pull/116
+* Update dependency com.diffplug.spotless:spotless-plugin-gradle to v6.25.0 in https://github.com/rickbusarow/kase/pull/117
+* Update styfle/cancel-workflow-action action to v0.12.1 in https://github.com/rickbusarow/kase/pull/118
+* Update plugin com.gradle.enterprise to v3.16.2 in https://github.com/rickbusarow/kase/pull/119
+* Update rickBusarow.kgx to v0.1.11 in https://github.com/rickbusarow/kase/pull/121
+* Update dependency org.jetbrains.kotlinx:binary-compatibility-validator to v0.14.0 in https://github.com/rickbusarow/kase/pull/122
+* Update square.moshi to v1.15.1 in https://github.com/rickbusarow/kase/pull/123
+* Update detekt to v1.23.5 in https://github.com/rickbusarow/kase/pull/124
+* Update dependency gradle to v8.6 in https://github.com/rickbusarow/kase/pull/125
+* Update junit5 monorepo in https://github.com/rickbusarow/kase/pull/126
+* Update dependency com.dropbox.dependency-guard:dependency-guard to v0.5.0 in https://github.com/rickbusarow/kase/pull/127
+* renovate config updates in https://github.com/rickbusarow/kase/pull/130
+* Pin gradle/gradle-build-action action to a8f7551 in https://github.com/rickbusarow/kase/pull/131
+* Pin dependencies in https://github.com/rickbusarow/kase/pull/132
+* Update gradle/gradle-build-action action to v3 in https://github.com/rickbusarow/kase/pull/133
+* Pin gradle/actions action to ec92e82 in https://github.com/rickbusarow/kase/pull/134
+
+
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.9.1...0.10.0
 
 ## [0.9.1] — 2024-01-22
 
-### added
+### Added
 
 - introduce `KaseTests` and move all top-level single-shot `test { }` functions there
   in https://github.com/rickbusarow/kase/pull/114
 
 ### 🧰 Maintenance
 
-- Update rickBusarow.kase to v0.9.0 by @renovate in https://github.com/rickbusarow/kase/pull/111
+- Update rickBusarow.kase to v0.9.0 in https://github.com/rickbusarow/kase/pull/111
 - autoApprove and autoMerge Renovate's updates to the published version of Kase
   in https://github.com/rickbusarow/kase/pull/112
 - Update Kase published version to v0.9.0 by @renovate
@@ -30,7 +61,7 @@
 
 ### 🧰 Maintenance
 
-- Update rickBusarow.kase to v0.8.0 by @renovate in https://github.com/rickbusarow/kase/pull/106
+- Update rickBusarow.kase to v0.8.0 in https://github.com/rickbusarow/kase/pull/106
 
 ### Other Changes
 
@@ -50,7 +81,7 @@
 
 - Update dependency com.squareup:kotlinpoet to v1.16.0 by @renovate
   in https://github.com/rickbusarow/kase/pull/102
-- Update dependencyAnalysis to v1.29.0 by @renovate in https://github.com/rickbusarow/kase/pull/101
+- Update dependencyAnalysis to v1.29.0 in https://github.com/rickbusarow/kase/pull/101
 - Update dependency com.google.devtools.ksp:symbol-processing-gradle-plugin to v1.9.22-1.0.17 by
   @renovate in https://github.com/rickbusarow/kase/pull/104
 
@@ -152,3 +183,4 @@ Hello World
 [0.8.0]: https://github.com/rickbusarow/kase/releases/tag/0.8.0
 [0.9.0]: https://github.com/rickbusarow/kase/releases/tag/0.9.0
 [0.9.1]: https://github.com/rickbusarow/kase/releases/tag/0.9.1
+[0.10.0]: https://github.com/rickbusarow/kase/releases/tag/0.10.0

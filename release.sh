@@ -77,7 +77,7 @@ function parseVersion() {
 function syncDocs() {
 
   # Add `@since ____` tags to any new KDoc
-  progress "Add \@since ____\ tags to any new KDoc"
+  progress "Add @since ____ tags to any new KDoc"
   ./gradlew ktlintFormat
   maybeCommit "add @since tags to new KDoc for $VERSION_NAME"
 
