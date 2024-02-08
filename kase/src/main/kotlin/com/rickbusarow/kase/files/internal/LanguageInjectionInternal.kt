@@ -15,16 +15,12 @@
 
 package com.rickbusarow.kase.files.internal
 
+import com.rickbusarow.kase.files.FileInjection
 import com.rickbusarow.kase.files.LanguageInjection
-
-internal interface FileInjection<T> {
-  fun createInstance(name: String, content: String): T
-  fun update(t: T, content: String): T
-}
 
 internal interface LanguageInjectionInternal<T> : LanguageInjection<T>, FileInjection<T>
 
-internal class DefaultLanguageInjection<T>(
+internal class DefaultLanguageInjection<T> constructor(
   private val fileInjection: FileInjection<T>
 ) : LanguageInjection<T>, LanguageInjectionInternal<T> {
   override fun javaFile(path: String, content: String): T = createInstance(path, content)
