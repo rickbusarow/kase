@@ -20,7 +20,7 @@ import com.rickbusarow.kase.files.LanguageInjection
 
 internal interface LanguageInjectionInternal<T> : LanguageInjection<T>, FileInjection<T>
 
-internal class DefaultLanguageInjection<T> constructor(
+internal class DefaultLanguageInjection<T>(
   private val fileInjection: FileInjection<T>
 ) : LanguageInjection<T>, LanguageInjectionInternal<T> {
   override fun javaFile(path: String, content: String): T = createInstance(path, content)
