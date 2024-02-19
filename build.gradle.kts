@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import builds.GROUP
 import com.rickbusarow.doks.DoksTask
 import com.rickbusarow.kgx.mustRunAfter
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
@@ -22,25 +21,23 @@ buildscript {
 
   dependencies {
     classpath(libs.kotlin.gradle.plugin)
+    classpath(libs.rickBusarow.mahout.gradle.plugin)
   }
 }
 
 plugins {
-  id("root")
   alias(libs.plugins.doks)
 }
+
+apply(plugin = "com.rickbusarow.mahout.root")
 
 doks {
   dokSet {
     docs("README.md", "CHANGELOG.md")
 
     rule("maven-with-version") {
-      regex = maven(GROUP)
+      regex = maven(mahoutProperties.group.get())
       replacement = "$1:$2:${libs.versions.rickBusarow.kase.get().escapeReplacement()}"
-    }
-    rule("kgx-group") {
-      regex = "com\\.rickbusarow\\.kase"
-      replacement = GROUP
     }
   }
 }

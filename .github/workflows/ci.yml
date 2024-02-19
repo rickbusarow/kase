@@ -70,10 +70,10 @@ jobs:
           commit_message: update dependency-guard baseline
           commit_options: "--no-verify --signoff"
 
-      - name: artifacts check
+      - name: curator check
         uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
-          arguments: artifactsCheck
+          arguments: curatorCheck
           cache-read-only: false
 
       - name: KtLint format (used by main repo)

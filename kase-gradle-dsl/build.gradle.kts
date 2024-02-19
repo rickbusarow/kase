@@ -14,14 +14,18 @@
  */
 
 plugins {
-  id("jvm-module")
+  id("com.rickbusarow.mahout.kotlin-jvm-module")
 }
 
-jvmModule {
-  published(
-    artifactId = "kase-gradle-dsl",
-    pomDescription = "A DSL for generating Gradle DSL files."
-  )
+mahout {
+
+  publishing {
+    publishMaven(
+      artifactId = "kase-gradle-dsl",
+      pomDescription = "A DSL for generating Gradle DSL files."
+    )
+  }
+
   poko()
 }
 

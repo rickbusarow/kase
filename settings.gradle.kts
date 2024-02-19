@@ -14,20 +14,18 @@
  */
 
 pluginManagement {
-  val allowMavenLocal = providers
-    .gradleProperty("kase.allow-maven-local")
-    .orNull.toBoolean()
 
   repositories {
-    if (allowMavenLocal) {
-      logger.lifecycle("${rootProject.name} -- allowing mavenLocal for plugins")
-      mavenLocal()
+    maven {
+      url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+      content {
+        includeGroup("com.rickbusarow.mahout")
+      }
     }
     gradlePluginPortal()
     mavenCentral()
     google()
   }
-  includeBuild("build-logic")
 }
 
 plugins {
@@ -61,17 +59,9 @@ gradleEnterprise {
   }
 }
 
-val allowMavenLocal = providers
-  .gradleProperty("kase.allow-maven-local")
-  .orNull.toBoolean()
-
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
   repositories {
-    if (allowMavenLocal) {
-      logger.lifecycle("${rootProject.name} -- allowing mavenLocal for dependencies")
-      mavenLocal()
-    }
     mavenCentral()
   }
 }

@@ -25,7 +25,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestFactory
 import java.io.File
 
-class DirectoryBuilderTest : HasTestEnvironmentFactory<DefaultTestEnvironment.Factory> {
+class DirectoryBuilderTest :
+  HasTestEnvironmentFactory<DefaultTestEnvironment.Factory>,
+  MoreAsserts {
 
   override val testEnvironmentFactory = DefaultTestEnvironment.Factory()
 

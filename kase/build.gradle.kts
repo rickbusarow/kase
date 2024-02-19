@@ -14,14 +14,16 @@
  */
 
 plugins {
-  id("jvm-module")
+  id("com.rickbusarow.mahout.kotlin-jvm-module")
 }
 
-jvmModule {
-  published(
-    artifactId = "kase",
-    pomDescription = "Hermetic test environments and test factories"
-  )
+mahout {
+  publishing {
+    publishMaven(
+      artifactId = "kase",
+      pomDescription = "Hermetic test environments and test factories"
+    )
+  }
   poko()
 }
 

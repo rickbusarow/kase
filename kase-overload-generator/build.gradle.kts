@@ -14,7 +14,7 @@
  */
 
 plugins {
-  id("jvm-module")
+  id("com.rickbusarow.mahout.kotlin-jvm-module")
   application
 }
 
@@ -22,6 +22,8 @@ application {
   mainClass = "com.rickbusarow.kase.generator.GenKt"
 }
 
-jvmModule {
-  explicitApi.set(false)
+mahout {
+  kotlin {
+    explicitApi = false
+  }
 }

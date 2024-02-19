@@ -15,11 +15,24 @@
 
 package com.rickbusarow.kase.files
 
+import com.rickbusarow.kase.stdlib.remove
+import com.rickbusarow.kase.stdlib.toStringPretty
 import io.kotest.matchers.file.shouldExist
 import io.kotest.matchers.shouldBe
 import java.io.File
 
-infix fun File.shouldHaveText(expected: String) {
-  shouldExist()
-  readText() shouldBe expected
+interface MoreAsserts {
+
+  infix fun File.shouldHaveText(expected: String) {
+    shouldExist()
+    readText() shouldBe expected
+  }
+
+  infix fun TestLocation?.shouldBe(other: TestLocation) {
+    val reg = " {2}lineNumber=\\d+,\\n".toRegex()
+
+    toStringPretty().remove(reg) shouldBe other.toStringPretty().remove(reg)
+  }
 }
+
+fun Class<*>.packageName(): String = `package`.name

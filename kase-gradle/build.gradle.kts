@@ -14,14 +14,16 @@
  */
 
 plugins {
-  id("jvm-module")
+  id("com.rickbusarow.mahout.kotlin-jvm-module")
 }
 
-jvmModule {
-  published(
-    artifactId = "kase-gradle",
-    pomDescription = "Test environments that create Gradle projects for testing Gradle plugins."
-  )
+mahout {
+  publishing {
+    publishMaven(
+      artifactId = "kase-gradle",
+      pomDescription = "Test environments that create Gradle projects for testing Gradle plugins."
+    )
+  }
   poko()
 }
 

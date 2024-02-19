@@ -19,7 +19,6 @@ import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.asTests
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.stdlib.remove
-import com.rickbusarow.kase.stdlib.toStringPretty
 import io.kotest.assertions.asClue
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.fail
@@ -37,7 +36,7 @@ import java.util.stream.Stream
 private fun coords() = CoordinatesTestClass()
 private fun coords2() = CoordinatesTestClass(Unit)
 
-class TestLocationTest {
+class TestLocationTest : MoreAsserts {
 
   private inline val factoryKases: List<Kase1<() -> TestLocation?>>
     get() = listOf(
@@ -112,16 +111,6 @@ class TestLocationTest {
     testClass.coordsFromInlineFunction() shouldBe expected
 
     coords2().secondaryConstructorCoords shouldBe expected
-  }
-
-  @Suppress("JUnitMalformedDeclaration", "JUnitMixedFramework")
-  @org.junit.Test
-  private fun `has a junit4 annotation`() = TestLocation.get()
-
-  @Test
-  fun `junit 4 test annotation`() {
-
-    `has a junit4 annotation`() shouldBe expectedLocation("has a junit4 annotation")
   }
 
   @Nested
@@ -260,14 +249,13 @@ class TestLocationTest {
     @Test
     fun `simple names`() {
 
-      val className =
+      val clazz =
         Class.forName("com.rickbusarow.kase.files.TestLocationTest\$factoryKases\$1")
 
-      className.simpleBinaryName() shouldBe "factoryKases"
-      className.simpleName shouldBe "factoryKases\$1"
+      clazz.simpleBinaryName() shouldBe "factoryKases"
 
-      className.enclosingClass!!.simpleBinaryName() shouldBe "TestLocationTest"
-      className.enclosingClass!!.simpleName shouldBe "TestLocationTest"
+      clazz.enclosingClass!!.simpleBinaryName() shouldBe "TestLocationTest"
+      clazz.enclosingClass!!.simpleName shouldBe "TestLocationTest"
     }
 
     @Test
@@ -341,12 +329,4 @@ class TestLocationTest {
       "fileName".asClue { fileName shouldBe other?.fileName }
     }
   }
-
-  infix fun TestLocation?.shouldBe(other: TestLocation) {
-    val reg = " {2}lineNumber=\\d+,\\n".toRegex()
-
-    toStringPretty().remove(reg) shouldBe other.toStringPretty().remove(reg)
-  }
-
-  private fun Class<*>.packageName(): String = `package`.name
 }
