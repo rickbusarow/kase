@@ -100,7 +100,7 @@ jobs:
 
       - name: api dump (used by main repo)
         if: github.event.pull_request.head.repo.full_name == github.repository
-        uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
           arguments: apiDump
           cache-read-only: false
@@ -115,7 +115,7 @@ jobs:
 
       - name: api check (used by forks)
         if: github.event.pull_request.head.repo.full_name != github.repository
-        uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3
+        uses: gradle/actions/setup-gradle@417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3
         with:
           arguments: apiCheck
           cache-read-only: false
