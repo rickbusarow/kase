@@ -13,9 +13,8 @@
  * limitations under the License.
  */
 
-import com.rickbusarow.doks.DoksTask
-import com.rickbusarow.kgx.mustRunAfter
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.rickbusarow.kgx.kotlinJvmExtension
+import com.rickbusarow.kgx.withKotlinJvmPlugin
 
 buildscript {
 
@@ -42,7 +41,12 @@ doks {
   }
 }
 
-subprojects.map {
-  it.tasks.withType(KotlinCompile::class.java)
-    .mustRunAfter(tasks.withType(DoksTask::class.java))
+subprojects sp@{
+
+  if (path != ":kase-overload-generator") {
+    pluginManager.withKotlinJvmPlugin {
+
+      kotlinJvmExtension.explicitApi()
+    }
+  }
 }
