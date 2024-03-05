@@ -355,6 +355,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    * @param action the action to perform on the repository
+   * @since 0.11.0
    */
   public fun mavenLocal(
     url: String,
@@ -386,6 +387,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    * @param action the action to perform on the repository
+   * @since 0.11.0
    */
   public fun mavenLocal(
     url: DslElement,
@@ -417,6 +419,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    * @param action the action to perform on the repository
+   * @since 0.11.0
    */
   public fun mavenLocal(
     url: File,
@@ -448,6 +451,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
    *
    * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
    * @param action the action to perform on the repository
+   * @since 0.11.0
    */
   public fun mavenLocal(
     url: URI,

@@ -50,17 +50,25 @@ public interface GradleProjectBuilder : DirectoryBuilder, HasDslLanguage {
 
   /**
    * The simple name of this project, corresponding to [File.getName] or Gradle's `project.name`.
+   *
+   * @since 0.11.0
    */
   public val name: String
     get() = path.nameWithoutExtension
 
-  /** This project's relative path to the root project. */
+  /**
+   * This project's relative path to the root project.
+   *
+   * @since 0.11.0
+   */
   public val relativePath: File
 
   /**
    * This project's relative path to the root project, with segments separated by colons.
    *
    * Example: `:common:my-lib:api`
+   *
+   * @since 0.11.0
    */
   public val gradlePath: String
 
@@ -82,6 +90,7 @@ public interface GradleProjectBuilder : DirectoryBuilder, HasDslLanguage {
    * val lib: GradleProjectBuilder = rootProject.subprojectByName("lib")
    * ```
    *
+   * @since 0.11.0
    * @throws IllegalArgumentException if no subproject has the given name
    */
   public fun subprojectByName(name: String): GradleProjectBuilder =
@@ -95,6 +104,7 @@ public interface GradleProjectBuilder : DirectoryBuilder, HasDslLanguage {
    * val sub2 = rootProject.subprojectByGradlePath(":sub1:sub2")
    * ```
    *
+   * @since 0.11.0
    * @throws IllegalArgumentException if no subproject has the given Gradle Path
    */
   public fun subprojectByGradlePath(gradlePath: String): GradleProjectBuilder =
@@ -156,6 +166,8 @@ public interface GradleProjectBuilder : DirectoryBuilder, HasDslLanguage {
  * // Names with dashes can be accessed using backticks:
  * val `my-project`: GradleProjectBuilder by rootProject.subprojects
  * ```
+ *
+ * @since 0.11.0
  */
 public operator fun <E : GradleProjectBuilder> Collection<E>.getValue(
   thisRef: Any?,
@@ -166,6 +178,7 @@ public operator fun <E : GradleProjectBuilder> Collection<E>.getValue(
  * Shorthand for `singleOrNull { it.name == name }`
  *
  * @see GradleProjectBuilder.subprojectByName
+ * @since 0.11.0
  * @throws IllegalArgumentException if no subproject has the given name
  */
 public fun <E : GradleProjectBuilder> Collection<E>.subprojectByName(name: String): E {
@@ -178,6 +191,7 @@ public fun <E : GradleProjectBuilder> Collection<E>.subprojectByName(name: Strin
  * Shorthand for `singleOrNull { it.gradlePath == gradlePath }`
  *
  * @see GradleProjectBuilder.subprojectByGradlePath
+ * @since 0.11.0
  * @throws IllegalArgumentException if no subproject has the given Gradle Path
  */
 public fun <E : GradleProjectBuilder> Collection<E>.subprojectByGradlePath(gradlePath: String): E {
@@ -195,6 +209,7 @@ public fun <E : GradleProjectBuilder> Collection<E>.subprojectByGradlePath(gradl
  * ```
  *
  * @see GradleProjectBuilder.subprojectByGradlePath
+ * @since 0.11.0
  * @throws IllegalArgumentException if no subproject has the given Gradle Path
  */
 public operator fun <E : GradleProjectBuilder> Collection<E>.get(gradlePath: String): E {
@@ -206,6 +221,7 @@ public operator fun <E : GradleProjectBuilder> Collection<E>.get(gradlePath: Str
  * All subprojects and their subprojects, recursively.
  *
  * @see GradleProjectBuilder.subprojects for a list of direct children.
+ * @since 0.11.0
  */
 public val GradleProjectBuilder.subprojectsRecursive: List<GradleProjectBuilder>
   get() = subprojects + subprojects.flatMap { it.subprojectsRecursive }
