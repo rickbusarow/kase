@@ -21,7 +21,8 @@ mahout {
   publishing {
     publishMaven(
       artifactId = "kase",
-      pomDescription = "Hermetic test environments and test factories"
+      pomDescription = "Hermetic test environments and test factories",
+      name = "Kase"
     )
   }
   poko()

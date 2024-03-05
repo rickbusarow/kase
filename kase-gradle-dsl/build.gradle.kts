@@ -22,7 +22,8 @@ mahout {
   publishing {
     publishMaven(
       artifactId = "kase-gradle-dsl",
-      pomDescription = "A DSL for generating Gradle DSL files."
+      pomDescription = "A DSL for generating Gradle DSL files.",
+      name = "Kase Gradle DSL"
     )
   }
 

@@ -21,7 +21,8 @@ mahout {
   publishing {
     publishMaven(
       artifactId = "kase-gradle",
-      pomDescription = "Test environments that create Gradle projects for testing Gradle plugins."
+      pomDescription = "Test environments that create Gradle projects for testing Gradle plugins.",
+      name = "Kase Gradle"
     )
   }
   poko()
