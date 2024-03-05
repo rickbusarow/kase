@@ -1,14 +1,32 @@
 # Changelog
 
-## 0.10.1-SNAPSHOT (unreleased)
+## 0.11.1-SNAPSHOT (unreleased)
+
+## [0.11.0] — 2024-03-05
+
+### 🚀 Added
+
+- access subprojects by their simple name or gradle path in https://github.com/rickbusarow/kase/pull/159
+- add `mavenLocal(uri: ___)` functions to the `repositories { ... }` DSL in https://github.com/rickbusarow/kase/pull/160
+
+### 🐛 Fixed
+
+- don't duplicate the relative paths of subprojects in https://github.com/rickbusarow/kase/pull/158
+
+### 🧰 Maintenance
+
+- Update kotlinx.coroutines to v1.8.0 by @renovate in https://github.com/rickbusarow/kase/pull/141
+- use Mahout for build logic in https://github.com/rickbusarow/kase/pull/153
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.10.0...0.11.0
 
 ## [0.10.0] — 2024-02-07
 
 ### Added
 
-- add `ParamTestEnvironmentFactory.wrap(...)` by @RBusarow in https://github.com/rickbusarow/kase/pull/120
-- allow `applyIf` and `letIf` lambdas to return supertypes of the receiver by @RBusarow in https://github.com/rickbusarow/kase/pull/128
-- add a public, simple way to make a `LanguageInjection` instance by @RBusarow in https://github.com/rickbusarow/kase/pull/129
+- add `ParamTestEnvironmentFactory.wrap(...)` in https://github.com/rickbusarow/kase/pull/120
+- allow `applyIf` and `letIf` lambdas to return supertypes of the receiver in https://github.com/rickbusarow/kase/pull/128
+- add a public, simple way to make a `LanguageInjection` instance in https://github.com/rickbusarow/kase/pull/129
 
 ### 🧰 Maintenance
 
@@ -183,3 +201,4 @@ Hello World
 [0.9.0]: https://github.com/rickbusarow/kase/releases/tag/0.9.0
 [0.9.1]: https://github.com/rickbusarow/kase/releases/tag/0.9.1
 [0.10.0]: https://github.com/rickbusarow/kase/releases/tag/0.10.0
+[0.11.0]: https://github.com/rickbusarow/kase/releases/tag/0.11.0
