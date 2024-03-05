@@ -19,7 +19,6 @@ import com.rickbusarow.kase.files.DirectoryBuilder
 import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.GradleProjectBuilder
 import com.rickbusarow.kase.gradle.GradleRootProjectBuilder
-import com.rickbusarow.kase.stdlib.div
 import java.io.File
 
 internal interface GradleProjectBuilderInternal :
@@ -36,7 +35,7 @@ internal interface GradleProjectBuilderInternal :
       val db = this@db
 
       val child = DefaultGradleProjectBuilder(
-        path = path / relativePath,
+        path = db.path,
         dslLanguage = parent.dslLanguage,
         directoryBuilder = db,
         parent = parent
