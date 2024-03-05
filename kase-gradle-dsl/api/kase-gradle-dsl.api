@@ -410,7 +410,15 @@ public final class com/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec : com/r
 	public final fun mavenCentral ()Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
 	public final fun mavenCentral (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
 	public final fun mavenLocal ()Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
+	public final fun mavenLocal (Lcom/rickbusarow/kase/gradle/dsl/model/DslElement;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
+	public final fun mavenLocal (Ljava/io/File;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
+	public final fun mavenLocal (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
+	public final fun mavenLocal (Ljava/net/URI;Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
 	public final fun mavenLocal (Lkotlin/jvm/functions/Function1;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
+	public static synthetic fun mavenLocal$default (Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;Lcom/rickbusarow/kase/gradle/dsl/model/DslElement;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
+	public static synthetic fun mavenLocal$default (Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;Ljava/io/File;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
+	public static synthetic fun mavenLocal$default (Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
+	public static synthetic fun mavenLocal$default (Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;Ljava/net/URI;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lcom/rickbusarow/kase/gradle/dsl/RepositoryHandlerSpec;
 }
 
 public final class com/rickbusarow/kase/gradle/dsl/SettingsFileSpec : com/rickbusarow/kase/gradle/dsl/model/AbstractDslElementContainer, com/rickbusarow/kase/gradle/dsl/model/DslFileBuilder, com/rickbusarow/kase/gradle/dsl/model/HasIncludedBuild, com/rickbusarow/kase/gradle/dsl/model/HasIncludes, com/rickbusarow/kase/gradle/dsl/model/HasPluginsBlock {

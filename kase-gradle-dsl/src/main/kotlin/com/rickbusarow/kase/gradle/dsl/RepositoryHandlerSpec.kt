@@ -79,7 +79,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
   public fun maven(
     url: String,
     action: (MavenArtifactRepositorySpec.() -> Unit)? = null
-  ): RepositoryHandlerSpec = mavenInternal(url, action)
+  ): RepositoryHandlerSpec = mavenInternal("maven", url, action)
 
   /**
    * Adds a new `maven` repository to the repository handler.
@@ -111,7 +111,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
   public fun maven(
     url: DslElement,
     action: (MavenArtifactRepositorySpec.() -> Unit)? = null
-  ): RepositoryHandlerSpec = mavenInternal(url, action)
+  ): RepositoryHandlerSpec = mavenInternal("maven", url, action)
 
   /**
    * Adds a new `maven` repository to the repository handler.
@@ -143,7 +143,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
   public fun maven(
     url: File,
     action: (MavenArtifactRepositorySpec.() -> Unit)? = null
-  ): RepositoryHandlerSpec = mavenInternal(url, action)
+  ): RepositoryHandlerSpec = mavenInternal("maven", url, action)
 
   /**
    * Adds a new `maven` repository to the repository handler.
@@ -175,9 +175,10 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
   public fun maven(
     url: URI,
     action: (MavenArtifactRepositorySpec.() -> Unit)? = null
-  ): RepositoryHandlerSpec = mavenInternal(url, action)
+  ): RepositoryHandlerSpec = mavenInternal("maven", url, action)
 
   private fun mavenInternal(
+    functionName: String,
     urlParam: Any,
     action: (MavenArtifactRepositorySpec.() -> Unit)? = null
   ): RepositoryHandlerSpec {
@@ -201,7 +202,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
       kotlinElement = {
 
         FunctionCall(
-          name = "maven",
+          name = functionName,
           labelSupport = GroovyAndKotlinLabels,
           infixSupport = NoInfix,
           valueParameter,
@@ -210,7 +211,7 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
       },
       groovyElement = {
         FunctionCall(
-          name = "maven",
+          name = functionName,
           labelSupport = GroovyAndKotlinLabels,
           infixSupport = NoInfix,
           LambdaParameter.invoke<MavenArtifactRepositorySpec> {
@@ -328,4 +329,128 @@ public class RepositoryHandlerSpec : AbstractDslElementContainer<RepositoryHandl
     infixSupport = NoInfix,
     LambdaParameter(action)
   )
+
+  /**
+   * Adds a new `mavenLocal` repository to the repository handler.
+   *
+   * The `url` parameter has different behavior defined in the Gradle Kotlin DSL.
+   *
+   * ### Kotlin behavior
+   *
+   * ```
+   * repositories {
+   *   mavenLocal("my-url")
+   * }
+   * ```
+   *
+   * ### Groovy behavior
+   *
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     url 'my-url'
+   *   }
+   * }
+   * ```
+   *
+   * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   * @param action the action to perform on the repository
+   */
+  public fun mavenLocal(
+    url: String,
+    action: (MavenArtifactRepositorySpec.() -> Unit)? = null
+  ): RepositoryHandlerSpec = mavenInternal("mavenLocal", url, action)
+
+  /**
+   * Adds a new `mavenLocal` repository to the repository handler.
+   *
+   * The `url` parameter has different behavior defined in the Gradle Kotlin DSL.
+   *
+   * ### Kotlin behavior
+   *
+   * ```
+   * repositories {
+   *   mavenLocal("my-url")
+   * }
+   * ```
+   *
+   * ### Groovy behavior
+   *
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     url 'my-url'
+   *   }
+   * }
+   * ```
+   *
+   * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   * @param action the action to perform on the repository
+   */
+  public fun mavenLocal(
+    url: DslElement,
+    action: (MavenArtifactRepositorySpec.() -> Unit)? = null
+  ): RepositoryHandlerSpec = mavenInternal("mavenLocal", url, action)
+
+  /**
+   * Adds a new `mavenLocal` repository to the repository handler.
+   *
+   * The `url` parameter has different behavior defined in the Gradle Kotlin DSL.
+   *
+   * ### Kotlin behavior
+   *
+   * ```
+   * repositories {
+   *   mavenLocal("my-url")
+   * }
+   * ```
+   *
+   * ### Groovy behavior
+   *
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     url 'my-url'
+   *   }
+   * }
+   * ```
+   *
+   * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   * @param action the action to perform on the repository
+   */
+  public fun mavenLocal(
+    url: File,
+    action: (MavenArtifactRepositorySpec.() -> Unit)? = null
+  ): RepositoryHandlerSpec = mavenInternal("mavenLocal", url, action)
+
+  /**
+   * Adds a new `mavenLocal` repository to the repository handler.
+   *
+   * The `url` parameter has different behavior defined in the Gradle Kotlin DSL.
+   *
+   * ### Kotlin behavior
+   *
+   * ```
+   * repositories {
+   *   mavenLocal("my-url")
+   * }
+   * ```
+   *
+   * ### Groovy behavior
+   *
+   * ```
+   * repositories {
+   *   mavenLocal {
+   *     url 'my-url'
+   *   }
+   * }
+   * ```
+   *
+   * @param url the url of the repository, such as `https://plugins.gradle.org/m2/`
+   * @param action the action to perform on the repository
+   */
+  public fun mavenLocal(
+    url: URI,
+    action: (MavenArtifactRepositorySpec.() -> Unit)? = null
+  ): RepositoryHandlerSpec = mavenInternal("mavenLocal", url, action)
 }

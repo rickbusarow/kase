@@ -15,6 +15,7 @@
 
 package com.rickbusarow.kase.gradle.dsl
 
+import com.rickbusarow.kase.Kase1
 import com.rickbusarow.kase.Kase2
 import com.rickbusarow.kase.asTests
 import com.rickbusarow.kase.gradle.DslLanguage.GroovyDsl
@@ -28,6 +29,11 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.TestFactory
 
 class RepositoryHandlerSpecTest {
+
+  val mavenFuns = listOf<Kase1<RepositoryHandlerSpec.(StringLiteral) -> Unit>>(
+    kase("maven") { literal -> maven(literal) },
+    kase("mavenLocal") { literal -> mavenLocal(literal) }
+  )
 
   @TestFactory
   fun `common repositories without configuration`() =
@@ -60,157 +66,172 @@ class RepositoryHandlerSpecTest {
       }
 
   @TestFactory
-  fun `custom maven repository without configuration`() = kases(dslLanguages)
-    .asTests { (language) ->
+  fun `custom maven repository without configuration`() =
+    listOf<Kase2<String, RepositoryHandlerSpec.(StringLiteral) -> Unit>>(
+      kase("maven", "maven") { literal -> maven(literal) },
+      kase("mavenLocal", "mavenLocal") { literal -> mavenLocal(literal) }
+    )
+      .times(kases(dslLanguages))
+      .asTests { (mavenName, mavenFun, language) ->
 
-      val builder = SettingsFileSpec {
-        pluginManagement {
-          repositories {
-            maven("com.apple".asStringLiteral())
+        val builder = SettingsFileSpec {
+          pluginManagement {
+            repositories {
+              mavenFun("com.apple".asStringLiteral())
+            }
           }
         }
-      }
 
-      val content = builder.write(language)
+        val content = builder.write(language)
 
-      val generator = ExpectedCodeGenerator(
-        language = language,
-        kotlinInfix = false,
-        kotlinLabels = true
-      )
-      val expectedMavenCall = when (language) {
-        is GroovyDsl -> "maven"
-        is KotlinDsl -> generator.createFunction(
-          functionName = "maven",
-          labelName = "url",
-          valueString = language.quote("com.apple")
+        val generator = ExpectedCodeGenerator(
+          language = language,
+          kotlinInfix = false,
+          kotlinLabels = true
         )
-      }
-      val urlGenerator = generator.copy(
-        kotlinLabels = false,
-        groovyLabels = false
-      )
-      val expectedUrlSetter = when {
-        language is GroovyDsl && !language.useInfix -> ValueAssignment.SetterAssignment(
-          name = "url",
-          dslStringFactory = StringLiteral(
-            value = "com.apple",
-            useDoubleQuotes = language.useDoubleQuotes
+        val expectedMavenCall = when (language) {
+          is GroovyDsl -> mavenName
+          is KotlinDsl -> generator.createFunction(
+            functionName = mavenName,
+            labelName = "url",
+            valueString = language.quote("com.apple")
           )
-        ).write(language)
-
-        language is GroovyDsl -> urlGenerator.createFunction(
-          functionName = "url",
-          labelName = "url",
-          valueString = language.quote("com.apple")
+        }
+        val urlGenerator = generator.copy(
+          kotlinLabels = false,
+          groovyLabels = false
         )
+        val expectedUrlSetter = when {
+          language is GroovyDsl && !language.useInfix -> ValueAssignment.SetterAssignment(
+            name = "url",
+            dslStringFactory = StringLiteral(
+              value = "com.apple",
+              useDoubleQuotes = language.useDoubleQuotes
+            )
+          ).write(language)
 
-        else -> ""
+          language is GroovyDsl -> urlGenerator.createFunction(
+            functionName = "url",
+            labelName = "url",
+            valueString = language.quote("com.apple")
+          )
+
+          else -> ""
+        }
+
+        val expected = when (language) {
+          is KotlinDsl -> """
+            |pluginManagement {
+            |  repositories {
+            |    $expectedMavenCall
+            |  }
+            |}
+          """.trimMargin()
+
+          is GroovyDsl -> """
+            |pluginManagement {
+            |  repositories {
+            |    $expectedMavenCall {
+            |      $expectedUrlSetter
+            |    }
+            |  }
+            |}
+          """.trimMargin()
+        }
+
+        content shouldBe expected
       }
-
-      val expected = when (language) {
-        is KotlinDsl -> """
-        |pluginManagement {
-        |  repositories {
-        |    $expectedMavenCall
-        |  }
-        |}
-        """.trimMargin()
-
-        is GroovyDsl -> """
-        |pluginManagement {
-        |  repositories {
-        |    $expectedMavenCall {
-        |      $expectedUrlSetter
-        |    }
-        |  }
-        |}
-        """.trimMargin()
-      }
-
-      content shouldBe expected
-    }
 
   @TestFactory
-  fun `custom maven repository with configuration`() = kases(dslLanguages)
-    .asTests { (language) ->
+  fun `custom maven repository with configuration`() =
+    listOf<
+      Kase2<
+        String,
+        RepositoryHandlerSpec.(StringLiteral, MavenArtifactRepositorySpec.() -> Unit) -> Unit
+        >
+      >(
+      kase("maven", "maven") { literal, cfg -> maven(literal, cfg) },
+      kase("mavenLocal", "mavenLocal") { literal, cfg -> mavenLocal(literal, cfg) }
+    )
+      .times(kases(dslLanguages))
+      .asTests { (mavenName, mavenFun, language) ->
 
-      val builder = SettingsFileSpec {
-        pluginManagement {
-          repositories {
-            maven("com.apple".asStringLiteral()) {
-              mavenContent {
-                releasesOnly()
+        val builder = SettingsFileSpec {
+          pluginManagement {
+            repositories {
+              mavenFun("com.apple".asStringLiteral()) {
+                mavenContent {
+                  releasesOnly()
+                }
               }
             }
           }
         }
-      }
 
-      val content = builder.write(language)
+        val content = builder.write(language)
 
-      val generator = ExpectedCodeGenerator(
-        language = language,
-        kotlinInfix = false,
-        kotlinLabels = true
-      )
-      val expectedMavenCall = when (language) {
-        is GroovyDsl -> "maven"
-        is KotlinDsl -> generator.createFunction(
-          functionName = "maven",
-          labelName = "url",
-          valueString = language.quote("com.apple")
+        val generator = ExpectedCodeGenerator(
+          language = language,
+          kotlinInfix = false,
+          kotlinLabels = true
         )
-      }
-      val urlGenerator = generator.copy(
-        kotlinLabels = false,
-        groovyLabels = false
-      )
-      val expectedUrlSetter = when {
-        language is GroovyDsl && !language.useInfix -> ValueAssignment.SetterAssignment(
-          name = "url",
-          dslStringFactory = StringLiteral(
-            value = "com.apple",
-            useDoubleQuotes = language.useDoubleQuotes
+        val expectedMavenCall = when (language) {
+          is GroovyDsl -> mavenName
+          is KotlinDsl -> generator.createFunction(
+            functionName = mavenName,
+            labelName = "url",
+            valueString = language.quote("com.apple")
           )
-        ).write(language)
-
-        language is GroovyDsl -> urlGenerator.createFunction(
-          functionName = "url",
-          labelName = "url",
-          valueString = language.quote("com.apple")
+        }
+        val urlGenerator = generator.copy(
+          kotlinLabels = false,
+          groovyLabels = false
         )
+        val expectedUrlSetter = when {
+          language is GroovyDsl && !language.useInfix -> ValueAssignment.SetterAssignment(
+            name = "url",
+            dslStringFactory = StringLiteral(
+              value = "com.apple",
+              useDoubleQuotes = language.useDoubleQuotes
+            )
+          ).write(language)
 
-        else -> ""
+          language is GroovyDsl -> urlGenerator.createFunction(
+            functionName = "url",
+            labelName = "url",
+            valueString = language.quote("com.apple")
+          )
+
+          else -> ""
+        }
+
+        val expected = when (language) {
+          is KotlinDsl -> """
+           |pluginManagement {
+           |  repositories {
+           |    $expectedMavenCall {
+           |      mavenContent {
+           |        releasesOnly()
+           |      }
+           |    }
+           |  }
+           |}
+          """.trimMargin()
+
+          is GroovyDsl -> """
+            |pluginManagement {
+            |  repositories {
+            |    $expectedMavenCall {
+            |      $expectedUrlSetter
+            |      mavenContent {
+            |        releasesOnly()
+            |      }
+            |    }
+            |  }
+            |}
+          """.trimMargin()
+        }
+
+        content shouldBe expected
       }
-
-      val expected = when (language) {
-        is KotlinDsl -> """
-        |pluginManagement {
-        |  repositories {
-        |    $expectedMavenCall {
-        |      mavenContent {
-        |        releasesOnly()
-        |      }
-        |    }
-        |  }
-        |}
-        """.trimMargin()
-
-        is GroovyDsl -> """
-        |pluginManagement {
-        |  repositories {
-        |    $expectedMavenCall {
-        |      $expectedUrlSetter
-        |      mavenContent {
-        |        releasesOnly()
-        |      }
-        |    }
-        |  }
-        |}
-        """.trimMargin()
-      }
-
-      content shouldBe expected
-    }
 }
