@@ -22,6 +22,7 @@ import com.rickbusarow.kase.gradle.DslLanguage.KotlinDsl
 import com.rickbusarow.kase.gradle.internal.DefaultGradleRootProjectBuilder
 import org.intellij.lang.annotations.Language
 import java.io.File
+import kotlin.reflect.KProperty
 
 /**
  * A special [DirectoryBuilder] that models the creation of Gradle projects.
@@ -48,12 +49,56 @@ import java.io.File
 public interface GradleProjectBuilder : DirectoryBuilder, HasDslLanguage {
 
   /**
-   * All child projects created by this builder. This
-   * does not include the children of those projects.
+   * The simple name of this project, corresponding to [File.getName] or Gradle's `project.name`.
+   */
+  public val name: String
+    get() = path.nameWithoutExtension
+
+  /** This project's relative path to the root project. */
+  public val relativePath: File
+
+  /**
+   * This project's relative path to the root project, with segments separated by colons.
+   *
+   * Example: `:common:my-lib:api`
+   */
+  public val gradlePath: String
+
+  override val parent: GradleProjectBuilder?
+
+  /**
+   * All direct child projects created by this builder.
+   * This does not include the children of those projects.
    *
    * @since 0.1.0
    */
   public val subprojects: List<GradleProjectBuilder>
+
+  /**
+   * Returns a child project by its simple name.
+   *
+   * Example:
+   * ```
+   * val lib: GradleProjectBuilder = rootProject.subprojectByName("lib")
+   * ```
+   *
+   * @throws IllegalArgumentException if no subproject has the given name
+   */
+  public fun subprojectByName(name: String): GradleProjectBuilder =
+    subprojects.subprojectByName(name)
+
+  /**
+   * Returns a child project by its Gradle path. This includes nested subprojects.
+   *
+   * Example:
+   * ```
+   * val sub2 = rootProject.subprojectByGradlePath(":sub1:sub2")
+   * ```
+   *
+   * @throws IllegalArgumentException if no subproject has the given Gradle Path
+   */
+  public fun subprojectByGradlePath(gradlePath: String): GradleProjectBuilder =
+    subprojectsRecursive.subprojectByGradlePath(gradlePath)
 
   /**
    * Creates a `build.gradle(.kts)` file with the given [content].
@@ -99,6 +144,71 @@ public interface GradleProjectBuilder : DirectoryBuilder, HasDslLanguage {
     project(pathSegments.joinToPathString(), builder)
   }
 }
+
+/**
+ * Delegate for retrieving a subproject by its simple name.
+ *
+ * ```
+ * // These two lines are equivalent:
+ * val lib: GradleProjectBuilder = rootProject.subprojectByName("lib")
+ * val lib: GradleProjectBuilder by rootProject.subprojects
+ *
+ * // Names with dashes can be accessed using backticks:
+ * val `my-project`: GradleProjectBuilder by rootProject.subprojects
+ * ```
+ */
+public operator fun <E : GradleProjectBuilder> Collection<E>.getValue(
+  thisRef: Any?,
+  property: KProperty<*>
+): E = subprojectByName(property.name)
+
+/**
+ * Shorthand for `singleOrNull { it.name == name }`
+ *
+ * @see GradleProjectBuilder.subprojectByName
+ * @throws IllegalArgumentException if no subproject has the given name
+ */
+public fun <E : GradleProjectBuilder> Collection<E>.subprojectByName(name: String): E {
+  return requireNotNull(singleOrNull { it.name == name }) {
+    "Subproject $name not found in: ${map { it.name }.sorted()}"
+  }
+}
+
+/**
+ * Shorthand for `singleOrNull { it.gradlePath == gradlePath }`
+ *
+ * @see GradleProjectBuilder.subprojectByGradlePath
+ * @throws IllegalArgumentException if no subproject has the given Gradle Path
+ */
+public fun <E : GradleProjectBuilder> Collection<E>.subprojectByGradlePath(gradlePath: String): E {
+  return requireNotNull(singleOrNull { it.gradlePath == gradlePath }) {
+    "Subproject $gradlePath not found in: ${map { it.gradlePath }.sorted()}"
+  }
+}
+
+/**
+ * Fetches a subproject by its Gradle path.
+ *
+ * Example:
+ * ```
+ * val sub2 = rootProject.subprojects[":sub1:sub2"]
+ * ```
+ *
+ * @see GradleProjectBuilder.subprojectByGradlePath
+ * @throws IllegalArgumentException if no subproject has the given Gradle Path
+ */
+public operator fun <E : GradleProjectBuilder> Collection<E>.get(gradlePath: String): E {
+  require(gradlePath.startsWith(":")) { "gradle path must start with a colon" }
+  return subprojectByGradlePath(gradlePath)
+}
+
+/**
+ * All subprojects and their subprojects, recursively.
+ *
+ * @see GradleProjectBuilder.subprojects for a list of direct children.
+ */
+public val GradleProjectBuilder.subprojectsRecursive: List<GradleProjectBuilder>
+  get() = subprojects + subprojects.flatMap { it.subprojectsRecursive }
 
 /**
  * A special [GradleProjectBuilder] that models the creation of the root project.

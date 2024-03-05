@@ -20,6 +20,7 @@ import com.rickbusarow.kase.gradle.DslLanguage
 import com.rickbusarow.kase.gradle.GradleProjectBuilder
 import com.rickbusarow.kase.gradle.GradleRootProjectBuilder
 import java.io.File
+import kotlin.LazyThreadSafetyMode.NONE
 
 internal interface GradleProjectBuilderInternal :
   GradleProjectBuilder,
@@ -34,9 +35,12 @@ internal interface GradleProjectBuilderInternal :
 
       val db = this@db
 
+      val relative = db.path.relativeTo(parent.rootProject().path)
+
       val child = DefaultGradleProjectBuilder(
         path = db.path,
         dslLanguage = parent.dslLanguage,
+        relativePath = relative,
         directoryBuilder = db,
         parent = parent
       )
@@ -46,13 +50,23 @@ internal interface GradleProjectBuilderInternal :
   }
 }
 
+private fun GradleProjectBuilder.rootProject(): GradleProjectBuilder {
+  return generateSequence(this) { it.parent }.last()
+}
+
 internal class DefaultGradleProjectBuilder(
   override val path: File,
+  override val relativePath: File,
   override val dslLanguage: DslLanguage,
   directoryBuilder: DirectoryBuilder,
   override val parent: GradleProjectBuilderInternal?
 ) : GradleProjectBuilderInternal,
   DirectoryBuilder by directoryBuilder {
+
+  override val gradlePath: String by lazy(NONE) {
+    relativePath.path.split(File.separatorChar)
+      .joinToString(":", prefix = ":")
+  }
 
   override val subprojects: MutableList<GradleProjectBuilderInternal> = mutableListOf()
 }
@@ -65,6 +79,7 @@ internal class DefaultGradleRootProjectBuilder(
 ) : GradleRootProjectBuilder,
   GradleProjectBuilderInternal by DefaultGradleProjectBuilder(
     path = path,
+    relativePath = File(""),
     dslLanguage = dslLanguage,
     directoryBuilder = directoryBuilder,
     parent = parent

@@ -21,6 +21,7 @@ import com.rickbusarow.kase.KaseTests
 import com.rickbusarow.kase.stdlib.div
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class GradleProjectBuilderTest :
   KaseTests,
@@ -44,5 +45,69 @@ class GradleProjectBuilderTest :
 
     // make sure that project configuration doesn't mysteriously become lazy
     assertions shouldBe 2
+  }
+
+  @Test
+  fun `subproject delegate can fetch projects by simple name`() = test {
+
+    val rootBuilder = rootProject {
+      project("sub1") {}
+      project("sub2") {}
+    }
+
+    val sub1 by rootBuilder.subprojects
+
+    sub1.relativePath shouldBe File("sub1")
+  }
+
+  @Test
+  @Suppress("LocalVariableName")
+  fun `subproject delegate can fetch kebab-cased projects`() = test {
+
+    val rootBuilder = rootProject {
+      project("sub-1") {}
+      project("SUB-2") {}
+    }
+
+    val `sub-1` by rootBuilder.subprojects
+    val `SUB-2` by rootBuilder.subprojects
+
+    `sub-1`.relativePath shouldBe File("sub-1")
+    `SUB-2`.relativePath shouldBe File("SUB-2")
+  }
+
+  @Test
+  fun `subprojectByName delegate can fetch projects by simple name`() = test {
+
+    val rootBuilder = rootProject {
+      project("sub1") {}
+      project("sub2") {}
+    }
+
+    val sub1 = rootBuilder.subprojectByName("sub1")
+
+    sub1.relativePath shouldBe File("sub1")
+  }
+
+  @Test
+  fun `subprojectByGradlePath delegate can fetch nested sub-projects`() = test {
+
+    val rootBuilder = rootProject {
+      project("sub1") {
+        project("sub2") {}
+      }
+    }
+
+    val sub2 = rootBuilder.subprojectByGradlePath(":sub1:sub2")
+
+    sub2.relativePath shouldBe File("sub1/sub2")
+  }
+
+  @Test
+  fun `rootProject gradlePath is just a colon`() = test {
+
+    val rootBuilder = rootProject {}
+
+    rootBuilder.gradlePath shouldBe ":"
   }
 }
