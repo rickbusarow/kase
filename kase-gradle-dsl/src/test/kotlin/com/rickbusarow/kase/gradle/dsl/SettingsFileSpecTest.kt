@@ -38,7 +38,7 @@ class SettingsFileSpecTest {
       kase({ plugins { } }, "plugins {\n}"),
       kase({ dependencyResolutionManagement { } }, "dependencyResolutionManagement {\n}")
     )
-      .times(kases(dslLanguages))
+      .timesLanguages()
       .asTests { (builderFun, expected, language) ->
 
         val builder = SettingsFileSpec {
@@ -134,4 +134,7 @@ class SettingsFileSpecTest {
 
     println(content)
   }
+
+  fun <A, B> List<Kase2<A, B>>.timesLanguages() =
+    times(kases(dslLanguages)) { (a1, a2), (b1) -> kase(a1, a2, b1) }
 }

@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+rootProject.name = "kase-root"
+
 pluginManagement {
 
   repositories {
@@ -65,8 +67,6 @@ dependencyResolutionManagement {
     mavenCentral()
   }
 }
-
-rootProject.name = "kase"
 
 include(
   ":kase",

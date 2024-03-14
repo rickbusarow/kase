@@ -207,33 +207,3 @@ public fun <A1, A2> kases(
     }
   }
 }
-
-/**
- * @param others the [Kase1] to combine with this [Kase1]
- * @return a list of [Kase2]s from the cartesian product of this [Kase1] and the given [Kase1].
- * @since 0.1.0
- */
-@JvmName("kase1timesKase1")
-public operator fun <A1, B1> Iterable<Kase1<A1>>.times(
-  others: Iterable<Kase1<B1>>
-): List<Kase2<A1, B1>> = flatMap { (a1) ->
-  others.map { (b1) ->
-    kase(a1, b1)
-  }
-}
-
-/**
- * @param others the [Kase1] to combine with this [Kase1]
- * @param instanceFactory creates a custom Kase instance for each permutation
- * @return a list of [Kase2]s from the cartesian product of this [Kase1] and the given [Kase1].
- * @since 0.5.0
- */
-@JvmName("kase1timesKase1InstanceFactory")
-public inline fun <A1, B1, T> Iterable<Kase1<A1>>.times(
-  others: Iterable<Kase1<B1>>,
-  instanceFactory: (A1, B1) -> T
-): List<T> = flatMap { (a1) ->
-  others.map { (b1) ->
-    instanceFactory(a1, b1)
-  }
-}

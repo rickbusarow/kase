@@ -30,11 +30,6 @@ import org.junit.jupiter.api.TestFactory
 
 class RepositoryHandlerSpecTest {
 
-  val mavenFuns = listOf<Kase1<RepositoryHandlerSpec.(StringLiteral) -> Unit>>(
-    kase("maven") { literal -> maven(literal) },
-    kase("mavenLocal") { literal -> mavenLocal(literal) }
-  )
-
   @TestFactory
   fun `common repositories without configuration`() =
     listOf<Kase2<RepositoryHandlerBuilderAction, String>>(
@@ -43,7 +38,7 @@ class RepositoryHandlerSpecTest {
       kase({ gradlePluginPortal() }, """gradlePluginPortal()"""),
       kase({ mavenLocal() }, """mavenLocal()""")
     )
-      .times(kases(dslLanguages))
+      .timesLanguages()
       .asTests { (builderFun, expected, language) ->
 
         val builder = SettingsFileSpec {
@@ -71,7 +66,7 @@ class RepositoryHandlerSpecTest {
       kase("maven", "maven") { literal -> maven(literal) },
       kase("mavenLocal", "mavenLocal") { literal -> mavenLocal(literal) }
     )
-      .times(kases(dslLanguages))
+      .timesLanguages()
       .asTests { (mavenName, mavenFun, language) ->
 
         val builder = SettingsFileSpec {
@@ -153,7 +148,7 @@ class RepositoryHandlerSpecTest {
       kase("maven", "maven") { literal, cfg -> maven(literal, cfg) },
       kase("mavenLocal", "mavenLocal") { literal, cfg -> mavenLocal(literal, cfg) }
     )
-      .times(kases(dslLanguages))
+      .timesLanguages()
       .asTests { (mavenName, mavenFun, language) ->
 
         val builder = SettingsFileSpec {
@@ -234,4 +229,12 @@ class RepositoryHandlerSpecTest {
 
         content shouldBe expected
       }
+
+  val mavenFuns = listOf<Kase1<RepositoryHandlerSpec.(StringLiteral) -> Unit>>(
+    kase("maven") { literal -> maven(literal) },
+    kase("mavenLocal") { literal -> mavenLocal(literal) }
+  )
+
+  fun <A, B> List<Kase2<A, B>>.timesLanguages() =
+    times(kases(dslLanguages)) { (a1, a2), (b1) -> kase(a1, a2, b1) }
 }

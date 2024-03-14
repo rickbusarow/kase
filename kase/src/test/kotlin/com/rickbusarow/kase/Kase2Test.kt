@@ -63,7 +63,9 @@ class Kase2Test {
     val kase2 = kase(a1 = "Test3")
     val kase3 = kase(a1 = "Test4")
 
-    val kases = listOf(kase1) * listOf(kase2, kase3)
+    val kases = listOf(kase1).times(listOf(kase2, kase3)) { (a1, a2), (b1) ->
+      kase(a1 = a1, a2 = a2, a3 = b1)
+    }
 
     kases.size shouldBe 2
     kases[0].a1 shouldBe "Test1"
