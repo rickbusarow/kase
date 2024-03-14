@@ -5,7 +5,8 @@
 ## [0.11.1] - 2024-03-14
 
 ### 💥 Breaking Changes
-* remove the overloaded `times` functions by @RBusarow in https://github.com/rickbusarow/kase/pull/172
+
+- remove the overloaded `times` functions by @RBusarow in https://github.com/rickbusarow/kase/pull/172
 
 **Full Changelog**: https://github.com/rickbusarow/kase/compare/0.11.0...0.11.1
 
