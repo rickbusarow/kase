@@ -1,6 +1,13 @@
 # Changelog
 
-## 0.11.1-SNAPSHOT (unreleased)
+## 0.11.2-SNAPSHOT (unreleased)
+
+## [0.11.1] - 2024-03-14
+
+### 💥 Breaking Changes
+* remove the overloaded `times` functions by @RBusarow in https://github.com/rickbusarow/kase/pull/172
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.11.0...0.11.1
 
 ## [0.11.0] — 2024-03-05
 
@@ -202,3 +209,4 @@ Hello World
 [0.9.1]: https://github.com/rickbusarow/kase/releases/tag/0.9.1
 [0.10.0]: https://github.com/rickbusarow/kase/releases/tag/0.10.0
 [0.11.0]: https://github.com/rickbusarow/kase/releases/tag/0.11.0
+[0.11.1]: https://github.com/rickbusarow/kase/releases/tag/0.11.1
