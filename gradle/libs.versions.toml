@@ -37,7 +37,7 @@ rickBusarow-moduleCheck = "0.12.5"
 square-kotlinPoet = "1.17.0"
 square-moshi = "1.15.1"
 square-okio = "3.9.0"
-vanniktech-publish = "0.28.0"
+vanniktech-publish = "0.29.0"
 
 [plugins]
 buildconfig = { id = "com.github.gmazzo.buildconfig", version.ref = "buildconfig" }
