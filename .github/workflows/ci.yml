@@ -188,7 +188,7 @@ jobs:
     needs:
       - validate-wrapper
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
+      - uses: actions/checkout@50fbc622fc4ef5163becd7fab6573eac35f8462e # v1
 
       - name: all tests
         uses: rickbusarow/actions/gradle-task@bf0940965387f10bcb8b6699a79499d18167dfbe # v1
