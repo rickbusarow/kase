@@ -33,7 +33,7 @@ jobs:
           private-key: ${{ secrets.PR_BOT_PRIVATE_KEY }}
 
       - name: Renovate
-        uses: renovatebot/github-action@e227a8c411b9911e742de8c748242776f4edebb9 # v23.40.0
+        uses: renovatebot/github-action@2ceaae20c59355ecc93574ca0092fe6c387d485d # v23.100.5
         with:
           configurationFile: .github/renovate-sh.json
           token: ${{ steps.app-token.outputs.token }}
