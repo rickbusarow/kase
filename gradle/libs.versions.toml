@@ -1,7 +1,7 @@
 [versions]
 
-kotlin = "1.9.25"
-google-ksp = "1.9.25-1.0.20"
+kotlin = "2.0.21"
+google-ksp = "2.0.21-1.0.27"
 poko = "0.17.2"
 
 benManes-versions = "0.51.0"
