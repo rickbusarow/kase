@@ -8,34 +8,30 @@
   "rebaseLabel": "rebase",
   "packageRules": [
     {
-      "groupName": "Kotlin and compiler plugins",
       "matchPackageNames": [
         "org.jetbrains.kotlin:{/,}**",
         "com.google.devtools.ksp:{/,}**",
         "com.square.anvil:{/,}**",
         "dev.zacsweers.kctfork:{/,}**"
-      ]
+      ],
+      "groupName": "Kotlin and compiler plugins"
     },
     {
-      "groupName": "KtLint libs",
       "matchPackageNames": [
         "com.pinterest.ktlint:{/,}**",
         "com.rickbusarow.ktlint:{/,}**",
         "com.rickbusarow.ktrules:{/,}**"
-      ]
+      ],
+      "groupName": "KtLint libs"
     },
     {
       "automergeStrategy": "rebase",
+      "matchPackageNames": ["com.rickbusarow.kase:{/,}**"],
       "groupName": "Kase published version",
       "automerge": true,
       "automergeType": "pr",
       "autoApprove": true,
-      "labels": [
-        "dependencies"
-      ],
-      "matchPackageNames": [
-        "com.rickbusarow.kase:{/,}**"
-      ]
+      "labels": ["dependencies"]
     },
     {
       "matchPackageNames": [
@@ -59,9 +55,7 @@
       "automerge": true,
       "automergeType": "pr",
       "autoApprove": true,
-      "labels": [
-        "dependencies"
-      ]
+      "labels": ["dependencies"]
     }
   ],
   "labels": [
