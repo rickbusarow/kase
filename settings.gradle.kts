@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -46,12 +46,6 @@ develocity {
       testLogging = true
       buildLogging = true
       fileFingerprints = true
-    }
-
-    obfuscation {
-      hostname { "<hostName>" }
-      ipAddresses { listOf("<ip address>") }
-      username { "<username>" }
     }
 
     val inGHA = !System.getenv("GITHUB_ACTIONS").isNullOrEmpty()
