@@ -3,8 +3,14 @@ public abstract class com/rickbusarow/kase/gradle/AbstractDependencyVersion : co
 	public fun asString ()Ljava/lang/String;
 	public fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixElement;)I
 	public synthetic fun compareTo (Ljava/lang/Object;)I
+	public fun equals (Ljava/lang/Object;)Z
 	public fun getKey ()Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixKey;
 	public fun getLabel ()Ljava/lang/String;
+	public fun getMajor ()I
+	public fun getMinor ()I
+	public fun getPatch ()I
+	public fun getPreRelease ()Ljava/lang/String;
+	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
 
@@ -181,6 +187,11 @@ public class com/rickbusarow/kase/gradle/DefaultHasGradleRunner : com/rickbusaro
 }
 
 public abstract interface class com/rickbusarow/kase/gradle/DependencyVersion : com/rickbusarow/kase/HasLabel, com/rickbusarow/kase/KaseMatrix$KaseMatrixElement {
+	public abstract fun compareTo (Lcom/rickbusarow/kase/KaseMatrix$KaseMatrixElement;)I
+	public abstract fun getMajor ()I
+	public abstract fun getMinor ()I
+	public abstract fun getPatch ()I
+	public abstract fun getPreRelease ()Ljava/lang/String;
 }
 
 public final class com/rickbusarow/kase/gradle/DependencyVersion$DefaultImpls {
@@ -701,4 +712,3 @@ public abstract interface class com/rickbusarow/kase/gradle/TestVersionsFactory 
 public final class com/rickbusarow/kase/gradle/TestVersionsKt {
 	public static final fun versions (Lcom/rickbusarow/kase/KaseMatrix;Lcom/rickbusarow/kase/gradle/TestVersionsFactory;)Ljava/util/List;
 }
-

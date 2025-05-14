@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,7 +17,6 @@ package com.rickbusarow.kase.gradle
 
 import com.rickbusarow.kase.HasLabel
 import com.rickbusarow.kase.KaseMatrix
-import com.rickbusarow.kase.KaseMatrix.KaseMatrixKey
 import com.rickbusarow.kase.gradle.AgpDependencyVersion.AgpKey
 import com.rickbusarow.kase.gradle.AnvilDependencyVersion.AnvilKey
 import com.rickbusarow.kase.gradle.ComposeCompilerDependencyVersion.ComposeCompilerKey
@@ -28,6 +27,7 @@ import com.rickbusarow.kase.gradle.KotlinDependencyVersion.KotlinKey
 import com.rickbusarow.kase.gradle.KotlinxSerializationDependencyVersion.KotlinxSerializationKey
 import com.rickbusarow.kase.gradle.KspDependencyVersion.KspKey
 import com.rickbusarow.kase.gradle.KtLintDependencyVersion.KtLintKey
+import kotlin.LazyThreadSafetyMode.NONE
 
 /**
  * A type-safe wrapper for a dependency version string, such as "1.0.0" or "1.0.0-alpha01".
@@ -38,16 +38,69 @@ import com.rickbusarow.kase.gradle.KtLintDependencyVersion.KtLintKey
 public abstract class AbstractDependencyVersion<SELF, out KEY>(
   override val key: KEY
 ) : DependencyVersion<KEY>
-  where KEY : KaseMatrixKey<SELF>,
+  where KEY : KaseMatrix.KaseMatrixKey<SELF>,
         SELF : DependencyVersion<KEY> {
 
+  private val split: List<String> by lazy(NONE) { value.split("[.-]".toRegex(), limit = 4) }
+  override val major: Int by lazy(NONE) { split[0].toInt() }
+  override val minor: Int by lazy(NONE) { split.getOrNull(1)?.toInt() ?: 0 }
+  override val patch: Int by lazy(NONE) { split.getOrNull(2)?.toInt() ?: 0 }
+  override val preRelease: String? by lazy(NONE) {
+    @Suppress("MagicNumber")
+    split.getOrNull(3)
+  }
+
   override fun toString(): String = value
+  override fun equals(other: Any?): Boolean {
+    return when {
+      this === other -> true
+      other !is AbstractDependencyVersion<*, *> -> false
+      key != other.key -> false
+      value != other.value -> false
+      else -> true
+    }
+  }
+
+  override fun hashCode(): Int {
+    return key.hashCode()
+  }
 }
 
 /** @since 0.1.0 */
-public interface DependencyVersion<out K : KaseMatrixKey<DependencyVersion<K>>> :
+public interface DependencyVersion<out K : KaseMatrix.KaseMatrixKey<DependencyVersion<K>>> :
   KaseMatrix.KaseMatrixElement<String>,
-  HasLabel
+  HasLabel {
+
+  /** ex: `1` in `1.2.3-beta04` */
+  public val major: Int
+
+  /** ex: `2` in `1.2.3-beta04` */
+  public val minor: Int
+
+  /** ex: `3` in `1.2.3-beta04` */
+  public val patch: Int
+
+  /** ex: `beta04` in `1.2.3-beta04` */
+  public val preRelease: String?
+
+  override fun compareTo(other: KaseMatrix.KaseMatrixElement<*>): Int {
+    return when (other) {
+      is DependencyVersion<*> -> {
+        compareValuesBy(
+          this,
+          other,
+          { it.major },
+          { it.minor },
+          { it.patch },
+          { it.preRelease == null },
+          { it.preRelease }
+        )
+      }
+
+      else -> super.compareTo(other)
+    }
+  }
+}
 
 /** @since 0.1.0 */
 public class GradleDependencyVersion(
@@ -59,7 +112,7 @@ public class GradleDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object GradleKey : KaseMatrixKey<GradleDependencyVersion> {
+  public companion object GradleKey : KaseMatrix.KaseMatrixKey<GradleDependencyVersion> {
     /**
      * pulls the value from `GradleVersion.current().version`
      *
@@ -104,7 +157,7 @@ public class AgpDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object AgpKey : KaseMatrixKey<AgpDependencyVersion>
+  public companion object AgpKey : KaseMatrix.KaseMatrixKey<AgpDependencyVersion>
 }
 
 /**
@@ -139,7 +192,7 @@ public class KotlinDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object KotlinKey : KaseMatrixKey<KotlinDependencyVersion> {
+  public companion object KotlinKey : KaseMatrix.KaseMatrixKey<KotlinDependencyVersion> {
     /**
      * pulls the value from `KotlinVersion.CURRENT.toString()`
      *
@@ -183,7 +236,7 @@ public class KspDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object KspKey : KaseMatrixKey<KspDependencyVersion>
+  public companion object KspKey : KaseMatrix.KaseMatrixKey<KspDependencyVersion>
 }
 
 /**
@@ -218,7 +271,7 @@ public class AnvilDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object AnvilKey : KaseMatrixKey<AnvilDependencyVersion>
+  public companion object AnvilKey : KaseMatrix.KaseMatrixKey<AnvilDependencyVersion>
 }
 
 /**
@@ -256,7 +309,7 @@ public class ComposeCompilerDependencyVersion(
    * @since 0.1.0
    */
   public companion object ComposeCompilerKey :
-    KaseMatrixKey<ComposeCompilerDependencyVersion>
+    KaseMatrix.KaseMatrixKey<ComposeCompilerDependencyVersion>
 }
 
 /**
@@ -294,7 +347,7 @@ public class KotlinxSerializationDependencyVersion(
    * @since 0.1.0
    */
   public companion object KotlinxSerializationKey :
-    KaseMatrixKey<KotlinxSerializationDependencyVersion>
+    KaseMatrix.KaseMatrixKey<KotlinxSerializationDependencyVersion>
 }
 
 /**
@@ -330,7 +383,7 @@ public class DaggerDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object DaggerKey : KaseMatrixKey<DaggerDependencyVersion>
+  public companion object DaggerKey : KaseMatrix.KaseMatrixKey<DaggerDependencyVersion>
 }
 
 /**
@@ -365,7 +418,7 @@ public class KtLintDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object KtLintKey : KaseMatrixKey<KtLintDependencyVersion>
+  public companion object KtLintKey : KaseMatrix.KaseMatrixKey<KtLintDependencyVersion>
 }
 
 /**
@@ -400,7 +453,7 @@ public class DetektDependencyVersion(
    *
    * @since 0.1.0
    */
-  public companion object DetektKey : KaseMatrixKey<DetektDependencyVersion>
+  public companion object DetektKey : KaseMatrix.KaseMatrixKey<DetektDependencyVersion>
 }
 
 /**
