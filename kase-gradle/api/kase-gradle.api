@@ -712,3 +712,4 @@ public abstract interface class com/rickbusarow/kase/gradle/TestVersionsFactory 
 public final class com/rickbusarow/kase/gradle/TestVersionsKt {
 	public static final fun versions (Lcom/rickbusarow/kase/KaseMatrix;Lcom/rickbusarow/kase/gradle/TestVersionsFactory;)Ljava/util/List;
 }
+
