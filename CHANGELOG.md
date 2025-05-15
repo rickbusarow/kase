@@ -1,12 +1,20 @@
 # Changelog
 
-## 0.11.2-SNAPSHOT (unreleased)
+## 0.12.1-SNAPSHOT (unreleased)
+
+## [0.12.0] - 2025-05-15
+
+### 🚀 Added
+
+- Compare DependencyVersion instances as though they're semantic versions in https://github.com/rickbusarow/kase/pull/516
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.11.1...0.12.0
 
 ## [0.11.1] - 2024-03-14
 
 ### 💥 Breaking Changes
 
-- remove the overloaded `times` functions by @RBusarow in https://github.com/rickbusarow/kase/pull/172
+- remove the overloaded `times` functions in https://github.com/rickbusarow/kase/pull/172
 
 **Full Changelog**: https://github.com/rickbusarow/kase/compare/0.11.0...0.11.1
 
@@ -23,7 +31,7 @@
 
 ### 🧰 Maintenance
 
-- Update kotlinx.coroutines to v1.8.0 by @renovate in https://github.com/rickbusarow/kase/pull/141
+- Update kotlinx.coroutines to v1.8.0 in https://github.com/rickbusarow/kase/pull/141
 - use Mahout for build logic in https://github.com/rickbusarow/kase/pull/153
 
 **Full Changelog**: https://github.com/rickbusarow/kase/compare/0.10.0...0.11.0
@@ -211,3 +219,4 @@ Hello World
 [0.10.0]: https://github.com/rickbusarow/kase/releases/tag/0.10.0
 [0.11.0]: https://github.com/rickbusarow/kase/releases/tag/0.11.0
 [0.11.1]: https://github.com/rickbusarow/kase/releases/tag/0.11.1
+[0.12.0]: https://github.com/rickbusarow/kase/releases/tag/0.12.0
