@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,6 +20,8 @@ import kotlin.experimental.ExperimentalTypeInference
 /**
  * Returns a list containing all combinations of elements
  * from the original collection and the other collection.
+ *
+ * @since 0.12.0
  */
 @OptIn(ExperimentalTypeInference::class)
 public inline fun <A, B, C> Iterable<A>.times(
@@ -31,6 +33,8 @@ public inline fun <A, B, C> Iterable<A>.times(
 /**
  * Returns a sequence containing all combinations of elements
  * from the original collection and the other collection.
+ *
+ * @since 0.12.0
  */
 @OptIn(ExperimentalTypeInference::class)
 public inline fun <A, B, C> Sequence<A>.times(

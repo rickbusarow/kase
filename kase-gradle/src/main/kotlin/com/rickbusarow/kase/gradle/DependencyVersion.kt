@@ -71,16 +71,32 @@ public interface DependencyVersion<out K : KaseMatrix.KaseMatrixKey<DependencyVe
   KaseMatrix.KaseMatrixElement<String>,
   HasLabel {
 
-  /** ex: `1` in `1.2.3-beta04` */
+  /**
+   * ex: `1` in `1.2.3-beta04`
+   *
+   * @since 0.12.0
+   */
   public val major: Int
 
-  /** ex: `2` in `1.2.3-beta04` */
+  /**
+   * ex: `2` in `1.2.3-beta04`
+   *
+   * @since 0.12.0
+   */
   public val minor: Int
 
-  /** ex: `3` in `1.2.3-beta04` */
+  /**
+   * ex: `3` in `1.2.3-beta04`
+   *
+   * @since 0.12.0
+   */
   public val patch: Int
 
-  /** ex: `beta04` in `1.2.3-beta04` */
+  /**
+   * ex: `beta04` in `1.2.3-beta04`
+   *
+   * @since 0.12.0
+   */
   public val preRelease: String?
 
   override fun compareTo(other: KaseMatrix.KaseMatrixElement<*>): Int {
