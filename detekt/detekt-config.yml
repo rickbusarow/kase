@@ -98,7 +98,7 @@ comments:
       - "**/test/**"
     searchInNestedClass: true
     searchInInnerClass: true
-    searchInInnerObject: true
+    searchInInnerObject: false
     searchInInnerInterface: true
     searchInProtectedClass: false
     ignoreAnnotated:
