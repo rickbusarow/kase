@@ -5,7 +5,7 @@ google-ksp = "2.1.21-2.0.2"
 poko = "0.18.7"
 
 benManes-versions = "0.51.0"
-buildconfig = "5.6.5"
+buildconfig = "5.6.6"
 buildParameters = "1.4.4"
 dependencyAnalysis = "2.18.0"
 detekt = "1.23.8"
