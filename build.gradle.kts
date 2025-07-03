@@ -20,16 +20,18 @@ buildscript {
 
   dependencies {
     classpath(libs.kotlin.gradle.plugin)
-    classpath(libs.rickBusarow.mahout.gradle.plugin)
   }
 }
 
 plugins {
   alias(libs.plugins.doks)
   alias(libs.plugins.poko) apply false
-}
+  alias(libs.plugins.mahout.root)
 
-apply(plugin = "com.rickbusarow.mahout.root")
+  // Avoid "the plugin is already in the classpath with an unknown version" issues
+  // when consuming Mahout from a snapshot build.
+  alias(libs.plugins.mahout.kotlin.jvm.module) apply false
+}
 
 doks {
   dokSet {

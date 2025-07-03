@@ -21,7 +21,8 @@ pluginManagement {
     maven {
       url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
       content {
-        includeGroup("com.rickbusarow.mahout")
+        @Suppress("UnstableApiUsage")
+        includeGroupAndSubgroups("com.rickbusarow.mahout")
       }
     }
     gradlePluginPortal()

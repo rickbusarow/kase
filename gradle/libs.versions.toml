@@ -50,6 +50,10 @@ google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
 integration-test = { id = "com.coditory.integration-test", version.ref = "integration-test" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktlint = { id = "com.rickbusarow.ktlint", version.ref = "rickBusarow-ktlint" }
+
+mahout-kotlin-jvm-module = { id = "com.rickbusarow.mahout.kotlin-jvm-module", version.ref = "rickBusarow-mahout" }
+mahout-root = { id = "com.rickbusarow.mahout.root", version.ref = "rickBusarow-mahout" }
+
 moduleCheck = { id = "com.rickbusarow.module-check", version.ref = "rickBusarow-moduleCheck" }
 poko = { id = "dev.drewhamilton.poko", version.ref = "poko" }
 
