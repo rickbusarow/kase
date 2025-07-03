@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -81,14 +81,12 @@ public interface GradleTestEnvironmentFactory<PARAM, ENV> : ParamTestEnvironment
    */
   public fun settingsFileDefault(versions: PARAM): DslStringFactory = DslStringFactory { language ->
 
-    val maybeLocal = if (localM2Path == null) {
-      ""
-    } else {
+    val maybeLocal = localM2Path?.let {
       when (language) {
-        is GroovyDsl -> """maven { url "$localM2Path" }"""
-        is KotlinDsl -> """maven("$localM2Path")"""
+        is GroovyDsl -> """maven { url "${it.invariantSeparatorsPath}" }"""
+        is KotlinDsl -> """maven("${it.invariantSeparatorsPath}")"""
       }
-    }
+    }.orEmpty()
 
     """
     pluginManagement {
