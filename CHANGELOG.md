@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.12.1-SNAPSHOT (unreleased)
+## 0.12.2-SNAPSHOT (unreleased)
+
+## [0.12.1] - 2025-07-05
+
+### 🐛 Fixed
+
+* use invariant path separators in generated settings files in https://github.com/rickbusarow/kase/pull/558
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.12.0...0.12.1
 
 ## [0.12.0] - 2025-05-15
 
@@ -220,3 +228,4 @@ Hello World
 [0.11.0]: https://github.com/rickbusarow/kase/releases/tag/0.11.0
 [0.11.1]: https://github.com/rickbusarow/kase/releases/tag/0.11.1
 [0.12.0]: https://github.com/rickbusarow/kase/releases/tag/0.12.0
+[0.12.1]: https://github.com/rickbusarow/kase/releases/tag/0.12.1
