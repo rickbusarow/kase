@@ -229,3 +229,4 @@ Hello World
 [0.11.1]: https://github.com/rickbusarow/kase/releases/tag/0.11.1
 [0.12.0]: https://github.com/rickbusarow/kase/releases/tag/0.12.0
 [0.12.1]: https://github.com/rickbusarow/kase/releases/tag/0.12.1
+
