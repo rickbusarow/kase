@@ -151,7 +151,9 @@ class RepositoryHandlerSpecTest : DslKaseTestFactory {
         kase("maven", "maven") { file -> maven(file) },
         kase("mavenLocal", "mavenLocal") { file -> mavenLocal(file) }
       )
-        .asTests(testEnvironmentFactory = testEnvironmentFactory.wrap(k1)) { (mavenName, mavenFun) ->
+        .asTests(
+          testEnvironmentFactory = testEnvironmentFactory.wrap(k1)
+        ) { (mavenName, mavenFun) ->
 
           val mavenDir = workingDir / "some" / mavenName / "dir"
 
