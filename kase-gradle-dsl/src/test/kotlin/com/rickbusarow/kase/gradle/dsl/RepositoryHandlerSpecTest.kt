@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2024 Rick Busarow
+ * Copyright (C) 2025 Rick Busarow
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -24,11 +24,15 @@ import com.rickbusarow.kase.gradle.dsl.model.StringLiteral
 import com.rickbusarow.kase.gradle.dsl.model.ValueAssignment
 import com.rickbusarow.kase.kase
 import com.rickbusarow.kase.kases
+import com.rickbusarow.kase.stdlib.div
 import com.rickbusarow.kase.times
+import com.rickbusarow.kase.wrap
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 import org.junit.jupiter.api.TestFactory
+import java.io.File
 
-class RepositoryHandlerSpecTest {
+class RepositoryHandlerSpecTest : DslKaseTestFactory {
 
   @TestFactory
   fun `common repositories without configuration`() =
@@ -136,6 +140,34 @@ class RepositoryHandlerSpecTest {
 
         content shouldBe expected
       }
+
+  @TestFactory
+  fun `custom maven repository with File parameter uses invariant separator path`() =
+    params.asContainers { k1 ->
+
+      val language = k1.a1
+
+      listOf<Kase2<String, RepositoryHandlerSpec.(File) -> Unit>>(
+        kase("maven", "maven") { file -> maven(file) },
+        kase("mavenLocal", "mavenLocal") { file -> mavenLocal(file) }
+      )
+        .asTests(testEnvironmentFactory = testEnvironmentFactory.wrap(k1)) { (mavenName, mavenFun) ->
+
+          val mavenDir = workingDir / "some" / mavenName / "dir"
+
+          val builder = SettingsFileSpec {
+            pluginManagement {
+              repositories {
+                mavenFun(mavenDir)
+              }
+            }
+          }
+
+          val content = builder.write(language)
+
+          content shouldContain mavenDir.invariantSeparatorsPath
+        }
+    }
 
   @TestFactory
   fun `custom maven repository with configuration`() =

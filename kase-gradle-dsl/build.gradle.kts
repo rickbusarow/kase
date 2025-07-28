@@ -40,4 +40,5 @@ dependencies {
   testImplementation(libs.junit.jupiter.api)
   testImplementation(libs.junit.jupiter.engine)
   testImplementation(libs.kotest.assertions.shared)
+  testImplementation(libs.kotest.assertions.core.jvm)
 }
