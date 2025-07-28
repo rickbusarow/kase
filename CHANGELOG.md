@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.12.2-SNAPSHOT (unreleased)
+## 0.12.3-SNAPSHOT (unreleased)
+
+## [0.12.2] - 2025-07-28
+
+### 🐛 Fixed
+
+- use invariant path separators for `maven(File)` invocations in https://github.com/rickbusarow/kase/pull/579
+
+**Full Changelog**: https://github.com/rickbusarow/kase/compare/0.12.1...0.12.2
 
 ## [0.12.1] - 2025-07-05
 
@@ -229,3 +237,4 @@ Hello World
 [0.11.1]: https://github.com/rickbusarow/kase/releases/tag/0.11.1
 [0.12.0]: https://github.com/rickbusarow/kase/releases/tag/0.12.0
 [0.12.1]: https://github.com/rickbusarow/kase/releases/tag/0.12.1
+[0.12.2]: https://github.com/rickbusarow/kase/releases/tag/0.12.2
