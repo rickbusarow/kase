@@ -5,7 +5,7 @@
     "artifactId": "kase",
     "description": "Hermetic test environments and test factories",
     "packaging": "jar",
-    "javaVersion": "1.8",
+    "javaVersion": "17",
     "publicationName": "maven"
   },
   {
@@ -14,7 +14,7 @@
     "artifactId": "kase-gradle",
     "description": "Test environments that create Gradle projects for testing Gradle plugins.",
     "packaging": "jar",
-    "javaVersion": "1.8",
+    "javaVersion": "17",
     "publicationName": "maven"
   },
   {
@@ -23,7 +23,7 @@
     "artifactId": "kase-gradle-dsl",
     "description": "A DSL for generating Gradle DSL files.",
     "packaging": "jar",
-    "javaVersion": "1.8",
+    "javaVersion": "17",
     "publicationName": "maven"
   }
 ]
