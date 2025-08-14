@@ -2,7 +2,7 @@
 :kase-gradle
 dev.drewhamilton.poko:poko-annotations-jvm:0.19.3
 dev.drewhamilton.poko:poko-annotations:0.19.3
-org.jetbrains.kotlin:kotlin-stdlib:2.2.0
+org.jetbrains.kotlin:kotlin-stdlib:2.2.10
 org.jetbrains.kotlinx:kotlinx-coroutines-bom:1.10.2
 org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.10.2
 org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2
