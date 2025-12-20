@@ -1,8 +1,8 @@
 [versions]
 
-kotlin = "2.2.10"
-google-ksp = "2.2.10-2.0.2"
-poko = "0.19.3"
+kotlin = "2.3.0"
+google-ksp = "2.3.4"
+poko = "0.21.0"
 
 benManes-versions = "0.51.0"
 buildconfig = "6.0.6"
